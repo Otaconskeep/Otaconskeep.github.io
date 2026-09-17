@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 REM Disables Otacon auto-start only (Windows logon task + systemd unit).
 REM Does NOT remove binaries, the Otacon install directory, venv, or data.
 REM Full uninstall is manual - see the messages at the end (and README).
@@ -15,7 +15,7 @@ goto ENC_VIA_ENV
 powershell -NoProfile -ExecutionPolicy Bypass -File "%ENC_PS1%" -Path "%~f0"
 goto ENC_AFTER_CHECK
 :ENC_VIA_ENV
-powershell -NoProfile -ExecutionPolicy Bypass -Command "& { $p = $env:OTACON_SETUP_SELF; if ([string]::IsNullOrWhiteSpace($p)) { Write-Host 'ERROR: installer path missing'; exit 2 }; if (-not (Test-Path -LiteralPath $p)) { Write-Host 'ERROR: installer file not found'; exit 2 }; $b = [IO.File]::ReadAllBytes($p); if ($b.Length -lt 8) { Write-Host 'ERROR: installer file empty'; exit 2 }; if ($b[0] -eq 255 -and $b[1] -eq 254) { Write-Host 'ERROR: UTF-16 encoding'; exit 3 }; if ($b[0] -eq 254 -and $b[1] -eq 255) { Write-Host 'ERROR: UTF-16 encoding'; exit 3 }; if (-not ($b[0] -eq 239 -and $b[1] -eq 187 -and $b[2] -eq 191)) { Write-Host 'ERROR: missing UTF-8 BOM. Re-download from the Otaconskeep website.'; exit 4 }; exit 0 }"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "& { $p = $env:OTACON_SETUP_SELF; if ([string]::IsNullOrWhiteSpace($p)) { Write-Host 'ERROR: installer path missing'; exit 2 }; if (-not (Test-Path -LiteralPath $p)) { Write-Host 'ERROR: installer file not found'; exit 2 }; $b = [IO.File]::ReadAllBytes($p); if ($b.Length -lt 8) { Write-Host 'ERROR: installer file empty'; exit 2 }; if ($b[0] -eq 255 -and $b[1] -eq 254) { Write-Host 'ERROR: UTF-16 encoding'; exit 3 }; if ($b[0] -eq 254 -and $b[1] -eq 255) { Write-Host 'ERROR: UTF-16 encoding'; exit 3 }; if ($b[0] -eq 239 -and $b[1] -eq 187 -and $b[2] -eq 191) { Write-Host 'ERROR: UTF-8 BOM is not allowed in .bat files (breaks @echo off). Re-download from the Otaconskeep website.'; exit 4 }; exit 0 }"
 :ENC_AFTER_CHECK
 if errorlevel 1 goto ENC_FAIL
 goto ENC_OK
@@ -60,8 +60,9 @@ echo your Otacon install folder, your venv, or any of your data.
 echo Full uninstall is a separate manual step (shown at the end).
 echo.
 
-echo Removing the Windows logon task...
+echo Removing the Windows logon task and keepalive...
 powershell -NoProfile -ExecutionPolicy Bypass -Command "Unregister-ScheduledTask -TaskName 'OtaconAutoStart' -Confirm:$false -ErrorAction SilentlyContinue"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$s=[Environment]::GetFolderPath('Startup'); if($s){ Remove-Item -LiteralPath (Join-Path $s 'OtaconsKeep-KeepAlive.vbs') -Force -ErrorAction SilentlyContinue }; $k=Join-Path $env:LOCALAPPDATA 'OtaconsKeep'; Remove-Item -LiteralPath (Join-Path $k 'keep-ubuntu-awake.ps1') -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath (Join-Path $k 'OtaconsKeep-KeepAlive.vbs') -Force -ErrorAction SilentlyContinue; Remove-Item -LiteralPath (Join-Path $k 'wake-otacon.ps1') -Force -ErrorAction SilentlyContinue"
 if exist "%LOCALAPPDATA%\Otacon" rd /s /q "%LOCALAPPDATA%\Otacon" >nul 2>&1
 echo Done.
 

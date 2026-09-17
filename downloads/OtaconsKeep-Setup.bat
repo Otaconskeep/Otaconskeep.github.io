@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 REM ============================================================
 REM  OtaconsKeep-Setup.bat  (public download name)
 REM  Lone Downloads\ entry - fetches guided installer into
@@ -19,7 +19,7 @@ goto ENC_VIA_ENV
 powershell -NoProfile -ExecutionPolicy Bypass -File "%ENC_PS1%" -Path "%~f0"
 goto ENC_AFTER_CHECK
 :ENC_VIA_ENV
-powershell -NoProfile -ExecutionPolicy Bypass -Command "& { $p = $env:OTACON_SETUP_SELF; if ([string]::IsNullOrWhiteSpace($p)) { Write-Host 'ERROR: installer path missing'; exit 2 }; if (-not (Test-Path -LiteralPath $p)) { Write-Host 'ERROR: installer file not found'; exit 2 }; $b = [IO.File]::ReadAllBytes($p); if ($b.Length -lt 8) { Write-Host 'ERROR: installer file empty'; exit 2 }; if ($b[0] -eq 255 -and $b[1] -eq 254) { Write-Host 'ERROR: UTF-16 encoding'; exit 3 }; if ($b[0] -eq 254 -and $b[1] -eq 255) { Write-Host 'ERROR: UTF-16 encoding'; exit 3 }; if (-not ($b[0] -eq 239 -and $b[1] -eq 187 -and $b[2] -eq 191)) { Write-Host 'ERROR: missing UTF-8 BOM. Re-download from the Otaconskeep website.'; exit 4 }; $bare = 0; for ($i = 0; $i -lt $b.Length; $i++) { if ($b[$i] -eq 10 -and ($i -eq 0 -or $b[$i-1] -ne 13)) { $bare++ } }; if ($bare -gt 0) { Write-Host 'ERROR: Unix line endings (bare LF). Re-download OtaconsKeep-Setup.bat from the Otaconskeep website.'; exit 5 }; exit 0 }"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "& { $p = $env:OTACON_SETUP_SELF; if ([string]::IsNullOrWhiteSpace($p)) { Write-Host 'ERROR: installer path missing'; exit 2 }; if (-not (Test-Path -LiteralPath $p)) { Write-Host 'ERROR: installer file not found'; exit 2 }; $b = [IO.File]::ReadAllBytes($p); if ($b.Length -lt 8) { Write-Host 'ERROR: installer file empty'; exit 2 }; if ($b[0] -eq 255 -and $b[1] -eq 254) { Write-Host 'ERROR: UTF-16 encoding'; exit 3 }; if ($b[0] -eq 254 -and $b[1] -eq 255) { Write-Host 'ERROR: UTF-16 encoding'; exit 3 }; if ($b[0] -eq 239 -and $b[1] -eq 187 -and $b[2] -eq 191) { Write-Host 'ERROR: UTF-8 BOM is not allowed in .bat files (breaks @echo off). Re-download from the Otaconskeep website.'; exit 4 }; $bare = 0; for ($i = 0; $i -lt $b.Length; $i++) { if ($b[$i] -eq 10 -and ($i -eq 0 -or $b[$i-1] -ne 13)) { $bare++ } }; if ($bare -gt 0) { Write-Host 'ERROR: Unix line endings (bare LF). Re-download OtaconsKeep-Setup.bat from the Otaconskeep website.'; exit 5 }; exit 0 }"
 :ENC_AFTER_CHECK
 if errorlevel 1 goto ENC_FAIL
 goto ENC_OK
@@ -76,6 +76,14 @@ if /I "%~1"=="-debug" goto SET_DEBUG
 if /I "%~1"=="--update" goto SET_UPDATE
 if /I "%~1"=="-update" goto SET_UPDATE
 if /I "%~1"=="--refresh" goto SET_UPDATE
+if /I "%~1"=="--reinstall" goto SET_REINSTALL
+if /I "%~1"=="-reinstall" goto SET_REINSTALL
+if /I "%~1"=="--fix-codec" goto SET_FIXCODEC
+if /I "%~1"=="-fix-codec" goto SET_FIXCODEC
+if /I "%~1"=="--fix" goto SET_FIXCODEC
+if /I "%~1"=="-fix" goto SET_FIXCODEC
+if /I "%~1"=="--open" goto SET_OPEN_ARG
+if /I "%~1"=="-open" goto SET_OPEN_ARG
 set "ARGS=!ARGS! %~1"
 goto PARSE_SHIFT
 :SET_SYNTAX
@@ -86,6 +94,16 @@ set "DEBUG=1"
 goto PARSE_SHIFT
 :SET_UPDATE
 set "FORCE_UPDATE=1"
+goto PARSE_SHIFT
+:SET_REINSTALL
+set "FORCE_UPDATE=1"
+set "ARGS=!ARGS! --reinstall"
+goto PARSE_SHIFT
+:SET_FIXCODEC
+set "ARGS=!ARGS! --fix-codec"
+goto PARSE_SHIFT
+:SET_OPEN_ARG
+set "ARGS=!ARGS! --open"
 goto PARSE_SHIFT
 :PARSE_SHIFT
 shift
@@ -111,8 +129,21 @@ if defined DEBUG echo [DEBUG] INST=%INST%
 if defined DEBUG echo [DEBUG] RAW=%RAW%
 
 set "LOCAL_ASSISTANT=%~dp0deploy\windows-setup-assistant.ps1"
-if not exist "%LOCAL_ASSISTANT%" goto NEED_FETCH
-call :LOG "local tree detected; skipping bootstrap fetch"
+set "LOCAL_SH=%~dp0install_otacon.sh"
+REM Only skip fetch for a real checkout OUTSIDE AppData (dev tree).
+REM AppData\OtaconsKeep\installer has install_otacon.sh after first fetch - never treat that as "local tree".
+if exist "%LOCAL_ASSISTANT%" if exist "%LOCAL_SH%" goto CHECK_LOCAL_TREE
+goto NEED_FETCH
+:CHECK_LOCAL_TREE
+echo %~dp0| find /I "\OtaconsKeep\installer" >nul
+if not errorlevel 1 (
+  call :LOG "Setup running from AppData installer - never skip refresh"
+  goto NEED_FETCH
+)
+goto USE_LOCAL_TREE
+
+:USE_LOCAL_TREE
+call :LOG "dev local tree detected; install_otacon.bat will still refresh deploy helpers"
 if defined DEBUG echo [DEBUG] command=call "%~dp0install_otacon.bat" %ARGS%
 call "%~dp0install_otacon.bat" %ARGS%
 set "RC=!ERRORLEVEL!"
@@ -122,16 +153,28 @@ if not "!RC!"=="0" call :STAY_OPEN_AFTER_CHILD !RC!
 exit /b !RC!
 
 :NEED_FETCH
-REM Pin local AppData installer across retries unless --update/--refresh.
-REM Floating main between clicks was making Josh test a different build every run.
-if defined FORCE_UPDATE goto NEED_FETCH_FORCE
-if exist "%ASSISTANT%" if exist "%INST%\deploy\installer-revision.txt" goto USE_PINNED_LOCAL
+REM Compare cached vs published revision. Users must NOT need --update.
+REM --update remains a force-refresh option only.
+call :CHECK_INSTALLER_STALE
+if not defined FORCE_UPDATE goto AFTER_FORCE_UPDATE
+call :LOG "FORCE_UPDATE=1 force refresh"
+set "REFRESH_REQUIRED=1"
+:AFTER_FORCE_UPDATE
+call :LOG "cached revision=%CACHED_REV%"
+call :LOG "published revision=%PUBLISHED_REV%"
+call :LOG "refresh required=%REFRESH_REQUIRED%"
+if not "!REFRESH_REQUIRED!"=="0" goto NEED_FETCH_FORCE
+call :LOG "pin matches published - still verifying helper content proofs"
+call :VERIFY_CACHED_HELPERS
+if "!HELPERS_OK!"=="1" goto FETCH_CACHED_OK
+call :LOG "cached helpers failed content proofs - refreshing"
+set "REFRESH_REQUIRED=1"
 goto NEED_FETCH_FORCE
-:USE_PINNED_LOCAL
-call :LOG "pinned local installer present; skipping refetch - pass --update to refresh from GitHub"
-for /f "usebackq delims=" %%R in ("%INST%\deploy\installer-revision.txt") do call :LOG "pinned revision=%%R"
+:FETCH_CACHED_OK
+call :LOG "cached helpers verified current; launching without full refetch"
 goto FETCH_VERIFY_OK
 :NEED_FETCH_FORCE
+call :LOG "refreshing installer bundle from GitHub (no --update required)"
 echo.
 echo ============================================================
 echo                  OTACONSKEEP SETUP
@@ -152,7 +195,59 @@ echo.
 
 :FETCH_RETRY
 call :LOG "FETCH_RETRY begin"
-call :ENSURE_FETCH_HELPER
+call :CHECK_INSTALLER_STALE
+set "CACHED_REV="
+set "PUBLISHED_REV="
+set "REFRESH_REQUIRED=1"
+if exist "%INST%\deploy\installer-revision.txt" (
+  for /f "usebackq delims=" %%R in ("%INST%\deploy\installer-revision.txt") do set "CACHED_REV=%%R"
+)
+if not defined CACHED_REV set "CACHED_REV=none"
+set "REV_TMP=%TEMP%\otacon-installer-rev-remote.txt"
+if exist "%REV_TMP%" del /f /q "%REV_TMP%" >nul 2>&1
+where curl.exe >nul 2>&1
+if errorlevel 1 goto CHECK_REV_PS
+curl.exe -fsSL --connect-timeout 8 --max-time 15 "%RAW%/deploy/installer-revision.txt" > "%REV_TMP%" 2>nul
+if exist "%REV_TMP%" for /f "usebackq delims=" %%R in ("%REV_TMP%") do set "PUBLISHED_REV=%%R"
+goto CHECK_REV_DONE
+:CHECK_REV_PS
+powershell -NoProfile -ExecutionPolicy Bypass -Command "try{[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12}catch{}; try{Invoke-WebRequest -Uri ($env:RAW+'/deploy/installer-revision.txt') -OutFile $env:REV_TMP -UseBasicParsing -TimeoutSec 15; exit 0}catch{exit 1}"
+if exist "%REV_TMP%" for /f "usebackq delims=" %%R in ("%REV_TMP%") do set "PUBLISHED_REV=%%R"
+:CHECK_REV_DONE
+if not defined PUBLISHED_REV set "PUBLISHED_REV=unknown"
+if /I "!CACHED_REV!"=="none" (
+  set "REFRESH_REQUIRED=1"
+  exit /b 0
+)
+if /I "!PUBLISHED_REV!"=="unknown" (
+  set "REFRESH_REQUIRED=1"
+  call :LOG "published revision unknown - refresh required (will not use unverified stale cache)"
+  exit /b 0
+)
+if /I not "!CACHED_REV!"=="!PUBLISHED_REV!" (
+  set "REFRESH_REQUIRED=1"
+  exit /b 0
+)
+set "REFRESH_REQUIRED=0"
+exit /b 0
+
+:VERIFY_CACHED_HELPERS
+set "HELPERS_OK=0"
+if not exist "%ASSISTANT%" exit /b 0
+if not exist "%INST%\deploy\repair-otacon-core.ps1" exit /b 0
+if not exist "%INST%\deploy\wsl-bash-file.ps1" exit /b 0
+findstr /C:"Invoke-OtaconWslBashFile" "%INST%\deploy\repair-otacon-core.ps1" >nul
+if errorlevel 1 exit /b 0
+findstr /C:"bash -lc $bash" "%INST%\deploy\repair-otacon-core.ps1" >nul
+if not errorlevel 1 exit /b 0
+findstr /C:"git_as_owner" "%INST%\deploy\repair-otacon-core.ps1" >nul
+if errorlevel 1 exit /b 0
+findstr /C:"runuser -u" "%INST%\deploy\repair-otacon-core.ps1" >nul
+if errorlevel 1 exit /b 0
+set "HELPERS_OK=1"
+exit /b 0
+
+:ENSURE_FETCH_HELPER
 set "RC=!ERRORLEVEL!"
 if defined DEBUG echo [DEBUG] ENSURE_FETCH_HELPER errorlevel=!RC!
 if "!RC!"=="0" goto FETCH_HELPER_OK
@@ -190,10 +285,41 @@ if /I "!CHOICE!"=="R" goto FETCH_RETRY
 exit /b 1
 
 :FETCH_FILES_OK
-if exist "%ASSISTANT%" goto FETCH_VERIFY_OK
+call :LOG "refreshed files: bootstrap + full installer bundle (see bootstrap-fetch log)"
+if not exist "%ASSISTANT%" goto FETCH_ASSISTANT_MISSING
+if not exist "%INST%\deploy\repair-otacon-core.ps1" goto FETCH_REPAIR_MISSING
+if not exist "%INST%\deploy\wsl-bash-file.ps1" goto FETCH_WSL_MISSING
+call :VERIFY_CACHED_HELPERS
+if not "!HELPERS_OK!"=="1" goto FETCH_REPAIR_STALE
+goto FETCH_VERIFY_OK
+:FETCH_ASSISTANT_MISSING
 call :LOG "ASSISTANT missing after fetch"
 set "LAST_FAIL_CMD=verify deploy\windows-setup-assistant.ps1 exists"
 set "LAST_FAIL_REASON=Download finished without the setup assistant file."
+call :CAPTURE_LAST_OUTPUT
+call :SHOW_SETUP_STOPPED 2
+if /I "!CHOICE!"=="R" goto FETCH_RETRY
+exit /b 1
+:FETCH_REPAIR_MISSING
+call :LOG "repair-otacon-core.ps1 missing after fetch"
+set "LAST_FAIL_CMD=verify deploy\repair-otacon-core.ps1 exists"
+set "LAST_FAIL_REASON=Download finished without the Linux app update helper. Update cannot succeed without it."
+call :CAPTURE_LAST_OUTPUT
+call :SHOW_SETUP_STOPPED 2
+if /I "!CHOICE!"=="R" goto FETCH_RETRY
+exit /b 1
+:FETCH_WSL_MISSING
+call :LOG "wsl-bash-file.ps1 missing after fetch"
+set "LAST_FAIL_CMD=verify deploy\wsl-bash-file.ps1 exists"
+set "LAST_FAIL_REASON=Download finished without the WSL Bash file transport helper."
+call :CAPTURE_LAST_OUTPUT
+call :SHOW_SETUP_STOPPED 2
+if /I "!CHOICE!"=="R" goto FETCH_RETRY
+exit /b 1
+:FETCH_REPAIR_STALE
+call :LOG "repair-otacon-core.ps1 stale after fetch (missing file transport or still bash -lc)"
+set "LAST_FAIL_CMD=verify installed repair-otacon-core.ps1 uses temp .sh transport"
+set "LAST_FAIL_REASON=Cached repair helper is stale (missing temp-.sh transport or repo-owner/runuser Git fix). Refetch failed to produce a current helper."
 call :CAPTURE_LAST_OUTPUT
 call :SHOW_SETUP_STOPPED 2
 if /I "!CHOICE!"=="R" goto FETCH_RETRY
@@ -331,38 +457,34 @@ call :LOG "user chose EXIT"
 exit /b 0
 
 :ENSURE_FETCH_HELPER
-if not exist "%FETCH_PS1%" goto HELPER_NEED
-for %%A in ("%FETCH_PS1%") do if %%~zA GEQ 40 goto HELPER_PRESENT
-goto HELPER_NEED
-:HELPER_PRESENT
-call :LOG "bootstrap-fetch.ps1 already present"
-exit /b 0
-
-:HELPER_NEED
+REM ALWAYS refresh bootstrap-fetch.ps1 (atomic). Never trust a cached copy.
+call :LOG "ALWAYS refreshing bootstrap-fetch.ps1 from GitHub (existence is not freshness)"
+set "FETCH_TMP=%FETCH_PS1%.otacon-new"
+if exist "%FETCH_TMP%" del /f /q "%FETCH_TMP%" >nul 2>&1
 echo.
 echo  [0/2] preparing download helper
 echo  source
 echo    %RAW%/deploy/bootstrap-fetch.ps1
 echo  status
-echo    connecting...
+echo    downloading...
 echo.
 
 where curl.exe >nul 2>&1
 if errorlevel 1 goto HELPER_PS
-call :LOG "using curl.exe to fetch bootstrap-fetch.ps1"
-if defined DEBUG echo [DEBUG] env=Windows
-if defined DEBUG echo [DEBUG] command=curl.exe download bootstrap-fetch.ps1
-echo  status
-echo    downloading...
-curl.exe -fsSL --connect-timeout 20 --max-time 120 -o "%FETCH_PS1%" "%RAW%/deploy/bootstrap-fetch.ps1" >>"%LOGFILE%" 2>&1
+call :LOG "using curl.exe to atomically refresh bootstrap-fetch.ps1"
+if defined DEBUG echo [DEBUG] command=curl.exe download bootstrap-fetch.ps1.tmp
+curl.exe -fsSL --connect-timeout 20 --max-time 120 -o "%FETCH_TMP%" "%RAW%/deploy/bootstrap-fetch.ps1" >>"%LOGFILE%" 2>&1
 set "RC=!ERRORLEVEL!"
 call :LOG "curl bootstrap-fetch exit=!RC!"
 if defined DEBUG echo [DEBUG] errorlevel=!RC!
 if not "!RC!"=="0" goto HELPER_PS
-if not exist "%FETCH_PS1%" goto HELPER_PS
-for %%A in ("%FETCH_PS1%") do if %%~zA LSS 40 goto HELPER_PS
+if not exist "%FETCH_TMP%" goto HELPER_PS
+for %%A in ("%FETCH_TMP%") do if %%~zA LSS 40 goto HELPER_PS
+move /Y "%FETCH_TMP%" "%FETCH_PS1%" >nul
+if errorlevel 1 goto HELPER_PS
 echo  status
 echo    verifying files... OK
+call :LOG "bootstrap-fetch.ps1 refreshed atomically"
 exit /b 0
 
 :HELPER_PS
@@ -371,15 +493,18 @@ echo    downloading via PowerShell...
 if exist "%DOWNLOAD_ONE%" goto HELPER_PS_FILE
 if exist "%~dp0deploy\download-one.ps1" set "DOWNLOAD_ONE=%~dp0deploy\download-one.ps1"
 if exist "%DOWNLOAD_ONE%" goto HELPER_PS_FILE
-REM Top-level -Command only - never inside IF (...).
-powershell -NoProfile -ExecutionPolicy Bypass -Command "try{[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12}catch{}; Invoke-WebRequest -Uri ($env:RAW+'/deploy/bootstrap-fetch.ps1') -OutFile $env:FETCH_PS1 -UseBasicParsing -TimeoutSec 120; if(-not(Test-Path -LiteralPath $env:FETCH_PS1)){exit 1}; if((Get-Item -LiteralPath $env:FETCH_PS1).Length -lt 40){exit 1}; exit 0"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "try{[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12}catch{}; $tmp=$env:FETCH_PS1+'.otacon-new'; Invoke-WebRequest -Uri ($env:RAW+'/deploy/bootstrap-fetch.ps1') -OutFile $tmp -UseBasicParsing -TimeoutSec 120; if(-not(Test-Path -LiteralPath $tmp)){exit 1}; if((Get-Item -LiteralPath $tmp).Length -lt 40){exit 1}; Move-Item -LiteralPath $tmp -Destination $env:FETCH_PS1 -Force; exit 0"
 set "RC=!ERRORLEVEL!"
 goto HELPER_PS_DONE
 
 :HELPER_PS_FILE
 if defined DEBUG echo [DEBUG] command=powershell -File download-one.ps1
-powershell -NoProfile -ExecutionPolicy Bypass -File "%DOWNLOAD_ONE%" -Url "%RAW%/deploy/bootstrap-fetch.ps1" -OutFile "%FETCH_PS1%" -LogFile "%LOGFILE%"
+powershell -NoProfile -ExecutionPolicy Bypass -File "%DOWNLOAD_ONE%" -Url "%RAW%/deploy/bootstrap-fetch.ps1" -OutFile "%FETCH_TMP%" -LogFile "%LOGFILE%"
 set "RC=!ERRORLEVEL!"
+if not "!RC!"=="0" goto HELPER_PS_DONE
+if not exist "%FETCH_TMP%" set "RC=2" & goto HELPER_PS_DONE
+move /Y "%FETCH_TMP%" "%FETCH_PS1%" >nul
+if errorlevel 1 set "RC=2"
 
 :HELPER_PS_DONE
 call :LOG "powershell helper fetch exit=!RC!"
@@ -389,4 +514,5 @@ if not exist "%FETCH_PS1%" exit /b 2
 for %%A in ("%FETCH_PS1%") do if %%~zA LSS 40 exit /b 2
 echo  status
 echo    verifying files... OK
+call :LOG "bootstrap-fetch.ps1 refreshed atomically via PowerShell"
 exit /b 0
