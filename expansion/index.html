@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Otacon Expansion: Otaconskeep</title>
+<meta name="description" content="Otacon Expansion: the premium multi-agent, emotional-state, and relationship layer that builds on Otacon Core. Five original agents, room ownership, a free local Video Studio, and turnkey Discord/Home Assistant integration. Specification complete; not yet installable.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<div class="filebar">
+  <div class="wrap">
+    <span>FILE // OTACON-EXPANSION</span>
+    <span>TIER // PREMIUM &middot; SPEC COMPLETE</span>
+  </div>
+</div>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="/">Otaconskeep</a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+    <div class="navlinks">
+      <a href="/">Home</a>
+      <a href="/otacon/">Otacon</a>
+      <a href="/expansion/" aria-current="page">Expansion</a>
+      <a href="/ai9/">AI9</a>
+      <a href="/faq/">FAQ</a>
+      <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">GitHub</a>
+      <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <section class="hero flush">
+    <div class="stamp premium">Otacon Expansion<small>premium &middot; licensed</small></div>
+    <p class="eyebrow" style="margin-top: 18px;">Project 02 // Multi-Agent &amp; Emotional-State Layer</p>
+    <h1 class="display" style="font-size: clamp(2.6rem, 7vw, 4.5rem);">Otacon Expansion</h1>
+    <p class="lede">A five-agent roster with real hierarchy, a live mood and relationship engine, its own command-center surfaces, and a free local Video Studio &mdash; installed on top of <a href="/otacon/">Otacon Core</a>, licensed separately. Core stays free forever. Expansion is the one paid layer above it.</p>
+    <div class="btn-row" style="margin-top: 26px;">
+      <a class="btn btn-primary" href="/premium/" style="background: var(--premium); border-color: var(--premium); color: #150f24;">Install Otacon Expansion Now &rarr;</a>
+    </div>
+    <div class="btn-row" style="margin-top: 10px;">
+      <a class="btn btn-ghost" href="https://github.com/Otaconskeep/otacons-ai-ecosystem/blob/main/docs/EXPANSION.md" target="_blank" rel="noopener">Read the full write-up on GitHub</a>
+      <a class="btn btn-ghost" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Follow progress in Discord</a>
+      <a class="btn btn-ghost" href="/otacon/#install">Install Otacon Core first &rarr;</a>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="status">
+    <p class="tag premium">Status</p>
+    <h2>Specification complete. Not yet available to install.</h2>
+    <p class="intro">Everything on this page is a committed engineering spec &mdash; canonical agent schema, provisioning transaction, room ownership, credentials model &mdash; not a shipped feature. Nothing here is sold or installable yet. This page exists so the direction is public before the build is, the same honesty policy as the rest of this site.</p>
+    <div class="legend">
+      <span><span class="dot available"></span> Ships in Core today</span>
+      <span><span class="dot premium"></span> Expansion &mdash; spec complete</span>
+      <span><span class="dot keep-ref"></span> Keep reference only</span>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="roster">
+    <p class="tag premium">The Default Roster</p>
+    <h2>Five original agents, not a smaller copy of the private Keep</h2>
+    <p class="intro">The Keep's own named agents are Metal Gear Solid / Overlord / Date&nbsp;A&nbsp;Live characters &mdash; fine for Antonio's private, personal install, not something a licensed public product can ship. Expansion's defaults are five original characters built specifically for this product, with the same real-hierarchy shape as the Keep: one coordinator, four domain specialists.</p>
+
+    <div class="agentgrid">
+      <div class="agentcard" style="--agent-accent:#f2a558">
+        <img src="../assets/img/expansion/aria.webp" alt="Aria, Command Coordinator">
+        <div class="agentbody">
+          <h4>Aria</h4>
+          <p class="agentrole">Command Coordinator &middot; rank 1</p>
+          <p>The default voice of the Expansion &mdash; synthesizes what the other four are doing, delegates when a question is someone else's domain. Composed, decisive, a little wry.</p>
+          <p class="agentroom">Room: <strong>Dashboard + Codec</strong> &middot; Voice: <span class="mono" style="font-size:0.7rem;">en_US-amy-medium</span></p>
+        </div>
+      </div>
+      <div class="agentcard" style="--agent-accent:#a888e0">
+        <img src="../assets/img/expansion/vector.webp" alt="Vector, Systems and Infrastructure">
+        <div class="agentbody">
+          <h4>Vector</h4>
+          <p class="agentrole">Systems &amp; Infrastructure &middot; reports to Aria</p>
+          <p>Owns anything technical &mdash; automations, integrations, "why did this break." Precise, dry, unbothered under pressure.</p>
+          <p class="agentroom">Room: <strong>War Room</strong> &middot; Voice: <span class="mono" style="font-size:0.7rem;">en_US-bryce-medium</span></p>
+        </div>
+      </div>
+      <div class="agentcard" style="--agent-accent:#dd8a3c">
+        <img src="../assets/img/expansion/ledger.webp" alt="Ledger, Data and Continuity">
+        <div class="agentbody">
+          <h4>Ledger</h4>
+          <p class="agentrole">Data &amp; Continuity &middot; reports to Aria</p>
+          <p>Records, backups, memory integrity, scheduling. Meticulous, warm underneath the precision.</p>
+          <p class="agentroom">Room: <strong>Intel Board</strong> &middot; Voice: <span class="mono" style="font-size:0.7rem;">en_US-joe-medium</span></p>
+        </div>
+      </div>
+      <div class="agentcard" style="--agent-accent:#7fae63">
+        <img src="../assets/img/expansion/muse.webp" alt="Muse, Creative and Media Curation">
+        <div class="agentbody">
+          <h4>Muse</h4>
+          <p class="agentrole">Creative &amp; Media Curation &middot; reports to Aria</p>
+          <p>Content, recommendations, aesthetic judgment, generation requests. Has real opinions and isn't shy about them.</p>
+          <p class="agentroom">Room: <strong>Video Studio</strong> &middot; Voice: <span class="mono" style="font-size:0.7rem;">en_US-hfc_female-medium</span></p>
+        </div>
+      </div>
+      <div class="agentcard" style="--agent-accent:#7ea0c4">
+        <img src="../assets/img/expansion/sentry.webp" alt="Sentry, Security and Operations">
+        <div class="agentbody">
+          <h4>Sentry</h4>
+          <p class="agentrole">Security &amp; Operations &middot; reports to Aria</p>
+          <p>Monitoring, alerts, device control. Terse, vigilant, says less than the others and means more when she does.</p>
+          <p class="agentroom">Room: <strong>Home Automation</strong> &middot; Voice: <span class="mono" style="font-size:0.7rem;">en_US-hfc_male-medium</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="treebox" aria-label="Room ownership diagram" style="margin-top: 26px;">                       ARIA
+                  Dashboard + Codec (rank 1)
+                            │
+        ┌───────────┬───────┴───────┬───────────┐
+        │            │               │           │
+    <strong>VECTOR</strong>       <strong>LEDGER</strong>          <strong>MUSE</strong>      <strong>SENTRY</strong>
+    War Room     Intel Board    Video Studio   Home Automation
+   (systems)     (records)      (creative)      (security)</div>
+    <p class="diagram-caption">REX Board and Dossier stay Keep-wide rather than single-owner &mdash; every agent files into REX, every agent gets a dossier.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="motion">
+    <p class="tag premium">Aria's Motion Pack</p>
+    <h2>Nine real clips, the reference set</h2>
+    <p class="intro">The Codec surface (&sect;03) isn't a static chat window &mdash; agents move. Aria's set below is hand-produced and ships as the reference implementation every other default agent's motion generator is built to match: idle, talking, thinking, and five distinct affect reactions, classified from a compliment/insult/annoyance/question the same way the relationship engine classifies everything else, never a second, separate sentiment model.</p>
+    <div class="motiongrid">
+      <div class="motioncard"><video controls preload="metadata" src="../assets/video/expansion/aria-waiting.mp4"></video><div class="mc-label"><span class="mc-name">Waiting</span><span class="mc-key">idle</span></div></div>
+      <div class="motioncard"><video controls preload="metadata" src="../assets/video/expansion/aria-talking.mp4"></video><div class="mc-label"><span class="mc-name">Talking</span><span class="mc-key">talking</span></div></div>
+      <div class="motioncard"><video controls preload="metadata" src="../assets/video/expansion/aria-thinking.mp4"></video><div class="mc-label"><span class="mc-name">Thinking</span><span class="mc-key">thinking</span></div></div>
+      <div class="motioncard"><video controls preload="metadata" src="../assets/video/expansion/aria-thinking-hard.mp4"></video><div class="mc-label"><span class="mc-name">Thinking Hard</span><span class="mc-key">thinking.hard</span></div></div>
+      <div class="motioncard"><video controls preload="metadata" src="../assets/video/expansion/aria-happy.mp4"></video><div class="mc-label"><span class="mc-name">Happy</span><span class="mc-key">affect.happy</span></div></div>
+      <div class="motioncard"><video controls preload="metadata" src="../assets/video/expansion/aria-angry.mp4"></video><div class="mc-label"><span class="mc-name">Angry</span><span class="mc-key">affect.angry</span></div></div>
+      <div class="motioncard"><video controls preload="metadata" src="../assets/video/expansion/aria-rage.mp4"></video><div class="mc-label"><span class="mc-name">Rage</span><span class="mc-key">affect.rage</span></div></div>
+      <div class="motioncard"><video controls preload="metadata" src="../assets/video/expansion/aria-sad.mp4"></video><div class="mc-label"><span class="mc-name">Sad</span><span class="mc-key">affect.sad</span></div></div>
+      <div class="motioncard"><video controls preload="metadata" src="../assets/video/expansion/aria-sad-masked.mp4"></video><div class="mc-label"><span class="mc-name">Hiding Sad</span><span class="mc-key">affect.sad_masked</span></div></div>
+    </div>
+    <p class="diagram-caption">A plain insult reads as masked hurt first (Aria is written composed, not volatile) &mdash; it only escalates to visible anger on repetition. Same principle the text-response side of the relationship engine already applies, now applied to motion.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="surfaces">
+    <p class="tag premium">Ships With</p>
+    <h2>Ten command-center surfaces, not one chat window</h2>
+    <p class="intro">Every surface below already exists and works in the private Keep. This is a UI/branding pass and a generalization effort &mdash; stripping fixed IPs, personal paths, and hardcoded personas &mdash; not new invention.</p>
+    <div class="loadout">
+      <div class="item"><h4>Dashboard</h4><span class="badge premium">Spec complete</span></div>
+      <div class="item"><h4>Codec (voice chat)</h4><span class="badge premium">Spec complete</span></div>
+      <div class="item"><h4>REX Board</h4><span class="badge premium">Spec complete</span></div>
+      <div class="item"><h4>Intel Board</h4><span class="badge premium">Spec complete</span></div>
+      <div class="item"><h4>Voice Trainer board</h4><span class="badge validated">Engine already in Core</span></div>
+      <div class="item"><h4>Automatic Dossier &amp; Journal</h4><span class="badge premium">Spec complete</span></div>
+      <div class="item"><h4>Emotional State Matrix</h4><span class="badge premium">Spec complete</span></div>
+      <div class="item"><h4>War Room</h4><span class="badge premium">Spec complete</span></div>
+      <div class="item"><h4>Video Studio</h4><span class="badge premium">Spec complete</span></div>
+      <div class="item"><h4>Infra Dashboard</h4><span class="badge premium">Spec complete</span></div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="video-studio">
+    <p class="tag premium">Video Studio</p>
+    <h2>Free, local, self-hosted &mdash; no paid API, ever</h2>
+    <p class="intro">Everything Video Studio does runs on open-weight models on your own GPU through ComfyUI. No account, no subscription, no per-generation cost.</p>
+    <ul class="today-list" style="margin-top:0;">
+      <li><span class="ok">&#10003;</span> <strong>Images &mdash; Z-Image.</strong> Identity-preserving image-to-image generation, the same pipeline the Keep uses for agent pictures.</li>
+      <li><span class="ok">&#10003;</span> <strong>Video &mdash; LTX 2.3 / 2.5.</strong> Text-to-video and image-to-video, a two-pass draft-then-refine pipeline, plus start/end-frame interpolation.</li>
+      <li><span class="ok">&#10003;</span> <strong>Music.</strong> Local music generation in the same job queue and UI.</li>
+      <li><span class="ok">&#10003;</span> <strong>Actors, styles, scripts.</strong> A persistent library and a movie-project planner.</li>
+    </ul>
+    <div class="info-note">Real hardware floor: a GPU capable of running Z-Image and LTX locally. The installer's prerequisite check is expected to flag this explicitly rather than letting a user hit it mid-generation. ComfyUI setup will be automatic where possible, with a full manual fallback guide.</div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="integrations">
+    <p class="tag premium">Integrations</p>
+    <h2>Discord, Home Assistant, n8n, and your own infra &mdash; all optional</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Integration</th><th>What it needs</th><th>Required?</th></tr></thead>
+        <tbody>
+          <tr><td>Discord &mdash; outbound alerts</td><td>A webhook URL you generate yourself, pasted in</td><td>Optional</td></tr>
+          <tr><td>Discord &mdash; two-way bot</td><td>A bot token from your own Discord application</td><td>Optional</td></tr>
+          <tr><td>Home Assistant</td><td>Your instance URL + a long-lived access token you generate</td><td>Optional, offline-safe</td></tr>
+          <tr><td>n8n workflow layer</td><td>Bundled, pre-configured with a starter workflow</td><td>Included</td></tr>
+          <tr><td>Infra Dashboard</td><td>Bundled, pre-populated with the Expansion's own containers</td><td>Included</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="info-note">No credential in this system ever authenticates against Antonio's own accounts or infrastructure. Every integration runs on credentials the installing user generates and stores themselves. The Expansion license is the only paid line item anywhere in this stack &mdash; every model and every bundled service is free and self-hosted.</div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="foundation-install">
+    <p class="tag premium">Install &mdash; One Command</p>
+    <h2>The foundation layer is real. Install it today.</h2>
+    <p class="intro">Not the finished product &mdash; there's no Dashboard, Codec, War Room, or Video Studio here yet. What's real: the versioned agent schema, the bounded relationship/mood formulas, the motion-manifest schema, and a schema-validated five-agent default roster, generated and written to disk. Requires <a href="/otacon/#install">Otacon Core</a> already installed.</p>
+    <div class="codebox">
+      <code id="expansion-cmd">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon_expansion.sh | bash</code>
+      <button class="copy-btn" data-copy-target="expansion-cmd">Copy</button>
+    </div>
+    <p class="os-hint" style="margin-top:10px;">Fast-forwards the same repo Core already cloned, reuses Core's Python environment, runs the <span class="mono">expansion/</span> test suite (50 tests) as a real acceptance gate, then generates and validates Aria/Vector/Ledger/Muse/Sentry &mdash; written to <span class="mono">~/.config/otacon/expansion/agents/</span>. Rerunning it is safe. Reports <span class="mono">FOUNDATION READY</span>, <span class="mono">DEGRADED</span>, or <span class="mono">FAILED</span>, matching exit codes 0/2/1.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="provisioning">
+    <p class="tag premium">Engineering Contract</p>
+    <h2>Agent creation is one transaction, not a row in a roster</h2>
+    <p class="intro">Creating an agent &mdash; default or user-made &mdash; provisions roster registration, a stable ID, persona storage, hierarchy placement, greeting fast-path registration, voice binding, motion manifest, emotional-state initialization, relationship-graph seeding, dossier/journal initialization, room ownership, and Discord routing (if configured) as one logical unit. If it fails partway, the spec requires a clean rollback or an explicit, safely resumable provisioning state &mdash; never a Dashboard entry Codec can't actually use.</p>
+    <p class="intro">Identity and role are separate by design: an agent can be renamed without touching its hierarchy, authority, or room ownership. Motion manifests are validated against a strict schema specifically because a real bug &mdash; a manifest array silently comma-joined by JavaScript's <span class="mono">fetch()</span> &mdash; once broke an agent's motion while every other agent kept working. The canonical schema exists to make that class of bug structurally impossible.</p>
+    <p style="margin-top:16px;"><a href="https://github.com/Otaconskeep/otacons-ai-ecosystem/blob/main/docs/EXPANSION.md" target="_blank" rel="noopener">Full engineering specification on GitHub &rarr;</a></p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <p class="tag">Where This Fits</p>
+    <h2>Otacon Core, Otacon Expansion, and the Keep Blueprint</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Tier</th><th>What it is</th><th>Status</th><th>Price</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Otacon Core</strong></td><td>Free &middot; open source &middot; self-hosted</td><td>Install today</td><td>Free</td></tr>
+          <tr><td><strong>Otacon Expansion</strong></td><td>Five-agent roster, emotional/relationship engine, command-center surfaces, free local Video Studio</td><td>Specification complete</td><td>Not yet available (licensed, priced later)</td></tr>
+          <tr><td><strong>Keep Blueprint</strong></td><td>The full private reference environment Expansion is built from</td><td>Reference only</td><td>Not offered publicly</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="intro" style="margin-top: 18px;">Core has no license key or artificial limit today and never will. Expansion adds a real, separately-licensed layer on top of it &mdash; it does not cripple, gate, or take anything away from Core.</p>
+    <div class="btn-row">
+      <a class="btn btn-ghost" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">&#128172; Ask in Discord</a>
+      <a class="btn btn-ghost" href="/otacon/">&larr; Back to Otacon Core</a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Otacon Expansion &middot; Designed &amp; Engineered by Antonio G. Garcia.</span>
+    <span><a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">github.com/Otaconskeep/otacons-ai-ecosystem</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

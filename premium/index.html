@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Otaconskeep Premium: Support &amp; Access</title>
+<meta name="description" content="Support Otaconskeep development directly and get Otacon Expansion early access -- one-time or monthly.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<div class="filebar">
+  <div class="wrap">
+    <span>FILE // OTACONSKEEP-PREMIUM</span>
+    <span>ACCESS // RESTRICTED</span>
+  </div>
+</div>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="/">Otaconskeep</a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+    <div class="navlinks">
+      <a href="/">Home</a>
+      <a href="/otacon/">Otacon</a>
+      <a href="/expansion/">Expansion</a>
+      <a href="/ai9/">AI9</a>
+      <a href="/faq/">FAQ</a>
+      <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">GitHub</a>
+      <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <div id="gate">
+
+    <div class="access-panel">
+      <p class="gate-icon">&#9749; Get Access &middot; Support Development</p>
+      <h1 style="text-align:center;">Support Otaconskeep, get Premium access</h1>
+      <p style="text-align:center; max-width:56ch; margin:0 auto 22px;">Otaconskeep is self-funded and built solo. Supporting it directly funds Expansion's development and gets you an access code &mdash; real payment, processed securely by Buy Me a Coffee, not this site.</p>
+
+      <div class="tier-grid">
+        <a class="tier-card" href="https://www.buymeacoffee.com/otaconskeep" target="_blank" rel="noopener">
+          <span class="tier-amount">$5</span>
+          <span class="tier-label">One-time</span>
+        </a>
+        <a class="tier-card" href="https://www.buymeacoffee.com/otaconskeep" target="_blank" rel="noopener">
+          <span class="tier-amount">$10</span>
+          <span class="tier-label">One-time</span>
+        </a>
+        <a class="tier-card" href="https://www.buymeacoffee.com/otaconskeep" target="_blank" rel="noopener">
+          <span class="tier-amount">$20</span>
+          <span class="tier-label">One-time</span>
+        </a>
+        <a class="tier-card tier-card-monthly" href="https://www.buymeacoffee.com/otaconskeep/membership" target="_blank" rel="noopener">
+          <span class="tier-amount">Monthly</span>
+          <span class="tier-label">Membership &middot; ongoing access + updates</span>
+        </a>
+      </div>
+
+      <div class="bmc-widget-wrap">
+        <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="otaconskeep" data-color="#5F7FFF" data-emoji="" data-font="Poppins" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00"></script>
+      </div>
+
+      <div class="info-note" style="margin-top:20px; text-align:left;">After your support goes through on Buy Me a Coffee, Antonio sends your access name, password, and PIN directly &mdash; currently by hand, not instant, usually same day. Mention in the payment note (or in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>) how you'd like to receive it.</div>
+    </div>
+
+    <div class="gate-panel">
+      <p class="gate-icon">&#128274; Already have a code?</p>
+      <h1>Otaconskeep Premium</h1>
+      <p>Enter the access name, password, and/or PIN you were given. Password or PIN alone is enough.</p>
+      <p class="gate-hint" style="margin-top:0;">Live gate URL (otaconskeep.com DNS is down): <a href="https://otaconskeep.github.io/otaconskeep-site/premium/">otaconskeep.github.io/otaconskeep-site/premium/</a></p>
+      <form class="gate-form" id="gate-form" autocomplete="off">
+        <input type="text" id="gate-name" placeholder="ACCESS NAME (e.g. BLOCK)" aria-label="Access name" autocomplete="username" autocapitalize="characters" spellcheck="false" inputmode="text">
+        <input type="password" id="gate-pw" placeholder="PASSWORD" aria-label="Password" autocomplete="current-password">
+        <input type="password" id="gate-pin" placeholder="PIN" aria-label="PIN" autocomplete="one-time-code" inputmode="numeric" maxlength="8">
+        <button type="submit">Unlock</button>
+      </form>
+      <p class="gate-error" id="gate-error"></p>
+      <p class="gate-hint">Gate build <code id="gate-build">20260917c</code> &middot; Free instead: <a href="../otacon/">Otaconskeep Lite</a></p>
+    </div>
+
+  </div>
+
+  <div id="unlocked" hidden>
+    <section class="hero flush">
+      <div class="stamp premium">Otaconskeep Premium<small>early access</small></div>
+      <p class="eyebrow" style="margin-top: 18px;" id="welcome-line">You're in</p>
+      <h1 class="display" style="font-size: clamp(2.2rem, 6vw, 3.6rem);">Welcome to Early Access</h1>
+      <p class="lede">Here's an honest status, not a sales pitch: Otacon Expansion (the five-agent roster, relationship engine, command-center surfaces) is <strong>specification complete, not yet a separate installer</strong>. There's nothing extra to download here today beyond what's on the public site. What early access actually gets you right now:</p>
+    </section>
+
+    <section>
+      <p class="tag premium">What's real today</p>
+      <div class="today-panel">
+        <p class="kicker">&#10003; Available right now</p>
+        <ul class="today-list">
+          <li><span class="ok">&#10003;</span> Otaconskeep Lite, fully working &mdash; the real foundation Expansion installs on top of</li>
+          <li><span class="ok">&#10003;</span> The Expansion <strong>foundation layer</strong>, genuinely installable today: the canonical agent schema, bounded relationship formulas, motion-manifest schema, and a validated five-agent default roster, one command, 50 tests run as a real gate before it reports ready</li>
+          <li><span class="ok">&#10003;</span> A private early-access role in Discord &mdash; first look as the Dashboard/Codec/War Room surfaces land, direct line to Antonio</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <p class="tag premium">Install the foundation layer</p>
+      <p class="intro">Requires Otaconskeep Lite already installed. This does not install a Dashboard or chat UI yet &mdash; it installs and verifies the underlying schema/formula layer and writes a real, validated 5-agent roster to disk.</p>
+      <div class="codebox">
+        <code id="premium-expansion-cmd">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon_expansion.sh | bash</code>
+        <button class="copy-btn" data-copy-target="premium-expansion-cmd">Copy</button>
+      </div>
+    </section>
+
+    <section>
+      <p class="tag premium">Get started</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/otacon/#install">Install Otaconskeep Lite &rarr;</a>
+        <a class="btn btn-ghost" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener" style="border-color: var(--premium); color: var(--premium-bright);">Claim your Discord role &rarr;</a>
+        <a class="btn btn-ghost" href="/expansion/">Read the full spec &rarr;</a>
+        <a class="btn btn-ghost" href="/faq/">FAQ / Troubleshooting &rarr;</a>
+      </div>
+      <p class="intro" style="margin-top: 22px;">In Discord, mention you came in with an access code and Antonio will get you set up. Thanks for being early on this one.</p>
+    </section>
+
+    <section>
+      <p class="tag premium">Already supporting</p>
+      <p class="intro">Thank you for funding this directly &mdash; genuinely. A recurring <a href="https://www.buymeacoffee.com/otaconskeep/membership" target="_blank" rel="noopener" style="color: var(--warn);">Monthly Membership</a> keeps Expansion moving fastest if you want to keep going.</p>
+    </section>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Otaconskeep Premium &middot; Designed &amp; Engineered by Antonio G. Garcia.</span>
+    <span><a href="/">otaconskeep-site</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script>
+(function () {
+  // Per-user password + PIN hashes (SHA-256). Password is hashed on its own;
+  // PIN is hashed as "USERNAME:PIN" so the same 4 digits differ per user.
+  // pwHashes may list more than one accepted password hash (legacy + current).
+  var GATE_BUILD = '20260917c';
+  var USERS = {
+    RAM36:  { pwHashes: ['2428a5260348e9ed5340ca09471e085f5415f5dbe1d106408b5d300fec28cd3a'],
+              pinHash: 'cc65ec6dbf2e389a5bb42f42a78d546040af789a9b875d202ea4d4ff295bf5f2' },
+    BLOCK:  { pwHashes: [
+                // usmc
+                '91dbdd4a1c1bbe3af464f2618161e115977d02a5d49cc0e23313937c31580143',
+                // prior issued password (still honored)
+                '1366b2c27302a5ecbc7176daf875dee60e5cd8d1cf779231c9d48796c2677696'
+              ],
+              pinHash: '4aa28222afbc5df797bc645cc4e5ed71d733c34676a0f2a24dfc768a905fa391' },
+    CRISTO: { pwHashes: ['101ea620e95097064943b518e9456392523a063e3fee1a87fab3679c17017e30'],
+              pinHash: 'e888e0ff427cc49d4facf2182f713e523b5092c01e34e63a2e1c7e328daf90df' }
+  };
+
+  // Optional: a Discord webhook URL. When set, every successful unlock posts
+  // who unlocked, how, and a rough client fingerprint -- so reuse/sharing of
+  // a single name+code across many different browsers/locations is visible.
+  // Left blank until a webhook is supplied; unlock still works either way.
+  var NOTIFY_WEBHOOK_URL = '';
+
+  var gate = document.getElementById('gate');
+  var unlocked = document.getElementById('unlocked');
+  var form = document.getElementById('gate-form');
+  var nameInput = document.getElementById('gate-name');
+  var pwInput = document.getElementById('gate-pw');
+  var pinInput = document.getElementById('gate-pin');
+  var errorEl = document.getElementById('gate-error');
+  var welcomeEl = document.getElementById('welcome-line');
+
+  function displayName(code) {
+    return code ? code.charAt(0) + code.slice(1).toLowerCase() : '';
+  }
+
+  function reveal(username) {
+    gate.hidden = true;
+    unlocked.hidden = false;
+    if (welcomeEl && username) welcomeEl.textContent = 'You\'re in, ' + displayName(username);
+    try {
+      sessionStorage.setItem('otaconskeep_premium_unlocked', '1');
+      sessionStorage.setItem('otaconskeep_premium_user', username || '');
+    } catch (e) {}
+  }
+
+  try {
+    if (sessionStorage.getItem('otaconskeep_premium_unlocked') === '1') {
+      reveal(sessionStorage.getItem('otaconskeep_premium_user'));
+    }
+  } catch (e) {}
+
+  async function sha256Hex(text) {
+    var enc = new TextEncoder().encode(text);
+    var digest = await crypto.subtle.digest('SHA-256', enc);
+    return Array.prototype.map.call(new Uint8Array(digest), function (b) {
+      return b.toString(16).padStart(2, '0');
+    }).join('');
+  }
+
+  function notifyUnlock(username) {
+    if (!NOTIFY_WEBHOOK_URL) return;
+    (async function () {
+      var ip = 'unknown';
+      try {
+        var r = await fetch('https://api.ipify.org?format=json');
+        ip = (await r.json()).ip;
+      } catch (e) {}
+      var lines = [
+        '**Premium unlock** — ' + displayName(username),
+        'Time: ' + new Date().toISOString(),
+        'IP: ' + ip,
+        'UA: ' + navigator.userAgent,
+        'TZ: ' + Intl.DateTimeFormat().resolvedOptions().timeZone
+      ].join('\n');
+      try {
+        await fetch(NOTIFY_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content: lines })
+        });
+      } catch (e) {}
+    })();
+  }
+
+  function cleanName(v) {
+    return String(v || '')
+      .replace(/[\u200B-\u200D\uFEFF]/g, '')
+      .replace(/[^a-zA-Z0-9]/g, '')
+      .toUpperCase();
+  }
+  function cleanSecret(v) {
+    return String(v || '')
+      .replace(/[\u200B-\u200D\uFEFF]/g, '')
+      .replace(/\s+/g, '')
+      .trim();
+  }
+  function hashList(user) {
+    if (!user) return [];
+    if (user.pwHashes && user.pwHashes.length) return user.pwHashes;
+    return user.pwHash ? [user.pwHash] : [];
+  }
+
+  var buildEl = document.getElementById('gate-build');
+  if (buildEl) buildEl.textContent = GATE_BUILD;
+
+  form.addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    errorEl.textContent = '';
+    var username = cleanName(nameInput.value);
+    var pw = cleanSecret(pwInput.value);
+    var pin = cleanSecret(pinInput.value);
+    if (!username) { errorEl.textContent = 'Enter your access name (the code you were issued, e.g. BLOCK).'; return; }
+    if (!pw && !pin) { errorEl.textContent = 'Enter your password or PIN (either one works).'; return; }
+    var user = USERS[username];
+    try {
+      // Hash unconditionally even for an unknown name, so timing does not
+      // reveal whether the name exists. Password OR PIN may unlock (FAQ).
+      var candidates = [];
+      if (pw) {
+        candidates.push(await sha256Hex(pw));
+        candidates.push(await sha256Hex(pw.toLowerCase()));
+        candidates.push(await sha256Hex(pw.toUpperCase()));
+      } else {
+        candidates.push(await sha256Hex('__blank_pw__'));
+      }
+      var pinHash = pin ? await sha256Hex(username + ':' + pin) : await sha256Hex(username + ':__blank_pin__');
+      var accepted = hashList(user);
+      var pwOk = !!(user && pw && candidates.some(function (h) { return accepted.indexOf(h) !== -1; }));
+      var pinOk = !!(user && pin && pinHash === user.pinHash);
+      if (user && (pwOk || pinOk)) {
+        notifyUnlock(username);
+        reveal(username);
+      } else {
+        errorEl.textContent = 'Incorrect on this page (build ' + GATE_BUILD + '). If build is not 20260917c, you are on a stale copy — open the live URL above. Access name is the issued code (e.g. BLOCK), not a Discord name.';
+        pwInput.value = '';
+        pinInput.value = '';
+        nameInput.focus();
+      }
+    } catch (e) {
+      errorEl.textContent = 'Could not verify in this browser (needs HTTPS or localhost). Try Chrome/Edge/Safari, or ask in Discord.';
+    }
+  });
+})();
+</script>
+</body>
+</html>

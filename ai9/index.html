@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI9 Manga Colorizer: Otaconskeep</title>
+<meta name="description" content="AI9: hardware-aware local GPU manga colorization for Firefox. Automatic CUDA/PyTorch detection, real GPU inference, and a one-click Windows installer.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<div class="filebar">
+  <div class="wrap">
+    <span>FILE // AI9-MANGA-COLORIZER</span>
+    <span>GPU PIPELINE // WINDOWS</span>
+  </div>
+</div>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="/">Otaconskeep</a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+    <div class="navlinks">
+      <a href="/">Home</a>
+      <a href="/otacon/">Otacon</a>
+      <a href="/expansion/">Expansion</a>
+      <a href="/ai9/" aria-current="page">AI9</a>
+      <a href="/faq/">FAQ</a>
+      <a href="https://github.com/Otaconskeep/AI9" target="_blank" rel="noopener">GitHub</a>
+      <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero-video" aria-label="AI9 Manga Colorizer video">
+  <div class="hero-video-frame">
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/aUiwMACSPBk"
+      title="AI9 Manga Colorizer"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="hero flush">
+    <p class="eyebrow">Project 02 // GPU Pipeline</p>
+    <h1 class="display" style="font-size: clamp(2.6rem, 7vw, 4.5rem);">AI9<br>Manga Colorizer</h1>
+    <p class="lede">Hardware-aware local manga colorization built around real GPU inference, automated installation, automatic CUDA/PyTorch runtime selection, and local-only processing. No cloud API in the loop: the GPU doing the work is yours.</p>
+    <div class="btn-row" style="margin-top: 26px;">
+      <a class="btn btn-primary btn-install" href="/downloads/AI9-Setup.bat" download="AI9-Setup.bat">Download AI9 Setup</a>
+      <a class="btn btn-ghost" href="#install">Install steps</a>
+      <a class="btn btn-ghost" href="https://youtu.be/aUiwMACSPBk" target="_blank" rel="noopener">Watch on YouTube</a>
+      <a class="btn btn-ghost" href="https://github.com/Otaconskeep/AI9" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="demo">
+    <p class="tag">Demo</p>
+    <h2>AI9 is the manga colorizer</h2>
+    <p class="intro">Real local inference. Black-and-white manga in, colorized page out. This GIF is a real capture of AI9 taking a B&amp;W page through the local GPU colorization workflow.</p>
+    <figure class="shot-card" style="margin-top: 18px;">
+      <img src="../assets/img/ai9-manga-colorizer-demo.gif" width="960" height="561" alt="AI9 Manga Colorizer demo: a black-and-white manga page running through local GPU colorization to the finished colored result.">
+      <figcaption>AI9 Manga Colorizer // B&amp;W in → color out // LOCAL GPU // SELF-HOSTED</figcaption>
+    </figure>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <p class="tag">The Real Thing</p>
+    <h2>Not a mockup</h2>
+    <p class="intro">The demo above, the extension popup, and the live backend check were captured from this project's own repository and its actually-running install, not staged or drawn.</p>
+    <div class="shot-grid">
+      <figure class="shot-card">
+        <img src="../assets/img/ai9-extension-popup.png" alt="AI9 Firefox extension popup, showing the real color adjustment sliders, presets, and API URL field, rendered directly from the committed popup.html and popup.css.">
+        <figcaption>extension/popup.html, rendered as shipped</figcaption>
+      </figure>
+      <div class="livecheck">
+        <h4>● Live backend check, this machine, just now</h4>
+        <div class="codebox">
+          <code>$ curl -sk https://127.0.0.1:5000/
+Manga Colorizer is Up and Running!</code>
+        </div>
+        <p class="intro" style="margin-top: 16px; margin-bottom: 0;">This is the same install this page tells you how to run: a real Flask backend, a real GPU behind it, and the real Windows background task (<span class="mono">MangaColorizerAI9</span>) keeping it alive between crashes and reboots.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <p class="tag">In the Otaconskeep Story</p>
+    <h2>The GPU/compute side of the Keep</h2>
+    <div class="treebox" style="margin-bottom: 18px;">OTACONSKEEP
+    │
+    ├── <strong>OTACON</strong>: agents · memory · identity ·
+    │   │   orchestration · capabilities
+    │   │
+    │   └── <strong>VOICE TRAINER</strong>: GPU Piper cloning
+    │           (Genome · custom agent voices)
+    │
+    └── <strong>AI9 MANGA COLORIZER</strong>: local GPU
+            manga colorization · Firefox extension</div>
+    <p class="intro">Otacon is the agent platform. Genome Voice Trainer clones Piper voices for those agents on your GPU. <strong>AI9 is the manga colorizer</strong> — proof of the same discipline on a standalone GPU pipeline: detect real hardware, select the exact runtime, fail loudly when something's wrong, never a silent cloud fallback. See the <a href="#demo">demo GIF</a> above for B&amp;W → color on a real local install.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <p class="tag">Architecture</p>
+    <h2>Extension → backend → GPU pipeline</h2>
+    <div class="flow">
+      <span class="node">Firefox (contentScript.js)</span><span class="arrow">→</span>
+      <span class="node">Flask backend (app-stream.py)</span><span class="arrow">→</span>
+      <span class="node">Denoise (FFDNet)</span><span class="arrow">→</span>
+      <span class="node">Colorize (GAN)</span><span class="arrow">→</span>
+      <span class="node">Optional 4x upscale</span><span class="arrow">→</span>
+      <span class="node">Content-hash cache</span>
+    </div>
+    <p class="intro" style="margin-top: 22px;">Concurrency is 1 by default: one page colorizes at a time, queued, so the GPU stays available for other work. A two-tier cache keyed by image content hash <em>and</em> processing options means switching color presets on an already-read page reuses the raw GPU output instead of a full re-run.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <p class="tag">Hardware Support</p>
+    <h2>Automatic GPU detection &amp; runtime selection</h2>
+    <p class="intro">The installer reads your GPU name and driver's max CUDA version directly from <span class="mono">nvidia-smi</span>, then picks the matching PyTorch wheel. No manual CUDA version guessing.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>GPU generation</th><th>Compute capability</th><th>PyTorch build</th></tr></thead>
+        <tbody>
+          <tr><td>RTX 50-series (Blackwell)</td><td class="mono">sm_120</td><td class="mono">cu128</td></tr>
+          <tr><td>RTX 40-series (Ada)</td><td class="mono">sm_89</td><td class="mono">cu121 / cu126</td></tr>
+          <tr><td>RTX 30-series (Ampere)</td><td class="mono">sm_86</td><td class="mono">cu118</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="intro" style="margin-top: 18px;">Verified with a real GPU inference pass (matmul + cuDNN convolution kernels), not just <span class="mono">torch.cuda.is_available()</span>. That call can return <span class="mono">True</span> while still lacking compiled kernels for your specific architecture.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="install">
+    <p class="tag">Install</p>
+    <h2>Windows 10/11: one download, one double-click</h2>
+    <p class="intro">Same pattern as Otacon Setup. Download one file from this site. Double-click it from Downloads. Do <em>not</em> type anything into Command Prompt — that is why <span class="mono">'install_ai9.bat' is not recognized</span> shows up if you only paste the filename.</p>
+
+    <div class="os-card" style="margin: 18px 0 22px; max-width: 520px;">
+      <a class="download-btn" href="/downloads/AI9-Setup.bat" download="AI9-Setup.bat">Download AI9 Setup</a>
+      <p class="os-hint" style="margin-top: 12px;">Saves as <span class="mono">AI9-Setup.bat</span>. Open Downloads → double-click. If Windows SmartScreen appears, choose More info → Run anyway. The launcher fetches the rest automatically and installs Git Bash if needed.</p>
+    </div>
+
+    <p class="info-note">Requires an NVIDIA GPU with a current Game Ready / Studio driver. No WSL, no Linux VM, no ZIP extract required for the normal path.</p>
+
+    <ol class="checklist">
+      <li><div class="step-body">
+        <h4>Download AI9 Setup from this page</h4>
+        <p>Use the button above (or the homepage install panel). Prefer this site’s <span class="mono">/downloads/</span> button — don’t Save-As from raw GitHub links.</p>
+      </div></li>
+      <li><div class="step-body">
+        <h4>Double-click <span class="mono">AI9-Setup.bat</span> in Downloads</h4>
+        <p>Not Command Prompt. Not PowerShell. Finder/Explorer double-click. The window stays open and walks the install.</p>
+      </div></li>
+      <li><div class="step-body">
+        <h4>Wait for it to finish</h4>
+        <p>Installs Python 3.12, Git, and Firefox if missing (via <span class="mono">winget</span>); detects your GPU and installs the matching PyTorch build; downloads and verifies the AI model weights; runs a real GPU inference test; registers a Windows background task so the server auto-starts and restarts itself on crash.</p>
+      </div></li>
+      <li><div class="step-body">
+        <h4>Load the Firefox extension (the one manual step)</h4>
+        <p>Firefox requires a human click for unsigned add-ons. No installer can do this part. Go to <span class="mono">about:debugging#/runtime/this-firefox</span> → <strong>Load Temporary Add-on</strong> → select <span class="mono">extension/manifest.json</span> from the install folder (default <span class="mono">C:\opt\manga-colorizer\extension\</span>). This needs repeating after every full Firefox restart.</p>
+      </div></li>
+    </ol>
+
+    <div class="warn-note"><span class="mono">winget</span> may trigger a Windows UAC prompt when installing missing Git, Python, or Firefox. The installer itself does not need to run elevated/as administrator.</div>
+    <div class="info-note">Runs at <span class="mono">https://127.0.0.1:5000/</span> only (localhost). Self-signed certificate — one-time browser trust warning is expected. Other devices on your LAN cannot reach the API by default.</div>
+
+    <details class="install-toggle" style="margin-top: 22px;">
+      <summary>Optional environment variables</summary>
+      <div class="install-box">
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Variable</th><th>Default</th><th>What it changes</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">AI9_INSTALL_DIR</td><td class="mono">C:\opt\manga-colorizer</td><td>Where AI9 gets installed</td></tr>
+              <tr><td class="mono">AI9_INSTALL_FIREFOX</td><td class="mono">1</td><td>Set to 0 to skip installing Firefox</td></tr>
+              <tr><td class="mono">AI9_REGISTER_TASK</td><td class="mono">1</td><td>Set to 0 to skip auto-registering the background service</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <p style="margin-top: 20px; font-size: 0.92rem;"><a href="https://github.com/Otaconskeep/AI9#readme" target="_blank" rel="noopener">Full install documentation on GitHub →</a></p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <p class="tag">Status</p>
+    <h2>What ships, and its known limits</h2>
+    <div class="legend">
+      <span><span class="dot available"></span> Available now</span>
+    </div>
+    <div class="loadout">
+      <div class="item"><h4>Real GPU inference (denoise + colorize)</h4><span class="badge validated">Available now</span></div>
+      <div class="item"><h4>Automatic PyTorch/CUDA wheel selection</h4><span class="badge validated">Available now</span></div>
+      <div class="item"><h4>Content-hash + options caching</h4><span class="badge validated">Available now</span></div>
+      <div class="item"><h4>Restart-on-crash background service</h4><span class="badge validated">Available now</span></div>
+      <div class="item"><h4>Adjustable color controls &amp; presets</h4><span class="badge validated">Available now</span></div>
+      <div class="item"><h4>Optional 4x AI upscaling</h4><span class="badge validated">Available now (off by default)</span></div>
+    </div>
+
+    <p class="intro" style="margin-top: 26px;"><strong>Known limitations</strong> (from the repository's own troubleshooting notes):</p>
+    <ul style="color: var(--cream-dim); font-size: 0.94rem; line-height: 1.8;">
+      <li>The Firefox extension is loaded as an unsigned temporary add-on. It does not persist across a full Firefox restart and needs reloading.</li>
+      <li>A canvas-based reader can be repainted with zero DOM mutation trace, so those pages use a narrow, low-frequency fingerprint poll instead of pure event-driven detection: a deliberate, disclosed tradeoff.</li>
+      <li>The backend serves over a self-signed certificate; browsers show a one-time trust warning per origin.</li>
+    </ul>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>AI9 Manga Colorizer · Designed &amp; Engineered by Antonio G. Garcia.</span>
+    <span><a href="https://github.com/Otaconskeep/AI9" target="_blank" rel="noopener">github.com/Otaconskeep/AI9</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

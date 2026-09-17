@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ: Otaconskeep</title>
+<meta name="description" content="Frequently asked questions and troubleshooting for Otaconskeep Lite, AI9, and Otacon Expansion.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<div class="filebar">
+  <div class="wrap">
+    <span>FILE // FAQ</span>
+    <span>STATUS // TROUBLESHOOTING + GENERAL Q&amp;A</span>
+  </div>
+</div>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="/">Otaconskeep</a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+    <div class="navlinks">
+      <a href="/">Home</a>
+      <a href="/otacon/">Otacon</a>
+      <a href="/expansion/">Expansion</a>
+      <a href="/ai9/">AI9</a>
+      <a href="/faq/" aria-current="page">FAQ</a>
+      <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">GitHub</a>
+      <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <section class="hero flush">
+    <p class="eyebrow">Support</p>
+    <h1 class="display" style="font-size: clamp(2.4rem, 6vw, 4rem);">FAQ</h1>
+    <p class="lede">General questions and install troubleshooting for Otaconskeep Lite, AI9, and Otacon Expansion. If your question isn't here, ask in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a> &mdash; that's the fastest path to Antonio directly.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="general">
+    <p class="tag">General</p>
+    <h2>What is Otaconskeep, actually?</h2>
+
+    <details class="install-toggle" open>
+      <summary>What's the difference between Lite, Expansion, and "the Keep"?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;"><strong>Otaconskeep Lite</strong> (built on Otacon Core) is the free, open-source, self-hosted foundation &mdash; persistent agents, memory, voice, one command to install. <strong>Otacon Expansion</strong> is the premium layer on top: a five-agent roster with real hierarchy, a live mood/relationship engine, and command-center surfaces (Dashboard, Codec, War Room, Video Studio, and more). <strong>The Keep</strong> is Antonio's own private reference environment &mdash; the full thing, running on his own hardware, with capabilities (media automation, smart-home integration, multi-node GPU orchestration) that go beyond what's shipped publicly. Lite installs the foundation. Expansion is the specified, concrete product built from what the Keep demonstrates.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>Is any of this actually free, or is Lite a trial?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Otaconskeep Lite has no license key, no time limit, and no artificial feature gate, today or ever. It's the real, complete public platform. Expansion is the one paid layer in this entire system &mdash; and even inside Expansion, every model and integration runs locally and free; the license itself is the only thing that costs money.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>Does anything here call home, or send my data anywhere?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">No. Lite, AI9, and Expansion's foundation layer all run entirely on your own hardware with local models. Nothing authenticates against Antonio's own accounts or infrastructure. Optional integrations (Discord, Home Assistant) use credentials you generate yourself and store on your own machine.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>What hardware do I need?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Lite runs on CPU alone (a smaller model is picked automatically under 6GB VRAM) up through a 16GB+ GPU for the larger default model. AI9 and Expansion's future Video Studio need an NVIDIA GPU &mdash; AI9 supports RTX 30/40/50-series today. There's no minimum GPU for Lite or for today's Expansion foundation install.</p>
+      </div>
+    </details>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="lite-troubleshooting">
+    <p class="tag">Troubleshooting</p>
+    <h2>Otaconskeep Lite install</h2>
+
+    <details class="install-toggle" open>
+      <summary>Windows SmartScreen says it protected my PC</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Normal, not a failure. Click <strong>More info</strong>, then <strong>Run anyway</strong>. This happens because the installer is a new/uncommon file to Windows, not because anything is wrong with it.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>I got an Administrator / "Yes" popup, or a second window opened</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Expected. Click <strong>Yes</strong>. A new Setup window opening is normal &mdash; the old window can stay open, or it'll say setup continues in the new one.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>The window has been black with progress text for minutes</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Normal while Windows enables Linux (WSL2) and Otacon installs. Don't close the window. This is genuinely the longest step.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>It asked me to restart &mdash; did it fail?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">No. Save your work, restart, and Setup should show <strong>WELCOME BACK</strong> and continue on its own. If it doesn't relaunch automatically, double-click the same <span class="mono">OtaconsKeep-Setup.bat</span> again &mdash; it resumes, it doesn't start over.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>It says "Updates are underway, please keep your computer on" with a spinner</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">That's Windows itself, not Otacon &mdash; it's finishing the Linux/WSL feature install it just enabled, using the same screen it uses for regular OS updates. This can take 15&ndash;45+ minutes, longer on a hard drive than an SSD. If a drive activity light is flickering, it's working. Only treat it as stuck after several hours with zero drive activity: hard power off, reboot, run <span class="mono">sfc /scannow</span> then <span class="mono">DISM /Online /Cleanup-Image /RestoreHealth</span> as admin, confirm a few GB of free disk space, then re-run <span class="mono">OtaconsKeep-Setup.bat</span> &mdash; it resumes rather than starting over.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>It's asking me for an Ubuntu username and password</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">That's Windows setting up WSL (Linux on Windows), not a crash and not related to Proxmox. Pick any username/password you'll remember &mdash; it's local to your machine only.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>I opened localhost:5757 and it looks broken</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Don't open it until the setup window says <strong>OTACON IS READY</strong>. Opening early looks broken even when the install is completely fine &mdash; it's just not finished starting yet.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>It says "SETUP NEEDS HELP"</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">That's a recovery screen, not a crash. Press <strong>R</strong> to retry, <strong>O</strong> to view logs, or <strong>X</strong> to exit. The window stays open either way.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>Something still seems stuck or broken after a restart</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Re-run <span class="mono">OtaconsKeep-Setup.bat</span> (or <span class="mono">install_otacon.sh</span> on Linux) &mdash; it re-checks everything and continues from where you left off without wiping data. Windows status check: <span class="mono">OtaconsKeep-Setup.bat --status</span>. Linux health check: <span class="mono">otacon doctor</span>.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>The download looked corrupted / the .bat wouldn't run</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Use the download button on the <a href="/otacon/#install">install page</a> only &mdash; don't open the raw file on GitHub and "Save As," which can corrupt the installer's encoding. If the button itself won't download, use the <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem/archive/refs/heads/main.zip">GitHub ZIP</a> instead and run the .bat from the extracted folder.</p>
+      </div>
+    </details>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="expansion-troubleshooting">
+    <p class="tag premium">Troubleshooting</p>
+    <h2>Otacon Expansion foundation installer</h2>
+
+    <details class="install-toggle" open>
+      <summary>It says Otacon Core is not installed, but I already installed Lite</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">The Expansion installer looks for Core at <span class="mono">~/otacon-ai-ecosystem</span> by default. If you installed Lite somewhere else, set <span class="mono">OTACON_INSTALL_DIR</span> to that path before running the Expansion installer, e.g.: <span class="mono">OTACON_INSTALL_DIR=/your/path bash install_otacon_expansion.sh</span>.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>What does FOUNDATION READY / DEGRADED / FAILED mean?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;"><strong>READY</strong> (exit 0): the test suite passed and the five-agent roster was generated and validated. <strong>DEGRADED</strong> (exit 2): the roster was still written, but the test suite didn't fully pass &mdash; check the install log. <strong>FAILED</strong> (exit 1): usually Core wasn't found, or the roster failed schema/hierarchy validation. The script always tells you exactly which stage failed and where the log is.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>I ran it and got FOUNDATION READY &mdash; where's the Dashboard?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">There isn't one yet, on purpose &mdash; this installer only builds the foundation layer (schema, formulas, a validated roster written to <span class="mono">~/.config/otacon/expansion/agents/</span>). Dashboard, Codec, War Room, and Video Studio are specified in <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem/blob/main/docs/EXPANSION.md" target="_blank" rel="noopener">docs/EXPANSION.md</a> but not yet built. The installer's own final summary says this explicitly.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>Is it safe to rerun?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Yes. It re-syncs the repo, re-runs the test suite, and regenerates the roster &mdash; each agent's original creation timestamp is preserved across reruns, nothing is duplicated.</p>
+      </div>
+    </details>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="premium">
+    <p class="tag premium">Premium Access</p>
+    <h2>Early access &amp; access codes</h2>
+
+    <details class="install-toggle" open>
+      <summary>How do I get a Premium access code?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">It's invite-only for now &mdash; ask Antonio directly, or in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>I have a name and code but the gate won't accept it</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">On <a href="/premium/">/premium/</a>, type the access <strong>name exactly as issued</strong> (case does not matter). Enter <strong>either</strong> the full password <strong>or</strong> the short PIN &mdash; you do not need both. If the name is not yet registered on the gate, unlock will fail until Antonio adds it. If it still fails, ask in Discord; codes are occasionally rotated.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>Can I buy Premium outright instead of waiting for an invite?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Not yet &mdash; there's no product to sell until the Dashboard/Codec/War Room surfaces are actually built. Early access is invite-only in the meantime. If you'd like to support development before then, there's an optional <a href="/premium/">donation link</a> once you're in.</p>
+      </div>
+    </details>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <p class="tag">Still stuck?</p>
+    <h2>Ask a real person</h2>
+    <p class="intro">Discord is the fastest way to reach Antonio directly &mdash; screenshots and log files help.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Ask in Discord &rarr;</a>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Otaconskeep FAQ &middot; Designed &amp; Engineered by Antonio G. Garcia.</span>
+    <span><a href="/">otaconskeep-site</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>
