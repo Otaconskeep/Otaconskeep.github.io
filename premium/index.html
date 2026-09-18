@@ -120,7 +120,7 @@
       <p class="tag premium">Appreciation</p>
       <div class="member-panel appreciate">
         <h2>You bought time.</h2>
-        <p id="appreciate-body">Premium is not a download dump. It is a licensed seat on a product still being built in public, by one person. Your support pays for the hours that turn the Expansion spec into something you can run. Thank you for being early when the honest answer is still “foundation now, surfaces next.”</p>
+        <p id="appreciate-body">Premium is a licensed seat — not a second download tree. Lite and Expansion share one UI; your support funds deeper Expansion rooms and sidecars while Core stays free. Thank you for being early.</p>
       </div>
     </section>
 
@@ -133,10 +133,10 @@
       <p class="tag premium">Early access write-up</p>
       <article class="member-panel writeup">
         <h2>What you hold today</h2>
-        <p><strong>Otaconskeep Lite</strong> is the free, complete public foundation — agents, memory, voice, one-click Windows Setup / Linux curl.</p>
-        <p><strong>Otacon Expansion</strong> is the licensed layer: five-agent roster (Aria / Vector / Ledger / Muse / Sentry), relationship and mood engine, motion manifests, and the command-center surfaces (Dashboard, Codec, War Room, Video Studio, Page Builder) as they ship.</p>
-        <p><strong>Right now the installable piece is the foundation layer</strong> — schema, formulas, validated roster on disk, real test gate. The full UI surfaces are specification-complete and in active build; they are not a separate polished installer yet. Early access means priority Discord, first look as surfaces land, and a license seat that stays yours unless revoked for sharing or abuse.</p>
-        <p>When the one-click Expansion installer is ready, it appears in the Install panel below. Until then, the foundation command and the placeholder Setup BAT are the honest path.</p>
+        <p><strong>Otaconskeep Lite</strong> is the free public foundation — agents, memory, voice, and the same Command Deck / Codec UI chrome Expansion uses (premium rails locked).</p>
+        <p><strong>Otacon Expansion</strong> is the licensed layer: five-agent roster (Aria / Vector / Ledger / Muse / Sentry), relationship and mood engine, motion manifests, guided Genome + Video Studio, and more rooms (War, Command, Intel, REX, dossiers) as they deepen.</p>
+        <p><strong>Installable today:</strong> download <a href="/downloads/OtaconExpansion-Setup.bat">OtaconExpansion-Setup.bat</a> (Lite must already work). Soft-update with <span class="mono">OtaconsKeep-Setup.bat</span> keeps both Lite and Expansion on the same <span class="mono">release.json</span> pin — one UI tree, entitlement-gated premium surfaces.</p>
+        <p>Member HQ is for licenses, news, and support — not a second product UI.</p>
       </article>
     </section>
 
@@ -147,15 +147,15 @@
           <h3 class="install-panel-title" style="color: var(--premium-bright);">Otacon Expansion Setup</h3>
           <span class="one-click-badge" style="color: var(--premium-bright); border-color: var(--premium-dim);">Live · one-click</span>
         </div>
-        <p class="install-panel-lead">One-click Windows Expansion installer: detects your Keep, installs the five-agent Lite foundation (Aria / Vector / Ledger / Muse / Sentry), and verifies Expansion health. This is not the private Keep’s 16+ agent roster — rooms/HA/Discord/Video Studio ship as foundation shells until Keep surface packs are wired.</p>
+        <p class="install-panel-lead">One-click Windows Expansion installer: detects Lite/Core, installs the five-agent roster (Aria / Vector / Ledger / Muse / Sentry), and opens the same Deck/Codec UI with Expansion rails unlocked. Not the private Keep’s 16+ agent roster. Genome / Video Studio need GPU / Docker (or portable Comfy) — guided Setup is in the product UI.</p>
         <div class="os-card" style="margin-top:14px;">
           <h4>Windows</h4>
           <a class="download-btn" href="/downloads/OtaconExpansion-Setup.bat" style="background: var(--premium); color: #150f24;" download>Download Expansion Setup</a>
-          <p class="intro" style="margin-top:10px;font-size:0.88rem;">Saves as <code>OtaconExpansion-Setup.bat</code> (~7&nbsp;KB). Delete any older placeholder in Downloads first, then double-click. Requires Lite already working.</p>
+          <p class="intro" style="margin-top:10px;font-size:0.88rem;">Saves as <code>OtaconExpansion-Setup.bat</code>. Delete any older placeholder in Downloads first, then double-click. Requires Lite already working.</p>
         </div>
         <div class="os-card" style="margin-top:14px;">
-          <h4>Linux / macOS / WSL — foundation layer (real today)</h4>
-          <p class="intro" style="font-size:0.88rem;">Requires Otaconskeep Lite already installed. Installs and verifies schema/formula/roster only — not Dashboard/Codec yet.</p>
+          <h4>Linux / macOS / WSL</h4>
+          <p class="intro" style="font-size:0.88rem;">Requires Otaconskeep Lite already installed. Installs roster + Expansion surfaces; open <span class="mono">http://127.0.0.1:5757/</span> for Deck / Codec (same UI as Lite, Expansion unlocked).</p>
           <div class="codebox">
             <code id="premium-expansion-cmd">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon_expansion.sh | bash</code>
             <button class="copy-btn" data-copy-target="premium-expansion-cmd">Copy</button>

@@ -61,14 +61,13 @@
       <ul class="today-list">
         <li><span class="ok">✓</span> Install Otacon locally on your own machine, one command, and it starts itself from then on</li>
         <li><span class="ok">✓</span> Default Model included: Ollama + a chat model sized to your GPU VRAM</li>
-        <li><span class="ok">✓</span> Genome Voice Trainer included for custom Piper agent voices</li>
-        <li><span class="ok">✓</span> Opens a local Command Center (Homelab-style deck) with Codec chat for Aria</li>
+        <li><span class="ok">✓</span> Same Command Deck + Codec UI as Expansion (Lite brand; premium rails locked)</li>
         <li><span class="ok">✓</span> Create and manage persistent agents</li>
         <li><span class="ok">✓</span> Maintain separate conversation history and long-term memory per agent</li>
-        <li><span class="ok">✓</span> Configure agent identities and voice profiles</li>
+        <li><span class="ok">✓</span> Configure agent identities and voice profiles (Piper TTS)</li>
         <li><span class="ok">✓</span> Provider-neutral capability routing: swap LLM/TTS/STT backends without touching agent identity</li>
       </ul>
-      <div class="info-note" style="margin-top: 22px;">Normal Otacon install = Core + Default Model + Voice Trainer. Speech-to-text and image/video still need their own providers when you want those (see <a href="#status">status</a>).</div>
+      <div class="info-note" style="margin-top: 22px;">Lite = Core foundation with the same Deck/Codec design Expansion uses. Guided Genome Voice Trainer and Video Studio are <strong>Expansion premium</strong> surfaces (GPU / Docker). Soft-update with Setup keeps Lite on the same release pin as Expansion.</div>
     </div>
   </section>
 </div>
@@ -91,7 +90,7 @@
   <section id="install">
     <p class="tag">Install // One Click</p>
     <h2>Install Otacon</h2>
-    <p class="intro">One command. Includes Default Model (Ollama chat) and Genome Voice Trainer. Pick Windows or Linux.</p>
+    <p class="intro">One command. Includes Default Model (Ollama chat). Pick Windows or Linux. Soft-update later re-runs Setup and lands on the <span class="mono">release.json</span> pin (same UI tree Expansion uses).</p>
 
     <div class="install-panel" style="margin-bottom: 28px;">
       <div class="install-panel-head">
@@ -196,8 +195,8 @@
 <div class="wrap">
   <section id="voice-trainer">
     <p class="tag">Voice Training</p>
-    <h2>Genome Voice Trainer — included with Otacon</h2>
-    <p class="intro">Custom Piper voices for your agents. The normal Otacon install runs this for you. Standalone only if you skipped it or need to repair.</p>
+    <h2>Genome Voice Trainer — Expansion premium (GPU)</h2>
+    <p class="intro">Custom Piper voices for agents. Guided Genome UI and Setup live in <a href="/expansion/">Otacon Expansion</a>. Core may still stage the trainer folder on GPU hosts during install; open Expansion (or Start Genome from the Deck after Expansion) for the :8765 trainer. Standalone installer below is for repair only.</p>
 
     <details class="install-toggle">
       <summary>Standalone Voice Trainer (advanced)</summary>
@@ -240,13 +239,15 @@
       <div class="item"><h4>Agent identity &amp; voice profile config</h4><span class="badge validated">Available now</span></div>
       <div class="item"><h4>Native installer &amp; hardware planning</h4><span class="badge validated">Available now</span></div>
       <div class="item"><h4>Backup / restore / safe uninstall</h4><span class="badge validated">Available now</span></div>
+      <div class="item"><h4>Command Deck + Codec (same UI as Expansion)</h4><span class="badge validated">Available now</span></div>
       <div class="item"><h4>Agent chat (Default Model / Ollama)</h4><span class="badge validated">Included with Otacon</span></div>
-      <div class="item"><h4>Voice synthesis (Piper)</h4><span class="badge pending">Requires provider</span></div>
-      <div class="item"><h4>Genome Voice Trainer (GPU Piper)</h4><span class="badge validated">Included with Otacon</span></div>
+      <div class="item"><h4>Voice synthesis (Piper)</h4><span class="badge validated">Included with Otacon</span></div>
+      <div class="item"><h4>Genome Voice Trainer (guided UI)</h4><span class="badge premium">Expansion premium</span></div>
+      <div class="item"><h4>Video Studio / Comfy</h4><span class="badge premium">Expansion premium</span></div>
       <div class="item"><h4>Speech-to-text</h4><span class="badge pending">Requires provider</span></div>
       <div class="item"><h4>Image / video generation</h4><span class="badge pending">Requires provider</span></div>
       <div class="item"><h4>Single remote compute node</h4><span class="badge pending">Requires provider</span></div>
-      <div class="item"><h4>Agent rooms</h4><span class="badge keep-ref">Keep reference</span></div>
+      <div class="item"><h4>Five-agent roster + rooms</h4><span class="badge premium">Expansion</span></div>
       <div class="item"><h4>Media automation, Home Assistant, search</h4><span class="badge keep-ref">Keep reference</span></div>
       <div class="item"><h4>Multi-node GPU orchestration</h4><span class="badge keep-ref">Keep reference</span></div>
       <div class="item"><h4>Discord / messaging integrations</h4><span class="badge planned">Planned</span></div>
@@ -262,8 +263,8 @@
       <table>
         <thead><tr><th>Tier</th><th>What it is</th><th>Status</th><th>Price</th></tr></thead>
         <tbody>
-          <tr><td><strong>Otacon Core</strong></td><td>Free · open source · self-hosted</td><td>Install today</td><td>Free</td></tr>
-          <tr><td><strong>Otacon Expansion</strong></td><td>Five-agent roster, emotional/relationship engine, command-center surfaces, free local Video Studio</td><td>Specification complete — <a href="/expansion/">see the spec</a></td><td>Not yet available (licensed, priced later)</td></tr>
+          <tr><td><strong>Otacon Core / Lite</strong></td><td>Free · open source · self-hosted · same Deck/Codec UI as Expansion</td><td>Install today</td><td>Free</td></tr>
+          <tr><td><strong>Otacon Expansion</strong></td><td>Five-agent roster, mood engine, Genome + Video Studio setup, more rooms</td><td>Install today — <a href="/expansion/">Expansion page</a></td><td>Licensed (Member HQ)</td></tr>
           <tr><td><strong>Keep Blueprint</strong></td><td>The broader ecosystem architecture demonstrated by the real Keep</td><td>Reference only</td><td>Not offered publicly</td></tr>
           <tr><td><strong>Otaconskeep Services</strong></td><td>Architecture · deployment · support</td><td>Available now</td><td>Contact for scope/pricing</td></tr>
         </tbody>
