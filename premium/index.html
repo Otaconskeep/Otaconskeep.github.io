@@ -412,7 +412,7 @@
     var username = cleanName(nameInput.value);
     var pw = cleanSecret(pwInput.value);
     var pin = cleanSecret(pinInput.value);
-    if (!username) { errorEl.textContent = 'Enter your access name (issued code, e.g. BLOCK).'; return; }
+    if (!username) { errorEl.textContent = 'Enter your access name (issued code, e.g. JOSHBLOCK).'; return; }
     if (!pw && !pin) { errorEl.textContent = 'Enter your password or PIN (either one works).'; return; }
     var user = USERS[username];
     try {
