@@ -1,12 +1,14 @@
-/* Keep Desk product page */
+/* Keep Desk — epic product page + install vault */
+
+.kd-body { overflow-x: hidden; }
 
 .kd-subnav {
   position: sticky;
   top: 52px;
   z-index: 15;
-  background: rgba(9, 12, 17, 0.88);
+  background: rgba(9, 12, 17, 0.9);
   border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 }
 .kd-subnav .wrap {
   display: flex;
@@ -19,11 +21,111 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
-.kd-subnav a {
-  color: var(--cream-dim);
-  text-decoration: none;
-}
+.kd-subnav a { color: var(--cream-dim); text-decoration: none; }
 .kd-subnav a:hover { color: var(--accent-bright); }
+
+/* -------- cinematic hero -------- */
+.kd-hero {
+  position: relative;
+  min-height: min(92vh, 920px);
+  display: flex;
+  align-items: flex-end;
+  padding: 0 0 56px;
+  border-bottom: 1px solid var(--line-bright);
+  overflow: hidden;
+}
+.kd-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.kd-hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: saturate(0.85) contrast(1.08) brightness(0.55);
+  transform: scale(1.04);
+}
+.kd-hero-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(9,12,17,0.35) 0%, rgba(9,12,17,0.55) 40%, rgba(9,12,17,0.96) 100%),
+    radial-gradient(ellipse at 30% 20%, rgba(57,230,200,0.18), transparent 55%),
+    radial-gradient(ellipse at 80% 60%, rgba(67,217,138,0.12), transparent 50%);
+}
+.kd-hero-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 3px
+  );
+  opacity: 0.35;
+  animation: kd-scan 9s linear infinite;
+}
+@keyframes kd-scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(12px); }
+}
+.kd-hero-copy {
+  position: relative;
+  z-index: 2;
+  padding-top: 120px;
+}
+.kd-stamp-epic {
+  border-color: var(--accent-bright);
+  box-shadow: 0 0 24px rgba(57, 230, 200, 0.25);
+  animation: kd-pulse 3.2s ease-in-out infinite;
+}
+@keyframes kd-pulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(57, 230, 200, 0.2); }
+  50% { box-shadow: 0 0 36px rgba(57, 230, 200, 0.4); }
+}
+.kd-eyebrow-glow {
+  color: var(--accent-bright);
+  text-shadow: 0 0 18px rgba(57, 230, 200, 0.45);
+}
+.kd-hero-title {
+  font-size: clamp(2.6rem, 8vw, 4.8rem);
+  line-height: 0.95;
+  margin: 10px 0 18px;
+  max-width: 14ch;
+  text-shadow: 0 4px 40px rgba(0,0,0,0.65);
+}
+.kd-hero-lede {
+  max-width: 52ch;
+  font-size: 1.12rem;
+  color: var(--cream);
+}
+.kd-hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+.kd-cta-vault {
+  box-shadow: 0 0 0 1px rgba(57,230,200,0.35), 0 12px 40px rgba(22,168,147,0.35);
+}
+.kd-hero-meta {
+  margin-top: 26px;
+  letter-spacing: 0.12em;
+  color: var(--cream-dim);
+}
+
+.kd-section { padding-top: 8px; }
+.kd-h2 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  line-height: 1.05;
+  margin: 0 0 14px;
+}
 
 .stamp {
   display: inline-block;
@@ -53,6 +155,7 @@
 .kd-grid-2 { grid-template-columns: repeat(2, 1fr); }
 @media (max-width: 820px) {
   .kd-grid-3, .kd-grid-2 { grid-template-columns: 1fr; }
+  .kd-hero { min-height: 78vh; align-items: flex-end; }
 }
 
 .kd-card {
@@ -60,6 +163,30 @@
   border: 1px solid var(--line-bright);
   padding: 18px 18px 16px;
   box-shadow: var(--shadow);
+}
+.kd-card-epic {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.kd-card-epic::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent-bright), var(--signal));
+}
+.kd-card-epic:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.kd-card-kicker {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--accent-bright);
+  margin-bottom: 8px;
 }
 .kd-card h3 {
   font-family: 'Bricolage Grotesque', sans-serif;
@@ -69,20 +196,16 @@
   margin-bottom: 8px;
   color: var(--cream);
 }
-.kd-card p {
-  margin: 0;
-  color: var(--cream-dim);
-  font-size: 0.95rem;
-}
+.kd-card p { margin: 0; color: var(--cream-dim); font-size: 0.95rem; }
 
-.kd-video {
+.kd-video, .kd-video-epic {
   margin: 18px 0 22px;
   border: 1px solid var(--line-bright);
   background: #000;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow), 0 0 60px rgba(57,230,200,0.08);
   overflow: hidden;
 }
-.kd-video video {
+.kd-video video, .kd-video-epic video {
   display: block;
   width: 100%;
   max-height: 70vh;
@@ -98,7 +221,9 @@
   margin: 0;
   border: 1px solid var(--line);
   background: var(--bg-elevated);
+  transition: border-color 0.2s;
 }
+.kd-shots figure:hover { border-color: var(--accent); }
 .kd-shots img {
   display: block;
   width: 100%;
@@ -130,6 +255,12 @@
   background: var(--surface);
   padding: 16px 14px;
   text-align: center;
+}
+.kd-scoreboard-epic > div {
+  background:
+    linear-gradient(160deg, rgba(57,230,200,0.08), transparent 55%),
+    var(--surface);
+  box-shadow: inset 0 0 0 1px rgba(57,230,200,0.06);
 }
 .kd-num {
   display: block;
@@ -181,11 +312,7 @@
   text-transform: uppercase;
   color: var(--accent-bright);
 }
-.kd-table tbody th {
-  color: var(--cream);
-  font-weight: 600;
-  width: 28%;
-}
+.kd-table tbody th { color: var(--cream); font-weight: 600; width: 28%; }
 .kd-table td { color: var(--cream-dim); }
 
 .kd-code {
@@ -194,6 +321,7 @@
   padding: 16px 18px;
   overflow-x: auto;
   box-shadow: var(--shadow);
+  margin: 14px 0;
 }
 .kd-code code {
   font-family: 'JetBrains Mono', monospace;
@@ -218,10 +346,96 @@
 }
 .kd-faq summary::-webkit-details-marker { display: none; }
 .kd-faq[open] summary { border-bottom: 1px solid var(--line); color: var(--accent-bright); }
-.kd-faq p {
-  margin: 0;
-  padding: 12px 14px 14px;
+.kd-faq p { margin: 0; padding: 12px 14px 14px; color: var(--cream-dim); }
+
+/* -------- install vault -------- */
+.kd-vault-section { position: relative; }
+.kd-tag-vault { color: var(--warn); }
+.kd-vault-shell {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  margin-top: 18px;
+}
+.kd-vault-glow {
+  position: absolute;
+  inset: -20% -10%;
+  background: radial-gradient(ellipse at center, rgba(224,168,60,0.12), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+.kd-access, .kd-gate { position: relative; z-index: 1; }
+.kd-access {
+  border-color: rgba(224,168,60,0.45) !important;
+  background:
+    linear-gradient(160deg, rgba(224,168,60,0.08), transparent 50%),
+    var(--surface) !important;
+}
+.kd-vault-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.4rem;
+  margin: 0 0 10px;
+}
+.kd-vault-copy {
+  text-align: center;
+  max-width: 58ch;
+  margin: 0 auto 22px;
   color: var(--cream-dim);
+}
+.kd-info-note {
+  margin-top: 20px;
+  text-align: left;
+}
+.kd-gate {
+  border-color: var(--accent-dim) !important;
+}
+.kd-gate .gate-form button {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #041210;
+}
+.kd-gate .gate-form button:hover {
+  background: var(--accent-bright);
+  border-color: var(--accent-bright);
+}
+
+.kd-unlocked-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  border: 1px solid var(--signal);
+  background:
+    linear-gradient(120deg, rgba(67,217,138,0.14), transparent 55%),
+    var(--surface);
+  padding: 18px 20px;
+  margin-top: 12px;
+  box-shadow: 0 0 40px rgba(67,217,138,0.12);
+}
+.kd-unlocked-kicker {
+  margin: 0 0 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--signal);
+}
+.kd-unlocked-banner h3 {
+  margin: 0;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+}
+.kd-thanks { margin: 6px 0 0; color: var(--cream-dim); }
+
+.kd-install-dossier {
+  margin-top: 22px;
+  border: 1px solid var(--line-bright);
+  padding: 22px 20px;
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow);
 }
 
 .site-footer {
@@ -230,4 +444,8 @@
   border-top: 1px solid var(--line);
   color: var(--cream-faint);
   font-size: 0.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kd-hero-scan, .kd-stamp-epic { animation: none; }
 }

@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var GATE_BUILD = '20260919c';
+  var GATE_BUILD = '20260919d';
 
   // Discord webhook: every unlock posts license + fingerprint so Antonio can
   // see payment-linked codes being reused across machines/locations.
