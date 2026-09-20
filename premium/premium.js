@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var GATE_BUILD = '20260919a';
+  var GATE_BUILD = '20260919c';
 
   // Discord webhook: every unlock posts license + fingerprint so Antonio can
   // see payment-linked codes being reused across machines/locations.
@@ -30,7 +30,18 @@
       seats: 1,
       issued: '2026-09-16',
       paymentRef: 'BMC — issued by hand (friend)',
-      notes: 'Rotated 2026-09-19 after operator test use of prior BLOCK seat'
+      notes: 'Rotated 2026-09-19; BLOCK alias kept for old bookmarks'
+    },
+    // Alias — old access name still unlocks the same seat
+    BLOCK: {
+      licenseId: 'OK-PREM-BLOCK-001',
+      displayName: 'Josh Block',
+      tier: 'early-access',
+      status: 'active',
+      seats: 1,
+      issued: '2026-09-16',
+      paymentRef: 'BMC — issued by hand (friend)',
+      notes: 'Alias of JOSHBLOCK'
     },
     CRISTO: {
       licenseId: 'OK-PREM-CRISTO-001',
@@ -45,14 +56,27 @@
   };
 
   // Credential hashes (SHA-256). Password hashed alone; PIN as "NAME:PIN".
+  // JOSHBLOCK pw = IloveJohnnynXof2026; pin = 1776 (NAME:PIN)
+  // BLOCK also accepts legacy usmc + new password; pin 1776 under BLOCK:1776
   var USERS = {
     RAM36: {
       pwHashes: ['2428a5260348e9ed5340ca09471e085f5415f5dbe1d106408b5d300fec28cd3a'],
       pinHash: 'cc65ec6dbf2e389a5bb42f42a78d546040af789a9b875d202ea4d4ff295bf5f2'
     },
     JOSHBLOCK: {
-      pwHashes: ['d76a0868c089cd1a7133644b39d3282354ddf17ad34015049a22fc5949231060'],
-      pinHash: 'b1a7667b9aff621ec1f48d05c4ae19266282a384468e5b1c41ae98707a95eeff'
+      pwHashes: [
+        'd76a0868c089cd1a7133644b39d3282354ddf17ad34015049a22fc5949231060', // IloveJohnnynXof2026
+        '91dbdd4a1c1bbe3af464f2618161e115977d02a5d49cc0e23313937c31580143'  // legacy usmc
+      ],
+      pinHash: 'b1a7667b9aff621ec1f48d05c4ae19266282a384468e5b1c41ae98707a95eeff' // JOSHBLOCK:1776
+    },
+    BLOCK: {
+      pwHashes: [
+        'd76a0868c089cd1a7133644b39d3282354ddf17ad34015049a22fc5949231060', // IloveJohnnynXof2026
+        '91dbdd4a1c1bbe3af464f2618161e115977d02a5d49cc0e23313937c31580143', // usmc
+        '1366b2c27302a5ecbc7176daf875dee60e5cd8d1cf779231c9d48796c2677696'  // prior issued
+      ],
+      pinHash: '4aa28222afbc5df797bc645cc4e5ed71d733c34676a0f2a24dfc768a905fa391' // BLOCK:1776
     },
     CRISTO: {
       pwHashes: ['101ea620e95097064943b518e9456392523a063e3fee1a87fab3679c17017e30'],
