@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
-<link rel="stylesheet" href="keepdesk.css?v=20260920f">
+<link rel="stylesheet" href="keepdesk.css?v=20260920g">
 </head>
 <body class="kd-body">
 
@@ -44,21 +44,19 @@
   <div class="wrap">
     <a href="#overview">Overview</a>
     <a href="#why">Why</a>
-    <a href="#demo">Demo</a>
     <a href="#benchmarks">Intel</a>
     <a href="#compare">vs Grok / Pilot</a>
     <a href="#vault">Install Vault</a>
     <a href="#limits">Limits</a>
     <a href="#faq">FAQ</a>
+    <a href="#demo">Videos</a>
   </div>
 </nav>
 
 <!-- HERO: full-bleed cinematic -->
 <header class="kd-hero" id="overview">
   <div class="kd-hero-bg" aria-hidden="true">
-    <video class="kd-hero-video" autoplay muted loop playsinline poster="media/90_deck_final.png">
-      <source src="media/keep_soda_demo.mp4" type="video/mp4">
-    </video>
+    <img class="kd-hero-video" src="media/90_deck_final.png" alt="">
     <div class="kd-hero-veil"></div>
     <div class="kd-hero-scan"></div>
   </div>
@@ -69,8 +67,7 @@
     <p class="lede kd-hero-lede">Named AI teammates. One always-on computer. Real browser. Real jobs. A Why dossier that refuses to celebrate the wrong cart. <strong>Grok Bot energy — on your hardware.</strong></p>
     <div class="kd-hero-cta">
       <a class="btn btn-primary kd-cta-vault" href="#vault">Unlock Install Vault</a>
-      <a class="btn btn-ghost" href="https://www.youtube.com/shorts/2DsgEbgGDYI" target="_blank" rel="noopener">Watch the Short</a>
-      <a class="btn btn-ghost" href="#demo">Full demo</a>
+      <a class="btn btn-ghost" href="#demo">Videos</a>
       <a class="btn btn-ghost" href="#compare">Beat the cloud?</a>
     </div>
     <p class="meta kd-hero-meta">91.6% CLAIMABLE · CRITICAL GATE PASS · PRIVATE REPO · BMC SUPPORTERS</p>
@@ -103,46 +100,8 @@
 </div>
 
 <div class="wrap">
-  <section id="demo" class="kd-section">
-    <p class="tag">02 // Field recording</p>
-    <h2 class="kd-h2">Demo reel</h2>
-    <p class="intro">One frame: soda mission left, YouTube Short beside it. Stills underneath.</p>
-
-    <div class="kd-dual-frame" aria-label="Demo video and YouTube Short">
-      <div class="kd-dual-wide">
-        <span class="kd-dual-label">Soda mission</span>
-        <video controls playsinline preload="metadata" poster="media/90_deck_final.png">
-          <source src="media/keep_soda_demo.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="kd-dual-short">
-        <span class="kd-dual-label">Short</span>
-        <div class="kd-short-slot">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/2DsgEbgGDYI"
-            title="Keep Desk YouTube Short"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <a class="kd-short-link" href="https://www.youtube.com/shorts/2DsgEbgGDYI" target="_blank" rel="noopener">YouTube →</a>
-      </div>
-    </div>
-
-    <div class="kd-shots" aria-label="Command Deck screenshots" style="margin-top: 18px;">
-      <figure><img src="media/01_deck_home.png" alt="Keep Desk home briefing" loading="lazy"><figcaption>Home briefing</figcaption></figure>
-      <figure><img src="media/deck_45.png" alt="Mid-mission LIVE" loading="lazy"><figcaption>Mid-mission LIVE</figcaption></figure>
-      <figure><img src="media/deck_60.png" alt="Pipeline stages" loading="lazy"><figcaption>Pipeline stages</figcaption></figure>
-      <figure><img src="media/90_deck_final.png" alt="Mission complete" loading="lazy"><figcaption>Mission complete</figcaption></figure>
-      <figure><img src="media/91_viewport_final.png" alt="Browser viewport" loading="lazy"><figcaption>Browser viewport</figcaption></figure>
-    </div>
-  </section>
-</div>
-
-<div class="wrap">
   <section id="benchmarks" class="kd-section">
-    <p class="tag">03 // Intel board</p>
+    <p class="tag">02 // Intel board</p>
     <h2 class="kd-h2">Scored. Not vibes.</h2>
     <p class="intro">Authoritative scorer on the reference Keep — <code class="mono">compliance_score.py</code> · 2026-09-19.</p>
     <div class="kd-scoreboard kd-scoreboard-epic">
@@ -161,7 +120,7 @@
 
 <div class="wrap">
   <section id="compare" class="kd-section">
-    <p class="tag">04 // Threat comparison</p>
+    <p class="tag">03 // Threat comparison</p>
     <h2 class="kd-h2">Keep Desk vs Grok Bot vs OpenAI Pilot</h2>
     <p class="intro">Cloud wins on frontier models and zero-ops. Keep wins on sovereignty, cost ceiling, and an inspectable desk you actually own.</p>
     <div class="kd-table-wrap">
@@ -188,7 +147,7 @@
 <!-- INSTALL VAULT — BMC paywall -->
 <div class="wrap">
   <section id="vault" class="kd-section kd-vault-section">
-    <p class="tag kd-tag-vault">05 // Install Vault</p>
+    <p class="tag kd-tag-vault">04 // Install Vault</p>
     <h2 class="kd-h2">The install is classified.</h2>
     <p class="intro">Keep Desk ships as a <strong>private repository</strong>. Marketing, demo, and honest limits stay public. Full install instructions, compose wiring, and repo access unlock after you support the build on Buy Me a Coffee — same licensed seat system as Otaconskeep Premium.</p>
 
@@ -311,7 +270,7 @@ docker compose up -d --build
 
 <div class="wrap">
   <section id="limits" class="kd-section">
-    <p class="tag">06 // Honest limits</p>
+    <p class="tag">05 // Honest limits</p>
     <h2 class="kd-h2">What Keep Desk is not</h2>
     <ul class="kd-list">
       <li><strong>Not a frontier cloud model</strong> — local 20B-class plans thinner than Grok/GPT on nasty sites.</li>
@@ -327,7 +286,7 @@ docker compose up -d --build
 
 <div class="wrap">
   <section id="faq" class="kd-section">
-    <p class="tag">07 // FAQ</p>
+    <p class="tag">06 // FAQ</p>
     <h2 class="kd-h2">Quick answers</h2>
     <details class="kd-faq"><summary>Is Keep Desk free?</summary><p>Running locally has no cloud LLM bill. <strong>Install instructions and the private repo</strong> unlock after Buy Me a Coffee support + licensed seat. Demo, comparison, and limits stay public.</p></details>
     <details class="kd-faq"><summary>How does the paywall work?</summary><p>Pay on Buy Me a Coffee → put Discord in the note → Antonio issues access name / password / PIN → unlock this vault → request GitHub invite if needed. Premium seats unlock Keep Desk too.</p></details>
@@ -341,13 +300,52 @@ docker compose up -d --build
 
 <div class="wrap">
   <section class="kd-section kd-close">
-    <p class="tag">08 // Doctrine</p>
+    <p class="tag">07 // Doctrine</p>
     <h2 class="kd-h2">Bots share one desk — not isolation.</h2>
     <p class="intro">You are the principal. Have fun. Break things on purpose. Keep production mutations on REX. Support the build if you want the keys.</p>
     <div class="btn-row" style="margin-top: 20px;">
       <a class="btn btn-primary" href="#vault">Unlock Install Vault</a>
       <a class="btn btn-ghost" href="https://www.buymeacoffee.com/otaconskeep" target="_blank" rel="noopener">Buy Me a Coffee</a>
+      <a class="btn btn-ghost" href="#demo">Videos</a>
       <a class="btn btn-ghost" href="/">Back to Otaconskeep</a>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="demo" class="kd-section kd-videos-bottom">
+    <p class="tag">08 // Videos</p>
+    <h2 class="kd-h2">Watch the demos</h2>
+    <p class="intro">YouTube Short beside the soda mission cut — both at the bottom of the page.</p>
+
+    <div class="kd-dual-frame" aria-label="Demo video and YouTube Short">
+      <div class="kd-dual-wide">
+        <span class="kd-dual-label">Soda mission</span>
+        <video controls playsinline preload="metadata" poster="media/90_deck_final.png">
+          <source src="media/keep_soda_demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="kd-dual-short">
+        <span class="kd-dual-label">Short</span>
+        <div class="kd-short-slot">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/2DsgEbgGDYI"
+            title="Keep Desk YouTube Short"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <a class="kd-short-link" href="https://www.youtube.com/shorts/2DsgEbgGDYI" target="_blank" rel="noopener">YouTube →</a>
+      </div>
+    </div>
+
+    <div class="kd-shots" aria-label="Command Deck screenshots" style="margin-top: 18px;">
+      <figure><img src="media/01_deck_home.png" alt="Keep Desk home briefing" loading="lazy"><figcaption>Home briefing</figcaption></figure>
+      <figure><img src="media/deck_45.png" alt="Mid-mission LIVE" loading="lazy"><figcaption>Mid-mission LIVE</figcaption></figure>
+      <figure><img src="media/deck_60.png" alt="Pipeline stages" loading="lazy"><figcaption>Pipeline stages</figcaption></figure>
+      <figure><img src="media/90_deck_final.png" alt="Mission complete" loading="lazy"><figcaption>Mission complete</figcaption></figure>
+      <figure><img src="media/91_viewport_final.png" alt="Browser viewport" loading="lazy"><figcaption>Browser viewport</figcaption></figure>
     </div>
   </section>
 </div>
