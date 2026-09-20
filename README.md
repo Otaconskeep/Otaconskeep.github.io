@@ -1,42 +1,42 @@
 # Otaconskeep
 
+[![Site](https://img.shields.io/badge/Site-otaconskeep.github.io-39e6c8.svg)](https://otaconskeep.github.io/)
+[![GitHub org](https://img.shields.io/badge/GitHub-Otaconskeep-17202f.svg)](https://github.com/Otaconskeep)
+[![Discord](https://img.shields.io/badge/Discord-join-5865F2.svg)](https://discord.gg/cZDeqECzX)
+
 [![Otaconskeep trailer](https://img.youtube.com/vi/vYXsi4ZRStw/maxresdefault.jpg)](https://youtu.be/vYXsi4ZRStw)
 
-**[Watch the trailer on YouTube](https://youtu.be/vYXsi4ZRStw)**
+**Canonical public site: [https://otaconskeep.github.io/](https://otaconskeep.github.io/)**  
+(Cloudflare Workers at `otaconskeep-site.otaconskeep.workers.dev` is a deploy mirror — same tree.)
 
-Public site for the Otaconskeep project: [Otacon AI Ecosystem](https://github.com/Otaconskeep/otacons-ai-ecosystem)
-and [AI9 Manga Colorizer](https://github.com/Otaconskeep/AI9). Designed & Engineered
-by Antonio G. Garcia.
+**[Watch the trailer](https://youtu.be/vYXsi4ZRStw)** · **[Watch the Deck](https://otaconskeep.github.io/keepdesk/#demo)** · **[AI9 video](https://youtu.be/aUiwMACSPBk)**
 
-**[Watch the AI9 video on YouTube](https://youtu.be/aUiwMACSPBk)** (embedded on [`/ai9/`](https://otaconskeep.com/ai9/))
+Public site for Otaconskeep: [Otacon](https://github.com/Otaconskeep/otacons-ai-ecosystem), [KeepRoute](https://github.com/Otaconskeep/KeepRoute), [AI9](https://github.com/Otaconskeep/AI9), Keep Desk, Expansion. Designed & engineered by Antonio G. Garcia.
 
 Plain static HTML/CSS/JS. No build step, no framework, no server-side code.
 
 ```
-index.html          Homepage
-otacon/index.html   Otacon AI Ecosystem detail page
-keeproute/index.html KeepRoute 1.0 (stateful orchestration; powered by OmniRoute)
-ai9/index.html       AI9 Manga Colorizer detail page
-assets/              Shared stylesheet, script, favicon, images
+index.html           Homepage
+otacon/              Otacon Core
+keepdesk/            Keep Desk (Watch the Deck)
+keeproute/           KeepRoute 1.0
+expansion/           Expansion (honest fresh-PC status)
+ai9/                 AI9 Manga Colorizer
+cloud/               Redirect → Keep Desk vs-cloud
+premium/             Member HQ
+assets/              Shared CSS/JS/media
 ```
 
-## Deploy to Cloudflare Pages
+## Canonical URL
 
-1. Cloudflare dashboard → **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**.
-2. Select the `Otaconskeep/otaconskeep-site` repository.
-3. Branch: `main`.
-4. Framework preset: **None**.
-5. Build command: *(leave blank, none needed)*.
-6. Build output directory: `/` (repo root).
-7. Save and deploy.
+Use **https://otaconskeep.github.io/** everywhere (profile blog, READMEs, Discord, SEO).
 
-That's the entire setup: this is a pure static site, so Cloudflare serves the
-files directly with no build step.
+Deploy paths:
+- **GitHub Pages** ← `Otaconskeep/Otaconskeep.github.io` (canonical)
+- **Cloudflare Workers** ← this repo (`otaconskeep-site`) as a mirror
 
 ## Local preview
 
 ```bash
 python -m http.server 8000
 ```
-
-Then open `http://127.0.0.1:8000/`.

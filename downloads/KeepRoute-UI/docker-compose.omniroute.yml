@@ -1,0 +1,21 @@
+# KeepRoute companion — stock OmniRoute data-plane (loopback)
+# Upstream image: diegosouzapw/omniroute
+services:
+  omniroute:
+    image: diegosouzapw/omniroute:latest
+    container_name: omniroute
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:20127:20128"
+    volumes:
+      - omniroute-data:/app/data
+    environment:
+      PORT: "20128"
+      NODE_ENV: production
+      # Set your own password on first boot via OmniRoute UI / env — do not reuse examples from the internet.
+      INITIAL_PASSWORD: ${OMNIROUTE_INITIAL_PASSWORD:-changeme}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  omniroute-data:

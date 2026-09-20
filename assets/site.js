@@ -1,6 +1,21 @@
 (function () {
   'use strict';
 
+  // Canonical public site is GitHub Pages. Workers is a mirror — nudge if someone lands there.
+  try {
+    if (/\.workers\.dev$/i.test(location.hostname)) {
+      var bar = document.createElement('div');
+      bar.setAttribute('role', 'note');
+      bar.style.cssText = 'position:sticky;top:0;z-index:60;background:#0e5f52;color:#e4edf5;font:600 0.85rem/1.4 Figtree,sans-serif;padding:10px 16px;text-align:center;border-bottom:1px solid #39e6c8;';
+      var path = location.pathname + location.search + location.hash;
+      bar.innerHTML = 'Canonical site: <a href="https://otaconskeep.github.io' + path + '" style="color:#fff;text-decoration:underline">otaconskeep.github.io</a> (this Workers URL is a deploy mirror).';
+      document.addEventListener('DOMContentLoaded', function () {
+        document.body.insertBefore(bar, document.body.firstChild);
+      });
+    }
+  } catch (e) {}
+
+
   // Copy-to-clipboard for every [data-copy-target] button.
   function initCopyButtons() {
     var buttons = document.querySelectorAll('[data-copy-target]');

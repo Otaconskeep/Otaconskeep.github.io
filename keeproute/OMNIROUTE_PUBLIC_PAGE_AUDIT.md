@@ -27,7 +27,7 @@ No private evidence trees, mission JSON, or private lab filesystem paths were co
 ## Page URL / path
 
 - Local preview: `http://127.0.0.1:8000/keeproute/` (from repo root via `python -m http.server`)
-- Production (after deploy): `https://otaconskeep.com/keeproute/` (or current Cloudflare Pages domain for this repo)
+- Production: `https://otaconskeep-site.otaconskeep.workers.dev/keeproute/`
 
 Top-level tab label: **KeepRoute**
 

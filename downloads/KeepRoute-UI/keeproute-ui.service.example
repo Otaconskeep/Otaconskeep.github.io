@@ -1,0 +1,19 @@
+[Unit]
+Description=KeepRoute — OtaconsKeep field UI
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=simple
+WorkingDirectory=%h/keeproute/desk
+Environment=OMNIROUTE_HOST=http://127.0.0.1:20128
+Environment=MISSION_CONTROLLER_URL=http://127.0.0.1:20130
+Environment=OMNIROUTE_DESK_PORT=20129
+Environment=OMNIROUTE_DESK_BIND=127.0.0.1
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 %h/keeproute/desk/app.py
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

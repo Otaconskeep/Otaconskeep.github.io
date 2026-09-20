@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KeepRoute — OtaconsKeep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Share+Tech+Mono&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/desk.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23020806' width='64' height='64'/%3E%3Cpath d='M12 48 L32 12 L52 48 Z' fill='none' stroke='%2300ff88' stroke-width='3'/%3E%3Ccircle cx='32' cy='36' r='4' fill='%23ff3344'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <canvas id="rain" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div class="hud">
+    <header class="top">
+      <div class="brand-block">
+        <p class="org">OTACONSKEEP</p>
+        <h1 class="brand">KEEPROUTE</h1>
+        <p class="tag">Type what you want. Auto picks the best helper for the job.</p>
+      </div>
+      <div class="top-actions">
+        <button type="button" class="badge btn-badge" id="howBtn">HOW TO USE</button>
+        <button type="button" class="badge btn-badge" id="providersBtn">ADD PROVIDERS</button>
+        <span class="badge" id="linkBadge">GATEWAY —</span>
+        <span class="badge dim" id="clock">00:00:00Z</span>
+      </div>
+    </header>
+
+    <div class="grid two">
+      <aside class="panel agents">
+        <h2><span class="h-k">01</span> YOUR PROVIDERS</h2>
+        <p class="aside-note tip">
+          <strong>Auto</strong> = OmniRoute chooses the best connected provider for each job.
+          Only providers you have added appear here.
+        </p>
+        <div class="legend">
+          <span><i class="light on"></i> Status = connected</span>
+          <span><i class="light route on"></i> Routed = used for last job</span>
+        </div>
+        <div class="agent-list" id="agentList"></div>
+        <p class="aside-note" id="emptyProviders" hidden>
+          No providers yet. Press <strong>ADD PROVIDERS</strong> to connect one.
+        </p>
+      </aside>
+
+      <section class="panel mission">
+        <div class="mission-head">
+          <h2><span class="h-k">02</span> ASK KEEPROUTE</h2>
+          <div class="mission-meta">
+            <span id="activeName">Auto</span>
+            <span class="sep">/</span>
+            <span id="missionStatus">READY</span>
+          </div>
+        </div>
+
+        <div class="terminal" id="terminal">
+          <div class="term-chrome">
+            <span>ANSWER WINDOW</span>
+            <span id="termAgent">Auto</span>
+          </div>
+          <pre id="termOut" class="term-out"></pre>
+        </div>
+
+        <div class="brief">
+          <label class="brief-label" for="promptInput">Type what you want — plain words are perfect</label>
+          <textarea id="promptInput" rows="3" placeholder="Example: Make a short shopping list for tacos"></textarea>
+          <div class="brief-actions">
+            <button type="button" class="btn ghost" id="abortBtn" disabled>STOP</button>
+            <button type="button" class="btn primary" id="runBtn">
+              <span class="btn-label">GO</span>
+              <span class="btn-spin" hidden></span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="foot">
+      <span>KeepRoute · OtaconsKeep — friendly screen, OmniRoute picks the best provider</span>
+    </footer>
+  </div>
+
+  <!-- How to use -->
+  <div class="modal" id="howModal" hidden>
+    <div class="modal-card wide">
+      <header class="modal-head">
+        <h2 id="howTitle">How to use KeepRoute</h2>
+        <button type="button" class="modal-x" data-close="howModal" aria-label="Close">×</button>
+      </header>
+      <div class="modal-body" id="howBody"></div>
+      <footer class="modal-foot how-foot">
+        <button type="button" class="btn ghost" id="confusedBtn">I DON'T UNDERSTAND</button>
+        <button type="button" class="btn primary" data-close="howModal">I UNDERSTAND</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="modal" id="faqModal" hidden>
+    <div class="modal-card wide">
+      <header class="modal-head">
+        <h2>Questions &amp; easy answers</h2>
+        <button type="button" class="modal-x" data-close="faqModal" aria-label="Close">×</button>
+      </header>
+      <div class="modal-body" id="faqBody"></div>
+      <footer class="modal-foot">
+        <button type="button" class="btn ghost" data-close="faqModal">BACK</button>
+        <button type="button" class="btn primary" id="faqToHow">SHOW STEPS AGAIN</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Providers + Keys -->
+  <div class="modal" id="providersModal" hidden>
+    <div class="modal-card wide">
+      <header class="modal-head">
+        <h2>Add providers</h2>
+        <button type="button" class="modal-x" data-close="providersModal" aria-label="Close">×</button>
+      </header>
+      <p class="modal-intro" id="providersIntro">
+        A <strong>provider</strong> is a helper service (Claude, Codex, Cursor, Grok, Local LLM, …).
+        Connect them in OmniRoute, then KeepRoute can use them. <strong>Auto</strong> will pick the best one for each job.
+        Keys (passwords for services) are saved at the bottom of this same window.
+      </p>
+      <div class="provider-tabs" id="providerTabs"></div>
+      <div class="modal-body" id="providerBody"></div>
+      <div class="keys-block">
+        <h3>Keys (paste once, then Save)</h3>
+        <p class="aside-note">Start with the OmniRoute API key. That is usually enough for Auto.</p>
+        <form id="authForm" class="auth-form"></form>
+        <button type="button" class="btn primary wide" id="saveAuth">SAVE KEYS</button>
+        <p class="auth-msg" id="authMsg" hidden></p>
+      </div>
+      <footer class="modal-foot">
+        <button type="button" class="btn primary" data-close="providersModal">DONE</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="/static/desk.js"></script>
+</body>
+</html>

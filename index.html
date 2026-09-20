@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Otaconskeep: Build Your Own Keep</title>
-<meta name="description" content="Otaconskeep builds local-first AI systems: Otacon, a persistent AI agent ecosystem, and AI9, a GPU-accelerated manga colorizer. Designed and engineered by Antonio G. Garcia.">
+<meta name="description" content="Otaconskeep builds local-first AI systems: Otacon, Keep Desk, KeepRoute, Expansion, and AI9. Designed and engineered by Antonio G. Garcia.">
+<link rel="canonical" href="https://otaconskeep.github.io/">
+<meta name="robots" content="index,follow">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,17 +71,18 @@
       <a class="btn btn-ghost" href="https://youtu.be/aUiwMACSPBk" target="_blank" rel="noopener" style="margin-top: 8px;">Watch AI9 video</a>
     </div>
     <div class="quickpick" style="--qp-accent: var(--premium);">
-      <span class="qp-eyebrow">Premium &middot; Early Access</span>
-      <h3>Otaconskeep Premium</h3>
-      <p>Five-agent roster, relationship engine, command-center surfaces, free local Video Studio. Invite-only while in development.</p>
-      <a class="btn btn-ghost" href="/premium/" style="border-color: var(--premium); color: var(--premium-bright);">Request Access</a>
+      <span class="qp-eyebrow">Premium · Licensed</span>
+      <h3>Otaconskeep Premium / Expansion</h3>
+      <p>Five-agent roster + Deck/Codec on Core. Aria chat installable today; Genome &amp; Video Studio need GPU/Docker and are not automatic on a bare PC.</p>
+      <a class="btn btn-ghost" href="/expansion/" style="border-color: var(--premium); color: var(--premium-bright);">Expansion status</a>
+      <a class="btn btn-ghost" href="/premium/" style="margin-top: 8px; border-color: var(--premium); color: var(--premium-bright);">Member HQ</a>
     </div>
     <div class="quickpick" style="--qp-accent: var(--signal);">
       <span class="qp-eyebrow">Supporter &middot; BMC &middot; 91.6%</span>
       <h3>Keep Desk</h3>
       <p>Named AI teammates on a shared computer you own — Grok Bot genre, local Ollama, Command Deck cinema. Demo public; install vault unlocks via Buy Me a Coffee.</p>
       <a class="btn btn-primary" href="/keepdesk/">Enter Keep Desk</a>
-      <a class="btn btn-ghost" href="https://youtu.be/-LDbRglJxZg" target="_blank" rel="noopener" style="margin-top: 8px;">Watch the demo</a>
+      <a class="btn btn-ghost" href="/keepdesk/#demo" style="margin-top: 8px;">Watch the Deck</a>
       <a class="btn btn-ghost" href="/keepdesk/#vault" style="margin-top: 8px;">Unlock Install Vault</a>
     </div>
     <div class="quickpick" style="--qp-accent: var(--accent-bright);">
@@ -364,7 +367,7 @@
     <p class="progression-caption">Otacon Core installs the foundation. Each additional layer shows how that foundation can grow toward a full Keep.</p>
     <div class="legend" style="justify-content: center; margin-top: 18px; margin-bottom: 0;">
       <span><span class="dot available"></span> Otacon Core, today</span>
-      <span><span class="dot premium"></span> Otacon Expansion, spec complete</span>
+      <span><span class="dot premium"></span> Otacon Expansion, installable (licensed)</span>
       <span><span class="dot keep-ref"></span> Keep Blueprint direction</span>
     </div>
   </section>
@@ -373,9 +376,9 @@
 <div class="wrap">
   <section>
     <p class="tag premium">03b // Otacon Expansion</p>
-    <div class="stamp premium">Otacon Expansion<small>premium &middot; spec complete</small></div>
+    <div class="stamp premium">Otacon Expansion<small>premium · installable</small></div>
     <h2 style="margin-top: 18px;">Five agents. Real hierarchy. A Keep of your own.</h2>
-    <p class="intro">The premium layer that installs on top of Lite: a five-agent roster with genuine room ownership, a live mood and relationship engine, and a free local Video Studio. Specification complete, not yet installable &mdash; <a href="/expansion/">read the full spec</a>.</p>
+    <p class="intro">The licensed layer on top of Otacon Core: five-agent roster, Command Deck / Codec, and guided Genome + Video Studio setup. <strong>Installable today</strong> for chatting with Aria after Core + Expansion Setup. Genome Voice Trainer and Video Studio are <em>optional sidecars</em> — they need GPU / Docker (or portable Comfy) and are <strong>not</strong> READY out of the box on every fresh PC. <a href="/expansion/">Read the honest status &amp; install path</a>.</p>
 
     <div class="agentgrid">
       <div class="agentcard" style="--agent-accent:#43d98a">
@@ -409,8 +412,9 @@
     </div>
 
     <div class="btn-row" style="margin-top: 22px;">
-      <a class="btn btn-ghost" href="/expansion/" style="border-color: var(--premium); color: var(--premium-bright);">Full Expansion spec &rarr;</a>
-      <a class="btn btn-ghost" href="/premium/" style="border-color: var(--premium); color: var(--premium-bright);">Request early access</a>
+      <a class="btn btn-primary" href="/downloads/OtaconExpansion-Setup.bat" download style="background: var(--premium); border-color: var(--premium); color: #150f24;">Download Expansion Setup</a>
+      <a class="btn btn-ghost" href="/expansion/" style="border-color: var(--premium); color: var(--premium-bright);">Expansion status &amp; install &rarr;</a>
+      <a class="btn btn-ghost" href="/premium/" style="border-color: var(--premium); color: var(--premium-bright);">Member HQ / license</a>
     </div>
   </section>
 </div>
@@ -424,7 +428,7 @@
         <thead><tr><th>Tier</th><th>What it is</th><th>Status</th><th>Price</th></tr></thead>
         <tbody>
           <tr><td><strong>Otacon Core</strong></td><td>Free · open source · self-hosted</td><td>Install today</td><td>Free</td></tr>
-          <tr><td><strong>Otacon Expansion</strong></td><td>Five-agent roster, emotional/relationship engine, command-center surfaces, free local Video Studio</td><td>Specification complete — <a href="/expansion/">see the spec</a></td><td>Not yet available (licensed, priced later)</td></tr>
+          <tr><td><strong>Otacon Expansion</strong></td><td>Five-agent roster, Deck/Codec; Genome + Video Studio as optional guided setup</td><td>Install today (Core required) — <a href="/expansion/">honest fresh-PC notes</a></td><td>Licensed (Member HQ)</td></tr>
           <tr><td><strong>Keep Blueprint</strong></td><td>The broader ecosystem architecture demonstrated by the real Keep</td><td>Reference only</td><td>Not offered publicly</td></tr>
           <tr><td><strong>Otaconskeep Services</strong></td><td>Architecture · deployment · support</td><td>Available now</td><td>Contact for scope/pricing</td></tr>
         </tbody>
