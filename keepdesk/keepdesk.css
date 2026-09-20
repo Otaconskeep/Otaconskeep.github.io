@@ -198,7 +198,41 @@
 }
 .kd-card p { margin: 0; color: var(--cream-dim); font-size: 0.95rem; }
 
-.kd-video, .kd-video-epic {
+.kd-short-wrap {
+  margin: 18px 0 8px;
+  max-width: 420px;
+}
+.kd-short-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: 70vh;
+  border: 1px solid var(--line-bright);
+  background: #000;
+  box-shadow: var(--shadow), 0 0 60px rgba(57,230,200,0.1);
+  overflow: hidden;
+}
+.kd-short-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.kd-short-link {
+  margin: 12px 0 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+.kd-h3 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  text-transform: uppercase;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  margin: 0 0 8px;
+  color: var(--cream);
+}
   margin: 18px 0 22px;
   border: 1px solid var(--line-bright);
   background: #000;
