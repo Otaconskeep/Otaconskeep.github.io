@@ -1,5 +1,5 @@
 @echo off
-REM site-publish tip=lite-fetch-retry-fix 2026-09-20
+REM site-publish tip=c89f4fe n8n-selfcheck 2026-09-20
 REM ============================================================
 REM  OtaconsKeep-Setup.bat  (public download name)
 REM  Lone Downloads\ entry - fetches guided installer into
