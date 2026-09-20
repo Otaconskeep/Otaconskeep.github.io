@@ -176,101 +176,35 @@
 }
 .kd-card p { margin: 0; color: var(--cream-dim); font-size: 0.95rem; }
 
-/* One dual media frame: landscape video | short beside it */
-.kd-dual-frame {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(160px, 22%);
-  gap: 0;
+/* Single YouTube demo at bottom */
+.kd-yt-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   margin-top: 18px;
   border: 1px solid var(--line-bright);
-  background: #05070a;
+  background: #000;
   box-shadow: var(--shadow), 0 0 60px rgba(57,230,200,0.08);
   overflow: hidden;
-  align-items: stretch;
 }
-.kd-dual-wide,
-.kd-dual-short {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  background: #000;
-}
-.kd-dual-wide {
-  border-right: 1px solid var(--line-bright);
-}
-.kd-dual-label {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  z-index: 2;
-  padding: 3px 8px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--cream);
-  background: rgba(9, 12, 17, 0.78);
-  border: 1px solid var(--line);
-  pointer-events: none;
-}
-.kd-dual-wide video {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  max-height: 520px;
-  object-fit: cover;
-  background: #000;
-}
-.kd-dual-short {
-  align-items: center;
-  justify-content: center;
-  padding: 28px 10px 12px;
-}
-.kd-short-slot {
-  position: relative;
-  width: 100%;
-  max-width: 200px;
-  aspect-ratio: 9 / 16;
-  max-height: 100%;
-  background: #000;
-  border: 1px solid var(--line);
-  overflow: hidden;
-}
-.kd-short-slot iframe {
+.kd-yt-frame iframe {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
 }
-.kd-dual-short .kd-short-link {
-  display: inline-block;
-  margin-top: 10px;
+.kd-yt-link {
+  margin: 12px 0 0;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.04em;
+}
+.kd-yt-link a {
   color: var(--accent-bright);
   text-decoration: none;
 }
-.kd-dual-short .kd-short-link:hover { text-decoration: underline; }
-
-@media (max-width: 720px) {
-  .kd-dual-frame {
-    grid-template-columns: 1fr;
-  }
-  .kd-dual-wide {
-    border-right: 0;
-    border-bottom: 1px solid var(--line-bright);
-  }
-  .kd-dual-short {
-    padding: 20px 12px;
-  }
-  .kd-short-slot {
-    max-width: 180px;
-  }
-}
+.kd-yt-link a:hover { text-decoration: underline; }
 
 .kd-video, .kd-video-epic {
   margin: 18px 0 22px;
