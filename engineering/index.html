@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OtaconsKeep System Engineering</title>
+<meta name="description" content="OtaconsKeep systems engineering portal: requirements, architecture, SysML views, VCRM, risks, verification evidence, and behavioral models.">
+<link rel="canonical" href="https://otaconskeep.github.io/engineering/">
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/engineering.css">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.mermaid) {
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        securityLevel: 'strict',
+        flowchart: { htmlLabels: false }
+      });
+    }
+  });
+</script>
+</head>
+<body>
+
+<div class="filebar">
+  <div class="wrap">
+    <span>OTACONSKEEP // SYSTEM ENGINEERING</span>
+    <span>EVIDENCE PORTAL<span class="blink"></span></span>
+  </div>
+</div>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="/">Otaconskeep</a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+        <div class="navlinks">
+      <a href="/">Home</a>
+      <a href="/otacon/">Otacon</a>
+      <a href="/keepdesk/">Keep Desk</a>
+      <a href="/keeproute/">KeepRoute</a>
+      <a href="/expansion/">Expansion</a>
+      <a href="/ai9/">AI9</a>
+      <a href="/engineering/" aria-current="page">Engineering</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/about/">About</a>
+      <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+      <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+    </div></div>
+</nav>
+
+<div class="eng-layout">
+  <nav class="eng-sidebar" aria-label="Engineering sections">
+    <a href="#overview">Overview</a>
+    <a href="#requirements">Requirements</a>
+    <a href="#hardware">Hardware</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#models-sysml">System Models</a>
+    <a href="#interfaces">Interfaces</a>
+    <a href="#traceability">Traceability</a>
+    <a href="#vv">V&amp;V</a>
+    <a href="#vcrm">VCRM</a>
+    <a href="#tests">Tests</a>
+    <a href="#risk">Risk</a>
+    <a href="#analysis">Analysis</a>
+    <a href="#benchmarks">Benchmarks</a>
+    <a href="#models">Models &amp; Data</a>
+    <a href="#behavioral">Behavioral Models</a>
+    <a href="#releases">Releases</a>
+    <a href="#issues">Known Issues</a>
+    <a href="#search">Search</a>
+  </nav>
+
+  <main class="eng-main">
+    <header class="eng-hero">
+      <p class="eyebrow">Digital engineering // public evidence system</p>
+      <h1>OtaconsKeep System Engineering</h1>
+      <p class="lede">System Lifecycle, Architecture, Verification &amp; Validation</p>
+      <p id="eng-load-status" class="meta" style="margin:0 0 12px;">Loading engineering data…</p>
+    </header>
+
+    <div class="eng-toolbar" role="search">
+      <label class="visually-hidden" for="eng-search" style="position:absolute;left:-9999px;">Search engineering records</label>
+      <input id="eng-search" type="search" placeholder="Search IDs or text (REQ-, REX, GPU…)" autocomplete="off">
+      <select id="eng-filter-status" aria-label="Filter by status">
+        <option value="">Status: all</option>
+        <option>Draft</option>
+        <option>Design Intent</option>
+        <option>Implemented</option>
+        <option>Verification Pending</option>
+        <option>Verified</option>
+        <option>Blocked</option>
+        <option>Open</option>
+        <option>Mitigating</option>
+        <option>Monitoring</option>
+        <option>Accepted</option>
+        <option>Closed</option>
+      </select>
+      <select id="eng-filter-category" aria-label="Filter by category">
+        <option value="">Category: all</option>
+        <option>Functional</option>
+        <option>Performance</option>
+        <option>Interface</option>
+        <option>Security</option>
+        <option>Availability</option>
+        <option>Hardware</option>
+        <option>Installation</option>
+        <option>Operational</option>
+        <option>AI/Model</option>
+      </select>
+    </div>
+
+    <div id="eng-lifecycle" class="eng-lifecycle" aria-label="Lifecycle stages"></div>
+    <div id="eng-metrics" class="eng-metrics" aria-label="Engineering status metrics"></div>
+
+    <section class="eng-section" id="sec-overview">
+      <h2>System Overview</h2>
+      <div id="panel-overview" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-requirements" hidden>
+      <h2>System Requirements</h2>
+      <p class="intro">Structured requirements register. Statuses distinguish Design Intent, Implemented, and Verified.</p>
+      <div id="panel-requirements" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-hardware" hidden>
+      <h2>Hardware &amp; Capability</h2>
+      <div id="panel-hardware" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-architecture" hidden>
+      <h2>System Architecture</h2>
+      <div id="panel-architecture" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-models-sysml" hidden>
+      <h2>SysML / System Modeling</h2>
+      <div id="panel-models-sysml" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-interfaces" hidden>
+      <h2>Interfaces</h2>
+      <div id="panel-interfaces" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-traceability" hidden>
+      <h2>Requirements Traceability</h2>
+      <div id="panel-traceability" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-vv" hidden>
+      <h2>Verification &amp; Validation</h2>
+      <div id="panel-vv" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-vcrm" hidden>
+      <h2>Verification Cross-Reference Matrix</h2>
+      <div id="panel-vcrm" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-tests" hidden>
+      <h2>System Test Program</h2>
+      <div id="panel-tests" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-risk" hidden>
+      <h2>Risk Management</h2>
+      <div id="panel-risk" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-analysis" hidden>
+      <h2>Correlation / Analysis</h2>
+      <div id="panel-analysis" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-benchmarks" hidden>
+      <h2>Benchmarking</h2>
+      <div id="panel-benchmarks" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-models" hidden>
+      <h2>Model &amp; Data Provenance</h2>
+      <div id="panel-models" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-behavioral" hidden>
+      <h2>Mathematical Behavioral Models</h2>
+      <div id="panel-behavioral" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-releases" hidden>
+      <h2>Configuration &amp; Release Qualification</h2>
+      <div id="panel-releases" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-issues" hidden>
+      <h2>Known Issues / Technical Debt</h2>
+      <div id="panel-issues" class="eng-panel-section"></div>
+    </section>
+
+    <section class="eng-section" id="sec-search" hidden>
+      <h2>Search results</h2>
+      <div id="panel-search" class="eng-panel-section"></div>
+    </section>
+
+    <p class="meta" style="margin-top:32px;">REQUIREMENT → ARCHITECTURE → IMPLEMENTATION → RISK → VERIFICATION → TEST → EVIDENCE → RELEASE</p>
+  </main>
+</div>
+
+<div id="eng-backdrop" class="eng-backdrop"></div>
+<aside id="eng-drawer" class="eng-drawer" aria-label="Engineering record detail"></aside>
+
+<footer class="site-footer" style="border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--cream-faint);font-size:0.85rem;">
+  <div class="wrap">OtaconsKeep Engineering · public evidence package · no fabricated PASS results</div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/engineering.js"></script>
+</body>
+</html>

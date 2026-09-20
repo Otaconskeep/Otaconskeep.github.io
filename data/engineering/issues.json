@@ -1,0 +1,34 @@
+{
+  "issues": [
+    {
+      "id": "ISSUE-001",
+      "description": "Automated Windows nested-virt lab historically prevented full WSL install release-gate confirmation.",
+      "severity": "High",
+      "affected_release": "REL-LITE-PUBLIC",
+      "affected_subsystem": "ARCH-006",
+      "workaround": "Manual verification on real Windows hardware; Setup resume after reboot",
+      "target_resolution": "Corrected nested-virt lab green gate",
+      "status": "Open"
+    },
+    {
+      "id": "ISSUE-002",
+      "description": "Genome Voice Trainer and Video Studio are optional sidecars — not READY on every fresh Expansion PC without GPU/Docker.",
+      "severity": "Medium",
+      "affected_release": "Expansion",
+      "affected_subsystem": "Creative Systems",
+      "workaround": "Use Aria + Deck/Codec; add Docker/Comfy or GPU path when ready",
+      "target_resolution": "Clearer READY criteria (already documented on Expansion page)",
+      "status": "Monitoring"
+    },
+    {
+      "id": "ISSUE-003",
+      "description": "Public Engineering benchmarks and VCRM PASS columns remain largely unpublished.",
+      "severity": "Low",
+      "affected_release": "Engineering portal",
+      "affected_subsystem": "V&V",
+      "workaround": "Show Not yet published / No data",
+      "target_resolution": "Ingest sanitized CI and soak evidence",
+      "status": "Open"
+    }
+  ]
+}

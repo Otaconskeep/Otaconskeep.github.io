@@ -9,14 +9,18 @@
 **Canonical public site: [https://otaconskeep.github.io/](https://otaconskeep.github.io/)**  
 (Cloudflare Workers at `otaconskeep-site.otaconskeep.workers.dev` is a deploy mirror — same tree.)
 
-**[Watch the trailer](https://youtu.be/vYXsi4ZRStw)** · **[Watch the Deck](https://otaconskeep.github.io/keepdesk/#demo)** · **[AI9 video](https://youtu.be/aUiwMACSPBk)**
+**[Watch the trailer](https://youtu.be/vYXsi4ZRStw)** · **[Watch the Deck](https://otaconskeep.github.io/keepdesk/#demo)** · **[AI9 video](https://youtu.be/aUiwMACSPBk)** · **[Engineering](https://otaconskeep.github.io/engineering/)**
 
 Public site for Otaconskeep: [Otacon](https://github.com/Otaconskeep/otacons-ai-ecosystem), [KeepRoute](https://github.com/Otaconskeep/KeepRoute), [AI9](https://github.com/Otaconskeep/AI9), Keep Desk, Expansion. Designed & engineered by Antonio G. Garcia.
 
 Plain static HTML/CSS/JS. No build step, no framework, no server-side code.
 
 ```
-index.html           Homepage
+index.html           Homepage (product cards + What is it? explainers)
+engineering/         System Engineering portal
+about/               About the Creator
+data/products/       Product explainer JSON
+data/engineering/    Engineering evidence JSON
 otacon/              Otacon Core
 keepdesk/            Keep Desk (Watch the Deck)
 keeproute/           KeepRoute 1.0

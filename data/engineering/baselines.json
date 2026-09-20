@@ -1,0 +1,59 @@
+{
+  "baselines": [
+    {
+      "id": "BL-REQ-0001",
+      "type": "BL-REQ",
+      "name": "Initial public requirements baseline",
+      "release": "REL-LITE-PUBLIC",
+      "date": "2026-09-20",
+      "status": "Draft",
+      "artifacts": ["requirements.json"]
+    },
+    {
+      "id": "BL-ARCH-0001",
+      "type": "BL-ARCH",
+      "name": "Initial architecture element baseline",
+      "release": "REL-LITE-PUBLIC",
+      "date": "2026-09-20",
+      "status": "Draft",
+      "artifacts": ["architecture.json", "diagrams.json"]
+    },
+    {
+      "id": "BL-TEST-0001",
+      "type": "BL-TEST",
+      "name": "Initial test register (structural)",
+      "release": "REL-LITE-PUBLIC",
+      "date": "2026-09-20",
+      "status": "Draft",
+      "artifacts": ["tests.json", "evidence.json"]
+    },
+    {
+      "id": "BL-REL-0001",
+      "type": "BL-REL",
+      "name": "Public release register",
+      "release": "REL-LITE-PUBLIC",
+      "date": "2026-09-20",
+      "status": "Draft",
+      "artifacts": ["releases.json"]
+    },
+    {
+      "id": "BL-BEH-0001",
+      "type": "BL-BEH",
+      "name": "Behavioral model baseline BM-EMO-1.0 / BM-REL-1.0",
+      "release": "Expansion / Reference Keep math",
+      "date": "2026-09-20",
+      "status": "Draft",
+      "artifacts": ["behavioral_models.json"]
+    }
+  ],
+  "dependency_versions": {
+    "status": "Not yet published",
+    "note": "Public pin tips appear on downloads page periodically; Engineering does not invent a frozen SBOM here."
+  },
+  "schema_versions": {
+    "engineering_portal": "1.0.0",
+    "behavior_model": "BM-EMO-1.0",
+    "personality_schema": "PS-EMO-1.0",
+    "relationship_model": "RM-F5-1.0 / RM-RB-1.0"
+  }
+}

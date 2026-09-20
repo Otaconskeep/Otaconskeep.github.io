@@ -1,0 +1,72 @@
+{
+  "minimum_requirements": {
+    "cpu": "x86_64 capable of running WSL2/Linux or native Linux",
+    "ram": "Not yet published as a hard minimum; practical headroom recommended for Ollama",
+    "gpu": "Optional for Lite; improves model tier",
+    "vram": "See capability tiers",
+    "storage": "Several GB free for WSL/images/models (exact minimum Not yet published)",
+    "os": ["Windows 10/11", "Ubuntu/Debian Linux", "WSL2"],
+    "docker": "Optional — required for managed Expansion Video Studio sidecar path",
+    "wsl": "Required for Windows Lite path",
+    "network": "Local loopback for Ollama; outbound optional for downloads/providers",
+    "optional_dependencies": ["NVIDIA driver", "Docker Desktop", "ComfyUI", "Home Assistant", "Discord bot token (operator-owned)"]
+  },
+  "capability_tiers": [
+    {
+      "id": "TIER-CORE",
+      "name": "Core / basic",
+      "vram": "No dedicated GPU or <6 GB VRAM",
+      "capability": "Lite operable with smaller Default Model (qwen2.5:1.5b path)",
+      "claim_type": "Published installer behavior",
+      "status": "Design Intent / Implemented path"
+    },
+    {
+      "id": "TIER-BASIC-AI",
+      "name": "Basic local AI",
+      "vram": "6–8 GB VRAM",
+      "capability": "qwen2.5:3b (≥6) toward 7b (≥8)",
+      "claim_type": "Published installer tier table",
+      "status": "Implemented path"
+    },
+    {
+      "id": "TIER-EXPANDED",
+      "name": "Expanded local inference",
+      "vram": "8–12 GB VRAM",
+      "capability": "7b Default Model tier; lighter creative workloads depend on optional sidecars",
+      "claim_type": "Published tier + optional creative",
+      "status": "Implemented path (chat); creative optional"
+    },
+    {
+      "id": "TIER-HEAVY",
+      "name": "Heavier AI / creative",
+      "vram": "16 GB VRAM",
+      "capability": "qwen2.5:14b Default Model tier; heavier creative needs separate GPU pipelines",
+      "claim_type": "Published installer tier",
+      "status": "Implemented path"
+    },
+    {
+      "id": "TIER-ADVANCED",
+      "name": "Advanced local workloads",
+      "vram": "24 GB+ VRAM",
+      "capability": "Larger local workloads and creative pipelines when configured; Reference Keep uses high-VRAM GPUs",
+      "claim_type": "Design intent / reference environment",
+      "status": "Not a Lite guarantee"
+    }
+  ],
+  "tested_hardware": [
+    {
+      "id": "HW-REF-NOTE",
+      "cpu": "Not yet published",
+      "ram": "Not yet published",
+      "gpu": "Reference Keep public screenshots imply NVIDIA GPU usage; specific SKU PASS matrix not published",
+      "vram": "Not yet published",
+      "os": "Not yet published",
+      "tested_release": "Reference Keep (private)",
+      "capabilities_tested": [],
+      "tests_passed": [],
+      "known_limitations": ["Do not list RTX 2060/3090/4090/5070 Ti as verified without public evidence package"],
+      "status": "No engineering record has been published for this category."
+    }
+  ],
+  "ai9_note": "AI9 public docs claim NVIDIA RTX 30/40/50-series support today — product claim, not a per-SKU Engineering PASS matrix in this package."
+}

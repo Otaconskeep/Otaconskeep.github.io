@@ -1,0 +1,80 @@
+{
+  "interfaces": [
+    {
+      "id": "IF-001",
+      "source": "OtaconsKeep Core",
+      "destination": "Ollama",
+      "protocol": "HTTP",
+      "port": "local loopback (operator machine)",
+      "data_format": "JSON (Ollama API)",
+      "authentication": "local process trust; no OtaconsKeep cloud credential",
+      "direction": "bidirectional",
+      "purpose": "Local chat model inference for Default Model path",
+      "failure_behavior": "Chat falls back or reports model unavailable; installer Fix-Otacon-GPU.bat exists for GPU detection issues",
+      "associated_requirements": ["REQ-INT-001", "REQ-HW-001"],
+      "associated_tests": ["IT-002"],
+      "public_safe": true
+    },
+    {
+      "id": "IF-002",
+      "source": "Web UI",
+      "destination": "Core API",
+      "protocol": "HTTP/HTTPS",
+      "port": "operator-configured local service",
+      "data_format": "JSON",
+      "authentication": "local login gate where enabled",
+      "direction": "bidirectional",
+      "purpose": "Operator surfaces to runtime",
+      "failure_behavior": "UI errors; service health endpoints used for diagnosis",
+      "associated_requirements": ["REQ-FUNC-001"],
+      "associated_tests": ["IT-001"],
+      "public_safe": true
+    },
+    {
+      "id": "IF-003",
+      "source": "Installer",
+      "destination": "WSL / OS features",
+      "protocol": "OS feature APIs / shell",
+      "port": "n/a",
+      "data_format": "scripts / feature flags",
+      "authentication": "operator elevation prompts",
+      "direction": "outbound",
+      "purpose": "Enable Linux subsystem and install Core",
+      "failure_behavior": "Reboot request, resume, or documented recovery steps",
+      "associated_requirements": ["REQ-INST-001"],
+      "associated_tests": ["ST-003"],
+      "public_safe": true
+    },
+    {
+      "id": "IF-004",
+      "source": "Agent Runtime",
+      "destination": "Emotional Continuity store",
+      "protocol": "filesystem",
+      "port": "n/a",
+      "data_format": "JSON state file",
+      "authentication": "local filesystem permissions",
+      "direction": "bidirectional",
+      "purpose": "Persist emotional state vector",
+      "failure_behavior": "Defaults applied; debug logged",
+      "associated_requirements": ["REQ-BEH-001"],
+      "associated_tests": ["BVT-001"],
+      "public_safe": true
+    },
+    {
+      "id": "IF-005",
+      "source": "Optional integrations",
+      "destination": "Home Assistant / Discord / ARR",
+      "protocol": "HTTP / Discord API",
+      "port": "operator-configured",
+      "data_format": "JSON",
+      "authentication": "operator-generated tokens stored locally",
+      "direction": "bidirectional",
+      "purpose": "Optional automation and social features",
+      "failure_behavior": "Feature disabled; Core remains usable",
+      "associated_requirements": ["REQ-SEC-001"],
+      "associated_tests": [],
+      "public_safe": true,
+      "notes": "No private hostnames or tokens published in Engineering data."
+    }
+  ]
+}

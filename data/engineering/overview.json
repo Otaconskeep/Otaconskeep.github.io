@@ -1,0 +1,94 @@
+{
+  "mission": "Provide a local-first AI agent platform that runs on hardware the operator controls, with persistent identity, memory, and voice.",
+  "purpose": "OtaconsKeep ships Otacon Core (Lite) as the free foundation; Expansion and Keep Desk / KeepRoute / AI9 are related public products. The private Reference Keep demonstrates deeper media, home, and multi-node capabilities that are not claimed as downloadable clones.",
+  "operational_concept": "Operator installs Core locally (Windows one-click via OtaconsKeep-Setup.bat or Linux/WSL), receives a Command Center with Codec chat, optional Default Model via Ollama sized to VRAM, and Genome Voice Trainer. Agents persist conversation and long-term memory on local storage. Optional integrations (Discord, Home Assistant, ARR/media) use operator-owned credentials.",
+  "system_boundaries": {
+    "in_scope_public": [
+      "Otacon Core / OtaconsKeep Lite",
+      "Default Model (Ollama + VRAM-tier chat)",
+      "Genome Voice Trainer (included path)",
+      "Otacon Expansion (licensed; Aria + Deck/Codec installable today)",
+      "AI9 Manga Colorizer",
+      "Keep Desk (supporter vault)",
+      "KeepRoute 1.0 / OmniRoute orchestration UI"
+    ],
+    "out_of_scope_or_reference_only": [
+      "Private Reference Keep 16+ agent canon as a downloadable product",
+      "Full multi-node GPU media farm as automatic Expansion READY",
+      "Antonio's private infrastructure accounts or secrets"
+    ]
+  },
+  "deployment_models": [
+    {
+      "id": "DEP-LITE-WIN",
+      "name": "Lite on Windows",
+      "status": "Implemented",
+      "notes": "OtaconsKeep-Setup.bat; WSL2 path; reboot/resume supported. End-to-end release-gate confirmation still partial per public Otacon page honesty notes."
+    },
+    {
+      "id": "DEP-LITE-LINUX",
+      "name": "Lite on Linux / WSL",
+      "status": "Implemented",
+      "notes": "Documented on Otacon page."
+    },
+    {
+      "id": "DEP-EXPANSION",
+      "name": "Expansion on Core",
+      "status": "Implemented",
+      "notes": "Aria chat + Deck/Codec today; Genome/Video Studio optional GPU/Docker sidecars — not automatic READY on every fresh PC."
+    }
+  ],
+  "major_capabilities": [
+    "Persistent agents with identity and memory",
+    "Provider-neutral capability routing (LLM/TTS/STT backends)",
+    "Local Ollama chat model selection by VRAM",
+    "Codec / Command Center surfaces",
+    "Optional mood and relationship continuity (Expansion / Reference Keep depth)",
+    "REX proposal → approve → execute → verify lifecycle (Reference Keep / executor; not claimed as Lite-only public surface)"
+  ],
+  "lite_premium_boundaries": {
+    "Lite": "Free, open-source foundation — no license key, no artificial time gate.",
+    "Expansion": "Licensed multi-agent layer on Core; Aria + Deck/Codec installable; Genome/Video Studio optional.",
+    "Reference Keep": "Private depth reference — not a public downloadable clone."
+  },
+  "external_systems": [
+    {"id": "EXT-OLLAMA", "name": "Ollama", "role": "Local model runtime", "required": false, "notes": "Included Default Model path uses 127.0.0.1:11434"},
+    {"id": "EXT-HA", "name": "Home Assistant", "role": "Optional automation", "required": false},
+    {"id": "EXT-DISCORD", "name": "Discord", "role": "Optional social / community", "required": false},
+    {"id": "EXT-ARR", "name": "ARR / Seerr stack", "role": "Optional media request (Reference Keep / Albedo paths)", "required": false},
+    {"id": "EXT-COMFY", "name": "ComfyUI", "role": "Optional Video Studio / creative", "required": false},
+    {"id": "EXT-PROVIDERS", "name": "External AI providers", "role": "Optional remote LLM/TTS/STT", "required": false}
+  ],
+  "major_actors": [
+    "Operator / user",
+    "Agents (Aria and Expansion roster; larger roster in Reference Keep)",
+    "Installer / updater",
+    "Model runtime (Ollama or provider)",
+    "Optional automation and media services"
+  ],
+  "assumptions": [
+    "Operator owns the machine and local credentials",
+    "NVIDIA GPU improves local model tier but Lite can run CPU/small-model path under 6GB VRAM",
+    "Windows WSL2 feature enable may require reboot and long OS setup time"
+  ],
+  "constraints": [
+    "Public Engineering portal must not expose secrets, private IPs, tokens, or sensitive logs",
+    "Do not claim Reference Keep features as Lite defaults",
+    "Do not invent verification PASS without evidence records"
+  ],
+  "context_nodes": [
+    {"id": "ACT-USER", "label": "User / Operator", "kind": "actor"},
+    {"id": "SYS-OK", "label": "OtaconsKeep Core", "kind": "system"},
+    {"id": "HW-LOCAL", "label": "Local Hardware", "kind": "hardware"},
+    {"id": "HW-GPU", "label": "GPU", "kind": "hardware"},
+    {"id": "EXT-OLLAMA", "label": "Ollama / models", "kind": "external"},
+    {"id": "EXT-PROVIDERS", "label": "External AI providers", "kind": "external"},
+    {"id": "EXT-HA", "label": "Home Assistant", "kind": "external"},
+    {"id": "EXT-DISCORD", "label": "Discord", "kind": "external"},
+    {"id": "EXT-AUTO", "label": "Automation services", "kind": "external"},
+    {"id": "EXT-STORAGE", "label": "Storage", "kind": "external"},
+    {"id": "EXT-ARR", "label": "ARR stack", "kind": "external"},
+    {"id": "EXT-CREATIVE", "label": "Creative tools (Comfy/AI9)", "kind": "external"},
+    {"id": "EXT-NET", "label": "Network services", "kind": "external"}
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "models": [
+    {
+      "id": "MOD-PROV-001",
+      "component": "Default Model (Lite install)",
+      "model": "qwen2.5 (tiered tags)",
+      "model_version": "1.5b / 3b / 7b / 14b by VRAM",
+      "provider_source": "Ollama / upstream Qwen weights",
+      "purpose": "Local chat inference",
+      "quantization": "As distributed by Ollama tags",
+      "license": "Upstream model license (third-party)",
+      "model_type": "LLM foundation (third-party)",
+      "hosting": "Locally hosted via Ollama",
+      "fine_tuned_by_otaconskeep": false,
+      "training_dataset": null,
+      "dataset_size": null,
+      "evaluation_method": "Not yet published",
+      "known_limitations": "Tier depends on detected VRAM; CPU/small-GPU path uses smaller tag",
+      "statement": "OtaconsKeep did not train this foundation model."
+    },
+    {
+      "id": "MOD-PROV-002",
+      "component": "Genome Voice Trainer / Piper voices",
+      "model": "Piper TTS training pipeline",
+      "model_version": "Operator-trained voice artifacts",
+      "provider_source": "Piper / local training",
+      "purpose": "Custom agent voices",
+      "quantization": "n/a",
+      "license": "Upstream + operator voice data",
+      "model_type": "TTS / voice",
+      "hosting": "Local",
+      "fine_tuned_by_otaconskeep": false,
+      "notes": "Operator may train voices locally; OtaconsKeep provides trainer tooling. Do not imply OtaconsKeep owns third-party foundation weights.",
+      "statement": "Voice artifacts are trained on operator hardware from operator clips when the Genome path succeeds."
+    },
+    {
+      "id": "MOD-PROV-003",
+      "component": "AI9 Manga Colorizer",
+      "model": "AI9 colorization weights",
+      "model_version": "As shipped by AI9 installer",
+      "provider_source": "AI9 project",
+      "purpose": "Local GPU manga colorization",
+      "quantization": "As shipped",
+      "license": "AI9 project terms",
+      "model_type": "Image colorization",
+      "hosting": "Local NVIDIA GPU",
+      "fine_tuned_by_otaconskeep": false,
+      "training_dataset": "Not published in this Engineering package",
+      "evaluation_method": "Installer runs a real GPU inference test (public claim)",
+      "known_limitations": "Requires NVIDIA GPU with current driver",
+      "statement": "OtaconsKeep did not train third-party foundation LLMs used elsewhere; AI9 ships its own colorization assets under the AI9 project."
+    }
+  ],
+  "fine_tuned_by_otaconskeep": [],
+  "notes": "No OtaconsKeep-trained foundation LLM records are published here. Expansion personality/emotional math is configuration + runtime equations, not a separately trained foundation model."
+}
