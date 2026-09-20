@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keep Desk — Local multi-agent Command Deck | Otaconskeep</title>
+<meta name="description" content="Keep Desk is a free, local Grok Bot–class work deck: named AI teammates, shared computer, browser computer-use, Ollama-only brain. Install with Docker. Honest benchmarks vs Grok and OpenAI Operator.">
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="keepdesk.css?v=20260920a">
+</head>
+<body>
+
+<div class="filebar">
+  <div class="wrap">
+    <span>KEEP DESK // OTACONSKEEP</span>
+    <span>CLAIMABLE // 91.6%<span class="blink"></span></span>
+  </div>
+</div>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="/">Otaconskeep</a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+    <div class="navlinks">
+      <a href="/">Home</a>
+      <a href="/otacon/">Otacon</a>
+      <a href="/keepdesk/" aria-current="page">Keep Desk</a>
+      <a href="/keeproute/">KeepRoute</a>
+      <a href="/expansion/">Expansion</a>
+      <a href="/ai9/">AI9</a>
+      <a href="/faq/">FAQ</a>
+      <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+      <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+</nav>
+
+<nav class="kd-subnav" aria-label="Keep Desk sections">
+  <div class="wrap">
+    <a href="#overview">Overview</a>
+    <a href="#why">Why</a>
+    <a href="#demo">Demo</a>
+    <a href="#benchmarks">Benchmarks</a>
+    <a href="#compare">vs Grok / Pilot</a>
+    <a href="#install">Install</a>
+    <a href="#limits">Limits</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <section class="hero flush" id="overview">
+    <div class="stamp">KEEP DESK<small>local · free · ollama</small></div>
+    <p class="eyebrow" style="margin-top: 18px;">Local multi-agent Command Deck</p>
+    <h1 class="display" style="font-size: clamp(2.4rem, 7vw, 4.2rem);">Your bots.<br>Your computer.<br>Your Keep.</h1>
+    <p class="lede"><strong>Keep Desk</strong> is OtaconsKeep’s answer to cloud AI teammates like <em>Grok Bot</em> and OpenAI’s computer-use agents: named bots share one always-on desk, browse the real web, write files, run jobs in the background, and brief you like an operator — on hardware you control, with a local Ollama model, for free.</p>
+    <p class="lede" style="margin-top: 10px; color: var(--cream-dim);">Same genre as the cloud products. Different landlord. A lot of fun.</p>
+    <div class="btn-row" style="margin-top: 26px;">
+      <a class="btn btn-primary" href="#install">Install</a>
+      <a class="btn btn-ghost" href="#demo">Watch demo</a>
+      <a class="btn btn-ghost" href="#compare">Compare to Grok</a>
+      <a class="btn btn-ghost" href="https://github.com/Otaconskeep/keep-desk" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="meta" style="margin-top: 22px;">BOTS · DESK · BROWSER · JOBS · WHY DOSSIER &nbsp;//&nbsp; LOCAL ONLY</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="why">
+    <p class="tag">01 // Why it exists</p>
+    <h2>Cloud teammates are cool. Owning the desk is cooler.</h2>
+    <p class="intro">Grok Bot and OpenAI Operator / “Pilot”-class agents proved the vibe: persistent teammates that can use a computer while you walk away. They also proved the tax — your work, browsing, and files live on someone else’s machine, behind a subscription, with an agent loop you can’t fully inspect when it carts the wrong SKU.</p>
+    <div class="kd-grid-3">
+      <article class="kd-card">
+        <h3>Free to run</h3>
+        <p>No required OpenAI or xAI API key. Pay for electricity and the GPU you already wanted.</p>
+      </article>
+      <article class="kd-card">
+        <h3>Local brain</h3>
+        <p>Ollama only. The stack refuses cloud LLM endpoints by design — prompts stay on your LAN.</p>
+      </article>
+      <article class="kd-card">
+        <h3>Operator fun</h3>
+        <p>Command Deck UI, LIVE browser pane, codec bar, Why dossiers. Mission control energy, not another chat box.</p>
+      </article>
+    </div>
+    <p class="intro" style="margin-top: 22px;">Keep Desk is built so soda research cannot silently become a coffee cart victory. When work is Incomplete or off-brief, the deck says so.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="demo">
+    <p class="tag">02 // Demo</p>
+    <h2>Soda mission — images → pick → YouTube → store</h2>
+    <p class="intro">A clean end-to-end run on the reference Keep: Google soda images, pick a winner, YouTube synopsis, Ogden UT store search. No poisoned coffee cart. No “IloveJohnny” demo junk.</p>
+    <div class="kd-video">
+      <video controls playsinline preload="metadata" poster="media/90_deck_final.png">
+        <source src="media/keep_soda_demo.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="kd-shots" aria-label="Command Deck screenshots">
+      <figure>
+        <img src="media/01_deck_home.png" alt="Keep Desk Command Deck home briefing" loading="lazy">
+        <figcaption>Home briefing</figcaption>
+      </figure>
+      <figure>
+        <img src="media/deck_45.png" alt="Keep Desk mid-mission LIVE browser" loading="lazy">
+        <figcaption>Mid-mission LIVE</figcaption>
+      </figure>
+      <figure>
+        <img src="media/deck_60.png" alt="Keep Desk pipeline stages" loading="lazy">
+        <figcaption>Pipeline stages</figcaption>
+      </figure>
+      <figure>
+        <img src="media/90_deck_final.png" alt="Keep Desk completed soda mission" loading="lazy">
+        <figcaption>Mission complete</figcaption>
+      </figure>
+      <figure>
+        <img src="media/91_viewport_final.png" alt="Keep Desk browser viewport final" loading="lazy">
+        <figcaption>Browser viewport</figcaption>
+      </figure>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="benchmarks">
+    <p class="tag">03 // Benchmarks</p>
+    <h2>Scored requirements — not vibes</h2>
+    <p class="intro">Authoritative scorer: <code class="mono">python3 api/compliance_score.py</code> on the reference Keep (2026-09-19).</p>
+    <div class="kd-scoreboard">
+      <div><span class="kd-num">91.6%</span><span class="kd-lab">Claimable / weighted</span></div>
+      <div><span class="kd-num">87.3%</span><span class="kd-lab">Raw</span></div>
+      <div><span class="kd-num">PASS</span><span class="kd-lab">Critical gate</span></div>
+      <div><span class="kd-num">69</span><span class="kd-lab">PASS rows</span></div>
+    </div>
+    <ul class="kd-list">
+      <li><strong>Browser L5-prod gate:</strong> PASS — 51 authed @ 90.2%, HIR 2.1%</li>
+      <li><strong>Counts:</strong> 69 PASS · 5 PARTIAL · 5 FAIL · 10 NOT_TESTED</li>
+      <li><strong>~75% day-to-day Grok feel</strong> is a separate operator estimate (model quality + mobile + connectors + desktop). Do not collapse it into 91.6%.</li>
+    </ul>
+    <p class="intro">Full matrix lives in the repo: <a href="https://github.com/Otaconskeep/keep-desk/blob/main/docs/COMPLIANCE_MATRIX.md" target="_blank" rel="noopener">docs/COMPLIANCE_MATRIX.md</a>.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="compare">
+    <p class="tag">04 // Comparison</p>
+    <h2>Keep Desk vs Grok Bot vs OpenAI Pilot / Operator</h2>
+    <p class="intro">Honest table. Cloud products win on frontier models and zero-ops. Keep wins on sovereignty, cost ceiling, and inspectable homelab ops.</p>
+    <div class="kd-table-wrap">
+      <table class="kd-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Keep Desk</th>
+            <th>Grok Bot</th>
+            <th>OpenAI Pilot / Operator</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Where the computer lives</th>
+            <td>Your box / LAN</td>
+            <td>xAI cloud</td>
+            <td>OpenAI cloud</td>
+          </tr>
+          <tr>
+            <th scope="row">Brain</th>
+            <td>Your Ollama model</td>
+            <td>xAI frontier</td>
+            <td>OpenAI frontier</td>
+          </tr>
+          <tr>
+            <th scope="row">Cost</th>
+            <td>Hardware + power</td>
+            <td>Subscription / access</td>
+            <td>Subscription + usage</td>
+          </tr>
+          <tr>
+            <th scope="row">Named persistent bots</th>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Partial / product-dependent</td>
+          </tr>
+          <tr>
+            <th scope="row">Browser computer-use</th>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <th scope="row">Full desktop GUI agent</th>
+            <td><strong>No</strong> (known FAIL)</td>
+            <td>Partial / changing</td>
+            <td>Partial / changing</td>
+          </tr>
+          <tr>
+            <th scope="row">Local-only LLM</th>
+            <td><strong>Yes (enforced)</strong></td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <th scope="row">Self-host / open</th>
+            <td><strong>Yes</strong></td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <th scope="row">Mobile-native apps</th>
+            <td>No (by choice)</td>
+            <td>Strong</td>
+            <td>Strong (ChatGPT)</td>
+          </tr>
+          <tr>
+            <th scope="row">Frontier quality OOB</th>
+            <td>Depends on your GPU model</td>
+            <td><strong>Best-in-class</strong></td>
+            <td><strong>Best-in-class</strong></td>
+          </tr>
+          <tr>
+            <th scope="row">Zero-ops install</th>
+            <td>Docker + Ollama</td>
+            <td><strong>Account, done</strong></td>
+            <td><strong>Account, done</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kd-grid-2" style="margin-top: 28px;">
+      <article class="kd-card">
+        <h3>Like Grok Bot because…</h3>
+        <p>Named teammates, computer use, skills/routines, background work, “bot” not autocomplete. Keep’s chrome is a Command Deck, not a Grok clone — same genre, different UI doctrine.</p>
+      </article>
+      <article class="kd-card">
+        <h3>Like OpenAI Pilot because…</h3>
+        <p>Goal-directed browser driving, approvals for risky steps, long jobs while you walk away. Session computer is yours (Chromium in Docker), not a vendor remote VM.</p>
+      </article>
+    </div>
+    <p class="intro" style="margin-top: 18px;">Deep write-up: <a href="https://github.com/Otaconskeep/keep-desk/blob/main/docs/COMPARISON.md" target="_blank" rel="noopener">docs/COMPARISON.md</a>.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="install">
+    <p class="tag">05 // Install</p>
+    <h2>Docker Compose + Ollama</h2>
+    <p class="intro">Linux host recommended. GPU optional but strongly recommended for a useful local model.</p>
+    <pre class="kd-code"><code>git clone https://github.com/Otaconskeep/keep-desk.git
+cd keep-desk
+cp .env.example .env
+# Edit LOCAL_OLLAMA_URL / LOCAL_MODEL if needed
+docker compose up -d --build
+# Open http://127.0.0.1:5765/</code></pre>
+    <ul class="kd-list">
+      <li>Pull a model first: <code class="mono">ollama pull gpt-oss:20b</code> (or your preferred local chat model).</li>
+      <li>Default ports: <strong>5765</strong> Command Deck / API, <strong>5766</strong> browser service.</li>
+      <li>Point <code class="mono">LOCAL_OLLAMA_URL</code> at local Ollama only — cloud LLM bases are refused.</li>
+    </ul>
+    <p class="intro">Full guide: <a href="https://github.com/Otaconskeep/keep-desk/blob/main/INSTALL.md" target="_blank" rel="noopener">INSTALL.md</a> · FAQ: <a href="https://github.com/Otaconskeep/keep-desk/blob/main/docs/FAQ.md" target="_blank" rel="noopener">docs/FAQ.md</a>.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="limits">
+    <p class="tag">06 // Honest limits</p>
+    <h2>What Keep Desk is not</h2>
+    <ul class="kd-list">
+      <li><strong>Not a frontier cloud model</strong> — 20B-class local plans thinner than Grok/GPT on nasty sites.</li>
+      <li><strong>Not a full desktop GUI agent</strong> — browser-first; arbitrary native apps are out of claimable scope.</li>
+      <li><strong>Not production-safe alone</strong> — bots are workers; gate money, deletes, and public posts (REX on OtaconsKeep).</li>
+      <li><strong>Not zero-ops</strong> — you run Docker, Ollama, and disk backups.</li>
+      <li><strong>Not a mobile app</strong> — use a browser / VPN if you need remote access.</li>
+      <li><strong>CAPTCHA &amp; anti-bot walls</strong> — same as every computer-use agent; sometimes you take over.</li>
+    </ul>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="faq">
+    <p class="tag">07 // FAQ</p>
+    <h2>Quick answers</h2>
+    <details class="kd-faq"><summary>Is it free?</summary><p>Software yes. You pay for power and hardware. No required cloud LLM subscription for the core loop.</p></details>
+    <details class="kd-faq"><summary>Does it phone home to OpenAI or xAI?</summary><p>No. Local Ollama only; cloud LLM endpoints are refused.</p></details>
+    <details class="kd-faq"><summary>What does 91.6% mean?</summary><p>Weighted claimable score on our requirements matrix with critical gate PASS — not “91.6% of Grok’s product.” Day-to-day feel is closer to ~75% once you count model quality, mobile, and connectors.</p></details>
+    <details class="kd-faq"><summary>Can it buy things with my card?</summary><p>Treat purchases as dangerous. Research is in scope; production spending needs human approval and external gates.</p></details>
+    <details class="kd-faq"><summary>Hollow / off-brief?</summary><p>Honesty modes: Incomplete work must not fake victory; mismatched recommendations (wrong product family) are refused.</p></details>
+    <details class="kd-faq"><summary>Who built this?</summary><p>Antonio G. Garcia — <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">Otaconskeep</a>.</p></details>
+    <p class="intro" style="margin-top: 18px;">More: <a href="https://github.com/Otaconskeep/keep-desk/blob/main/docs/FAQ.md" target="_blank" rel="noopener">full FAQ on GitHub</a>.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <p class="tag">08 // Doctrine</p>
+    <h2>Bots share one desk — not isolation.</h2>
+    <p class="intro">You are the principal. Have fun. Break things on purpose. Keep production mutations on REX. Fork the repo, score your own Keep, ship your own demos.</p>
+    <div class="btn-row" style="margin-top: 20px;">
+      <a class="btn btn-primary" href="https://github.com/Otaconskeep/keep-desk" target="_blank" rel="noopener">Open GitHub</a>
+      <a class="btn btn-ghost" href="#install">Install</a>
+      <a class="btn btn-ghost" href="/">Back to Otaconskeep</a>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Keep Desk · Otaconskeep · Designed by Antonio G. Garcia</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.querySelector('.navtoggle');
+  var links = document.querySelector('.navlinks');
+  if (!btn || !links) return;
+  btn.addEventListener('click', function () {
+    var open = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+})();
+</script>
+</body>
+</html>

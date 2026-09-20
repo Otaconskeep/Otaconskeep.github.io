@@ -27,6 +27,8 @@
     <div class="navlinks">
       <a href="/">Home</a>
       <a href="/otacon/">Otacon</a>
+      
+      <a href="/keepdesk/">Keep Desk</a>
       <a href="/keeproute/">KeepRoute</a>
       <a href="/expansion/">Expansion</a>
       <a href="/ai9/">AI9</a>
@@ -53,7 +55,7 @@
     <details class="install-toggle" open>
       <summary>What's the difference between Lite, Expansion, and "the Keep"?</summary>
       <div class="install-box">
-        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;"><strong>Otaconskeep Lite</strong> (built on Otacon Core) is the free, open-source, self-hosted foundation &mdash; persistent agents, memory, voice, and the <strong>same Command Deck / Codec UI</strong> Expansion uses (premium rails locked). <strong>Otacon Expansion</strong> is the premium layer on top: a <strong>five-agent Lite roster</strong> with real hierarchy, a live mood/relationship engine, guided Genome + Video Studio, and more rooms (War, Command, Intel, REX, dossiers). <strong>The Keep</strong> is Antonio's own private reference environment &mdash; a larger <strong>16+ agent</strong> canon plus media automation, smart-home integration, and multi-node GPU orchestration that go beyond what's shipped publicly. Lite installs the foundation. Expansion is the specified public product; the Keep remains the private depth reference, not a downloadable clone.</p>
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;"><strong>Otaconskeep Lite</strong> (built on Otacon Core) is the free, open-source, self-hosted foundation &mdash; persistent agents, memory, voice, one command to install. <strong>Otacon Expansion</strong> is the premium layer on top: a <strong>five-agent Lite roster</strong> with real hierarchy, a live mood/relationship engine, and command-center surfaces (Dashboard, Codec, War Room, Video Studio shells, and more). <strong>The Keep</strong> is Antonio's own private reference environment &mdash; a larger <strong>16+ agent</strong> canon plus media automation, smart-home integration, and multi-node GPU orchestration that go beyond what's shipped publicly. Lite installs the foundation. Expansion is the specified public product; the Keep remains the private depth reference, not a downloadable clone.</p>
       </div>
     </details>
 
@@ -179,7 +181,7 @@
     <details class="install-toggle">
       <summary>I ran it and got FOUNDATION READY &mdash; where's the Dashboard?</summary>
       <div class="install-box">
-        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Open <span class="mono">http://127.0.0.1:5757/</span> after Expansion install / soft-update. Command Deck and Codec ship in the product UI (same chrome as Lite; Expansion unlocks the five-agent rails). Soft-update: re-run <span class="mono">OtaconsKeep-Setup.bat</span> (lands on <span class="mono">release.json</span> pin <span class="mono">eb0a3b3</span>), then restart <span class="mono">otacon.service</span> and hard-refresh the browser.</p>
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Open <span class="mono">http://127.0.0.1:5757/</span> after Expansion install / soft-update. Command Deck and Codec ship in the product UI. Soft-update: re-run <span class="mono">OtaconsKeep-Setup.bat</span>, or in Ubuntu <span class="mono">git -C ~/otacon-ai-ecosystem fetch &amp;&amp; git -C ~/otacon-ai-ecosystem reset --hard origin/main</span> then restart <span class="mono">otacon.service</span>. Hard-refresh the browser.</p>
       </div>
     </details>
 

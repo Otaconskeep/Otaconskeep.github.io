@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KEEPROUTE 1.0 — OtaconsKeep Stateful AI Orchestration</title>
-<meta name="description" content="KEEPROUTE turns AI routing into persistent mission orchestration. Powered by OmniRoute. Built by OtaconsKeep.">
+<meta name="description" content="KeepRoute is not OmniRoute. OmniRoute routes requests; KeepRoute owns the mission — checkpoints, recovery, and agent handoff. Powered by OmniRoute. Built by OtaconsKeep.">
 <meta name="robots" content="index,follow">
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
-<link rel="stylesheet" href="keeproute.css">
+<link rel="stylesheet" href="keeproute.css?v=20260919g">
 </head>
 <body>
 
@@ -29,6 +29,8 @@
     <div class="navlinks">
       <a href="/">Home</a>
       <a href="/otacon/">Otacon</a>
+      
+      <a href="/keepdesk/">Keep Desk</a>
       <a href="/keeproute/" aria-current="page">KeepRoute</a>
       <a href="/expansion/">Expansion</a>
       <a href="/ai9/">AI9</a>
@@ -42,8 +44,12 @@
 <nav class="kr-subnav" aria-label="KeepRoute sections">
   <div class="wrap">
     <a href="#overview">Overview</a>
+    <a href="#why">Why KeepRoute</a>
+    <a href="#watch">Watch</a>
+    <a href="#ui">See the UI</a>
     <a href="#how">How it works</a>
-    <a href="#different">Why different</a>
+    <a href="#compare">OmniRoute vs KeepRoute</a>
+    <a href="#different">What changed</a>
     <a href="#benchmarks">Benchmarks</a>
     <a href="#security">Security</a>
     <a href="#proscons">Pros &amp; Cons</a>
@@ -58,15 +64,135 @@
     <div class="stamp">KEEPROUTE 1.0<small>stable · powered by OmniRoute</small></div>
     <p class="eyebrow" style="margin-top: 18px;">OtaconsKeep Stateful AI Orchestration</p>
     <h1 class="display" style="font-size: clamp(2.4rem, 7vw, 4.2rem);">One job. The right AI.<br>No starting over.</h1>
-    <p class="lede">KEEPROUTE turns AI routing into persistent mission orchestration. It uses <strong>OmniRoute</strong> underneath for provider/model routing and adds mission state, recovery, checkpoints, local-first policy, and supported agent handoff.</p>
-    <p class="lede" style="margin-top: 10px; color: var(--cream-dim); font-size: 1.02rem;">We did not create stock OmniRoute. OmniRoute is the upstream routing data plane. KEEPROUTE is the OtaconsKeep orchestration layer built around it.</p>
+    <p class="lede"><strong>OmniRoute routes a request.</strong> <strong>KeepRoute owns the mission.</strong> When Claude hits a limit, OmniRoute can switch models — KeepRoute can keep the <em>same job</em> alive with checkpoints, remaining work, and a handoff to another agent so you are not copy-pasting progress by hand.</p>
+    <p class="lede" style="margin-top: 10px; color: var(--cream-dim); font-size: 1.02rem;">We did not invent OmniRoute. It is the excellent upstream routing gateway. KeepRoute is OtaconsKeep’s layer <em>on top</em> — built because long agent work kept dying when a single provider failed.</p>
     <div class="btn-row" style="margin-top: 26px;">
       <a class="btn btn-primary" href="#install">Install KeepRoute</a>
-      <a class="btn btn-ghost" href="#how">How it works</a>
+      <a class="btn btn-ghost" href="#why">Why it exists</a>
+      <a class="btn btn-ghost" href="#watch">Watch the short</a>
+      <a class="btn btn-ghost" href="#ui">See the UI</a>
+      <a class="btn btn-ghost" href="#compare">OmniRoute vs KeepRoute</a>
       <a class="btn btn-ghost" href="#benchmarks">See the proof</a>
-      <a class="btn btn-ghost" href="#compare">Compare with stock</a>
+      <a class="btn btn-ghost" href="https://github.com/Otaconskeep/KeepRoute" target="_blank" rel="noopener">GitHub write-up</a>
     </div>
     <p class="meta" style="margin-top: 22px;">ROUTE · RECOVER · CONTINUE &nbsp;//&nbsp; MISSION CONTROL</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="why">
+    <p class="tag">Why KeepRoute was made</p>
+    <h2>OmniRoute solves traffic. KeepRoute solves unfinished work.</h2>
+
+    <div class="kr-why-split">
+      <div class="kr-why-main">
+        <p class="intro">People already had a great way to send chat to many AIs. What kept breaking real Keep workflows was not “pick a model” — it was <strong>losing the job</strong> when that model hit a wall.</p>
+
+        <div class="kr-10s" aria-label="Ten-second explanation">
+          <article>
+            <h3>OmniRoute</h3>
+            <p>Chooses <em>where this request goes</em> among providers and models.</p>
+          </article>
+          <article>
+            <h3>KeepRoute</h3>
+            <p>Owns <em>the whole job</em> — watches it, checkpoints it, and continues it if the AI has to change.</p>
+          </article>
+        </div>
+
+        <div class="kr-principle">
+          <strong>OmniRoute moves packets of AI work. KeepRoute moves missions.</strong>
+          <span>Same underlying gateway. Different job: continuity under failure.</span>
+        </div>
+      </div>
+
+      <aside id="watch" class="kr-short" aria-label="KeepRoute YouTube Short">
+        <p class="kr-short-label">Watch · short</p>
+        <div class="kr-short-frame">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/Icc8LA7KIzA"
+            title="KeepRoute YouTube Short"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <p class="kr-short-link">
+          <a href="https://youtube.com/shorts/Icc8LA7KIzA" target="_blank" rel="noopener">Open on YouTube</a>
+        </p>
+      </aside>
+    </div>
+
+    <div class="kr-diff-banner" role="note">
+      <div class="kr-diff-side stock">
+        <p class="kr-diff-label">OmniRoute (upstream)</p>
+        <p class="kr-diff-line">One API in → best available provider/model out → response.</p>
+        <p class="kr-diff-meta">Routing · fallback · health · combos · gateway</p>
+      </div>
+      <div class="kr-diff-vs" aria-hidden="true"><span>VS</span></div>
+      <div class="kr-diff-side ours">
+        <p class="kr-diff-label">KeepRoute (OtaconsKeep)</p>
+        <p class="kr-diff-line">One <strong>mission</strong> in → route → work → checkpoint → if failure, continue elsewhere → same mission completes.</p>
+        <p class="kr-diff-meta">Missions · policy · checkpoints · handoff · recovery · local-first</p>
+      </div>
+    </div>
+
+    <div class="kr-why-build">
+      <article>
+        <h3>The problem we kept hitting</h3>
+        <p>A coding session would be halfway done. Claude hit quota. Or Cursor stalled. Or the host rebooted. Stock routing can send the <em>next</em> prompt somewhere else — but the human still had to rebuild context: what finished, what failed, what files mattered, what not to do twice.</p>
+      </article>
+      <article>
+        <h3>Why not “just use OmniRoute”?</h3>
+        <p>You should — KeepRoute does. OmniRoute is the traffic director. KeepRoute is mission control. Without KeepRoute you still have excellent fallback between models. With KeepRoute the <strong>job itself</strong> has an ID, memory, and a recovery path.</p>
+      </article>
+      <article>
+        <h3>What we refused to accept</h3>
+        <p>Trivial “hi” burning paid tokens. Clients each inventing their own routing rules. Starting over after a recoverable failure. Replaying a destructive step because the new agent did not know it already ran.</p>
+      </article>
+      <article>
+        <h3>The design bet</h3>
+        <p><strong>The mission is the product. The model is replaceable.</strong> KeepRoute exists so OtaconsKeep can treat Claude, Codex, Cursor, Grok, and Local as executors — not as the owner of your work.</p>
+      </article>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="ui">
+    <p class="tag">See the UI</p>
+    <h2>This is KeepRoute on real hardware</h2>
+    <p class="intro">Screenshots from the live KeepRoute field UI — the same surface operators use on OtaconsKeep. Neon terminal look, Auto routing, providers on the left, answers on the right.</p>
+
+    <div class="kr-showcase">
+      <figure class="kr-showcase-hero">
+        <a href="../assets/img/keeproute/01-main.png" target="_blank" rel="noopener">
+          <img src="../assets/img/keeproute/01-main.jpg" width="1440" height="900" alt="KeepRoute main screen with providers and ask panel" loading="eager">
+        </a>
+        <figcaption>KeepRoute // main screen — Auto selected · OmniRoute online</figcaption>
+      </figure>
+
+      <div class="kr-shot-grid">
+        <figure class="kr-shot">
+          <a href="../assets/img/keeproute/02-how-to-use.png" target="_blank" rel="noopener">
+            <img src="../assets/img/keeproute/02-how-to-use.jpg" width="1440" height="900" alt="KeepRoute how to use guide overlay" loading="lazy">
+          </a>
+          <figcaption><strong>How to use</strong>Beginner guide built into the UI — plain steps, not a manual.</figcaption>
+        </figure>
+        <figure class="kr-shot">
+          <a href="../assets/img/keeproute/04-ready-to-ask.png" target="_blank" rel="noopener">
+            <img src="../assets/img/keeproute/04-ready-to-ask.jpg" width="1440" height="900" alt="KeepRoute with a typed prompt ready to send" loading="lazy">
+          </a>
+          <figcaption><strong>Ready to ask</strong>Type plain words. Leave Auto on. Press GO.</figcaption>
+        </figure>
+        <figure class="kr-shot">
+          <a href="../assets/img/keeproute/05-answer-stream.png" target="_blank" rel="noopener">
+            <img src="../assets/img/keeproute/05-answer-stream.jpg" width="1440" height="900" alt="KeepRoute streaming a mission through OmniRoute" loading="lazy">
+          </a>
+          <figcaption><strong>Mission in flight</strong>OmniRoute + Mission Controller pick the route while the answer window streams.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <p class="kr-disclaimer">Screenshots sanitized for public use (no API keys, no private LAN addresses). Click any image for full size.</p>
   </section>
 </div>
 
@@ -268,10 +394,23 @@
 
 <div class="wrap">
   <section id="compare">
-    <p class="tag">KeepRoute vs stock OmniRoute</p>
-    <h2>Capabilities, not a scoreboard</h2>
-    <p class="intro">Stock OmniRoute is an excellent provider/model routing gateway. KeepRoute adds a higher-level stateful orchestration/control plane. We do not claim stock OmniRoute is “bad.”</p>
-    <p class="kr-disclaimer">Stock column verified against public OmniRoute documentation (architecture + resilience guides on the upstream GitHub project). Where stock has no mission-orchestration equivalent, we say so plainly.</p>
+    <p class="tag">OmniRoute vs KeepRoute</p>
+    <h2>Same gateway family. Different job.</h2>
+    <p class="intro"><strong>OmniRoute</strong> is the upstream routing data plane: pick a provider, fall back, stay healthy. <strong>KeepRoute</strong> was built because that was not enough for long Keep missions — when the model died, the <em>work</em> still died with it. KeepRoute sits on OmniRoute and adds mission state so the job can continue.</p>
+    <div class="kr-diff-banner" role="note" style="margin-top:18px;">
+      <div class="kr-diff-side stock">
+        <p class="kr-diff-label">Made for</p>
+        <p class="kr-diff-line">“Send this chat to the right model.”</p>
+        <p class="kr-diff-meta">OmniRoute · request routing</p>
+      </div>
+      <div class="kr-diff-vs" aria-hidden="true"><span>VS</span></div>
+      <div class="kr-diff-side ours">
+        <p class="kr-diff-label">Made for</p>
+        <p class="kr-diff-line">“Finish this mission even if the model has to change.”</p>
+        <p class="kr-diff-meta">KeepRoute · mission orchestration</p>
+      </div>
+    </div>
+    <p class="kr-disclaimer">We do not claim stock OmniRoute is “bad.” Stock column verified against public OmniRoute docs. Where stock has no mission-orchestration equivalent, we say so plainly.</p>
 
     <div class="tablewrap kr-table" style="margin-top:16px;">
       <table>
@@ -502,73 +641,125 @@
 <div class="wrap">
   <section id="install">
     <p class="tag">Install</p>
-    <h2>Getting KeepRoute onto a machine</h2>
-    <p class="intro">Goal: a first-time user should understand the path without editing config files by hand.</p>
+    <h2>Install KeepRoute on your own computer</h2>
+    <p class="intro">No one-click installer required. You install the same KeepRoute field UI we run on OtaconsKeep hardware — on <strong>your</strong> machine. Follow the steps in order.</p>
 
-    <div class="info-note" style="border-color: var(--warn-dim);">
-      <strong>Installer honesty check:</strong> A dedicated one-click <em>KeepRoute 1.0</em> installer that installs OmniRoute + Mission Controller + Auto Guard + provider setup + smoke test is <strong>not shipped yet</strong>. We will not pretend it exists. OtaconsKeep Lite already has a working one-click installer for the broader ecosystem; KeepRoute packaging is next.
+    <div class="info-note">
+      <strong>What you are installing:</strong> the KeepRoute UI (the screen formerly shown as Aria on our Keep) plus OmniRoute underneath.
+      KeepRoute remembers jobs as missions when the Mission Controller is also running; the UI alone still lets you ask Auto / providers through OmniRoute.
     </div>
 
-    <h3 style="margin-top:28px;">Easy path today (recommended while KeepRoute packaging finishes)</h3>
     <div class="kr-install-steps">
       <div class="kr-step">
-        <h3>Download OtaconsKeep Setup</h3>
-        <p>Use the existing public Windows installer for OtaconsKeep Lite. This installs the local Keep foundation (agents, local model path, Command Deck).</p>
-        <p style="margin-top:10px;"><a class="btn btn-primary" href="/downloads/OtaconsKeep-Setup.bat" download>Download OtaconsKeep Setup</a>
-        <a class="btn btn-ghost" href="/otacon/#install">Otacon install guide</a></p>
+        <h3>What you need first</h3>
+        <p>
+          • A computer you control (Linux is the path we document here; Windows users can use WSL2 Ubuntu)<br>
+          • <strong>Python 3.10+</strong><br>
+          • <strong>Docker</strong> (to run OmniRoute)<br>
+          • <strong>pip</strong> for Python packages<br>
+          • Optional but recommended: a GPU for Local AI — if you have no GPU, use cloud providers only
+        </p>
+        <p style="margin-top:10px;">Optional foundation: install <a href="/otacon/#install">OtaconsKeep Lite</a> first if you also want the broader Keep agent ecosystem. KeepRoute does not require Lite to run.</p>
       </div>
+
       <div class="kr-step">
-        <h3>Open the installer</h3>
-        <p>Find the downloaded <span class="mono">OtaconsKeep-Setup.bat</span> file and double-click it. If Windows SmartScreen appears, choose <strong>More info</strong> → <strong>Run anyway</strong> only if you trust the OtaconsKeep download source.</p>
+        <h3>Download the KeepRoute UI package</h3>
+        <p>This is the KeepRoute field UI — same product surface as our Keep desk, branded KeepRoute.</p>
+        <p style="margin-top:10px;">
+          <a class="btn btn-primary" href="/downloads/KeepRoute-UI.zip" download>Download KeepRoute-UI.zip</a>
+        </p>
+        <p style="margin-top:10px;">Unzip it somewhere permanent, for example:</p>
+        <pre class="mono" style="margin-top:8px;padding:12px;background:var(--surface);border:1px solid var(--line);overflow:auto;">mkdir -p ~/keeproute
+cd ~/keeproute
+unzip ~/Downloads/KeepRoute-UI.zip
+# You should see: desk/   docker-compose.omniroute.yml   README.txt</pre>
       </div>
+
       <div class="kr-step">
-        <h3>Allow installation</h3>
-        <p>Approve the User Account Control prompt if shown. Leave the window open until Setup finishes — long downloads can look “stuck” while models install.</p>
+        <h3>Install OmniRoute (the routing engine)</h3>
+        <p>OmniRoute is the upstream open-source data plane. KeepRoute uses it; we did not invent it. Product write-up: <a href="https://github.com/Otaconskeep/KeepRoute" target="_blank" rel="noopener">github.com/Otaconskeep/KeepRoute</a>.</p>
+        <pre class="mono" style="margin-top:8px;padding:12px;background:var(--surface);border:1px solid var(--line);overflow:auto;">cd ~/keeproute/KeepRoute-UI
+# Set your OWN first-login password (do not reuse examples from the internet)
+export OMNIROUTE_INITIAL_PASSWORD='pick-a-strong-password'
+docker compose -f docker-compose.omniroute.yml up -d
+docker ps | grep omniroute</pre>
+        <p style="margin-top:10px;">OmniRoute listens on your machine at <span class="mono">http://127.0.0.1:20127</span> (loopback). Open the OmniRoute dashboard in a browser if the image exposes one, sign in with the password you set, and connect providers there (Claude / OpenAI / Cursor / xAI / Ollama, etc.).</p>
+        <p style="margin-top:8px;">Upstream project: <a href="https://github.com/diegosouzapw/OmniRoute" target="_blank" rel="noopener">github.com/diegosouzapw/OmniRoute</a></p>
       </div>
-      <div class="kr-step pending">
-        <h3>KeepRoute stack (pending packaged installer)</h3>
-        <p>When the KeepRoute installer ships, it should install: OmniRoute, Mission Controller, Auto Guard, state directories, service autostart, provider configuration UI, local model connection, security defaults, health check, final smoke test, and a desktop shortcut. <strong>Status: pending — not claimed as available today.</strong></p>
-      </div>
+
       <div class="kr-step">
-        <h3>Provider cards (what you will configure)</h3>
+        <h3>Install Python deps and start KeepRoute UI</h3>
+        <pre class="mono" style="margin-top:8px;padding:12px;background:var(--surface);border:1px solid var(--line);overflow:auto;">cd ~/keeproute/KeepRoute-UI
+python3 -m pip install --user flask
+mkdir -p desk/state
+echo '{}' > desk/state/credentials.json
+chmod 600 desk/state/credentials.json
+
+export OMNIROUTE_HOST=http://127.0.0.1:20127
+export OMNIROUTE_DESK_PORT=20129
+export OMNIROUTE_DESK_BIND=127.0.0.1
+python3 desk/app.py</pre>
+        <p style="margin-top:10px;">Leave that terminal open. In your browser open:</p>
+        <p class="mono" style="margin-top:6px;font-size:1.05rem;color:var(--accent-bright);">http://127.0.0.1:20129/</p>
+        <p style="margin-top:8px;">You should see the <strong>KEEPROUTE</strong> screen (providers on the left, ask box on the right).</p>
+        <p style="margin-top:8px;">Optional: copy <span class="mono">keeproute-ui.service.example</span> into your user systemd units so it starts on login.</p>
+      </div>
+
+      <div class="kr-step">
+        <h3>Add providers and keys (inside KeepRoute)</h3>
+        <p>In the KeepRoute UI click <strong>ADD PROVIDERS</strong>.</p>
         <div class="kr-providers">
-          <div class="kr-prov"><strong>Claude</strong><span>Cloud · account required · usually paid</span><span>Paste key/token only into the server-side settings UI — never into a public webpage.</span></div>
-          <div class="kr-prov"><strong>Codex</strong><span>Cloud · account required · usually paid</span><span>Same rule: credentials stay on your machine’s server config.</span></div>
-          <div class="kr-prov"><strong>Cursor</strong><span>Agent runtime · account required</span><span>Enable only if you use Cursor as a coding executor.</span></div>
-          <div class="kr-prov"><strong>Grok</strong><span>Cloud · account required · usually paid</span><span>Optional provider card.</span></div>
-          <div class="kr-prov"><strong>Local AI</strong><span>On your hardware · often free after download</span><span>No compatible GPU? That’s okay — use cloud providers.</span></div>
-          <div class="kr-prov"><strong>Other</strong><span>Anything OmniRoute already supports</span><span>Configured through the gateway, then governed by KeepRoute policy.</span></div>
+          <div class="kr-prov"><strong>OmniRoute API key</strong><span>Usually enough for Auto</span><span>Create/copy this inside your OmniRoute dashboard, then paste into KeepRoute → Save Keys.</span></div>
+          <div class="kr-prov"><strong>Claude</strong><span>Cloud · usually paid</span><span>Connect in OmniRoute, then confirm it appears under Your Providers.</span></div>
+          <div class="kr-prov"><strong>Codex / OpenAI</strong><span>Cloud · usually paid</span><span>Same: connect in OmniRoute, refresh KeepRoute.</span></div>
+          <div class="kr-prov"><strong>Cursor</strong><span>Agent runtime</span><span>Optional coding executor when you use Cursor.</span></div>
+          <div class="kr-prov"><strong>Grok</strong><span>Cloud · usually paid</span><span>Optional.</span></div>
+          <div class="kr-prov"><strong>Local AI</strong><span>On your hardware</span><span>Connect Ollama (or similar) through OmniRoute. No GPU? Skip Local and use cloud only.</span></div>
         </div>
+        <p style="margin-top:12px;"><strong>Never</strong> paste API keys into Discord, email, or this website. Keys stay on your computer inside KeepRoute / OmniRoute.</p>
       </div>
+
       <div class="kr-step">
-        <h3>Test it (once KeepRoute is running)</h3>
-        <p><strong>Type:</strong> Hi &nbsp;→&nbsp; expect Local AI.<br>
-        <strong>Type:</strong> Write a small Python calculator. &nbsp;→&nbsp; expect a coding-capable route.<br>
-        Route/status lights should show selected provider and whether the mission is active.</p>
+        <h3>Test it</h3>
+        <p><strong>1.</strong> Leave <strong>Auto</strong> selected.<br>
+           <strong>2.</strong> Type: <span class="mono">Hi</span> → press <strong>GO</strong> → expect a Local / inexpensive route when Local is healthy.<br>
+           <strong>3.</strong> Type: <span class="mono">Write a small Python calculator</span> → expect a coding-capable provider when one is connected.<br>
+           <strong>4.</strong> Status lights: green = connected; Routed = used on the last job.</p>
       </div>
+
+      <div class="kr-step">
+        <h3>Optional — Mission Controller (full KeepRoute 1.0 orchestration)</h3>
+        <p>The field UI works with OmniRoute alone. For persistent missions, checkpoints, and the full KeepRoute 1.0 control plane, also run the Mission Controller sidecar from the KeepRoute 1.0 release package when you have it, and set:</p>
+        <pre class="mono" style="margin-top:8px;padding:12px;background:var(--surface);border:1px solid var(--line);overflow:auto;">export MISSION_CONTROLLER_URL=http://127.0.0.1:20130</pre>
+        <p style="margin-top:8px;">Auto policy is owned by Mission Controller when that service is present.</p>
+      </div>
+
       <div class="kr-step">
         <h3>Done</h3>
-        <p>You can type normal requests. Prefer Auto/policy routing unless you intentionally force a provider.</p>
+        <p>You can type normal requests. Prefer <strong>Auto</strong> unless you intentionally force a provider. To stop: Ctrl+C in the KeepRoute terminal, and <span class="mono">docker compose -f docker-compose.omniroute.yml down</span> if you want OmniRoute stopped too.</p>
       </div>
     </div>
 
     <div class="kr-ready-mock" aria-label="Example ready screen">
       <div class="title">READY (example)</div>
+      KeepRoute UI: http://127.0.0.1:20129/<br>
+      OmniRoute: Connected<br>
       Local AI: Connected<br>
       Claude: Connected<br>
       Codex: Connected<br>
       Cursor: Not configured<br>
       Grok: Not configured<br><br>
       Routing: Ready<br>
-      Mission recovery: Ready<br><br>
       → OPEN KEEPROUTE
     </div>
 
     <details style="margin-top:22px;" class="full-gallery">
-      <summary>Advanced setup (not the default)</summary>
+      <summary>If something fails</summary>
       <div style="padding:14px 4px 4px;color:var(--cream-dim);">
-        <p>Advanced operators may assemble OmniRoute + KeepRoute services manually. That path is intentionally secondary. We will not publish private hostnames, private ports, or lab filesystem layouts on this public page. When the official KeepRoute installer ships, Advanced docs will point to public repositories and sanitized guides only.</p>
-        <p style="margin-top:10px;">Upstream OmniRoute install docs: <a href="https://github.com/diegosouzapw/OmniRoute" target="_blank" rel="noopener">github.com/diegosouzapw/OmniRoute</a></p>
+        <p><strong>Page won’t open:</strong> confirm <span class="mono">python3 desk/app.py</span> is still running and you used <span class="mono">127.0.0.1:20129</span>.</p>
+        <p style="margin-top:8px;"><strong>Providers missing:</strong> connect them in OmniRoute first, save the OmniRoute API key in KeepRoute, then refresh the page.</p>
+        <p style="margin-top:8px;"><strong>Docker errors:</strong> install Docker Engine, log out/in (or restart), retry <span class="mono">docker compose … up -d</span>.</p>
+        <p style="margin-top:8px;"><strong>Local AI silent:</strong> no GPU / no Ollama is fine — use cloud providers; Local is optional.</p>
       </div>
     </details>
   </section>
@@ -596,11 +787,17 @@
     <p class="tag">FAQ</p>
     <h2>Practical questions</h2>
 
+    <details open><summary>Why does KeepRoute exist if OmniRoute already routes?</summary>
+      <p><strong>OmniRoute routes a request. KeepRoute owns the mission.</strong> We built KeepRoute because long agent jobs kept dying when Claude hit a limit, a provider failed, or the host restarted. Stock routing can send the next prompt elsewhere — KeepRoute checkpoints the job and continues it so you are not rebuilding progress by hand.</p>
+    </details>
+    <details><summary>Is there a GitHub write-up?</summary>
+      <p>Yes — <a href="https://github.com/Otaconskeep/KeepRoute" target="_blank" rel="noopener">github.com/Otaconskeep/KeepRoute</a> has the full product write-up, <strong>INSTALL.md</strong> how-to, WHY doc, and the KeepRoute-UI package you can clone. This page mirrors the install path with screenshots.</p>
+    </details>
     <details><summary>Is this stock OmniRoute?</summary>
-      <p>No. It uses stock OmniRoute as its underlying provider/model routing data plane and adds a stateful Mission Controller and orchestration layer (KeepRoute).</p>
+      <p>No. It uses stock OmniRoute as its underlying provider/model routing data plane and adds a stateful Mission Controller and orchestration layer (KeepRoute). Same family of gateway; different product job.</p>
     </details>
     <details><summary>Did you fork OmniRoute?</summary>
-      <p>KeepRoute extends OmniRoute with an independent stateful orchestration/control layer. We do not present KeepRoute as “our OmniRoute fork.” Upstream OmniRoute remains its own project.</p>
+      <p>KeepRoute extends OmniRoute with an independent stateful orchestration/control layer. We do not present KeepRoute as “our OmniRoute fork.” Upstream OmniRoute remains its own project — KeepRoute is OtaconsKeep’s mission layer on top.</p>
     </details>
     <details><summary>What happens when Claude reaches its limit?</summary>
       <p>KeepRoute can checkpoint the mission and continue on another eligible provider/agent when the path is supported. That is different from simply retrying the same prompt blindly.</p>
@@ -632,6 +829,7 @@
     <h2>Powered by OmniRoute</h2>
     <p class="intro">OmniRoute is an open-source local AI gateway: one OpenAI-compatible endpoint, many providers, combos, and resilience features. Learn more from the upstream project:</p>
     <div class="btn-row">
+      <a class="btn btn-ghost" href="https://github.com/Otaconskeep/KeepRoute" target="_blank" rel="noopener">KeepRoute on GitHub</a>
       <a class="btn btn-ghost" href="https://github.com/diegosouzapw/OmniRoute" target="_blank" rel="noopener">OmniRoute on GitHub</a>
       <a class="btn btn-ghost" href="/">Back to OtaconsKeep</a>
     </div>
@@ -641,7 +839,7 @@
 <footer class="sitefoot">
   <div class="wrap">
     <span>KEEPROUTE 1.0 · OtaconsKeep · Powered by OmniRoute</span>
-    <span><a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">github.com/Otaconskeep</a> · <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a></span>
+    <span><a href="https://github.com/Otaconskeep/KeepRoute" target="_blank" rel="noopener">github.com/Otaconskeep/KeepRoute</a> · <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a></span>
   </div>
 </footer>
 

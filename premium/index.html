@@ -27,6 +27,7 @@
     <div class="navlinks">
       <a href="../">Home</a>
       <a href="../otacon/">Otacon</a>
+      <a href="../keepdesk/">Keep Desk</a>
       <a href="../keeproute/">KeepRoute</a>
       <a href="../expansion/">Expansion</a>
       <a href="../ai9/">AI9</a>
@@ -206,13 +207,13 @@
 </footer>
 
 <script src="../assets/site.js"></script>
-<script src="premium.js?v=20260919c"></script>
+<script src="premium.js?v=20260919d"></script>
 <script>
 (function () {
   // If premium.js 404s or a stale host is used, keep a working seat table inline.
   if (!window.OtaconsPremium || !window.OtaconsPremium.USERS || !window.OtaconsPremium.USERS.JOSHBLOCK) {
     window.OtaconsPremium = {
-      GATE_BUILD: '20260919c-inline',
+      GATE_BUILD: '20260919d-inline',
       NOTIFY_WEBHOOK_URL: '',
       LICENSES: {
         JOSHBLOCK: { licenseId: 'OK-PREM-BLOCK-001', displayName: 'Josh Block', tier: 'early-access', status: 'active', seats: 1, issued: '2026-09-16', paymentRef: 'BMC — issued by hand (friend)' },
@@ -266,13 +267,6 @@
   var newsFeed = document.getElementById('news-feed');
 
   if (buildEl) buildEl.textContent = GATE_BUILD;
-
-  // Stale Cloudflare workers.dev mirror — send people to the live GitHub Pages gate.
-  if (/\.workers\.dev$/i.test(location.hostname) || /otaconskeep-site\.otaconskeep\.workers\.dev/i.test(location.hostname)) {
-    if (errorEl) {
-      errorEl.innerHTML = 'Wrong site copy (workers.dev is stale). Open <a href="https://otaconskeep.github.io/premium/?v=20260919c">otaconskeep.github.io/premium/</a> instead.';
-    }
-  }
 
   function displayName(code) {
     var lic = LICENSES[code];
@@ -472,7 +466,7 @@
       if (user && (pwOk || pinOk)) {
         reveal(username, { notify: true });
       } else {
-        errorEl.textContent = 'Incorrect credentials (build ' + GATE_BUILD + '). Use your issued access name — not Discord — and password or PIN.';
+        errorEl.textContent = 'Incorrect credentials (build ' + GATE_BUILD + '). Access name JOSHBLOCK or BLOCK, then password or PIN.';
         pwInput.value = '';
         pinInput.value = '';
         nameInput.focus();
