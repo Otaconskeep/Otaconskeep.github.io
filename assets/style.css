@@ -1615,8 +1615,9 @@ footer a:hover { color: var(--accent-bright); }
 .motioncard .mc-key { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--cream-faint); }
 
 .quickpick-wrap { padding: 26px 0 8px; }
-.quickpick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.quickpick-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 @media (max-width: 800px) { .quickpick-grid { grid-template-columns: 1fr; } }
+@media (min-width: 1100px) { .quickpick-grid { grid-template-columns: repeat(4, 1fr); } }
 .quickpick {
   background: var(--surface);
   border: 1px solid var(--line);

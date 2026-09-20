@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KEEPROUTE 1.0 — OtaconsKeep Stateful AI Orchestration</title>
+<meta name="description" content="KEEPROUTE turns AI routing into persistent mission orchestration. Powered by OmniRoute. Built by OtaconsKeep.">
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="keeproute.css">
+</head>
+<body>
+
+<div class="filebar">
+  <div class="wrap">
+    <span>KEEPROUTE // OTACONSKEEP</span>
+    <span>STATUS // 1.0 STABLE<span class="blink"></span></span>
+  </div>
+</div>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" href="/">Otaconskeep</a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+    <div class="navlinks">
+      <a href="/">Home</a>
+      <a href="/otacon/">Otacon</a>
+      <a href="/keeproute/" aria-current="page">KeepRoute</a>
+      <a href="/expansion/">Expansion</a>
+      <a href="/ai9/">AI9</a>
+      <a href="/faq/">FAQ</a>
+      <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+      <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+    </div>
+  </div>
+</nav>
+
+<nav class="kr-subnav" aria-label="KeepRoute sections">
+  <div class="wrap">
+    <a href="#overview">Overview</a>
+    <a href="#how">How it works</a>
+    <a href="#different">Why different</a>
+    <a href="#benchmarks">Benchmarks</a>
+    <a href="#security">Security</a>
+    <a href="#proscons">Pros &amp; Cons</a>
+    <a href="#limitations">Limitations</a>
+    <a href="#install">Install</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <section class="hero flush" id="overview">
+    <div class="stamp">KEEPROUTE 1.0<small>stable · powered by OmniRoute</small></div>
+    <p class="eyebrow" style="margin-top: 18px;">OtaconsKeep Stateful AI Orchestration</p>
+    <h1 class="display" style="font-size: clamp(2.4rem, 7vw, 4.2rem);">One job. The right AI.<br>No starting over.</h1>
+    <p class="lede">KEEPROUTE turns AI routing into persistent mission orchestration. It uses <strong>OmniRoute</strong> underneath for provider/model routing and adds mission state, recovery, checkpoints, local-first policy, and supported agent handoff.</p>
+    <p class="lede" style="margin-top: 10px; color: var(--cream-dim); font-size: 1.02rem;">We did not create stock OmniRoute. OmniRoute is the upstream routing data plane. KEEPROUTE is the OtaconsKeep orchestration layer built around it.</p>
+    <div class="btn-row" style="margin-top: 26px;">
+      <a class="btn btn-primary" href="#install">Install KeepRoute</a>
+      <a class="btn btn-ghost" href="#how">How it works</a>
+      <a class="btn btn-ghost" href="#benchmarks">See the proof</a>
+      <a class="btn btn-ghost" href="#compare">Compare with stock</a>
+    </div>
+    <p class="meta" style="margin-top: 22px;">ROUTE · RECOVER · CONTINUE &nbsp;//&nbsp; MISSION CONTROL</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <div class="kr-10s" aria-label="Ten-second explanation">
+    <article>
+      <h3>OmniRoute</h3>
+      <p>Chooses where an AI request goes.</p>
+    </article>
+    <article>
+      <h3>KeepRoute</h3>
+      <p>Remembers the whole job, watches it, and keeps it moving if the AI doing the work has to change.</p>
+    </article>
+  </div>
+
+  <div class="kr-principle">
+    <strong>The mission is the product. The model is replaceable.</strong>
+    <span>One job. Multiple possible agents. One continuous mission.</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="fits">
+    <p class="tag">Where KeepRoute fits</p>
+    <h2>Three layers. Clear ownership.</h2>
+    <p class="intro">So you always know what is ours, what is upstream, and what the larger Keep is.</p>
+
+    <div class="kr-stack" aria-label="Product hierarchy">
+      <div class="layer ours">
+        <strong>OtaconsKeep</strong>
+        <em>Local AI ecosystem — UI, agents, automation, local models, other Keep capabilities</em>
+      </div>
+      <div class="layer ours">
+        <strong>KeepRoute</strong>
+        <em>Mission orchestration and agent continuity inside OtaconsKeep</em>
+      </div>
+      <div class="layer upstream">
+        <strong>OmniRoute</strong>
+        <em>Upstream provider/model routing data plane (open source)</em>
+      </div>
+      <div class="layer">
+        <strong>Providers / models / agent runtimes</strong>
+        <em>Claude · Codex · Cursor · Grok · Local models · other supported providers</em>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="how">
+    <p class="tag">What does it actually do?</p>
+    <h2>You describe the job. KeepRoute keeps the mission alive.</h2>
+    <p class="intro">You tell the system what you want done. It chooses an appropriate AI or local model. If that provider hits a limit, crashes, or becomes unavailable, the job can continue through another compatible agent — without making you start over.</p>
+    <p class="kr-disclaimer">This does not mean every provider or every task is guaranteed to hand off perfectly. Handoff quality still depends on tool compatibility and what the mission has saved.</p>
+
+    <div class="kr-examples">
+      <div class="kr-example">
+        <header>Example 1 // Simple greeting</header>
+        <div class="body">
+          <div class="kr-bubble user"><span class="who">You</span>Hi</div>
+          <div class="kr-bubble sys"><span class="who">KeepRoute</span>Simple request → Local AI<br><small style="color:var(--cream-dim)">No reason to spend paid-provider usage on a greeting.</small></div>
+          <div class="kr-chain">
+            <span class="chip local">Local</span>
+            <span class="arr">→</span>
+            <span class="chip ok">Reply</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="kr-example">
+        <header>Example 2 // Coding mission with recovery</header>
+        <div class="body">
+          <div class="kr-bubble user"><span class="who">You</span>Build me a program that compares coffee prices.</div>
+          <div class="kr-bubble sys"><span class="who">KeepRoute</span>Coding job → appropriate coding agent. Mission ID created. Checkpoints begin.</div>
+          <div class="kr-anim-handoff" aria-label="Handoff illustration">
+            <span class="node" data-pulse>Claude</span>
+            <span class="arr">→</span>
+            <span class="node" data-pulse>Limit</span>
+            <span class="arr">→</span>
+            <span class="node" data-pulse>Checkpoint</span>
+            <span class="arr">→</span>
+            <span class="node" data-pulse>Codex</span>
+            <span class="arr">→</span>
+            <span class="node" data-pulse>Continue</span>
+            <span class="arr">→</span>
+            <span class="node" data-pulse>Complete</span>
+          </div>
+          <p style="margin:0;color:var(--cream-dim);font-size:0.92rem;">If needed again: Codex → failure → Cursor → same mission continues. Completed work, remaining tasks, errors, and files travel with the mission — not private “hidden reasoning” from the previous model.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="why-design">
+    <p class="tag">Why this design exists</p>
+    <h2>Providers are powerful. Each one still has limits.</h2>
+    <p class="intro">Quotas, rate limits, outages, context limits, different strengths, different tools. KeepRoute separates the mission from the provider. The job belongs to the orchestration layer — not to Claude, Codex, Cursor, Grok, or any single model.</p>
+    <p class="intro" style="margin-top:10px;">That means the system can choose the right executor, preserve progress, and move the mission when conditions change.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="different">
+    <p class="tag">What did KeepRoute improve?</p>
+    <h2>From disposable requests to durable missions</h2>
+    <div class="kr-improve">
+      <article>
+        <h3>Requests became Missions</h3>
+        <p>Long-running work gets a persistent Mission ID and state instead of living only inside one model call.</p>
+      </article>
+      <article>
+        <h3>Routing became policy-controlled</h3>
+        <p>Clients no longer secretly choose providers. One orchestration layer owns routing policy.</p>
+      </article>
+      <article>
+        <h3>Failures became recoverable</h3>
+        <p>Rate limits, quota issues, timeouts, and supported runtime failures can trigger controlled recovery instead of forcing a restart.</p>
+      </article>
+      <article>
+        <h3>Provider fallback became continuation</h3>
+        <p>Not merely retrying a prompt elsewhere — completed work, errors, checkpoints, files, and remaining tasks can be preserved.</p>
+      </article>
+      <article>
+        <h3>Models became interchangeable executors</h3>
+        <p>A mission can outlive the individual AI currently performing it.</p>
+      </article>
+      <article>
+        <h3>Local AI became the default for cheap work</h3>
+        <p>Simple requests can stay local instead of unnecessarily consuming paid-provider usage.</p>
+      </article>
+      <article>
+        <h3>Restarts stopped killing the mission</h3>
+        <p>Persistent state allows supported missions to survive service restart and validated host reboot recovery.</p>
+      </article>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <p class="tag">Before / after</p>
+    <h2>Without KeepRoute vs with KeepRoute</h2>
+    <div class="kr-compare-visual">
+      <div class="kr-flow-card">
+        <h3>Without KeepRoute</h3>
+        <div class="kr-vflow">
+          <div class="step">Prompt</div><div class="dn">↓</div>
+          <div class="step">Provider</div><div class="dn">↓</div>
+          <div class="step fail">Failure</div><div class="dn">↓</div>
+          <div class="step fail">User recovers / restarts</div>
+        </div>
+      </div>
+      <div class="kr-flow-card with">
+        <h3>With KeepRoute</h3>
+        <div class="kr-vflow">
+          <div class="step mission">Mission</div><div class="dn">↓</div>
+          <div class="step">Provider A</div><div class="dn">↓</div>
+          <div class="step mission">Checkpoint</div><div class="dn">↓</div>
+          <div class="step fail">Failure</div><div class="dn">↓</div>
+          <div class="step">Provider / Agent B</div><div class="dn">↓</div>
+          <div class="step mission">Restore state</div><div class="dn">↓</div>
+          <div class="step">Continue</div><div class="dn">↓</div>
+          <div class="step good">Complete</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px;font-size:1.15rem;">Architecture (conceptual)</h3>
+    <svg class="kr-arch-svg" viewBox="0 0 720 420" role="img" aria-label="KeepRoute architecture diagram">
+      <rect width="720" height="420" fill="#0e131b"/>
+      <g font-family="JetBrains Mono, monospace" font-size="13" fill="#e4edf5" text-anchor="middle">
+        <rect x="260" y="16" width="200" height="36" rx="4" fill="#17202f" stroke="#2d3e56"/>
+        <text x="360" y="39">USER</text>
+        <text x="360" y="68" fill="#556579">↓</text>
+        <rect x="200" y="78" width="320" height="42" rx="4" fill="#0e5f52" stroke="#39e6c8"/>
+        <text x="360" y="104">KEEPROUTE MISSION CONTROLLER</text>
+        <text x="360" y="136" fill="#556579">↓ policy + classification</text>
+        <rect x="220" y="150" width="280" height="36" rx="4" fill="#121926" stroke="#33455e"/>
+        <text x="360" y="173" fill="#8db3d9">OMNIROUTE (data plane)</text>
+        <text x="360" y="202" fill="#556579">↓</text>
+        <rect x="40" y="214" width="120" height="32" rx="4" fill="#17202f" stroke="#2d3e56"/><text x="100" y="235" font-size="12">Claude</text>
+        <rect x="172" y="214" width="120" height="32" rx="4" fill="#17202f" stroke="#2d3e56"/><text x="232" y="235" font-size="12">Codex</text>
+        <rect x="304" y="214" width="120" height="32" rx="4" fill="#17202f" stroke="#2d3e56"/><text x="364" y="235" font-size="12">Cursor</text>
+        <rect x="436" y="214" width="120" height="32" rx="4" fill="#17202f" stroke="#2d3e56"/><text x="496" y="235" font-size="12">Grok</text>
+        <rect x="568" y="214" width="120" height="32" rx="4" fill="#17202f" stroke="#2d3e56"/><text x="628" y="235" font-size="12">Local</text>
+        <text x="360" y="270" fill="#556579">↓ checkpoint · supervise</text>
+        <rect x="200" y="284" width="320" height="36" rx="4" fill="#17202f" stroke="#e0a83c"/>
+        <text x="360" y="307" fill="#e0a83c">FAILURE? → HANDOFF / CONTINUE</text>
+        <text x="360" y="338" fill="#556579">↓</text>
+        <rect x="240" y="350" width="240" height="40" rx="4" fill="#226b48" stroke="#43d98a"/>
+        <text x="360" y="375" fill="#43d98a">MISSION COMPLETE</text>
+      </g>
+    </svg>
+    <p class="kr-disclaimer">Conceptual product architecture only. No internal network topology is shown.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="compare">
+    <p class="tag">KeepRoute vs stock OmniRoute</p>
+    <h2>Capabilities, not a scoreboard</h2>
+    <p class="intro">Stock OmniRoute is an excellent provider/model routing gateway. KeepRoute adds a higher-level stateful orchestration/control plane. We do not claim stock OmniRoute is “bad.”</p>
+    <p class="kr-disclaimer">Stock column verified against public OmniRoute documentation (architecture + resilience guides on the upstream GitHub project). Where stock has no mission-orchestration equivalent, we say so plainly.</p>
+
+    <div class="tablewrap kr-table" style="margin-top:16px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th>Stock OmniRoute</th>
+            <th>KeepRoute 1.0</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Multiple providers / models</td><td class="yes">Yes</td><td class="uses">Uses OmniRoute</td></tr>
+          <tr><td>Provider / model routing</td><td class="yes">Yes</td><td class="uses">Uses OmniRoute</td></tr>
+          <tr><td>Provider fallback / combos</td><td class="yes">Yes</td><td class="uses">Uses OmniRoute + mission-aware recovery</td></tr>
+          <tr><td>Health / circuit handling</td><td class="yes">Yes</td><td class="uses">Uses OmniRoute resilience + KeepRoute supervision</td></tr>
+          <tr><td>Policy-based task classification</td><td class="no">Not KeepRoute-style mission policy</td><td class="yes">Yes</td></tr>
+          <tr><td>Persistent Mission ID</td><td class="no">No equivalent mission layer</td><td class="yes">Yes</td></tr>
+          <tr><td>Persistent mission state</td><td class="no">No equivalent mission layer</td><td class="yes">Yes</td></tr>
+          <tr><td>Checkpoints</td><td class="no">Not core stock routing</td><td class="yes">Yes</td></tr>
+          <tr><td>Completed / remaining work tracking</td><td class="no">No equivalent</td><td class="yes">Yes</td></tr>
+          <tr><td>Unresolved-error preservation</td><td class="no">No equivalent</td><td class="yes">Yes</td></tr>
+          <tr><td>Route history (mission-level)</td><td class="no">Request/usage telemetry ≠ mission history</td><td class="yes">Yes</td></tr>
+          <tr><td>Service restart recovery</td><td class="no">No mission-level equivalent</td><td class="yes">Yes (tested)</td></tr>
+          <tr><td>Full-host reboot recovery</td><td class="no">No mission-level equivalent</td><td class="yes">Yes (verified 2/2 in KeepRoute testing)</td></tr>
+          <tr><td>Stateful model continuation</td><td class="no">Fallback ≠ mission continuation package</td><td class="yes">Yes</td></tr>
+          <tr><td>Cross-agent runtime handoff</td><td class="no">No</td><td class="yes">Yes, supported/tested paths</td></tr>
+          <tr><td>Claude Code → Codex continuation</td><td class="no">No</td><td class="yes">Yes, supported/tested path</td></tr>
+          <tr><td>Multi-hop continuation</td><td class="no">No mission multi-hop</td><td class="yes">Yes</td></tr>
+          <tr><td>Duplicate / destructive action protection</td><td class="no">No mission ledger equivalent</td><td class="yes">Yes</td></tr>
+          <tr><td>Local-first trivial routing</td><td class="uses">Configurable routing</td><td class="yes">Policy-enforced local-first for trivial work</td></tr>
+          <tr><td>Operational mission metrics / release gate</td><td class="uses">Gateway monitoring</td><td class="yes">Mission soak metrics + release verification</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="kr-disclaimer">Sources: upstream OmniRoute README / Architecture / Resilience Guide (public GitHub). KeepRoute column = OtaconsKeep 1.0 release capabilities.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="why-usecase">
+    <p class="tag">Why it helps this use case</p>
+    <h2>Better for long-running agent work — not “better at everything”</h2>
+    <div class="kr-why-grid">
+      <article><h3>Persistent work</h3><p>The mission exists independently from a single model request.</p></article>
+      <article><h3>Automatic recovery</h3><p>Recoverable provider failures do not necessarily require starting again.</p></article>
+      <article><h3>Cross-agent continuation</h3><p>A coding mission can move between supported agent runtimes.</p></article>
+      <article><h3>Local-first cost control</h3><p>Simple work can remain local.</p></article>
+      <article><h3>Checkpointing</h3><p>Important mission state can survive service interruption.</p></article>
+      <article><h3>Policy</h3><p>Routing decisions are controlled by one orchestration layer rather than scattered through clients.</p></article>
+      <article><h3>Visibility</h3><p>You can inspect what route was selected and why.</p></article>
+      <article><h3>Design improvements</h3><p>Centralized routing ownership, durable checkpoints, failure taxonomy, adapters, local-first policy, restart recovery, and evidence-driven releases.</p></article>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="benchmarks">
+    <p class="tag">Benchmarks // verified release results</p>
+    <h2>What we measured for KeepRoute 1.0</h2>
+    <p class="intro">These are <strong>observed release-test results</strong>, not universal guarantees. Sample sizes are shown beside every rate.</p>
+
+    <div class="kr-bench-grid">
+      <div class="kr-stat"><div class="num">58</div><div class="label">Release soak missions (promotion sample)</div><div class="note">Sample size</div></div>
+      <div class="kr-stat"><div class="num">100%</div><div class="label">Observed completion in that 58-mission soak sample</div><div class="note">n = 58</div></div>
+      <div class="kr-stat"><div class="num">0</div><div class="label">User interventions observed in that sample</div><div class="note">n = 58</div></div>
+      <div class="kr-stat"><div class="num">0</div><div class="label">Hard-invariant violations observed (state-loss, destructive replay, paid leak, etc.)</div><div class="note">Release soak + sweep</div></div>
+      <div class="kr-stat"><div class="num">200/200</div><div class="label">Final repeated trivial → local verification (100/100 + 100/100)</div><div class="note">Paid leakage: 0</div></div>
+      <div class="kr-stat"><div class="num">100/100</div><div class="label">Local-route verification after a large local model was already loaded</div><div class="note">Paid leakage: 0</div></div>
+      <div class="kr-stat"><div class="num">2/2</div><div class="label">Host-reboot recovery tests</div><div class="note">KeepRoute testing</div></div>
+      <div class="kr-stat"><div class="num">0 fails</div><div class="label">Final capability + hardening sweep (P1–P8 style suite)</div><div class="note">Post-release smoke: PASS</div></div>
+    </div>
+
+    <div class="kr-charts" aria-label="Benchmark charts">
+      <div class="kr-chart">
+        <h3>1) Release soak (n=58)</h3>
+        <div class="kr-bar-row"><span class="name">Completion</span><div class="kr-bar-track"><div class="kr-bar-fill" data-pct="100"></div></div><span class="val">100%</span></div>
+        <div class="kr-bar-row"><span class="name">Intervention</span><div class="kr-bar-track"><div class="kr-bar-fill zero" data-pct="0"></div></div><span class="val">0%</span></div>
+      </div>
+      <div class="kr-chart">
+        <h3>2) Local-routing verification</h3>
+        <div class="kr-bar-row"><span class="name">Run A</span><div class="kr-bar-track"><div class="kr-bar-fill" data-pct="100"></div></div><span class="val">100/100</span></div>
+        <div class="kr-bar-row"><span class="name">Run B</span><div class="kr-bar-track"><div class="kr-bar-fill" data-pct="100"></div></div><span class="val">100/100</span></div>
+        <div class="kr-bar-row"><span class="name">After large model</span><div class="kr-bar-track"><div class="kr-bar-fill" data-pct="100"></div></div><span class="val">100/100</span></div>
+        <div class="kr-bar-row"><span class="name">Paid leak</span><div class="kr-bar-track"><div class="kr-bar-fill zero" data-pct="0"></div></div><span class="val">0</span></div>
+      </div>
+      <div class="kr-chart">
+        <h3>3) Recovery / handoff</h3>
+        <div class="kr-bar-row"><span class="name">Host reboot</span><div class="kr-bar-track"><div class="kr-bar-fill" data-pct="100"></div></div><span class="val">2/2</span></div>
+        <div class="kr-bar-row"><span class="name">Final sweep</span><div class="kr-bar-track"><div class="kr-bar-fill" data-pct="100"></div></div><span class="val">0 fails</span></div>
+        <div class="kr-bar-row"><span class="name">Smoke</span><div class="kr-bar-track"><div class="kr-bar-fill" data-pct="100"></div></div><span class="val">PASS</span></div>
+      </div>
+      <div class="kr-chart">
+        <h3>4) Hard invariants (observed)</h3>
+        <div class="kr-bar-row"><span class="name">State loss</span><div class="kr-bar-track"><div class="kr-bar-fill zero" data-pct="0"></div></div><span class="val">0</span></div>
+        <div class="kr-bar-row"><span class="name">Destructive replay</span><div class="kr-bar-track"><div class="kr-bar-fill zero" data-pct="0"></div></div><span class="val">0</span></div>
+        <div class="kr-bar-row"><span class="name">Trivial→paid</span><div class="kr-bar-track"><div class="kr-bar-fill zero" data-pct="0"></div></div><span class="val">0</span></div>
+        <div class="kr-bar-row"><span class="name">Contamination</span><div class="kr-bar-track"><div class="kr-bar-fill zero" data-pct="0"></div></div><span class="val">0</span></div>
+      </div>
+    </div>
+
+    <div class="kr-method">
+      <h3>Methodology disclosure</h3>
+      <ul>
+        <li><strong>Release soak sample (n=58):</strong> mixed real mission classes (trivial/chat/coding/reasoning) collected for the 1.0 promotion sample — not a padded trivial-only set.</li>
+        <li><strong>Local-routing verification:</strong> repeated “trivial greeting → must stay local” campaigns (100 requests each), plus a third campaign after a large local model was already loaded.</li>
+        <li><strong>Recovery/handoff:</strong> controlled service-restart and host-reboot recovery tests; Claude→Codex and multi-hop paths exercised in the capability suite.</li>
+        <li><strong>Hard invariants:</strong> counters for state loss, destructive replay, trivial→paid leakage, contamination, and forced user resubmit — observed at zero during the release window.</li>
+        <li><strong>Not claimed:</strong> no apples-to-apples performance percentage comparison versus unmodified stock OmniRoute (capability comparison only).</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="security">
+    <p class="tag">Security / privacy</p>
+    <h2>What we claim — and what we do not</h2>
+    <p class="intro">We do not claim “everything is encrypted.” Public static website assets are not part of an encryption-at-rest story. Below is an honest control map for KeepRoute deployments.</p>
+
+    <div class="kr-sec-grid">
+      <div class="kr-sec-item">
+        <span class="status ok">Design intent</span>
+        <h4>Provider credentials stay server-side</h4>
+        <p>API keys and provider secrets must not be shipped to the browser or embedded in public pages.</p>
+      </div>
+      <div class="kr-sec-item">
+        <span class="status ok">Design intent</span>
+        <h4>Public client vs private data plane</h4>
+        <p>Internal routing data-plane services are intended for private/local binding — not for casual public exposure.</p>
+      </div>
+      <div class="kr-sec-item">
+        <span class="status ok">This page</span>
+        <h4>Sanitized public diagnostics</h4>
+        <p>This site publishes aggregate release results only. No raw mission payloads, logs, or credentials.</p>
+      </div>
+      <div class="kr-sec-item">
+        <span class="status ok">This page</span>
+        <h4>No secrets in frontend bundles</h4>
+        <p>Static HTML/CSS/JS for this page contain no API keys, tokens, or private remotes.</p>
+      </div>
+      <div class="kr-sec-item">
+        <span class="status nv">Not verified (do not claim)</span>
+        <h4>Encryption of all mission state at rest</h4>
+        <p>Full-disk / field-level encryption of every mission record is not claimed as a verified KeepRoute 1.0 guarantee.</p>
+      </div>
+      <div class="kr-sec-item">
+        <span class="status nv">Not verified (do not claim)</span>
+        <h4>Encrypted backups of all sensitive state</h4>
+        <p>Operators should apply their own backup encryption. KeepRoute 1.0 does not advertise a verified universal backup-crypto product feature.</p>
+      </div>
+      <div class="kr-sec-item">
+        <span class="status nv">Deployment-dependent</span>
+        <h4>TLS across every trust boundary</h4>
+        <p>Use TLS wherever traffic crosses an exposed network. Local-only installs may use loopback without public TLS — that is a deployment choice, not a magic shield.</p>
+      </div>
+      <div class="kr-sec-item">
+        <span class="status ok">Operator practice</span>
+        <h4>Least privilege &amp; auth for admin surfaces</h4>
+        <p>Administrative APIs and dashboards should be authenticated and not published as open internet endpoints.</p>
+      </div>
+    </div>
+    <p class="kr-disclaimer" style="margin-top:16px;">If a control is marked Not verified, we will not market it as finished. Prefer honest gaps over false confidence.</p>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="proscons">
+    <p class="tag">Pros &amp; cons</p>
+    <h2>Straightforward tradeoffs</h2>
+    <div class="kr-proscons">
+      <div class="kr-list pros">
+        <h3>Pros</h3>
+        <ul>
+          <li>Automatic routing with policy</li>
+          <li>Local-first inexpensive tasks</li>
+          <li>Stateful missions</li>
+          <li>Provider failover with continuation</li>
+          <li>Agent-runtime handoff (supported paths)</li>
+          <li>Restart / reboot recovery (tested)</li>
+          <li>Checkpointing</li>
+          <li>Less manual copying between agents</li>
+          <li>Route history and visibility</li>
+          <li>Avoids repeating completed destructive operations</li>
+          <li>Provider independence at the mission layer</li>
+        </ul>
+      </div>
+      <div class="kr-list cons">
+        <h3>Cons</h3>
+        <ul>
+          <li>More components than stock OmniRoute alone</li>
+          <li>Requires the Mission Controller layer</li>
+          <li>More storage/state to manage</li>
+          <li>Handoff quality depends on provider/tool compatibility</li>
+          <li>More setup than a single-provider workflow</li>
+          <li>Local inference needs adequate hardware</li>
+          <li>Cloud providers still have their own limits and costs</li>
+          <li>Recovery adds some latency</li>
+          <li>Not every external agent exposes identical capabilities</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="limitations">
+    <p class="tag">Limitations</p>
+    <h2>Read this before you install</h2>
+    <div class="kr-limit">
+      <ul>
+        <li>No AI system is guaranteed to finish every task.</li>
+        <li>A replacement agent cannot inherit another provider’s private hidden reasoning.</li>
+        <li>Handoff uses provider-independent mission state: files, decisions, errors, TODOs, tool results, and checkpoints.</li>
+        <li>Provider APIs and services may change without notice.</li>
+        <li>Some tasks require provider-specific tools and may not be transferable.</li>
+        <li>Local model quality depends on hardware and model choice.</li>
+        <li>Cloud usage can cost money.</li>
+        <li>Internet/provider outages can exhaust all available routes; the mission should stop cleanly rather than pretend success.</li>
+        <li>Checkpoints reduce risk but are not a substitute for backups.</li>
+        <li>Arbitrary destructive commands still require appropriate safety policy.</li>
+        <li>Benchmarks are release-test results, not universal performance guarantees.</li>
+        <li><strong>Accepted residual operational notes (public-safe):</strong> occasional warm-up delay after a machine boots; cosmetic health-check noise on the upstream gateway container; intentional private binding of the internal data plane. These are monitored, low-severity, and not claimed as Sev-1 product failures.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="install">
+    <p class="tag">Install</p>
+    <h2>Getting KeepRoute onto a machine</h2>
+    <p class="intro">Goal: a first-time user should understand the path without editing config files by hand.</p>
+
+    <div class="info-note" style="border-color: var(--warn-dim);">
+      <strong>Installer honesty check:</strong> A dedicated one-click <em>KeepRoute 1.0</em> installer that installs OmniRoute + Mission Controller + Auto Guard + provider setup + smoke test is <strong>not shipped yet</strong>. We will not pretend it exists. OtaconsKeep Lite already has a working one-click installer for the broader ecosystem; KeepRoute packaging is next.
+    </div>
+
+    <h3 style="margin-top:28px;">Easy path today (recommended while KeepRoute packaging finishes)</h3>
+    <div class="kr-install-steps">
+      <div class="kr-step">
+        <h3>Download OtaconsKeep Setup</h3>
+        <p>Use the existing public Windows installer for OtaconsKeep Lite. This installs the local Keep foundation (agents, local model path, Command Deck).</p>
+        <p style="margin-top:10px;"><a class="btn btn-primary" href="/downloads/OtaconsKeep-Setup.bat" download>Download OtaconsKeep Setup</a>
+        <a class="btn btn-ghost" href="/otacon/#install">Otacon install guide</a></p>
+      </div>
+      <div class="kr-step">
+        <h3>Open the installer</h3>
+        <p>Find the downloaded <span class="mono">OtaconsKeep-Setup.bat</span> file and double-click it. If Windows SmartScreen appears, choose <strong>More info</strong> → <strong>Run anyway</strong> only if you trust the OtaconsKeep download source.</p>
+      </div>
+      <div class="kr-step">
+        <h3>Allow installation</h3>
+        <p>Approve the User Account Control prompt if shown. Leave the window open until Setup finishes — long downloads can look “stuck” while models install.</p>
+      </div>
+      <div class="kr-step pending">
+        <h3>KeepRoute stack (pending packaged installer)</h3>
+        <p>When the KeepRoute installer ships, it should install: OmniRoute, Mission Controller, Auto Guard, state directories, service autostart, provider configuration UI, local model connection, security defaults, health check, final smoke test, and a desktop shortcut. <strong>Status: pending — not claimed as available today.</strong></p>
+      </div>
+      <div class="kr-step">
+        <h3>Provider cards (what you will configure)</h3>
+        <div class="kr-providers">
+          <div class="kr-prov"><strong>Claude</strong><span>Cloud · account required · usually paid</span><span>Paste key/token only into the server-side settings UI — never into a public webpage.</span></div>
+          <div class="kr-prov"><strong>Codex</strong><span>Cloud · account required · usually paid</span><span>Same rule: credentials stay on your machine’s server config.</span></div>
+          <div class="kr-prov"><strong>Cursor</strong><span>Agent runtime · account required</span><span>Enable only if you use Cursor as a coding executor.</span></div>
+          <div class="kr-prov"><strong>Grok</strong><span>Cloud · account required · usually paid</span><span>Optional provider card.</span></div>
+          <div class="kr-prov"><strong>Local AI</strong><span>On your hardware · often free after download</span><span>No compatible GPU? That’s okay — use cloud providers.</span></div>
+          <div class="kr-prov"><strong>Other</strong><span>Anything OmniRoute already supports</span><span>Configured through the gateway, then governed by KeepRoute policy.</span></div>
+        </div>
+      </div>
+      <div class="kr-step">
+        <h3>Test it (once KeepRoute is running)</h3>
+        <p><strong>Type:</strong> Hi &nbsp;→&nbsp; expect Local AI.<br>
+        <strong>Type:</strong> Write a small Python calculator. &nbsp;→&nbsp; expect a coding-capable route.<br>
+        Route/status lights should show selected provider and whether the mission is active.</p>
+      </div>
+      <div class="kr-step">
+        <h3>Done</h3>
+        <p>You can type normal requests. Prefer Auto/policy routing unless you intentionally force a provider.</p>
+      </div>
+    </div>
+
+    <div class="kr-ready-mock" aria-label="Example ready screen">
+      <div class="title">READY (example)</div>
+      Local AI: Connected<br>
+      Claude: Connected<br>
+      Codex: Connected<br>
+      Cursor: Not configured<br>
+      Grok: Not configured<br><br>
+      Routing: Ready<br>
+      Mission recovery: Ready<br><br>
+      → OPEN KEEPROUTE
+    </div>
+
+    <details style="margin-top:22px;" class="full-gallery">
+      <summary>Advanced setup (not the default)</summary>
+      <div style="padding:14px 4px 4px;color:var(--cream-dim);">
+        <p>Advanced operators may assemble OmniRoute + KeepRoute services manually. That path is intentionally secondary. We will not publish private hostnames, private ports, or lab filesystem layouts on this public page. When the official KeepRoute installer ships, Advanced docs will point to public repositories and sanitized guides only.</p>
+        <p style="margin-top:10px;">Upstream OmniRoute install docs: <a href="https://github.com/diegosouzapw/OmniRoute" target="_blank" rel="noopener">github.com/diegosouzapw/OmniRoute</a></p>
+      </div>
+    </details>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="release">
+    <p class="tag">Release</p>
+    <h2>KeepRoute 1.0</h2>
+    <div class="kr-release">
+      <div class="stamp-box"><div class="stamp">KEEPROUTE<small>1.0 · stable</small></div></div>
+      <div class="meta">
+        <p><strong>Product:</strong> KeepRoute — OtaconsKeep Stateful AI Orchestration</p>
+        <p><strong>Version:</strong> 1.0</p>
+        <p><strong>Status:</strong> Stable (released)</p>
+        <p><strong>Relationship:</strong> Powered by OmniRoute (upstream data plane)</p>
+        <p><strong>Friendly changelog:</strong> First stable release of mission orchestration — persistent missions, checkpoints, recovery, local-first trivial policy, supported agent handoff, and release-verified soak results. Packaging/installer polish for one-click KeepRoute remains in progress.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="faq" class="kr-faq">
+    <p class="tag">FAQ</p>
+    <h2>Practical questions</h2>
+
+    <details><summary>Is this stock OmniRoute?</summary>
+      <p>No. It uses stock OmniRoute as its underlying provider/model routing data plane and adds a stateful Mission Controller and orchestration layer (KeepRoute).</p>
+    </details>
+    <details><summary>Did you fork OmniRoute?</summary>
+      <p>KeepRoute extends OmniRoute with an independent stateful orchestration/control layer. We do not present KeepRoute as “our OmniRoute fork.” Upstream OmniRoute remains its own project.</p>
+    </details>
+    <details><summary>What happens when Claude reaches its limit?</summary>
+      <p>KeepRoute can checkpoint the mission and continue on another eligible provider/agent when the path is supported. That is different from simply retrying the same prompt blindly.</p>
+    </details>
+    <details><summary>Can it use Cursor?</summary>
+      <p>Yes, as a supported agent adapter path when configured. Not every Cursor capability is identical to every other agent.</p>
+    </details>
+    <details><summary>What if everything is offline?</summary>
+      <p>The mission should stop cleanly rather than pretending it succeeded.</p>
+    </details>
+    <details><summary>Can I run everything locally?</summary>
+      <p>Simple work can stay local. Heavy coding/agent work may still need cloud providers depending on your hardware and models.</p>
+    </details>
+    <details><summary>Does it guarantee my code won’t break?</summary>
+      <p>No.</p>
+    </details>
+    <details><summary>Does it guarantee every mission completes?</summary>
+      <p>No. Release tests showed strong results in the measured samples; they are not a universal guarantee.</p>
+    </details>
+    <details><summary>Are my API keys public?</summary>
+      <p>No. Keys must stay server-side and protected. Never paste them into a public webpage or chat.</p>
+    </details>
+  </section>
+</div>
+
+<div class="wrap">
+  <section>
+    <p class="tag">Upstream</p>
+    <h2>Powered by OmniRoute</h2>
+    <p class="intro">OmniRoute is an open-source local AI gateway: one OpenAI-compatible endpoint, many providers, combos, and resilience features. Learn more from the upstream project:</p>
+    <div class="btn-row">
+      <a class="btn btn-ghost" href="https://github.com/diegosouzapw/OmniRoute" target="_blank" rel="noopener">OmniRoute on GitHub</a>
+      <a class="btn btn-ghost" href="/">Back to OtaconsKeep</a>
+    </div>
+  </section>
+</div>
+
+<footer class="sitefoot">
+  <div class="wrap">
+    <span>KEEPROUTE 1.0 · OtaconsKeep · Powered by OmniRoute</span>
+    <span><a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">github.com/Otaconskeep</a> · <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a></span>
+  </div>
+</footer>
+
+<button type="button" class="kr-beginner-btn" id="kr-beginner-open">I don’t understand</button>
+
+<div class="kr-modal" id="kr-beginner-modal" hidden role="dialog" aria-modal="true" aria-labelledby="kr-beginner-title">
+  <div class="kr-modal-panel">
+    <header>
+      <h2 id="kr-beginner-title">Simple answers</h2>
+      <button type="button" class="kr-modal-close" id="kr-beginner-close">Close</button>
+    </header>
+    <div class="kr-q"><button type="button" class="q">What is an AI provider?</button><div class="a">A company or program that actually runs the AI — like Claude, Codex, Cursor, Grok, or a model on your computer.</div></div>
+    <div class="kr-q"><button type="button" class="q">What is OmniRoute?</button><div class="a">Software that picks which provider/model should handle a request. Think of it as the traffic router.</div></div>
+    <div class="kr-q"><button type="button" class="q">What is KeepRoute?</button><div class="a">OtaconsKeep’s mission layer on top of OmniRoute. It remembers the whole job and can continue it if the AI has to change.</div></div>
+    <div class="kr-q"><button type="button" class="q">Why would I use more than one AI?</button><div class="a">Different AIs are good at different things, and any one of them can hit limits. Multiple options keep the job moving.</div></div>
+    <div class="kr-q"><button type="button" class="q">Do I have to pay?</button><div class="a">Local AI can be free after setup. Cloud providers usually cost money or have quotas. Simple “Hi” style work can stay local.</div></div>
+    <div class="kr-q"><button type="button" class="q">What does Local AI mean?</button><div class="a">An AI model running on your own computer instead of a cloud company.</div></div>
+    <div class="kr-q"><button type="button" class="q">What happens if Claude stops working?</button><div class="a">KeepRoute can save progress and try another supported agent for the same mission when that path is available.</div></div>
+    <div class="kr-q"><button type="button" class="q">Will Codex see what Claude already did?</button><div class="a">It receives the saved mission package — files, decisions, errors, remaining work — not Claude’s private hidden thoughts.</div></div>
+    <div class="kr-q"><button type="button" class="q">What is a checkpoint?</button><div class="a">A saved snapshot of mission progress so work can resume after a problem or restart.</div></div>
+    <div class="kr-q"><button type="button" class="q">What is a Mission?</button><div class="a">The whole job, with an ID and memory, not just one chat message.</div></div>
+    <div class="kr-q"><button type="button" class="q">Do I have to choose the AI myself?</button><div class="a">Usually no. Auto/policy routing chooses. You can force a provider when you want to.</div></div>
+    <div class="kr-q"><button type="button" class="q">Can I force a particular provider?</button><div class="a">Yes, when configured — but Auto is the normal path.</div></div>
+    <div class="kr-q"><button type="button" class="q">Does this send my files to every AI?</button><div class="a">No. Only the providers chosen for that mission receive what that mission needs.</div></div>
+    <div class="kr-q"><button type="button" class="q">What information stays local?</button><div class="a">Your Keep installation, local models, and mission state on your machine stay under your control. Cloud providers only see what you send them for a job.</div></div>
+    <div class="kr-q"><button type="button" class="q">Can I uninstall it?</button><div class="a">Yes. OtaconsKeep provides an uninstall script for the Lite installer. KeepRoute-specific uninstall will ship with its installer.</div></div>
+    <div class="kr-q"><button type="button" class="q">What computer do I need?</button><div class="a">Any modern PC can use cloud providers. Local models work better with more RAM/VRAM. No GPU? Cloud-only is fine.</div></div>
+    <div class="kr-q"><button type="button" class="q">What happens if my computer restarts?</button><div class="a">Supported missions can be recovered from checkpoints after reboot — verified in KeepRoute testing (2/2 host-reboot tests in the 1.0 release set).</div></div>
+  </div>
+</div>
+
+<script src="../assets/site.js"></script>
+<script src="keeproute.js"></script>
+</body>
+</html>
