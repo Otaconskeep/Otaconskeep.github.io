@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
-<link rel="stylesheet" href="keepdesk.css?v=20260920b">
+<link rel="stylesheet" href="keepdesk.css?v=20260920c">
 </head>
 <body class="kd-body">
 
@@ -300,6 +300,8 @@ docker compose up -d --build
       <li><strong>Not production-safe alone</strong> — bots are workers; gate money and public posts.</li>
       <li><strong>Not zero-ops</strong> — you run Docker, Ollama, and disk backups.</li>
       <li><strong>Not a free public clone</strong> — install + private repo are supporter-gated via BMC.</li>
+      <li><strong>Amazon SPAs still bite</strong> — shopping stages now require <code class="mono">browser_navigate</code> first (no web_research-only theater; hollow shortlists blocked). Bot walls / SPA choke can still need retries or human takeover.</li>
+      <li><strong>LIVE honesty</strong> — idle parks on NO SIGNAL on purpose; active shopping must leave park onto real product pages.</li>
     </ul>
   </section>
 </div>
@@ -312,6 +314,7 @@ docker compose up -d --build
     <details class="kd-faq"><summary>How does the paywall work?</summary><p>Pay on Buy Me a Coffee → put Discord in the note → Antonio issues access name / password / PIN → unlock this vault → request GitHub invite if needed. Premium seats unlock Keep Desk too.</p></details>
     <details class="kd-faq"><summary>Does it phone home to OpenAI or xAI?</summary><p>No. Local Ollama only; cloud LLM endpoints are refused.</p></details>
     <details class="kd-faq"><summary>What does 91.6% mean?</summary><p>Weighted claimable score on our requirements matrix with critical gate PASS — not “91.6% of Grok.” Day-to-day feel is closer to ~75% once you count model quality, mobile, and connectors.</p></details>
+    <details class="kd-faq"><summary>Why was LIVE stuck on NO SIGNAL during shopping?</summary><p>Earlier builds nudged <code class="mono">web_research</code> first, so Amazon jobs never moved the browser. Fixed: shopping/homelab stages must <code class="mono">browser_navigate</code> before finish; empty shortlists are rejected.</p></details>
     <details class="kd-faq"><summary>Can it buy things with my card?</summary><p>Treat purchases as dangerous. Research is in scope; production spending needs human approval and external gates.</p></details>
     <details class="kd-faq"><summary>Who built this?</summary><p>Antonio G. Garcia — <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">Otaconskeep</a>.</p></details>
   </section>
