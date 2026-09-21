@@ -4877,7 +4877,7 @@
       "source": "KeepRoute page",
       "parent": "REQ-SYS-001",
       "allocated_subsystem": "ARCH-004",
-      "verification_method": "Demonstration",
+      "verification_method": "Test",
       "linked_architecture": [
         "ARCH-004"
       ],
@@ -4894,12 +4894,18 @@
       "verification_executed": "2026-09-20",
       "linked_risks": [],
       "linked_tests": [
-        "TC-019"
+        "KR-001",
+        "KR-002",
+        "KR-003",
+        "KR-006",
+        "KR-007",
+        "KR-008",
+        "KR-009"
       ],
       "linked_models": [],
       "assumptions": [],
       "constraints": [],
-      "version_verified": null,
+      "version_verified": "KeepRoute 1.0",
       "evidence_slot": null,
       "level": 2,
       "verification_approach": "Operator walkthrough on representative hardware; record steps and outcome.",
@@ -4907,17 +4913,23 @@
       "risk": "None",
       "risk_level": "None",
       "risk_rationale": "No residual risk allocated to this requirement in the public risk register.",
-      "verification_rationale": "Verified via TC-019 using Demonstration; evidence EVID-SUITE-001.",
+      "verification_rationale": "Verified via KeepRoute 1.0 release cases KR-001–KR-003, KR-006–KR-009; evidence EVID-KR-001.",
       "satisfied_by": [
         "ARCH-004"
       ],
       "allocated_to": "ARCH-004",
       "verified_by": [
-        "TC-019"
+        "KR-001",
+        "KR-002",
+        "KR-003",
+        "KR-006",
+        "KR-007",
+        "KR-008",
+        "KR-009"
       ],
       "verification_level": "Subsystem",
       "evidence": [
-        "EVID-SUITE-001"
+        "EVID-KR-001"
       ],
       "result": "Pass"
     },
@@ -5045,7 +5057,9 @@
       ],
       "linked_risks": [],
       "linked_tests": [
-        "IT-001"
+        "IT-001",
+        "KR-004",
+        "KR-005"
       ],
       "status": "Verified",
       "version_introduced": "Public Engineering 1.2",
@@ -5075,11 +5089,14 @@
       ],
       "allocated_to": "ARCH-004",
       "verified_by": [
-        "IT-001"
+        "IT-001",
+        "KR-004",
+        "KR-005"
       ],
       "verification_level": "Subsystem",
       "evidence": [
-        "EVID-SUITE-001"
+        "EVID-SUITE-001",
+        "EVID-KR-001"
       ],
       "result": "Pass"
     },
@@ -5211,7 +5228,12 @@
       ],
       "linked_risks": [],
       "linked_tests": [
-        "TC-097"
+        "KR-001",
+        "KR-003",
+        "KR-006",
+        "KR-007",
+        "KR-008",
+        "KR-009"
       ],
       "status": "Verified",
       "version_introduced": "Public Engineering 1.2",
@@ -5227,7 +5249,7 @@
       "verification_planned": "PROC-REQ-ROUTE-005",
       "verification_executed": "2026-09-20",
       "linked_models": [],
-      "version_verified": null,
+      "version_verified": "KeepRoute 1.0",
       "evidence_slot": null,
       "level": 2,
       "verification_approach": "Execute documented procedure; compare results to acceptance criteria (G/W/T).",
@@ -5235,17 +5257,22 @@
       "risk": "None",
       "risk_level": "None",
       "risk_rationale": "No residual risk allocated to this requirement in the public risk register.",
-      "verification_rationale": "Verified via TC-097 using Test; evidence EVID-SUITE-001.",
+      "verification_rationale": "Verified via KeepRoute 1.0 mission/checkpoint cases; evidence EVID-KR-001.",
       "satisfied_by": [
         "ARCH-004"
       ],
       "allocated_to": "ARCH-004",
       "verified_by": [
-        "TC-097"
+        "KR-001",
+        "KR-003",
+        "KR-006",
+        "KR-007",
+        "KR-008",
+        "KR-009"
       ],
       "verification_level": "Subsystem",
       "evidence": [
-        "EVID-SUITE-001"
+        "EVID-KR-001"
       ],
       "result": "Pass"
     },

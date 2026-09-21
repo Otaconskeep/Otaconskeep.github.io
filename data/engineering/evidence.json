@@ -68,7 +68,21 @@
       "summary": "Forbidden-pattern scan over public engineering JSON (no private IPs/tokens).",
       "redacted": false,
       "label": "INSPECTION"
+    },
+    {
+      "id": "EVID-KR-001",
+      "type": "release_campaign",
+      "source": "KeepRoute 1.0 promotion / release soak campaign",
+      "generated_date": "2026-09-20",
+      "associated_release": "KeepRoute 1.0",
+      "associated_test": "KR-001",
+      "associated_requirement": "REQ-REL-002",
+      "hash": null,
+      "path": "/keeproute/#benchmarks",
+      "summary": "Public aggregate release results for KeepRoute 1.0: 58-mission soak (100% completion, 0 interventions), 200/200 + 100/100 trivial→local campaigns (0 paid leak), 2/2 host-reboot recovery, P1–P8 hardening sweep 0 fails, hard-invariant counters at zero. Aggregate metrics only; raw mission payloads and private logs not published.",
+      "redacted": true,
+      "label": "KEEPROUTE-1.0-AGGREGATE"
     }
   ],
-  "notes": "PASS requires evidence. Suite inventory evidence is REFERENCE-KEEP-REDACTED (no private logs). ANALYSIS evidence is equation-derived. ST-003 remains Blocked with EVID-001 honesty note. MOCK evidence removed from the public package."
+  "notes": "PASS requires evidence. Suite inventory evidence is REFERENCE-KEEP-REDACTED (no private logs). ANALYSIS evidence is equation-derived. ST-003 remains Blocked with EVID-001 honesty note. KeepRoute 1.0 release campaign evidence is EVID-KR-001 (aggregate public metrics on /keeproute/#benchmarks). MOCK evidence removed from the public package."
 }

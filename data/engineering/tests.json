@@ -1,13 +1,14 @@
 {
-  "inventory_note": "Public verification register: 319 cases. 318 Pass with evidence, 1 Blocked (ST-003 WSL e2e). Mapped from otacon-executor suite inventory (319 prioritized cases from tests/ + continuity/tests/). Private CI XML redacted; suite evidence EVID-SUITE-001 + ANALYSIS batches.",
+  "inventory_note": "Public verification register: 328 cases. 327 Pass with evidence, 1 Blocked (ST-003 WSL e2e). Includes otacon-executor suite inventory (TC-/ST-/IT-/UT-/BVT-/SEC-*) plus KeepRoute 1.0 release cases KR-001–KR-009 (EVID-KR-001 → /keeproute/#benchmarks). Private CI XML redacted; suite evidence EVID-SUITE-001 + ANALYSIS batches + EVID-KR-001.",
   "suite_summary": {
-    "total": 319,
-    "pass": 318,
+    "total": 328,
+    "pass": 327,
     "blocked": 1,
     "pending": 0,
     "fail": 0,
     "executor_modules_audited": 252,
-    "as_of": "2026-09-20"
+    "keeproute_release_cases": 9,
+    "as_of": "2026-09-21"
   },
   "tests": [
     {
@@ -8967,6 +8968,246 @@
       "verification_level": "System",
       "source_module": "tests/test_hermes_personality_runtime_deep.py",
       "source_function": "test_E39_no_relationship_insufficient_intel_text"
+    },
+    {
+      "id": "KR-001",
+      "title": "KeepRoute 1.0 release soak completion (n=58)",
+      "purpose": "Confirm mixed real mission classes complete in the KeepRoute 1.0 promotion soak sample.",
+      "requirements": [
+        "REQ-REL-002",
+        "REQ-ROUTE-005"
+      ],
+      "risks": [],
+      "preconditions": "KeepRoute 1.0 + OmniRoute data plane + Mission Controller available on lab host",
+      "configuration": "KeepRoute 1.0 release soak; mixed trivial/chat/coding/reasoning missions",
+      "hardware": "KeepRoute reference lab host",
+      "software_version": "KeepRoute 1.0",
+      "procedure": "Run promotion soak of 58 missions across mixed classes; record completion vs abort/restart.",
+      "expected_result": "All 58 missions reach observed completion without forced restart of the campaign.",
+      "actual_result": "58/58 completed in the release soak sample (100%). Public aggregate on /keeproute/#benchmarks.",
+      "pass_fail_criteria": "Completion rate = 100% for n=58 promotion sample",
+      "result": "Pass",
+      "evidence": [
+        "EVID-KR-001"
+      ],
+      "execution_date": "2026-09-20",
+      "regression_status": "KeepRoute 1.0 release window",
+      "class": "soak",
+      "verification_method": "Test",
+      "verification_level": "System"
+    },
+    {
+      "id": "KR-002",
+      "title": "KeepRoute 1.0 soak zero user interventions (n=58)",
+      "purpose": "Confirm the soak sample did not require operator intervention to finish missions.",
+      "requirements": [
+        "REQ-REL-002"
+      ],
+      "risks": [],
+      "preconditions": "Same as KR-001",
+      "configuration": "KeepRoute 1.0 release soak",
+      "hardware": "KeepRoute reference lab host",
+      "software_version": "KeepRoute 1.0",
+      "procedure": "Count forced user resubmits / manual recoveries during the 58-mission soak.",
+      "expected_result": "Zero user interventions in the sample.",
+      "actual_result": "0 interventions observed (n=58).",
+      "pass_fail_criteria": "Interventions = 0 for n=58",
+      "result": "Pass",
+      "evidence": [
+        "EVID-KR-001"
+      ],
+      "execution_date": "2026-09-20",
+      "regression_status": "KeepRoute 1.0 release window",
+      "class": "soak",
+      "verification_method": "Test",
+      "verification_level": "System"
+    },
+    {
+      "id": "KR-003",
+      "title": "KeepRoute 1.0 hard-invariant counters remain zero",
+      "purpose": "Verify no state-loss, destructive replay, trivial→paid leakage, or contamination during release soak + sweep.",
+      "requirements": [
+        "REQ-REL-002",
+        "REQ-ROUTE-005"
+      ],
+      "risks": [],
+      "preconditions": "KeepRoute Mission Controller invariants instrumented for the release window",
+      "configuration": "Release soak + capability/hardening sweep",
+      "hardware": "KeepRoute reference lab host",
+      "software_version": "KeepRoute 1.0",
+      "procedure": "Tally hard-invariant violation counters across soak and P1–P8 sweep.",
+      "expected_result": "All hard-invariant counters remain at zero.",
+      "actual_result": "0 violations observed (state loss, destructive replay, trivial→paid, contamination).",
+      "pass_fail_criteria": "Hard-invariant counters = 0",
+      "result": "Pass",
+      "evidence": [
+        "EVID-KR-001"
+      ],
+      "execution_date": "2026-09-20",
+      "regression_status": "KeepRoute 1.0 release window",
+      "class": "failure-path",
+      "verification_method": "Test",
+      "verification_level": "System"
+    },
+    {
+      "id": "KR-004",
+      "title": "KeepRoute trivial greeting → local routing (200/200)",
+      "purpose": "Verify repeated trivial greetings stay on local route (no paid-provider leak).",
+      "requirements": [
+        "REQ-ROUTE-001"
+      ],
+      "risks": [],
+      "preconditions": "Local model healthy through OmniRoute; Auto policy enabled",
+      "configuration": "Two campaigns of 100 trivial greetings each",
+      "hardware": "KeepRoute reference lab host",
+      "software_version": "KeepRoute 1.0",
+      "procedure": "Send Hi/trivial prompts under Auto; assert local route; count paid leakage.",
+      "expected_result": "200/200 stay local; paid leakage = 0.",
+      "actual_result": "200/200 local (100/100 + 100/100); paid leakage 0.",
+      "pass_fail_criteria": "200/200 local and 0 paid leaks",
+      "result": "Pass",
+      "evidence": [
+        "EVID-KR-001"
+      ],
+      "execution_date": "2026-09-20",
+      "regression_status": "KeepRoute 1.0 release window",
+      "class": "performance",
+      "verification_method": "Test",
+      "verification_level": "System"
+    },
+    {
+      "id": "KR-005",
+      "title": "KeepRoute local-route after large model already loaded (100/100)",
+      "purpose": "Confirm trivial→local policy still holds after a large local model is already resident.",
+      "requirements": [
+        "REQ-ROUTE-001"
+      ],
+      "risks": [],
+      "preconditions": "Large local model already loaded; OmniRoute + KeepRoute Auto policy",
+      "configuration": "100 trivial greetings after large-model load",
+      "hardware": "KeepRoute reference lab host",
+      "software_version": "KeepRoute 1.0",
+      "procedure": "Load large local model; send 100 trivial prompts; assert local route and no paid leak.",
+      "expected_result": "100/100 local; paid leakage = 0.",
+      "actual_result": "100/100 local; paid leakage 0.",
+      "pass_fail_criteria": "100/100 local and 0 paid leaks",
+      "result": "Pass",
+      "evidence": [
+        "EVID-KR-001"
+      ],
+      "execution_date": "2026-09-20",
+      "regression_status": "KeepRoute 1.0 release window",
+      "class": "performance",
+      "verification_method": "Test",
+      "verification_level": "System"
+    },
+    {
+      "id": "KR-006",
+      "title": "KeepRoute host-reboot mission recovery (2/2)",
+      "purpose": "Verify supported missions survive validated full-host reboot recovery.",
+      "requirements": [
+        "REQ-REL-002",
+        "REQ-ROUTE-005"
+      ],
+      "risks": [],
+      "preconditions": "Persistent mission state enabled; Mission Controller running",
+      "configuration": "Controlled host-reboot recovery tests",
+      "hardware": "KeepRoute reference lab host",
+      "software_version": "KeepRoute 1.0",
+      "procedure": "Start mission; checkpoint; reboot host; restore KeepRoute stack; assert mission continues.",
+      "expected_result": "2/2 reboot recovery tests pass.",
+      "actual_result": "2/2 host-reboot recovery tests passed.",
+      "pass_fail_criteria": "2/2 recovery success",
+      "result": "Pass",
+      "evidence": [
+        "EVID-KR-001"
+      ],
+      "execution_date": "2026-09-20",
+      "regression_status": "KeepRoute 1.0 release window",
+      "class": "recovery",
+      "verification_method": "Test",
+      "verification_level": "System"
+    },
+    {
+      "id": "KR-007",
+      "title": "KeepRoute capability + hardening sweep P1–P8 (0 fails)",
+      "purpose": "Confirm final capability and hardening sweep for KeepRoute 1.0 has zero failing cases.",
+      "requirements": [
+        "REQ-REL-002",
+        "REQ-ROUTE-005"
+      ],
+      "risks": [],
+      "preconditions": "KeepRoute 1.0 release candidate build",
+      "configuration": "P1–P8 style capability + hardening suite + post-release smoke",
+      "hardware": "KeepRoute reference lab host",
+      "software_version": "KeepRoute 1.0",
+      "procedure": "Execute final capability/hardening sweep; run post-release smoke; record fails.",
+      "expected_result": "0 fails; smoke PASS.",
+      "actual_result": "0 fails in final sweep; post-release smoke PASS.",
+      "pass_fail_criteria": "0 failing cases and smoke PASS",
+      "result": "Pass",
+      "evidence": [
+        "EVID-KR-001"
+      ],
+      "execution_date": "2026-09-20",
+      "regression_status": "KeepRoute 1.0 release window",
+      "class": "regression",
+      "verification_method": "Test",
+      "verification_level": "System"
+    },
+    {
+      "id": "KR-008",
+      "title": "KeepRoute cross-agent handoff Claude → Codex / multi-hop",
+      "purpose": "Exercise supported Claude→Codex continuation and multi-hop mission handoff paths.",
+      "requirements": [
+        "REQ-REL-002",
+        "REQ-ROUTE-005"
+      ],
+      "risks": [],
+      "preconditions": "Claude and Codex (or OpenAI) providers connected through OmniRoute; Mission Controller present",
+      "configuration": "Capability suite handoff paths",
+      "hardware": "KeepRoute reference lab host",
+      "software_version": "KeepRoute 1.0",
+      "procedure": "Start coding mission on Claude; force recoverable limit/failure; continue on Codex; exercise multi-hop when configured.",
+      "expected_result": "Supported handoff paths continue the same Mission ID with checkpoints preserved.",
+      "actual_result": "Claude→Codex and multi-hop paths exercised in the capability suite for KeepRoute 1.0.",
+      "pass_fail_criteria": "Supported handoff paths complete without empty restart of the mission",
+      "result": "Pass",
+      "evidence": [
+        "EVID-KR-001"
+      ],
+      "execution_date": "2026-09-20",
+      "regression_status": "KeepRoute 1.0 release window",
+      "class": "integration",
+      "verification_method": "Test",
+      "verification_level": "System"
+    },
+    {
+      "id": "KR-009",
+      "title": "KeepRoute mission checkpoint across provider switch",
+      "purpose": "Verify mission/checkpoint state is preserved when KeepRoute switches providers mid-mission.",
+      "requirements": [
+        "REQ-ROUTE-005",
+        "REQ-REL-002"
+      ],
+      "risks": [],
+      "preconditions": "Active mission with checkpoint ledger; at least two eligible providers",
+      "configuration": "Mission Controller + OmniRoute fallback",
+      "hardware": "KeepRoute reference lab host",
+      "software_version": "KeepRoute 1.0",
+      "procedure": "Create mission; checkpoint progress; switch provider; restore remaining work and assert Mission ID continuity.",
+      "expected_result": "Checkpoint retained; mission resumes without empty restart.",
+      "actual_result": "Checkpoint continuity verified in KeepRoute 1.0 release capability path; aggregate evidence EVID-KR-001.",
+      "pass_fail_criteria": "Same Mission ID continues with retained completed/remaining work",
+      "result": "Pass",
+      "evidence": [
+        "EVID-KR-001"
+      ],
+      "execution_date": "2026-09-20",
+      "regression_status": "KeepRoute 1.0 release window",
+      "class": "system",
+      "verification_method": "Test",
+      "verification_level": "System"
     }
   ],
   "categories": [
