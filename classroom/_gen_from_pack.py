@@ -24,7 +24,13 @@ SITE = Path("/root/otaconskeep-site/classroom")
 PACK = SITE / "pack"
 CLASSES_DIR = SITE / "classes"
 GH = Path("/root/Classroom")
-CSS_V = "20260921i"
+CSS_V = "20260921j"
+
+OSBAR = '''<div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>'''
 
 NAV = f'''<nav class="topnav">
  <div class="wrap">
@@ -153,22 +159,14 @@ def scrub_lectures(text: str) -> str:
     return text
 
 
-def md_fragment(text: str) -> str:
+def _md_convert(text: str) -> str:
     MD.reset()
-    text = scrub_lectures(text)
-    text = re.sub(
-        r"```mermaid\n(.*?)```",
-        lambda m: "```text\n" + m.group(1).strip() + "\n```",
-        text,
-        flags=re.S,
-    )
     html = MD.convert(text)
     html = re.sub(
         r'<a href="(https?://[^"]+)"',
         r'<a href="\1" target="_blank" rel="noopener"',
         html,
     )
-    # Never leave youtube anchors even if scrub missed
     html = re.sub(
         r'<a href="https?://(?:www\.)?(?:youtube\.com|youtu\.be)[^"]*"[^>]*>.*?</a>',
         "",
@@ -176,6 +174,39 @@ def md_fragment(text: str) -> str:
         flags=re.I | re.S,
     )
     return html
+
+
+def expand_os_blocks(text: str) -> str:
+    """Turn :::windows / :::linux fences into toggleable OS command panels."""
+
+    def repl(m: re.Match[str]) -> str:
+        kind = m.group(1).lower()
+        os_key = "win" if kind.startswith("win") else "lin"
+        label = "Windows (CMD / PowerShell)" if os_key == "win" else "Linux / macOS (Terminal)"
+        inner = _md_convert(m.group(2).strip())
+        return (
+            f'<div class="cr-os-block" data-os="{os_key}">'
+            f'<span class="cr-os-label {os_key}">{label}</span>{inner}</div>'
+        )
+
+    return re.sub(
+        r"^\s*:::(windows|linux|win|lin)\s*\n(.*?)^\s*:::\s*$",
+        repl,
+        text,
+        flags=re.M | re.S | re.I,
+    )
+
+
+def md_fragment(text: str) -> str:
+    text = scrub_lectures(text)
+    text = re.sub(
+        r"```mermaid\n(.*?)```",
+        lambda m: "```text\n" + m.group(1).strip() + "\n```",
+        text,
+        flags=re.S,
+    )
+    text = expand_os_blocks(text)
+    return _md_convert(text)
 
 
 def wrap(title: str, desc: str, canon: str, bar: str, body: str) -> str:
@@ -632,6 +663,7 @@ def gen_classes():
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
  <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">{H.escape(title)}</h1>
  <p class="lede">Guided lab, break/fix, quiz, and practical gate. Prefer current official docs linked in References.</p>
+ {OSBAR}
  </section>
 </div>
 

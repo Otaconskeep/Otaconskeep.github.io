@@ -178,165 +178,517 @@ The guest is valuable because it is a sandboxed world. Every convenience feature
 
 Pick **one** primary path and finish every step. Path B (Proxmox) is what later Academy classes expect. Path A (VirtualBox) is a valid first finish if you only have one computer today—then schedule Path B before Class 2.
 
-Official download pages change layout; if a button moved, use the current docs linked under References. The **order and checks** below stay the same.
+Use the **Windows / Linux** toggle at the top of this class for host commands. Guest Linux commands are the same on both paths once you are inside the VM.
+
+Replace placeholders: `YOUR-IP`, `GUEST-IP`, `YOURUSER`, `proxmox.iso`, `ubuntu.iso`.
 
 ### Path B — Proxmox on spare hardware (preferred)
 
-**You need:** a PC/laptop you can wipe, an 8 GB+ USB stick, a network cable to your router/switch, and a second computer with a browser.
+**You need:** a PC/laptop you can wipe, an 8 GB+ USB stick, a network cable to your router/switch, and a second computer with a browser + terminal.
 
-1. **Protect your data first.**  
-   Proxmox install can erase the disk you select. Unplug extra drives if you are unsure. Copy anything you care about off this machine. Write the disk model/size you plan to install on in your workbook.
+1. **Protect your data first.**
+   Proxmox install can erase the disk you select. Unplug extra drives if unsure. Copy anything important off this machine. List disks and write model/size in your workbook:
 
-2. **Turn on CPU virtualization in firmware.**  
-   Restart the target PC. Enter setup (common keys: `Del`, `F2`, `F10`, `F12`—watch the splash screen). Find **Intel VT-x / VMX** or **AMD-V / SVM** under CPU / Advanced and set **Enabled**. Save and exit (`F10` is common). Boot back to whatever OS you use for downloading files.
+:::windows
+```powershell
+Get-Disk | Format-Table Number, FriendlyName, Size, PartitionStyle
+Get-Volume | Format-Table DriveLetter, FileSystemLabel, SizeRemaining, Size
+```
+:::
 
-3. **Download the Proxmox ISO and write the USB.**  
-   On your second computer (or this one before you wipe it): open the official Proxmox download page → **Proxmox Virtual Environment** → **ISO Images** → download the current ISO.  
-   On Windows, use Rufus (or similar): select the USB device carefully → select the ISO → when asked for mode, choose **DD** (ISO mode often fails for Proxmox) → start and accept that the USB will be erased.  
-   On macOS/Linux, balenaEtcher or `dd` to the USB device also works—double-check the device name so you do not wipe the wrong disk.
-
-4. **Boot the spare PC from the USB with Ethernet plugged in.**  
-   Plug the Ethernet cable into the PC and into your router/switch (Wi-Fi is not the default path). Insert the USB, power on, and open the boot menu / BIOS boot order so **USB** is first. Choose **Install Proxmox VE** at the installer menu.
-
-5. **Walk the installer and write down the network plan before you click Install.**  
-   Agree to the license. Choose the **target hard disk** (the one you meant to wipe). Set country/timezone/keyboard. Set a strong `root` password and remember it.  
-   On the network screen, set:
-   - **Hostname** (example: `pve.lab.local` or `pve`)
-   - **IP address** you will use on your LAN (example: `192.168.1.50`)
-   - **Netmask / CIDR**, **Gateway**, and **DNS**  
-   If DHCP filled values automatically, still copy them into your workbook. Review the summary, then install. When it finishes, remove the USB and let it reboot.
-
-6. **Open the web UI from your other computer.**  
-   On the second PC’s browser go to `https://YOUR-IP:8006` (use the IP you set). Accept the self-signed certificate warning for a home lab (Advanced → proceed). Log in as user `root` with the password from the installer.  
-   If you see a “no subscription” notice, close it—the free/no-subscription hypervisor still runs. Record the URL in your workbook.
-
-7. **Make storage accept VM disks (disk images).**  
-   In the left tree open **Datacenter → Storage**. Select `local` → **Edit**. Under content types, enable **Disk image** (and keep **ISO image** / **Container template** as needed) → OK.  
-   Click `local` → **Summary** and note free space. If almost all capacity sits on `local-lvm` and you are on a single-disk laptop install, finish storage cleanup using current Proxmox docs *before* creating guests—do not invent random delete commands. Goal: you know where ISOs and VM disks will live.
-
-8. **Upload a Linux install ISO.**  
-   Select storage `local` → **ISO Images** → **Upload**. Choose a current **Debian** or **Ubuntu Server** ISO from your downloads. Wait until the upload shows in the list. (Start the ISO download on the second PC early if you have not already.)
-
-9. **Create the VM shell (hardware only—no OS yet).**  
-   Top right: **Create VM**.
-   - **Node:** your Proxmox node  
-   - **VM ID:** `100` (or next free)  
-   - **Name:** `lab-linux-01`  
-   - **OS:** Use CD/DVD → storage `local` → select the ISO you uploaded → Type **Linux**  
-   - **System:** defaults are fine for a first lab  
-   - **Disks:** SCSI, storage that allows disk images, **20–32 GB**  
-   - **CPU:** **2** cores  
-   - **Memory:** **2048–4096** MB (leave RAM for Proxmox itself)  
-   - **Network:** Bridge **`vmbr0`**, model VirtIO  
-   Check **Start after created** if you want, then **Finish**.
-
-10. **Install Linux inside the VM console.**  
-    Select `lab-linux-01` → **Console**. If it did not auto-start, click **Start**. Use the graphical or text installer. When asked about disks, you are wiping the **virtual** disk only—not your Proxmox host disk. Create a user, set a password, and **enable OpenSSH server** if the installer offers it (Ubuntu Server). Finish and reboot the guest until you get a login prompt.
-
-11. **Prove the guest network from inside the VM.**  
-    Log in on the console. Run:
-
+:::linux
 ```bash
-ip addr
+lsblk -o NAME,SIZE,MODEL,FSTYPE,MOUNTPOINT
+df -h
+```
+:::
+
+2. **Turn on CPU virtualization in firmware.**
+   Restart the target PC → enter setup (`Del` / `F2` / `F10` / `F12`) → enable **Intel VT-x / VMX** or **AMD-V / SVM** → save → reboot. Then confirm from the OS you use for downloads:
+
+:::windows
+```powershell
+systeminfo | findstr /i "Hyper-V Virtualization"
+Get-CimInstance Win32_Processor | Select-Object Name, VirtualizationFirmwareEnabled
+```
+You want firmware virtualization **Yes** / `VirtualizationFirmwareEnabled : True`.
+:::
+
+:::linux
+```bash
+egrep -c '(vmx|svm)' /proc/cpuinfo
+# Result should be > 0. Also useful:
+lscpu | egrep 'Virtualization|Hypervisor|Flags'
+```
+:::
+
+3. **Download the Proxmox ISO and write the USB.**
+   Download the current Proxmox VE ISO from the official site into a folder you can find (example: Downloads). Identify the USB device letter/name carefully—wrong disk = data loss.
+
+:::windows
+Rufus GUI is safest for beginners (select USB → select ISO → mode **DD** → Start).
+
+Optional PowerShell check of removable disks before you write:
+```powershell
+Get-Disk | Where-Object BusType -eq 'USB' | Format-Table Number, FriendlyName, Size
+Get-Volume | Format-Table DriveLetter, FileSystemLabel, DriveType, Size
+```
+:::
+
+:::linux
+```bash
+lsblk -o NAME,SIZE,MODEL,TRAN,MOUNTPOINT
+# Example only — YOUR USB might be /dev/sdb or /dev/sdc, NOT /dev/sda (usually the main disk)
+# Unmount partitions first if mounted, then:
+sudo dd if=$HOME/Downloads/proxmox.iso of=/dev/sdX bs=4M status=progress oflag=sync
+sync
+```
+Replace `proxmox.iso` and `/dev/sdX` with your real paths. Triple-check `sdX`.
+:::
+
+4. **Boot the spare PC from USB with Ethernet plugged in.**
+   Cable into router/switch. Boot menu → USB → **Install Proxmox VE**. No CLI on this step—watch the installer.
+
+5. **Walk the installer and write the network plan before Install.**
+   Agree → choose target disk → locale → strong `root` password. Set hostname, static IP (example `192.168.1.50`), gateway, DNS. Copy every value into the workbook, then install. Remove USB and reboot.
+
+6. **Open the web UI, then prove it from the CLI too.**
+   Browser: `https://YOUR-IP:8006` → accept the cert warning → login `root`. Close the no-subscription nag if it appears.
+
+:::windows
+```powershell
+curl.exe -kI https://YOUR-IP:8006
+ping -n 3 YOUR-IP
+```
+:::
+
+:::linux
+```bash
+curl -kI https://YOUR-IP:8006
+ping -c 3 YOUR-IP
+```
+:::
+
+On the Proxmox host itself (local console or later via SSH as root), also run:
+```bash
+pveversion
+ip -br addr
+ip route
+cat /etc/network/interfaces
+```
+
+7. **Make storage accept VM disks — UI plus verify in shell.**
+   UI: **Datacenter → Storage → local → Edit** → enable **Disk image** (+ ISO / Container template) → OK.
+
+   Proxmox host shell (node → **Shell**, or SSH as root):
+```bash
+pvesm status
+pvesm list local
+cat /etc/pve/storage.cfg
+df -h /var/lib/vz
+```
+   Confirm `local` is listed and you understand free space. If a single-disk install left capacity stuck on `local-lvm`, follow current Proxmox storage docs before creating guests.
+
+8. **Upload a Linux ISO (UI) and confirm the file on disk.**
+   UI: `local` → **ISO Images** → **Upload** (Debian or Ubuntu Server).
+
+   Proxmox shell:
+```bash
+ls -lh /var/lib/vz/template/iso/
+```
+   You should see your `.iso` listed.
+
+9. **Create the VM (UI) and verify with `qm`.**
+   UI **Create VM**: ID `100`, name `lab-linux-01`, ISO from local, Linux, disk 20–32 GB, 2 vCPU, 2048–4096 MB RAM, NIC bridge `vmbr0` VirtIO → Finish.
+
+   Proxmox shell:
+```bash
+qm config 100
+qm list
+qm start 100
+qm status 100
+```
+
+10. **Install Linux in the console, then enable SSH from the guest.**
+    UI: select VM → **Console** → install OS (virtual disk only). Prefer enabling OpenSSH during Ubuntu Server install. If you skipped it, after first login inside the guest:
+```bash
+sudo apt update
+sudo apt install -y openssh-server
+sudo systemctl enable --now ssh
+sudo systemctl status ssh --no-pager
+```
+
+11. **Prove the guest network from inside the VM.**
+    Guest terminal:
+```bash
+ip -br addr
 ip route
 ping -c 3 1.1.1.1
+ping -c 3 $(ip route | awk '/default/ {print $3; exit}')
 getent hosts example.com
+hostname -I
 ```
+    Write down `GUEST-IP`. If `1.1.1.1` works but `example.com` fails, fix DNS—do not reinstall.
 
-    Write down the guest IP. If ping to `1.1.1.1` works but the hostname lookup fails, routing is OK and DNS needs fixing—do not reinstall.
+12. **SSH in from your workstation.**
 
-12. **SSH in from your workstation.**  
-    On your second computer:
-
-```bash
+:::windows
+Windows 10/11 usually includes OpenSSH. In PowerShell or CMD:
+```powershell
 ssh YOURUSER@GUEST-IP
 ```
+First connect: type `yes` to trust the host key. If `ssh` is missing:
+```powershell
+Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
+```
+:::
 
-    Accept the host key fingerprint. You should get a shell. If it fails: confirm guest IP, confirm `sshd` is installed/enabled, confirm you are on the same LAN as `vmbr0`.
+:::linux
+```bash
+ssh YOURUSER@GUEST-IP
+# Optional connectivity checks first:
+ping -c 2 GUEST-IP
+nc -vz GUEST-IP 22
+```
+:::
 
-13. **Create a small LXC and compare it to the VM.**  
-    Storage `local` → **CT Templates** → **Templates** → download a Debian template.  
-    Top: **Create CT** → ID `200`, hostname `lab-ct-01`, set a password → pick the template → **8 GB** disk, **1** CPU, **1024** MB RAM → network on `vmbr0` (DHCP is fine) → start after create.  
-    Open both consoles. On each run `free -h` and `uname -a`. Note: the LXC kernel string matches the **Proxmox host**; the VM has its **own** kernel. Feel how fast the CT starts versus the VM.
+    Inside the SSH session, re-run `hostname` and `ip -br addr` to prove you are on the guest.
 
-14. **Take a snapshot, change something, restore it.**  
-    Select the VM (powered off or per UI rules for snapshots) → **Snapshots** → **Take Snapshot** named `before-break`. Start the VM, make a harmless change (create a file in `/tmp` or on the desktop). Shut down if required → select `before-break` → **Rollback**. Boot again and confirm the change is gone. Record the snapshot name in your workbook.
+13. **Create an LXC and compare with CLI.**
+    UI: download a Debian CT template → **Create CT** ID `200`, hostname `lab-ct-01`, 8 GB disk, 1 CPU, 1024 MB, `vmbr0`.
+
+    Proxmox shell:
+```bash
+pveam update
+pveam available | head
+pct list
+pct start 200
+pct status 200
+pct enter 200
+```
+    Inside the CT (and separately in the VM), run:
+```bash
+free -h
+uname -a
+uptime
+```
+    Type `exit` to leave `pct enter`. Note: CT `uname` matches the **host** kernel; VM `uname` is its own.
+
+14. **Snapshot, change a file with CLI, roll back, prove it.**
+    Proxmox shell (VM should be stopped for a clean snapshot on many setups):
+```bash
+qm shutdown 100
+qm status 100
+qm snapshot 100 before-break --description "class1 gate"
+qm listsnapshot 100
+qm start 100
+```
+    In the guest (console or SSH):
+```bash
+echo "break-me" > /tmp/DELETE-ME
+cat /tmp/DELETE-ME
+ls -l /tmp/DELETE-ME
+```
+    Then roll back:
+```bash
+qm shutdown 100
+qm rollback 100 before-break
+qm start 100
+```
+    Guest again:
+```bash
+ls /tmp/DELETE-ME || echo "GOOD: file gone after rollback"
+```
+    Record snapshot name `before-break` in the workbook.
 
 ### Path A — VirtualBox on your daily computer (acceptable first finish)
 
-**You need:** your everyday PC (Windows, macOS, or Linux), ~20 GB free disk, and a network connection. This path does **not** wipe your host OS.
+**You need:** your everyday PC, ~20 GB free disk, VirtualBox, and a terminal. This path does **not** wipe your host OS.
 
-1. **Turn on CPU virtualization in firmware.**  
-   Restart → enter BIOS/UEFI → enable **Intel VT-x / VMX** or **AMD-V / SVM** → save → boot into your normal desktop. Without this, 64-bit guests often fail.
+1. **Turn on CPU virtualization, then verify in the terminal.**
+   Firmware: enable VT-x / AMD-V, save, boot to desktop.
 
-2. **Download the guest ISO and VirtualBox.**  
-   Start downloading **Ubuntu Desktop** or **Ubuntu Server** (or Debian) ISO from the official site—large file, start early.  
-   Open the official VirtualBox downloads page → install the package for **your host OS**. Run the installer; accept defaults.  
-   On the same downloads page, get the **VirtualBox Extension Pack** that matches your VirtualBox version → open the downloaded file → install/agree when VirtualBox prompts. (Needed for USB 2/3 and some extras.)
+:::windows
+```powershell
+systeminfo | findstr /i "Virtualization"
+Get-CimInstance Win32_Processor | Select-Object VirtualizationFirmwareEnabled
+```
+:::
 
-3. **Create the VM hardware.**  
-   Open VirtualBox → **New**.
-   - **Name:** `lab-linux-01`  
-   - **Type:** Linux → version **Ubuntu (64-bit)** or **Debian (64-bit)**  
-   - **Memory:** start at **2048 MB** (more only if Task Manager / Activity Monitor shows plenty free with your normal apps open)  
-   - **Hard disk:** Create a virtual hard disk → **VDI** → **Dynamically allocated** → **20 GB** or larger  
-   Finish the wizard. Then select the VM → **Settings → System → Processor** → set **2** CPUs if your host has 4+ cores (stay under about half your cores) → OK.
+:::linux
+```bash
+egrep -c '(vmx|svm)' /proc/cpuinfo
+```
+:::
 
-4. **Attach the ISO and install the guest OS.**  
-   **Settings → Storage** → under Controller: IDE/SATA empty optical drive → choose disk → **Add** → pick your Ubuntu/Debian ISO → OK.  
-   Click **Start**. Choose Install / Graphical install. Prefer defaults for a first run. When it offers to erase the disk, that is the **virtual** disk only. Create your user/password. After install, remove the ISO from the virtual optical drive (Settings → Storage → remove disk) if the guest keeps booting the installer, then start again and log in.  
-   **Host key tip:** if the mouse is trapped in the window, press **Right Ctrl** (default host key) to release it back to your real desktop.
+2. **Install VirtualBox and confirm the CLI works.**
+   Install VirtualBox (+ Extension Pack) from the official site. Then:
 
-5. **Prove the guest can reach the internet.**  
-   Inside the guest, open a browser to a simple site, or open a terminal:
+:::windows
+```powershell
+& "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" --version
+& "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" list extpacks
+```
+If that path fails, open a prompt from the VirtualBox install folder, or add it to PATH.
+:::
 
+:::linux
+```bash
+VBoxManage --version
+VBoxManage list extpacks
+```
+:::
+
+   Also start downloading your Ubuntu/Debian ISO while this installs.
+
+3. **Create the VM with the GUI or with `VBoxManage`.**
+   GUI: **New** → name `lab-linux-01`, Linux 64-bit, 2048 MB RAM, VDI dynamic ≥20 GB → then Settings → System → Processor → 2 CPUs if host has ≥4 cores.
+
+   Or create from CLI (adjust ISO path and memory):
+
+:::windows
+```powershell
+$VB = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+& $VB createvm --name "lab-linux-01" --ostype "Ubuntu_64" --register
+& $VB modifyvm "lab-linux-01" --memory 2048 --cpus 2 --nic1 nat --vram 16
+& $VB createhd --filename "$env:USERPROFILE\VirtualBox VMs\lab-linux-01\lab-linux-01.vdi" --size 20480 --format VDI
+& $VB storagectl "lab-linux-01" --name "SATA" --add sata --controller IntelAhci
+& $VB storageattach "lab-linux-01" --storagectl "SATA" --port 0 --device 0 --type hdd --medium "$env:USERPROFILE\VirtualBox VMs\lab-linux-01\lab-linux-01.vdi"
+& $VB storageattach "lab-linux-01" --storagectl "SATA" --port 1 --device 0 --type dvddrive --medium "$env:USERPROFILE\Downloads\ubuntu.iso"
+& $VB list vms
+```
+:::
+
+:::linux
+```bash
+VBoxManage createvm --name "lab-linux-01" --ostype "Ubuntu_64" --register
+VBoxManage modifyvm "lab-linux-01" --memory 2048 --cpus 2 --nic1 nat --vram 16
+mkdir -p "$HOME/VirtualBox VMs/lab-linux-01"
+VBoxManage createhd --filename "$HOME/VirtualBox VMs/lab-linux-01/lab-linux-01.vdi" --size 20480 --format VDI
+VBoxManage storagectl "lab-linux-01" --name "SATA" --add sata --controller IntelAhci
+VBoxManage storageattach "lab-linux-01" --storagectl "SATA" --port 0 --device 0 --type hdd --medium "$HOME/VirtualBox VMs/lab-linux-01/lab-linux-01.vdi"
+VBoxManage storageattach "lab-linux-01" --storagectl "SATA" --port 1 --device 0 --type dvddrive --medium "$HOME/Downloads/ubuntu.iso"
+VBoxManage list vms
+```
+:::
+
+4. **Start the VM and install the guest OS.**
+
+:::windows
+```powershell
+& "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" startvm "lab-linux-01" --type gui
+```
+:::
+
+:::linux
+```bash
+VBoxManage startvm "lab-linux-01" --type gui
+```
+:::
+
+   Complete the installer in the window. Virtual disk wipe ≠ host wipe. Host key to release mouse: **Right Ctrl**. After install, detach the ISO if it keeps booting the installer:
+
+:::windows
+```powershell
+& "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" storageattach "lab-linux-01" --storagectl "SATA" --port 1 --device 0 --type dvddrive --medium none
+```
+:::
+
+:::linux
+```bash
+VBoxManage storageattach "lab-linux-01" --storagectl "SATA" --port 1 --device 0 --type dvddrive --medium none
+```
+:::
+
+5. **Prove internet from the guest with ping.**
+   Inside the Linux guest terminal:
 ```bash
 ping -c 3 1.1.1.1
+ip -br addr
+ip route
 ```
+   From the **host**, you can also check the VM is running:
 
-   On Windows guests use `ping 1.1.1.1`. If this fails, check VirtualBox **Settings → Network → Adapter 1** is enabled (NAT is the easy default).
+:::windows
+```powershell
+& "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" showvminfo "lab-linux-01" --machinereadable | findstr /i "VMState= nic1"
+ping -n 3 1.1.1.1
+```
+:::
 
-6. **Practice pause and save-state.**  
-   With the guest running, use Machine → **Pause**, wait a few seconds, then unpause—apps should resume.  
-   Then Machine → **Close → Save the machine state**. Quit VirtualBox if you want. Open VirtualBox again → **Start**. Confirm you return to the same session. Write “pause OK” and “save-state OK” in your workbook.
+:::linux
+```bash
+VBoxManage showvminfo "lab-linux-01" --machinereadable | egrep 'VMState=|nic1='
+ping -c 3 1.1.1.1
+```
+:::
 
-7. **Snapshot, break, restore.**  
-   With the guest running or stopped (either works; pick one and stay consistent), open the **Snapshots** tool for this VM → **Take** → name it `before-break`.  
-   Inside the guest, create a file or folder you will notice (example: a folder on the desktop named `DELETE-ME`).  
-   Shut down the guest if the UI asks → select snapshot `before-break` → **Restore**. Start the guest. Confirm `DELETE-ME` is gone. That is the skill you will use before risky changes.
+6. **Pause and save-state from the GUI or CLI.**
 
-8. **Inspect NAT vs bridged.**  
-   **Settings → Network → Adapter 1**. Note whether it says **NAT** or **Bridged Adapter**.  
-   In the guest, check the IP (`ip addr` or `ipconfig`).  
-   - NAT often looks like `10.0.2.x` and is **not** a normal address on your home LAN.  
-   - Bridged usually looks like your LAN (`192.168.x.x` / `10.x.x.x`).  
-   Leave NAT for now unless you need LAN SSH. Write the mode and guest IP in your workbook.
+:::windows
+```powershell
+$VB = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+& $VB controlvm "lab-linux-01" pause
+& $VB controlvm "lab-linux-01" resume
+& $VB controlvm "lab-linux-01" savestate
+& $VB startvm "lab-linux-01" --type gui
+```
+:::
 
-9. **Record evidence in the workbook.**  
-   Write: host OS + version, VirtualBox version, VM name, RAM, vCPU count, disk size, snapshot name `before-break`, network mode, and a one-line note that pause/save-state/snapshot worked.
+:::linux
+```bash
+VBoxManage controlvm "lab-linux-01" pause
+VBoxManage controlvm "lab-linux-01" resume
+VBoxManage controlvm "lab-linux-01" savestate
+VBoxManage startvm "lab-linux-01" --type gui
+```
+:::
 
-10. **Plan Path B before Class 2.**  
-    List the spare PC you will use (or “buy/find spare”), confirm you have a USB stick and Ethernet cable, and set a calendar date to run Path B. Later classes assume you can open `https://PROXMOX-IP:8006`.
+7. **Snapshot, break a file, restore.**
+
+:::windows
+```powershell
+$VB = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+& $VB snapshot "lab-linux-01" take "before-break" --description "class1"
+```
+:::
+
+:::linux
+```bash
+VBoxManage snapshot "lab-linux-01" take "before-break" --description "class1"
+```
+:::
+
+   Inside the guest:
+```bash
+mkdir -p ~/DELETE-ME
+echo test > ~/DELETE-ME/note.txt
+ls ~/DELETE-ME
+```
+   Shut down the guest, then restore:
+
+:::windows
+```powershell
+$VB = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+& $VB controlvm "lab-linux-01" acpipowerbutton
+# wait until powered off, then:
+& $VB snapshot "lab-linux-01" restore "before-break"
+& $VB startvm "lab-linux-01" --type gui
+```
+:::
+
+:::linux
+```bash
+VBoxManage controlvm "lab-linux-01" acpipowerbutton
+# wait until powered off, then:
+VBoxManage snapshot "lab-linux-01" restore "before-break"
+VBoxManage startvm "lab-linux-01" --type gui
+```
+:::
+
+   Guest check: `ls ~/DELETE-ME` should fail (folder gone).
+
+8. **Inspect NAT vs bridged with CLI.**
+
+:::windows
+```powershell
+& "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" showvminfo "lab-linux-01" | findstr /i "NIC 1"
+```
+:::
+
+:::linux
+```bash
+VBoxManage showvminfo "lab-linux-01" | egrep -i 'NIC 1'
+```
+:::
+
+   Guest: `ip -br addr`. NAT often shows `10.0.2.x`. Bridged usually matches your LAN. Leave NAT unless you need LAN SSH.
+
+9. **Record evidence (workbook + command output).**
+
+:::windows
+```powershell
+& "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" --version
+& "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" showvminfo "lab-linux-01" --machinereadable | findstr /i "name= memory= cpus= VMState= nic1"
+& "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" snapshot "lab-linux-01" list
+```
+:::
+
+:::linux
+```bash
+VBoxManage --version
+VBoxManage showvminfo "lab-linux-01" --machinereadable | egrep 'name=|memory=|cpus=|VMState=|nic1='
+VBoxManage snapshot "lab-linux-01" list
+```
+:::
+
+   Paste version, RAM, CPUs, NIC mode, and snapshot name into the workbook.
+
+10. **Plan Path B before Class 2.**
+    Write spare-PC plan + USB + Ethernet. Quick reachability test you will use later:
+
+:::windows
+```powershell
+# After Proxmox exists:
+curl.exe -kI https://PROXMOX-IP:8006
+```
+:::
+
+:::linux
+```bash
+# After Proxmox exists:
+curl -kI https://PROXMOX-IP:8006
+```
+:::
 
 ## Break it, then fix it
 
 ### Network break
 
-**VirtualBox:** Settings → Network → uncheck “Enable Network Adapter” (or switch to a wrong mode) → observe browser/`ping` failure → re-enable NAT → retest in order below.
+Break one thing, then repair with commands.
 
-**Proxmox:** Hardware → Network Device → detach or set a wrong bridge → observe → put `vmbr0` back → retest one layer at a time.
+**VirtualBox — disable NIC, watch ping fail, re-enable NAT:**
 
-Troubleshoot in order—only change one thing per test:
+:::windows
+```powershell
+$VB = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
+& $VB controlvm "lab-linux-01" nic1 null
+# in guest: ping -c 2 1.1.1.1  (should fail)
+& $VB controlvm "lab-linux-01" nic1 nat
+# in guest: ping -c 2 1.1.1.1  (should work)
+```
+:::
 
-```text
-Virtual NIC on? → correct bridge/NAT mode → IP address → route → gateway → ping 1.1.1.1 → DNS (getent/ping a name) → app
+:::linux
+```bash
+VBoxManage controlvm "lab-linux-01" nic1 null
+# guest: ping -c 2 1.1.1.1
+VBoxManage controlvm "lab-linux-01" nic1 nat
+# guest: ping -c 2 1.1.1.1
+```
+:::
+
+**Proxmox — wrong bridge then fix (host shell):**
+```bash
+qm config 100 | grep -i net
+qm set 100 --delete net0
+# guest loses link — then restore:
+qm set 100 --net0 virtio,bridge=vmbr0
+qm config 100 | grep -i net
 ```
 
-If `ping 1.1.1.1` works but a hostname fails, fix DNS. Do not reinstall the guest.
+Guest proof order (run after each change):
+```bash
+ip -br link
+ip -br addr
+ip route
+ping -c 2 1.1.1.1
+getent hosts example.com
+```
 
 ### Snapshot break
 
-Start from snapshot `before-break` (or take a fresh one). Change something obvious. Restore the snapshot. Prove the change disappeared. If rollback errors, stop and fix snapshot/storage settings before more experiments.
+Create a visible file, roll back, prove it vanished (Path B `qm rollback` or Path A `VBoxManage snapshot … restore` from the lab above). Do not continue until `ls` shows the file is gone.
 
 ## Common mistakes
 

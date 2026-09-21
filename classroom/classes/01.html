@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921i">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921j">
 </head>
 <body>
 
@@ -59,6 +59,11 @@
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
  <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">VMs, hypervisors, and Proxmox</h1>
  <p class="lede">Guided lab, break/fix, quiz, and practical gate. Prefer current official docs linked in References.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
  </section>
 </div>
 
@@ -397,18 +402,25 @@ Type 1 (Academy default)
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
 </div><div class="cr-prose-block"><p>Pick <strong>one</strong> primary path and finish every step. Path B (Proxmox) is what later Academy classes expect. Path A (VirtualBox) is a valid first finish if you only have one computer today—then schedule Path B before Class 2.</p>
-<p>Official download pages change layout; if a button moved, use the current docs linked under References. The <strong>order and checks</strong> below stay the same.</p></div><div class="cr-lab-path"><h4>Path B — Proxmox on spare hardware (preferred)</h4><div class="cr-prose-block"><p><strong>You need:</strong> a PC/laptop you can wipe, an 8 GB+ USB stick, a network cable to your router/switch, and a second computer with a browser.</p></div><div class="cr-help">
+<p>Use the <strong>Windows / Linux</strong> toggle at the top of this class for host commands. Guest Linux commands are the same on both paths once you are inside the VM.</p>
+<p>Replace placeholders: <code>YOUR-IP</code>, <code>GUEST-IP</code>, <code>YOURUSER</code>, <code>proxmox.iso</code>, <code>ubuntu.iso</code>.</p></div><div class="cr-lab-path"><h4>Path B — Proxmox on spare hardware (preferred)</h4><div class="cr-prose-block"><p><strong>You need:</strong> a PC/laptop you can wipe, an 8 GB+ USB stick, a network cable to your router/switch, and a second computer with a browser + terminal.</p></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **You need:** a PC/laptop you can wipe, an 8 GB+ USB stick, a network cable to your router/switch, and a second computer with a browser.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **You need:** a PC/laptop you can wipe, an 8 GB+ USB stick, a network cable to your router/switch, and a second computer with a browser + terminal.</div>
  
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Protect your data first.</strong><br />
-   Proxmox install can erase the disk you select. Unplug extra drives if you are unsure. Copy anything you care about off this machine. Write the disk model/size you plan to install on in your workbook.</p></div>
+   Proxmox install can erase the disk you select. Unplug extra drives if unsure. Copy anything important off this machine. List disks and write model/size in your workbook:</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">Get-Disk | Format-Table Number, FriendlyName, Size, PartitionStyle
+Get-Volume | Format-Table DriveLetter, FileSystemLabel, SizeRemaining, Size
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">lsblk -o NAME,SIZE,MODEL,FSTYPE,MOUNTPOINT
+df -h
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -422,7 +434,14 @@ Type 1 (Academy default)
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Turn on CPU virtualization in firmware.</strong><br />
-   Restart the target PC. Enter setup (common keys: <code>Del</code>, <code>F2</code>, <code>F10</code>, <code>F12</code>—watch the splash screen). Find <strong>Intel VT-x / VMX</strong> or <strong>AMD-V / SVM</strong> under CPU / Advanced and set <strong>Enabled</strong>. Save and exit (<code>F10</code> is common). Boot back to whatever OS you use for downloading files.</p></div>
+   Restart the target PC → enter setup (<code>Del</code> / <code>F2</code> / <code>F10</code> / <code>F12</code>) → enable <strong>Intel VT-x / VMX</strong> or <strong>AMD-V / SVM</strong> → save → reboot. Then confirm from the OS you use for downloads:</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">systeminfo | findstr /i &quot;Hyper-V Virtualization&quot;
+Get-CimInstance Win32_Processor | Select-Object Name, VirtualizationFirmwareEnabled
+</code></pre>
+<p>You want firmware virtualization <strong>Yes</strong> / <code>VirtualizationFirmwareEnabled : True</code>.</p></div>
+<p>:::linux<br />
+```bash<br />
+egrep -c '(vmx|svm)' /proc/cpuinfo</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -436,9 +455,15 @@ Type 1 (Academy default)
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Download the Proxmox ISO and write the USB.</strong><br />
-   On your second computer (or this one before you wipe it): open the official Proxmox download page → <strong>Proxmox Virtual Environment</strong> → <strong>ISO Images</strong> → download the current ISO.<br />
-   On Windows, use Rufus (or similar): select the USB device carefully → select the ISO → when asked for mode, choose <strong>DD</strong> (ISO mode often fails for Proxmox) → start and accept that the USB will be erased.<br />
-   On macOS/Linux, balenaEtcher or <code>dd</code> to the USB device also works—double-check the device name so you do not wipe the wrong disk.</p></div>
+   Download the current Proxmox VE ISO from the official site into a folder you can find (example: Downloads). Identify the USB device letter/name carefully—wrong disk = data loss.</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><p>Rufus GUI is safest for beginners (select USB → select ISO → mode <strong>DD</strong> → Start).</p>
+<p>Optional PowerShell check of removable disks before you write:</p>
+<pre><code class="language-powershell">Get-Disk | Where-Object BusType -eq 'USB' | Format-Table Number, FriendlyName, Size
+Get-Volume | Format-Table DriveLetter, FileSystemLabel, DriveType, Size
+</code></pre></div>
+<p>:::linux<br />
+```bash<br />
+lsblk -o NAME,SIZE,MODEL,TRAN,MOUNTPOINT</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -451,8 +476,8 @@ Type 1 (Academy default)
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Boot the spare PC from the USB with Ethernet plugged in.</strong><br />
-   Plug the Ethernet cable into the PC and into your router/switch (Wi-Fi is not the default path). Insert the USB, power on, and open the boot menu / BIOS boot order so <strong>USB</strong> is first. Choose <strong>Install Proxmox VE</strong> at the installer menu.</p></div>
+  <div class="cr-step-text"><p><strong>Boot the spare PC from USB with Ethernet plugged in.</strong><br />
+   Cable into router/switch. Boot menu → USB → <strong>Install Proxmox VE</strong>. No CLI on this step—watch the installer.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -465,13 +490,8 @@ Type 1 (Academy default)
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Walk the installer and write down the network plan before you click Install.</strong><br />
-   Agree to the license. Choose the <strong>target hard disk</strong> (the one you meant to wipe). Set country/timezone/keyboard. Set a strong <code>root</code> password and remember it.<br />
-   On the network screen, set:<br />
-   - <strong>Hostname</strong> (example: <code>pve.lab.local</code> or <code>pve</code>)<br />
-   - <strong>IP address</strong> you will use on your LAN (example: <code>192.168.1.50</code>)<br />
-   - <strong>Netmask / CIDR</strong>, <strong>Gateway</strong>, and <strong>DNS</strong><br />
-   If DHCP filled values automatically, still copy them into your workbook. Review the summary, then install. When it finishes, remove the USB and let it reboot.</p></div>
+  <div class="cr-step-text"><p><strong>Walk the installer and write the network plan before Install.</strong><br />
+   Agree → choose target disk → locale → strong <code>root</code> password. Set hostname, static IP (example <code>192.168.1.50</code>), gateway, DNS. Copy every value into the workbook, then install. Remove USB and reboot.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -484,24 +504,41 @@ Type 1 (Academy default)
 </div><div class="cr-step" data-step="6">
  <div class="cr-step-num">6</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Open the web UI from your other computer.</strong><br />
-   On the second PC’s browser go to <code>https://YOUR-IP:8006</code> (use the IP you set). Accept the self-signed certificate warning for a home lab (Advanced → proceed). Log in as user <code>root</code> with the password from the installer.<br />
-   If you see a “no subscription” notice, close it—the free/no-subscription hypervisor still runs. Record the URL in your workbook.</p></div>
+  <div class="cr-step-text"><p><strong>Open the web UI, then prove it from the CLI too.</strong><br />
+   Browser: <code>https://YOUR-IP:8006</code> → accept the cert warning → login <code>root</code>. Close the no-subscription nag if it appears.</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">curl.exe -kI https://YOUR-IP:8006
+ping -n 3 YOUR-IP
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">curl -kI https://YOUR-IP:8006
+ping -c 3 YOUR-IP
+</code></pre></div>
+<p>On the Proxmox host itself (local console or later via SSH as root), also run:</p>
+<pre><code class="language-bash">pveversion
+ip -br addr
+ip route
+cat /etc/network/interfaces
+</code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A hypervisor creates and runs virtual machines. Type 2 sits on your OS; Type 1 sits on the hardware.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Make storage accept VM disks (disk images).</strong><br />
-   In the left tree open <strong>Datacenter → Storage</strong>. Select <code>local</code> → <strong>Edit</strong>. Under content types, enable <strong>Disk image</strong> (and keep <strong>ISO image</strong> / <strong>Container template</strong> as needed) → OK.<br />
-   Click <code>local</code> → <strong>Summary</strong> and note free space. If almost all capacity sits on <code>local-lvm</code> and you are on a single-disk laptop install, finish storage cleanup using current Proxmox docs <em>before</em> creating guests—do not invent random delete commands. Goal: you know where ISOs and VM disks will live.</p></div>
+  <div class="cr-step-text"><p><strong>Make storage accept VM disks — UI plus verify in shell.</strong><br />
+   UI: <strong>Datacenter → Storage → local → Edit</strong> → enable <strong>Disk image</strong> (+ ISO / Container template) → OK.</p>
+<p>Proxmox host shell (node → <strong>Shell</strong>, or SSH as root):</p>
+<pre><code class="language-bash">pvesm status
+pvesm list local
+cat /etc/pve/storage.cfg
+df -h /var/lib/vz
+</code></pre>
+<p>Confirm <code>local</code> is listed and you understand free space. If a single-disk install left capacity stuck on <code>local-lvm</code>, follow current Proxmox storage docs before creating guests.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -514,32 +551,32 @@ Type 1 (Academy default)
 </div><div class="cr-step" data-step="8">
  <div class="cr-step-num">8</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Upload a Linux install ISO.</strong><br />
-   Select storage <code>local</code> → <strong>ISO Images</strong> → <strong>Upload</strong>. Choose a current <strong>Debian</strong> or <strong>Ubuntu Server</strong> ISO from your downloads. Wait until the upload shows in the list. (Start the ISO download on the second PC early if you have not already.)</p></div>
+  <div class="cr-step-text"><p><strong>Upload a Linux ISO (UI) and confirm the file on disk.</strong><br />
+   UI: <code>local</code> → <strong>ISO Images</strong> → <strong>Upload</strong> (Debian or Ubuntu Server).</p>
+<p>Proxmox shell:</p>
+<pre><code class="language-bash">ls -lh /var/lib/vz/template/iso/
+</code></pre>
+<p>You should see your <code>.iso</code> listed.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="9">
  <div class="cr-step-num">9</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Create the VM shell (hardware only—no OS yet).</strong><br />
-   Top right: <strong>Create VM</strong>.<br />
-   - <strong>Node:</strong> your Proxmox node<br />
-   - <strong>VM ID:</strong> <code>100</code> (or next free)<br />
-   - <strong>Name:</strong> <code>lab-linux-01</code><br />
-   - <strong>OS:</strong> Use CD/DVD → storage <code>local</code> → select the ISO you uploaded → Type <strong>Linux</strong><br />
-   - <strong>System:</strong> defaults are fine for a first lab<br />
-   - <strong>Disks:</strong> SCSI, storage that allows disk images, <strong>20–32 GB</strong><br />
-   - <strong>CPU:</strong> <strong>2</strong> cores<br />
-   - <strong>Memory:</strong> <strong>2048–4096</strong> MB (leave RAM for Proxmox itself)<br />
-   - <strong>Network:</strong> Bridge <strong><code>vmbr0</code></strong>, model VirtIO<br />
-   Check <strong>Start after created</strong> if you want, then <strong>Finish</strong>.</p></div>
+  <div class="cr-step-text"><p><strong>Create the VM (UI) and verify with <code>qm</code>.</strong><br />
+   UI <strong>Create VM</strong>: ID <code>100</code>, name <code>lab-linux-01</code>, ISO from local, Linux, disk 20–32 GB, 2 vCPU, 2048–4096 MB RAM, NIC bridge <code>vmbr0</code> VirtIO → Finish.</p>
+<p>Proxmox shell:</p>
+<pre><code class="language-bash">qm config 100
+qm list
+qm start 100
+qm status 100
+</code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -552,14 +589,19 @@ Type 1 (Academy default)
 </div><div class="cr-step" data-step="10">
  <div class="cr-step-num">10</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Install Linux inside the VM console.</strong><br />
-    Select <code>lab-linux-01</code> → <strong>Console</strong>. If it did not auto-start, click <strong>Start</strong>. Use the graphical or text installer. When asked about disks, you are wiping the <strong>virtual</strong> disk only—not your Proxmox host disk. Create a user, set a password, and <strong>enable OpenSSH server</strong> if the installer offers it (Ubuntu Server). Finish and reboot the guest until you get a login prompt.</p></div>
+  <div class="cr-step-text"><p><strong>Install Linux in the console, then enable SSH from the guest.</strong><br />
+    UI: select VM → <strong>Console</strong> → install OS (virtual disk only). Prefer enabling OpenSSH during Ubuntu Server install. If you skipped it, after first login inside the guest:</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install -y openssh-server
+sudo systemctl enable --now ssh
+sudo systemctl status ssh --no-pager
+</code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Install Linux in the console, then enable SSH from the guest.</div>
  
 </div>
  </div>
@@ -567,13 +609,15 @@ Type 1 (Academy default)
  <div class="cr-step-num">11</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Prove the guest network from inside the VM.</strong><br />
-    Log in on the console. Run:</p>
-<pre><code class="language-bash">ip addr
+    Guest terminal:</p>
+<pre><code class="language-bash">ip -br addr
 ip route
 ping -c 3 1.1.1.1
+ping -c 3 $(ip route | awk '/default/ {print $3; exit}')
 getent hosts example.com
+hostname -I
 </code></pre>
-<pre><code>Write down the guest IP. If ping to `1.1.1.1` works but the hostname lookup fails, routing is OK and DNS needs fixing—do not reinstall.
+<pre><code>Write down `GUEST-IP`. If `1.1.1.1` works but `example.com` fails, fix DNS—do not reinstall.
 </code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
@@ -587,12 +631,16 @@ getent hosts example.com
 </div><div class="cr-step" data-step="12">
  <div class="cr-step-num">12</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>SSH in from your workstation.</strong><br />
-    On your second computer:</p>
-<pre><code class="language-bash">ssh YOURUSER@GUEST-IP
+  <div class="cr-step-text"><p><strong>SSH in from your workstation.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><p>Windows 10/11 usually includes OpenSSH. In PowerShell or CMD:</p>
+<pre><code class="language-powershell">ssh YOURUSER@GUEST-IP
 </code></pre>
-<pre><code>Accept the host key fingerprint. You should get a shell. If it fails: confirm guest IP, confirm `sshd` is installed/enabled, confirm you are on the same LAN as `vmbr0`.
+<p>First connect: type <code>yes</code> to trust the host key. If <code>ssh</code> is missing:</p>
+<pre><code class="language-powershell">Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
 </code></pre></div>
+<p>:::linux<br />
+```bash<br />
+ssh YOURUSER@GUEST-IP</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -605,10 +653,25 @@ getent hosts example.com
 </div><div class="cr-step" data-step="13">
  <div class="cr-step-num">13</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Create a small LXC and compare it to the VM.</strong><br />
-    Storage <code>local</code> → <strong>CT Templates</strong> → <strong>Templates</strong> → download a Debian template.<br />
-    Top: <strong>Create CT</strong> → ID <code>200</code>, hostname <code>lab-ct-01</code>, set a password → pick the template → <strong>8 GB</strong> disk, <strong>1</strong> CPU, <strong>1024</strong> MB RAM → network on <code>vmbr0</code> (DHCP is fine) → start after create.<br />
-    Open both consoles. On each run <code>free -h</code> and <code>uname -a</code>. Note: the LXC kernel string matches the <strong>Proxmox host</strong>; the VM has its <strong>own</strong> kernel. Feel how fast the CT starts versus the VM.</p></div>
+  <div class="cr-step-text"><p><strong>Create an LXC and compare with CLI.</strong><br />
+    UI: download a Debian CT template → <strong>Create CT</strong> ID <code>200</code>, hostname <code>lab-ct-01</code>, 8 GB disk, 1 CPU, 1024 MB, <code>vmbr0</code>.</p>
+<pre><code>Proxmox shell:
+</code></pre>
+<pre><code class="language-bash">pveam update
+pveam available | head
+pct list
+pct start 200
+pct status 200
+pct enter 200
+</code></pre>
+<pre><code>Inside the CT (and separately in the VM), run:
+</code></pre>
+<pre><code class="language-bash">free -h
+uname -a
+uptime
+</code></pre>
+<pre><code>Type `exit` to leave `pct enter`. Note: CT `uname` matches the **host** kernel; VM `uname` is its own.
+</code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -621,29 +684,58 @@ getent hosts example.com
 </div><div class="cr-step" data-step="14">
  <div class="cr-step-num">14</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Take a snapshot, change something, restore it.</strong><br />
-    Select the VM (powered off or per UI rules for snapshots) → <strong>Snapshots</strong> → <strong>Take Snapshot</strong> named <code>before-break</code>. Start the VM, make a harmless change (create a file in <code>/tmp</code> or on the desktop). Shut down if required → select <code>before-break</code> → <strong>Rollback</strong>. Boot again and confirm the change is gone. Record the snapshot name in your workbook.</p></div>
+  <div class="cr-step-text"><p><strong>Snapshot, change a file with CLI, roll back, prove it.</strong><br />
+    Proxmox shell (VM should be stopped for a clean snapshot on many setups):</p>
+<pre><code class="language-bash">qm shutdown 100
+qm status 100
+qm snapshot 100 before-break --description &quot;class1 gate&quot;
+qm listsnapshot 100
+qm start 100
+</code></pre>
+<pre><code>In the guest (console or SSH):
+</code></pre>
+<pre><code class="language-bash">echo &quot;break-me&quot; &gt; /tmp/DELETE-ME
+cat /tmp/DELETE-ME
+ls -l /tmp/DELETE-ME
+</code></pre>
+<pre><code>Then roll back:
+</code></pre>
+<pre><code class="language-bash">qm shutdown 100
+qm rollback 100 before-break
+qm start 100
+</code></pre>
+<pre><code>Guest again:
+</code></pre>
+<pre><code class="language-bash">ls /tmp/DELETE-ME || echo &quot;GOOD: file gone after rollback&quot;
+</code></pre>
+<pre><code>Record snapshot name `before-break` in the workbook.
+</code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A snapshot is a restore point. Take one before a risky change so you can roll back fast.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
 </div>
  </div>
-</div></div></div><div class="cr-lab-path"><h4>Path A — VirtualBox on your daily computer (acceptable first finish)</h4><div class="cr-prose-block"><p><strong>You need:</strong> your everyday PC (Windows, macOS, or Linux), ~20 GB free disk, and a network connection. This path does <strong>not</strong> wipe your host OS.</p></div><div class="cr-help">
+</div></div></div><div class="cr-lab-path"><h4>Path A — VirtualBox on your daily computer (acceptable first finish)</h4><div class="cr-prose-block"><p><strong>You need:</strong> your everyday PC, ~20 GB free disk, VirtualBox, and a terminal. This path does <strong>not</strong> wipe your host OS.</p></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **You need:** your everyday PC (Windows, macOS, or Linux), ~20 GB free disk, and a network connection.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
  
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Turn on CPU virtualization in firmware.</strong><br />
-   Restart → enter BIOS/UEFI → enable <strong>Intel VT-x / VMX</strong> or <strong>AMD-V / SVM</strong> → save → boot into your normal desktop. Without this, 64-bit guests often fail.</p></div>
+  <div class="cr-step-text"><p><strong>Turn on CPU virtualization, then verify in the terminal.</strong><br />
+   Firmware: enable VT-x / AMD-V, save, boot to desktop.</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">systeminfo | findstr /i &quot;Virtualization&quot;
+Get-CimInstance Win32_Processor | Select-Object VirtualizationFirmwareEnabled
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">egrep -c '(vmx|svm)' /proc/cpuinfo
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -656,10 +748,16 @@ getent hosts example.com
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Download the guest ISO and VirtualBox.</strong><br />
-   Start downloading <strong>Ubuntu Desktop</strong> or <strong>Ubuntu Server</strong> (or Debian) ISO from the official site—large file, start early.<br />
-   Open the official VirtualBox downloads page → install the package for <strong>your host OS</strong>. Run the installer; accept defaults.<br />
-   On the same downloads page, get the <strong>VirtualBox Extension Pack</strong> that matches your VirtualBox version → open the downloaded file → install/agree when VirtualBox prompts. (Needed for USB 2/3 and some extras.)</p></div>
+  <div class="cr-step-text"><p><strong>Install VirtualBox and confirm the CLI works.</strong><br />
+   Install VirtualBox (+ Extension Pack) from the official site. Then:</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">&amp; &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot; --version
+&amp; &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot; list extpacks
+</code></pre>
+<p>If that path fails, open a prompt from the VirtualBox install folder, or add it to PATH.</p></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">VBoxManage --version
+VBoxManage list extpacks
+</code></pre></div>
+<p>Also start downloading your Ubuntu/Debian ISO while this installs.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -672,13 +770,27 @@ getent hosts example.com
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Create the VM hardware.</strong><br />
-   Open VirtualBox → <strong>New</strong>.<br />
-   - <strong>Name:</strong> <code>lab-linux-01</code><br />
-   - <strong>Type:</strong> Linux → version <strong>Ubuntu (64-bit)</strong> or <strong>Debian (64-bit)</strong><br />
-   - <strong>Memory:</strong> start at <strong>2048 MB</strong> (more only if Task Manager / Activity Monitor shows plenty free with your normal apps open)<br />
-   - <strong>Hard disk:</strong> Create a virtual hard disk → <strong>VDI</strong> → <strong>Dynamically allocated</strong> → <strong>20 GB</strong> or larger<br />
-   Finish the wizard. Then select the VM → <strong>Settings → System → Processor</strong> → set <strong>2</strong> CPUs if your host has 4+ cores (stay under about half your cores) → OK.</p></div>
+  <div class="cr-step-text"><p><strong>Create the VM with the GUI or with <code>VBoxManage</code>.</strong><br />
+   GUI: <strong>New</strong> → name <code>lab-linux-01</code>, Linux 64-bit, 2048 MB RAM, VDI dynamic ≥20 GB → then Settings → System → Processor → 2 CPUs if host has ≥4 cores.</p>
+<p>Or create from CLI (adjust ISO path and memory):</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">$VB = &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot;
+&amp; $VB createvm --name &quot;lab-linux-01&quot; --ostype &quot;Ubuntu_64&quot; --register
+&amp; $VB modifyvm &quot;lab-linux-01&quot; --memory 2048 --cpus 2 --nic1 nat --vram 16
+&amp; $VB createhd --filename &quot;$env:USERPROFILE\VirtualBox VMs\lab-linux-01\lab-linux-01.vdi&quot; --size 20480 --format VDI
+&amp; $VB storagectl &quot;lab-linux-01&quot; --name &quot;SATA&quot; --add sata --controller IntelAhci
+&amp; $VB storageattach &quot;lab-linux-01&quot; --storagectl &quot;SATA&quot; --port 0 --device 0 --type hdd --medium &quot;$env:USERPROFILE\VirtualBox VMs\lab-linux-01\lab-linux-01.vdi&quot;
+&amp; $VB storageattach &quot;lab-linux-01&quot; --storagectl &quot;SATA&quot; --port 1 --device 0 --type dvddrive --medium &quot;$env:USERPROFILE\Downloads\ubuntu.iso&quot;
+&amp; $VB list vms
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">VBoxManage createvm --name &quot;lab-linux-01&quot; --ostype &quot;Ubuntu_64&quot; --register
+VBoxManage modifyvm &quot;lab-linux-01&quot; --memory 2048 --cpus 2 --nic1 nat --vram 16
+mkdir -p &quot;$HOME/VirtualBox VMs/lab-linux-01&quot;
+VBoxManage createhd --filename &quot;$HOME/VirtualBox VMs/lab-linux-01/lab-linux-01.vdi&quot; --size 20480 --format VDI
+VBoxManage storagectl &quot;lab-linux-01&quot; --name &quot;SATA&quot; --add sata --controller IntelAhci
+VBoxManage storageattach &quot;lab-linux-01&quot; --storagectl &quot;SATA&quot; --port 0 --device 0 --type hdd --medium &quot;$HOME/VirtualBox VMs/lab-linux-01/lab-linux-01.vdi&quot;
+VBoxManage storageattach &quot;lab-linux-01&quot; --storagectl &quot;SATA&quot; --port 1 --device 0 --type dvddrive --medium &quot;$HOME/Downloads/ubuntu.iso&quot;
+VBoxManage list vms
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -691,27 +803,41 @@ getent hosts example.com
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Attach the ISO and install the guest OS.</strong><br />
-<strong>Settings → Storage</strong> → under Controller: IDE/SATA empty optical drive → choose disk → <strong>Add</strong> → pick your Ubuntu/Debian ISO → OK.<br />
-   Click <strong>Start</strong>. Choose Install / Graphical install. Prefer defaults for a first run. When it offers to erase the disk, that is the <strong>virtual</strong> disk only. Create your user/password. After install, remove the ISO from the virtual optical drive (Settings → Storage → remove disk) if the guest keeps booting the installer, then start again and log in.<br />
-<strong>Host key tip:</strong> if the mouse is trapped in the window, press <strong>Right Ctrl</strong> (default host key) to release it back to your real desktop.</p></div>
+  <div class="cr-step-text"><p><strong>Start the VM and install the guest OS.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">&amp; &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot; startvm &quot;lab-linux-01&quot; --type gui
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">VBoxManage startvm &quot;lab-linux-01&quot; --type gui
+</code></pre></div>
+<p>Complete the installer in the window. Virtual disk wipe ≠ host wipe. Host key to release mouse: <strong>Right Ctrl</strong>. After install, detach the ISO if it keeps booting the installer:</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">&amp; &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot; storageattach &quot;lab-linux-01&quot; --storagectl &quot;SATA&quot; --port 1 --device 0 --type dvddrive --medium none
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">VBoxManage storageattach &quot;lab-linux-01&quot; --storagectl &quot;SATA&quot; --port 1 --device 0 --type dvddrive --medium none
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Prove the guest can reach the internet.</strong><br />
-   Inside the guest, open a browser to a simple site, or open a terminal:</p>
+  <div class="cr-step-text"><p><strong>Prove internet from the guest with ping.</strong><br />
+   Inside the Linux guest terminal:</p>
 <pre><code class="language-bash">ping -c 3 1.1.1.1
+ip -br addr
+ip route
 </code></pre>
-<p>On Windows guests use <code>ping 1.1.1.1</code>. If this fails, check VirtualBox <strong>Settings → Network → Adapter 1</strong> is enabled (NAT is the easy default).</p></div>
+<p>From the <strong>host</strong>, you can also check the VM is running:</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">&amp; &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot; showvminfo &quot;lab-linux-01&quot; --machinereadable | findstr /i &quot;VMState= nic1&quot;
+ping -n 3 1.1.1.1
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">VBoxManage showvminfo &quot;lab-linux-01&quot; --machinereadable | egrep 'VMState=|nic1='
+ping -c 3 1.1.1.1
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -724,9 +850,18 @@ getent hosts example.com
 </div><div class="cr-step" data-step="6">
  <div class="cr-step-num">6</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Practice pause and save-state.</strong><br />
-   With the guest running, use Machine → <strong>Pause</strong>, wait a few seconds, then unpause—apps should resume.<br />
-   Then Machine → <strong>Close → Save the machine state</strong>. Quit VirtualBox if you want. Open VirtualBox again → <strong>Start</strong>. Confirm you return to the same session. Write “pause OK” and “save-state OK” in your workbook.</p></div>
+  <div class="cr-step-text"><p><strong>Pause and save-state from the GUI or CLI.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">$VB = &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot;
+&amp; $VB controlvm &quot;lab-linux-01&quot; pause
+&amp; $VB controlvm &quot;lab-linux-01&quot; resume
+&amp; $VB controlvm &quot;lab-linux-01&quot; savestate
+&amp; $VB startvm &quot;lab-linux-01&quot; --type gui
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">VBoxManage controlvm &quot;lab-linux-01&quot; pause
+VBoxManage controlvm &quot;lab-linux-01&quot; resume
+VBoxManage controlvm &quot;lab-linux-01&quot; savestate
+VBoxManage startvm &quot;lab-linux-01&quot; --type gui
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -739,42 +874,62 @@ getent hosts example.com
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Snapshot, break, restore.</strong><br />
-   With the guest running or stopped (either works; pick one and stay consistent), open the <strong>Snapshots</strong> tool for this VM → <strong>Take</strong> → name it <code>before-break</code>.<br />
-   Inside the guest, create a file or folder you will notice (example: a folder on the desktop named <code>DELETE-ME</code>).<br />
-   Shut down the guest if the UI asks → select snapshot <code>before-break</code> → <strong>Restore</strong>. Start the guest. Confirm <code>DELETE-ME</code> is gone. That is the skill you will use before risky changes.</p></div>
+  <div class="cr-step-text"><p><strong>Snapshot, break a file, restore.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">$VB = &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot;
+&amp; $VB snapshot &quot;lab-linux-01&quot; take &quot;before-break&quot; --description &quot;class1&quot;
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">VBoxManage snapshot &quot;lab-linux-01&quot; take &quot;before-break&quot; --description &quot;class1&quot;
+</code></pre></div>
+<p>Inside the guest:</p>
+<pre><code class="language-bash">mkdir -p ~/DELETE-ME
+echo test &gt; ~/DELETE-ME/note.txt
+ls ~/DELETE-ME
+</code></pre>
+<p>Shut down the guest, then restore:</p>
+<p>:::windows<br />
+```powershell<br />
+$VB = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"<br />
+&amp; $VB controlvm "lab-linux-01" acpipowerbutton</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A snapshot is a restore point. Take one before a risky change so you can roll back fast.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="8">
  <div class="cr-step-num">8</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Inspect NAT vs bridged.</strong><br />
-<strong>Settings → Network → Adapter 1</strong>. Note whether it says <strong>NAT</strong> or <strong>Bridged Adapter</strong>.<br />
-   In the guest, check the IP (<code>ip addr</code> or <code>ipconfig</code>).<br />
-   - NAT often looks like <code>10.0.2.x</code> and is <strong>not</strong> a normal address on your home LAN.<br />
-   - Bridged usually looks like your LAN (<code>192.168.x.x</code> / <code>10.x.x.x</code>).<br />
-   Leave NAT for now unless you need LAN SSH. Write the mode and guest IP in your workbook.</p></div>
+  <div class="cr-step-text"><p><strong>Inspect NAT vs bridged with CLI.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">&amp; &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot; showvminfo &quot;lab-linux-01&quot; | findstr /i &quot;NIC 1&quot;
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">VBoxManage showvminfo &quot;lab-linux-01&quot; | egrep -i 'NIC 1'
+</code></pre></div>
+<p>Guest: <code>ip -br addr</code>. NAT often shows <code>10.0.2.x</code>. Bridged usually matches your LAN. Leave NAT unless you need LAN SSH.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="9">
  <div class="cr-step-num">9</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Record evidence in the workbook.</strong><br />
-   Write: host OS + version, VirtualBox version, VM name, RAM, vCPU count, disk size, snapshot name <code>before-break</code>, network mode, and a one-line note that pause/save-state/snapshot worked.</p></div>
+  <div class="cr-step-text"><p><strong>Record evidence (workbook + command output).</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">&amp; &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot; --version
+&amp; &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot; showvminfo &quot;lab-linux-01&quot; --machinereadable | findstr /i &quot;name= memory= cpus= VMState= nic1&quot;
+&amp; &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot; snapshot &quot;lab-linux-01&quot; list
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">VBoxManage --version
+VBoxManage showvminfo &quot;lab-linux-01&quot; --machinereadable | egrep 'name=|memory=|cpus=|VMState=|nic1='
+VBoxManage snapshot &quot;lab-linux-01&quot; list
+</code></pre></div>
+<p>Paste version, RAM, CPUs, NIC mode, and snapshot name into the workbook.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -788,13 +943,15 @@ getent hosts example.com
  <div class="cr-step-num">10</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Plan Path B before Class 2.</strong><br />
-    List the spare PC you will use (or “buy/find spare”), confirm you have a USB stick and Ethernet cable, and set a calendar date to run Path B. Later classes assume you can open <code>https://PROXMOX-IP:8006</code>.</p></div>
+    Write spare-PC plan + USB + Ethernet. Quick reachability test you will use later:</p>
+<p>:::windows<br />
+```powershell</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Plan Path B before Class 2.</div>
  
 </div>
  </div>
@@ -806,19 +963,40 @@ getent hosts example.com
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Break one piece, watch the failure, then repair it. That is how you learn diagnosis.</div>
  
-</div><div class="cr-break-card"><h4>Network break</h4><p><strong>VirtualBox:</strong> Settings → Network → uncheck “Enable Network Adapter” (or switch to a wrong mode) → observe browser/<code>ping</code> failure → re-enable NAT → retest in order below.</p>
-<p><strong>Proxmox:</strong> Hardware → Network Device → detach or set a wrong bridge → observe → put <code>vmbr0</code> back → retest one layer at a time.</p>
-<p>Troubleshoot in order—only change one thing per test:</p>
-<pre><code class="language-text">Virtual NIC on? → correct bridge/NAT mode → IP address → route → gateway → ping 1.1.1.1 → DNS (getent/ping a name) → app
+</div><div class="cr-break-card"><h4>Network break</h4><p>Break one thing, then repair with commands.</p>
+<p><strong>VirtualBox — disable NIC, watch ping fail, re-enable NAT:</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">$VB = &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot;
+&amp; $VB controlvm &quot;lab-linux-01&quot; nic1 null
+# in guest: ping -c 2 1.1.1.1  (should fail)
+&amp; $VB controlvm &quot;lab-linux-01&quot; nic1 nat
+# in guest: ping -c 2 1.1.1.1  (should work)
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">VBoxManage controlvm &quot;lab-linux-01&quot; nic1 null
+# guest: ping -c 2 1.1.1.1
+VBoxManage controlvm &quot;lab-linux-01&quot; nic1 nat
+# guest: ping -c 2 1.1.1.1
+</code></pre></div>
+<p><strong>Proxmox — wrong bridge then fix (host shell):</strong></p>
+<pre><code class="language-bash">qm config 100 | grep -i net
+qm set 100 --delete net0
+# guest loses link — then restore:
+qm set 100 --net0 virtio,bridge=vmbr0
+qm config 100 | grep -i net
 </code></pre>
-<p>If <code>ping 1.1.1.1</code> works but a hostname fails, fix DNS. Do not reinstall the guest.</p><div class="cr-help">
+<p>Guest proof order (run after each change):</p>
+<pre><code class="language-bash">ip -br link
+ip -br addr
+ip route
+ping -c 2 1.1.1.1
+getent hosts example.com
+</code></pre><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
  
-</div></div><div class="cr-break-card"><h4>Snapshot break</h4><p>Start from snapshot <code>before-break</code> (or take a fresh one). Change something obvious. Restore the snapshot. Prove the change disappeared. If rollback errors, stop and fix snapshot/storage settings before more experiments.</p><div class="cr-help">
+</div></div><div class="cr-break-card"><h4>Snapshot break</h4><p>Create a visible file, roll back, prove it vanished (Path B <code>qm rollback</code> or Path A <code>VBoxManage snapshot … restore</code> from the lab above). Do not continue until <code>ls</code> shows the file is gone.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -961,5 +1139,5 @@ getent hosts example.com
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921i"></script>
+<script src="/classroom/classroom.js?v=20260921j"></script>
 </body></html>

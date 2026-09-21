@@ -111,6 +111,10 @@
 .cr-step .cr-body { color:var(--cream-dim); margin:0 0 12px; }
 .cr-os-block { display:none; margin-top:10px; }
 .cr-os-block.active { display:block; }
+.cr-step-text .cr-os-block { margin-top:12px; }
+.cr-step-text .cr-os-block.active + .cr-os-block.active { margin-top:8px; }
+/* When JS has not run yet, show both so commands are never missing */
+html:not([data-classroom-os]) .cr-os-block { display:block; }
 .cr-os-label {
   display:inline-block; font-family:'JetBrains Mono',monospace; font-size:.65rem; letter-spacing:.1em;
   text-transform:uppercase; margin-bottom:8px; padding:3px 8px; border-radius:4px;
