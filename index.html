@@ -11,8 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20260920g">
-<link rel="stylesheet" href="assets/product-explainers.css?v=20260920g">
+<link rel="stylesheet" href="assets/style.css?v=20260920h">
+<link rel="stylesheet" href="assets/product-explainers.css?v=20260920h">
 </head>
 <body>
 
@@ -41,16 +41,22 @@
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
  </div></div>
 </nav>
-
-<aside class="proof-strip" id="proof-strip" aria-label="Engineering proof status">
- <div class="wrap proof-strip-inner">
- <span class="proof-kicker">Engineering evidence</span>
- <span class="proof-chip" id="proof-reqs">… reqs</span>
- <span class="proof-chip" id="proof-verified">… verified</span>
- <span class="proof-chip" id="proof-risks">… risks open</span>
- <a class="proof-link" href="/engineering/">Open Engineering →</a>
+<div class="wrap">
+ <section class="hero flush">
+ <p class="eyebrow">Field Dossier // Public Index</p>
+ <h1 class="display">Build your own Keep.</h1>
+ <p class="lede">OtaconsKeep Lite is a local-first AI ecosystem for running persistent AI agents on hardware you control. Give agents identities, memories, voices, rooms, and capabilities, then connect them to local models, media, automation, compute nodes, and the rest of your homelab.</p>
+ <p class="lede" style="font-weight: 600; color: var(--cream); margin-top: 10px;">Your agents. Your hardware. Your data. Your Keep.</p>
+ <p class="meta" style="margin-top: 26px; letter-spacing: 0.1em;">AGENTS // MEMORY // VOICE // ROOMS // LOCAL AI<br>MEDIA // AUTOMATION // GPU NODES // HOMELAB</p>
+ <div class="btn-row" style="margin-top: 26px;">
+ <a class="btn btn-primary btn-install" href="#install-otacon">Install OtaconsKeep Lite</a>
+ <a class="btn btn-ghost" href="#products">See products</a>
+ <a class="btn btn-ghost" href="/about/">Why it exists</a>
  </div>
-</aside>
+ <p class="meta" style="margin-top: 18px;">CREATED BY: <strong>Antonio G. Garcia</strong> · Built for the Keep.</p>
+ </section>
+</div>
+
 
 <section class="hero-video" aria-label="Otaconskeep video">
  <div class="wrap">
@@ -66,10 +72,12 @@
  </div>
 </section>
 
+
 <div class="wrap quickpick-wrap" id="products">
+ <p class="tag" style="margin: 8px 0 12px;">Products</p>
  <div class="quickpick-grid">
 
- <article class="quickpick is-free" data-product-id="lite" style="--qp-accent: var(--signal);">
+<article class="quickpick is-free" data-product-id="lite" style="--qp-accent: var(--signal);">
  <span class="free-sticker" aria-label="Free">FREE</span>
  <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 8v6M24 34v6M8 24h6M34 24h6" stroke="currentColor" stroke-width="2"/></svg>
  <div class="qp-badges">
@@ -87,25 +95,27 @@
  </div>
  </article>
 
- <article class="quickpick is-free" data-product-id="ai9" style="--qp-accent: var(--keep-ref);">
+ 
+<article class="quickpick is-free" data-product-id="keeproute" style="--qp-accent: var(--accent-bright);">
  <span class="free-sticker" aria-label="Free">FREE</span>
- <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="22" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M28 18h12v20H18" fill="none" stroke="currentColor" stroke-width="2" opacity=".55"/><path d="M10 20h10M10 26h14M10 32h8" stroke="currentColor" stroke-width="2"/><circle cx="36" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+ <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="36" cy="36" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 12h8c6 0 6 12 0 12h-4c-6 0-6 12 0 12h12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 36h4" stroke="currentColor" stroke-width="2"/></svg>
  <div class="qp-badges">
- <span class="qp-badge" data-kind="runtime">Local GPU</span>
- <span class="qp-badge" data-kind="runtime">Browser Extension</span>
+ <span class="qp-badge" data-kind="maturity">Stable</span>
+ <span class="qp-badge" data-kind="maturity">1.0</span>
+ <span class="qp-badge" data-kind="runtime">Local</span>
  </div>
- <h3>AI9 Colorizer</h3>
+ <h3>KeepRoute</h3>
  <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
- <p>Automatically colorize black-and-white manga images in Firefox using a GPU on your own computer. The browser sends the image to your local AI9 service, your GPU processes it, and the colorized result is returned to the page.</p>
- <p class="qp-support">OtaconsKeep family-adjacent. Covered under AI9. Does not require Lite Core.</p>
+ <p>Keep AI work moving when models hit limits, fail, or need to be switched. KeepRoute preserves mission state and lets work continue across compatible AI models instead of forcing you to start over.</p>
+ <p class="qp-support">Built on OmniRoute with OtaconsKeep mission state, checkpoints, recovery, and handoff behavior.</p>
  <div class="qp-actions">
- <a class="btn btn-primary" href="#install-ai9">Install AI9</a>
- <a class="btn btn-ghost" href="https://youtu.be/aUiwMACSPBk" target="_blank" rel="noopener">Watch AI9 video</a>
- <button type="button" class="btn btn-ghost btn-what" data-explainer="ai9">What is it?</button>
+ <a class="btn btn-primary" href="/keeproute/">Open KeepRoute 1.0</a>
+ <button type="button" class="btn btn-ghost btn-what" data-explainer="keeproute">What is it?</button>
  </div>
  </article>
 
- <article class="quickpick is-donation" data-product-id="expansion" style="--qp-accent: var(--premium);">
+ 
+<article class="quickpick is-donation" data-product-id="expansion" style="--qp-accent: var(--premium);">
  <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
  <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="34" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="36" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="38" cy="34" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="38" cy="20" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 16v16M24 12l14 8M24 12L10 34M24 36l14-2" stroke="currentColor" stroke-width="1.5" opacity=".7"/></svg>
  <div class="qp-badges">
@@ -124,7 +134,8 @@
  </div>
  </article>
 
- <article class="quickpick is-donation" data-product-id="keepdesk" style="--qp-accent: var(--signal);">
+ 
+<article class="quickpick is-donation" data-product-id="keepdesk" style="--qp-accent: var(--signal);">
  <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
  <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="12" width="36" height="22" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 34v6M34 34v6M10 40h28" stroke="currentColor" stroke-width="2"/><path d="M12 18h10M12 23h16M12 28h8" stroke="currentColor" stroke-width="1.8"/></svg>
  <div class="qp-badges">
@@ -144,52 +155,49 @@
  </div>
  </article>
 
- <article class="quickpick is-free" data-product-id="keeproute" style="--qp-accent: var(--accent-bright);">
+ 
+<article class="quickpick is-free" data-product-id="ai9" style="--qp-accent: var(--keep-ref);">
  <span class="free-sticker" aria-label="Free">FREE</span>
- <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="36" cy="36" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 12h8c6 0 6 12 0 12h-4c-6 0-6 12 0 12h12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 36h4" stroke="currentColor" stroke-width="2"/></svg>
+ <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="22" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M28 18h12v20H18" fill="none" stroke="currentColor" stroke-width="2" opacity=".55"/><path d="M10 20h10M10 26h14M10 32h8" stroke="currentColor" stroke-width="2"/><circle cx="36" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
  <div class="qp-badges">
- <span class="qp-badge" data-kind="maturity">Stable</span>
- <span class="qp-badge" data-kind="maturity">1.0</span>
- <span class="qp-badge" data-kind="runtime">Local</span>
+ <span class="qp-badge" data-kind="runtime">Local GPU</span>
+ <span class="qp-badge" data-kind="runtime">Browser Extension</span>
  </div>
- <h3>KeepRoute</h3>
+ <h3>AI9 Colorizer</h3>
+ <p class="qp-labs-tag">Labs · family-adjacent</p>
  <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
- <p>Keep AI work moving when models hit limits, fail, or need to be switched. KeepRoute preserves mission state and lets work continue across compatible AI models instead of forcing you to start over.</p>
- <p class="qp-support">Built on OmniRoute with OtaconsKeep mission state, checkpoints, recovery, and handoff behavior.</p>
+ <p>Automatically colorize black-and-white manga images in Firefox using a GPU on your own computer. The browser sends the image to your local AI9 service, your GPU processes it, and the colorized result is returned to the page.</p>
+ <p class="qp-support">OtaconsKeep family-adjacent. Covered under AI9. Does not require Lite Core.</p>
  <div class="qp-actions">
- <a class="btn btn-primary" href="/keeproute/">Open KeepRoute 1.0</a>
- <button type="button" class="btn btn-ghost btn-what" data-explainer="keeproute">What is it?</button>
+ <a class="btn btn-primary" href="#install-ai9">Install AI9</a>
+ <a class="btn btn-ghost" href="https://youtu.be/aUiwMACSPBk" target="_blank" rel="noopener">Watch AI9 video</a>
+ <button type="button" class="btn btn-ghost btn-what" data-explainer="ai9">What is it?</button>
  </div>
  </article>
 
+ 
+
  </div>
 </div>
 
-<div class="wrap">
- <section class="hero flush">
- <p class="eyebrow">Field Dossier // Public Index</p>
- <h1 class="display">Build your own Keep.</h1>
- <p class="lede">Otaconskeep Lite (built on Otacon Core) is a local-first AI ecosystem for running persistent AI agents on hardware you control. Give agents identities, memories, voices, rooms, and capabilities, then connect them to local models, media, automation, compute nodes, and the rest of your homelab.</p>
- <p class="lede" style="font-weight: 600; color: var(--cream); margin-top: 10px;">Your agents. Your hardware. Your data. Your Keep.</p>
- <p class="meta" style="margin-top: 26px; letter-spacing: 0.1em;">AGENTS // MEMORY // VOICE // ROOMS // LOCAL AI<br>MEDIA // AUTOMATION // GPU NODES // HOMELAB</p>
- <p class="meta">CREATED BY: <strong>Antonio G. Garcia</strong> · Built for the Keep.</p>
- <div class="btn-row" style="margin-top: 26px;">
- <a class="btn btn-primary btn-install" href="#install-otacon">Install Lite</a>
- <a class="btn btn-ghost" href="/keepdesk/#demo">Watch the Deck</a>
- <a class="btn btn-ghost" href="/engineering/">Engineering evidence</a>
+
+<aside class="proof-strip" id="proof-strip" aria-label="Engineering proof status">
+ <div class="wrap proof-strip-inner">
+ <span class="proof-kicker">Engineering evidence</span>
+ <span class="proof-chip" id="proof-reqs">… reqs</span>
+ <span class="proof-chip" id="proof-verified">… verified</span>
+ <span class="proof-chip" id="proof-risks">… risks open</span>
+ <a class="proof-link" href="/engineering/">Open Engineering →</a>
  </div>
- <div class="claims-box" id="claims-evidence">
- <p class="claims-title">Claims vs evidence</p>
- <p class="claims-body">About describes <em>why</em> measurable emotion matters. Engineering holds the math (state vector, blend/decay), VCRM, and MOCK analysis until Verified evidence attaches. Today: honesty over theater.</p>
- <p class="claims-links"><a href="/about/#feeling">About → emotion thesis</a> · <a href="/engineering/#math">Math</a> · <a href="/engineering/#vcrm">VCRM</a></p>
- </div>
- </section>
-</div>
+</aside>
+
+
+
 
 <div class="wrap">
  <section id="today">
  <p class="tag">00 // Right Now</p>
- <h2>Otacon Core Today</h2>
+ <h2>OtaconsKeep Lite today</h2>
  <p class="intro">Before the bigger picture: here's exactly what installing Otacon gives you the moment it finishes, no roadmap items included.</p>
 
  <div class="today-panel">
@@ -214,8 +222,8 @@
  <div class="reality-banner">
  <p class="eyebrow-mono">Real Reference Keep // Live System</p>
  <h2 class="display">This is not a concept UI.</h2>
- <p class="sub">These are screens from Antonio G. Garcia's running Otaconskeep reference environment, not product mockups. Otacon Core provides the foundation; the Reference Keep shows how far that foundation can be taken.</p>
- <span class="honesty-tag">Reference Keep: not every system shown here ships with Otacon Core today</span>
+ <p class="sub">These are screens from Antonio G. Garcia's running Otaconskeep reference environment, not product mockups. OtaconsKeep Lite provides the foundation; the Reference Keep shows how far that foundation can be taken.</p>
+ <span class="honesty-tag">Reference Keep: not every system shown here ships with OtaconsKeep Lite today</span>
  </div>
  </section>
 </div>
@@ -248,7 +256,7 @@
  <p class="section-sub">Agent notifications delivered where you already are.</p>
  <p class="intro">Otaconskeep doesn’t require you to constantly watch a dashboard. Agents can push useful updates directly into Discord: morning briefings, appointments, completed AI jobs, security and media alerts, and operational status from across the Keep. The goal is simple: important information finds you instead of you having to go looking for it.</p>
  <p class="intro">These messages come from the running Keep and reflect the responsibilities of each agent. Naomi can surface upcoming appointments, Otacon can deliver system and intelligence briefings, and agents such as Albedo can report changes in queues, automation, and Project REX activity. Routine work stays quiet; useful changes get surfaced.</p>
- <span class="honesty-tag loop-honesty">Screenshots from the running reference Keep. Discord relay is not an Otacon Core installer feature</span>
+ <span class="honesty-tag loop-honesty">Screenshots from the running reference Keep. Discord relay is not a Lite installer feature</span>
  <div class="discord-feed" id="discord-feed"></div>
  </section>
 </div>
@@ -393,7 +401,7 @@
  <div class="reference-block">
  <h2 class="display">Not a concept. A working reference environment.</h2>
  <p class="lede2">The public project is derived from Antonio G. Garcia's working self-hosted environment, where AI agents coexist with local models, dedicated GPUs, voice systems, media automation, containers, search, smart-home infrastructure, and automated operations.</p>
- <span class="reference-tag">Reference Keep: not all components are included in Otacon Core</span>
+ <span class="reference-tag">Reference Keep: not all components are included in OtaconsKeep Lite</span>
  <ul>
  <li>Persistent character/agent rooms with independent identity, memory, and voice</li>
  <li>Local LLM inference with hardware-aware model selection</li>
@@ -407,7 +415,7 @@
  <li>Discord and external messaging interfaces</li>
  <li>Resource arbitration and GPU reclamation across machines</li>
  </ul>
- <p style="margin-top: 26px; font-weight: 700; color: var(--cream); font-size: 1.05rem;">Otacon Core installs the foundation. The Keep Blueprint shows what that foundation can become.</p>
+ <p style="margin-top: 26px; font-weight: 700; color: var(--cream); font-size: 1.05rem;">OtaconsKeep Lite installs the foundation. The Keep Blueprint shows what that foundation can become.</p>
  </div>
  </section>
 </div>
@@ -429,7 +437,7 @@
  <div class="arrow-down">↓</div>
  <div class="step core">KeepRoute</div>
  <div class="arrow-down">↓</div>
- <div class="step desk">Keep Desk <span class="step-note">Grok Bot alternative</span></div>
+ <div class="step desk">Keep Desk <span class="step-note">local command deck</span></div>
  <div class="arrow-down">↓</div>
  <div class="step premium">Otacon Expansion</div>
  <div class="arrow-down">↓</div>
@@ -443,11 +451,11 @@
  <div class="arrow-down">↓</div>
  <div class="step keep">Your Own Keep</div>
  </div>
- <p class="progression-caption">Otacon Core installs the foundation. AI9 is family-adjacent (no Lite Core required). KeepRoute keeps long AI missions alive across models. Keep Desk is OtaconsKeep’s local Grok Bot–class command deck. Expansion and the Keep Blueprint show how far that foundation can grow.</p>
+ <p class="progression-caption">OtaconsKeep Lite installs the foundation. KeepRoute keeps long AI missions alive. Keep Desk is the local command deck. Expansion deepens the multi-agent layer. AI9 is a family-adjacent lab project (no Lite required). The Keep Blueprint shows how far the foundation can grow.</p>
  <div class="legend" style="justify-content: center; margin-top: 18px; margin-bottom: 0;">
- <span><span class="dot available"></span> Otacon Core / AI9 / KeepRoute, today</span>
- <span><span class="dot desk"></span> Keep Desk, local Grok Bot alternative</span>
- <span><span class="dot premium"></span> Otacon Expansion, installable (licensed)</span>
+ <span><span class="dot available"></span> Lite / KeepRoute, today</span>
+ <span><span class="dot desk"></span> Keep Desk, licensed</span>
+ <span><span class="dot premium"></span> Expansion, licensed · installer today</span>
  <span><span class="dot keep-ref"></span> Keep Blueprint direction</span>
  </div>
  <div class="btn-row" style="justify-content: center; margin-top: 18px;">
@@ -463,7 +471,7 @@
  <p class="tag premium">03b // Otacon Expansion</p>
  <div class="stamp premium">Otacon Expansion<small>premium · installable</small></div>
  <h2 style="margin-top: 18px;">Five agents. Real hierarchy. A Keep of your own.</h2>
- <p class="intro">The licensed layer on top of Otacon Core: five-agent roster, Command Deck / Codec, and guided Genome + Video Studio setup. <strong>Installable today</strong> for chatting with Aria after Core + Expansion Setup. Genome Voice Trainer and Video Studio are <em>optional sidecars</em>, they need GPU / Docker (or portable Comfy) and are <strong>not</strong> READY out of the box on every fresh PC. <a href="/expansion/">Read the honest status &amp; install path</a>.</p>
+ <p class="intro"><strong>Premium / Expansion</strong> — available to licensed members; installer available today; some GPU/creative sidecars remain optional or in development. Five-agent roster, Command Deck / Codec after Lite + Expansion Setup. Genome and Video Studio need GPU / Docker (or portable Comfy) and are not READY on every fresh PC. <a href="/expansion/">Read the honest status &amp; install path</a>.</p>
 
  <div class="agentgrid">
  <div class="agentcard" style="--agent-accent:#43d98a">
@@ -512,9 +520,9 @@
  <table>
  <thead><tr><th>Tier</th><th>What it is</th><th>Status</th><th>Price</th></tr></thead>
  <tbody>
- <tr><td><strong>Otacon Core</strong></td><td>Free · open source · self-hosted · never costs anything</td><td>Install today</td><td>Free</td></tr>
- <tr><td><strong>Otacon Expansion</strong></td><td>Five-agent roster, Deck/Codec; Genome + Video Studio as optional guided setup</td><td>Install today (Core required), <a href="/expansion/">honest fresh-PC notes</a></td><td>One-time donation · $1</td></tr>
- <tr><td><strong>Keep Desk</strong></td><td>Local command deck · supporter install vault</td><td>Available now</td><td>One-time donation · $1</td></tr>
+ <tr><td><strong>OtaconsKeep Lite</strong></td><td>Free · open source · self-hosted · never costs anything</td><td>Install today</td><td>Free</td></tr>
+ <tr><td><strong>Premium / Expansion</strong></td><td>Licensed multi-agent layer; installer available today; GPU/creative sidecars optional</td><td>Licensed members · <a href="/expansion/">honest fresh-PC notes</a></td><td>One-time donation · $1</td></tr>
+ <tr><td><strong>Keep Desk</strong></td><td>Local command deck · supporter install vault</td><td>Licensed members (same seat as Premium)</td><td>One-time donation · $1</td></tr>
  <tr><td><strong>Keep Blueprint</strong></td><td>The broader ecosystem architecture demonstrated by the real Keep</td><td>Reference only</td><td>Not offered publicly</td></tr>
  <tr><td><strong>Otaconskeep Services</strong></td><td>Architecture · deployment · support</td><td>Available now</td><td>Contact for scope/pricing</td></tr>
  </tbody>
@@ -530,7 +538,7 @@
  <section id="install">
  <p class="tag">Install</p>
  <h2>Install the OtaconsKeep family</h2>
- <p class="intro">One roof, five public paths. <strong>Lite</strong> (Otacon Core) is the free foundation with Default Model + Voice Trainer. <strong>AI9</strong> colorizes manga on your GPU with no Lite required. <strong>KeepRoute</strong> keeps long AI missions alive. <strong>Keep Desk</strong> is the local command deck. <strong>Expansion / Premium</strong> is the licensed multi-agent layer.</p>
+ <p class="intro"><strong>OtaconsKeep Lite</strong> is the free foundation (Default Model + Voice Trainer). Then add what you need: KeepRoute, Keep Desk, or Premium / Expansion. AI9 is a separate lab project and does not require Lite.</p>
 
  <div class="install-stack">
 
@@ -541,12 +549,15 @@
  <span class="one-click-badge">One click</span>
  </div>
  <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
- <p class="install-panel-lead">Otacon Core on your hardware: agents, memory, Ollama + a VRAM-sized chat model, and Genome Voice Trainer. Install once; it starts itself after that.</p>
+ <p class="install-panel-lead">OtaconsKeep Lite on your hardware: agents, memory, Ollama + a VRAM-sized chat model, and Genome Voice Trainer. Install once; it starts itself after that.</p>
  <div class="os-grid">
  <div class="os-card">
  <p class="os-label">Windows</p>
+ <div class="install-trust-layout">
+ <div class="install-trust-main">
+ <div class="install-cta-row">
  <a class="download-btn" href="/downloads/OtaconsKeep-Setup.bat" download="OtaconsKeep-Setup.bat">Download OtaconsKeep Setup</a>
- <div class="install-demo-video" aria-label="Otaconskeep Lite install video">
+ <div class="install-demo-video install-demo-video--inline" aria-label="Otaconskeep Lite install video">
  <div class="install-demo-video-frame">
  <iframe
  src="https://www.youtube-nocookie.com/embed/OitYjPlbTng"
@@ -557,7 +568,22 @@
  referrerpolicy="strict-origin-when-cross-origin"></iframe>
  </div>
  </div>
+ </div>
  <p class="os-hint" style="margin-top: 8px;"><a href="https://youtu.be/OitYjPlbTng" target="_blank" rel="noopener">Watch the one-click install walkthrough →</a></p>
+ </div>
+ <aside class="install-trust" aria-label="Installer trust">
+ <h4>What’s this installer doing?</h4>
+ <ul>
+ <li><span class="ok">✓</span> Open source</li>
+ <li><span class="ok">✓</span> <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">View source</a></li>
+ <li><span class="ok">✓</span> No account required</li>
+ <li><span class="ok">✓</span> Runs locally on your PC</li>
+ <li><span class="ok">✓</span> Admin needed for WSL / services</li>
+ <li><span class="ok">✓</span> <a href="/faq/#uninstall">How to uninstall</a></li>
+ </ul>
+ <p class="install-trust-note">SmartScreen may warn because the BAT is new to Windows. Click <strong>More info → Run anyway</strong>. Prefer the button on this site over a raw GitHub Save-As.</p>
+ </aside>
+ </div>
  <div class="setup-normal-disclaimer" role="note">
  <strong>These are normal, not failures</strong>
  <p>If something below happens, do not close everything and start over. Setup is still working.</p>
@@ -654,7 +680,7 @@
  <span class="one-click-badge">Supporter vault</span>
  </div>
  <p class="qp-cost paid">One-time donation required · $1</p>
- <p class="install-panel-lead">Local Grok Bot–class command deck: named teammates, LIVE browser, jobs, and Why dossiers on hardware you own. Install vault unlocks after a $1 Buy Me a Coffee donation (Premium seats included).</p>
+ <p class="install-panel-lead">Local computer-using AI teammates on a workstation you own: named agents, LIVE browser, jobs, and Why dossiers. Install vault unlocks after a $1 Buy Me a Coffee donation (Premium seats included).</p>
  <div class="os-grid">
  <div class="os-card">
  <p class="os-label">Enter Keep Desk</p>
@@ -672,10 +698,10 @@
  <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
  <div class="install-panel-head">
  <h3 class="install-panel-title" style="color: var(--premium-bright);">OtaconsKeep Expansion / Premium</h3>
- <span class="one-click-badge" style="color: var(--premium-bright); border-color: var(--premium-dim);">Licensed</span>
+ <span class="one-click-badge" style="color: var(--premium-bright); border-color: var(--premium-dim);">Licensed · installer today</span>
  </div>
  <p class="qp-cost paid">One-time donation required · $1</p>
- <p class="install-panel-lead">The Expansion layer on Core: five-agent roster, relationship engine, Command Deck / Codec, optional Genome + Video Studio. Installable today for licensed seats; GPU sidecars need hardware.</p>
+ <p class="install-panel-lead"><strong>Premium / Expansion</strong> — available to licensed members; installer available today; some GPU/creative sidecars remain optional or in development. Five-agent roster, relationship engine, Command Deck / Codec. Requires Lite first.</p>
  <div class="os-grid">
  <div class="os-card">
  <p class="os-label">Get access</p>
@@ -695,9 +721,9 @@
 
 <div class="wrap">
  <section id="projects">
- <p class="tag">05 // The Umbrella</p>
- <h2>OtaconsKeep AI Ecosystem</h2>
- <p class="intro">The public family under one roof: Lite agents, mission routing, a local command desk, Expansion, and AI9. Otacon Core is the free foundation (Default Model + Voice Trainer). KeepRoute keeps long jobs alive on OmniRoute. Keep Desk is the supporter command deck. Expansion deepens the multi-agent layer. AI9 colorizes manga on your GPU and does <strong>not</strong> require Lite Core.</p>
+ <p class="tag">05 // Products &amp; Labs</p>
+ <h2>What else is under the roof</h2>
+ <p class="intro"><strong>OtaconsKeep Lite</strong> is the foundation. KeepRoute, Keep Desk, and Expansion build on that story. <strong>AI9</strong> is a family-adjacent lab project (manga colorizer on your GPU) — cool, free, and independent of Lite.</p>
 
  <div class="treebox" style="margin-bottom: 28px;">OTACONSKEEP
  │
@@ -727,7 +753,7 @@
 
  <article class="project-card is-free">
  <span class="free-sticker" aria-label="Free">FREE</span>
- <span class="kicker">Project 01 · Agent Platform</span>
+ <span class="kicker">Foundation · Agent Platform</span>
  <h3>Otacon<span>AI Ecosystem</span></h3>
  <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
  <p style="color: var(--cream-dim); margin: 0;">Persistent AI agents with identity, memory, voice, and local orchestration. Normal Lite install includes Default Model (Ollama chat) and Genome Voice Trainer. Expansion, KeepRoute, and Keep Desk build on that foundation. See <a href="#today">what you get today</a> and the <a href="#path">foundation path</a>.</p>
@@ -757,7 +783,7 @@
 
  <article class="project-card is-free">
  <span class="free-sticker" aria-label="Free">FREE</span>
- <span class="kicker">Project 02 · Mission Orchestration</span>
+ <span class="kicker">Product · Mission Orchestration</span>
  <h3>KeepRoute<span>1.0 · OmniRoute</span></h3>
  <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
  <p style="color: var(--cream-dim); margin: 0;">Keeps AI work moving when models hit limits. Missions get IDs, checkpoints, and handoff so you are not rebuilding progress by hand. Built on OmniRoute; OtaconsKeep owns the mission layer.</p>
@@ -778,10 +804,10 @@
 
  <article class="project-card is-donation">
  <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
- <span class="kicker">Project 03 · Command Deck</span>
+ <span class="kicker">Product · Command Deck</span>
  <h3>Keep Desk<span>Local teammates</span></h3>
  <p class="qp-cost paid">One-time donation required · $1</p>
- <p style="color: var(--cream-dim); margin: 0;">Named AI teammates on a computer you own: Command Deck UI, LIVE browser, jobs, and Why dossiers. Grok Bot energy, local-first. Supporter install vault (Premium seats unlock it too).</p>
+ <p style="color: var(--cream-dim); margin: 0;">Local computer-using AI teammates on a workstation you own: Command Deck UI, LIVE browser, jobs, and Why dossiers. Supporter install vault (Premium seats unlock it too).</p>
  <div class="btn-row">
  <a class="btn btn-primary btn-install" href="/keepdesk/">Enter Keep Desk</a>
  </div>
@@ -794,7 +820,7 @@
 
  <article class="project-card is-donation">
  <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
- <span class="kicker">Project 04 · Premium Layer</span>
+ <span class="kicker">Product · Premium Layer</span>
  <h3>Expansion<span>Licensed</span></h3>
  <p class="qp-cost paid">One-time donation required · $1</p>
  <p style="color: var(--cream-dim); margin: 0;">Five-agent roster, Deck / Codec, relationship engine, optional Genome + Video Studio. Requires Core; GPU sidecars need hardware. Honest status before you buy a seat.</p>
@@ -810,7 +836,7 @@
 
  <article class="project-card is-free">
  <span class="free-sticker" aria-label="Free">FREE</span>
- <span class="kicker">Project 05 · Manga Colorizer</span>
+ <span class="kicker">Labs · Manga Colorizer</span>
  <h3>AI9<span>Manga Colorizer</span></h3>
  <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
  <p style="color: var(--cream-dim); margin: 0;"><strong style="color: var(--cream);">AI9 is the manga colorizer.</strong> Local GPU pipeline for Firefox: detect your NVIDIA card, pick the right CUDA/PyTorch build, colorize manga pages on-device. No cloud API in the loop. Family-adjacent; does <strong>not</strong> require Lite Core. The GIF above is a real capture from that pipeline.</p>

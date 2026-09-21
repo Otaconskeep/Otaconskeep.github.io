@@ -165,6 +165,13 @@
  <p class="tag premium">Troubleshooting</p>
  <h2>Otacon Expansion foundation installer</h2>
 
+ <details class="install-toggle" id="uninstall">
+ <summary>How do I uninstall OtaconsKeep Lite?</summary>
+ <div class="install-box">
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">On Linux/WSL: stop the service (<span class="mono">sudo systemctl stop otacon.service</span> if present), then remove the install directory (default <span class="mono">~/otacon-ai-ecosystem</span>) and any leftover Docker containers you started. On Windows, the same folder lives under your WSL home; you can also disable the WSL distro from Windows Features if you no longer need Linux. Exact paths are printed at the end of Setup. Ask in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a> if you want a guided teardown.</p>
+ </div>
+ </details>
+
  <details class="install-toggle" open>
  <summary>It says Otacon Core is not installed, but I already installed Lite</summary>
  <div class="install-box">

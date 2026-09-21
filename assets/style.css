@@ -467,6 +467,67 @@ section > p.intro { max-width: 64ch; color: var(--cream-dim); margin-bottom: 28p
  border: 0;
  display: block;
 }
+.install-trust-layout {
+ display: grid;
+ grid-template-columns: minmax(0, 1.2fr) minmax(220px, 0.9fr);
+ gap: 14px;
+ align-items: start;
+ margin-bottom: 12px;
+}
+@media (max-width: 800px) {
+ .install-trust-layout { grid-template-columns: 1fr; }
+}
+.install-trust-main .install-cta-row,
+.install-trust-main {
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+}
+.install-trust-main .install-demo-video--inline {
+ align-self: flex-start;
+}
+.install-trust {
+ border: 1px solid var(--line-bright);
+ border-radius: 7px;
+ background: rgba(67, 217, 138, 0.06);
+ padding: 14px 14px 12px;
+}
+.install-trust h4 {
+ margin: 0 0 10px;
+ font-family: 'Bricolage Grotesque', sans-serif;
+ font-size: 0.98rem;
+ color: var(--cream);
+}
+.install-trust ul {
+ list-style: none;
+ margin: 0;
+ padding: 0;
+ display: grid;
+ gap: 6px;
+}
+.install-trust li {
+ margin: 0;
+ color: var(--cream);
+ font-size: 0.88rem;
+ display: flex;
+ gap: 8px;
+ align-items: baseline;
+}
+.install-trust .ok { color: #43d98a; font-weight: 700; }
+.install-trust-note {
+ margin: 10px 0 0;
+ color: var(--cream-dim);
+ font-size: 0.8rem;
+ line-height: 1.4;
+}
+.qp-labs-tag {
+ margin: 0 !important;
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.7rem;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: var(--keep-ref, #8db3d9);
+}
 .install-cta-row {
  display: flex;
  flex-wrap: wrap;
