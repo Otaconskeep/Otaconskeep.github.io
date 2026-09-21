@@ -299,6 +299,9 @@
  html += '<article class="eng-ov-panel"><h3>Operational concept</h3><p>' + escapeHtml(o.operational_concept) + '</p></article>';
  html += '<article class="eng-ov-panel eng-ov-panel-boundaries"><h3>Product lanes</h3>';
  html += '<p><span class="eng-lane cyan">Lite</span> ' + escapeHtml(o.lite_premium_boundaries.Lite) + '</p>';
+ if (o.lite_premium_boundaries.AI9) {
+ html += '<p><span class="eng-lane cyan">AI9</span> ' + escapeHtml(o.lite_premium_boundaries.AI9) + '</p>';
+ }
  html += '<p><span class="eng-lane amber">Expansion</span> ' + escapeHtml(o.lite_premium_boundaries.Expansion) + '</p>';
  html += '<p><span class="eng-lane slate">Reference</span> ' + escapeHtml(o.lite_premium_boundaries['Reference Keep']) + '</p>';
  html += '</article></div>';
@@ -315,6 +318,12 @@
  '<span class="eng-ov-evid" data-tone="' + ragTone(p.evidence === 'Partial' ? 'yellow' : p.evidence === 'Not public clone' ? 'muted' : 'green') + '">' +
  escapeHtml(p.evidence) + '</span></div>' +
  '<p>' + escapeHtml(p.claim) + '</p>' +
+ (p.relationship || p.requires_lite_core === false || p.dependency_note ?
+ '<p class="eng-ov-sub">' +
+ (p.relationship ? escapeHtml(p.relationship) + '. ' : '') +
+ (p.requires_lite_core === false ? 'Does not require Lite Core. ' : (p.requires_lite_core === true ? 'Requires Lite Core. ' : '')) +
+ escapeHtml(p.dependency_note || '') +
+ '</p>' : '') +
  (p.link ? '<a href="' + escapeHtml(p.link) + '">Open →</a>' : '') +
  '</article>';
  });
@@ -324,6 +333,7 @@
  if (o.capability_matrix) {
  var cm = o.capability_matrix;
  html += '<h3 class="eng-ov-h">Capability matrix <span class="eng-ov-sub">(RAG vs product lane)</span></h3>';
+ if (cm.notes) html += '<p class="intro">' + escapeHtml(cm.notes) + '</p>';
  html += '<div class="eng-ov-legend">';
  Object.keys(cm.legend || {}).forEach(function (k) {
  html += '<span>' + ragCell(k) + ' ' + escapeHtml(cm.legend[k]) + '</span>';

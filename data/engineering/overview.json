@@ -40,6 +40,9 @@
  "evidence": "Partial",
  "color": "cyan",
  "claim": "Local GPU manga colorization via browser extension",
+ "relationship": "Family adjacent",
+ "requires_lite_core": false,
+ "dependency_note": "Covered under AI9. OtaconsKeep family-adjacent product. Does not require Lite Core.",
  "link": "/ai9/"
  },
  {
@@ -88,24 +91,27 @@
  }
  ],
  "capability_matrix": {
- "columns": ["Lite", "Expansion", "Reference Keep"],
+ "columns": ["Lite", "AI9", "Expansion", "Reference Keep"],
  "rows": [
- {"capability": "Local install / resume", "Lite": "green", "Expansion": "green", "Reference Keep": "green"},
- {"capability": "Codec / Command Center", "Lite": "green", "Expansion": "green", "Reference Keep": "green"},
- {"capability": "Persistent memory", "Lite": "green", "Expansion": "green", "Reference Keep": "green"},
- {"capability": "Default Model (Ollama tiers)", "Lite": "green", "Expansion": "green", "Reference Keep": "green"},
- {"capability": "Multi-agent roster", "Lite": "yellow", "Expansion": "green", "Reference Keep": "green"},
- {"capability": "Continuity math (CM / emotion)", "Lite": "yellow", "Expansion": "green", "Reference Keep": "green"},
- {"capability": "Genome / Video Studio", "Lite": "red", "Expansion": "yellow", "Reference Keep": "green"},
- {"capability": "REX propose→verify", "Lite": "red", "Expansion": "yellow", "Reference Keep": "green"},
- {"capability": "Multi-node media farm", "Lite": "red", "Expansion": "red", "Reference Keep": "green"},
- {"capability": "Public Verified EVID packs", "Lite": "yellow", "Expansion": "yellow", "Reference Keep": "yellow"}
+ {"capability": "Local install / resume", "Lite": "green", "AI9": "green", "Expansion": "green", "Reference Keep": "green"},
+ {"capability": "Codec / Command Center", "Lite": "green", "AI9": "red", "Expansion": "green", "Reference Keep": "green"},
+ {"capability": "Persistent memory", "Lite": "green", "AI9": "red", "Expansion": "green", "Reference Keep": "green"},
+ {"capability": "Default Model (Ollama tiers)", "Lite": "green", "AI9": "red", "Expansion": "green", "Reference Keep": "green"},
+ {"capability": "GPU manga colorizer", "Lite": "red", "AI9": "green", "Expansion": "red", "Reference Keep": "yellow"},
+ {"capability": "Multi-agent roster", "Lite": "yellow", "AI9": "red", "Expansion": "green", "Reference Keep": "green"},
+ {"capability": "Continuity math (CM / emotion)", "Lite": "yellow", "AI9": "red", "Expansion": "green", "Reference Keep": "green"},
+ {"capability": "Genome / Video Studio", "Lite": "red", "AI9": "red", "Expansion": "yellow", "Reference Keep": "green"},
+ {"capability": "REX propose→verify", "Lite": "red", "AI9": "red", "Expansion": "yellow", "Reference Keep": "green"},
+ {"capability": "Multi-node media farm", "Lite": "red", "AI9": "red", "Expansion": "red", "Reference Keep": "green"},
+ {"capability": "Requires Lite Core", "Lite": "red", "AI9": "red", "Expansion": "green", "Reference Keep": "yellow"},
+ {"capability": "Public Verified EVID packs", "Lite": "yellow", "AI9": "yellow", "Expansion": "yellow", "Reference Keep": "yellow"}
  ],
  "legend": {
  "green": "Shipped / expected in that product lane",
  "yellow": "Partial, optional, or Verification Pending",
  "red": "Not a claim for that lane"
- }
+ },
+ "notes": "AI9 is family-adjacent: covered under the AI9 product, not Lite. GPU manga colorizer does not require Lite Core. Expansion does require Core/Lite."
  },
  "deployment_models": [
  {
@@ -127,7 +133,14 @@
  "name": "Expansion on Core",
  "status": "Implemented",
  "rag": "yellow",
- "notes": "Aria + Deck/Codec today; Studio sidecars not automatic READY."
+ "notes": "Aria + Deck/Codec today; Studio sidecars not automatic READY. Requires Lite/Core."
+ },
+ {
+ "id": "DEP-AI9",
+ "name": "AI9 GPU Colorizer (standalone)",
+ "status": "Implemented",
+ "rag": "green",
+ "notes": "Family-adjacent AI9 product. Does not require Lite Core. Own installer + NVIDIA GPU path."
  }
  ],
  "major_capabilities": [
@@ -135,11 +148,13 @@
  {"name": "Capability routing (LLM/TTS/STT)", "rag": "green", "lane": "Lite+"},
  {"name": "VRAM-tier Ollama chat", "rag": "green", "lane": "Lite+"},
  {"name": "Codec / Command Center", "rag": "green", "lane": "Lite+"},
+ {"name": "GPU manga colorizer", "rag": "green", "lane": "AI9 (family adjacent; no Lite Core)"},
  {"name": "Continuity / relationship math", "rag": "yellow", "lane": "Expansion / Math"},
  {"name": "REX lifecycle", "rag": "yellow", "lane": "Reference / executor"}
  ],
  "lite_premium_boundaries": {
  "Lite": "Free, open-source foundation, no license key, no artificial time gate.",
+ "AI9": "Family-adjacent GPU manga colorizer. Covered under AI9. Does not require Lite Core.",
  "Expansion": "Licensed multi-agent layer on Core; Aria + Deck/Codec installable; Genome/Video Studio optional.",
  "Reference Keep": "Private depth reference, not a public downloadable clone."
  },
@@ -166,7 +181,8 @@
  "constraints": [
  "Public Engineering portal must not expose secrets, private IPs, tokens, or sensitive logs",
  "Do not claim Reference Keep features as Lite defaults",
- "Do not invent verification PASS without evidence records"
+ "Do not invent verification PASS without evidence records",
+ "AI9 GPU colorizer is covered under AI9 (family adjacent) and must not be described as requiring Lite Core"
  ],
  "context_nodes": [
  {"id": "ACT-USER", "label": "User / Operator", "kind": "actor"},
@@ -180,7 +196,8 @@
  {"id": "EXT-AUTO", "label": "Automation services", "kind": "external"},
  {"id": "EXT-STORAGE", "label": "Storage", "kind": "external"},
  {"id": "EXT-ARR", "label": "ARR stack", "kind": "external"},
- {"id": "EXT-CREATIVE", "label": "Creative tools (Comfy/AI9)", "kind": "external"},
+ {"id": "SYS-AI9", "label": "AI9 Colorizer (family adjacent)", "kind": "system"},
+ {"id": "EXT-COMFY", "label": "ComfyUI / Studio (optional)", "kind": "external"},
  {"id": "EXT-NET", "label": "Network services", "kind": "external"}
  ],
  "jump_links": [
