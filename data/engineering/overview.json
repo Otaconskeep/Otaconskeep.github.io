@@ -1,7 +1,8 @@
 {
   "mission": "Provide a local-first AI agent platform that runs on hardware the operator controls, with persistent identity, memory, and voice.",
-  "purpose": "OtaconsKeep ships Otacon Core (Lite) as the free foundation; Expansion and Keep Desk / KeepRoute / AI9 are related public products. The private Reference Keep demonstrates deeper media, home, and multi-node capabilities that are not claimed as downloadable clones.",
-  "operational_concept": "Operator installs Core locally (Windows one-click via OtaconsKeep-Setup.bat or Linux/WSL), receives a Command Center with Codec chat, optional Default Model via Ollama sized to VRAM, and Genome Voice Trainer. Agents persist conversation and long-term memory on local storage. Optional integrations (Discord, Home Assistant, ARR/media) use operator-owned credentials.",
+  "purpose": "Public digital-engineering evidence for OtaconsKeep — not a sales SOW. Status colors mean readiness and honesty, not marketing.",
+  "tagline": "Evidence board · local-first AI agents · no fabricated PASS",
+  "operational_concept": "Operator installs Core locally (Windows one-click via OtaconsKeep-Setup.bat or Linux/WSL), receives a Command Center with Codec chat, optional Default Model via Ollama sized to VRAM, and Genome Voice Trainer. Agents persist conversation and long-term memory on local storage. Optional integrations use operator-owned credentials.",
   "system_boundaries": {
     "in_scope_public": [
       "Otacon Core / OtaconsKeep Lite",
@@ -18,33 +19,124 @@
       "Antonio's private infrastructure accounts or secrets"
     ]
   },
+  "products": [
+    {
+      "id": "PROD-LITE",
+      "name": "OtaconsKeep Lite",
+      "lane": "public",
+      "access": "Free",
+      "maturity": "Implemented",
+      "evidence": "Partial",
+      "color": "cyan",
+      "claim": "Local persistent agents, Codec / Command Center, memory, install path",
+      "link": "/#install-otacon"
+    },
+    {
+      "id": "PROD-AI9",
+      "name": "AI9 Colorizer",
+      "lane": "public",
+      "access": "Free",
+      "maturity": "Implemented",
+      "evidence": "Partial",
+      "color": "cyan",
+      "claim": "Local GPU manga colorization via browser extension",
+      "link": "/ai9/"
+    },
+    {
+      "id": "PROD-EXP",
+      "name": "Expansion",
+      "lane": "licensed",
+      "access": "Premium",
+      "maturity": "Implemented",
+      "evidence": "Partial",
+      "color": "amber",
+      "claim": "Multi-agent layer; Aria + Deck/Codec today; Studio optional",
+      "link": "/expansion/"
+    },
+    {
+      "id": "PROD-DESK",
+      "name": "Keep Desk",
+      "lane": "supporter",
+      "access": "Supporter",
+      "maturity": "Implemented",
+      "evidence": "Partial",
+      "color": "violet",
+      "claim": "Visual command deck for named local teammates",
+      "link": "/keepdesk/"
+    },
+    {
+      "id": "PROD-ROUTE",
+      "name": "KeepRoute",
+      "lane": "public",
+      "access": "Free",
+      "maturity": "Released",
+      "evidence": "Partial",
+      "color": "cyan",
+      "claim": "Mission-state routing across models (1.0)",
+      "link": "/keeproute/"
+    },
+    {
+      "id": "PROD-REF",
+      "name": "Reference Keep",
+      "lane": "private",
+      "access": "Private",
+      "maturity": "Reference Only",
+      "evidence": "Not public clone",
+      "color": "slate",
+      "claim": "Depth reference — not a downloadable product claim",
+      "link": "/engineering/#overview"
+    }
+  ],
+  "capability_matrix": {
+    "columns": ["Lite", "Expansion", "Reference Keep"],
+    "rows": [
+      {"capability": "Local install / resume", "Lite": "green", "Expansion": "green", "Reference Keep": "green"},
+      {"capability": "Codec / Command Center", "Lite": "green", "Expansion": "green", "Reference Keep": "green"},
+      {"capability": "Persistent memory", "Lite": "green", "Expansion": "green", "Reference Keep": "green"},
+      {"capability": "Default Model (Ollama tiers)", "Lite": "green", "Expansion": "green", "Reference Keep": "green"},
+      {"capability": "Multi-agent roster", "Lite": "yellow", "Expansion": "green", "Reference Keep": "green"},
+      {"capability": "Continuity math (CM / emotion)", "Lite": "yellow", "Expansion": "green", "Reference Keep": "green"},
+      {"capability": "Genome / Video Studio", "Lite": "red", "Expansion": "yellow", "Reference Keep": "green"},
+      {"capability": "REX propose→verify", "Lite": "red", "Expansion": "yellow", "Reference Keep": "green"},
+      {"capability": "Multi-node media farm", "Lite": "red", "Expansion": "red", "Reference Keep": "green"},
+      {"capability": "Public Verified EVID packs", "Lite": "yellow", "Expansion": "yellow", "Reference Keep": "yellow"}
+    ],
+    "legend": {
+      "green": "Shipped / expected in that product lane",
+      "yellow": "Partial, optional, or Verification Pending",
+      "red": "Not a claim for that lane"
+    }
+  },
   "deployment_models": [
     {
       "id": "DEP-LITE-WIN",
       "name": "Lite on Windows",
       "status": "Implemented",
-      "notes": "OtaconsKeep-Setup.bat; WSL2 path; reboot/resume supported. End-to-end release-gate confirmation still partial per public Otacon page honesty notes."
+      "rag": "yellow",
+      "notes": "Setup.bat + WSL2 resume. Release-gate confirmation still partial."
     },
     {
       "id": "DEP-LITE-LINUX",
       "name": "Lite on Linux / WSL",
       "status": "Implemented",
+      "rag": "green",
       "notes": "Documented on Otacon page."
     },
     {
       "id": "DEP-EXPANSION",
       "name": "Expansion on Core",
       "status": "Implemented",
-      "notes": "Aria chat + Deck/Codec today; Genome/Video Studio optional GPU/Docker sidecars — not automatic READY on every fresh PC."
+      "rag": "yellow",
+      "notes": "Aria + Deck/Codec today; Studio sidecars not automatic READY."
     }
   ],
   "major_capabilities": [
-    "Persistent agents with identity and memory",
-    "Provider-neutral capability routing (LLM/TTS/STT backends)",
-    "Local Ollama chat model selection by VRAM",
-    "Codec / Command Center surfaces",
-    "Optional mood and relationship continuity (Expansion / Reference Keep depth)",
-    "REX proposal → approve → execute → verify lifecycle (Reference Keep / executor; not claimed as Lite-only public surface)"
+    {"name": "Persistent agents", "rag": "green", "lane": "Lite+"},
+    {"name": "Capability routing (LLM/TTS/STT)", "rag": "green", "lane": "Lite+"},
+    {"name": "VRAM-tier Ollama chat", "rag": "green", "lane": "Lite+"},
+    {"name": "Codec / Command Center", "rag": "green", "lane": "Lite+"},
+    {"name": "Continuity / relationship math", "rag": "yellow", "lane": "Expansion / Math"},
+    {"name": "REX lifecycle", "rag": "yellow", "lane": "Reference / executor"}
   ],
   "lite_premium_boundaries": {
     "Lite": "Free, open-source foundation — no license key, no artificial time gate.",
@@ -52,12 +144,12 @@
     "Reference Keep": "Private depth reference — not a public downloadable clone."
   },
   "external_systems": [
-    {"id": "EXT-OLLAMA", "name": "Ollama", "role": "Local model runtime", "required": false, "notes": "Included Default Model path uses 127.0.0.1:11434"},
-    {"id": "EXT-HA", "name": "Home Assistant", "role": "Optional automation", "required": false},
-    {"id": "EXT-DISCORD", "name": "Discord", "role": "Optional social / community", "required": false},
-    {"id": "EXT-ARR", "name": "ARR / Seerr stack", "role": "Optional media request (Reference Keep / Albedo paths)", "required": false},
-    {"id": "EXT-COMFY", "name": "ComfyUI", "role": "Optional Video Studio / creative", "required": false},
-    {"id": "EXT-PROVIDERS", "name": "External AI providers", "role": "Optional remote LLM/TTS/STT", "required": false}
+    {"id": "EXT-OLLAMA", "name": "Ollama", "role": "Local model runtime", "required": false, "tier": "core", "notes": "Default Model path uses loopback Ollama"},
+    {"id": "EXT-HA", "name": "Home Assistant", "role": "Optional automation", "required": false, "tier": "optional"},
+    {"id": "EXT-DISCORD", "name": "Discord", "role": "Optional social / community", "required": false, "tier": "optional"},
+    {"id": "EXT-ARR", "name": "ARR / Seerr", "role": "Optional media request", "required": false, "tier": "reference"},
+    {"id": "EXT-COMFY", "name": "ComfyUI", "role": "Optional creative / Studio", "required": false, "tier": "optional"},
+    {"id": "EXT-PROVIDERS", "name": "External AI providers", "role": "Optional remote LLM/TTS/STT", "required": false, "tier": "optional"}
   ],
   "major_actors": [
     "Operator / user",
@@ -90,5 +182,13 @@
     {"id": "EXT-ARR", "label": "ARR stack", "kind": "external"},
     {"id": "EXT-CREATIVE", "label": "Creative tools (Comfy/AI9)", "kind": "external"},
     {"id": "EXT-NET", "label": "Network services", "kind": "external"}
+  ],
+  "jump_links": [
+    {"label": "Math / Continuity Model", "href": "#math", "tone": "cyan"},
+    {"label": "Requirements", "href": "#requirements", "tone": "cyan"},
+    {"label": "VCRM", "href": "#vcrm", "tone": "amber"},
+    {"label": "Risk", "href": "#risk", "tone": "amber"},
+    {"label": "Benchmarks", "href": "#benchmarks", "tone": "violet"},
+    {"label": "Behavioral Models", "href": "#behavioral", "tone": "cyan"}
   ]
 }

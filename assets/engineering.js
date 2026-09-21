@@ -201,27 +201,175 @@
     }).join('');
   }
 
+  function ragTone(rag) {
+    var r = String(rag || '').toLowerCase();
+    if (r === 'green' || r === 'ok') return 'ok';
+    if (r === 'yellow' || r === 'warn' || r === 'amber' || r === 'partial') return 'warn';
+    if (r === 'red' || r === 'bad') return 'bad';
+    return 'muted';
+  }
+
+  function ragCell(rag) {
+    var tone = ragTone(rag);
+    var label = tone === 'ok' ? 'GO' : tone === 'warn' ? 'PARTIAL' : tone === 'bad' ? 'NO' : '—';
+    return '<span class="eng-rag" data-tone="' + tone + '" title="' + escapeHtml(String(rag || '')) + '">' + label + '</span>';
+  }
+
+  function evidencePackageStrip() {
+    var reqs = state.data.requirements.requirements || [];
+    var tests = state.data.tests.tests || [];
+    var risks = state.data.risks.risks || [];
+    var verified = reqs.filter(function (r) { return String(r.status).toLowerCase() === 'verified'; }).length;
+    var openRisks = risks.filter(function (r) { return /open|mitigating|monitoring/i.test(r.status || ''); }).length;
+    var high = risks.filter(function (r) { return (r.residual_risk || 0) >= 9; }).length;
+    var blocked = tests.filter(function (t) { return /block/i.test(String(t.result || '')); }).length;
+    var cm = ((state.data.math && state.data.math.chapters) || []).length;
+    var models = ((state.data.behavioral_models && state.data.behavioral_models.models) || []).length;
+    var measured = ((state.data.benchmarks && state.data.benchmarks.benchmarks) || []).filter(function (b) {
+      return b.label === 'MEASURED';
+    }).length;
+    var chips = [
+      { label: 'Requirements', value: reqs.length, tone: reqs.length ? 'ok' : 'muted', href: '#requirements' },
+      { label: 'Verified', value: verified, tone: verified ? 'ok' : 'warn', href: '#vcrm' },
+      { label: 'Tests on register', value: tests.length, tone: tests.length ? 'ok' : 'muted', href: '#tests' },
+      { label: 'Blocked tests', value: blocked, tone: blocked ? 'bad' : 'ok', href: '#tests' },
+      { label: 'Open risks', value: openRisks, tone: openRisks ? 'warn' : 'ok', href: '#risk' },
+      { label: 'High residual (≥9)', value: high, tone: high ? 'bad' : 'ok', href: '#risk' },
+      { label: 'Continuity eqns', value: cm, tone: cm >= 20 ? 'ok' : 'warn', href: '#math' },
+      { label: 'Behavior models', value: models, tone: models >= 20 ? 'ok' : 'warn', href: '#behavioral' },
+      { label: 'GPU MEASURED', value: measured, tone: measured >= 3 ? 'ok' : 'warn', href: '#benchmarks' }
+    ];
+    return '<div class="eng-ov-strip" aria-label="Evidence package health">' +
+      chips.map(function (c) {
+        return '<a class="eng-ov-chip" data-tone="' + c.tone + '" href="' + c.href + '">' +
+          '<span class="eng-ov-chip-val">' + escapeHtml(String(c.value)) + '</span>' +
+          '<span class="eng-ov-chip-lab">' + escapeHtml(c.label) + '</span></a>';
+      }).join('') + '</div>';
+  }
+
   function renderOverview(root) {
     var o = state.data.overview;
-    var nodes = (o.context_nodes || []).map(function (n) {
-      return '<li><strong>' + escapeHtml(n.label) + '</strong> <span class="mono" style="color:var(--cream-faint)">(' + escapeHtml(n.kind) + ')</span></li>';
-    }).join('');
-    root.innerHTML =
-      '<p class="intro">' + escapeHtml(o.purpose) + '</p>' +
-      '<div class="eng-card-grid">' +
-      card('System mission', o.mission) +
-      card('Operational concept', o.operational_concept) +
-      card('Lite / Premium boundaries', o.lite_premium_boundaries.Lite + ' ' + o.lite_premium_boundaries.Expansion) +
-      '</div>' +
-      '<h3 style="margin:18px 0 8px;font-size:1rem;">System boundaries</h3>' +
-      '<p class="intro"><strong>In scope (public):</strong> ' + escapeHtml((o.system_boundaries.in_scope_public || []).join('; ')) + '</p>' +
-      '<p class="intro"><strong>Out of scope / reference:</strong> ' + escapeHtml((o.system_boundaries.out_of_scope_or_reference_only || []).join('; ')) + '</p>' +
-      '<h3 style="margin:18px 0 8px;font-size:1rem;">Context actors &amp; externals</h3>' +
-      '<ul style="color:var(--cream-dim);font-size:0.92rem;">' + nodes + '</ul>' +
-      '<h3 style="margin:18px 0 8px;font-size:1rem;">Assumptions</h3><ul style="color:var(--cream-dim);font-size:0.92rem;">' +
-      (o.assumptions || []).map(function (a) { return '<li>' + escapeHtml(a) + '</li>'; }).join('') + '</ul>' +
-      '<h3 style="margin:18px 0 8px;font-size:1rem;">Constraints</h3><ul style="color:var(--cream-dim);font-size:0.92rem;">' +
-      (o.constraints || []).map(function (a) { return '<li>' + escapeHtml(a) + '</li>'; }).join('') + '</ul>';
+    var html = '';
+    html += '<p class="eng-ov-tagline">' + escapeHtml(o.tagline || 'Digital engineering evidence board') + '</p>';
+    html += '<p class="intro">' + escapeHtml(o.purpose) + '</p>';
+    html += evidencePackageStrip();
+
+    html += '<div class="eng-ov-jump">';
+    (o.jump_links || []).forEach(function (j) {
+      html += '<a class="eng-ov-jump-btn" data-tone="' + escapeHtml(j.tone || 'cyan') + '" href="' + escapeHtml(j.href) + '">' +
+        escapeHtml(j.label) + '</a>';
+    });
+    html += '</div>';
+
+    html += '<div class="eng-ov-grid-3">';
+    html += '<article class="eng-ov-panel"><h3>Mission</h3><p>' + escapeHtml(o.mission) + '</p></article>';
+    html += '<article class="eng-ov-panel"><h3>Operational concept</h3><p>' + escapeHtml(o.operational_concept) + '</p></article>';
+    html += '<article class="eng-ov-panel eng-ov-panel-boundaries"><h3>Product lanes</h3>';
+    html += '<p><span class="eng-lane cyan">Lite</span> ' + escapeHtml(o.lite_premium_boundaries.Lite) + '</p>';
+    html += '<p><span class="eng-lane amber">Expansion</span> ' + escapeHtml(o.lite_premium_boundaries.Expansion) + '</p>';
+    html += '<p><span class="eng-lane slate">Reference</span> ' + escapeHtml(o.lite_premium_boundaries['Reference Keep']) + '</p>';
+    html += '</article></div>';
+
+    // Product portfolio
+    html += '<h3 class="eng-ov-h">Product portfolio</h3>';
+    html += '<div class="eng-ov-products">';
+    (o.products || []).forEach(function (p) {
+      html += '<article class="eng-ov-product" data-color="' + escapeHtml(p.color || 'cyan') + '">' +
+        '<header><span class="eng-ov-prod-name">' + escapeHtml(p.name) + '</span>' +
+        statusHtml(p.maturity) + '</header>' +
+        '<div class="eng-ov-prod-meta">' +
+        '<span class="eng-lane ' + escapeHtml(p.color || 'cyan') + '">' + escapeHtml(p.access) + '</span> ' +
+        '<span class="eng-ov-evid" data-tone="' + ragTone(p.evidence === 'Partial' ? 'yellow' : p.evidence === 'Not public clone' ? 'muted' : 'green') + '">' +
+        escapeHtml(p.evidence) + '</span></div>' +
+        '<p>' + escapeHtml(p.claim) + '</p>' +
+        (p.link ? '<a href="' + escapeHtml(p.link) + '">Open →</a>' : '') +
+        '</article>';
+    });
+    html += '</div>';
+
+    // Capability matrix
+    if (o.capability_matrix) {
+      var cm = o.capability_matrix;
+      html += '<h3 class="eng-ov-h">Capability matrix <span class="eng-ov-sub">(RAG vs product lane)</span></h3>';
+      html += '<div class="eng-ov-legend">';
+      Object.keys(cm.legend || {}).forEach(function (k) {
+        html += '<span>' + ragCell(k) + ' ' + escapeHtml(cm.legend[k]) + '</span>';
+      });
+      html += '</div>';
+      html += '<div class="eng-table-wrap"><table class="eng-table eng-ov-matrix" aria-label="Capability matrix"><thead><tr><th>Capability</th>';
+      (cm.columns || []).forEach(function (c) { html += '<th>' + escapeHtml(c) + '</th>'; });
+      html += '</tr></thead><tbody>';
+      (cm.rows || []).forEach(function (row) {
+        html += '<tr><td>' + escapeHtml(row.capability) + '</td>';
+        (cm.columns || []).forEach(function (c) { html += '<td class="eng-ov-matrix-cell">' + ragCell(row[c]) + '</td>'; });
+        html += '</tr>';
+      });
+      html += '</tbody></table></div>';
+    }
+
+    // Deployments + capabilities
+    html += '<div class="eng-ov-grid-2">';
+    html += '<section><h3 class="eng-ov-h">Deployment readiness</h3>';
+    html += '<div class="eng-table-wrap"><table class="eng-table"><thead><tr><th>ID</th><th>Name</th><th>RAG</th><th>Status</th><th>Notes</th></tr></thead><tbody>';
+    (o.deployment_models || []).forEach(function (d) {
+      html += '<tr><td class="mono">' + escapeHtml(d.id) + '</td><td>' + escapeHtml(d.name) +
+        '</td><td>' + ragCell(d.rag || 'yellow') + '</td><td>' + statusHtml(d.status) +
+        '</td><td>' + escapeHtml(d.notes || '') + '</td></tr>';
+    });
+    html += '</tbody></table></div></section>';
+
+    html += '<section><h3 class="eng-ov-h">Major capabilities</h3><ul class="eng-ov-caplist">';
+    (o.major_capabilities || []).forEach(function (c) {
+      if (typeof c === 'string') {
+        html += '<li>' + escapeHtml(c) + '</li>';
+      } else {
+        html += '<li>' + ragCell(c.rag) + ' <strong>' + escapeHtml(c.name) + '</strong> ' +
+          '<span class="eng-ov-sub">' + escapeHtml(c.lane || '') + '</span></li>';
+      }
+    });
+    html += '</ul></section></div>';
+
+    // Scope lanes
+    html += '<h3 class="eng-ov-h">System boundaries</h3>';
+    html += '<div class="eng-ov-scope">';
+    html += '<div class="eng-ov-scope-col in"><h4>In scope (public)</h4><ul>';
+    (o.system_boundaries.in_scope_public || []).forEach(function (x) {
+      html += '<li>' + escapeHtml(x) + '</li>';
+    });
+    html += '</ul></div>';
+    html += '<div class="eng-ov-scope-col out"><h4>Out of scope / reference</h4><ul>';
+    (o.system_boundaries.out_of_scope_or_reference_only || []).forEach(function (x) {
+      html += '<li>' + escapeHtml(x) + '</li>';
+    });
+    html += '</ul></div></div>';
+
+    // Externals + context
+    html += '<h3 class="eng-ov-h">External systems</h3><div class="eng-ov-ext">';
+    (o.external_systems || []).forEach(function (e) {
+      html += '<div class="eng-ov-ext-chip" data-tier="' + escapeHtml(e.tier || 'optional') + '">' +
+        '<strong>' + escapeHtml(e.name) + '</strong>' +
+        '<span>' + escapeHtml(e.role) + '</span>' +
+        '<span class="mono">' + escapeHtml(e.id) + '</span></div>';
+    });
+    html += '</div>';
+
+    html += '<h3 class="eng-ov-h">Context map</h3><div class="eng-ov-context">';
+    (o.context_nodes || []).forEach(function (n) {
+      html += '<span class="eng-ov-node" data-kind="' + escapeHtml(n.kind) + '">' +
+        escapeHtml(n.label) + '</span>';
+    });
+    html += '</div>';
+
+    html += '<div class="eng-ov-grid-2" style="margin-top:18px">';
+    html += '<section class="eng-ov-panel assume"><h3>Assumptions</h3><ul>';
+    (o.assumptions || []).forEach(function (a) { html += '<li>' + escapeHtml(a) + '</li>'; });
+    html += '</ul></section>';
+    html += '<section class="eng-ov-panel constrain"><h3>Constraints</h3><ul>';
+    (o.constraints || []).forEach(function (a) { html += '<li>' + escapeHtml(a) + '</li>'; });
+    html += '</ul></section></div>';
+
+    html += '<p class="intro" style="margin-top:16px">Actors: ' + escapeHtml((o.major_actors || []).join(' · ')) + '</p>';
+    root.innerHTML = html;
   }
 
   function card(title, body) {
