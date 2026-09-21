@@ -1,70 +1,1085 @@
 {
-  "schema_version": "1.1.0",
-  "title": "Mathematical Behavioral Theory",
-  "honesty": "Equations are derived from published runtime source (continuity/emotional_continuity.py, continuity/relationship.py). Worked numerical traces below are SYNTHETIC demos labeled MOCK \u2014 not live agent logs.",
-  "source_modules": [
-    "continuity/emotional_continuity.py",
-    "continuity/relationship.py"
+  "schema_version": "1.2.0",
+  "title": "OtaconsKeep Continuity Model",
+  "created_by": "Antonio Gavino Garcia",
+  "product": "OtaconsKeep",
+  "honesty": "The Continuity Model (CM-01…CM-25) is the design theory for behavioral continuity. Runtime modules implement a subset today (emotional continuity + Formula 5). Worked traces labeled MOCK are synthetic. This page does not claim human consciousness — it claims measurable, bounded state dynamics.",
+  "manual_note": "The OtaconsKeep continuity model is derived from a practical blend of trait psychology, appraisal-based emotion logic, memory relevance scoring, relationship reinforcement, and state regulation principles. It does not claim to reproduce human consciousness. Instead, it uses mathematically simple but psychologically grounded mechanisms to simulate continuity, emotional carryover, social weighting, and context-sensitive behavior over time. The original equations define the behavioral engine. Stability-layer equations (caps, identity anchor, output evaluation) bound per-cycle change, preserve identity, limit memory dominance, and evaluate output quality.",
+  "diluted_version": [
+    "It has a personality",
+    "Things happen to it",
+    "It remembers what matters",
+    "It feels different depending on what happened",
+    "Different people matter different amounts",
+    "Then it decides what to say or do"
   ],
-  "sections": [
+  "rationale": {
+    "title": "Why this emulates continuity (not consciousness)",
+    "body": [
+      "Human-like persistence is approximated by carrying a state vector, relationship graph, and memory scores across turns — the opposite of stateless autocomplete.",
+      "Multiplication models interaction (pain × trauma relevance); summation models accumulation (many events in one cycle).",
+      "Decay and baselines model regulation / homeostasis so affect does not spiral forever.",
+      "Bounded noise prevents robotic sameness without becoming chaos.",
+      "Identity anchor (β_i ≥ β_min) keeps character from dissolving under adaptation.",
+      "Markov stage labels and OR goal programs add probabilistic and decision-theoretic structure on top of the continuous engine — useful for analysis, planning, and V&V — without replacing the continuous math."
+    ],
+    "core_logic_justification": {
+      "multiplication": "Used when one factor should amplify or dampen another (event hurt × trauma; praise × trust; trait × trigger).",
+      "summation": "Used when multiple inputs all contribute (many events on mood; many social signals; competing memories).",
+      "decay": "Pulls values toward baseline so the system recovers and stays long-run stable.",
+      "bounded_noise": "Small η prevents identical replies while remaining coherent."
+    }
+  },
+  "toc": [
     {
-      "id": "state-vector",
-      "title": "State vector",
-      "katex": [
-        "E(t)=\\big[I,\\,J,\\,H,\\,T,\\,A,\\,C,\\,X\\big]",
-        "I=\\text{irritation},\\; J=\\text{jealousy},\\; H=\\text{hurt},\\; T=\\text{trust},\\; A=\\text{attachment},\\; C=\\text{confidence},\\; X=\\text{anxiety}"
-      ],
-      "notes": "Auxiliary: apology_credibility Ac, rival_heat map, counters. All continuous dims clamped to [0,1]."
+      "id": "CM-01",
+      "number": 1,
+      "title": "Trait Weight Model"
     },
     {
-      "id": "clamp",
-      "title": "Bounds",
-      "katex": [
-        "\\mathrm{clamp}(x)=\\max(0,\\min(1,x))"
-      ],
-      "notes": "Invariant: every state variable remains in [0,1] after every update."
+      "id": "CM-02",
+      "number": 2,
+      "title": "Active Trait Influence Model"
     },
     {
-      "id": "blend",
-      "title": "Asymmetric inertia blend (_blend)",
-      "katex": [
-        "\\Delta\\ge 0:\\quad \\mathrm{gain}=\\Delta\\cdot\\big(0.78+0.22\\cdot(1-\\iota\\cdot 0.25)\\big),\\quad x'=\\mathrm{clamp}(x+\\mathrm{gain})",
-        "\\Delta< 0:\\quad x'=\\mathrm{clamp}\\big(x+\\Delta\\cdot(1-\\iota)\\big)"
-      ],
-      "notes": "\u03b9 = inertia \u2208 [0,1]. Hostile events accrue more readily; repair is attenuated by high inertia (e.g. albedo jealousy_inertia=0.88)."
+      "id": "CM-03",
+      "number": 3,
+      "title": "Event Impact on State"
     },
     {
-      "id": "decay",
-      "title": "Idle time decay",
-      "katex": [
-        "s=\\min\\big(12,\\lfloor \\Delta t / 90\\rfloor\\big)",
-        "d=\\lambda\\cdot s",
-        "I,J,H,X \\leftarrow \\mathrm{clamp}(\\,\\cdot\\,-d)",
-        "C \\leftarrow \\mathrm{clamp}\\big(C+(0.75-C)\\cdot 0.04\\cdot s\\big)"
-      ],
-      "notes": "\u03bb = decay_per_neutral from personality profile. One decay step \u2248 90s idle."
+      "id": "CM-04",
+      "number": 4,
+      "title": "State Update Model"
     },
     {
-      "id": "comparison",
-      "title": "Comparison event",
-      "katex": [
-        "n=\\text{comparison\\_count}",
-        "\\Delta J=0.16\\cdot s_c\\cdot\\big(1+0.12\\cdot\\min(6,n)\\big)",
-        "\\Delta I=0.13\\cdot s_c\\cdot\\big(1+0.10\\cdot\\min(6,n)\\big)",
-        "\\Delta H=0.11\\cdot s_r",
-        "T\\leftarrow\\mathrm{clamp}(T-0.05\\cdot d_T),\\quad \\mathrm{heat}[r]\\leftarrow\\mathrm{clamp}(\\mathrm{heat}[r]+0.22)"
-      ],
-      "notes": "s_c=comparison_sensitivity, s_r=rejection_sensitivity, d_T=trust_damage. Then I,J,H updated via _blend with anger/jealousy inertia."
+      "id": "CM-05",
+      "number": 5,
+      "title": "Relationship Update Model"
     },
     {
-      "id": "formula5",
-      "title": "Formula 5 \u2014 agent relationship update",
-      "katex": [
-        "x'=\\mathrm{clamp}\\big(x+\\delta-0.008\\cdot(x-0.50)\\big)"
-      ],
-      "notes": "Neutral=0.50, drift=0.008 per update. Directed edges (A\u2192B need not equal B\u2192A)."
+      "id": "CM-06",
+      "number": 6,
+      "title": "Social Influence Model"
+    },
+    {
+      "id": "CM-07",
+      "number": 7,
+      "title": "Emotional Residue Model"
+    },
+    {
+      "id": "CM-08",
+      "number": 8,
+      "title": "Emotion Selection Model"
+    },
+    {
+      "id": "CM-09",
+      "number": 9,
+      "title": "Memory Retrieval Score"
+    },
+    {
+      "id": "CM-10",
+      "number": 10,
+      "title": "Agent–Device Relevance Model"
+    },
+    {
+      "id": "CM-11",
+      "number": 11,
+      "title": "Full System Output Function"
+    },
+    {
+      "id": "CM-12",
+      "number": 12,
+      "title": "Input Normalization Model"
+    },
+    {
+      "id": "CM-13",
+      "number": 13,
+      "title": "Event Delta Cap Model"
+    },
+    {
+      "id": "CM-14",
+      "number": 14,
+      "title": "Trait Contribution Cap Model"
+    },
+    {
+      "id": "CM-15",
+      "number": 15,
+      "title": "Identity Anchor Model"
+    },
+    {
+      "id": "CM-16",
+      "number": 16,
+      "title": "Output Evaluation Model"
+    },
+    {
+      "id": "CM-17",
+      "number": 17,
+      "title": "Social Cycle Cap Model"
+    },
+    {
+      "id": "CM-18",
+      "number": 18,
+      "title": "Goal Selection Model"
+    },
+    {
+      "id": "CM-19",
+      "number": 19,
+      "title": "Goal Utility Function"
+    },
+    {
+      "id": "CM-20",
+      "number": 20,
+      "title": "Conflict Resolution Model"
+    },
+    {
+      "id": "CM-21",
+      "number": 21,
+      "title": "Learning / Adaptation Model"
+    },
+    {
+      "id": "CM-22",
+      "number": 22,
+      "title": "Memory Tier Weighting Model"
+    },
+    {
+      "id": "CM-23",
+      "number": 23,
+      "title": "Uncertainty Propagation Model"
+    },
+    {
+      "id": "CM-24",
+      "number": 24,
+      "title": "Markov Affect Transition Model"
+    },
+    {
+      "id": "CM-25",
+      "number": 25,
+      "title": "Operations-Research Goal Program (OR)"
     }
   ],
+  "chapters": [
+    {
+      "id": "CM-01",
+      "number": 1,
+      "title": "Trait Weight Model",
+      "katex": [
+        "W_t = B_D \\cdot S_t \\cdot C_t \\cdot P_t \\cdot K_t \\cdot (1+\\varepsilon_t)"
+      ],
+      "meaning": "Converts a written dossier trait into a usable numeric weight.",
+      "variables": [
+        {
+          "sym": "W_t",
+          "def": "final trait weight"
+        },
+        {
+          "sym": "B_D",
+          "def": "base domain weight"
+        },
+        {
+          "sym": "S_t",
+          "def": "subtype weight"
+        },
+        {
+          "sym": "C_t",
+          "def": "confidence factor"
+        },
+        {
+          "sym": "P_t",
+          "def": "personality modifier"
+        },
+        {
+          "sym": "K_t",
+          "def": "context / stack modifier"
+        },
+        {
+          "sym": "\\varepsilon_t",
+          "def": "bounded variance"
+        }
+      ],
+      "why_this_logic": "Multiplicative model: traits do not stack flatly — they amplify or weaken each other by category, certainty, personality, and context. Example: PTSD weighs more than coffee dependence; inferred traits weigh less than canonical; same trait matters differently across personalities.",
+      "why_these_variables": "B_D = category seriousness; S_t = not all trauma/habits equal; C_t = known vs guessed; P_t = personality changes expression; K_t = context; ε_t = avoid robotic sameness.",
+      "psychology_theory_basis": [
+        "trait psychology",
+        "person × situation interaction",
+        "severity weighting",
+        "uncertainty weighting",
+        "controlled stochastic variation"
+      ],
+      "simple_explanation": "How strong is this trait for this agent?"
+    },
+    {
+      "id": "CM-02",
+      "number": 2,
+      "title": "Active Trait Influence Model",
+      "katex": [
+        "A_t(t) = W_t \\cdot G_t(t) \\cdot R_t(t) \\cdot M_t(t)"
+      ],
+      "meaning": "Decides whether a trait matters right now.",
+      "variables": [
+        {
+          "sym": "A_t(t)",
+          "def": "active influence at time t"
+        },
+        {
+          "sym": "W_t",
+          "def": "stored trait weight"
+        },
+        {
+          "sym": "G_t(t)",
+          "def": "trigger match"
+        },
+        {
+          "sym": "R_t(t)",
+          "def": "relationship relevance"
+        },
+        {
+          "sym": "M_t(t)",
+          "def": "memory / recency relevance"
+        }
+      ],
+      "why_this_logic": "A strong trait should not always dominate. It becomes active when something triggers it, the right person is involved, and memory makes it relevant.",
+      "why_these_variables": "G = triggers activate latent traits; R = traits hit differently by who is involved; M = recent/emotional memories amplify relevance.",
+      "psychology_theory_basis": [
+        "trigger-response patterns",
+        "schema activation",
+        "social context dependence",
+        "recency effects"
+      ],
+      "simple_explanation": "Does this trait matter in this moment?"
+    },
+    {
+      "id": "CM-03",
+      "number": 3,
+      "title": "Event Impact on State",
+      "katex": [
+        "\\Delta X(t)=\\sum_{e\\in\\mathcal{E}_t} E_{e,x}\\cdot Q_{e,x}\\cdot L_{e,x}\\cdot H_{e,x}"
+      ],
+      "meaning": "Calculates how events change an internal state variable (mood, stress, confidence, …).",
+      "variables": [
+        {
+          "sym": "\\Delta X(t)",
+          "def": "total change in state X at time t"
+        },
+        {
+          "sym": "\\mathcal{E}_t",
+          "def": "set of events active at time t"
+        },
+        {
+          "sym": "E_{e,x}",
+          "def": "base effect of event e on state X"
+        },
+        {
+          "sym": "Q_{e,x}",
+          "def": "personality / psyche modifier"
+        },
+        {
+          "sym": "L_{e,x}",
+          "def": "relationship modifier"
+        },
+        {
+          "sym": "H_{e,x}",
+          "def": "trauma / memory modifier"
+        }
+      ],
+      "why_this_logic": "Summation over events (many things can affect someone at once). Multiplication inside each event (raw effect filtered by personality, relationships, history).",
+      "why_these_variables": "E = event strength; Q = personalities react differently; L = who caused it matters; H = past pain amplifies impact.",
+      "psychology_theory_basis": [
+        "appraisal theory",
+        "stress-event models",
+        "trauma amplification",
+        "socially weighted reactions"
+      ],
+      "simple_explanation": "How much did what just happened affect me?"
+    },
+    {
+      "id": "CM-04",
+      "number": 4,
+      "title": "State Update Model",
+      "katex": [
+        "X_{t+1}=\\mathrm{clamp}\\!\\left(X_t+\\Delta X^{\\mathrm{bounded}}+\\eta_x-\\lambda_x(X_t-X^\\star)\\right)",
+        "\\Delta X^{\\mathrm{bounded}}=\\mathrm{clip}\\!\\left(\\sum_{e\\in\\mathcal{E}_t}\\Delta X_e,\\,-\\delta_x,\\,+\\delta_x\\right)"
+      ],
+      "meaning": "Updates an internal state over time with event drive, noise, decay-to-baseline, and bounds.",
+      "variables": [
+        {
+          "sym": "X_{t+1}",
+          "def": "next state value"
+        },
+        {
+          "sym": "X_t",
+          "def": "current state"
+        },
+        {
+          "sym": "\\eta_x",
+          "def": "bounded chaos / micro-noise"
+        },
+        {
+          "sym": "\\lambda_x",
+          "def": "decay rate"
+        },
+        {
+          "sym": "X^\\star",
+          "def": "baseline state"
+        },
+        {
+          "sym": "\\delta_x",
+          "def": "per-cycle event delta cap"
+        }
+      ],
+      "why_this_logic": "Dynamic system: events move state; noise prevents robotic sameness; decay pulls toward baseline; clamp prevents runaway.",
+      "why_these_variables": "η = humans are not perfectly deterministic; λ = emotions settle; X* = natural baseline.",
+      "psychology_theory_basis": [
+        "emotional regulation",
+        "homeostasis",
+        "affective inertia",
+        "control systems"
+      ],
+      "simple_explanation": "How do I feel now after everything that happened?"
+    },
+    {
+      "id": "CM-05",
+      "number": 5,
+      "title": "Relationship Update Model",
+      "katex": [
+        "Y_{j,t+1}=\\mathrm{clamp}\\!\\left(Y_{j,t}+\\Delta Y^{\\mathrm{bounded}}-\\mu_y(Y_{j,t}-Y_j^\\star)\\right)",
+        "\\Delta Y^{\\mathrm{bounded}}=\\mathrm{clip}\\!\\left(\\sum_{e\\in\\mathcal{E}_t}\\Delta Y_{e,j},\\,-\\delta_y,\\,+\\delta_y\\right)"
+      ],
+      "meaning": "Updates a relationship dimension toward target j (trust, admiration, resentment, …).",
+      "variables": [
+        {
+          "sym": "Y_{j,t}",
+          "def": "relationship value toward j"
+        },
+        {
+          "sym": "\\mu_y",
+          "def": "relationship decay / inertia"
+        },
+        {
+          "sym": "Y_j^\\star",
+          "def": "baseline tendency toward that target"
+        }
+      ],
+      "why_this_logic": "Relationships change gradually through repeated events with inertia — avoid unrealistic instant swings.",
+      "why_these_variables": "ΔY = events strengthen/weaken bonds; μ = sticky relationships; Y* = natural trust bias.",
+      "psychology_theory_basis": [
+        "attachment theory",
+        "trust accumulation",
+        "reinforcement over repeated interaction"
+      ],
+      "simple_explanation": "Do I trust or resent this person more now?"
+    },
+    {
+      "id": "CM-06",
+      "number": 6,
+      "title": "Social Influence Model",
+      "katex": [
+        "I_s=\\sum_{s\\in\\mathcal{S}} V_s\\cdot U_s\\cdot L_s\\cdot Z_s"
+      ],
+      "meaning": "Measures how social posts, comments, messages, or public signals affect an agent.",
+      "variables": [
+        {
+          "sym": "I_s",
+          "def": "total social impact"
+        },
+        {
+          "sym": "V_s",
+          "def": "valence (tone)"
+        },
+        {
+          "sym": "U_s",
+          "def": "visibility weight"
+        },
+        {
+          "sym": "L_s",
+          "def": "relationship weight"
+        },
+        {
+          "sym": "Z_s",
+          "def": "personality / social absorption"
+        }
+      ],
+      "why_this_logic": "Not all social signals matter equally — tone, public/private, source, and sensitivity interact.",
+      "why_these_variables": "V = tone; U = public hits harder; L = some people matter more; Z = absorption differs by agent.",
+      "psychology_theory_basis": [
+        "social impact theory",
+        "attention weighting",
+        "status sensitivity",
+        "social reinforcement"
+      ],
+      "simple_explanation": "How much did that post or message affect me?"
+    },
+    {
+      "id": "CM-07",
+      "number": 7,
+      "title": "Emotional Residue Model",
+      "katex": [
+        "R_{t+1}=\\rho R_t+\\sum_{e\\in\\mathcal{E}_t}\\omega_e"
+      ],
+      "meaning": "Models leftover emotional carryover from earlier events.",
+      "variables": [
+        {
+          "sym": "R_t",
+          "def": "residue"
+        },
+        {
+          "sym": "\\rho",
+          "def": "persistence factor"
+        },
+        {
+          "sym": "\\omega_e",
+          "def": "residue contribution from event e"
+        }
+      ],
+      "why_this_logic": "People do not reset after each event — some feeling remains and carries forward.",
+      "why_these_variables": "ρ = traces persist; ω = events leave different residue amounts.",
+      "psychology_theory_basis": [
+        "emotional carryover",
+        "affective persistence",
+        "emotional inertia"
+      ],
+      "simple_explanation": "Am I still carrying the feeling from earlier?"
+    },
+    {
+      "id": "CM-08",
+      "number": 8,
+      "title": "Emotion Selection Model",
+      "katex": [
+        "\\hat{k}=\\arg\\max_k\\left(\\sum_{i=1}^{n}\\alpha_{k,i}X_i\\right)"
+      ],
+      "meaning": "Chooses the best-fitting emotion label from the current state vector.",
+      "variables": [
+        {
+          "sym": "\\hat{k}",
+          "def": "selected displayed emotion"
+        },
+        {
+          "sym": "\\alpha_{k,i}",
+          "def": "weight of state i for emotion k"
+        },
+        {
+          "sym": "X_i",
+          "def": "current state variables"
+        }
+      ],
+      "why_this_logic": "Emotions are combinations of mood/stress/confidence/belonging/control — project state into emotion-space and pick the strongest match.",
+      "why_these_variables": "α = each emotion depends on different state combinations; X = internal state drives displayed feeling.",
+      "psychology_theory_basis": [
+        "appraisal-based emotion models",
+        "dimensional emotion theory",
+        "emotion classification from latent state"
+      ],
+      "simple_explanation": "What emotion fits best right now?"
+    },
+    {
+      "id": "CM-09",
+      "number": 9,
+      "title": "Memory Retrieval Score",
+      "katex": [
+        "\\Gamma_m=aT_m+bP_m+cE_m+dR_m-eN_m",
+        "M_{\\mathrm{eff},t}=\\mathrm{clip}\\!\\left(\\sum_{m\\in\\mathcal{M}_t}\\Gamma_m,\\,0,\\,M_{\\max}\\right)"
+      ],
+      "meaning": "Scores how relevant a memory or context item is for the current response.",
+      "variables": [
+        {
+          "sym": "\\Gamma_m",
+          "def": "retrieval score"
+        },
+        {
+          "sym": "T_m",
+          "def": "topic relevance"
+        },
+        {
+          "sym": "P_m",
+          "def": "person / entity relevance"
+        },
+        {
+          "sym": "E_m",
+          "def": "emotional weight"
+        },
+        {
+          "sym": "R_m",
+          "def": "recency"
+        },
+        {
+          "sym": "N_m",
+          "def": "repetition penalty"
+        },
+        {
+          "sym": "a..e",
+          "def": "tunable constants"
+        }
+      ],
+      "why_this_logic": "Weighted linear score: simple, tunable, interpretable, debuggable. Favors relevant/recent/emotional memories; suppresses stale repetition.",
+      "why_these_variables": "T/P/E/R/N cover topic, person, emotion, recency, novelty.",
+      "psychology_theory_basis": [
+        "recency effect",
+        "emotional salience in memory",
+        "relevance ranking",
+        "novelty preference"
+      ],
+      "simple_explanation": "What should I remember for this moment?"
+    },
+    {
+      "id": "CM-10",
+      "number": 10,
+      "title": "Agent–Device Relevance Model",
+      "katex": [
+        "R_{a,d}=\\Omega(T_a,T_d)\\cdot P_d"
+      ],
+      "meaning": "Decides whether an agent should care about a device, service, VM, mount, or hardware component.",
+      "variables": [
+        {
+          "sym": "R_{a,d}",
+          "def": "relevance of device d to agent a"
+        },
+        {
+          "sym": "\\Omega(T_a,T_d)",
+          "def": "tag overlap / compatibility"
+        },
+        {
+          "sym": "P_d",
+          "def": "device priority / criticality"
+        }
+      ],
+      "why_this_logic": "Avoid hardcoded awareness for every future device — inherit awareness from responsibility tags × device tags × criticality.",
+      "why_these_variables": "Ω = role matching; P_d = critical systems matter more.",
+      "psychology_theory_basis": [
+        "role assignment",
+        "operational relevance",
+        "task allocation logic"
+      ],
+      "simple_explanation": "Is this thing part of my job?"
+    },
+    {
+      "id": "CM-11",
+      "number": 11,
+      "title": "Full System Output Function",
+      "katex": [
+        "O_t=F(I,C,S_t,G_t,M_t,W_t,D_t,H_t,\\Pi_t)",
+        "O^{\\mathrm{final}}_t=\\mathcal{C}\\!\\big(F(I,C,S_t,G_t,M_t,W_t,D_t,H_t,\\Pi_t)\\big)"
+      ],
+      "meaning": "Master output function combining continuity layers into final response/behavior.",
+      "variables": [
+        {
+          "sym": "I",
+          "def": "identity / genome"
+        },
+        {
+          "sym": "C",
+          "def": "continuity profile / dossier / vault"
+        },
+        {
+          "sym": "S_t",
+          "def": "current state"
+        },
+        {
+          "sym": "G_t",
+          "def": "relationship graph"
+        },
+        {
+          "sym": "M_t",
+          "def": "relevant memories"
+        },
+        {
+          "sym": "W_t",
+          "def": "world context"
+        },
+        {
+          "sym": "D_t",
+          "def": "domain / system / page state"
+        },
+        {
+          "sym": "H_t",
+          "def": "operational history"
+        },
+        {
+          "sym": "\\Pi_t",
+          "def": "current task / prompt context"
+        }
+      ],
+      "why_this_logic": "Compositional system: output must not come from one prompt alone — identity, feeling, relationships, memory, domain, history, and task all contribute.",
+      "why_these_variables": "Each term is a continuity layer that would otherwise be lost in stateless autocomplete.",
+      "psychology_theory_basis": [
+        "cognitive architecture",
+        "person × situation × history",
+        "stateful behavior systems",
+        "contextual reasoning"
+      ],
+      "simple_explanation": "Given who I am, what I remember, how I feel, and what’s happening — what should I say or do?",
+      "summary_equation": {
+        "katex": [
+          "\\mathrm{Behavior}=\\mathrm{Identity}+\\mathrm{State}+\\mathrm{Memory}+\\mathrm{Relationships}+\\mathrm{Events}"
+        ],
+        "meaning": "Plain-language summary of the whole model.",
+        "simple": "Why does the system feel alive? Because it does not reset — it carries forward who it is, what happened, and how that changed it."
+      }
+    },
+    {
+      "id": "CM-12",
+      "number": 12,
+      "title": "Input Normalization Model",
+      "katex": [
+        "\\tilde{X}=\\frac{X-X_{\\min}}{X_{\\max}-X_{\\min}}"
+      ],
+      "meaning": "Maps raw inputs into a unit interval so heterogeneous signals share a common scale.",
+      "variables": [
+        {
+          "sym": "\\tilde{X}",
+          "def": "normalized input"
+        },
+        {
+          "sym": "X_{\\min},X_{\\max}",
+          "def": "observed or design bounds"
+        }
+      ],
+      "why_this_logic": "Without normalization, loud channels dominate soft ones for no psychological reason.",
+      "why_these_variables": "Min/max define the operating range for each channel.",
+      "psychology_theory_basis": [
+        "psychometric scaling",
+        "feature scaling in control systems"
+      ],
+      "simple_explanation": "Put every signal on the same yardstick."
+    },
+    {
+      "id": "CM-13",
+      "number": 13,
+      "title": "Event Delta Cap Model",
+      "katex": [
+        "\\Delta X_e^{\\mathrm{bounded}}=\\mathrm{clip}(\\Delta X_e,-\\delta_e,+\\delta_e)"
+      ],
+      "meaning": "Hard-limits per-event state change so a single message cannot nuke the agent.",
+      "variables": [
+        {
+          "sym": "\\delta_e",
+          "def": "per-event magnitude cap"
+        }
+      ],
+      "why_this_logic": "Stability layer: one outlier event should not erase years of relationship mass.",
+      "why_these_variables": "δ_e is a design guardrail, not a personality trait.",
+      "psychology_theory_basis": [
+        "affective regulation",
+        "robust control"
+      ],
+      "simple_explanation": "How hard can one event hit?"
+    },
+    {
+      "id": "CM-14",
+      "number": 14,
+      "title": "Trait Contribution Cap Model",
+      "katex": [
+        "A_{\\mathrm{tot},t}=\\mathrm{clip}\\!\\left(\\sum_{T\\in\\mathcal{T}}A_t(t),\\,0,\\,A_{\\max}\\right)"
+      ],
+      "meaning": "Bounds total active trait influence so trait stacks cannot overwhelm identity.",
+      "variables": [
+        {
+          "sym": "A_{\\max}",
+          "def": "maximum aggregate trait influence"
+        }
+      ],
+      "why_this_logic": "Many active traits can otherwise drown the voice — cap preserves character.",
+      "why_these_variables": "Sum accumulates; clip enforces ceiling.",
+      "psychology_theory_basis": [
+        "capacity limits in attention",
+        "feature saturation"
+      ],
+      "simple_explanation": "How much trait pressure is allowed this cycle?"
+    },
+    {
+      "id": "CM-15",
+      "number": 15,
+      "title": "Identity Anchor Model",
+      "katex": [
+        "O^{\\mathrm{final}}_t=\\beta_i O^{\\mathrm{identity}}_t+(1-\\beta_i)O^{\\mathrm{adaptive}}_t",
+        "\\beta_i\\ge\\beta_{\\min}"
+      ],
+      "meaning": "Blends stable identity output with adaptive continuity output; identity never drops below a floor.",
+      "variables": [
+        {
+          "sym": "\\beta_i",
+          "def": "identity blend weight"
+        },
+        {
+          "sym": "\\beta_{\\min}",
+          "def": "minimum identity lock"
+        }
+      ],
+      "why_this_logic": "Without an identity floor, long runs drift into whoever the last event rewarded.",
+      "why_these_variables": "β_min is the non-negotiable self.",
+      "psychology_theory_basis": [
+        "self-concept stability",
+        "identity continuity"
+      ],
+      "simple_explanation": "Stay yourself while still adapting."
+    },
+    {
+      "id": "CM-16",
+      "number": 16,
+      "title": "Output Evaluation Model",
+      "katex": [
+        "Q_t=w^c C_t+w^s S_t+w^r R_t"
+      ],
+      "meaning": "Scores output quality for learning / adaptation feedback.",
+      "variables": [
+        {
+          "sym": "C_t",
+          "def": "coherence score"
+        },
+        {
+          "sym": "S_t",
+          "def": "state-consistency score"
+        },
+        {
+          "sym": "R_t",
+          "def": "relationship-appropriateness score"
+        }
+      ],
+      "why_this_logic": "You cannot adapt what you cannot score. Coherence × state fit × relationship fit.",
+      "why_these_variables": "Weights express which failure mode matters more in a given product surface.",
+      "psychology_theory_basis": [
+        "reinforcement signal design",
+        "multi-objective utility"
+      ],
+      "simple_explanation": "Was that reply any good?"
+    },
+    {
+      "id": "CM-17",
+      "number": 17,
+      "title": "Social Cycle Cap Model",
+      "katex": [
+        "I^{\\mathrm{bounded}}_t=\\mathrm{clip}\\!\\left(\\sum_{s\\in\\mathcal{S}}I_s,\\,-\\delta_I,\\,+\\delta_I\\right)"
+      ],
+      "meaning": "Caps aggregate social impact per cycle so pile-ons cannot force runaway affect.",
+      "variables": [
+        {
+          "sym": "\\delta_I",
+          "def": "social impact cycle cap"
+        }
+      ],
+      "why_this_logic": "Public channels can spam; the agent must remain regulable.",
+      "why_these_variables": "Clip after sum — many weak signals still accumulate, then hit a ceiling.",
+      "psychology_theory_basis": [
+        "social impact theory",
+        "robustness"
+      ],
+      "simple_explanation": "How much social weather am I allowed to absorb right now?"
+    },
+    {
+      "id": "CM-18",
+      "number": 18,
+      "title": "Goal Selection Model",
+      "katex": [
+        "G_t=\\arg\\max_k U_k(S_t,C,D_t,H_t)"
+      ],
+      "meaning": "Selects the active goal the agent should pursue at time t.",
+      "variables": [
+        {
+          "sym": "G_t",
+          "def": "selected goal"
+        },
+        {
+          "sym": "U_k",
+          "def": "utility of goal k"
+        }
+      ],
+      "why_this_logic": "Move from reactive → purpose-driven: score goals, pick highest utility.",
+      "why_these_variables": "S = current needs; C = personality priorities; D = domain (ARR/HA/…); H = history.",
+      "psychology_theory_basis": [
+        "goal-directed agency",
+        "utility maximization"
+      ],
+      "simple_explanation": "What should I try to do right now?"
+    },
+    {
+      "id": "CM-19",
+      "number": 19,
+      "title": "Goal Utility Function",
+      "katex": [
+        "U_k=w_1 N_k+w_2 R_k+w_3 P_k+w_4 C_k"
+      ],
+      "meaning": "Calculates how valuable a goal is.",
+      "variables": [
+        {
+          "sym": "N_k",
+          "def": "need urgency"
+        },
+        {
+          "sym": "R_k",
+          "def": "relevance to current context"
+        },
+        {
+          "sym": "P_k",
+          "def": "priority / importance"
+        },
+        {
+          "sym": "C_k",
+          "def": "character alignment"
+        }
+      ],
+      "why_this_logic": "Goals should reflect urgency, importance, and personality — not randomness.",
+      "why_these_variables": "Weights make tradeoffs explicit and tunable.",
+      "psychology_theory_basis": [
+        "multi-attribute utility theory",
+        "motivation models"
+      ],
+      "simple_explanation": "How important is this goal?"
+    },
+    {
+      "id": "CM-20",
+      "number": 20,
+      "title": "Conflict Resolution Model",
+      "katex": [
+        "\\Psi_t=\\arg\\max\\,(w_1 A_t+w_2 M_{\\mathrm{eff},t}+w_3 G_t+w_4 S_t)"
+      ],
+      "meaning": "Resolves competing influences into a single dominant driver.",
+      "variables": [
+        {
+          "sym": "\\Psi_t",
+          "def": "dominant influence"
+        },
+        {
+          "sym": "A_t",
+          "def": "trait influence"
+        },
+        {
+          "sym": "M_{\\mathrm{eff},t}",
+          "def": "memory influence"
+        },
+        {
+          "sym": "G_t",
+          "def": "relationship / goal influence"
+        },
+        {
+          "sym": "S_t",
+          "def": "state influence"
+        }
+      ],
+      "why_this_logic": "Without this, the system blends everything and becomes mush. Force a decision, not an average.",
+      "why_these_variables": "Weights encode which continuity layer wins under conflict.",
+      "psychology_theory_basis": [
+        "attention bottleneck",
+        "winner-take-most control"
+      ],
+      "simple_explanation": "What matters most right now?"
+    },
+    {
+      "id": "CM-21",
+      "number": 21,
+      "title": "Learning / Adaptation Model",
+      "katex": [
+        "\\theta_{t+1}=\\theta_t+\\alpha(Q_t-Q^\\star)"
+      ],
+      "meaning": "Adjusts system parameters based on output quality.",
+      "variables": [
+        {
+          "sym": "\\theta_t",
+          "def": "parameter set"
+        },
+        {
+          "sym": "\\alpha",
+          "def": "learning rate"
+        },
+        {
+          "sym": "Q_t",
+          "def": "output quality"
+        },
+        {
+          "sym": "Q^\\star",
+          "def": "target quality"
+        }
+      ],
+      "why_this_logic": "Improve over time: reduce bad outputs, reinforce good behavior — without rewriting identity.",
+      "why_these_variables": "α small → stable; α large → brittle. Bound updates.",
+      "psychology_theory_basis": [
+        "gradient-style adaptation",
+        "cybernetic feedback"
+      ],
+      "simple_explanation": "Did I do well, and should I adjust?"
+    },
+    {
+      "id": "CM-22",
+      "number": 22,
+      "title": "Memory Tier Weighting Model",
+      "katex": [
+        "\\Gamma_m'=\\Gamma_m\\cdot\\tau_m"
+      ],
+      "meaning": "Scales memory importance by tier so identity memories outrank routine noise.",
+      "variables": [
+        {
+          "sym": "\\tau_m",
+          "def": "memory tier weight"
+        },
+        {
+          "sym": "\\tau\\approx 1.5{-}2.0",
+          "def": "identity-defining"
+        },
+        {
+          "sym": "\\tau\\approx 1.0",
+          "def": "important episodic"
+        },
+        {
+          "sym": "\\tau\\approx 0.5",
+          "def": "routine"
+        }
+      ],
+      "why_this_logic": "Not all memories should compete equally.",
+      "why_these_variables": "Tier weights encode autobiographical priority.",
+      "psychology_theory_basis": [
+        "autobiographical memory hierarchy",
+        "salience"
+      ],
+      "simple_explanation": "Which memories matter more?"
+    },
+    {
+      "id": "CM-23",
+      "number": 23,
+      "title": "Uncertainty Propagation Model",
+      "katex": [
+        "A_t'(t)=A_t(t)\\cdot C_t"
+      ],
+      "meaning": "Reduces influence of low-confidence traits.",
+      "variables": [
+        {
+          "sym": "C_t",
+          "def": "confidence / certainty of the trait"
+        },
+        {
+          "sym": "A_t'(t)",
+          "def": "uncertainty-adjusted active influence"
+        }
+      ],
+      "why_this_logic": "Guessed traits should whisper; canonical traits may speak. Uncertainty damps.",
+      "why_these_variables": "Multiplication by C is the simplest honest uncertainty gate.",
+      "psychology_theory_basis": [
+        "Bayesian discounting (lightweight)",
+        "epistemic caution"
+      ],
+      "simple_explanation": "How sure am I that this trait should drive me?"
+    },
+    {
+      "id": "CM-24",
+      "number": 24,
+      "title": "Markov Affect Transition Model",
+      "katex": [
+        "P(s_{t+1}=j\\mid s_t=i)=T_{ij}(e_t,\\,p)",
+        "\\pi_{t+1}=\\pi_t\\,T(e_t,p)",
+        "s_t\\in\\{\\mathrm{calm},\\mathrm{low},\\mathrm{moderate},\\mathrm{defensive},\\mathrm{high},\\mathrm{disengaged}\\}"
+      ],
+      "meaning": "Treats discrete emotional stage labels as a Markov chain whose transition matrix depends on the event class and personality.",
+      "variables": [
+        {
+          "sym": "T_{ij}",
+          "def": "transition probability i→j"
+        },
+        {
+          "sym": "e_t",
+          "def": "event class"
+        },
+        {
+          "sym": "p",
+          "def": "personality parameters"
+        },
+        {
+          "sym": "\\pi_t",
+          "def": "distribution over stages"
+        }
+      ],
+      "why_this_logic": "Continuous state E(t) is primary; stage labels are a readout. Markov T explains stage-to-stage jumps (see STM-002) without inventing consciousness — only transition structure.",
+      "why_these_variables": "Event-conditioned rows encode appraisal; personality stretches holding times (inertia).",
+      "psychology_theory_basis": [
+        "Markov decision / emotion dynamics",
+        "holding-time models",
+        "finite-state emotional machines"
+      ],
+      "simple_explanation": "Given how I feel labeled now, where can I go next?"
+    },
+    {
+      "id": "CM-25",
+      "number": 25,
+      "title": "Operations-Research Goal Program (OR)",
+      "katex": [
+        "\\max_{g\\in\\mathcal{G}}\\; U(g)\\quad\\mathrm{s.t.}\\; c(g)\\le B,\\; g\\in\\mathrm{Feas}(D_t)",
+        "\\text{lexicographic soft goals: } (P_1,P_2,\\ldots)\\text{ via goal programming}"
+      ],
+      "meaning": "Casts goal selection as a constrained utility program over feasible actions in the current domain (ARR, HA, Codec, install).",
+      "variables": [
+        {
+          "sym": "U(g)",
+          "def": "goal utility (CM-19)"
+        },
+        {
+          "sym": "c(g)",
+          "def": "resource cost (time, GPU, risk)"
+        },
+        {
+          "sym": "B",
+          "def": "budget"
+        },
+        {
+          "sym": "\\mathrm{Feas}",
+          "def": "domain-feasible set"
+        }
+      ],
+      "why_this_logic": "OR framing makes tradeoffs explicit: urgency vs risk vs character alignment under resource caps — same math used in scheduling and multi-objective programming.",
+      "why_these_variables": "Constraints stop wishful goals (e.g. Video Studio when Docker/GPU not READY).",
+      "psychology_theory_basis": [
+        "multi-objective programming",
+        "goal programming",
+        "knapsack / scheduling analogies"
+      ],
+      "simple_explanation": "What’s the best feasible thing I can attempt with what I have?"
+    }
+  ],
+  "runtime_mapping": {
+    "title": "Implemented subset (runtime source)",
+    "note": "Public Engineering also documents the currently implemented emotional continuity vector from continuity/emotional_continuity.py — a concrete specialization of CM-03/04/05/07/08.",
+    "sections": [
+      {
+        "id": "state-vector",
+        "title": "Runtime state vector E(t)",
+        "katex": [
+          "E(t)=\\big[I,\\,J,\\,H,\\,T,\\,A,\\,C,\\,X\\big]",
+          "I=\\text{irritation},\\; J=\\text{jealousy},\\; H=\\text{hurt},\\; T=\\text{trust},\\; A=\\text{attachment},\\; C=\\text{confidence},\\; X=\\text{anxiety}"
+        ],
+        "notes": "Maps onto CM-04 state update + CM-08 emotion selection stage labels."
+      },
+      {
+        "id": "blend",
+        "title": "Asymmetric inertia blend (_blend)",
+        "katex": [
+          "\\Delta\\ge 0:\\quad \\mathrm{gain}=\\Delta\\cdot\\big(0.78+0.22\\cdot(1-\\iota\\cdot 0.25)\\big),\\quad x'=\\mathrm{clamp}(x+\\mathrm{gain})",
+          "\\Delta< 0:\\quad x'=\\mathrm{clamp}\\big(x+\\Delta\\cdot(1-\\iota)\\big)"
+        ],
+        "notes": "Specialization of CM-04 with asymmetric accrual (hostility easier than repair)."
+      },
+      {
+        "id": "decay",
+        "title": "Idle decay",
+        "katex": [
+          "s=\\min\\big(12,\\lfloor \\Delta t / 90\\rfloor\\big),\\quad d=\\lambda\\cdot s",
+          "I,J,H,X\\leftarrow\\mathrm{clamp}(\\,\\cdot\\,-d),\\quad C\\leftarrow\\mathrm{clamp}\\big(C+(0.75-C)\\cdot 0.04\\cdot s\\big)"
+        ],
+        "notes": "Homeostasis term of CM-04."
+      },
+      {
+        "id": "comparison",
+        "title": "Comparison event (runtime)",
+        "katex": [
+          "\\Delta J=0.16\\cdot s_c\\cdot\\big(1+0.12\\cdot\\min(6,n)\\big)",
+          "\\Delta I=0.13\\cdot s_c\\cdot\\big(1+0.10\\cdot\\min(6,n)\\big)",
+          "\\Delta H=0.11\\cdot s_r,\\quad T\\leftarrow\\mathrm{clamp}(T-0.05\\cdot d_T)"
+        ],
+        "notes": "Concrete E_{e,x}·Q·L·H instance of CM-03."
+      },
+      {
+        "id": "formula5",
+        "title": "Formula 5 — relationship edge",
+        "katex": [
+          "x'=\\mathrm{clamp}\\big(x+\\delta-0.008\\cdot(x-0.50)\\big)"
+        ],
+        "notes": "Directed relationship update aligning with CM-05."
+      }
+    ]
+  },
   "worked_examples": [
     {
       "id": "MOCK-TRACE-001",
@@ -86,23 +1101,23 @@
         "anger_inertia": 0.78,
         "trust_damage": 0.55
       },
-      "event": "comparison (n\u21921), rival=mei_ling",
+      "event": "comparison (n→1), rival=mei_ling",
       "steps": [
         {
-          "op": "\u0394J base",
+          "op": "ΔJ base",
           "detail": "0.16*0.92*(1+0.12*1)=0.1649"
         },
         {
           "op": "_blend J",
-          "detail": "gain=0.1649*(0.78+0.22*(1-0.88*0.25))\u22480.152; J'=clamp(0.12+0.152)=0.272"
+          "detail": "gain=0.1649*(0.78+0.22*(1-0.88*0.25))≈0.152; J'=clamp(0.12+0.152)=0.272"
         },
         {
-          "op": "\u0394I base",
-          "detail": "0.13*0.92*(1+0.10*1)=0.1316 \u2192 blended \u22480.122; I'=0.222"
+          "op": "ΔI base",
+          "detail": "0.13*0.92*(1+0.10*1)=0.1316 → blended ≈0.122; I'=0.222"
         },
         {
-          "op": "\u0394H",
-          "detail": "0.11*0.88=0.0968 \u2192 blended; H'\u22480.17"
+          "op": "ΔH",
+          "detail": "0.11*0.88=0.0968 → blended; H'≈0.17"
         },
         {
           "op": "trust",
@@ -131,7 +1146,7 @@
       "initial": {
         "strength": 0.5
       },
-      "event": "operator_ask \u2192 ally \u03b4=+0.006",
+      "event": "operator_ask → ally δ=+0.006",
       "steps": [
         {
           "op": "Formula 5",
@@ -147,11 +1162,11 @@
   "pipeline": {
     "title": "How math reaches Codec replies",
     "steps": [
-      "User message \u2192 observe_message(entity, text)",
-      "Classify turn + rivals \u2192 apply event equations + _blend",
+      "User message → observe_message(entity, text)",
+      "Classify turn + rivals → apply event equations + _blend",
       "Persist emotional_continuity.json",
       "snapshot() / continuity_line injected into prompt context",
-      "Model completion colored by stage + rival heat \u2014 not by inventing feelings in the LLM alone"
+      "Model completion colored by stage + rival heat — not by inventing feelings in the LLM alone"
     ],
     "linked_diagram": "SEQ-001",
     "linked_models": [
@@ -166,7 +1181,7 @@
       "test": "BVT-001"
     },
     {
-      "metric": "Personality \u0394jealousy differs for same event",
+      "metric": "Personality Δjealousy differs for same event",
       "test": "BVT-002"
     },
     {
@@ -185,5 +1200,9 @@
       "metric": "Restart persistence of state file",
       "test": "ST-001 / BVT-001"
     }
-  ]
+  ],
+  "markov_or_notes": {
+    "title": "Probabilistic & operations-research layer",
+    "body": "CM-24 treats stage labels as a Markov chain for analysis and STM diagrams. CM-25 casts goal choice as a constrained utility / goal program. Neither invents PASS results; both are design models for V&V scenarios and planning analysis."
+  }
 }

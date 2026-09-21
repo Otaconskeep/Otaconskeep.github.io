@@ -247,15 +247,95 @@
   function renderMath(root) {
     var m = state.data.math;
     if (!m) { root.innerHTML = empty(); return; }
-    var html = '<p class="intro">' + escapeHtml(m.honesty) + '</p>';
-    html += '<div class="eng-callout-amber">KaTeX theory + MOCK worked traces. Behavioral Models keeps parameter tables; this tab is the rendered math.</div>';
-    (m.sections || []).forEach(function (sec) {
-      html += '<h3 id="' + escapeHtml(sec.id) + '">' + escapeHtml(sec.title) + '</h3>';
+    var html = '';
+    html += '<p class="intro"><strong>' + escapeHtml(m.title || 'Continuity Model') + '</strong>';
+    if (m.created_by) html += ' · Created by ' + escapeHtml(m.created_by);
+    html += '</p>';
+    html += '<p class="intro">' + escapeHtml(m.honesty) + '</p>';
+    html += '<div class="eng-callout-amber">Full Continuity Model write-up (CM-01…CM-25): equation, meaning, variables, rationale, psychology basis, plain-language question. Runtime mapping below is the implemented subset.</div>';
+
+    if (m.rationale) {
+      html += '<h3>' + escapeHtml(m.rationale.title) + '</h3><ul style="color:var(--cream-dim)">';
+      (m.rationale.body || []).forEach(function (b) { html += '<li>' + escapeHtml(b) + '</li>'; });
+      html += '</ul>';
+      var j = m.rationale.core_logic_justification || {};
+      html += '<div class="eng-math-justify"><p><strong>Why multiplication:</strong> ' + escapeHtml(j.multiplication || '') + '</p>';
+      html += '<p><strong>Why summation:</strong> ' + escapeHtml(j.summation || '') + '</p>';
+      html += '<p><strong>Why decay:</strong> ' + escapeHtml(j.decay || '') + '</p>';
+      html += '<p><strong>Why bounded noise:</strong> ' + escapeHtml(j.bounded_noise || '') + '</p></div>';
+    }
+
+    if (m.diluted_version && m.diluted_version.length) {
+      html += '<h3>Diluted version</h3><p class="intro">The system works like this:</p><ul style="color:var(--cream-dim)">';
+      m.diluted_version.forEach(function (x) { html += '<li>' + escapeHtml(x) + '</li>'; });
+      html += '</ul>';
+    }
+
+    if (m.manual_note) {
+      html += '<blockquote class="eng-math-note">' + escapeHtml(m.manual_note) + '</blockquote>';
+    }
+
+    html += '<h3>Table of contents</h3><ol class="eng-math-toc">';
+    (m.toc || m.chapters || []).forEach(function (t) {
+      var id = t.id || ('CM-' + String(t.number).padStart(2, '0'));
+      html += '<li><a href="#' + escapeHtml(id) + '">' + escapeHtml(String(t.number || '') + '. ' + (t.title || '')) + '</a></li>';
+    });
+    html += '</ol>';
+
+    (m.chapters || []).forEach(function (sec) {
+      html += '<article class="eng-math-chapter" id="' + escapeHtml(sec.id) + '">';
+      html += '<h3>' + escapeHtml(String(sec.number) + ') ' + sec.title) + '</h3>';
+      html += '<h4>Equation</h4>';
       (sec.katex || []).forEach(function (eq) {
         html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
       });
-      if (sec.notes) html += '<p class="intro">' + escapeHtml(sec.notes) + '</p>';
+      if (sec.meaning) html += '<h4>Meaning</h4><p class="intro">' + escapeHtml(sec.meaning) + '</p>';
+      if (sec.variables && sec.variables.length) {
+        html += '<h4>Variables</h4><ul class="eng-math-vars">';
+        sec.variables.forEach(function (v) {
+          html += '<li><span class="mono">' + escapeHtml(v.sym) + '</span> — ' + escapeHtml(v.def) + '</li>';
+        });
+        html += '</ul>';
+      }
+      if (sec.why_this_logic) html += '<h4>Why this logic</h4><p class="intro">' + escapeHtml(sec.why_this_logic) + '</p>';
+      if (sec.why_these_variables) html += '<h4>Why these variables</h4><p class="intro">' + escapeHtml(sec.why_these_variables) + '</p>';
+      if (sec.psychology_theory_basis && sec.psychology_theory_basis.length) {
+        html += '<h4>Psychology / theory basis</h4><ul style="color:var(--cream-dim)">';
+        sec.psychology_theory_basis.forEach(function (p) { html += '<li>' + escapeHtml(p) + '</li>'; });
+        html += '</ul>';
+      }
+      if (sec.simple_explanation) {
+        html += '<h4>Simple explanation</h4><p class="intro">This answers: <em>“' + escapeHtml(sec.simple_explanation) + '”</em></p>';
+      }
+      if (sec.summary_equation) {
+        html += '<h4>Short summary equation</h4>';
+        (sec.summary_equation.katex || []).forEach(function (eq) {
+          html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
+        });
+        if (sec.summary_equation.meaning) html += '<p class="intro">' + escapeHtml(sec.summary_equation.meaning) + '</p>';
+        if (sec.summary_equation.simple) html += '<p class="intro">' + escapeHtml(sec.summary_equation.simple) + '</p>';
+      }
+      html += '<p class="about-eng-chip" style="margin-top:8px"><a href="#behavioral">See Behavioral Models registry</a></p>';
+      html += '</article>';
     });
+
+    if (m.runtime_mapping) {
+      html += '<h3 id="runtime-mapping">' + escapeHtml(m.runtime_mapping.title) + '</h3>';
+      html += '<p class="intro">' + escapeHtml(m.runtime_mapping.note || '') + '</p>';
+      (m.runtime_mapping.sections || []).forEach(function (sec) {
+        html += '<h4 id="' + escapeHtml(sec.id) + '">' + escapeHtml(sec.title) + '</h4>';
+        (sec.katex || []).forEach(function (eq) {
+          html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
+        });
+        if (sec.notes) html += '<p class="intro">' + escapeHtml(sec.notes) + '</p>';
+      });
+    }
+
+    if (m.markov_or_notes) {
+      html += '<h3>' + escapeHtml(m.markov_or_notes.title) + '</h3>';
+      html += '<p class="intro">' + escapeHtml(m.markov_or_notes.body) + '</p>';
+    }
+
     html += '<h3>Worked numerical examples</h3>';
     (m.worked_examples || []).forEach(function (ex) {
       html += '<div class="eng-mock-card"><span class="eng-badge-mock">' + escapeHtml(ex.label || 'MOCK') + '</span> ' +
@@ -274,7 +354,7 @@
       html += '<tr><td>' + escapeHtml(row.metric) + '</td><td>' + idBtn(row.test) + '</td></tr>';
     });
     html += '</tbody></table></div>';
-    html += '<p class="intro"><a href="/about/#feeling">About: why measurable emotion</a> · <a href="#behavioral">Behavioral Models parameters</a></p>';
+    html += '<p class="intro"><a href="/about/#feeling">About: why measurable emotion</a> · <a href="#behavioral">Behavioral Models</a></p>';
     root.innerHTML = html;
     typesetKatex(root);
   }
@@ -340,6 +420,9 @@
   function renderBenchmarks(root) {
     var b = state.data.benchmarks;
     var html = '';
+    if (b.disclaimer) {
+      html += '<div class="eng-callout-amber">' + escapeHtml(b.disclaimer) + '</div>';
+    }
     if (b.plan) {
       html += '<h3>' + escapeHtml(b.plan.title) + ' (' + escapeHtml(b.plan.id) + ')</h3>';
       html += '<p class="intro">' + escapeHtml(b.plan.method) + ' Rule: ' + escapeHtml(b.plan.rule) + '</p>';
@@ -347,20 +430,27 @@
         return '<li>' + escapeHtml(c) + '</li>';
       }).join('') + '</ul>';
     }
+    if (b.gpu_tier_csv) {
+      html += '<p class="intro">GPU tier CSV: <a href="' + escapeHtml(b.gpu_tier_csv) + '">' + escapeHtml(b.gpu_tier_csv) + '</a></p>';
+    }
     var rows = b.benchmarks || [];
     if (!rows.length) {
       html += empty(b.status || 'No engineering record has been published for this category.');
     } else {
       html += '<div class="eng-table-wrap"><table class="eng-table" aria-label="Benchmarks"><thead><tr>' +
-        '<th>ID</th><th>Label</th><th>Class</th><th>Date</th><th>Hardware</th><th>N</th><th>Result</th><th>Raw</th></tr></thead><tbody>';
+        '<th>ID</th><th>Label</th><th>Series</th><th>GPU</th><th>VRAM</th><th>tok/s mean</th><th>p95</th><th>TTFT ms</th><th>N</th><th>Date</th></tr></thead><tbody>';
       rows.forEach(function (r) {
-        html += '<tr><td>' + idBtn(r.id) + '</td><td><span class="eng-badge-mock">' + escapeHtml(r.label || '') +
-          '</span></td><td>' + escapeHtml(r.class) + '</td><td>' + escapeHtml(r.date || '—') +
-          '</td><td>' + escapeHtml(r.hardware || '—') + '</td><td>' + escapeHtml(String(r.n == null ? '—' : r.n)) +
-          '</td><td>' + escapeHtml(r.result || '—') + '</td><td>' +
-          (r.raw ? '<a href="' + escapeHtml(r.raw) + '">link</a>' : '—') + '</td></tr>';
+        var badge = r.label === 'MEASURED' ? 'eng-badge-measured' : 'eng-badge-mock';
+        html += '<tr><td>' + idBtn(r.id) + '</td><td><span class="' + badge + '">' + escapeHtml(r.label || '') +
+          '</span></td><td>' + escapeHtml(r.series || r.class || '—') + '</td><td>' + escapeHtml(r.gpu || r.hardware || '—') +
+          '</td><td>' + escapeHtml(r.vram || '—') + '</td><td>' + escapeHtml(r.mean == null ? '—' : String(r.mean)) +
+          '</td><td>' + escapeHtml(r.p95 == null ? '—' : String(r.p95)) +
+          '</td><td>' + escapeHtml(r.ttft_ms_mean == null ? '—' : String(r.ttft_ms_mean)) +
+          '</td><td>' + escapeHtml(String(r.n == null ? '—' : r.n)) +
+          '</td><td>' + escapeHtml(r.date || '—') + '</td></tr>';
       });
       html += '</tbody></table></div>';
+      html += '<p class="intro">' + escapeHtml(b.status || '') + '</p>';
     }
     root.innerHTML = html;
   }
@@ -611,13 +701,27 @@
   function renderBehavioral(root) {
     var bm = state.data.behavioral_models;
     var models = bm.models || [];
+    var cm = models.filter(function (m) { return String(m.id).indexOf('MOD-CM-') === 0; });
+    var other = models.filter(function (m) { return String(m.id).indexOf('MOD-CM-') !== 0; });
     root.innerHTML =
-      '<p class="intro">Parameter tables and model IDs. For KaTeX theory and MOCK worked examples see <a href="#math">Math</a>.</p>' +
+      '<p class="intro">Registry of behavioral / Continuity Model modules. Full equation write-ups: <a href="#math">Math</a>.</p>' +
+      (bm.continuity_model ? '<div class="eng-callout-amber">' + escapeHtml(bm.continuity_model.title) +
+        ' — ' + escapeHtml(String(bm.continuity_model.count)) + ' design equations by ' +
+        escapeHtml(bm.continuity_model.author || '') + '. ' + escapeHtml(bm.continuity_model.note || '') + '</div>' : '') +
       '<p class="intro">Behavior Model <strong class="mono">' + escapeHtml(bm.behavior_model_version) +
       '</strong> · Personality Schema <strong class="mono">' + escapeHtml(bm.personality_schema_version) +
       '</strong> · Relationship <strong class="mono">' + escapeHtml((bm.relationship_model_versions || []).join(' / ')) + '</strong></p>' +
+      '<h3>Continuity Model registry (' + cm.length + ')</h3>' +
       '<div class="eng-card-grid" style="margin-bottom:16px;">' +
-      models.map(function (m) {
+      cm.map(function (m) {
+        return '<button type="button" class="eng-card" data-eng-id="' + escapeHtml(m.id) + '"><h3>' +
+          escapeHtml(m.id) + '</h3><p>' + escapeHtml(m.name) + ' — ' + escapeHtml(m.purpose) +
+          (m.continuity_model_ref ? ' · <span class="mono">' + escapeHtml(m.continuity_model_ref) + '</span>' : '') +
+          '</p></button>';
+      }).join('') + '</div>' +
+      '<h3>Runtime emotion / relationship modules</h3>' +
+      '<div class="eng-card-grid" style="margin-bottom:16px;">' +
+      other.map(function (m) {
         return '<button type="button" class="eng-card" data-eng-id="' + escapeHtml(m.id) + '"><h3>' +
           escapeHtml(m.id) + '</h3><p>' + escapeHtml(m.name) + ' — ' + escapeHtml(m.purpose) + '</p></button>';
       }).join('') + '</div>' +
@@ -925,6 +1029,14 @@
   function resolveHash(hash) {
     if (SECTION_RENDERERS[hash]) {
       showSection(hash);
+      return;
+    }
+    if (/^CM-\d{2}$/i.test(hash) || hash === 'runtime-mapping' || hash === 'state-vector' || hash === 'blend' || hash === 'decay' || hash === 'comparison' || hash === 'formula5') {
+      showSection('math');
+      setTimeout(function () {
+        var el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
       return;
     }
     var entry = state.index[hash];
