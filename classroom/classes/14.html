@@ -76,7 +76,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><p>You will install n8n on your lab host, learn how workflows move <strong>items</strong> of JSON between <strong>nodes</strong>, build a safe first automation (RSS → filter → notify), and then build a small AI agent that can <strong>observe</strong> your lab—and only <strong>change</strong> things after a human approval step. You will treat credentials, SSH, and command execution as high-risk tools with explicit guardrails.</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>You will install n8n on your lab host, learn how workflows move <strong>items</strong> of JSON between <strong>nodes</strong>, build a safe first automation (RSS → filter → notify), and then build a small AI agent that can <strong>observe</strong> your lab—and only <strong>change</strong> things after a human approval step. You will also learn a second pattern: use n8n as an <strong>orchestrator</strong> that SSHes into a Linux box and runs a headless <strong>AI CLI</strong> (Claude Code, Gemini CLI, or similar) so the heavy context and skills stay on the terminal tool while n8n handles triggers, chat front-ends, and session IDs. You will treat credentials, SSH, and command execution as high-risk tools with explicit guardrails.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -139,6 +139,22 @@
 <td>Human-in-the-loop</td>
 <td>Pause for approve/deny before risky actions</td>
 </tr>
+<tr>
+<td>AI CLI</td>
+<td>Terminal AI tool (Claude Code, Gemini CLI, Codex, …) run headless from scripts/SSH</td>
+</tr>
+<tr>
+<td>Headless / print mode</td>
+<td>Non-interactive one-shot prompt (<code>-p</code> / equivalent)—no TTY chat UI</td>
+</tr>
+<tr>
+<td>Session ID</td>
+<td>Stable ID so a later command can <strong>resume</strong> the same AI conversation</td>
+</tr>
+<tr>
+<td>Orchestrator pattern</td>
+<td>n8n triggers/routes/notifies; the AI CLI owns deep context, skills, and multi-step tools</td>
+</tr>
 </tbody>
 </table><div class="cr-help">
  <div class="cr-actions">
@@ -168,6 +184,8 @@
 <li>Do <strong>not</strong> give an agent unrestricted root SSH on day one.</li>
 <li>Any command that <strong>creates, deletes, stops, or rewrites</strong> systems must go through <strong>approval</strong>.</li>
 <li>Keep n8n’s admin UI on LAN/VPN only (Class 10 patterns)—not open to the world.</li>
+<li>AI CLI “dangerous” / YOLO flags that skip confirmations are <strong>lab-only</strong> and still need your approval gate in n8n before mutate.</li>
+<li>Put the AI CLI on a <strong>jump host</strong> you control; do not SSH as root into every production box from n8n on day one.</li>
 </ul><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -286,6 +304,48 @@
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>n8n + AI CLI over SSH (orchestrator pattern)</h4><p>Sometimes the built-in n8n AI Agent is enough. Sometimes you already live in a <strong>terminal AI tool</strong> that has your repos, skills, and local files. You can combine them without inventing a custom HTTP wrapper:</p>
+<pre><code class="language-text">Chat / Schedule / Webhook (n8n)
+  → SSH node → Linux host
+      → AI CLI headless command (claude / gemini / …)
+          → stdout JSON/text back into n8n
+  → Notify / If / loop with same session id
+</code></pre>
+<p><strong>Why this is useful</strong></p>
+<ol>
+<li><strong>Context</strong> — <code>cd</code> into a project directory before the AI CLI runs so it sees real files, not an empty sandbox.</li>
+<li><strong>Subscription economics</strong> — token-heavy research can stay on a CLI plan you already pay for, while n8n handles timing and messaging.</li>
+<li><strong>Skills / multi-step tools</strong> — complex “how to talk to UniFi / Proxmox” knowledge can live as markdown/skills next to the CLI; n8n stays a thin trigger.</li>
+<li><strong>Sessions</strong> — generate a UUID once, pass <code>--session-id</code> (or product equivalent), then later resume with <code>-r</code> / resume flag so Slack/Discord can hold a real conversation.</li>
+</ol>
+<p><strong>Where to install the AI CLI</strong></p>
+<p>Anywhere Linux-capable you trust: the same VM as n8n, a Raspberry Pi, or a dedicated Ubuntu jump host beside the lab. Prefer “next to the files and APIs you want it to see,” not “on every router.”</p>
+<p><strong>SSH gotchas</strong></p>
+<p>n8n’s SSH session is often a non-login shell. If <code>claude --version</code> works in your interactive terminal but fails from n8n, fix PATH / login profile for that SSH user (workbook the exact error). Test with <code>hostname</code> first, then the AI CLI version flag.</p>
+<p><strong>Headless prompt shape (illustrative—check current CLI flags)</strong></p>
+<pre><code class="language-bash">cd /path/to/project &amp;&amp; claude -p &quot;Summarize README.md in five bullets&quot;
+</code></pre>
+<p>Resume:</p>
+<pre><code class="language-bash">claude -p &quot;Continue: what should I fix first?&quot; -r --session-id &quot;$SESSION_UUID&quot;
+</code></pre>
+<p>Exact flags differ by tool and version—verify against that tool’s current docs. The Academy skill is the <strong>pattern</strong>, not a frozen flag list.</p>
+<p><strong>Chat front-end loop (Slack/Discord/Telegram)</strong></p>
+<pre><code class="language-text">Inbound message → ensure session UUID exists → SSH AI CLI with -p + session
+  → reply to chat
+  → ask “done?” → If no → loop with -r same session → If yes → end
+</code></pre>
+<p>Keep the UUID in workflow static data or a database node so a phone conversation can span many messages.</p>
+<p><strong>Architecture shift</strong></p>
+<pre><code class="language-text">n8n  = scheduler, webhooks, human gates, notifications
+AI CLI = deep context, skills, parallel sub-agents on the jump host
+</code></pre>
+<p>You can still call an in-n8n AI Agent that <em>decides</em> to invoke the SSH→CLI tool. Do not abandon Class 14 Path C guardrails when the CLI is powerful.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
@@ -662,6 +722,193 @@ curl -sI --max-time 3 http://127.0.0.1:8090/ || echo EXPECTED_DOWN
  
 </div>
  </div>
+</div></div></div><div class="cr-lab-path"><h4>Path D — n8n orchestrates an AI CLI over SSH (optional stretch)</h4><div class="cr-prose-block"><p><strong>Goal:</strong> prove the thin bridge: n8n SSH → headless AI CLI → stdout back, then resume the same session. Pick <strong>one</strong> CLI you are licensed to use (Claude Code, Gemini CLI, or another headless-capable tool). Commands below use <code>claude</code> as a stand-in—swap the binary and flags to match <strong>current</strong> docs for your tool.</p></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Install the AI CLI on a Linux jump host</strong> (VM from Class 1 is fine). Log in interactively and confirm:</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">hostname
+which claude || which gemini || echo &quot;Install your chosen AI CLI first&quot;
+claude --version   # or: gemini --version
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An AI CLI is a terminal AI tool. n8n can SSH in and run it headless, then read the text it prints.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>In n8n, new workflow</strong> <code>03-ai-cli-bridge</code>. Add <strong>Manual Trigger</strong> → <strong>SSH</strong> (Execute Command).</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Create SSH credential</strong> to the jump host (password or key). Prefer a <strong>dedicated non-root user</strong> with only the rights that CLI needs. <strong>Test connection</strong>.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Create SSH credential.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Smoke test the shell</strong> — Command field:</p>
+<pre><code class="language-bash">hostname
+</code></pre>
+<p>Execute step. Confirm <code>stdout</code> shows the jump host name.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Smoke test the shell.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Smoke test the AI CLI</strong> — Command field (adjust binary):</p>
+<pre><code class="language-bash">claude --version
+</code></pre>
+<p>If this fails but interactive SSH works, fix PATH for non-interactive shells (common). Workbook the fix.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An AI CLI is a terminal AI tool. n8n can SSH in and run it headless, then read the text it prints.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="6">
+ <div class="cr-step-num">6</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>First headless prompt</strong> (read-only; no lab mutations):</p>
+<pre><code class="language-bash">claude -p &quot;In one short paragraph, explain what a virtual machine is.&quot;
+</code></pre>
+<p>Execute. Confirm answer text lands in SSH node stdout. <strong>Pin</strong> that output.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An AI CLI is a terminal AI tool. n8n can SSH in and run it headless, then read the text it prints.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="7">
+ <div class="cr-step-num">7</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Add project context</strong> — create a tiny folder the CLI can see:</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">mkdir -p ~/keep-cli-context
+printf '%s\n' '# Keep lab note' 'Class 14 AI CLI bridge test.' 'Do not change production systems.' &gt; ~/keep-cli-context/README.md
+</code></pre></div>
+<p>SSH command:</p>
+<pre><code class="language-bash">cd ~/keep-cli-context &amp;&amp; claude -p &quot;Read README.md and quote its second line exactly.&quot;
+</code></pre>
+<p>Prove the reply uses <strong>local file</strong> context, not generic chat memory alone.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="8">
+ <div class="cr-step-num">8</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Session UUID + first turn.</strong> Add a <strong>Code</strong> node before SSH (JavaScript) that outputs one field <code>sessionId</code> (UUID v4). Pin it. First SSH command (shape illustrative):</p>
+<pre><code class="language-bash">cd ~/keep-cli-context &amp;&amp; claude -p &quot;List the files in this directory in three bullets.&quot; --session-id &quot;{{ $json.sessionId }}&quot;
+</code></pre>
+<p>Use n8n expressions to inject <code>sessionId</code> from the Code node (drag field into the command). Execute and pin.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="9">
+ <div class="cr-step-num">9</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Resume the session.</strong> Duplicate the SSH node. Change the prompt to something that only makes sense in context, e.g. <code>Which of those files should a beginner open first and why?</code> and add the resume flag for your CLI (often <code>-r</code> plus the <strong>same</strong> session id). Execute <strong>without</strong> re-running the first turn. Confirm it remembers.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A session id lets you resume the same AI conversation later—like continuing a chat instead of starting over.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="10">
+ <div class="cr-step-num">10</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Optional chat loop (Slack/Discord/Telegram):</strong><br />
+    Inbound message → reuse or create <code>sessionId</code> → SSH headless prompt → reply to chat → <strong>If</strong> user says they are not done → second SSH with resume → else end. Keep messages under your chat app’s size limits.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An AI CLI is a terminal AI tool. n8n can SSH in and run it headless, then read the text it prints.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="11">
+ <div class="cr-step-num">11</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Hard ban for this path:</strong> do not enable unrestricted “dangerous” CLI modes against production UniFi/Proxmox until Path C approval patterns wrap the mutate step. Record in the workbook: jump host, CLI name/version, session test PASS/FAIL.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="12">
+ <div class="cr-step-num">12</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Save</strong> <code>03-ai-cli-bridge</code>. Leave <strong>Inactive</strong> unless you are watching it.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ 
+</div>
+ </div>
 </div></div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -706,6 +953,24 @@ curl -sI --max-time 3 http://127.0.0.1:8090/ || echo EXPECTED_DOWN
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
  
+</div></div><div class="cr-prose-block"><ol start="5">
+<li><strong>AI CLI PATH break:</strong> from n8n SSH run <code>claude --version</code> with a stripped <code>PATH=</code> (or wrong binary name) → read the error → restore a working login/PATH for that SSH user.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="6">
+<li><strong>Session break:</strong> resume with a <strong>wrong</strong> session id → confirm the CLI does not invent prior context → retry with the correct id.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A session id lets you resume the same AI conversation later—like continuing a chat instead of starting over.</div>
+ 
 </div></div></div>
 <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Common mistakes</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -721,6 +986,9 @@ curl -sI --max-time 3 http://127.0.0.1:8090/ || echo EXPECTED_DOWN
 <li>Forgetting item cardinality (N items → N side effects).</li>
 <li>Storing webhook URLs in git.</li>
 <li>Pinning stale data and thinking production changed.</li>
+<li>Expecting interactive TTY Claude/Gemini behavior over n8n SSH (use headless/print mode).</li>
+<li>Putting AI CLI on root@everything instead of a scoped jump user.</li>
+<li>Resuming sessions without persisting the UUID across chat messages.</li>
 </ul><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -743,6 +1011,9 @@ curl -sI --max-time 3 http://127.0.0.1:8090/ || echo EXPECTED_DOWN
 <li>What must be true before an agent may run <code>docker stop</code> / <code>docker rm</code> in this class?</li>
 <li>Where should n8n’s UI be reachable from in a Keep-style lab?</li>
 <li>How do you keep a healthy schedule from spamming chat every 15 minutes?</li>
+<li>In the orchestrator pattern, what does n8n own vs what the AI CLI owns?</li>
+<li>Why generate a session UUID before the first headless AI CLI call?</li>
+<li>What should you test before <code>claude -p "..."</code> if SSH <code>hostname</code> works but the CLI fails?</li>
 </ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -810,10 +1081,17 @@ curl -sI --max-time 3 http://127.0.0.1:8090/ || echo EXPECTED_DOWN
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Schedule is off or slowed when the student is not actively testing.)</div>
  
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="7"> <span>**Optional Path D:** `03-ai-cli-bridge` shows hostname + CLI version + one headless answer + one **resumed** follow-up with the same session id (or workbook documents “deferred” with reason).</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ 
 </div></div>
  <div class="cr-gate">All boxes true → continue to the next class</div>
 </div>
-<div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>n8n UI labels, AI node names, and env vars change across releases. Prefer current official n8n Docker and credentials docs for exact screens. The durable skills are: item flow, credentials hygiene, least privilege, structured outputs, and human approval before mutation.</p><div class="cr-help">
+<div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>n8n UI labels, AI node names, env vars, and AI CLI flags (<code>-p</code>, <code>--session-id</code>, resume switches) change across releases. Prefer current official n8n Docker docs and your chosen AI CLI reference for exact screens and flags. The durable skills are: item flow, credentials hygiene, least privilege, structured outputs, human approval before mutation, and treating n8n as orchestrator when a terminal AI tool owns deep context.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
