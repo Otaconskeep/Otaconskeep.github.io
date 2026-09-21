@@ -711,97 +711,114 @@ def build_diagrams():
     """True SysML-style BDD (blocks + parts/values/ports) and IBD (parts + connectors + item flows)."""
     bdd = r'''classDiagram
 direction TB
-class OK as "«block»\nOtaconsKeep"
-class AR as "«block»\nAgentRuntime"
-class MEM as "«block»\nMemory"
-class MR as "«block»\nModelRouter"
-class MRT as "«block»\nModelRuntime"
-class EC as "«block»\nEmotionalContinuity"
-class RE as "«block»\nRelationshipEngine"
-class TL as "«block»\nToolLayer"
-class UI as "«block»\nWebUI"
-class PER as "«block»\nPersistence"
-class REX as "«block»\nREXControlPlane"
-class INST as "«block»\nInstaller"
-OK *-- AR : «part»
-OK *-- MR : «part»
-OK *-- PER : «part»
-OK *-- UI : «part»
-OK *-- INST : «part»
-OK *-- REX : «part»
-AR *-- MEM : «part»
-AR *-- TL : «part»
-AR *-- EC : «part»
-AR *-- RE : «part»
-MR *-- MRT : «part»
-OK : values
-OK : baselineId: String
-OK : localFirst: Boolean
-AR : values
-AR : agentId: String
-EC : values
-EC : E: Real[0..1]^7
-EC : ι: Real
-RE : values
-RE : r: Real[0..1]
-MR : ports
-MR : p_llm: ~Inference
-MR : p_tts: ~Audio
-UI : ports
-UI : p_http: ~REST
-PER : ports
-PER : p_store: ~File
-OK --> UI : «proxy» IF-002
-MR --> MRT : «proxy» IF-001'''
+class OtaconsKeep {
+  <<block>>
+  +String baselineId
+  +Boolean localFirst
+}
+class AgentRuntime {
+  <<block>>
+  +String agentId
+}
+class Memory {
+  <<block>>
+}
+class ModelRouter {
+  <<block>>
+  +port p_llm
+  +port p_tts
+}
+class ModelRuntime {
+  <<block>>
+}
+class EmotionalContinuity {
+  <<block>>
+  +Real E_vector
+  +Real inertia
+}
+class RelationshipEngine {
+  <<block>>
+  +Real bond
+}
+class ToolLayer {
+  <<block>>
+}
+class WebUI {
+  <<block>>
+  +port p_http
+}
+class Persistence {
+  <<block>>
+  +port p_store
+}
+class REXControlPlane {
+  <<block>>
+}
+class Installer {
+  <<block>>
+}
+OtaconsKeep *-- AgentRuntime : part
+OtaconsKeep *-- ModelRouter : part
+OtaconsKeep *-- Persistence : part
+OtaconsKeep *-- WebUI : part
+OtaconsKeep *-- Installer : part
+OtaconsKeep *-- REXControlPlane : part
+AgentRuntime *-- Memory : part
+AgentRuntime *-- ToolLayer : part
+AgentRuntime *-- EmotionalContinuity : part
+AgentRuntime *-- RelationshipEngine : part
+ModelRouter *-- ModelRuntime : part
+OtaconsKeep --> WebUI : proxy IF-002
+ModelRouter --> ModelRuntime : proxy IF-001'''
 
     ibd = r'''flowchart TB
-  subgraph SYS["«block» OtaconsKeep  — IBD"]
+  subgraph SYS["block OtaconsKeep IBD"]
     direction TB
-    subgraph ARB["«part» AgentRuntime"]
-      ARP_IN(("p_msg"))
-      ARP_OUT(("p_ctx"))
+    subgraph ARB["part AgentRuntime"]
+      ARP_IN((p_msg))
+      ARP_OUT((p_ctx))
     end
-    subgraph MEMB["«part» Memory"]
-      MEMP(("p_store"))
+    subgraph MEMB["part Memory"]
+      MEMP((p_store))
     end
-    subgraph ECB["«part» EmotionalContinuity"]
-      ECP(("p_obs"))
+    subgraph ECB["part EmotionalContinuity"]
+      ECP((p_obs))
     end
-    subgraph REB["«part» RelationshipEngine"]
-      REP(("p_rel"))
+    subgraph REB["part RelationshipEngine"]
+      REP((p_rel))
     end
-    subgraph MRB["«part» ModelRouter"]
-      MRP_IN(("p_req"))
-      MRP_OUT(("p_inf"))
+    subgraph MRB["part ModelRouter"]
+      MRP_IN((p_req))
+      MRP_OUT((p_inf))
     end
-    subgraph MRTB["«part» ModelRuntime"]
-      MRTP(("p_ollama"))
+    subgraph MRTB["part ModelRuntime"]
+      MRTP((p_ollama))
     end
-    subgraph TLB["«part» ToolLayer"]
-      TLP(("p_tool"))
+    subgraph TLB["part ToolLayer"]
+      TLP((p_tool))
     end
-    subgraph PERB["«part» Persistence"]
-      PERP(("p_fs"))
+    subgraph PERB["part Persistence"]
+      PERP((p_fs))
     end
-    subgraph UIB["«part» WebUI"]
-      UIP(("p_http"))
+    subgraph UIB["part WebUI"]
+      UIP((p_http))
     end
   end
-  U[«actor» User] -->|IF-002 Message:JSON| UIP
+  U[actor User] -->|IF-002 Message JSON| UIP
   UIP <-->|API Message| ARP_IN
   ARP_OUT -->|ObserveEvent| ECP
-  ARP_OUT -->|Retrieve/Store| MEMP
+  ARP_OUT -->|Retrieve Store| MEMP
   ARP_OUT -->|CapabilityRequest| MRP_IN
   MRP_OUT -->|IF-001 InferenceRequest| MRTP
   ARP_OUT -->|ToolCall| TLP
   MEMP <-->|StateBlob| PERP
   ARP_OUT -->|BondUpdate| REP
-  REX[«part» REX] -.->|Job| TLP
-  INST[«part» Installer] -->|IF-003 OS Feature Ops| OS[«external» WSL/OS]
-  MRTP -.->|optional| EP[«external» Providers]'''
+  REX[part REX] -.->|Job| TLP
+  INST[part Installer] -->|IF-003 OS Feature Ops| OS[external WSL OS]
+  MRTP -.->|optional| EP[external Providers]'''
 
     uml_comp = r'''flowchart TB
-  subgraph COMP["UML Component Diagram — OtaconsKeep"]
+  subgraph COMP["UML Component Diagram OtaconsKeep"]
     direction LR
     C1[["OtaconsKeep Core"]]
     C2[["Agent Runtime"]]
@@ -828,7 +845,7 @@ MR --> MRT : «proxy» IF-001'''
                 "notation": "SysML BDD",
                 "mermaid": bdd,
                 "notes": (
-                    "Blocks are classifiers with «block» stereotype. Composition («part») shows whole-part. "
+                    "Blocks are classifiers with block stereotype. Composition (part) shows whole-part. "
                     "Value properties and ports are listed in compartments. Proxy ports reference IF-001/IF-002."
                 ),
             },
@@ -905,7 +922,7 @@ MR --> MRT : «proxy» IF-001'''
                 "type": "context",
                 "title": "SysML Context / BDD context view",
                 "notation": "SysML",
-                "mermaid": "flowchart TB\n U[«actor» User] --- OK[«block» OtaconsKeep]\n OK --- HW[«external» Local Hardware]\n OK --- GPU[«external» GPU]\n OK --- OL[«external» Ollama]\n OK --- EP[«external» AI providers]\n OK --- HA[«external» Home Assistant]\n OK --- DC[«external» Discord]\n OK --- ST[«external» Storage]",
+                "mermaid": "flowchart TB\n U[actor User] --- OK[block OtaconsKeep]\n OK --- HW[external Local Hardware]\n OK --- GPU[external GPU]\n OK --- OL[external Ollama]\n OK --- EP[external AI providers]\n OK --- HA[external Home Assistant]\n OK --- DC[external Discord]\n OK --- ST[external Storage]",
             },
             {
                 "id": "VMOD-001",
@@ -919,7 +936,7 @@ MR --> MRT : «proxy» IF-001'''
                 "type": "mbse_chain",
                 "title": "MBSE verification chain — Need → Requirement → Architecture → Model → Verification → Evidence",
                 "notation": "MBSE",
-                "mermaid": "flowchart TB\n N[Stakeholder Need] --> R[«requirement» System Requirement]\n R -->|«satisfy»| B[«block» Design Element]\n B --> I[Implementation]\n R -->|«verify»| VC[Verification Case]\n VC --> M[Method: TAID]\n VC --> E[Evidence]\n E --> RES[Result]\n B -.->|allocatedTo| VC",
+                "mermaid": "flowchart TB\n N[Stakeholder Need] --> R[requirement System Requirement]\n R -->|satisfy| B[block Design Element]\n B --> I[Implementation]\n R -->|verify| VC[Verification Case]\n VC --> M[Method: TAID]\n VC --> E[Evidence]\n E --> RES[Result]\n B -.->|allocatedTo| VC",
             },
             {
                 "id": "PAR-001",
@@ -960,7 +977,7 @@ def enrich_architecture():
     arch["baseline_id"] = "BL-ARCH-0002"
     arch["baseline_status"] = "Baselined"
     arch["mbse_note"] = (
-        "Architecture elements are SysML «block» classifiers. BDD-001 / IBD-001 are the primary structural views. "
+        "Architecture elements are SysML block classifiers. BDD-001 / IBD-001 are the primary structural views. "
         "UML-COMP-001 is the companion UML component view. Satisfy relationships are stored on requirements "
         "(linked_architecture / allocated_subsystem) and rendered into the VCRM."
     )
@@ -1274,13 +1291,13 @@ def enrich_requirements(tests):
         r["verification_method"] = vm
 
     reqs_doc["notes"] = (
-        "MBSE requirements baseline BL-REQ-0004. Relationships: satisfied_by («satisfy»), allocated_to, "
-        "verified_by («verify»), evidence, result. VCRM is generated from these fields. "
+        "MBSE requirements baseline BL-REQ-0004. Relationships: satisfied_by (satisfy), allocated_to, "
+        "verified_by (verify), evidence, result. VCRM is generated from these fields. "
         "Verified=Yes only with evidence-backed Pass."
     )
     reqs_doc["mbse_chain"] = (
-        "Need → Requirement → Architecture («satisfy») → Mathematical Model → Implementation → "
-        "Verification Case («verify») → Evidence → Result"
+        "Need → Requirement → Architecture (satisfy) → Mathematical Model → Implementation → "
+        "Verification Case (verify) → Evidence → Result"
     )
     dump("requirements.json", reqs_doc)
 

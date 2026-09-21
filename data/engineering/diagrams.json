@@ -5,23 +5,23 @@
       "type": "bdd",
       "title": "SysML Block Definition Diagram (BDD) — OtaconsKeep blocks, parts, values, ports",
       "notation": "SysML BDD",
-      "mermaid": "classDiagram\ndirection TB\nclass OK as \"«block»\\nOtaconsKeep\"\nclass AR as \"«block»\\nAgentRuntime\"\nclass MEM as \"«block»\\nMemory\"\nclass MR as \"«block»\\nModelRouter\"\nclass MRT as \"«block»\\nModelRuntime\"\nclass EC as \"«block»\\nEmotionalContinuity\"\nclass RE as \"«block»\\nRelationshipEngine\"\nclass TL as \"«block»\\nToolLayer\"\nclass UI as \"«block»\\nWebUI\"\nclass PER as \"«block»\\nPersistence\"\nclass REX as \"«block»\\nREXControlPlane\"\nclass INST as \"«block»\\nInstaller\"\nOK *-- AR : «part»\nOK *-- MR : «part»\nOK *-- PER : «part»\nOK *-- UI : «part»\nOK *-- INST : «part»\nOK *-- REX : «part»\nAR *-- MEM : «part»\nAR *-- TL : «part»\nAR *-- EC : «part»\nAR *-- RE : «part»\nMR *-- MRT : «part»\nOK : values\nOK : baselineId: String\nOK : localFirst: Boolean\nAR : values\nAR : agentId: String\nEC : values\nEC : E: Real[0..1]^7\nEC : ι: Real\nRE : values\nRE : r: Real[0..1]\nMR : ports\nMR : p_llm: ~Inference\nMR : p_tts: ~Audio\nUI : ports\nUI : p_http: ~REST\nPER : ports\nPER : p_store: ~File\nOK --> UI : «proxy» IF-002\nMR --> MRT : «proxy» IF-001",
-      "notes": "Blocks are classifiers with «block» stereotype. Composition («part») shows whole-part. Value properties and ports are listed in compartments. Proxy ports reference IF-001/IF-002."
+      "mermaid": "classDiagram\ndirection TB\nclass OtaconsKeep {\n  <<block>>\n  +String baselineId\n  +Boolean localFirst\n}\nclass AgentRuntime {\n  <<block>>\n  +String agentId\n}\nclass Memory {\n  <<block>>\n}\nclass ModelRouter {\n  <<block>>\n  +port p_llm\n  +port p_tts\n}\nclass ModelRuntime {\n  <<block>>\n}\nclass EmotionalContinuity {\n  <<block>>\n  +Real E_vector\n  +Real inertia\n}\nclass RelationshipEngine {\n  <<block>>\n  +Real bond\n}\nclass ToolLayer {\n  <<block>>\n}\nclass WebUI {\n  <<block>>\n  +port p_http\n}\nclass Persistence {\n  <<block>>\n  +port p_store\n}\nclass REXControlPlane {\n  <<block>>\n}\nclass Installer {\n  <<block>>\n}\nOtaconsKeep *-- AgentRuntime : part\nOtaconsKeep *-- ModelRouter : part\nOtaconsKeep *-- Persistence : part\nOtaconsKeep *-- WebUI : part\nOtaconsKeep *-- Installer : part\nOtaconsKeep *-- REXControlPlane : part\nAgentRuntime *-- Memory : part\nAgentRuntime *-- ToolLayer : part\nAgentRuntime *-- EmotionalContinuity : part\nAgentRuntime *-- RelationshipEngine : part\nModelRouter *-- ModelRuntime : part\nOtaconsKeep --> WebUI : proxy IF-002\nModelRouter --> ModelRuntime : proxy IF-001",
+      "notes": "SysML BDD rendered in Mermaid classDiagram. Blocks use <<block>> stereotype. Composition edges are part relationships. Value/port properties listed in compartments. ASCII stereotypes used for Mermaid 10 compatibility (guillemets break the parser)."
     },
     {
       "id": "IBD-001",
       "type": "ibd",
       "title": "SysML Internal Block Diagram (IBD) — parts, ports, connectors, item flows",
       "notation": "SysML IBD",
-      "mermaid": "flowchart TB\n  subgraph SYS[\"«block» OtaconsKeep  — IBD\"]\n    direction TB\n    subgraph ARB[\"«part» AgentRuntime\"]\n      ARP_IN((\"p_msg\"))\n      ARP_OUT((\"p_ctx\"))\n    end\n    subgraph MEMB[\"«part» Memory\"]\n      MEMP((\"p_store\"))\n    end\n    subgraph ECB[\"«part» EmotionalContinuity\"]\n      ECP((\"p_obs\"))\n    end\n    subgraph REB[\"«part» RelationshipEngine\"]\n      REP((\"p_rel\"))\n    end\n    subgraph MRB[\"«part» ModelRouter\"]\n      MRP_IN((\"p_req\"))\n      MRP_OUT((\"p_inf\"))\n    end\n    subgraph MRTB[\"«part» ModelRuntime\"]\n      MRTP((\"p_ollama\"))\n    end\n    subgraph TLB[\"«part» ToolLayer\"]\n      TLP((\"p_tool\"))\n    end\n    subgraph PERB[\"«part» Persistence\"]\n      PERP((\"p_fs\"))\n    end\n    subgraph UIB[\"«part» WebUI\"]\n      UIP((\"p_http\"))\n    end\n  end\n  U[«actor» User] -->|IF-002 Message:JSON| UIP\n  UIP <-->|API Message| ARP_IN\n  ARP_OUT -->|ObserveEvent| ECP\n  ARP_OUT -->|Retrieve/Store| MEMP\n  ARP_OUT -->|CapabilityRequest| MRP_IN\n  MRP_OUT -->|IF-001 InferenceRequest| MRTP\n  ARP_OUT -->|ToolCall| TLP\n  MEMP <-->|StateBlob| PERP\n  ARP_OUT -->|BondUpdate| REP\n  REX[«part» REX] -.->|Job| TLP\n  INST[«part» Installer] -->|IF-003 OS Feature Ops| OS[«external» WSL/OS]\n  MRTP -.->|optional| EP[«external» Providers]",
-      "notes": "Parts are usages of blocks inside the OtaconsKeep system boundary. Circles denote ports. Edges are connectors carrying typed item flows (Message, ObserveEvent, InferenceRequest)."
+      "mermaid": "flowchart TB\n  subgraph SYS[\"block OtaconsKeep IBD\"]\n    direction TB\n    subgraph ARB[\"part AgentRuntime\"]\n      ARP_IN((p_msg))\n      ARP_OUT((p_ctx))\n    end\n    subgraph MEMB[\"part Memory\"]\n      MEMP((p_store))\n    end\n    subgraph ECB[\"part EmotionalContinuity\"]\n      ECP((p_obs))\n    end\n    subgraph REB[\"part RelationshipEngine\"]\n      REP((p_rel))\n    end\n    subgraph MRB[\"part ModelRouter\"]\n      MRP_IN((p_req))\n      MRP_OUT((p_inf))\n    end\n    subgraph MRTB[\"part ModelRuntime\"]\n      MRTP((p_ollama))\n    end\n    subgraph TLB[\"part ToolLayer\"]\n      TLP((p_tool))\n    end\n    subgraph PERB[\"part Persistence\"]\n      PERP((p_fs))\n    end\n    subgraph UIB[\"part WebUI\"]\n      UIP((p_http))\n    end\n  end\n  U[actor User] -->|IF-002 Message JSON| UIP\n  UIP <-->|API Message| ARP_IN\n  ARP_OUT -->|ObserveEvent| ECP\n  ARP_OUT -->|Retrieve Store| MEMP\n  ARP_OUT -->|CapabilityRequest| MRP_IN\n  MRP_OUT -->|IF-001 InferenceRequest| MRTP\n  ARP_OUT -->|ToolCall| TLP\n  MEMP <-->|StateBlob| PERP\n  ARP_OUT -->|BondUpdate| REP\n  REX[part REX] -.->|Job| TLP\n  INST[part Installer] -->|IF-003 OS Feature Ops| OS[external WSL OS]\n  MRTP -.->|optional| EP[external Providers]",
+      "notes": "SysML IBD: part usages inside the OtaconsKeep boundary, circular nodes as ports, edges as connectors with typed item flows. ASCII labels for Mermaid 10 compatibility."
     },
     {
       "id": "UML-COMP-001",
       "type": "uml_component",
       "title": "UML Component Diagram — deployment-facing components",
       "notation": "UML",
-      "mermaid": "flowchart TB\n  subgraph COMP[\"UML Component Diagram — OtaconsKeep\"]\n    direction LR\n    C1[[\"OtaconsKeep Core\"]]\n    C2[[\"Agent Runtime\"]]\n    C3[[\"Memory\"]]\n    C4[[\"Model Router\"]]\n    C5[[\"Continuity Engines\"]]\n    C6[[\"Web UI\"]]\n    C7[[\"Persistence\"]]\n  end\n  C1 --> C2\n  C1 --> C4\n  C1 --> C7\n  C2 --> C3\n  C2 --> C5\n  C6 --> C1\n  C4 --> OL[(Ollama)]",
+      "mermaid": "flowchart TB\n  subgraph COMP[\"UML Component Diagram OtaconsKeep\"]\n    direction LR\n    C1[[\"OtaconsKeep Core\"]]\n    C2[[\"Agent Runtime\"]]\n    C3[[\"Memory\"]]\n    C4[[\"Model Router\"]]\n    C5[[\"Continuity Engines\"]]\n    C6[[\"Web UI\"]]\n    C7[[\"Persistence\"]]\n  end\n  C1 --> C2\n  C1 --> C4\n  C1 --> C7\n  C2 --> C3\n  C2 --> C5\n  C6 --> C1\n  C4 --> OL[(Ollama)]",
       "notes": "UML companion view for software component packaging alongside SysML BDD/IBD."
     },
     {
@@ -78,7 +78,7 @@
       "type": "context",
       "title": "SysML Context / BDD context view",
       "notation": "SysML",
-      "mermaid": "flowchart TB\n U[«actor» User] --- OK[«block» OtaconsKeep]\n OK --- HW[«external» Local Hardware]\n OK --- GPU[«external» GPU]\n OK --- OL[«external» Ollama]\n OK --- EP[«external» AI providers]\n OK --- HA[«external» Home Assistant]\n OK --- DC[«external» Discord]\n OK --- ST[«external» Storage]"
+      "mermaid": "flowchart TB\n U[actor User] --- OK[block OtaconsKeep]\n OK --- HW[external Local Hardware]\n OK --- GPU[external GPU]\n OK --- OL[external Ollama]\n OK --- EP[external AI providers]\n OK --- HA[external Home Assistant]\n OK --- DC[external Discord]\n OK --- ST[external Storage]"
     },
     {
       "id": "VMOD-001",
@@ -92,7 +92,7 @@
       "type": "mbse_chain",
       "title": "MBSE verification chain — Need → Requirement → Architecture → Model → Verification → Evidence",
       "notation": "MBSE",
-      "mermaid": "flowchart TB\n N[Stakeholder Need] --> R[«requirement» System Requirement]\n R -->|«satisfy»| B[«block» Design Element]\n B --> I[Implementation]\n R -->|«verify»| VC[Verification Case]\n VC --> M[Method: TAID]\n VC --> E[Evidence]\n E --> RES[Result]\n B -.->|allocatedTo| VC"
+      "mermaid": "flowchart TB\n N[Stakeholder Need] --> R[requirement System Requirement]\n R -->|satisfy| B[block Design Element]\n B --> I[Implementation]\n R -->|verify| VC[Verification Case]\n VC --> M[Method TAID]\n VC --> E[Evidence]\n E --> RES[Result]\n B -.->|allocatedTo| VC"
     },
     {
       "id": "PAR-001",
