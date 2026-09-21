@@ -569,7 +569,7 @@
     });
 
     html += '<div class="eng-math-easy">';
-    html += '<div class="eng-math-easy-banner">Simple explanation (8th-grade reading)</div>';
+    html += '<div class="eng-math-easy-banner">In plain terms</div>';
 
     var lead = s.plain_equation || (sec.meaning ? sec.meaning : '');
     if (lead) {

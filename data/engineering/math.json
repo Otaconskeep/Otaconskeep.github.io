@@ -222,8 +222,7 @@
         "how_it_works": "We multiply the pieces together. If one piece is small, the whole strength gets smaller. That way a weak or unsure trait cannot shout as loud as a clear, important one.",
         "why_it_works": "In real life, some traits are more serious than others. Being sure about a trait also matters. Personality and the situation change how big it feels.",
         "how_put_together": "This is the first step. It makes scores the rest of the math can use.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -316,8 +315,7 @@
         "how_it_works": "We multiply trait strength by trigger, relationship, and memory. If any of those is near zero, the trait stays quiet.",
         "why_it_works": "People do not act on every trait all the time. Something has to poke it, and it hits harder with the right person and the right memory.",
         "how_put_together": "This decides which traits get to affect the next mood and reply steps.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -405,8 +403,7 @@
         "how_it_works": "We add up every active event. Inside each event we multiply base hit × personality × who caused it × past pain. Many things can land at once.",
         "why_it_works": "The same event does not hit every person the same way. Who did it and what happened before change the size of the hit.",
         "how_put_together": "These feeling-changes feed the next update that moves the agent's numbers.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -500,8 +497,7 @@
         "how_it_works": "New feeling = old feeling + capped event change + tiny noise − pull toward baseline. Then we clamp so it stays between allowed limits.",
         "why_it_works": "Feelings move, then settle. A little noise stops every reply from sounding identical. Caps stop one message from breaking everything.",
         "how_put_together": "This is the heartbeat of mood between Codec turns.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -581,8 +577,7 @@
         "how_it_works": "Like mood update: events move the bond, inertia slows big swings, then we clamp.",
         "why_it_works": "Real bonds change through repeats, not one line of chat. Slow change keeps relationships believable.",
         "how_put_together": "Later math uses these bonds to decide how hard social hits land.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -665,8 +660,7 @@
         "how_it_works": "Add up each social input as tone × visibility × relationship × sensitivity.",
         "why_it_works": "A public dig from someone close should hurt more than private noise from a stranger.",
         "how_put_together": "Optional path. Feeds mood update only when social adapters are configured.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -739,8 +733,7 @@
         "how_it_works": "New residue = old residue × fade factor + new leftover from today's events.",
         "why_it_works": "People carry moods. Instant reset feels fake.",
         "how_put_together": "Leftover feeling can color later emotion labels and memory picks.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -807,8 +800,7 @@
         "how_it_works": "Score each emotion from the feeling numbers. Pick the highest score.",
         "why_it_works": "One number is not a whole emotion. Combinations (stress + trust + confidence) map better to labels.",
         "how_put_together": "Turns the continuous mood into a simple stage name used in diagrams.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -891,8 +883,7 @@
         "how_it_works": "Score = topic + person + emotion + recency − repeat penalty. Then we cap the total memory pull.",
         "why_it_works": "A simple score is easy to tune and explain. Emotional and recent memories should win more often.",
         "how_put_together": "Top memories go into the reply-building step.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -969,8 +960,7 @@
         "how_it_works": "Overlap between agent tags and device tags, times how critical the device is.",
         "why_it_works": "Homelab gear changes a lot. Tag matching beats hardcoding every new box into every agent.",
         "how_put_together": "Used for tool routing and domain jobs.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1072,8 +1062,7 @@
         "how_it_works": "Output is a function of identity, profile, state, relationships, memories, world, domain, history, and the current ask. A final polish step can wrap it.",
         "why_it_works": "One prompt alone is autocomplete. Stacking these layers is what makes the agent feel like the same person over time.",
         "how_put_together": "Everything above feeds this. This is where the reply is born.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1165,8 +1154,7 @@
         "how_it_works": "Normalized = (value − min) / (max − min).",
         "why_it_works": "Without this, one loud channel can drown softer but important signals for no good reason.",
         "how_put_together": "Runs early, before event impact math.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1219,8 +1207,7 @@
         "how_it_works": "Clip the event change between −cap and +cap.",
         "why_it_works": "Guardrails keep the system stable.",
         "how_put_together": "Applied when packaging event changes into the mood update.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1273,8 +1260,7 @@
         "how_it_works": "Add active trait pushes, then clip to a max.",
         "why_it_works": "Too many traits yelling at once makes mushy behavior.",
         "how_put_together": "After summing active traits, before they dominate output.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1334,8 +1320,7 @@
         "how_it_works": "Final = identity share × identity voice + adaptive share × adaptive voice, with identity share at least a minimum.",
         "why_it_works": "Without a floor, long chats drift into whoever the last event rewarded.",
         "how_put_together": "Runs at reply time after the big combine step.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1407,8 +1392,7 @@
         "how_it_works": "Quality = weighted sum of coherence + state fit + relationship fit.",
         "why_it_works": "You cannot improve what you never score.",
         "how_put_together": "Feeds the learning update.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1466,8 +1450,7 @@
         "how_it_works": "Sum social hits, then clip.",
         "why_it_works": "Public channels can spam. The agent must stay controllable.",
         "how_put_together": "Wraps social influence before mood update.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1523,8 +1506,7 @@
         "how_it_works": "Pick the goal with the highest utility given mood, character, domain, and history.",
         "why_it_works": "Random goals feel broken. Scoring makes the choice clear.",
         "how_put_together": "Uses the utility equation next.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1586,8 +1568,7 @@
         "how_it_works": "Weighted sum of those four pieces.",
         "why_it_works": "Tradeoffs stay visible and tunable.",
         "how_put_together": "Scores feed goal picking and planning views.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1668,8 +1649,7 @@
         "how_it_works": "Score each influence family and take the winner.",
         "why_it_works": "Averaging everything makes weak, confused replies.",
         "how_put_together": "Sits just before reply assembly under conflict.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1746,8 +1726,7 @@
         "how_it_works": "New settings = old settings + learning rate × (score − target).",
         "why_it_works": "Small steps stay stable. Huge steps thrash character.",
         "how_put_together": "Uses the quality score. Must respect identity floor.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1822,8 +1801,7 @@
         "how_it_works": "Adjusted score = base score × tier weight.",
         "why_it_works": "Not all memories should fight as equals.",
         "how_put_together": "Applied after the base memory score.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1880,8 +1858,7 @@
         "how_it_works": "Adjusted push = active push × confidence.",
         "why_it_works": "Uncertainty should shrink influence. That is honest.",
         "how_put_together": "Applied on active trait influence.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -1950,8 +1927,7 @@
         "how_it_works": "A table of chances says how likely each next stage is, given the event and personality.",
         "why_it_works": "Chance tables help explain stage diagrams without claiming feelings are only labels.",
         "how_put_together": "Sits beside continuous mood math for analysis.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -2024,8 +2000,7 @@
         "how_it_works": "Maximize goal value with cost limits and feasibility rules.",
         "why_it_works": "This is ordinary planning math. It makes tradeoffs explicit.",
         "how_put_together": "Formal twin of goal picking for planning and tests.",
-        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
-        "reading_level": "grade8"
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn."
       },
       "variables_plain": [
         {
@@ -2233,7 +2208,7 @@
       "Think of an agent like a character that keeps going between messages. It remembers how it feels, whom it trusts, and what mattered before.",
       "The Continuity Model is a stack of small formulas. Early ones score personality traits. Middle ones turn events into mood and relationship changes, then calm things back down. Later ones pick memories, choose goals, and build the reply.",
       "Only some of this is live in code today (mood numbers, blend and settle, comparison events, relationship updates). The rest is the full design, published so the evidence pages match the real model.",
-      "Below, every equation is shown first. Right under it is an 8th-grade explanation, with variable cards that use icons and plain names."
+      "Below, every equation is shown first. Right under it is a plain-language walkthrough, with variable cards that use icons and clear names."
     ]
   }
 }
