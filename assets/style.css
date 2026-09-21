@@ -1699,32 +1699,93 @@ footer a:hover { color: var(--accent-bright); }
  border-radius: 2px;
  pointer-events: none;
 }
+.donation-sticker {
+ position: absolute;
+ top: 14px;
+ right: -10px;
+ z-index: 3;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ min-width: 4.6rem;
+ padding: 0.55rem 1.1rem;
+ transform: rotate(-12deg);
+ transform-origin: center center;
+ background: linear-gradient(135deg, #c4a8f5 0%, #a888e0 50%, #7a5cb8 100%);
+ color: #150f24;
+ border: 2px solid #f3eaff;
+ border-radius: 3px;
+ box-shadow:
+ 0 8px 18px rgba(0, 0, 0, 0.45),
+ 0 0 0 1px rgba(21, 15, 36, 0.35),
+ inset 0 1px 0 rgba(255, 255, 255, 0.35);
+ font-family: 'Bricolage Grotesque', sans-serif;
+ font-weight: 900;
+ font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+ letter-spacing: 0.06em;
+ line-height: 1;
+ pointer-events: none;
+ user-select: none;
+}
+.donation-sticker::before {
+ content: "";
+ position: absolute;
+ inset: 3px;
+ border: 1px dashed rgba(21, 15, 36, 0.28);
+ border-radius: 2px;
+ pointer-events: none;
+}
 .project-card .free-sticker,
-.install-panel .free-sticker {
+.install-panel .free-sticker,
+.project-card .donation-sticker,
+.install-panel .donation-sticker {
  top: 18px;
  right: -8px;
- min-width: 6rem;
+ min-width: 5.4rem;
  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
- padding: 0.62rem 1.45rem;
+ padding: 0.62rem 1.35rem;
 }
-.quickpick.is-free {
+.quickpick.is-free,
+.quickpick.is-donation {
  padding-top: 22px;
  padding-right: 34px;
 }
 .project-card.is-free,
-.install-panel.is-free {
+.install-panel.is-free,
+.project-card.is-donation,
+.install-panel.is-donation {
  padding-top: 30px;
  padding-right: 36px;
 }
+.qp-cost {
+ margin: 0 !important;
+ font-family: 'Bricolage Grotesque', sans-serif;
+ font-weight: 800;
+ font-size: 0.92rem;
+ line-height: 1.35;
+ letter-spacing: 0.01em;
+}
+.qp-cost.free {
+ color: #43d98a;
+}
+.qp-cost.paid {
+ color: var(--premium-bright, #c4a8f5);
+}
+.project-card .qp-cost,
+.install-panel .qp-cost {
+ font-size: 1.02rem;
+}
 @media (max-width: 600px) {
- .free-sticker {
+ .free-sticker,
+ .donation-sticker {
   top: 10px;
   right: -6px;
-  min-width: 4.6rem;
+  min-width: 4.2rem;
   font-size: 0.95rem;
-  padding: 0.45rem 1rem;
-  transform: rotate(12deg);
+  padding: 0.45rem 0.9rem;
  }
+ .free-sticker { transform: rotate(12deg); }
+ .donation-sticker { transform: rotate(-10deg); }
 }
 
 button.btn {
