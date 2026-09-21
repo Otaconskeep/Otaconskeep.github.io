@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0.4 Linux path · Classroom</title>
+<meta name="description" content="Ubuntu/Debian Docker Engine setup.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/courses/00-fundamentals/linux.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921b">
+</head>
+<body>
+<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>0.4 LINUX<span class="blink"></span></span></div></div>
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/start.html">Start here</a>
+ <a href="/classroom/path.html">Choose path</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ <a href="/classroom/courses/00-fundamentals/">Course 0</a>
+ <a href="/classroom/courses/01-arr-stack/">Course 1</a>
+ <a href="/classroom/courses/04-ha-fundamentals/">HA 101</a>
+ <a href="/classroom/courses/06-local-voice/">Voice</a>
+ </div>
+</nav>
+<div class="wrap">
+<section class="hero flush"><div class="row"><span class="cr-badge baby">🟢 Baby step — no previous knowledge expected</span></div>
+<h1 class="display" style="font-size:clamp(1.7rem,4vw,2.4rem);margin-top:10px;">0.4 Linux path — Ubuntu / Debian + Docker</h1>
+<p class="lede">Install Docker Engine from Docker’s official docs for your distro. Add your user to the docker group, log out/in, then verify.</p></section>
+<div class="cr-osbar" role="group" aria-label="Show instructions for">
+ <span>Show steps for:</span>
+ <button type="button" class="win" data-os="windows">Windows (WSL2 + Docker)</button>
+ <button type="button" class="lin" data-os="linux">Linux (Ubuntu/Debian + Docker)</button>
+ <a href="/classroom/path.html" style="margin-left:auto;font-size:.85rem;">Change path</a>
+</div>
+<div class="cr-box"><h3>Action</h3>
+<pre class="cr-code">sudo apt update
+# follow https://docs.docker.com/engine/install/ for your distro
+sudo usermod -aG docker "$USER"
+# log out and back in
+mkdir -p ~/homelab && cd ~/homelab
+docker version
+docker compose version</pre>
+<div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+</div>
+<div class="cr-panel mean" hidden><strong>In plain words:</strong> Linux is the native home for Docker. Your user needs permission to talk to Docker without typing sudo every time.</div>
+<div class="cr-panel more" hidden><strong>More detail:</strong> After usermod, a full logout/login (or reboot) is required before group membership applies.</div>
+</div>
+<div class="cr-check" data-check-id="c0-lin">
+ <h3>Checkpoint — before you continue</h3>
+ <label><input type="checkbox" data-k="0"> docker version works without sudo</label><label><input type="checkbox" data-k="1"> docker compose version works</label><label><input type="checkbox" data-k="2"> ~/homelab exists</label>
+ <div class="cr-gate">Check every box above. When all are true, continue → <a href="docker-verify.html">0.5 Verify Docker</a></div>
+</div>
+<div class="cr-pager"><a href="windows.html">← Windows path</a><a href="docker-verify.html">0.5 →</a></div>
+</div>
+<footer class="sitefoot"><div class="wrap">
+<span>Otaconskeep Classroom · Homelab Academy</span>
+<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
+</div></footer>
+<script src="/classroom/classroom.js?v=20260921b"></script>
+</body></html>

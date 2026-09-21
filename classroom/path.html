@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Choose your path · Classroom</title>
+<meta name="description" content="Windows vs Linux fork for Homelab Academy.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/path.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921b">
+</head>
+<body>
+<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>PATH<span class="blink"></span></span></div></div>
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/start.html">Start here</a>
+ <a href="/classroom/path.html">Choose path</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ <a href="/classroom/courses/00-fundamentals/">Course 0</a>
+ <a href="/classroom/courses/01-arr-stack/">Course 1</a>
+ <a href="/classroom/courses/04-ha-fundamentals/">HA 101</a>
+ <a href="/classroom/courses/06-local-voice/">Voice</a>
+ </div>
+</nav>
+<div class="wrap">
+<section class="hero flush">
+ <span class="cr-badge baby">🟢 Baby step — no previous knowledge expected</span>
+ <h1 class="display" style="font-size:clamp(2rem,5vw,3rem);margin-top:12px;">Choose your path</h1>
+ <p class="lede">Windows and Linux only split where install, paths, and permissions differ. Sonarr itself is the same idea on both. After Docker is running, you rejoin the common course.</p>
+</section>
+<div class="cr-path-grid">
+ <a class="cr-path-card win" href="courses/00-fundamentals/windows.html" data-set-os="windows">
+  <h3>Windows 11</h3>
+  <p><strong>Recommended:</strong> WSL2 + Docker Desktop (or Engine in WSL). Native Windows containers are not the ARR path we teach.</p>
+ </a>
+ <a class="cr-path-card lin" href="courses/00-fundamentals/linux.html" data-set-os="linux">
+  <h3>Linux</h3>
+  <p><strong>Recommended:</strong> Ubuntu / Debian + Docker Engine. Best long-term server path.</p>
+ </a>
+ <a class="cr-path-card dim" href="#soon">
+  <h3>Proxmox / VM host</h3>
+  <p>Version 1 points you to a Linux VM guest, then the Linux path. Full Proxmox track lands in Course 7.</p>
+ </a>
+ <a class="cr-path-card dim" href="#soon">
+  <h3>NAS</h3>
+  <p>Use NAS for /data storage; run Docker on a small Linux/WSL box that mounts the share. Deep NAS UI tracks come later.</p>
+ </a>
+</div>
+<table class="tablewrap" style="width:100%;border-collapse:collapse;margin:18px 0;">
+<thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--line);">Concept</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--line);">Windows</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--line);">Linux</th></tr></thead>
+<tbody>
+<tr><td style="padding:8px;border-bottom:1px solid var(--line);">Terminal</td><td style="padding:8px;border-bottom:1px solid var(--line);">PowerShell / WSL</td><td style="padding:8px;border-bottom:1px solid var(--line);">Bash</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid var(--line);">Path example</td><td style="padding:8px;border-bottom:1px solid var(--line);"><span class="mono">/mnt/d/homelab</span> in WSL</td><td style="padding:8px;border-bottom:1px solid var(--line);"><span class="mono">/home/you/homelab</span></td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid var(--line);">Docker</td><td style="padding:8px;border-bottom:1px solid var(--line);">Docker Desktop / Engine in WSL</td><td style="padding:8px;border-bottom:1px solid var(--line);">Docker Engine</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid var(--line);">Permissions</td><td style="padding:8px;border-bottom:1px solid var(--line);">NTFS + WSL mappings</td><td style="padding:8px;border-bottom:1px solid var(--line);">UID/GID + chmod/chown</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid var(--line);">Firewall</td><td style="padding:8px;border-bottom:1px solid var(--line);">Windows Firewall</td><td style="padding:8px;border-bottom:1px solid var(--line);">UFW / nftables</td></tr>
+</tbody>
+</table>
+<div class="cr-check" data-check-id="choose-path">
+ <h3>Checkpoint — before you continue</h3>
+ <label><input type="checkbox" data-k="0"> I picked Windows (WSL2+Docker) or Linux (Ubuntu/Debian+Docker)</label><label><input type="checkbox" data-k="1"> I understand most ARR lessons are shared after Docker works</label>
+ <div class="cr-gate">Check every box above. When all are true, continue → <a href="courses/00-fundamentals/">Open Course 0</a></div>
+</div>
+<div class="cr-pager"><a href="start.html">← Start here</a><a href="courses/00-fundamentals/">Course 0 →</a></div>
+</div>
+<footer class="sitefoot"><div class="wrap">
+<span>Otaconskeep Classroom · Homelab Academy</span>
+<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
+</div></footer>
+<script src="/classroom/classroom.js?v=20260921b"></script>
+</body></html>

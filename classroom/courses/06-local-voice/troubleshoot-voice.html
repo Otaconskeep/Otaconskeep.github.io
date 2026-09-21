@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice tree · Classroom</title>
+<meta name="description" content="Voice troubleshooting decision tree.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/courses/06-local-voice/troubleshoot-voice.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921b">
+</head>
+<body>
+<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>VOICE TREE<span class="blink"></span></span></div></div>
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/start.html">Start here</a>
+ <a href="/classroom/path.html">Choose path</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ <a href="/classroom/courses/00-fundamentals/">Course 0</a>
+ <a href="/classroom/courses/01-arr-stack/">Course 1</a>
+ <a href="/classroom/courses/04-ha-fundamentals/">HA 101</a>
+ <a href="/classroom/courses/06-local-voice/">Voice</a>
+ </div>
+</nav>
+<div class="wrap">
+<section class="hero flush"><span class="cr-badge mid">🟡 Intermediate — Docker/networking basics</span><h1 class="display" style="font-size:clamp(1.7rem,4vw,2.4rem);margin-top:10px;">Tree — Voice doesn't work</h1></section>
+<div class="cr-tree">
+ <div class="node q">VOICE DOESN'T WORK — Wake word detected?</div>
+ <div class="branch">
+  <div class="node bad"><strong>NO</strong><br>Mic / wake-word service / satellite audio path</div>
+  <div class="node ok"><strong>YES</strong><br>STT returns text?</div>
+ </div>
+ <div class="branch">
+  <div class="node bad"><strong>NO</strong><br>Whisper/Wyoming audio quality</div>
+  <div class="node ok"><strong>YES</strong><br>HA intent correct? → then TTS/Piper/speaker</div>
+ </div>
+</div>
+<p class="intro">Validate one layer at a time. Never debug custom wake word + mic + Whisper + intent + Piper together on day one.</p>
+<div class="cr-pager"><a href="./">← Course 6</a><a href="/classroom/glossary.html">Glossary →</a></div>
+</div>
+<footer class="sitefoot"><div class="wrap">
+<span>Otaconskeep Classroom · Homelab Academy</span>
+<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
+</div></footer>
+<script src="/classroom/classroom.js?v=20260921b"></script>
+</body></html>

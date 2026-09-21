@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary · Classroom</title>
+<meta name="description" content="ARR, Docker, networking, Home Assistant, and voice acronyms in plain words.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/glossary.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921b">
+</head>
+<body>
+<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>GLOSSARY<span class="blink"></span></span></div></div>
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/start.html">Start here</a>
+ <a href="/classroom/path.html">Choose path</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ <a href="/classroom/courses/00-fundamentals/">Course 0</a>
+ <a href="/classroom/courses/01-arr-stack/">Course 1</a>
+ <a href="/classroom/courses/04-ha-fundamentals/">HA 101</a>
+ <a href="/classroom/courses/06-local-voice/">Voice</a>
+ </div>
+</nav>
+<div class="wrap">
+<section class="hero flush">
+ <h1 class="display" style="font-size:clamp(2rem,5vw,3rem);">What the hell does that mean?</h1>
+ <p class="lede">Permanent glossary. Lessons link here. Plain words first — then the technical name.</p>
+</section>
+<div class="cr-glossary"><details id="arr"><summary>ARR — Radarr / Sonarr ecosystem</summary>
+<p class="baby">Apps that automate your media library.</p>
+<p class="tech">Radarr / Sonarr ecosystem</p>
+</details><details id="api"><summary>API — Application Programming Interface</summary>
+<p class="baby">How programs talk to each other.</p>
+<p class="tech">Application Programming Interface</p>
+</details><details id="ip"><summary>IP — Internet Protocol address</summary>
+<p class="baby">A device&#x27;s network address.</p>
+<p class="tech">Internet Protocol address</p>
+</details><details id="lan"><summary>LAN — Local Area Network</summary>
+<p class="baby">Your home network.</p>
+<p class="tech">Local Area Network</p>
+</details><details id="wan"><summary>WAN — Wide Area Network</summary>
+<p class="baby">The internet side of your router.</p>
+<p class="tech">Wide Area Network</p>
+</details><details id="dns"><summary>DNS — Domain Name System</summary>
+<p class="baby">Turns names into IP addresses.</p>
+<p class="tech">Domain Name System</p>
+</details><details id="dhcp"><summary>DHCP — Dynamic Host Configuration Protocol</summary>
+<p class="baby">Automatically gives devices IP addresses.</p>
+<p class="tech">Dynamic Host Configuration Protocol</p>
+</details><details id="vlan"><summary>VLAN — Virtual LAN</summary>
+<p class="baby">Separates devices into isolated networks.</p>
+<p class="tech">Virtual LAN</p>
+</details><details id="vpn"><summary>VPN — Virtual Private Network</summary>
+<p class="baby">Encrypted / private network connection.</p>
+<p class="tech">Virtual Private Network</p>
+</details><details id="uid"><summary>UID — User ID</summary>
+<p class="baby">Linux number representing a user.</p>
+<p class="tech">User ID</p>
+</details><details id="gid"><summary>GID — Group ID</summary>
+<p class="baby">Linux number representing a user group.</p>
+<p class="tech">Group ID</p>
+</details><details id="smb"><summary>SMB — Server Message Block</summary>
+<p class="baby">Windows-style network file sharing.</p>
+<p class="tech">Server Message Block</p>
+</details><details id="nfs"><summary>NFS — Network File System</summary>
+<p class="baby">Linux-oriented network file sharing.</p>
+<p class="tech">Network File System</p>
+</details><details id="yaml"><summary>YAML — YAML Ain&#x27;t Markup Language</summary>
+<p class="baby">Human-readable configuration format.</p>
+<p class="tech">YAML Ain&#x27;t Markup Language</p>
+</details><details id="docker"><summary>Docker — Container platform</summary>
+<p class="baby">Runs apps in isolated packages.</p>
+<p class="tech">Container platform</p>
+</details><details id="container"><summary>Container — Running Docker application</summary>
+<p class="baby">A lightweight packaged application.</p>
+<p class="tech">Running Docker application</p>
+</details><details id="image"><summary>Image — Container template</summary>
+<p class="baby">Blueprint used to create a container.</p>
+<p class="tech">Container template</p>
+</details><details id="volume"><summary>Volume — Persistent storage</summary>
+<p class="baby">Data that survives container restarts.</p>
+<p class="tech">Persistent storage</p>
+</details><details id="bind-mount"><summary>Bind mount — Host folder mounted into container</summary>
+<p class="baby">Lets Docker see one of your folders.</p>
+<p class="tech">Host folder mounted into container</p>
+</details><details id="port"><summary>Port — Network communication endpoint</summary>
+<p class="baby">The door an application listens on.</p>
+<p class="tech">Network communication endpoint</p>
+</details><details id="reverse-proxy"><summary>Reverse proxy — Gateway to internal websites</summary>
+<p class="baby">Gives internal services friendly / secure URLs.</p>
+<p class="tech">Gateway to internal websites</p>
+</details><details id="hardlink"><summary>Hardlink — Second directory entry for one file</summary>
+<p class="baby">Two names, one copy on disk — great for torrents.</p>
+<p class="tech">Second directory entry for one file</p>
+</details><details id="atomic-move"><summary>Atomic move — Same-filesystem rename/move</summary>
+<p class="baby">Usenet finish step without a slow full copy.</p>
+<p class="tech">Same-filesystem rename/move</p>
+</details><details id="indexer"><summary>Indexer — Torrent / Usenet search source</summary>
+<p class="baby">Where ARR apps look for releases.</p>
+<p class="tech">Torrent / Usenet search source</p>
+</details><details id="custom-format"><summary>Custom Format — ARR scoring rule</summary>
+<p class="baby">Grades releases so the best one wins.</p>
+<p class="tech">ARR scoring rule</p>
+</details><details id="trash"><summary>TRaSH — TRaSH Guides</summary>
+<p class="baby">Maintained playbook for ARR folder layouts and profiles.</p>
+<p class="tech">TRaSH Guides</p>
+</details><details id="recyclarr"><summary>Recyclarr — TRaSH sync tool</summary>
+<p class="baby">Pushes guide profiles into Sonarr/Radarr automatically.</p>
+<p class="tech">TRaSH sync tool</p>
+</details><details id="prowlarr"><summary>Prowlarr — Indexer manager</summary>
+<p class="baby">One place to manage search sources for ARR apps.</p>
+<p class="tech">Indexer manager</p>
+</details><details id="sonarr"><summary>Sonarr — TV automation</summary>
+<p class="baby">Finds, downloads, renames, and files TV shows.</p>
+<p class="tech">TV automation</p>
+</details><details id="radarr"><summary>Radarr — Movie automation</summary>
+<p class="baby">Finds, downloads, renames, and files movies.</p>
+<p class="tech">Movie automation</p>
+</details><details id="lidarr"><summary>Lidarr — Music automation</summary>
+<p class="baby">ARR-style automation for music.</p>
+<p class="tech">Music automation</p>
+</details><details id="bazarr"><summary>Bazarr — Subtitle automation</summary>
+<p class="baby">Grabs subtitles for your library.</p>
+<p class="tech">Subtitle automation</p>
+</details><details id="qbittorrent"><summary>qBittorrent — Torrent client</summary>
+<p class="baby">Downloads torrent files.</p>
+<p class="tech">Torrent client</p>
+</details><details id="sabnzbd"><summary>SABnzbd — Usenet client</summary>
+<p class="baby">Downloads and unpacks Usenet posts.</p>
+<p class="tech">Usenet client</p>
+</details><details id="gluetun"><summary>Gluetun — VPN container</summary>
+<p class="baby">Puts only the torrent client behind a VPN.</p>
+<p class="tech">VPN container</p>
+</details><details id="seerr"><summary>Seerr — Request UI family</summary>
+<p class="baby">Friends request movies/shows; ARR does the work.</p>
+<p class="tech">Request UI family</p>
+</details><details id="tautulli"><summary>Tautulli — Plex monitor</summary>
+<p class="baby">Shows who watched what on Plex.</p>
+<p class="tech">Plex monitor</p>
+</details><details id="stt"><summary>STT — Speech to Text</summary>
+<p class="baby">Voice → words.</p>
+<p class="tech">Speech to Text</p>
+</details><details id="tts"><summary>TTS — Text to Speech</summary>
+<p class="baby">Words → voice.</p>
+<p class="tech">Text to Speech</p>
+</details><details id="llm"><summary>LLM — Large Language Model</summary>
+<p class="baby">AI language model.</p>
+<p class="tech">Large Language Model</p>
+</details><details id="wyoming"><summary>Wyoming — Voice service protocol</summary>
+<p class="baby">Lets Home Assistant connect speech / wake-word services.</p>
+<p class="tech">Voice service protocol</p>
+</details><details id="piper"><summary>Piper — Text-to-speech engine</summary>
+<p class="baby">Gives Home Assistant a local voice.</p>
+<p class="tech">Text-to-speech engine</p>
+</details><details id="whisper"><summary>Whisper — Speech recognition model</summary>
+<p class="baby">Converts spoken audio to text.</p>
+<p class="tech">Speech recognition model</p>
+</details><details id="esphome"><summary>ESPHome — Device firmware / platform</summary>
+<p class="baby">Connects DIY devices directly to Home Assistant.</p>
+<p class="tech">Device firmware / platform</p>
+</details><details id="ha"><summary>HA — Home Assistant</summary>
+<p class="baby">Home automation platform.</p>
+<p class="tech">Home Assistant</p>
+</details><details id="mqtt"><summary>MQTT — Message Queuing Telemetry Transport</summary>
+<p class="baby">Lightweight messaging between smart devices.</p>
+<p class="tech">Message Queuing Telemetry Transport</p>
+</details><details id="zigbee"><summary>Zigbee — Low-power mesh radio</summary>
+<p class="baby">Sensors and plugs that hop messages through each other.</p>
+<p class="tech">Low-power mesh radio</p>
+</details><details id="thread"><summary>Thread — Low-power IPv6 mesh</summary>
+<p class="baby">Mesh used by many Matter devices (including some locks).</p>
+<p class="tech">Low-power IPv6 mesh</p>
+</details><details id="matter"><summary>Matter — Smart-home language</summary>
+<p class="baby">Shared way devices talk across brands.</p>
+<p class="tech">Smart-home language</p>
+</details><details id="border-router"><summary>Border router — Thread ↔ LAN bridge</summary>
+<p class="baby">Device that lets Thread gadgets join your home network.</p>
+<p class="tech">Thread ↔ LAN bridge</p>
+</details><details id="assist"><summary>Assist — HA voice pipeline</summary>
+<p class="baby">Home Assistant&#x27;s built-in voice control system.</p>
+<p class="tech">HA voice pipeline</p>
+</details></div>
+<div class="cr-pager"><a href="/classroom/">← Academy</a><a href="start.html">Start here →</a></div>
+</div>
+<footer class="sitefoot"><div class="wrap">
+<span>Otaconskeep Classroom · Homelab Academy</span>
+<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
+</div></footer>
+<script src="/classroom/classroom.js?v=20260921b"></script>
+</body></html>
