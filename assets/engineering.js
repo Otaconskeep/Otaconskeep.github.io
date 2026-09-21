@@ -435,22 +435,35 @@
 
   function renderMathVarCards(sec, s) {
     var cards = [];
-    if (sec.variables && sec.variables.length) {
-      cards = sec.variables.map(function (v) { return parseVarCard(v); });
+    if (sec.variables_plain && sec.variables_plain.length) {
+      cards = sec.variables_plain.map(function (v) {
+        return { plain: v.plain || '', tip: v.tip || '', kind: v.kind || mathVarKind(v.plain, v.tip) };
+      });
+    } else if (sec.variables && sec.variables.length) {
+      cards = sec.variables.map(function (v) {
+        return {
+          plain: v.def || v.sym || '',
+          tip: v.sym ? ('Symbol: ' + v.sym) : '',
+          kind: mathVarKind(v.sym, v.def)
+        };
+      });
     } else if (s.variables_explained && s.variables_explained.length) {
-      cards = s.variables_explained.map(function (line) { return parseVarCard(null, line); });
+      cards = s.variables_explained.map(function (line) {
+        var c = parseVarCard(null, line);
+        return { plain: c.def || c.sym, tip: c.sym, kind: c.kind };
+      });
     }
     if (!cards.length) return '';
     var html = '<div class="eng-math-block" data-tone="vars">';
-    html += '<h5 class="eng-math-h">Variables</h5>';
+    html += '<h5 class="eng-math-h">Variables (picture cards)</h5>';
     html += '<div class="eng-math-vargrid">';
     cards.forEach(function (c, i) {
       var tone = ['cyan', 'amber', 'violet', 'green', 'rose'][i % 5];
-      html += '<div class="eng-math-varcard" data-tone="' + tone + '">';
-      html += '<div class="eng-math-varicon" data-kind="' + escapeHtml(c.kind) + '">' + mathVarIcon(c.kind) + '</div>';
+      html += '<div class="eng-math-varcard eng-math-varcard-graphic" data-tone="' + tone + '">';
+      html += '<div class="eng-math-varicon eng-math-varicon-lg" data-kind="' + escapeHtml(c.kind) + '">' + mathVarIcon(c.kind) + '</div>';
       html += '<div class="eng-math-varbody">';
-      if (c.sym) html += '<div class="eng-math-varsym">' + escapeHtml(c.sym) + '</div>';
-      html += '<div class="eng-math-defvar">' + escapeHtml(c.def) + '</div>';
+      html += '<div class="eng-math-varplain">' + escapeHtml(c.plain) + '</div>';
+      if (c.tip) html += '<div class="eng-math-defvar">' + escapeHtml(c.tip) + '</div>';
       html += '</div></div>';
     });
     html += '</div></div>';
@@ -479,9 +492,9 @@
     });
 
     html += '<div class="eng-math-easy">';
-    html += '<div class="eng-math-easy-banner">Plain-language explanation</div>';
+    html += '<div class="eng-math-easy-banner">Simple explanation (8th-grade reading)</div>';
 
-    var lead = s.plain_equation || (sec.meaning ? ('In words: ' + sec.meaning) : '');
+    var lead = s.plain_equation || (sec.meaning ? sec.meaning : '');
     if (lead) {
       html += '<p class="eng-math-easy-lead"><strong>' + escapeHtml(lead) + '</strong></p>';
     }

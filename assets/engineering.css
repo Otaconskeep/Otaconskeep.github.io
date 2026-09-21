@@ -891,8 +891,48 @@
 
 .eng-math-vargrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.eng-math-varcard-graphic {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  grid-template-columns: none !important;
   gap: 10px;
+  padding: 16px 12px 14px;
+  min-height: 148px;
+}
+
+.eng-math-varicon-lg {
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 16px !important;
+}
+
+.eng-math-varicon-lg svg {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.eng-math-varplain {
+  font: 800 0.98rem Bricolage Grotesque, sans-serif;
+  color: var(--cream);
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+.eng-math-varcard-graphic .eng-math-defvar {
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: var(--cream-dim);
+  font-weight: 500;
+}
+
+.eng-math-varcard-graphic .eng-math-varbody {
+  width: 100%;
 }
 
 .eng-math-varcard {

@@ -1,1588 +1,2239 @@
 {
- "schema_version": "1.2.0",
- "title": "OtaconsKeep Continuity Model",
- "created_by": "Antonio Gavino Garcia",
- "product": "OtaconsKeep",
- "honesty": "The Continuity Model (CM-01...CM-25) is the design theory for behavioral continuity. Runtime modules implement a subset today (emotional continuity + Formula 5). Worked traces labeled MOCK are synthetic. This page does not claim human consciousness, it claims measurable, bounded state dynamics.",
- "manual_note": "The OtaconsKeep continuity model is derived from a practical blend of trait psychology, appraisal-based emotion logic, memory relevance scoring, relationship reinforcement, and state regulation principles. It does not claim to reproduce human consciousness. Instead, it uses mathematically simple but psychologically grounded mechanisms to simulate continuity, emotional carryover, social weighting, and context-sensitive behavior over time. The original equations define the behavioral engine. Stability-layer equations (caps, identity anchor, output evaluation) bound per-cycle change, preserve identity, limit memory dominance, and evaluate output quality.",
- "diluted_version": [
- "It has a personality",
- "Things happen to it",
- "It remembers what matters",
- "It feels different depending on what happened",
- "Different people matter different amounts",
- "Then it decides what to say or do"
- ],
- "rationale": {
- "title": "Why this emulates continuity (not consciousness)",
- "body": [
- "Human-like persistence is approximated by carrying a state vector, relationship graph, and memory scores across turns, the opposite of stateless autocomplete.",
- "Multiplication models interaction (pain × trauma relevance); summation models accumulation (many events in one cycle).",
- "Decay and baselines model regulation / homeostasis so affect does not spiral forever.",
- "Bounded noise prevents robotic sameness without becoming chaos.",
- "Identity anchor (β_i ≥ β_min) keeps character from dissolving under adaptation.",
- "Markov stage labels and OR goal programs add probabilistic and decision-theoretic structure on top of the continuous engine, useful for analysis, planning, and V&V, without replacing the continuous math."
- ],
- "core_logic_justification": {
- "multiplication": "Used when one factor should amplify or dampen another (event hurt × trauma; praise × trust; trait × trigger).",
- "summation": "Used when multiple inputs all contribute (many events on mood; many social signals; competing memories).",
- "decay": "Pulls values toward baseline so the system recovers and stays long-run stable.",
- "bounded_noise": "Small η prevents identical replies while remaining coherent."
- }
- },
- "toc": [
- {
- "id": "CM-01",
- "number": 1,
- "title": "Trait Weight Model"
- },
- {
- "id": "CM-02",
- "number": 2,
- "title": "Active Trait Influence Model"
- },
- {
- "id": "CM-03",
- "number": 3,
- "title": "Event Impact on State"
- },
- {
- "id": "CM-04",
- "number": 4,
- "title": "State Update Model"
- },
- {
- "id": "CM-05",
- "number": 5,
- "title": "Relationship Update Model"
- },
- {
- "id": "CM-06",
- "number": 6,
- "title": "Social Influence Model"
- },
- {
- "id": "CM-07",
- "number": 7,
- "title": "Emotional Residue Model"
- },
- {
- "id": "CM-08",
- "number": 8,
- "title": "Emotion Selection Model"
- },
- {
- "id": "CM-09",
- "number": 9,
- "title": "Memory Retrieval Score"
- },
- {
- "id": "CM-10",
- "number": 10,
- "title": "Agent-Device Relevance Model"
- },
- {
- "id": "CM-11",
- "number": 11,
- "title": "Full System Output Function"
- },
- {
- "id": "CM-12",
- "number": 12,
- "title": "Input Normalization Model"
- },
- {
- "id": "CM-13",
- "number": 13,
- "title": "Event Delta Cap Model"
- },
- {
- "id": "CM-14",
- "number": 14,
- "title": "Trait Contribution Cap Model"
- },
- {
- "id": "CM-15",
- "number": 15,
- "title": "Identity Anchor Model"
- },
- {
- "id": "CM-16",
- "number": 16,
- "title": "Output Evaluation Model"
- },
- {
- "id": "CM-17",
- "number": 17,
- "title": "Social Cycle Cap Model"
- },
- {
- "id": "CM-18",
- "number": 18,
- "title": "Goal Selection Model"
- },
- {
- "id": "CM-19",
- "number": 19,
- "title": "Goal Utility Function"
- },
- {
- "id": "CM-20",
- "number": 20,
- "title": "Conflict Resolution Model"
- },
- {
- "id": "CM-21",
- "number": 21,
- "title": "Learning / Adaptation Model"
- },
- {
- "id": "CM-22",
- "number": 22,
- "title": "Memory Tier Weighting Model"
- },
- {
- "id": "CM-23",
- "number": 23,
- "title": "Uncertainty Propagation Model"
- },
- {
- "id": "CM-24",
- "number": 24,
- "title": "Markov Affect Transition Model"
- },
- {
- "id": "CM-25",
- "number": 25,
- "title": "Operations-Research Goal Program (OR)"
- }
- ],
- "chapters": [
- {
- "id": "CM-01",
- "number": 1,
- "title": "Trait Weight Model",
- "katex": [
- "W_t = B_D \\cdot S_t \\cdot C_t \\cdot P_t \\cdot K_t \\cdot (1+\\varepsilon_t)"
- ],
- "meaning": "Converts a written dossier trait into a usable numeric weight.",
- "variables": [
- {
- "sym": "W_t",
- "def": "final trait weight"
- },
- {
- "sym": "B_D",
- "def": "base domain weight"
- },
- {
- "sym": "S_t",
- "def": "subtype weight"
- },
- {
- "sym": "C_t",
- "def": "confidence factor"
- },
- {
- "sym": "P_t",
- "def": "personality modifier"
- },
- {
- "sym": "K_t",
- "def": "context / stack modifier"
- },
- {
- "sym": "\\varepsilon_t",
- "def": "bounded variance"
- }
- ],
- "why_this_logic": "Multiplicative model: traits do not stack flatly, they amplify or weaken each other by category, certainty, personality, and context. Example: PTSD weighs more than coffee dependence; inferred traits weigh less than canonical; same trait matters differently across personalities.",
- "why_these_variables": "B_D = category seriousness; S_t = not all trauma/habits equal; C_t = known vs guessed; P_t = personality changes expression; K_t = context; ε_t = avoid robotic sameness.",
- "psychology_theory_basis": [
- "trait psychology",
- "person × situation interaction",
- "severity weighting",
- "uncertainty weighting",
- "controlled stochastic variation"
- ],
- "simple_explanation": "How strong is this trait for this agent?",
- "simplified": {
- "headline": "How strong is this trait for this agent?",
- "plain_equation": "In words: Converts a written dossier trait into a usable numeric weight.",
- "variables_explained": [
- "W_t is final trait weight.",
- "B_D is base domain weight.",
- "S_t is subtype weight.",
- "C_t is confidence factor.",
- "P_t is personality modifier.",
- "K_t is context / stack modifier.",
- "\\varepsilon_t is bounded variance."
- ],
- "how_it_touches_agents": "When an agent is loaded, dossier traits are scored into weights. A high weight means that trait can pull harder on later behavior if it becomes active.",
- "how_it_works": "Multiplicative model: traits do not stack flatly, they amplify or weaken each other by category, certainty, personality, and context. Example: PTSD weighs more than coffee dependence; inferred traits weigh less than canonical; same trait matters differently across personalities.",
- "why_it_works": "Multiplication was chosen because seriousness, confidence, personality, and context should scale each other rather than add as equals.",
- "how_put_together": "This is the entry gate from written character sheets into numbers the rest of the stack can use.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-02",
- "number": 2,
- "title": "Active Trait Influence Model",
- "katex": [
- "A_t(t) = W_t \\cdot G_t(t) \\cdot R_t(t) \\cdot M_t(t)"
- ],
- "meaning": "Decides whether a trait matters right now.",
- "variables": [
- {
- "sym": "A_t(t)",
- "def": "active influence at time t"
- },
- {
- "sym": "W_t",
- "def": "stored trait weight"
- },
- {
- "sym": "G_t(t)",
- "def": "trigger match"
- },
- {
- "sym": "R_t(t)",
- "def": "relationship relevance"
- },
- {
- "sym": "M_t(t)",
- "def": "memory / recency relevance"
- }
- ],
- "why_this_logic": "A strong trait should not always dominate. It becomes active when something triggers it, the right person is involved, and memory makes it relevant.",
- "why_these_variables": "G = triggers activate latent traits; R = traits hit differently by who is involved; M = recent/emotional memories amplify relevance.",
- "psychology_theory_basis": [
- "trigger-response patterns",
- "schema activation",
- "social context dependence",
- "recency effects"
- ],
- "simple_explanation": "Does this trait matter in this moment?",
- "simplified": {
- "headline": "Does this trait matter in this moment?",
- "plain_equation": "In words: Decides whether a trait matters right now.",
- "variables_explained": [
- "A_t(t) is active influence at time t.",
- "W_t is stored trait weight.",
- "G_t(t) is trigger match.",
- "R_t(t) is relationship relevance.",
- "M_t(t) is memory / recency relevance."
- ],
- "how_it_touches_agents": "On each turn, stored weights are multiplied by trigger match, relationship relevance, and memory recency. Only then does a trait push the agent.",
- "how_it_works": "A strong trait should not always dominate. It becomes active when something triggers it, the right person is involved, and memory makes it relevant.",
- "why_it_works": "A strong PTSD trait stays quiet until a trigger, the right person, and a relevant memory line up. That matches how latent traits behave in people.",
- "how_put_together": "Active influence feeds conflict resolution and output assembly later in the stack.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-03",
- "number": 3,
- "title": "Event Impact on State",
- "katex": [
- "\\Delta X(t)=\\sum_{e\\in\\mathcal{E}_t} E_{e,x}\\cdot Q_{e,x}\\cdot L_{e,x}\\cdot H_{e,x}"
- ],
- "meaning": "Calculates how events change an internal state variable (mood, stress, confidence, ...).",
- "variables": [
- {
- "sym": "\\Delta X(t)",
- "def": "total change in state X at time t"
- },
- {
- "sym": "\\mathcal{E}_t",
- "def": "set of events active at time t"
- },
- {
- "sym": "E_{e,x}",
- "def": "base effect of event e on state X"
- },
- {
- "sym": "Q_{e,x}",
- "def": "personality / psyche modifier"
- },
- {
- "sym": "L_{e,x}",
- "def": "relationship modifier"
- },
- {
- "sym": "H_{e,x}",
- "def": "trauma / memory modifier"
- }
- ],
- "why_this_logic": "Summation over events (many things can affect someone at once). Multiplication inside each event (raw effect filtered by personality, relationships, history).",
- "why_these_variables": "E = event strength; Q = personalities react differently; L = who caused it matters; H = past pain amplifies impact.",
- "psychology_theory_basis": [
- "appraisal theory",
- "stress-event models",
- "trauma amplification",
- "socially weighted reactions"
- ],
- "simple_explanation": "How much did what just happened affect me?",
- "simplified": {
- "headline": "How much did what just happened affect me?",
- "plain_equation": "In words: Calculates how events change an internal state variable (mood, stress, confidence, ...).",
- "variables_explained": [
- "\\Delta X(t) is total change in state X at time t.",
- "\\mathcal{E}_t is set of events active at time t.",
- "E_{e,x} is base effect of event e on state X.",
- "Q_{e,x} is personality / psyche modifier.",
- "L_{e,x} is relationship modifier.",
- "H_{e,x} is trauma / memory modifier."
- ],
- "how_it_touches_agents": "Incoming events (praise, rejection, comparison, tool failure) become a change to mood or stress. Personality, who caused it, and past pain scale the hit.",
- "how_it_works": "Summation over events (many things can affect someone at once). Multiplication inside each event (raw effect filtered by personality, relationships, history).",
- "why_it_works": "Summing events lets several things land in one cycle. Multiplying inside each event keeps the raw hit honest to who and what.",
- "how_put_together": "These deltas are the fuel for the state update equation that follows.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-04",
- "number": 4,
- "title": "State Update Model",
- "katex": [
- "X_{t+1}=\\mathrm{clamp}\\!\\left(X_t+\\Delta X^{\\mathrm{bounded}}+\\eta_x-\\lambda_x(X_t-X^\\star)\\right)",
- "\\Delta X^{\\mathrm{bounded}}=\\mathrm{clip}\\!\\left(\\sum_{e\\in\\mathcal{E}_t}\\Delta X_e,\\,-\\delta_x,\\,+\\delta_x\\right)"
- ],
- "meaning": "Updates an internal state over time with event drive, noise, decay-to-baseline, and bounds.",
- "variables": [
- {
- "sym": "X_{t+1}",
- "def": "next state value"
- },
- {
- "sym": "X_t",
- "def": "current state"
- },
- {
- "sym": "\\eta_x",
- "def": "bounded chaos / micro-noise"
- },
- {
- "sym": "\\lambda_x",
- "def": "decay rate"
- },
- {
- "sym": "X^\\star",
- "def": "baseline state"
- },
- {
- "sym": "\\delta_x",
- "def": "per-cycle event delta cap"
- }
- ],
- "why_this_logic": "Dynamic system: events move state; noise prevents robotic sameness; decay pulls toward baseline; clamp prevents runaway.",
- "why_these_variables": "η = humans are not perfectly deterministic; λ = emotions settle; X* = natural baseline.",
- "psychology_theory_basis": [
- "emotional regulation",
- "homeostasis",
- "affective inertia",
- "control systems"
- ],
- "simple_explanation": "How do I feel now after everything that happened?",
- "simplified": {
- "headline": "How do I feel now after everything that happened?",
- "plain_equation": "In words: Updates an internal state over time with event drive, noise, decay-to-baseline, and bounds.",
- "variables_explained": [
- "X_{t+1} is next state value.",
- "X_t is current state.",
- "\\eta_x is bounded chaos / micro-noise.",
- "\\lambda_x is decay rate.",
- "X^\\star is baseline state.",
- "\\delta_x is per-cycle event delta cap."
- ],
- "how_it_touches_agents": "After events, the agent’s internal numbers move: add the capped event change, add a little noise, then decay toward the agent’s baseline, then clamp.",
- "how_it_works": "Dynamic system: events move state; noise prevents robotic sameness; decay pulls toward baseline; clamp prevents runaway.",
- "why_it_works": "Without decay and clamps, jealousy or trust would walk off to infinity. Noise stops identical robotic replies.",
- "how_put_together": "This is the heartbeat of continuous affect between Codec turns.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-05",
- "number": 5,
- "title": "Relationship Update Model",
- "katex": [
- "Y_{j,t+1}=\\mathrm{clamp}\\!\\left(Y_{j,t}+\\Delta Y^{\\mathrm{bounded}}-\\mu_y(Y_{j,t}-Y_j^\\star)\\right)",
- "\\Delta Y^{\\mathrm{bounded}}=\\mathrm{clip}\\!\\left(\\sum_{e\\in\\mathcal{E}_t}\\Delta Y_{e,j},\\,-\\delta_y,\\,+\\delta_y\\right)"
- ],
- "meaning": "Updates a relationship dimension toward target j (trust, admiration, resentment, ...).",
- "variables": [
- {
- "sym": "Y_{j,t}",
- "def": "relationship value toward j"
- },
- {
- "sym": "\\mu_y",
- "def": "relationship decay / inertia"
- },
- {
- "sym": "Y_j^\\star",
- "def": "baseline tendency toward that target"
- }
- ],
- "why_this_logic": "Relationships change gradually through repeated events with inertia, avoid unrealistic instant swings.",
- "why_these_variables": "ΔY = events strengthen/weaken bonds; μ = sticky relationships; Y* = natural trust bias.",
- "psychology_theory_basis": [
- "attachment theory",
- "trust accumulation",
- "reinforcement over repeated interaction"
- ],
- "simple_explanation": "Do I trust or resent this person more now?",
- "simplified": {
- "headline": "Do I trust or resent this person more now?",
- "plain_equation": "In words: Updates a relationship dimension toward target j (trust, admiration, resentment, ...).",
- "variables_explained": [
- "Y_{j,t} is relationship value toward j.",
- "\\mu_y is relationship decay / inertia.",
- "Y_j^\\star is baseline tendency toward that target."
- ],
- "how_it_touches_agents": "Directed scores toward another agent or the user (trust, resentment, admiration) update the same way: events move them, inertia slows resets, baselines matter.",
- "how_it_works": "Relationships change gradually through repeated events with inertia, avoid unrealistic instant swings.",
- "why_it_works": "Directed edges matter because A can trust B while B remains wary of A. That matches the About page relationship claim.",
- "how_put_together": "Relationship scores later change how hard social signals and events land.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-06",
- "number": 6,
- "title": "Social Influence Model",
- "katex": [
- "I_s=\\sum_{s\\in\\mathcal{S}} V_s\\cdot U_s\\cdot L_s\\cdot Z_s"
- ],
- "meaning": "Measures how social posts, comments, messages, or public signals affect an agent.",
- "variables": [
- {
- "sym": "I_s",
- "def": "total social impact"
- },
- {
- "sym": "V_s",
- "def": "valence (tone)"
- },
- {
- "sym": "U_s",
- "def": "visibility weight"
- },
- {
- "sym": "L_s",
- "def": "relationship weight"
- },
- {
- "sym": "Z_s",
- "def": "personality / social absorption"
- }
- ],
- "why_this_logic": "Not all social signals matter equally, tone, public/private, source, and sensitivity interact.",
- "why_these_variables": "V = tone; U = public hits harder; L = some people matter more; Z = absorption differs by agent.",
- "psychology_theory_basis": [
- "social impact theory",
- "attention weighting",
- "status sensitivity",
- "social reinforcement"
- ],
- "simple_explanation": "How much did that post or message affect me?",
- "simplified": {
- "headline": "How much did that post or message affect me?",
- "plain_equation": "In words: Measures how social posts, comments, messages, or public signals affect an agent.",
- "variables_explained": [
- "I_s is total social impact.",
- "V_s is valence (tone).",
- "U_s is visibility weight.",
- "L_s is relationship weight.",
- "Z_s is personality / social absorption."
- ],
- "how_it_touches_agents": "Posts, Discord messages, or public praise are scored by tone, visibility, who said it, and how absorbent the agent is.",
- "how_it_works": "Not all social signals matter equally, tone, public/private, source, and sensitivity interact.",
- "why_it_works": "Public insults from someone close should hit harder than private noise from a stranger. The product of those factors encodes that.",
- "how_put_together": "Optional unless social adapters are configured; Lite can ignore this path.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-07",
- "number": 7,
- "title": "Emotional Residue Model",
- "katex": [
- "R_{t+1}=\\rho R_t+\\sum_{e\\in\\mathcal{E}_t}\\omega_e"
- ],
- "meaning": "Models leftover emotional carryover from earlier events.",
- "variables": [
- {
- "sym": "R_t",
- "def": "residue"
- },
- {
- "sym": "\\rho",
- "def": "persistence factor"
- },
- {
- "sym": "\\omega_e",
- "def": "residue contribution from event e"
- }
- ],
- "why_this_logic": "People do not reset after each event, some feeling remains and carries forward.",
- "why_these_variables": "ρ = traces persist; ω = events leave different residue amounts.",
- "psychology_theory_basis": [
- "emotional carryover",
- "affective persistence",
- "emotional inertia"
- ],
- "simple_explanation": "Am I still carrying the feeling from earlier?",
- "simplified": {
- "headline": "Am I still carrying the feeling from earlier?",
- "plain_equation": "In words: Models leftover emotional carryover from earlier events.",
- "variables_explained": [
- "R_t is residue.",
- "\\rho is persistence factor.",
- "\\omega_e is residue contribution from event e."
- ],
- "how_it_touches_agents": "Residue is leftover feeling that does not vanish when the turn ends. It fades with a persistence factor and grows when new events leave a mark.",
- "how_it_works": "People do not reset after each event, some feeling remains and carries forward.",
- "why_it_works": "Carryover stops the agent from feeling freshly reset every message, which is what makes continuity feel real.",
- "how_put_together": "Residue can bias emotion selection and memory salience on later turns.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-08",
- "number": 8,
- "title": "Emotion Selection Model",
- "katex": [
- "\\hat{k}=\\arg\\max_k\\left(\\sum_{i=1}^{n}\\alpha_{k,i}X_i\\right)"
- ],
- "meaning": "Chooses the best-fitting emotion label from the current state vector.",
- "variables": [
- {
- "sym": "\\hat{k}",
- "def": "selected displayed emotion"
- },
- {
- "sym": "\\alpha_{k,i}",
- "def": "weight of state i for emotion k"
- },
- {
- "sym": "X_i",
- "def": "current state variables"
- }
- ],
- "why_this_logic": "Emotions are combinations of mood/stress/confidence/belonging/control, project state into emotion-space and pick the strongest match.",
- "why_these_variables": "α = each emotion depends on different state combinations; X = internal state drives displayed feeling.",
- "psychology_theory_basis": [
- "appraisal-based emotion models",
- "dimensional emotion theory",
- "emotion classification from latent state"
- ],
- "simple_explanation": "What emotion fits best right now?",
- "simplified": {
- "headline": "What emotion fits best right now?",
- "plain_equation": "In words: Chooses the best-fitting emotion label from the current state vector.",
- "variables_explained": [
- "\\hat{k} is selected displayed emotion.",
- "\\alpha_{k,i} is weight of state i for emotion k.",
- "X_i is current state variables."
- ],
- "how_it_touches_agents": "The continuous state vector is projected into labeled emotions. The highest scoring label is what the UI or prompt layer may show.",
- "how_it_works": "Emotions are combinations of mood/stress/confidence/belonging/control, project state into emotion-space and pick the strongest match.",
- "why_it_works": "Labels are a readout, not the source of truth. The numbers still drive behavior even if the label is hidden.",
- "how_put_together": "Connects continuous math to STM stage diagrams used in Engineering.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-09",
- "number": 9,
- "title": "Memory Retrieval Score",
- "katex": [
- "\\Gamma_m=aT_m+bP_m+cE_m+dR_m-eN_m",
- "M_{\\mathrm{eff},t}=\\mathrm{clip}\\!\\left(\\sum_{m\\in\\mathcal{M}_t}\\Gamma_m,\\,0,\\,M_{\\max}\\right)"
- ],
- "meaning": "Scores how relevant a memory or context item is for the current response.",
- "variables": [
- {
- "sym": "\\Gamma_m",
- "def": "retrieval score"
- },
- {
- "sym": "T_m",
- "def": "topic relevance"
- },
- {
- "sym": "P_m",
- "def": "person / entity relevance"
- },
- {
- "sym": "E_m",
- "def": "emotional weight"
- },
- {
- "sym": "R_m",
- "def": "recency"
- },
- {
- "sym": "N_m",
- "def": "repetition penalty"
- },
- {
- "sym": "a..e",
- "def": "tunable constants"
- }
- ],
- "why_this_logic": "Weighted linear score: simple, tunable, interpretable, debuggable. Favors relevant/recent/emotional memories; suppresses stale repetition.",
- "why_these_variables": "T/P/E/R/N cover topic, person, emotion, recency, novelty.",
- "psychology_theory_basis": [
- "recency effect",
- "emotional salience in memory",
- "relevance ranking",
- "novelty preference"
- ],
- "simple_explanation": "What should I remember for this moment?",
- "simplified": {
- "headline": "What should I remember for this moment?",
- "plain_equation": "In words: Scores how relevant a memory or context item is for the current response.",
- "variables_explained": [
- "\\Gamma_m is retrieval score.",
- "T_m is topic relevance.",
- "P_m is person / entity relevance.",
- "E_m is emotional weight.",
- "R_m is recency.",
- "N_m is repetition penalty.",
- "a..e is tunable constants."
- ],
- "how_it_touches_agents": "Memories compete for a seat in the context window. Topic, person, emotion, and recency raise the score; repetition lowers it.",
- "how_it_works": "Weighted linear score: simple, tunable, interpretable, debuggable. Favors relevant/recent/emotional memories; suppresses stale repetition.",
- "why_it_works": "A linear score is easy to tune and debug. Operators can see why a memory was preferred.",
- "how_put_together": "Feeds the output function and conflict resolution as memory influence.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-10",
- "number": 10,
- "title": "Agent-Device Relevance Model",
- "katex": [
- "R_{a,d}=\\Omega(T_a,T_d)\\cdot P_d"
- ],
- "meaning": "Decides whether an agent should care about a device, service, VM, mount, or hardware component.",
- "variables": [
- {
- "sym": "R_{a,d}",
- "def": "relevance of device d to agent a"
- },
- {
- "sym": "\\Omega(T_a,T_d)",
- "def": "tag overlap / compatibility"
- },
- {
- "sym": "P_d",
- "def": "device priority / criticality"
- }
- ],
- "why_this_logic": "Avoid hardcoded awareness for every future device, inherit awareness from responsibility tags × device tags × criticality.",
- "why_these_variables": "Ω = role matching; P_d = critical systems matter more.",
- "psychology_theory_basis": [
- "role assignment",
- "operational relevance",
- "task allocation logic"
- ],
- "simple_explanation": "Is this thing part of my job?",
- "simplified": {
- "headline": "Is this thing part of my job?",
- "plain_equation": "In words: Decides whether an agent should care about a device, service, VM, mount, or hardware component.",
- "variables_explained": [
- "R_{a,d} is relevance of device d to agent a.",
- "\\Omega(T_a,T_d) is tag overlap / compatibility.",
- "P_d is device priority / criticality."
- ],
- "how_it_touches_agents": "Agents only care about devices and services that match their responsibility tags and priority.",
- "how_it_works": "Avoid hardcoded awareness for every future device, inherit awareness from responsibility tags × device tags × criticality.",
- "why_it_works": "Homelab gear changes often. Tag overlap avoids hardcoding every future mount or VM into every agent.",
- "how_put_together": "Used when tools and domain state ask which agent should own a job.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-11",
- "number": 11,
- "title": "Full System Output Function",
- "katex": [
- "O_t=F(I,C,S_t,G_t,M_t,W_t,D_t,H_t,\\Pi_t)",
- "O^{\\mathrm{final}}_t=\\mathcal{C}\\!\\big(F(I,C,S_t,G_t,M_t,W_t,D_t,H_t,\\Pi_t)\\big)"
- ],
- "meaning": "Master output function combining continuity layers into final response/behavior.",
- "variables": [
- {
- "sym": "I",
- "def": "identity / genome"
- },
- {
- "sym": "C",
- "def": "continuity profile / dossier / vault"
- },
- {
- "sym": "S_t",
- "def": "current state"
- },
- {
- "sym": "G_t",
- "def": "relationship graph"
- },
- {
- "sym": "M_t",
- "def": "relevant memories"
- },
- {
- "sym": "W_t",
- "def": "world context"
- },
- {
- "sym": "D_t",
- "def": "domain / system / page state"
- },
- {
- "sym": "H_t",
- "def": "operational history"
- },
- {
- "sym": "\\Pi_t",
- "def": "current task / prompt context"
- }
- ],
- "why_this_logic": "Compositional system: output must not come from one prompt alone, identity, feeling, relationships, memory, domain, history, and task all contribute.",
- "why_these_variables": "Each term is a continuity layer that would otherwise be lost in stateless autocomplete.",
- "psychology_theory_basis": [
- "cognitive architecture",
- "person × situation × history",
- "stateful behavior systems",
- "contextual reasoning"
- ],
- "simple_explanation": "Given who I am, what I remember, how I feel, and what’s happening, what should I say or do?",
- "summary_equation": {
- "katex": [
- "\\mathrm{Behavior}=\\mathrm{Identity}+\\mathrm{State}+\\mathrm{Memory}+\\mathrm{Relationships}+\\mathrm{Events}"
- ],
- "meaning": "Plain-language summary of the whole model.",
- "simple": "Why does the system feel alive? Because it does not reset, it carries forward who it is, what happened, and how that changed it."
- },
- "simplified": {
- "headline": "Given who I am, what I remember, how I feel, and what’s happening, what should I say or do?",
- "plain_equation": "In words: Master output function combining continuity layers into final response/behavior.",
- "variables_explained": [
- "I is identity / genome.",
- "C is continuity profile / dossier / vault.",
- "S_t is current state.",
- "G_t is relationship graph.",
- "M_t is relevant memories.",
- "W_t is world context.",
- "D_t is domain / system / page state.",
- "H_t is operational history.",
- "\\Pi_t is current task / prompt context."
- ],
- "how_it_touches_agents": "The final reply is a function of identity, dossier, current state, relationships, memories, world and domain context, history, and the immediate ask.",
- "how_it_works": "Compositional system: output must not come from one prompt alone, identity, feeling, relationships, memory, domain, history, and task all contribute.",
- "why_it_works": "Composition is the whole point: one prompt alone is autocomplete; the stack is a persistent entity.",
- "how_put_together": "Everything above is an input; the Codec pipeline is the practical place this lands.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-12",
- "number": 12,
- "title": "Input Normalization Model",
- "katex": [
- "\\tilde{X}=\\frac{X-X_{\\min}}{X_{\\max}-X_{\\min}}"
- ],
- "meaning": "Maps raw inputs into a unit interval so heterogeneous signals share a common scale.",
- "variables": [
- {
- "sym": "\\tilde{X}",
- "def": "normalized input"
- },
- {
- "sym": "X_{\\min},X_{\\max}",
- "def": "observed or design bounds"
- }
- ],
- "why_this_logic": "Without normalization, loud channels dominate soft ones for no psychological reason.",
- "why_these_variables": "Min/max define the operating range for each channel.",
- "psychology_theory_basis": [
- "psychometric scaling",
- "feature scaling in control systems"
- ],
- "simple_explanation": "Put every signal on the same yardstick.",
- "simplified": {
- "headline": "Put every signal on the same yardstick.",
- "plain_equation": "In words: Maps raw inputs into a unit interval so heterogeneous signals share a common scale.",
- "variables_explained": [
- "\\tilde{X} is normalized input.",
- "X_{\\min},X_{\\max} is observed or design bounds."
- ],
- "how_it_touches_agents": "Raw sensor or event magnitudes are scaled into a shared 0 to 1 range so one loud channel cannot drown the rest.",
- "how_it_works": "Without normalization, loud channels dominate soft ones for no psychological reason.",
- "why_it_works": "Shared scale is a prerequisite for fair blends and caps later.",
- "how_put_together": "Runs before event impact when inputs arrive on different units.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-13",
- "number": 13,
- "title": "Event Delta Cap Model",
- "katex": [
- "\\Delta X_e^{\\mathrm{bounded}}=\\mathrm{clip}(\\Delta X_e,-\\delta_e,+\\delta_e)"
- ],
- "meaning": "Hard-limits per-event state change so a single message cannot nuke the agent.",
- "variables": [
- {
- "sym": "\\delta_e",
- "def": "per-event magnitude cap"
- }
- ],
- "why_this_logic": "Stability layer: one outlier event should not erase years of relationship mass.",
- "why_these_variables": "δ_e is a design guardrail, not a personality trait.",
- "psychology_theory_basis": [
- "affective regulation",
- "robust control"
- ],
- "simple_explanation": "How hard can one event hit?",
- "simplified": {
- "headline": "How hard can one event hit?",
- "plain_equation": "In words: Hard-limits per-event state change so a single message cannot nuke the agent.",
- "variables_explained": [
- "\\delta_e is per-event magnitude cap."
- ],
- "how_it_touches_agents": "A single event cannot move state by more than a designed cap.",
- "how_it_works": "Stability layer: one outlier event should not erase years of relationship mass.",
- "why_it_works": "One angry message should not erase months of trust mass. Caps are the stability layer.",
- "how_put_together": "Applied when packaging event deltas into the state update.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-14",
- "number": 14,
- "title": "Trait Contribution Cap Model",
- "katex": [
- "A_{\\mathrm{tot},t}=\\mathrm{clip}\\!\\left(\\sum_{T\\in\\mathcal{T}}A_t(t),\\,0,\\,A_{\\max}\\right)"
- ],
- "meaning": "Bounds total active trait influence so trait stacks cannot overwhelm identity.",
- "variables": [
- {
- "sym": "A_{\\max}",
- "def": "maximum aggregate trait influence"
- }
- ],
- "why_this_logic": "Many active traits can otherwise drown the voice, cap preserves character.",
- "why_these_variables": "Sum accumulates; clip enforces ceiling.",
- "psychology_theory_basis": [
- "capacity limits in attention",
- "feature saturation"
- ],
- "simple_explanation": "How much trait pressure is allowed this cycle?",
- "simplified": {
- "headline": "How much trait pressure is allowed this cycle?",
- "plain_equation": "In words: Bounds total active trait influence so trait stacks cannot overwhelm identity.",
- "variables_explained": [
- "A_{\\max} is maximum aggregate trait influence."
- ],
- "how_it_touches_agents": "All active traits together cannot exceed a ceiling.",
- "how_it_works": "Many active traits can otherwise drown the voice, cap preserves character.",
- "why_it_works": "Otherwise a busy dossier overwhelms identity. The cap protects character voice.",
- "how_put_together": "Applied after summing active trait influences.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-15",
- "number": 15,
- "title": "Identity Anchor Model",
- "katex": [
- "O^{\\mathrm{final}}_t=\\beta_i O^{\\mathrm{identity}}_t+(1-\\beta_i)O^{\\mathrm{adaptive}}_t",
- "\\beta_i\\ge\\beta_{\\min}"
- ],
- "meaning": "Blends stable identity output with adaptive continuity output; identity never drops below a floor.",
- "variables": [
- {
- "sym": "\\beta_i",
- "def": "identity blend weight"
- },
- {
- "sym": "\\beta_{\\min}",
- "def": "minimum identity lock"
- }
- ],
- "why_this_logic": "Without an identity floor, long runs drift into whoever the last event rewarded.",
- "why_these_variables": "β_min is the non-negotiable self.",
- "psychology_theory_basis": [
- "self-concept stability",
- "identity continuity"
- ],
- "simple_explanation": "Stay yourself while still adapting.",
- "simplified": {
- "headline": "Stay yourself while still adapting.",
- "plain_equation": "In words: Blends stable identity output with adaptive continuity output; identity never drops below a floor.",
- "variables_explained": [
- "\\beta_i is identity blend weight.",
- "\\beta_{\\min} is minimum identity lock."
- ],
- "how_it_touches_agents": "Final wording mixes a stable identity voice with adaptive continuity. Identity weight cannot drop below a floor.",
- "how_it_works": "Without an identity floor, long runs drift into whoever the last event rewarded.",
- "why_it_works": "Adaptation without an identity floor turns the agent into whoever the last event rewarded.",
- "how_put_together": "Runs at output time after F(...) produces a candidate reply.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-16",
- "number": 16,
- "title": "Output Evaluation Model",
- "katex": [
- "Q_t=w^c C_t+w^s S_t+w^r R_t"
- ],
- "meaning": "Scores output quality for learning / adaptation feedback.",
- "variables": [
- {
- "sym": "C_t",
- "def": "coherence score"
- },
- {
- "sym": "S_t",
- "def": "state-consistency score"
- },
- {
- "sym": "R_t",
- "def": "relationship-appropriateness score"
- }
- ],
- "why_this_logic": "You cannot adapt what you cannot score. Coherence × state fit × relationship fit.",
- "why_these_variables": "Weights express which failure mode matters more in a given product surface.",
- "psychology_theory_basis": [
- "reinforcement signal design",
- "multi-objective utility"
- ],
- "simple_explanation": "Was that reply any good?",
- "simplified": {
- "headline": "Was that reply any good?",
- "plain_equation": "In words: Scores output quality for learning / adaptation feedback.",
- "variables_explained": [
- "C_t is coherence score.",
- "S_t is state-consistency score.",
- "R_t is relationship-appropriateness score."
- ],
- "how_it_touches_agents": "Each reply gets a quality score from coherence, state consistency, and relationship fit.",
- "how_it_works": "You cannot adapt what you cannot score. Coherence × state fit × relationship fit.",
- "why_it_works": "You cannot learn from outcomes you never score. This is the teaching signal for adaptation.",
- "how_put_together": "Feeds the learning update when adaptation is enabled.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-17",
- "number": 17,
- "title": "Social Cycle Cap Model",
- "katex": [
- "I^{\\mathrm{bounded}}_t=\\mathrm{clip}\\!\\left(\\sum_{s\\in\\mathcal{S}}I_s,\\,-\\delta_I,\\,+\\delta_I\\right)"
- ],
- "meaning": "Caps aggregate social impact per cycle so pile-ons cannot force runaway affect.",
- "variables": [
- {
- "sym": "\\delta_I",
- "def": "social impact cycle cap"
- }
- ],
- "why_this_logic": "Public channels can spam; the agent must remain regulable.",
- "why_these_variables": "Clip after sum, many weak signals still accumulate, then hit a ceiling.",
- "psychology_theory_basis": [
- "social impact theory",
- "robustness"
- ],
- "simple_explanation": "How much social weather am I allowed to absorb right now?",
- "simplified": {
- "headline": "How much social weather am I allowed to absorb right now?",
- "plain_equation": "In words: Caps aggregate social impact per cycle so pile-ons cannot force runaway affect.",
- "variables_explained": [
- "\\delta_I is social impact cycle cap."
- ],
- "how_it_touches_agents": "All social hits in a cycle are summed, then clipped.",
- "how_it_works": "Public channels can spam; the agent must remain regulable.",
- "why_it_works": "Pile-ons and spam channels must not force runaway affect.",
- "how_put_together": "Wraps the social influence sum before it enters state update.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-18",
- "number": 18,
- "title": "Goal Selection Model",
- "katex": [
- "G_t=\\arg\\max_k U_k(S_t,C,D_t,H_t)"
- ],
- "meaning": "Selects the active goal the agent should pursue at time t.",
- "variables": [
- {
- "sym": "G_t",
- "def": "selected goal"
- },
- {
- "sym": "U_k",
- "def": "utility of goal k"
- }
- ],
- "why_this_logic": "Move from reactive → purpose-driven: score goals, pick highest utility.",
- "why_these_variables": "S = current needs; C = personality priorities; D = domain (ARR/HA/...); H = history.",
- "psychology_theory_basis": [
- "goal-directed agency",
- "utility maximization"
- ],
- "simple_explanation": "What should I try to do right now?",
- "simplified": {
- "headline": "What should I try to do right now?",
- "plain_equation": "In words: Selects the active goal the agent should pursue at time t.",
- "variables_explained": [
- "G_t is selected goal.",
- "U_k is utility of goal k."
- ],
- "how_it_touches_agents": "Among candidate goals, pick the highest utility given state, character, domain, and history.",
- "how_it_works": "Move from reactive → purpose-driven: score goals, pick highest utility.",
- "why_it_works": "Moves the agent from pure reaction toward purposeful next steps (especially tools and REX-like work).",
- "how_put_together": "Uses the utility function defined next.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-19",
- "number": 19,
- "title": "Goal Utility Function",
- "katex": [
- "U_k=w_1 N_k+w_2 R_k+w_3 P_k+w_4 C_k"
- ],
- "meaning": "Calculates how valuable a goal is.",
- "variables": [
- {
- "sym": "N_k",
- "def": "need urgency"
- },
- {
- "sym": "R_k",
- "def": "relevance to current context"
- },
- {
- "sym": "P_k",
- "def": "priority / importance"
- },
- {
- "sym": "C_k",
- "def": "character alignment"
- }
- ],
- "why_this_logic": "Goals should reflect urgency, importance, and personality, not randomness.",
- "why_these_variables": "Weights make tradeoffs explicit and tunable.",
- "psychology_theory_basis": [
- "multi-attribute utility theory",
- "motivation models"
- ],
- "simple_explanation": "How important is this goal?",
- "simplified": {
- "headline": "How important is this goal?",
- "plain_equation": "In words: Calculates how valuable a goal is.",
- "variables_explained": [
- "N_k is need urgency.",
- "R_k is relevance to current context.",
- "P_k is priority / importance.",
- "C_k is character alignment."
- ],
- "how_it_touches_agents": "Goal value mixes urgency, relevance, priority, and character alignment.",
- "how_it_works": "Goals should reflect urgency, importance, and personality, not randomness.",
- "why_it_works": "Random goals feel broken. Weighted utility makes tradeoffs explicit and tunable.",
- "how_put_together": "Scores feed goal selection and the OR program view.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-20",
- "number": 20,
- "title": "Conflict Resolution Model",
- "katex": [
- "\\Psi_t=\\arg\\max\\,(w_1 A_t+w_2 M_{\\mathrm{eff},t}+w_3 G_t+w_4 S_t)"
- ],
- "meaning": "Resolves competing influences into a single dominant driver.",
- "variables": [
- {
- "sym": "\\Psi_t",
- "def": "dominant influence"
- },
- {
- "sym": "A_t",
- "def": "trait influence"
- },
- {
- "sym": "M_{\\mathrm{eff},t}",
- "def": "memory influence"
- },
- {
- "sym": "G_t",
- "def": "relationship / goal influence"
- },
- {
- "sym": "S_t",
- "def": "state influence"
- }
- ],
- "why_this_logic": "Without this, the system blends everything and becomes mush. Force a decision, not an average.",
- "why_these_variables": "Weights encode which continuity layer wins under conflict.",
- "psychology_theory_basis": [
- "attention bottleneck",
- "winner-take-most control"
- ],
- "simple_explanation": "What matters most right now?",
- "simplified": {
- "headline": "What matters most right now?",
- "plain_equation": "In words: Resolves competing influences into a single dominant driver.",
- "variables_explained": [
- "\\Psi_t is dominant influence.",
- "A_t is trait influence.",
- "M_{\\mathrm{eff},t} is memory influence.",
- "G_t is relationship / goal influence.",
- "S_t is state influence."
- ],
- "how_it_touches_agents": "When traits, memories, relationships, and state disagree, pick a dominant driver instead of averaging them into mush.",
- "how_it_works": "Without this, the system blends everything and becomes mush. Force a decision, not an average.",
- "why_it_works": "Winner-take-most keeps behavior crisp under conflict.",
- "how_put_together": "Sits just before output assembly when influences compete.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-21",
- "number": 21,
- "title": "Learning / Adaptation Model",
- "katex": [
- "\\theta_{t+1}=\\theta_t+\\alpha(Q_t-Q^\\star)"
- ],
- "meaning": "Adjusts system parameters based on output quality.",
- "variables": [
- {
- "sym": "\\theta_t",
- "def": "parameter set"
- },
- {
- "sym": "\\alpha",
- "def": "learning rate"
- },
- {
- "sym": "Q_t",
- "def": "output quality"
- },
- {
- "sym": "Q^\\star",
- "def": "target quality"
- }
- ],
- "why_this_logic": "Improve over time: reduce bad outputs, reinforce good behavior, without rewriting identity.",
- "why_these_variables": "α small → stable; α large → brittle. Bound updates.",
- "psychology_theory_basis": [
- "gradient-style adaptation",
- "cybernetic feedback"
- ],
- "simple_explanation": "Did I do well, and should I adjust?",
- "simplified": {
- "headline": "Did I do well, and should I adjust?",
- "plain_equation": "In words: Adjusts system parameters based on output quality.",
- "variables_explained": [
- "\\theta_t is parameter set.",
- "\\alpha is learning rate.",
- "Q_t is output quality.",
- "Q^\\star is target quality."
- ],
- "how_it_touches_agents": "Parameters nudge toward better scored replies using a learning rate times error from a quality target.",
- "how_it_works": "Improve over time: reduce bad outputs, reinforce good behavior, without rewriting identity.",
- "why_it_works": "Small rates keep identity stable while still improving. Large rates thrash.",
- "how_put_together": "Optional; must never rewrite the identity floor.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-22",
- "number": 22,
- "title": "Memory Tier Weighting Model",
- "katex": [
- "\\Gamma_m'=\\Gamma_m\\cdot\\tau_m"
- ],
- "meaning": "Scales memory importance by tier so identity memories outrank routine noise.",
- "variables": [
- {
- "sym": "\\tau_m",
- "def": "memory tier weight"
- },
- {
- "sym": "\\tau\\approx 1.5{-}2.0",
- "def": "identity-defining"
- },
- {
- "sym": "\\tau\\approx 1.0",
- "def": "important episodic"
- },
- {
- "sym": "\\tau\\approx 0.5",
- "def": "routine"
- }
- ],
- "why_this_logic": "Not all memories should compete equally.",
- "why_these_variables": "Tier weights encode autobiographical priority.",
- "psychology_theory_basis": [
- "autobiographical memory hierarchy",
- "salience"
- ],
- "simple_explanation": "Which memories matter more?",
- "simplified": {
- "headline": "Which memories matter more?",
- "plain_equation": "In words: Scales memory importance by tier so identity memories outrank routine noise.",
- "variables_explained": [
- "\\tau_m is memory tier weight.",
- "\\tau\\approx 1.5{-}2.0 is identity-defining.",
- "\\tau\\approx 1.0 is important episodic.",
- "\\tau\\approx 0.5 is routine."
- ],
- "how_it_touches_agents": "Identity-defining memories outrank routine ones by a tier multiplier.",
- "how_it_works": "Not all memories should compete equally.",
- "why_it_works": "Without tiers, laundry lists of trivia compete with formative events.",
- "how_put_together": "Applied after base memory retrieval scores.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-23",
- "number": 23,
- "title": "Uncertainty Propagation Model",
- "katex": [
- "A_t'(t)=A_t(t)\\cdot C_t"
- ],
- "meaning": "Reduces influence of low-confidence traits.",
- "variables": [
- {
- "sym": "C_t",
- "def": "confidence / certainty of the trait"
- },
- {
- "sym": "A_t'(t)",
- "def": "uncertainty-adjusted active influence"
- }
- ],
- "why_this_logic": "Guessed traits should whisper; canonical traits may speak. Uncertainty damps.",
- "why_these_variables": "Multiplication by C is the simplest honest uncertainty gate.",
- "psychology_theory_basis": [
- "Bayesian discounting (lightweight)",
- "epistemic caution"
- ],
- "simple_explanation": "How sure am I that this trait should drive me?",
- "simplified": {
- "headline": "How sure am I that this trait should drive me?",
- "plain_equation": "In words: Reduces influence of low-confidence traits.",
- "variables_explained": [
- "C_t is confidence / certainty of the trait.",
- "A_t'(t) is uncertainty-adjusted active influence."
- ],
- "how_it_touches_agents": "Low-confidence traits are discounted before they drive behavior.",
- "how_it_works": "Guessed traits should whisper; canonical traits may speak. Uncertainty damps.",
- "why_it_works": "Guessed dossier lines should whisper; canonical lines may speak.",
- "how_put_together": "Applied on active trait influence.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-24",
- "number": 24,
- "title": "Markov Affect Transition Model",
- "katex": [
- "P(s_{t+1}=j\\mid s_t=i)=T_{ij}(e_t,\\,p)",
- "\\pi_{t+1}=\\pi_t\\,T(e_t,p)",
- "s_t\\in\\{\\mathrm{calm},\\mathrm{low},\\mathrm{moderate},\\mathrm{defensive},\\mathrm{high},\\mathrm{disengaged}\\}"
- ],
- "meaning": "Treats discrete emotional stage labels as a Markov chain whose transition matrix depends on the event class and personality.",
- "variables": [
- {
- "sym": "T_{ij}",
- "def": "transition probability i→j"
- },
- {
- "sym": "e_t",
- "def": "event class"
- },
- {
- "sym": "p",
- "def": "personality parameters"
- },
- {
- "sym": "\\pi_t",
- "def": "distribution over stages"
- }
- ],
- "why_this_logic": "Continuous state E(t) is primary; stage labels are a readout. Markov T explains stage-to-stage jumps (see STM-002) without inventing consciousness, only transition structure.",
- "why_these_variables": "Event-conditioned rows encode appraisal; personality stretches holding times (inertia).",
- "psychology_theory_basis": [
- "Markov decision / emotion dynamics",
- "holding-time models",
- "finite-state emotional machines"
- ],
- "simple_explanation": "Given how I feel labeled now, where can I go next?",
- "simplified": {
- "headline": "Given how I feel labeled now, where can I go next?",
- "plain_equation": "In words: Treats discrete emotional stage labels as a Markov chain whose transition matrix depends on the event class and personality.",
- "variables_explained": [
- "T_{ij} is transition probability i→j.",
- "e_t is event class.",
- "p is personality parameters.",
- "\\pi_t is distribution over stages."
- ],
- "how_it_touches_agents": "Discrete stage labels can be studied as a Markov chain whose transitions depend on event class and personality.",
- "how_it_works": "Continuous state E(t) is primary; stage labels are a readout. Markov T explains stage-to-stage jumps (see STM-002) without inventing consciousness, only transition structure.",
- "why_it_works": "Useful for analysis and STM diagrams. Continuous state remains authoritative.",
- "how_put_together": "Sits beside, not above, the continuous engine.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- },
- {
- "id": "CM-25",
- "number": 25,
- "title": "Operations-Research Goal Program (OR)",
- "katex": [
- "\\max_{g\\in\\mathcal{G}}\\; U(g)\\quad\\mathrm{s.t.}\\; c(g)\\le B,\\; g\\in\\mathrm{Feas}(D_t)",
- "\\text{lexicographic soft goals: } (P_1,P_2,\\ldots)\\text{ via goal programming}"
- ],
- "meaning": "Casts goal selection as a constrained utility program over feasible actions in the current domain (ARR, HA, Codec, install).",
- "variables": [
- {
- "sym": "U(g)",
- "def": "goal utility (CM-19)"
- },
- {
- "sym": "c(g)",
- "def": "resource cost (time, GPU, risk)"
- },
- {
- "sym": "B",
- "def": "budget"
- },
- {
- "sym": "\\mathrm{Feas}",
- "def": "domain-feasible set"
- }
- ],
- "why_this_logic": "OR framing makes tradeoffs explicit: urgency vs risk vs character alignment under resource caps, same math used in scheduling and multi-objective programming.",
- "why_these_variables": "Constraints stop wishful goals (e.g. Video Studio when Docker/GPU not READY).",
- "psychology_theory_basis": [
- "multi-objective programming",
- "goal programming",
- "knapsack / scheduling analogies"
- ],
- "simple_explanation": "What’s the best feasible thing I can attempt with what I have?",
- "simplified": {
- "headline": "What’s the best feasible thing I can attempt with what I have?",
- "plain_equation": "In words: Casts goal selection as a constrained utility program over feasible actions in the current domain (ARR, HA, Codec, install).",
- "variables_explained": [
- "U(g) is goal utility (CM-19).",
- "c(g) is resource cost (time, GPU, risk).",
- "B is budget.",
- "\\mathrm{Feas} is domain-feasible set."
- ],
- "how_it_touches_agents": "Goal choice can be written as a constrained utility program: maximize value subject to time, GPU, and domain feasibility.",
- "how_it_works": "OR framing makes tradeoffs explicit: urgency vs risk vs character alignment under resource caps, same math used in scheduling and multi-objective programming.",
- "why_it_works": "That is ordinary operations research. It stops wishful goals when Docker or VRAM is not ready.",
- "how_put_together": "Formal twin of goal selection for planning and V&V.",
- "connects_to": "Upstream inputs become numbers; downstream equations consume those numbers during the agent turn."
- }
- }
- ],
- "runtime_mapping": {
- "title": "Implemented subset (runtime source)",
- "note": "Public Engineering also documents the currently implemented emotional continuity vector from continuity/emotional_continuity.py, a concrete specialization of CM-03/04/05/07/08.",
- "sections": [
- {
- "id": "state-vector",
- "title": "Runtime state vector E(t)",
- "katex": [
- "E(t)=\\big[I,\\,J,\\,H,\\,T,\\,A,\\,C,\\,X\\big]",
- "I=\\text{irritation},\\; J=\\text{jealousy},\\; H=\\text{hurt},\\; T=\\text{trust},\\; A=\\text{attachment},\\; C=\\text{confidence},\\; X=\\text{anxiety}"
- ],
- "notes": "Maps onto CM-04 state update + CM-08 emotion selection stage labels."
- },
- {
- "id": "blend",
- "title": "Asymmetric inertia blend (_blend)",
- "katex": [
- "\\Delta\\ge 0:\\quad \\mathrm{gain}=\\Delta\\cdot\\big(0.78+0.22\\cdot(1-\\iota\\cdot 0.25)\\big),\\quad x'=\\mathrm{clamp}(x+\\mathrm{gain})",
- "\\Delta< 0:\\quad x'=\\mathrm{clamp}\\big(x+\\Delta\\cdot(1-\\iota)\\big)"
- ],
- "notes": "Specialization of CM-04 with asymmetric accrual (hostility easier than repair)."
- },
- {
- "id": "decay",
- "title": "Idle decay",
- "katex": [
- "s=\\min\\big(12,\\lfloor \\Delta t / 90\\rfloor\\big),\\quad d=\\lambda\\cdot s",
- "I,J,H,X\\leftarrow\\mathrm{clamp}(\\,\\cdot\\,-d),\\quad C\\leftarrow\\mathrm{clamp}\\big(C+(0.75-C)\\cdot 0.04\\cdot s\\big)"
- ],
- "notes": "Homeostasis term of CM-04."
- },
- {
- "id": "comparison",
- "title": "Comparison event (runtime)",
- "katex": [
- "\\Delta J=0.16\\cdot s_c\\cdot\\big(1+0.12\\cdot\\min(6,n)\\big)",
- "\\Delta I=0.13\\cdot s_c\\cdot\\big(1+0.10\\cdot\\min(6,n)\\big)",
- "\\Delta H=0.11\\cdot s_r,\\quad T\\leftarrow\\mathrm{clamp}(T-0.05\\cdot d_T)"
- ],
- "notes": "Concrete E_{e,x}·Q·L·H instance of CM-03."
- },
- {
- "id": "formula5",
- "title": "Formula 5, relationship edge",
- "katex": [
- "x'=\\mathrm{clamp}\\big(x+\\delta-0.008\\cdot(x-0.50)\\big)"
- ],
- "notes": "Directed relationship update aligning with CM-05."
- }
- ]
- },
- "worked_examples": [
- {
- "id": "MOCK-TRACE-001",
- "label": "MOCK",
- "title": "Comparison event on albedo (synthetic)",
- "initial": {
- "irritation": 0.1,
- "jealousy": 0.12,
- "hurt": 0.08,
- "trust": 0.72,
- "confidence": 0.75,
- "anxiety": 0.12,
- "comparison_count": 0
- },
- "profile": {
- "comparison_sensitivity": 0.92,
- "rejection_sensitivity": 0.88,
- "jealousy_inertia": 0.88,
- "anger_inertia": 0.78,
- "trust_damage": 0.55
- },
- "event": "comparison (n→1), rival=mei_ling",
- "steps": [
- {
- "op": "ΔJ base",
- "detail": "0.16*0.92*(1+0.12*1)=0.1649"
- },
- {
- "op": "_blend J",
- "detail": "gain=0.1649*(0.78+0.22*(1-0.88*0.25))≈0.152; J'=clamp(0.12+0.152)=0.272"
- },
- {
- "op": "ΔI base",
- "detail": "0.13*0.92*(1+0.10*1)=0.1316 → blended ≈0.122; I'=0.222"
- },
- {
- "op": "ΔH",
- "detail": "0.11*0.88=0.0968 → blended; H'≈0.17"
- },
- {
- "op": "trust",
- "detail": "T'=clamp(0.72-0.05*0.55)=0.6925"
- },
- {
- "op": "rival_heat",
- "detail": "heat[mei_ling]=0.22"
- }
- ],
- "final": {
- "irritation": 0.222,
- "jealousy": 0.272,
- "hurt": 0.17,
- "trust": 0.693,
- "rival_heat": {
- "mei_ling": 0.22
- }
- },
- "disclaimer": "MOCK worked example for teaching the equations. Not a captured live agent event_log."
- },
- {
- "id": "MOCK-TRACE-002",
- "label": "MOCK",
- "title": "Formula 5 ally bump (synthetic)",
- "initial": {
- "strength": 0.5
- },
- "event": "operator_ask → ally δ=+0.006",
- "steps": [
- {
- "op": "Formula 5",
- "detail": "x'=clamp(0.50+0.006-0.008*(0.50-0.50))=0.506"
- }
- ],
- "final": {
- "strength": 0.506
- },
- "disclaimer": "MOCK"
- }
- ],
- "pipeline": {
- "title": "How math reaches Codec replies",
- "steps": [
- "User message → observe_message(entity, text)",
- "Classify turn + rivals → apply event equations + _blend",
- "Persist emotional_continuity.json",
- "snapshot() / continuity_line injected into prompt context",
- "Model completion colored by stage + rival heat, not by inventing feelings in the LLM alone"
- ],
- "linked_diagram": "SEQ-001",
- "linked_models": [
- "MOD-EMO-001",
- "MOD-PER-001",
- "MOD-REL-001"
- ]
- },
- "measurable_metrics": [
- {
- "metric": "State remains in [0,1]",
- "test": "BVT-001"
- },
- {
- "metric": "Personality Δjealousy differs for same event",
- "test": "BVT-002"
- },
- {
- "metric": "_blend asymmetry unit behavior",
- "test": "UT-001"
- },
- {
- "metric": "Formula 5 numeric match",
- "test": "UT-002"
- },
- {
- "metric": "Decay over idle steps",
- "test": "BVT-001"
- },
- {
- "metric": "Restart persistence of state file",
- "test": "ST-001 / BVT-001"
- }
- ],
- "markov_or_notes": {
- "title": "Probabilistic & operations-research layer",
- "body": "CM-24 treats stage labels as a Markov chain for analysis and STM diagrams. CM-25 casts goal choice as a constrained utility / goal program. Neither invents PASS results; both are design models for V&V scenarios and planning analysis."
- },
- "simplified_intro": {
- "title": "How the Continuity Model fits together",
- "body": [
- "OtaconsKeep treats an agent as a persistent entity, not a blank prompt. Between turns the system keeps a numeric picture of how the agent feels, whom it trusts, what it remembers as important, and which traits are currently active.",
- "The Continuity Model is a stack of small equations. Early equations turn dossier traits into weights and decide which traits matter in the moment. Mid-stack equations convert events into changes in mood and relationships, then pull those values back toward a baseline so nothing spirals forever. Later equations score memories, pick goals, resolve conflicts, and assemble the final reply.",
- "Only a subset is wired into runtime code today (emotional state, blend and decay, comparison events, Formula 5 relationships). The rest is published design theory so the public evidence package matches the full model, not a marketing summary.",
- "Simplified mode below walks each equation in plain language: what every symbol means, how it touches an agent during a Codec turn, why the form was chosen, and how the pieces connect."
- ]
- }
+  "schema_version": "1.2.0",
+  "title": "OtaconsKeep Continuity Model",
+  "created_by": "Antonio Gavino Garcia",
+  "product": "OtaconsKeep",
+  "honesty": "The Continuity Model (CM-01...CM-25) is the design theory for behavioral continuity. Runtime modules implement a subset today (emotional continuity + Formula 5). Worked traces labeled MOCK are synthetic. This page does not claim human consciousness, it claims measurable, bounded state dynamics.",
+  "manual_note": "The Continuity Model mixes trait ideas, appraisal-style emotion logic, memory scoring, relationship updates, and settle rules. It does not claim human consciousness. It uses simple, grounded math to keep continuity, leftover feeling, social weighting, and context-sensitive behavior over time. The first equations are the behavior engine. The cap and identity equations are the safety layer.",
+  "diluted_version": [
+    "It has a personality",
+    "Things happen to it",
+    "It remembers what matters",
+    "It feels different depending on what happened",
+    "Different people matter different amounts",
+    "Then it decides what to say or do"
+  ],
+  "rationale": {
+    "title": "Why this feels continuous (not conscious)",
+    "body": [
+      "We keep numbers for feelings, bonds, and memory scores between turns. That is the opposite of a blank chat that forgets you.",
+      "Multiply when one thing should boost or shrink another. Add when many things all contribute.",
+      "Settle rates and baselines pull feelings back toward normal so nothing spirals forever.",
+      "Tiny noise stops every reply from sounding identical.",
+      "An identity floor keeps the character from dissolving while it adapts.",
+      "Chance-stage charts and planning math help analysis. They do not replace the main mood numbers."
+    ],
+    "core_logic_justification": {
+      "multiplication": "Use multiply when one factor should boost or shrink another (hurt × old wound, praise × trust).",
+      "summation": "Use add when many inputs all count (several events in one turn, many memories competing).",
+      "decay": "Settle terms pull values back toward normal so the agent recovers.",
+      "bounded_noise": "Small noise adds natural variation without chaos."
+    }
+  },
+  "toc": [
+    {
+      "id": "CM-01",
+      "number": 1,
+      "title": "Trait Weight Model"
+    },
+    {
+      "id": "CM-02",
+      "number": 2,
+      "title": "Active Trait Influence Model"
+    },
+    {
+      "id": "CM-03",
+      "number": 3,
+      "title": "Event Impact on State"
+    },
+    {
+      "id": "CM-04",
+      "number": 4,
+      "title": "State Update Model"
+    },
+    {
+      "id": "CM-05",
+      "number": 5,
+      "title": "Relationship Update Model"
+    },
+    {
+      "id": "CM-06",
+      "number": 6,
+      "title": "Social Influence Model"
+    },
+    {
+      "id": "CM-07",
+      "number": 7,
+      "title": "Emotional Residue Model"
+    },
+    {
+      "id": "CM-08",
+      "number": 8,
+      "title": "Emotion Selection Model"
+    },
+    {
+      "id": "CM-09",
+      "number": 9,
+      "title": "Memory Retrieval Score"
+    },
+    {
+      "id": "CM-10",
+      "number": 10,
+      "title": "Agent-Device Relevance Model"
+    },
+    {
+      "id": "CM-11",
+      "number": 11,
+      "title": "Full System Output Function"
+    },
+    {
+      "id": "CM-12",
+      "number": 12,
+      "title": "Input Normalization Model"
+    },
+    {
+      "id": "CM-13",
+      "number": 13,
+      "title": "Event Delta Cap Model"
+    },
+    {
+      "id": "CM-14",
+      "number": 14,
+      "title": "Trait Contribution Cap Model"
+    },
+    {
+      "id": "CM-15",
+      "number": 15,
+      "title": "Identity Anchor Model"
+    },
+    {
+      "id": "CM-16",
+      "number": 16,
+      "title": "Output Evaluation Model"
+    },
+    {
+      "id": "CM-17",
+      "number": 17,
+      "title": "Social Cycle Cap Model"
+    },
+    {
+      "id": "CM-18",
+      "number": 18,
+      "title": "Goal Selection Model"
+    },
+    {
+      "id": "CM-19",
+      "number": 19,
+      "title": "Goal Utility Function"
+    },
+    {
+      "id": "CM-20",
+      "number": 20,
+      "title": "Conflict Resolution Model"
+    },
+    {
+      "id": "CM-21",
+      "number": 21,
+      "title": "Learning / Adaptation Model"
+    },
+    {
+      "id": "CM-22",
+      "number": 22,
+      "title": "Memory Tier Weighting Model"
+    },
+    {
+      "id": "CM-23",
+      "number": 23,
+      "title": "Uncertainty Propagation Model"
+    },
+    {
+      "id": "CM-24",
+      "number": 24,
+      "title": "Markov Affect Transition Model"
+    },
+    {
+      "id": "CM-25",
+      "number": 25,
+      "title": "Operations-Research Goal Program (OR)"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "CM-01",
+      "number": 1,
+      "title": "Trait Weight Model",
+      "katex": [
+        "W_t = B_D \\cdot S_t \\cdot C_t \\cdot P_t \\cdot K_t \\cdot (1+\\varepsilon_t)"
+      ],
+      "meaning": "This turns a written trait into a number. Bigger number = that trait can matter more later.",
+      "variables": [
+        {
+          "sym": "W_t",
+          "def": "final trait weight"
+        },
+        {
+          "sym": "B_D",
+          "def": "base domain weight"
+        },
+        {
+          "sym": "S_t",
+          "def": "subtype weight"
+        },
+        {
+          "sym": "C_t",
+          "def": "confidence factor"
+        },
+        {
+          "sym": "P_t",
+          "def": "personality modifier"
+        },
+        {
+          "sym": "K_t",
+          "def": "context / stack modifier"
+        },
+        {
+          "sym": "\\varepsilon_t",
+          "def": "bounded variance"
+        }
+      ],
+      "why_this_logic": "We multiply the pieces together. If one piece is small, the whole strength gets smaller. That way a weak or unsure trait cannot shout as loud as a clear, important one.",
+      "why_these_variables": "This is the first step. It makes scores the rest of the math can use.",
+      "psychology_theory_basis": [
+        "trait psychology",
+        "person × situation interaction",
+        "severity weighting",
+        "uncertainty weighting",
+        "controlled stochastic variation"
+      ],
+      "simple_explanation": "How strong is this part of the agent's personality?",
+      "simplified": {
+        "headline": "How strong is this part of the agent's personality?",
+        "plain_equation": "This turns a written trait into a number. Bigger number = that trait can matter more later.",
+        "variables_explained": [
+          "Trait strength: The final score for this trait",
+          "Category weight: How serious this kind of trait is",
+          "Subtype weight: How strong this exact trait is inside its category",
+          "Confidence: How sure we are this trait is real",
+          "Personality boost: How this agent's personality changes the score",
+          "Situation boost: How the current moment changes the score",
+          "Tiny random wiggle: A little variation so replies do not feel robotic"
+        ],
+        "how_it_touches_agents": "When the agent starts, each trait gets a strength score. Strong traits can push the agent harder, but only if they turn on later.",
+        "how_it_works": "We multiply the pieces together. If one piece is small, the whole strength gets smaller. That way a weak or unsure trait cannot shout as loud as a clear, important one.",
+        "why_it_works": "In real life, some traits are more serious than others. Being sure about a trait also matters. Personality and the situation change how big it feels.",
+        "how_put_together": "This is the first step. It makes scores the rest of the math can use.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Trait strength",
+          "tip": "The final score for this trait",
+          "kind": "weight"
+        },
+        {
+          "plain": "Category weight",
+          "tip": "How serious this kind of trait is",
+          "kind": "weight"
+        },
+        {
+          "plain": "Subtype weight",
+          "tip": "How strong this exact trait is inside its category",
+          "kind": "weight"
+        },
+        {
+          "plain": "Confidence",
+          "tip": "How sure we are this trait is real",
+          "kind": "score"
+        },
+        {
+          "plain": "Personality boost",
+          "tip": "How this agent's personality changes the score",
+          "kind": "weight"
+        },
+        {
+          "plain": "Situation boost",
+          "tip": "How the current moment changes the score",
+          "kind": "trigger"
+        },
+        {
+          "plain": "Tiny random wiggle",
+          "tip": "A little variation so replies do not feel robotic",
+          "kind": "event"
+        }
+      ]
+    },
+    {
+      "id": "CM-02",
+      "number": 2,
+      "title": "Active Trait Influence Model",
+      "katex": [
+        "A_t(t) = W_t \\cdot G_t(t) \\cdot R_t(t) \\cdot M_t(t)"
+      ],
+      "meaning": "A strong trait does not always run the show. This checks if it should wake up in this moment.",
+      "variables": [
+        {
+          "sym": "A_t(t)",
+          "def": "active influence at time t"
+        },
+        {
+          "sym": "W_t",
+          "def": "stored trait weight"
+        },
+        {
+          "sym": "G_t(t)",
+          "def": "trigger match"
+        },
+        {
+          "sym": "R_t(t)",
+          "def": "relationship relevance"
+        },
+        {
+          "sym": "M_t(t)",
+          "def": "memory / recency relevance"
+        }
+      ],
+      "why_this_logic": "We multiply trait strength by trigger, relationship, and memory. If any of those is near zero, the trait stays quiet.",
+      "why_these_variables": "This decides which traits get to affect the next mood and reply steps.",
+      "psychology_theory_basis": [
+        "trigger-response patterns",
+        "schema activation",
+        "social context dependence",
+        "recency effects"
+      ],
+      "simple_explanation": "Does this trait matter right now?",
+      "simplified": {
+        "headline": "Does this trait matter right now?",
+        "plain_equation": "A strong trait does not always run the show. This checks if it should wake up in this moment.",
+        "variables_explained": [
+          "Active push: How much this trait matters right now",
+          "Trait strength: The stored strength from the first equation",
+          "Trigger match: Did something just poke this trait?",
+          "Who is involved: Does this trait matter with this person?",
+          "Memory pull: Do recent or emotional memories wake it up?"
+        ],
+        "how_it_touches_agents": "On each message, the agent checks: Did something trigger the trait? Is the right person involved? Does memory make it feel fresh? Only then does the trait push hard.",
+        "how_it_works": "We multiply trait strength by trigger, relationship, and memory. If any of those is near zero, the trait stays quiet.",
+        "why_it_works": "People do not act on every trait all the time. Something has to poke it, and it hits harder with the right person and the right memory.",
+        "how_put_together": "This decides which traits get to affect the next mood and reply steps.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Active push",
+          "tip": "How much this trait matters right now",
+          "kind": "trigger"
+        },
+        {
+          "plain": "Trait strength",
+          "tip": "The stored strength from the first equation",
+          "kind": "weight"
+        },
+        {
+          "plain": "Trigger match",
+          "tip": "Did something just poke this trait?",
+          "kind": "trigger"
+        },
+        {
+          "plain": "Who is involved",
+          "tip": "Does this trait matter with this person?",
+          "kind": "relation"
+        },
+        {
+          "plain": "Memory pull",
+          "tip": "Do recent or emotional memories wake it up?",
+          "kind": "memory"
+        }
+      ]
+    },
+    {
+      "id": "CM-03",
+      "number": 3,
+      "title": "Event Impact on State",
+      "katex": [
+        "\\Delta X(t)=\\sum_{e\\in\\mathcal{E}_t} E_{e,x}\\cdot Q_{e,x}\\cdot L_{e,x}\\cdot H_{e,x}"
+      ],
+      "meaning": "Events like praise, rejection, or a bad tool result become a change to the agent's feelings.",
+      "variables": [
+        {
+          "sym": "\\Delta X(t)",
+          "def": "total change in state X at time t"
+        },
+        {
+          "sym": "\\mathcal{E}_t",
+          "def": "set of events active at time t"
+        },
+        {
+          "sym": "E_{e,x}",
+          "def": "base effect of event e on state X"
+        },
+        {
+          "sym": "Q_{e,x}",
+          "def": "personality / psyche modifier"
+        },
+        {
+          "sym": "L_{e,x}",
+          "def": "relationship modifier"
+        },
+        {
+          "sym": "H_{e,x}",
+          "def": "trauma / memory modifier"
+        }
+      ],
+      "why_this_logic": "We add up every active event. Inside each event we multiply base hit × personality × who caused it × past pain. Many things can land at once.",
+      "why_these_variables": "These feeling-changes feed the next update that moves the agent's numbers.",
+      "psychology_theory_basis": [
+        "appraisal theory",
+        "stress-event models",
+        "trauma amplification",
+        "socially weighted reactions"
+      ],
+      "simple_explanation": "How much did what just happened change how I feel?",
+      "simplified": {
+        "headline": "How much did what just happened change how I feel?",
+        "plain_equation": "Events like praise, rejection, or a bad tool result become a change to the agent's feelings.",
+        "variables_explained": [
+          "Feeling change: Total change to one feeling number",
+          "Active events: Everything happening in this moment",
+          "Base hit: How strong the event is by itself",
+          "Personality filter: How this agent usually reacts",
+          "Who-caused filter: How much that person matters",
+          "Past-pain filter: Whether old wounds make it hurt more"
+        ],
+        "how_it_touches_agents": "When something happens in the chat, this math figures out how hard it hits mood, stress, or confidence for that agent.",
+        "how_it_works": "We add up every active event. Inside each event we multiply base hit × personality × who caused it × past pain. Many things can land at once.",
+        "why_it_works": "The same event does not hit every person the same way. Who did it and what happened before change the size of the hit.",
+        "how_put_together": "These feeling-changes feed the next update that moves the agent's numbers.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Feeling change",
+          "tip": "Total change to one feeling number",
+          "kind": "event"
+        },
+        {
+          "plain": "Active events",
+          "tip": "Everything happening in this moment",
+          "kind": "event"
+        },
+        {
+          "plain": "Base hit",
+          "tip": "How strong the event is by itself",
+          "kind": "event"
+        },
+        {
+          "plain": "Personality filter",
+          "tip": "How this agent usually reacts",
+          "kind": "weight"
+        },
+        {
+          "plain": "Who-caused filter",
+          "tip": "How much that person matters",
+          "kind": "relation"
+        },
+        {
+          "plain": "Past-pain filter",
+          "tip": "Whether old wounds make it hurt more",
+          "kind": "memory"
+        }
+      ]
+    },
+    {
+      "id": "CM-04",
+      "number": 4,
+      "title": "State Update Model",
+      "katex": [
+        "X_{t+1}=\\mathrm{clamp}\\!\\left(X_t+\\Delta X^{\\mathrm{bounded}}+\\eta_x-\\lambda_x(X_t-X^\\star)\\right)",
+        "\\Delta X^{\\mathrm{bounded}}=\\mathrm{clip}\\!\\left(\\sum_{e\\in\\mathcal{E}_t}\\Delta X_e,\\,-\\delta_x,\\,+\\delta_x\\right)"
+      ],
+      "meaning": "This updates the agent's feeling numbers: add the event hit, add a tiny wiggle, slowly drift back toward normal, then keep the number in range.",
+      "variables": [
+        {
+          "sym": "X_{t+1}",
+          "def": "next state value"
+        },
+        {
+          "sym": "X_t",
+          "def": "current state"
+        },
+        {
+          "sym": "\\eta_x",
+          "def": "bounded chaos / micro-noise"
+        },
+        {
+          "sym": "\\lambda_x",
+          "def": "decay rate"
+        },
+        {
+          "sym": "X^\\star",
+          "def": "baseline state"
+        },
+        {
+          "sym": "\\delta_x",
+          "def": "per-cycle event delta cap"
+        }
+      ],
+      "why_this_logic": "New feeling = old feeling + capped event change + tiny noise − pull toward baseline. Then we clamp so it stays between allowed limits.",
+      "why_these_variables": "This is the heartbeat of mood between Codec turns.",
+      "psychology_theory_basis": [
+        "emotional regulation",
+        "homeostasis",
+        "affective inertia",
+        "control systems"
+      ],
+      "simple_explanation": "How do I feel now, after everything that just happened?",
+      "simplified": {
+        "headline": "How do I feel now, after everything that just happened?",
+        "plain_equation": "This updates the agent's feeling numbers: add the event hit, add a tiny wiggle, slowly drift back toward normal, then keep the number in range.",
+        "variables_explained": [
+          "Next feeling: The updated number",
+          "Current feeling: Where the agent was before",
+          "Capped event change: How much events may move it this cycle",
+          "Tiny noise: Small random change",
+          "Settle rate: How fast it drifts back to normal",
+          "Normal baseline: Where this agent tends to rest"
+        ],
+        "how_it_touches_agents": "After each turn, the agent's mood numbers move. They do not jump forever. They settle over time.",
+        "how_it_works": "New feeling = old feeling + capped event change + tiny noise − pull toward baseline. Then we clamp so it stays between allowed limits.",
+        "why_it_works": "Feelings move, then settle. A little noise stops every reply from sounding identical. Caps stop one message from breaking everything.",
+        "how_put_together": "This is the heartbeat of mood between Codec turns.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Next feeling",
+          "tip": "The updated number",
+          "kind": "state"
+        },
+        {
+          "plain": "Current feeling",
+          "tip": "Where the agent was before",
+          "kind": "state"
+        },
+        {
+          "plain": "Capped event change",
+          "tip": "How much events may move it this cycle",
+          "kind": "clamp"
+        },
+        {
+          "plain": "Tiny noise",
+          "tip": "Small random change",
+          "kind": "event"
+        },
+        {
+          "plain": "Settle rate",
+          "tip": "How fast it drifts back to normal",
+          "kind": "state"
+        },
+        {
+          "plain": "Normal baseline",
+          "tip": "Where this agent tends to rest",
+          "kind": "state"
+        }
+      ]
+    },
+    {
+      "id": "CM-05",
+      "number": 5,
+      "title": "Relationship Update Model",
+      "katex": [
+        "Y_{j,t+1}=\\mathrm{clamp}\\!\\left(Y_{j,t}+\\Delta Y^{\\mathrm{bounded}}-\\mu_y(Y_{j,t}-Y_j^\\star)\\right)",
+        "\\Delta Y^{\\mathrm{bounded}}=\\mathrm{clip}\\!\\left(\\sum_{e\\in\\mathcal{E}_t}\\Delta Y_{e,j},\\,-\\delta_y,\\,+\\delta_y\\right)"
+      ],
+      "meaning": "This updates relationship scores toward someone, like trust or resentment. Changes are slow on purpose.",
+      "variables": [
+        {
+          "sym": "Y_{j,t}",
+          "def": "relationship value toward j"
+        },
+        {
+          "sym": "\\mu_y",
+          "def": "relationship decay / inertia"
+        },
+        {
+          "sym": "Y_j^\\star",
+          "def": "baseline tendency toward that target"
+        }
+      ],
+      "why_this_logic": "Like mood update: events move the bond, inertia slows big swings, then we clamp.",
+      "why_these_variables": "Later math uses these bonds to decide how hard social hits land.",
+      "psychology_theory_basis": [
+        "attachment theory",
+        "trust accumulation",
+        "reinforcement over repeated interaction"
+      ],
+      "simple_explanation": "Do I trust or resent this person more now?",
+      "simplified": {
+        "headline": "Do I trust or resent this person more now?",
+        "plain_equation": "This updates relationship scores toward someone, like trust or resentment. Changes are slow on purpose.",
+        "variables_explained": [
+          "Next bond score: Updated relationship number",
+          "Current bond score: Bond before this update",
+          "Bond change from events: How events pushed the bond",
+          "Stickiness: How hard the bond is to yank around",
+          "Natural bias: Default lean toward that person"
+        ],
+        "how_it_touches_agents": "Each agent keeps separate scores toward other agents and the user. A→B does not have to equal B→A.",
+        "how_it_works": "Like mood update: events move the bond, inertia slows big swings, then we clamp.",
+        "why_it_works": "Real bonds change through repeats, not one line of chat. Slow change keeps relationships believable.",
+        "how_put_together": "Later math uses these bonds to decide how hard social hits land.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Next bond score",
+          "tip": "Updated relationship number",
+          "kind": "relation"
+        },
+        {
+          "plain": "Current bond score",
+          "tip": "Bond before this update",
+          "kind": "relation"
+        },
+        {
+          "plain": "Bond change from events",
+          "tip": "How events pushed the bond",
+          "kind": "event"
+        },
+        {
+          "plain": "Stickiness",
+          "tip": "How hard the bond is to yank around",
+          "kind": "relation"
+        },
+        {
+          "plain": "Natural bias",
+          "tip": "Default lean toward that person",
+          "kind": "relation"
+        }
+      ]
+    },
+    {
+      "id": "CM-06",
+      "number": 6,
+      "title": "Social Influence Model",
+      "katex": [
+        "I_s=\\sum_{s\\in\\mathcal{S}} V_s\\cdot U_s\\cdot L_s\\cdot Z_s"
+      ],
+      "meaning": "Social signals (posts, Discord, public comments) get a hit score based on tone, visibility, who said it, and how sensitive the agent is.",
+      "variables": [
+        {
+          "sym": "I_s",
+          "def": "total social impact"
+        },
+        {
+          "sym": "V_s",
+          "def": "valence (tone)"
+        },
+        {
+          "sym": "U_s",
+          "def": "visibility weight"
+        },
+        {
+          "sym": "L_s",
+          "def": "relationship weight"
+        },
+        {
+          "sym": "Z_s",
+          "def": "personality / social absorption"
+        }
+      ],
+      "why_this_logic": "Add up each social input as tone × visibility × relationship × sensitivity.",
+      "why_these_variables": "Optional path. Feeds mood update only when social adapters are configured.",
+      "psychology_theory_basis": [
+        "social impact theory",
+        "attention weighting",
+        "status sensitivity",
+        "social reinforcement"
+      ],
+      "simple_explanation": "How much did that post or message affect me?",
+      "simplified": {
+        "headline": "How much did that post or message affect me?",
+        "plain_equation": "Social signals (posts, Discord, public comments) get a hit score based on tone, visibility, who said it, and how sensitive the agent is.",
+        "variables_explained": [
+          "Social hit: Total social impact",
+          "Tone: Positive or negative",
+          "Visibility: Private vs public weight",
+          "Who said it: How much that person matters",
+          "Sensitivity: How absorbent this agent is"
+        ],
+        "how_it_touches_agents": "If social tools are on, the agent feels public praise or insults. If those tools are off, this can stay unused.",
+        "how_it_works": "Add up each social input as tone × visibility × relationship × sensitivity.",
+        "why_it_works": "A public dig from someone close should hurt more than private noise from a stranger.",
+        "how_put_together": "Optional path. Feeds mood update only when social adapters are configured.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Social hit",
+          "tip": "Total social impact",
+          "kind": "score"
+        },
+        {
+          "plain": "Tone",
+          "tip": "Positive or negative",
+          "kind": "event"
+        },
+        {
+          "plain": "Visibility",
+          "tip": "Private vs public weight",
+          "kind": "score"
+        },
+        {
+          "plain": "Who said it",
+          "tip": "How much that person matters",
+          "kind": "relation"
+        },
+        {
+          "plain": "Sensitivity",
+          "tip": "How absorbent this agent is",
+          "kind": "weight"
+        }
+      ]
+    },
+    {
+      "id": "CM-07",
+      "number": 7,
+      "title": "Emotional Residue Model",
+      "katex": [
+        "R_{t+1}=\\rho R_t+\\sum_{e\\in\\mathcal{E}_t}\\omega_e"
+      ],
+      "meaning": "Residue is leftover feeling that fades slowly instead of vanishing after one reply.",
+      "variables": [
+        {
+          "sym": "R_t",
+          "def": "residue"
+        },
+        {
+          "sym": "\\rho",
+          "def": "persistence factor"
+        },
+        {
+          "sym": "\\omega_e",
+          "def": "residue contribution from event e"
+        }
+      ],
+      "why_this_logic": "New residue = old residue × fade factor + new leftover from today's events.",
+      "why_these_variables": "Leftover feeling can color later emotion labels and memory picks.",
+      "psychology_theory_basis": [
+        "emotional carryover",
+        "affective persistence",
+        "emotional inertia"
+      ],
+      "simple_explanation": "Am I still carrying a feeling from earlier?",
+      "simplified": {
+        "headline": "Am I still carrying a feeling from earlier?",
+        "plain_equation": "Residue is leftover feeling that fades slowly instead of vanishing after one reply.",
+        "variables_explained": [
+          "Next leftover feeling: Residue after this turn",
+          "Current leftover feeling: Residue before",
+          "Fade factor: How sticky the leftover is",
+          "New leftover from events: Extra residue this turn"
+        ],
+        "how_it_touches_agents": "The agent does not reset to blank every message. Some feeling sticks and fades.",
+        "how_it_works": "New residue = old residue × fade factor + new leftover from today's events.",
+        "why_it_works": "People carry moods. Instant reset feels fake.",
+        "how_put_together": "Leftover feeling can color later emotion labels and memory picks.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Next leftover feeling",
+          "tip": "Residue after this turn",
+          "kind": "state"
+        },
+        {
+          "plain": "Current leftover feeling",
+          "tip": "Residue before",
+          "kind": "state"
+        },
+        {
+          "plain": "Fade factor",
+          "tip": "How sticky the leftover is",
+          "kind": "state"
+        },
+        {
+          "plain": "New leftover from events",
+          "tip": "Extra residue this turn",
+          "kind": "event"
+        }
+      ]
+    },
+    {
+      "id": "CM-08",
+      "number": 8,
+      "title": "Emotion Selection Model",
+      "katex": [
+        "\\hat{k}=\\arg\\max_k\\left(\\sum_{i=1}^{n}\\alpha_{k,i}X_i\\right)"
+      ],
+      "meaning": "The agent has many feeling numbers. This picks the best matching emotion name to show.",
+      "variables": [
+        {
+          "sym": "\\hat{k}",
+          "def": "selected displayed emotion"
+        },
+        {
+          "sym": "\\alpha_{k,i}",
+          "def": "weight of state i for emotion k"
+        },
+        {
+          "sym": "X_i",
+          "def": "current state variables"
+        }
+      ],
+      "why_this_logic": "Score each emotion from the feeling numbers. Pick the highest score.",
+      "why_these_variables": "Turns the continuous mood into a simple stage name used in diagrams.",
+      "psychology_theory_basis": [
+        "appraisal-based emotion models",
+        "dimensional emotion theory",
+        "emotion classification from latent state"
+      ],
+      "simple_explanation": "What emotion label fits best right now?",
+      "simplified": {
+        "headline": "What emotion label fits best right now?",
+        "plain_equation": "The agent has many feeling numbers. This picks the best matching emotion name to show.",
+        "variables_explained": [
+          "Chosen emotion: The winning label",
+          "Emotion mix weights: How much each feeling feeds a label",
+          "Feeling numbers: Current mood values"
+        ],
+        "how_it_touches_agents": "The numbers still drive behavior. The label is just a readable tag for UI or prompts.",
+        "how_it_works": "Score each emotion from the feeling numbers. Pick the highest score.",
+        "why_it_works": "One number is not a whole emotion. Combinations (stress + trust + confidence) map better to labels.",
+        "how_put_together": "Turns the continuous mood into a simple stage name used in diagrams.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Chosen emotion",
+          "tip": "The winning label",
+          "kind": "score"
+        },
+        {
+          "plain": "Emotion mix weights",
+          "tip": "How much each feeling feeds a label",
+          "kind": "weight"
+        },
+        {
+          "plain": "Feeling numbers",
+          "tip": "Current mood values",
+          "kind": "state"
+        }
+      ]
+    },
+    {
+      "id": "CM-09",
+      "number": 9,
+      "title": "Memory Retrieval Score",
+      "katex": [
+        "\\Gamma_m=aT_m+bP_m+cE_m+dR_m-eN_m",
+        "M_{\\mathrm{eff},t}=\\mathrm{clip}\\!\\left(\\sum_{m\\in\\mathcal{M}_t}\\Gamma_m,\\,0,\\,M_{\\max}\\right)"
+      ],
+      "meaning": "Memories compete for a seat in the reply. This scores which ones matter most.",
+      "variables": [
+        {
+          "sym": "\\Gamma_m",
+          "def": "retrieval score"
+        },
+        {
+          "sym": "T_m",
+          "def": "topic relevance"
+        },
+        {
+          "sym": "P_m",
+          "def": "person / entity relevance"
+        },
+        {
+          "sym": "E_m",
+          "def": "emotional weight"
+        },
+        {
+          "sym": "R_m",
+          "def": "recency"
+        },
+        {
+          "sym": "N_m",
+          "def": "repetition penalty"
+        },
+        {
+          "sym": "a..e",
+          "def": "tunable constants"
+        }
+      ],
+      "why_this_logic": "Score = topic + person + emotion + recency − repeat penalty. Then we cap the total memory pull.",
+      "why_these_variables": "Top memories go into the reply-building step.",
+      "psychology_theory_basis": [
+        "recency effect",
+        "emotional salience in memory",
+        "relevance ranking",
+        "novelty preference"
+      ],
+      "simple_explanation": "What should I remember for this moment?",
+      "simplified": {
+        "headline": "What should I remember for this moment?",
+        "plain_equation": "Memories compete for a seat in the reply. This scores which ones matter most.",
+        "variables_explained": [
+          "Memory score: How useful this memory is now",
+          "Topic match: Is it about the same subject?",
+          "Person match: Is it about the right people?",
+          "Emotional weight: Is it emotionally sticky?",
+          "Freshness: How recent is it?",
+          "Repeat penalty: Has this been said too often?"
+        ],
+        "how_it_touches_agents": "Before answering, the agent ranks memories by topic, person, emotion, and freshness, and downs repeated stale ones.",
+        "how_it_works": "Score = topic + person + emotion + recency − repeat penalty. Then we cap the total memory pull.",
+        "why_it_works": "A simple score is easy to tune and explain. Emotional and recent memories should win more often.",
+        "how_put_together": "Top memories go into the reply-building step.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Memory score",
+          "tip": "How useful this memory is now",
+          "kind": "memory"
+        },
+        {
+          "plain": "Topic match",
+          "tip": "Is it about the same subject?",
+          "kind": "memory"
+        },
+        {
+          "plain": "Person match",
+          "tip": "Is it about the right people?",
+          "kind": "relation"
+        },
+        {
+          "plain": "Emotional weight",
+          "tip": "Is it emotionally sticky?",
+          "kind": "memory"
+        },
+        {
+          "plain": "Freshness",
+          "tip": "How recent is it?",
+          "kind": "memory"
+        },
+        {
+          "plain": "Repeat penalty",
+          "tip": "Has this been said too often?",
+          "kind": "clamp"
+        }
+      ]
+    },
+    {
+      "id": "CM-10",
+      "number": 10,
+      "title": "Agent-Device Relevance Model",
+      "katex": [
+        "R_{a,d}=\\Omega(T_a,T_d)\\cdot P_d"
+      ],
+      "meaning": "Agents should only care about gear that matches their job tags and importance.",
+      "variables": [
+        {
+          "sym": "R_{a,d}",
+          "def": "relevance of device d to agent a"
+        },
+        {
+          "sym": "\\Omega(T_a,T_d)",
+          "def": "tag overlap / compatibility"
+        },
+        {
+          "sym": "P_d",
+          "def": "device priority / criticality"
+        }
+      ],
+      "why_this_logic": "Overlap between agent tags and device tags, times how critical the device is.",
+      "why_these_variables": "Used for tool routing and domain jobs.",
+      "psychology_theory_basis": [
+        "role assignment",
+        "operational relevance",
+        "task allocation logic"
+      ],
+      "simple_explanation": "Is this device or service part of my job?",
+      "simplified": {
+        "headline": "Is this device or service part of my job?",
+        "plain_equation": "Agents should only care about gear that matches their job tags and importance.",
+        "variables_explained": [
+          "Relevance score: Should this agent care?",
+          "Tag overlap: Do job tags match device tags?",
+          "Device priority: How critical is the device?"
+        ],
+        "how_it_touches_agents": "When tools ask who owns a VM, mount, or service, this score decides if an agent should care.",
+        "how_it_works": "Overlap between agent tags and device tags, times how critical the device is.",
+        "why_it_works": "Homelab gear changes a lot. Tag matching beats hardcoding every new box into every agent.",
+        "how_put_together": "Used for tool routing and domain jobs.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Relevance score",
+          "tip": "Should this agent care?",
+          "kind": "goal"
+        },
+        {
+          "plain": "Tag overlap",
+          "tip": "Do job tags match device tags?",
+          "kind": "goal"
+        },
+        {
+          "plain": "Device priority",
+          "tip": "How critical is the device?",
+          "kind": "score"
+        }
+      ]
+    },
+    {
+      "id": "CM-11",
+      "number": 11,
+      "title": "Full System Output Function",
+      "katex": [
+        "O_t=F(I,C,S_t,G_t,M_t,W_t,D_t,H_t,\\Pi_t)",
+        "O^{\\mathrm{final}}_t=\\mathcal{C}\\!\\big(F(I,C,S_t,G_t,M_t,W_t,D_t,H_t,\\Pi_t)\\big)"
+      ],
+      "meaning": "This is the big combine step. The reply comes from identity, feelings, relationships, memory, world context, and the ask, not from one blank prompt.",
+      "variables": [
+        {
+          "sym": "I",
+          "def": "identity / genome"
+        },
+        {
+          "sym": "C",
+          "def": "continuity profile / dossier / vault"
+        },
+        {
+          "sym": "S_t",
+          "def": "current state"
+        },
+        {
+          "sym": "G_t",
+          "def": "relationship graph"
+        },
+        {
+          "sym": "M_t",
+          "def": "relevant memories"
+        },
+        {
+          "sym": "W_t",
+          "def": "world context"
+        },
+        {
+          "sym": "D_t",
+          "def": "domain / system / page state"
+        },
+        {
+          "sym": "H_t",
+          "def": "operational history"
+        },
+        {
+          "sym": "\\Pi_t",
+          "def": "current task / prompt context"
+        }
+      ],
+      "why_this_logic": "Output is a function of identity, profile, state, relationships, memories, world, domain, history, and the current ask. A final polish step can wrap it.",
+      "why_these_variables": "Everything above feeds this. This is where the reply is born.",
+      "psychology_theory_basis": [
+        "cognitive architecture",
+        "person × situation × history",
+        "stateful behavior systems",
+        "contextual reasoning"
+      ],
+      "simple_explanation": "Given who I am and what I feel, what should I say or do?",
+      "summary_equation": {
+        "katex": [
+          "\\mathrm{Behavior}=\\mathrm{Identity}+\\mathrm{State}+\\mathrm{Memory}+\\mathrm{Relationships}+\\mathrm{Events}"
+        ],
+        "meaning": "Plain-language summary of the whole model.",
+        "simple": "Why does the system feel alive? Because it does not reset, it carries forward who it is, what happened, and how that changed it."
+      },
+      "simplified": {
+        "headline": "Given who I am and what I feel, what should I say or do?",
+        "plain_equation": "This is the big combine step. The reply comes from identity, feelings, relationships, memory, world context, and the ask, not from one blank prompt.",
+        "variables_explained": [
+          "Reply: What the agent says or does",
+          "Identity: Stable self / genome",
+          "Profile: Deep dossier and vault",
+          "Current feelings: Mood right now",
+          "Relationship map: Bonds to people",
+          "Memories in play: What got retrieved",
+          "World context: Outside facts",
+          "Domain state: Which system page is active",
+          "History: Operational past",
+          "Current ask: What the user just wanted"
+        ],
+        "how_it_touches_agents": "Codec builds the answer using all those layers together.",
+        "how_it_works": "Output is a function of identity, profile, state, relationships, memories, world, domain, history, and the current ask. A final polish step can wrap it.",
+        "why_it_works": "One prompt alone is autocomplete. Stacking these layers is what makes the agent feel like the same person over time.",
+        "how_put_together": "Everything above feeds this. This is where the reply is born.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Reply",
+          "tip": "What the agent says or does",
+          "kind": "goal"
+        },
+        {
+          "plain": "Identity",
+          "tip": "Stable self / genome",
+          "kind": "weight"
+        },
+        {
+          "plain": "Profile",
+          "tip": "Deep dossier and vault",
+          "kind": "weight"
+        },
+        {
+          "plain": "Current feelings",
+          "tip": "Mood right now",
+          "kind": "state"
+        },
+        {
+          "plain": "Relationship map",
+          "tip": "Bonds to people",
+          "kind": "relation"
+        },
+        {
+          "plain": "Memories in play",
+          "tip": "What got retrieved",
+          "kind": "memory"
+        },
+        {
+          "plain": "World context",
+          "tip": "Outside facts",
+          "kind": "event"
+        },
+        {
+          "plain": "Domain state",
+          "tip": "Which system page is active",
+          "kind": "goal"
+        },
+        {
+          "plain": "History",
+          "tip": "Operational past",
+          "kind": "memory"
+        },
+        {
+          "plain": "Current ask",
+          "tip": "What the user just wanted",
+          "kind": "trigger"
+        }
+      ]
+    },
+    {
+      "id": "CM-12",
+      "number": 12,
+      "title": "Input Normalization Model",
+      "katex": [
+        "\\tilde{X}=\\frac{X-X_{\\min}}{X_{\\max}-X_{\\min}}"
+      ],
+      "meaning": "Different inputs can use different scales. This stretches them into a shared 0 to 1 range.",
+      "variables": [
+        {
+          "sym": "\\tilde{X}",
+          "def": "normalized input"
+        },
+        {
+          "sym": "X_{\\min},X_{\\max}",
+          "def": "observed or design bounds"
+        }
+      ],
+      "why_this_logic": "Normalized = (value − min) / (max − min).",
+      "why_these_variables": "Runs early, before event impact math.",
+      "psychology_theory_basis": [
+        "psychometric scaling",
+        "feature scaling in control systems"
+      ],
+      "simple_explanation": "Put every signal on the same yardstick.",
+      "simplified": {
+        "headline": "Put every signal on the same yardstick.",
+        "plain_equation": "Different inputs can use different scales. This stretches them into a shared 0 to 1 range.",
+        "variables_explained": [
+          "Normalized value: The 0–1 version",
+          "Raw value: Original measurement",
+          "Min and max: Allowed range for that channel"
+        ],
+        "how_it_touches_agents": "Before hits get mixed, loud and quiet channels get equal footing.",
+        "how_it_works": "Normalized = (value − min) / (max − min).",
+        "why_it_works": "Without this, one loud channel can drown softer but important signals for no good reason.",
+        "how_put_together": "Runs early, before event impact math.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Normalized value",
+          "tip": "The 0–1 version",
+          "kind": "clamp"
+        },
+        {
+          "plain": "Raw value",
+          "tip": "Original measurement",
+          "kind": "event"
+        },
+        {
+          "plain": "Min and max",
+          "tip": "Allowed range for that channel",
+          "kind": "clamp"
+        }
+      ]
+    },
+    {
+      "id": "CM-13",
+      "number": 13,
+      "title": "Event Delta Cap Model",
+      "katex": [
+        "\\Delta X_e^{\\mathrm{bounded}}=\\mathrm{clip}(\\Delta X_e,-\\delta_e,+\\delta_e)"
+      ],
+      "meaning": "A single event cannot move feelings by more than a set cap.",
+      "variables": [
+        {
+          "sym": "\\delta_e",
+          "def": "per-event magnitude cap"
+        }
+      ],
+      "why_this_logic": "Clip the event change between −cap and +cap.",
+      "why_these_variables": "Applied when packaging event changes into the mood update.",
+      "psychology_theory_basis": [
+        "affective regulation",
+        "robust control"
+      ],
+      "simple_explanation": "How hard can one event hit?",
+      "simplified": {
+        "headline": "How hard can one event hit?",
+        "plain_equation": "A single event cannot move feelings by more than a set cap.",
+        "variables_explained": [
+          "Capped change: Event hit after limits",
+          "Raw change: Unlimited hit",
+          "Cap size: Max allowed move"
+        ],
+        "how_it_touches_agents": "One angry message cannot erase months of trust in one shot.",
+        "how_it_works": "Clip the event change between −cap and +cap.",
+        "why_it_works": "Guardrails keep the system stable.",
+        "how_put_together": "Applied when packaging event changes into the mood update.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Capped change",
+          "tip": "Event hit after limits",
+          "kind": "clamp"
+        },
+        {
+          "plain": "Raw change",
+          "tip": "Unlimited hit",
+          "kind": "event"
+        },
+        {
+          "plain": "Cap size",
+          "tip": "Max allowed move",
+          "kind": "clamp"
+        }
+      ]
+    },
+    {
+      "id": "CM-14",
+      "number": 14,
+      "title": "Trait Contribution Cap Model",
+      "katex": [
+        "A_{\\mathrm{tot},t}=\\mathrm{clip}\\!\\left(\\sum_{T\\in\\mathcal{T}}A_t(t),\\,0,\\,A_{\\max}\\right)"
+      ],
+      "meaning": "All active traits together cannot exceed a ceiling.",
+      "variables": [
+        {
+          "sym": "A_{\\max}",
+          "def": "maximum aggregate trait influence"
+        }
+      ],
+      "why_this_logic": "Add active trait pushes, then clip to a max.",
+      "why_these_variables": "After summing active traits, before they dominate output.",
+      "psychology_theory_basis": [
+        "capacity limits in attention",
+        "feature saturation"
+      ],
+      "simple_explanation": "How much total trait pressure is allowed?",
+      "simplified": {
+        "headline": "How much total trait pressure is allowed?",
+        "plain_equation": "All active traits together cannot exceed a ceiling.",
+        "variables_explained": [
+          "Total trait push: Combined active influence",
+          "Each trait push: Single active trait",
+          "Max allowed: Ceiling"
+        ],
+        "how_it_touches_agents": "A busy character sheet cannot drown the agent's voice.",
+        "how_it_works": "Add active trait pushes, then clip to a max.",
+        "why_it_works": "Too many traits yelling at once makes mushy behavior.",
+        "how_put_together": "After summing active traits, before they dominate output.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Total trait push",
+          "tip": "Combined active influence",
+          "kind": "clamp"
+        },
+        {
+          "plain": "Each trait push",
+          "tip": "Single active trait",
+          "kind": "trigger"
+        },
+        {
+          "plain": "Max allowed",
+          "tip": "Ceiling",
+          "kind": "clamp"
+        }
+      ]
+    },
+    {
+      "id": "CM-15",
+      "number": 15,
+      "title": "Identity Anchor Model",
+      "katex": [
+        "O^{\\mathrm{final}}_t=\\beta_i O^{\\mathrm{identity}}_t+(1-\\beta_i)O^{\\mathrm{adaptive}}_t",
+        "\\beta_i\\ge\\beta_{\\min}"
+      ],
+      "meaning": "The final voice mixes stable identity with adaptive continuity. Identity never drops below a floor.",
+      "variables": [
+        {
+          "sym": "\\beta_i",
+          "def": "identity blend weight"
+        },
+        {
+          "sym": "\\beta_{\\min}",
+          "def": "minimum identity lock"
+        }
+      ],
+      "why_this_logic": "Final = identity share × identity voice + adaptive share × adaptive voice, with identity share at least a minimum.",
+      "why_these_variables": "Runs at reply time after the big combine step.",
+      "psychology_theory_basis": [
+        "self-concept stability",
+        "identity continuity"
+      ],
+      "simple_explanation": "Stay yourself while still adapting.",
+      "simplified": {
+        "headline": "Stay yourself while still adapting.",
+        "plain_equation": "The final voice mixes stable identity with adaptive continuity. Identity never drops below a floor.",
+        "variables_explained": [
+          "Final voice mix: Blended output",
+          "Identity share: How much stable self",
+          "Identity voice: Stable wording path",
+          "Adaptive voice: Continuity wording path",
+          "Minimum identity: Floor that cannot go lower"
+        ],
+        "how_it_touches_agents": "The agent can learn, but it should not become a totally different character overnight.",
+        "how_it_works": "Final = identity share × identity voice + adaptive share × adaptive voice, with identity share at least a minimum.",
+        "why_it_works": "Without a floor, long chats drift into whoever the last event rewarded.",
+        "how_put_together": "Runs at reply time after the big combine step.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Final voice mix",
+          "tip": "Blended output",
+          "kind": "goal"
+        },
+        {
+          "plain": "Identity share",
+          "tip": "How much stable self",
+          "kind": "weight"
+        },
+        {
+          "plain": "Identity voice",
+          "tip": "Stable wording path",
+          "kind": "weight"
+        },
+        {
+          "plain": "Adaptive voice",
+          "tip": "Continuity wording path",
+          "kind": "state"
+        },
+        {
+          "plain": "Minimum identity",
+          "tip": "Floor that cannot go lower",
+          "kind": "clamp"
+        }
+      ]
+    },
+    {
+      "id": "CM-16",
+      "number": 16,
+      "title": "Output Evaluation Model",
+      "katex": [
+        "Q_t=w^c C_t+w^s S_t+w^r R_t"
+      ],
+      "meaning": "Score the reply for coherence, mood-fit, and relationship-fit.",
+      "variables": [
+        {
+          "sym": "C_t",
+          "def": "coherence score"
+        },
+        {
+          "sym": "S_t",
+          "def": "state-consistency score"
+        },
+        {
+          "sym": "R_t",
+          "def": "relationship-appropriateness score"
+        }
+      ],
+      "why_this_logic": "Quality = weighted sum of coherence + state fit + relationship fit.",
+      "why_these_variables": "Feeds the learning update.",
+      "psychology_theory_basis": [
+        "reinforcement signal design",
+        "multi-objective utility"
+      ],
+      "simple_explanation": "Was that reply any good?",
+      "simplified": {
+        "headline": "Was that reply any good?",
+        "plain_equation": "Score the reply for coherence, mood-fit, and relationship-fit.",
+        "variables_explained": [
+          "Quality score: How good the reply was",
+          "Coherence: Did it make sense?",
+          "Mood fit: Did it match feelings?",
+          "Relationship fit: Was it right for that bond?"
+        ],
+        "how_it_touches_agents": "If learning is on, better scores nudge future behavior.",
+        "how_it_works": "Quality = weighted sum of coherence + state fit + relationship fit.",
+        "why_it_works": "You cannot improve what you never score.",
+        "how_put_together": "Feeds the learning update.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Quality score",
+          "tip": "How good the reply was",
+          "kind": "score"
+        },
+        {
+          "plain": "Coherence",
+          "tip": "Did it make sense?",
+          "kind": "score"
+        },
+        {
+          "plain": "Mood fit",
+          "tip": "Did it match feelings?",
+          "kind": "state"
+        },
+        {
+          "plain": "Relationship fit",
+          "tip": "Was it right for that bond?",
+          "kind": "relation"
+        }
+      ]
+    },
+    {
+      "id": "CM-17",
+      "number": 17,
+      "title": "Social Cycle Cap Model",
+      "katex": [
+        "I^{\\mathrm{bounded}}_t=\\mathrm{clip}\\!\\left(\\sum_{s\\in\\mathcal{S}}I_s,\\,-\\delta_I,\\,+\\delta_I\\right)"
+      ],
+      "meaning": "All social hits get added, then clipped so spam cannot force a meltdown.",
+      "variables": [
+        {
+          "sym": "\\delta_I",
+          "def": "social impact cycle cap"
+        }
+      ],
+      "why_this_logic": "Sum social hits, then clip.",
+      "why_these_variables": "Wraps social influence before mood update.",
+      "psychology_theory_basis": [
+        "social impact theory",
+        "robustness"
+      ],
+      "simple_explanation": "How much social weather can I take this cycle?",
+      "simplified": {
+        "headline": "How much social weather can I take this cycle?",
+        "plain_equation": "All social hits get added, then clipped so spam cannot force a meltdown.",
+        "variables_explained": [
+          "Capped social hit: Social impact after limits",
+          "Each social hit: One message or post",
+          "Social cap: Max absorb this cycle"
+        ],
+        "how_it_touches_agents": "Pile-ons have a ceiling.",
+        "how_it_works": "Sum social hits, then clip.",
+        "why_it_works": "Public channels can spam. The agent must stay controllable.",
+        "how_put_together": "Wraps social influence before mood update.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Capped social hit",
+          "tip": "Social impact after limits",
+          "kind": "clamp"
+        },
+        {
+          "plain": "Each social hit",
+          "tip": "One message or post",
+          "kind": "score"
+        },
+        {
+          "plain": "Social cap",
+          "tip": "Max absorb this cycle",
+          "kind": "clamp"
+        }
+      ]
+    },
+    {
+      "id": "CM-18",
+      "number": 18,
+      "title": "Goal Selection Model",
+      "katex": [
+        "G_t=\\arg\\max_k U_k(S_t,C,D_t,H_t)"
+      ],
+      "meaning": "Score possible goals and pick the best one for this moment.",
+      "variables": [
+        {
+          "sym": "G_t",
+          "def": "selected goal"
+        },
+        {
+          "sym": "U_k",
+          "def": "utility of goal k"
+        }
+      ],
+      "why_this_logic": "Pick the goal with the highest utility given mood, character, domain, and history.",
+      "why_these_variables": "Uses the utility equation next.",
+      "psychology_theory_basis": [
+        "goal-directed agency",
+        "utility maximization"
+      ],
+      "simple_explanation": "What should I try to do right now?",
+      "simplified": {
+        "headline": "What should I try to do right now?",
+        "plain_equation": "Score possible goals and pick the best one for this moment.",
+        "variables_explained": [
+          "Chosen goal: What to pursue",
+          "Goal value: Score for each option"
+        ],
+        "how_it_touches_agents": "Moves the agent from only reacting toward choosing a purpose, especially for tools.",
+        "how_it_works": "Pick the goal with the highest utility given mood, character, domain, and history.",
+        "why_it_works": "Random goals feel broken. Scoring makes the choice clear.",
+        "how_put_together": "Uses the utility equation next.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Chosen goal",
+          "tip": "What to pursue",
+          "kind": "goal"
+        },
+        {
+          "plain": "Goal value",
+          "tip": "Score for each option",
+          "kind": "score"
+        }
+      ]
+    },
+    {
+      "id": "CM-19",
+      "number": 19,
+      "title": "Goal Utility Function",
+      "katex": [
+        "U_k=w_1 N_k+w_2 R_k+w_3 P_k+w_4 C_k"
+      ],
+      "meaning": "Goal value mixes urgency, relevance, priority, and character fit.",
+      "variables": [
+        {
+          "sym": "N_k",
+          "def": "need urgency"
+        },
+        {
+          "sym": "R_k",
+          "def": "relevance to current context"
+        },
+        {
+          "sym": "P_k",
+          "def": "priority / importance"
+        },
+        {
+          "sym": "C_k",
+          "def": "character alignment"
+        }
+      ],
+      "why_this_logic": "Weighted sum of those four pieces.",
+      "why_these_variables": "Scores feed goal picking and planning views.",
+      "psychology_theory_basis": [
+        "multi-attribute utility theory",
+        "motivation models"
+      ],
+      "simple_explanation": "How important is this goal?",
+      "simplified": {
+        "headline": "How important is this goal?",
+        "plain_equation": "Goal value mixes urgency, relevance, priority, and character fit.",
+        "variables_explained": [
+          "Goal value: Total importance",
+          "Urgency: How needed is it now?",
+          "Relevance: Does it fit this context?",
+          "Priority: How important overall?",
+          "Character fit: Does it match who they are?"
+        ],
+        "how_it_touches_agents": "Helps the agent prefer goals that match both need and personality.",
+        "how_it_works": "Weighted sum of those four pieces.",
+        "why_it_works": "Tradeoffs stay visible and tunable.",
+        "how_put_together": "Scores feed goal picking and planning views.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Goal value",
+          "tip": "Total importance",
+          "kind": "score"
+        },
+        {
+          "plain": "Urgency",
+          "tip": "How needed is it now?",
+          "kind": "trigger"
+        },
+        {
+          "plain": "Relevance",
+          "tip": "Does it fit this context?",
+          "kind": "goal"
+        },
+        {
+          "plain": "Priority",
+          "tip": "How important overall?",
+          "kind": "score"
+        },
+        {
+          "plain": "Character fit",
+          "tip": "Does it match who they are?",
+          "kind": "weight"
+        }
+      ]
+    },
+    {
+      "id": "CM-20",
+      "number": 20,
+      "title": "Conflict Resolution Model",
+      "katex": [
+        "\\Psi_t=\\arg\\max\\,(w_1 A_t+w_2 M_{\\mathrm{eff},t}+w_3 G_t+w_4 S_t)"
+      ],
+      "meaning": "When traits, memories, bonds, and mood disagree, pick one main driver instead of blending into mush.",
+      "variables": [
+        {
+          "sym": "\\Psi_t",
+          "def": "dominant influence"
+        },
+        {
+          "sym": "A_t",
+          "def": "trait influence"
+        },
+        {
+          "sym": "M_{\\mathrm{eff},t}",
+          "def": "memory influence"
+        },
+        {
+          "sym": "G_t",
+          "def": "relationship / goal influence"
+        },
+        {
+          "sym": "S_t",
+          "def": "state influence"
+        }
+      ],
+      "why_this_logic": "Score each influence family and take the winner.",
+      "why_these_variables": "Sits just before reply assembly under conflict.",
+      "psychology_theory_basis": [
+        "attention bottleneck",
+        "winner-take-most control"
+      ],
+      "simple_explanation": "What matters most right now?",
+      "simplified": {
+        "headline": "What matters most right now?",
+        "plain_equation": "When traits, memories, bonds, and mood disagree, pick one main driver instead of blending into mush.",
+        "variables_explained": [
+          "Main driver: Winning influence",
+          "Trait push: From active traits",
+          "Memory push: From memories",
+          "Bond or goal push: From relationships/goals",
+          "Mood push: From current feelings"
+        ],
+        "how_it_touches_agents": "Keeps behavior clear when many pressures compete.",
+        "how_it_works": "Score each influence family and take the winner.",
+        "why_it_works": "Averaging everything makes weak, confused replies.",
+        "how_put_together": "Sits just before reply assembly under conflict.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Main driver",
+          "tip": "Winning influence",
+          "kind": "goal"
+        },
+        {
+          "plain": "Trait push",
+          "tip": "From active traits",
+          "kind": "trigger"
+        },
+        {
+          "plain": "Memory push",
+          "tip": "From memories",
+          "kind": "memory"
+        },
+        {
+          "plain": "Bond or goal push",
+          "tip": "From relationships/goals",
+          "kind": "relation"
+        },
+        {
+          "plain": "Mood push",
+          "tip": "From current feelings",
+          "kind": "state"
+        }
+      ]
+    },
+    {
+      "id": "CM-21",
+      "number": 21,
+      "title": "Learning / Adaptation Model",
+      "katex": [
+        "\\theta_{t+1}=\\theta_t+\\alpha(Q_t-Q^\\star)"
+      ],
+      "meaning": "Nudge settings toward better scored replies using a small learning step.",
+      "variables": [
+        {
+          "sym": "\\theta_t",
+          "def": "parameter set"
+        },
+        {
+          "sym": "\\alpha",
+          "def": "learning rate"
+        },
+        {
+          "sym": "Q_t",
+          "def": "output quality"
+        },
+        {
+          "sym": "Q^\\star",
+          "def": "target quality"
+        }
+      ],
+      "why_this_logic": "New settings = old settings + learning rate × (score − target).",
+      "why_these_variables": "Uses the quality score. Must respect identity floor.",
+      "psychology_theory_basis": [
+        "gradient-style adaptation",
+        "cybernetic feedback"
+      ],
+      "simple_explanation": "Did I do well, and should I adjust?",
+      "simplified": {
+        "headline": "Did I do well, and should I adjust?",
+        "plain_equation": "Nudge settings toward better scored replies using a small learning step.",
+        "variables_explained": [
+          "Next settings: Updated knobs",
+          "Current settings: Knobs now",
+          "Learning rate: How big the nudge is",
+          "Quality score: How good the reply was",
+          "Target quality: Desired score"
+        ],
+        "how_it_touches_agents": "Optional. Improves over time without rewriting identity.",
+        "how_it_works": "New settings = old settings + learning rate × (score − target).",
+        "why_it_works": "Small steps stay stable. Huge steps thrash character.",
+        "how_put_together": "Uses the quality score. Must respect identity floor.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Next settings",
+          "tip": "Updated knobs",
+          "kind": "weight"
+        },
+        {
+          "plain": "Current settings",
+          "tip": "Knobs now",
+          "kind": "weight"
+        },
+        {
+          "plain": "Learning rate",
+          "tip": "How big the nudge is",
+          "kind": "clamp"
+        },
+        {
+          "plain": "Quality score",
+          "tip": "How good the reply was",
+          "kind": "score"
+        },
+        {
+          "plain": "Target quality",
+          "tip": "Desired score",
+          "kind": "score"
+        }
+      ]
+    },
+    {
+      "id": "CM-22",
+      "number": 22,
+      "title": "Memory Tier Weighting Model",
+      "katex": [
+        "\\Gamma_m'=\\Gamma_m\\cdot\\tau_m"
+      ],
+      "meaning": "Identity memories outrank routine ones using a tier multiplier.",
+      "variables": [
+        {
+          "sym": "\\tau_m",
+          "def": "memory tier weight"
+        },
+        {
+          "sym": "\\tau\\approx 1.5{-}2.0",
+          "def": "identity-defining"
+        },
+        {
+          "sym": "\\tau\\approx 1.0",
+          "def": "important episodic"
+        },
+        {
+          "sym": "\\tau\\approx 0.5",
+          "def": "routine"
+        }
+      ],
+      "why_this_logic": "Adjusted score = base score × tier weight.",
+      "why_these_variables": "Applied after the base memory score.",
+      "psychology_theory_basis": [
+        "autobiographical memory hierarchy",
+        "salience"
+      ],
+      "simple_explanation": "Which memories matter more?",
+      "simplified": {
+        "headline": "Which memories matter more?",
+        "plain_equation": "Identity memories outrank routine ones using a tier multiplier.",
+        "variables_explained": [
+          "Adjusted memory score: Score after tier boost",
+          "Base memory score: Score before tier",
+          "Tier weight: Identity vs routine importance"
+        ],
+        "how_it_touches_agents": "Formative events beat laundry-list trivia in the ranking.",
+        "how_it_works": "Adjusted score = base score × tier weight.",
+        "why_it_works": "Not all memories should fight as equals.",
+        "how_put_together": "Applied after the base memory score.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Adjusted memory score",
+          "tip": "Score after tier boost",
+          "kind": "memory"
+        },
+        {
+          "plain": "Base memory score",
+          "tip": "Score before tier",
+          "kind": "memory"
+        },
+        {
+          "plain": "Tier weight",
+          "tip": "Identity vs routine importance",
+          "kind": "weight"
+        }
+      ]
+    },
+    {
+      "id": "CM-23",
+      "number": 23,
+      "title": "Uncertainty Propagation Model",
+      "katex": [
+        "A_t'(t)=A_t(t)\\cdot C_t"
+      ],
+      "meaning": "Low-confidence traits get turned down before they push behavior.",
+      "variables": [
+        {
+          "sym": "C_t",
+          "def": "confidence / certainty of the trait"
+        },
+        {
+          "sym": "A_t'(t)",
+          "def": "uncertainty-adjusted active influence"
+        }
+      ],
+      "why_this_logic": "Adjusted push = active push × confidence.",
+      "why_these_variables": "Applied on active trait influence.",
+      "psychology_theory_basis": [
+        "Bayesian discounting (lightweight)",
+        "epistemic caution"
+      ],
+      "simple_explanation": "How sure am I that this trait should drive me?",
+      "simplified": {
+        "headline": "How sure am I that this trait should drive me?",
+        "plain_equation": "Low-confidence traits get turned down before they push behavior.",
+        "variables_explained": [
+          "Adjusted trait push: Push after confidence gate",
+          "Active trait push: Push before gate",
+          "Confidence: How sure we are"
+        ],
+        "how_it_touches_agents": "Guessed traits whisper. Clear canonical traits may speak.",
+        "how_it_works": "Adjusted push = active push × confidence.",
+        "why_it_works": "Uncertainty should shrink influence. That is honest.",
+        "how_put_together": "Applied on active trait influence.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Adjusted trait push",
+          "tip": "Push after confidence gate",
+          "kind": "trigger"
+        },
+        {
+          "plain": "Active trait push",
+          "tip": "Push before gate",
+          "kind": "trigger"
+        },
+        {
+          "plain": "Confidence",
+          "tip": "How sure we are",
+          "kind": "score"
+        }
+      ]
+    },
+    {
+      "id": "CM-24",
+      "number": 24,
+      "title": "Markov Affect Transition Model",
+      "katex": [
+        "P(s_{t+1}=j\\mid s_t=i)=T_{ij}(e_t,\\,p)",
+        "\\pi_{t+1}=\\pi_t\\,T(e_t,p)",
+        "s_t\\in\\{\\mathrm{calm},\\mathrm{low},\\mathrm{moderate},\\mathrm{defensive},\\mathrm{high},\\mathrm{disengaged}\\}"
+      ],
+      "meaning": "Stage names like calm or defensive can be studied as chance jumps. The continuous numbers stay in charge.",
+      "variables": [
+        {
+          "sym": "T_{ij}",
+          "def": "transition probability i→j"
+        },
+        {
+          "sym": "e_t",
+          "def": "event class"
+        },
+        {
+          "sym": "p",
+          "def": "personality parameters"
+        },
+        {
+          "sym": "\\pi_t",
+          "def": "distribution over stages"
+        }
+      ],
+      "why_this_logic": "A table of chances says how likely each next stage is, given the event and personality.",
+      "why_these_variables": "Sits beside continuous mood math for analysis.",
+      "psychology_theory_basis": [
+        "Markov decision / emotion dynamics",
+        "holding-time models",
+        "finite-state emotional machines"
+      ],
+      "simple_explanation": "If my mood label is X now, where can it go next?",
+      "simplified": {
+        "headline": "If my mood label is X now, where can it go next?",
+        "plain_equation": "Stage names like calm or defensive can be studied as chance jumps. The continuous numbers stay in charge.",
+        "variables_explained": [
+          "Jump chance: Chance to move to another stage",
+          "Event type: What just happened",
+          "Personality: Who this agent is",
+          "Stage mix: Chances across stages"
+        ],
+        "how_it_touches_agents": "Useful for charts and analysis. Not a replacement for the main mood math.",
+        "how_it_works": "A table of chances says how likely each next stage is, given the event and personality.",
+        "why_it_works": "Chance tables help explain stage diagrams without claiming feelings are only labels.",
+        "how_put_together": "Sits beside continuous mood math for analysis.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Jump chance",
+          "tip": "Chance to move to another stage",
+          "kind": "score"
+        },
+        {
+          "plain": "Event type",
+          "tip": "What just happened",
+          "kind": "event"
+        },
+        {
+          "plain": "Personality",
+          "tip": "Who this agent is",
+          "kind": "weight"
+        },
+        {
+          "plain": "Stage mix",
+          "tip": "Chances across stages",
+          "kind": "state"
+        }
+      ]
+    },
+    {
+      "id": "CM-25",
+      "number": 25,
+      "title": "Operations-Research Goal Program (OR)",
+      "katex": [
+        "\\max_{g\\in\\mathcal{G}}\\; U(g)\\quad\\mathrm{s.t.}\\; c(g)\\le B,\\; g\\in\\mathrm{Feas}(D_t)",
+        "\\text{lexicographic soft goals: } (P_1,P_2,\\ldots)\\text{ via goal programming}"
+      ],
+      "meaning": "Pick goals like a planner: best value under limits like time, GPU, and what the domain allows.",
+      "variables": [
+        {
+          "sym": "U(g)",
+          "def": "goal utility (CM-19)"
+        },
+        {
+          "sym": "c(g)",
+          "def": "resource cost (time, GPU, risk)"
+        },
+        {
+          "sym": "B",
+          "def": "budget"
+        },
+        {
+          "sym": "\\mathrm{Feas}",
+          "def": "domain-feasible set"
+        }
+      ],
+      "why_this_logic": "Maximize goal value with cost limits and feasibility rules.",
+      "why_these_variables": "Formal twin of goal picking for planning and tests.",
+      "psychology_theory_basis": [
+        "multi-objective programming",
+        "goal programming",
+        "knapsack / scheduling analogies"
+      ],
+      "simple_explanation": "What is the best doable thing I can try with what I have?",
+      "simplified": {
+        "headline": "What is the best doable thing I can try with what I have?",
+        "plain_equation": "Pick goals like a planner: best value under limits like time, GPU, and what the domain allows.",
+        "variables_explained": [
+          "Goal value: How good the goal is",
+          "Cost: Time, GPU, or risk cost",
+          "Budget: What we can afford",
+          "Allowed set: What this domain can actually do"
+        ],
+        "how_it_touches_agents": "Stops wishful goals when Docker or VRAM is not ready.",
+        "how_it_works": "Maximize goal value with cost limits and feasibility rules.",
+        "why_it_works": "This is ordinary planning math. It makes tradeoffs explicit.",
+        "how_put_together": "Formal twin of goal picking for planning and tests.",
+        "connects_to": "This step feeds the next ones in the stack during a Codec turn.",
+        "reading_level": "grade8"
+      },
+      "variables_plain": [
+        {
+          "plain": "Goal value",
+          "tip": "How good the goal is",
+          "kind": "score"
+        },
+        {
+          "plain": "Cost",
+          "tip": "Time, GPU, or risk cost",
+          "kind": "clamp"
+        },
+        {
+          "plain": "Budget",
+          "tip": "What we can afford",
+          "kind": "clamp"
+        },
+        {
+          "plain": "Allowed set",
+          "tip": "What this domain can actually do",
+          "kind": "goal"
+        }
+      ]
+    }
+  ],
+  "runtime_mapping": {
+    "title": "Implemented subset (runtime source)",
+    "note": "Public Engineering also documents the currently implemented emotional continuity vector from continuity/emotional_continuity.py, a concrete specialization of CM-03/04/05/07/08.",
+    "sections": [
+      {
+        "id": "state-vector",
+        "title": "Runtime state vector E(t)",
+        "katex": [
+          "E(t)=\\big[I,\\,J,\\,H,\\,T,\\,A,\\,C,\\,X\\big]",
+          "I=\\text{irritation},\\; J=\\text{jealousy},\\; H=\\text{hurt},\\; T=\\text{trust},\\; A=\\text{attachment},\\; C=\\text{confidence},\\; X=\\text{anxiety}"
+        ],
+        "notes": "Maps onto CM-04 state update + CM-08 emotion selection stage labels."
+      },
+      {
+        "id": "blend",
+        "title": "Asymmetric inertia blend (_blend)",
+        "katex": [
+          "\\Delta\\ge 0:\\quad \\mathrm{gain}=\\Delta\\cdot\\big(0.78+0.22\\cdot(1-\\iota\\cdot 0.25)\\big),\\quad x'=\\mathrm{clamp}(x+\\mathrm{gain})",
+          "\\Delta< 0:\\quad x'=\\mathrm{clamp}\\big(x+\\Delta\\cdot(1-\\iota)\\big)"
+        ],
+        "notes": "Specialization of CM-04 with asymmetric accrual (hostility easier than repair)."
+      },
+      {
+        "id": "decay",
+        "title": "Idle decay",
+        "katex": [
+          "s=\\min\\big(12,\\lfloor \\Delta t / 90\\rfloor\\big),\\quad d=\\lambda\\cdot s",
+          "I,J,H,X\\leftarrow\\mathrm{clamp}(\\,\\cdot\\,-d),\\quad C\\leftarrow\\mathrm{clamp}\\big(C+(0.75-C)\\cdot 0.04\\cdot s\\big)"
+        ],
+        "notes": "Homeostasis term of CM-04."
+      },
+      {
+        "id": "comparison",
+        "title": "Comparison event (runtime)",
+        "katex": [
+          "\\Delta J=0.16\\cdot s_c\\cdot\\big(1+0.12\\cdot\\min(6,n)\\big)",
+          "\\Delta I=0.13\\cdot s_c\\cdot\\big(1+0.10\\cdot\\min(6,n)\\big)",
+          "\\Delta H=0.11\\cdot s_r,\\quad T\\leftarrow\\mathrm{clamp}(T-0.05\\cdot d_T)"
+        ],
+        "notes": "Concrete E_{e,x}·Q·L·H instance of CM-03."
+      },
+      {
+        "id": "formula5",
+        "title": "Formula 5, relationship edge",
+        "katex": [
+          "x'=\\mathrm{clamp}\\big(x+\\delta-0.008\\cdot(x-0.50)\\big)"
+        ],
+        "notes": "Directed relationship update aligning with CM-05."
+      }
+    ]
+  },
+  "worked_examples": [
+    {
+      "id": "MOCK-TRACE-001",
+      "label": "MOCK",
+      "title": "Comparison event on albedo (synthetic)",
+      "initial": {
+        "irritation": 0.1,
+        "jealousy": 0.12,
+        "hurt": 0.08,
+        "trust": 0.72,
+        "confidence": 0.75,
+        "anxiety": 0.12,
+        "comparison_count": 0
+      },
+      "profile": {
+        "comparison_sensitivity": 0.92,
+        "rejection_sensitivity": 0.88,
+        "jealousy_inertia": 0.88,
+        "anger_inertia": 0.78,
+        "trust_damage": 0.55
+      },
+      "event": "comparison (n→1), rival=mei_ling",
+      "steps": [
+        {
+          "op": "ΔJ base",
+          "detail": "0.16*0.92*(1+0.12*1)=0.1649"
+        },
+        {
+          "op": "_blend J",
+          "detail": "gain=0.1649*(0.78+0.22*(1-0.88*0.25))≈0.152; J'=clamp(0.12+0.152)=0.272"
+        },
+        {
+          "op": "ΔI base",
+          "detail": "0.13*0.92*(1+0.10*1)=0.1316 → blended ≈0.122; I'=0.222"
+        },
+        {
+          "op": "ΔH",
+          "detail": "0.11*0.88=0.0968 → blended; H'≈0.17"
+        },
+        {
+          "op": "trust",
+          "detail": "T'=clamp(0.72-0.05*0.55)=0.6925"
+        },
+        {
+          "op": "rival_heat",
+          "detail": "heat[mei_ling]=0.22"
+        }
+      ],
+      "final": {
+        "irritation": 0.222,
+        "jealousy": 0.272,
+        "hurt": 0.17,
+        "trust": 0.693,
+        "rival_heat": {
+          "mei_ling": 0.22
+        }
+      },
+      "disclaimer": "MOCK worked example for teaching the equations. Not a captured live agent event_log."
+    },
+    {
+      "id": "MOCK-TRACE-002",
+      "label": "MOCK",
+      "title": "Formula 5 ally bump (synthetic)",
+      "initial": {
+        "strength": 0.5
+      },
+      "event": "operator_ask → ally δ=+0.006",
+      "steps": [
+        {
+          "op": "Formula 5",
+          "detail": "x'=clamp(0.50+0.006-0.008*(0.50-0.50))=0.506"
+        }
+      ],
+      "final": {
+        "strength": 0.506
+      },
+      "disclaimer": "MOCK"
+    }
+  ],
+  "pipeline": {
+    "title": "How math reaches Codec replies",
+    "steps": [
+      "User message → observe_message(entity, text)",
+      "Classify turn + rivals → apply event equations + _blend",
+      "Persist emotional_continuity.json",
+      "snapshot() / continuity_line injected into prompt context",
+      "Model completion colored by stage + rival heat, not by inventing feelings in the LLM alone"
+    ],
+    "linked_diagram": "SEQ-001",
+    "linked_models": [
+      "MOD-EMO-001",
+      "MOD-PER-001",
+      "MOD-REL-001"
+    ]
+  },
+  "measurable_metrics": [
+    {
+      "metric": "State remains in [0,1]",
+      "test": "BVT-001"
+    },
+    {
+      "metric": "Personality Δjealousy differs for same event",
+      "test": "BVT-002"
+    },
+    {
+      "metric": "_blend asymmetry unit behavior",
+      "test": "UT-001"
+    },
+    {
+      "metric": "Formula 5 numeric match",
+      "test": "UT-002"
+    },
+    {
+      "metric": "Decay over idle steps",
+      "test": "BVT-001"
+    },
+    {
+      "metric": "Restart persistence of state file",
+      "test": "ST-001 / BVT-001"
+    }
+  ],
+  "markov_or_notes": {
+    "title": "Probabilistic & operations-research layer",
+    "body": "CM-24 treats stage labels as a Markov chain for analysis and STM diagrams. CM-25 casts goal choice as a constrained utility / goal program. Neither invents PASS results; both are design models for V&V scenarios and planning analysis."
+  },
+  "simplified_intro": {
+    "title": "How the Continuity Model fits together",
+    "body": [
+      "Think of an agent like a character that keeps going between messages. It remembers how it feels, whom it trusts, and what mattered before.",
+      "The Continuity Model is a stack of small formulas. Early ones score personality traits. Middle ones turn events into mood and relationship changes, then calm things back down. Later ones pick memories, choose goals, and build the reply.",
+      "Only some of this is live in code today (mood numbers, blend and settle, comparison events, relationship updates). The rest is the full design, published so the evidence pages match the real model.",
+      "Below, every equation is shown first. Right under it is an 8th-grade explanation, with variable cards that use icons and plain names."
+    ]
+  }
 }
