@@ -822,8 +822,20 @@ td.num { font-variant-numeric: tabular-nums; font-family: 'JetBrains Mono', mono
 }
 .progression .step.core { border-color: var(--signal-dim); color: var(--signal); }
 .progression .step.keep { border-color: var(--keep-ref-dim); color: var(--keep-ref); }
+.progression .step.desk {
+ border-color: color-mix(in srgb, var(--accent-bright) 55%, var(--line));
+ color: var(--accent-bright);
+}
+.progression .step .step-note {
+ display: block;
+ font: 500 0.68rem JetBrains Mono, monospace;
+ color: var(--cream-faint);
+ margin-top: 4px;
+ letter-spacing: 0.02em;
+}
 .progression .arrow-down { color: var(--cream-faint); font-size: 0.9rem; line-height: 1; padding: 2px 0; }
-.progression-caption { text-align: center; max-width: 52ch; margin: 20px auto 0; color: var(--cream-dim); font-size: 0.92rem; }
+.progression-caption { text-align: center; max-width: 58ch; margin: 20px auto 0; color: var(--cream-dim); font-size: 0.92rem; }
+.legend .dot.desk { background: var(--accent-bright); }
 
 /* ---------------- umbrella tree (ascii-style, real monospace) ---------------- */
 .treebox {
