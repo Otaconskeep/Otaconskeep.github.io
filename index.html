@@ -544,13 +544,13 @@
  <span class="free-sticker" aria-label="Free">FREE</span>
  <div class="install-panel-head">
  <h3 class="install-panel-title">Install OtaconsKeep Lite</h3>
- <span class="one-click-badge">One click · or baby steps</span>
+ <span class="one-click-badge">One-click or manual</span>
  </div>
  <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
  <p class="install-panel-lead">OtaconsKeep Lite on your hardware: agents, memory, Ollama + a VRAM-sized chat model, and Genome Voice Trainer. Install once; it starts itself after that.</p>
  <div class="os-grid">
  <div class="os-card">
- <p class="os-label">Windows</p>
+ <p class="os-label">One-click · Windows</p>
  <div class="install-trust-layout">
  <div class="install-trust-main">
  <div class="install-cta-row">
@@ -599,284 +599,80 @@
  <p class="os-hint" style="margin-top: 8px;"><strong>Use this button only.</strong> Do not open raw GitHub and Save As, that can corrupt the installer encoding.</p>
  <p class="os-hint" style="margin-top: 8px;"><a href="https://github.com/Otaconskeep/otacons-ai-ecosystem/archive/refs/heads/main.zip">Having trouble downloading? Download the GitHub ZIP instead</a>, then run <span class="mono">OtaconsKeep-Setup.bat</span> from the extracted folder.</p>
  </div>
- <div class="os-card">
- <p class="os-label">Linux · Ubuntu / Debian / WSL</p>
+ <div class="os-card os-card-manual">
+ <span class="manual-col-tag">Manual path</span>
+ <p class="os-label">Manual · click each step</p>
+ <p class="os-hint">No download button? Open Step 1, finish it, click <strong>Next</strong> for Step 2, and keep going.</p>
+ <div class="manual-steps" data-manual-accordion>
+ <details class="manual-step" open>
+ <summary><span class="manual-step-num">1</span> Prerequisites</summary>
+ <div class="manual-step-body">
+ <ul>
+ <li><strong>OS:</strong> Windows 10/11, or Ubuntu/Debian (WSL2 Ubuntu is fine).</li>
+ <li><strong>Password:</strong> Admin/UAC on Windows, or Ubuntu <span class="mono">sudo</span> password (not your Windows PIN).</li>
+ <li><strong>Space / time:</strong> ~10+ GB free · first run often 15–45 min. Do not close the window.</li>
+ <li><strong>Internet:</strong> needed for packages + chat model on first install.</li>
+ </ul>
+ <button type="button" class="manual-next">Next · Step 2 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">2</span> Windows · one CMD line</summary>
+ <div class="manual-step-body">
+ <p>Open <strong>Command Prompt</strong> (search “cmd”). Paste this whole line, press Enter:</p>
  <div class="codebox">
- <code id="otacon-cmd">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
- <button class="copy-btn" data-copy-target="otacon-cmd">Copy</button>
- </div>
- <p class="os-hint">Paste in a terminal. Asks for sudo once. Chat model tiers: under 6GB → <span class="mono">qwen2.5:1.5b</span> · ≥6 → <span class="mono">3b</span> · ≥8 → <span class="mono">7b</span> · ≥16 → <span class="mono">14b</span>.</p>
- </div>
- </div>
- <p class="os-hint" style="margin: 4px 0 0;">Lighter install (skip chat model / voice trainer): set <span class="mono">OTACON_INSTALL_DEFAULT_MODEL=0</span> and/or <span class="mono">OTACON_INSTALL_VOICE_TRAINER=0</span> before the command.</p>
-<div class="dual-install" id="lite-baby-install">
- <p class="dual-install-lead"><strong>Two install methods.</strong> Method 1 is the one-click download above. Method 2 is baby steps: prerequisites, one copy-paste line, then click any error you hit for the fix. Same end result.</p>
-
- <div class="dual-methods">
- <div class="dual-method-card">
- <span class="method-tag">Method 1</span>
- <h4>One-click Setup</h4>
- <p>Download the button above → double-click → follow the window. Best if you do not want to open a terminal.</p>
- </div>
- <div class="dual-method-card">
- <span class="method-tag">Method 2</span>
- <h4>Baby steps (manual)</h4>
- <p>Check prerequisites, paste one line into CMD or Ubuntu, then use the clickable error list if something looks scary.</p>
- </div>
- </div>
-
- <nav class="baby-install-nav" aria-label="Baby install sections">
- <a href="#lite-prereqs">Step 1 · Prerequisites</a>
- <a href="#lite-steps">Step 2 · Install commands</a>
- <a href="#lite-errors">If you see an error</a>
- </nav>
-
- <div class="baby-step-block" id="lite-prereqs">
- <h4><span class="step-num">Step 1</span> Prerequisites</h4>
- <p class="baby-prereq-note" style="margin-top:0;">Click any row you are unsure about. One-click Setup installs most of this for you; baby-step paths need you to confirm these first.</p>
-
- <div class="baby-prereq-table" role="table" aria-label="Lite prerequisites">
- <div class="baby-prereq-head" role="row">
- <span role="columnheader">Need</span>
- <span role="columnheader">Required?</span>
- <span role="columnheader">Quick check</span>
- <span role="columnheader">Help</span>
- </div>
-
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">Windows 10/11 or Ubuntu</span>
- <span class="baby-prereq-need yes">Required</span>
- <span class="baby-prereq-check">Supported OS</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li><strong>Windows:</strong> Windows 10 or 11 (64-bit). Home editions are fine.</li>
- <li><strong>Linux:</strong> Ubuntu or Debian (or WSL2 Ubuntu on Windows).</li>
- <li>Mac is not a native target yet. Use an Ubuntu VM if you must.</li>
- <li>You need a working internet connection for the first install (packages + chat model).</li>
- </ol>
- </div>
- </details>
-
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">Admin / sudo password</span>
- <span class="baby-prereq-need yes">Required</span>
- <span class="baby-prereq-check">Can approve UAC or type sudo</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li><strong>Windows:</strong> When Setup asks for Administrator, click <strong>Yes</strong>. That is normal.</li>
- <li><strong>Linux / Ubuntu / WSL:</strong> You will type your Ubuntu user password when it asks for <span class="mono">sudo</span>. Characters will not show as you type — that is normal. Press Enter when done.</li>
- <li>On WSL, the sudo password is the Ubuntu password you created, <em>not</em> your Windows PIN.</li>
- </ol>
- </div>
- </details>
-
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">Disk space + patience</span>
- <span class="baby-prereq-need yes">Required</span>
- <span class="baby-prereq-check">~10+ GB free · 15–45 min</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li>Leave at least <strong>10 GB</strong> free (more if you pull a larger chat model).</li>
- <li>First install often takes <strong>15–45 minutes</strong>. A black window with slow progress is still working — do not close it.</li>
- <li>One Windows restart is common when WSL is enabled for the first time. That is not a failure.</li>
- </ol>
- </div>
- </details>
-
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">Python / curl / git</span>
- <span class="baby-prereq-need maybe">Manual path</span>
- <span class="baby-prereq-check">Installer usually handles these</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <p class="baby-prereq-note">Skip this if you use Method 1 (one-click). Only needed if you install by hand inside Ubuntu.</p>
- <ol class="baby-steps">
- <li>Open Ubuntu (or a Linux terminal) and check:
- <pre class="baby-code mono">python3 --version
-curl --version
-git --version</pre>
- </li>
- <li>If anything is missing:
- <pre class="baby-code mono">sudo apt update
-sudo apt install -y python3 python3-pip python3-venv curl git build-essential</pre>
- </li>
- <li>Good Python is <strong>3.10+</strong> (3.11 / 3.12 is fine).</li>
- </ol>
- </div>
- </details>
- </div>
- </div>
-
- <div class="baby-step-block" id="lite-steps">
- <h4><span class="step-num">Step 2</span> Copy-paste install</h4>
- <p class="baby-prereq-note" style="margin-top:0;">Pick <strong>one</strong> path. Windows CMD downloads the same Setup file as the button. Ubuntu / WSL runs the Linux installer directly.</p>
-
- <h4 style="margin:16px 0 8px;font-size:0.95rem;">Windows · Command Prompt (one line)</h4>
- <ol class="baby-steps">
- <li>Press <strong>Windows key</strong>, type <strong>cmd</strong>, open <strong>Command Prompt</strong> (normal is fine).</li>
- <li>Copy this entire line, paste into the black window, press Enter:
- <div class="codebox" style="margin-top:8px;">
  <code id="lite-cmd-win">curl -L -o "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat" "https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat"</code>
  <button class="copy-btn" data-copy-target="lite-cmd-win">Copy</button>
  </div>
- </li>
- <li>Approve SmartScreen / Administrator if asked. Leave the Setup window open until it says <strong>OTACON IS READY</strong>.</li>
- <li>Then open <a href="http://localhost:5757" target="_blank" rel="noopener">http://localhost:5757</a> in your browser.</li>
- </ol>
-
- <h4 style="margin:18px 0 8px;font-size:0.95rem;">Windows · PowerShell (one line)</h4>
+ <p>Approve SmartScreen / Admin if asked. Wait for <strong>OTACON IS READY</strong>, then open <a href="http://localhost:5757" target="_blank" rel="noopener">localhost:5757</a>.</p>
+ <p style="margin-top:8px;"><strong>PowerShell instead?</strong></p>
  <div class="codebox">
  <code id="lite-cmd-ps">irm https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat -OutFile "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"; Start-Process "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"</code>
  <button class="copy-btn" data-copy-target="lite-cmd-ps">Copy</button>
  </div>
-
- <h4 style="margin:18px 0 8px;font-size:0.95rem;">Ubuntu / Debian / WSL · terminal (one line)</h4>
- <ol class="baby-steps">
- <li>Open <strong>Terminal</strong> (or the <strong>Ubuntu</strong> app on Windows).</li>
- <li>Paste this line and press Enter:
- <div class="codebox" style="margin-top:8px;">
+ <button type="button" class="manual-next">Next · Step 3 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">3</span> Linux / WSL · one line</summary>
+ <div class="manual-step-body">
+ <p>Open <strong>Terminal</strong> or the <strong>Ubuntu</strong> app. Paste, press Enter:</p>
+ <div class="codebox">
  <code id="lite-cmd-linux-baby">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
  <button class="copy-btn" data-copy-target="lite-cmd-linux-baby">Copy</button>
  </div>
- </li>
- <li>When it asks for your password, type your Ubuntu password (nothing will appear), then Enter.</li>
- <li>Wait until it prints <span class="mono">http://127.0.0.1:5757</span>, then open that address.</li>
- </ol>
-
- <h4 style="margin:18px 0 8px;font-size:0.95rem;">Fully manual WSL (no Setup .bat)</h4>
- <ol class="baby-steps">
- <li>Open <strong>PowerShell as Administrator</strong> and run:
+ <p>Type your Ubuntu password when asked (nothing appears). When it prints <span class="mono">http://127.0.0.1:5757</span>, open that.</p>
+ <p style="margin-top:8px;"><strong>No WSL yet?</strong> PowerShell as Admin:</p>
  <pre class="baby-code mono">wsl --install -d Ubuntu</pre>
- Restart if Windows asks.</li>
- <li>Open <strong>Ubuntu</strong>, create a username/password when prompted.</li>
- <li>Inside Ubuntu, run the Linux one-liner from above.</li>
- </ol>
- </div>
-
- <div class="baby-step-block" id="lite-errors">
- <h4><span class="step-num">If something looks wrong</span> Click the message you see</h4>
- <p class="baby-prereq-note" style="margin-top:0;">Most of these are normal. Open the matching row for the fix.</p>
-
- <details class="baby-error">
- <summary>“Windows protected your PC” / SmartScreen</summary>
- <div class="baby-error-body">
- <ol>
- <li>Click <strong>More info</strong>.</li>
- <li>Click <strong>Run anyway</strong>.</li>
- <li>This happens because the .bat is new to Windows, not because it is malware. Prefer the download from this site (or the CMD line above), not a random Save-As from raw GitHub.</li>
- </ol>
+ <p>Restart if asked, open Ubuntu, then run the curl line above.</p>
+ <button type="button" class="manual-next">Next · Step 4 →</button>
  </div>
  </details>
-
- <details class="baby-error">
- <summary>Administrator / UAC “Do you want to allow this app…”</summary>
- <div class="baby-error-body">
- <ol>
- <li>Click <strong>Yes</strong>.</li>
- <li>A second Setup window may open — that is expected. Leave both alone until READY.</li>
- </ol>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">4</span> If you see an error</summary>
+ <div class="manual-step-body">
+ <p>Click the message that matches what you see:</p>
+ <details class="baby-error"><summary>“Windows protected your PC” / SmartScreen</summary>
+ <div class="baby-error-body"><ol><li>More info → <strong>Run anyway</strong>.</li><li>Prefer this site’s download / CMD line, not raw GitHub Save As.</li></ol></div></details>
+ <details class="baby-error"><summary>Administrator / UAC prompt</summary>
+ <div class="baby-error-body"><ol><li>Click <strong>Yes</strong>. A second Setup window is normal.</li></ol></div></details>
+ <details class="baby-error"><summary>'curl' is not recognized</summary>
+ <div class="baby-error-body"><ol><li>Use the <strong>one-click</strong> button on the left, or the PowerShell line in Step 2.</li></ol></div></details>
+ <details class="baby-error"><summary>Restart required / WELCOME BACK</summary>
+ <div class="baby-error-body"><ol><li>Not a failure. Restart, then re-run the same Setup if needed.</li></ol></div></details>
+ <details class="baby-error"><summary>localhost:5757 blank</summary>
+ <div class="baby-error-body"><ol><li>Wait until Setup says <strong>OTACON IS READY</strong>, then refresh.</li></ol></div></details>
+ <details class="baby-error"><summary>sudo / password denied</summary>
+ <div class="baby-error-body"><ol><li>Use your <strong>Ubuntu</strong> password. Typing is invisible — press Enter after.</li></ol></div></details>
+ <details class="baby-error"><summary>Installer damaged / wrong encoding</summary>
+ <div class="baby-error-body"><ol><li>Delete the bad .bat. Re-run Step 2’s CMD line (pulls from this site).</li></ol></div></details>
+ <p class="os-hint" style="margin-top:10px;"><a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Ask in Discord</a></p>
  </div>
  </details>
-
- <details class="baby-error">
- <summary>'curl' is not recognized / command not found</summary>
- <div class="baby-error-body">
- <ol>
- <li><strong>Windows 10 older builds:</strong> skip CMD and use Method 1 (download button), or open PowerShell and use the PowerShell one-liner instead.</li>
- <li><strong>Linux:</strong> run <span class="mono">sudo apt install -y curl</span>, then retry the install line.</li>
- </ol>
  </div>
- </details>
-
- <details class="baby-error">
- <summary>Restart required / “WELCOME BACK”</summary>
- <div class="baby-error-body">
- <ol>
- <li>This is <strong>not</strong> a failed install. Save your work and restart the PC.</li>
- <li>After reboot, double-click the same <span class="mono">OtaconsKeep-Setup.bat</span> again if it does not resume by itself.</li>
- <li>You should see <strong>WELCOME BACK</strong> and it continues from where it left off.</li>
- </ol>
  </div>
- </details>
-
- <details class="baby-error">
- <summary>“Updates are underway, please keep your computer on”</summary>
- <div class="baby-error-body">
- <ol>
- <li>That spinner is <strong>Windows finishing WSL/Linux features</strong>, not Otacon crashing.</li>
- <li>It can take 15–45+ minutes (longer on a hard drive). Drive light flickering = still working.</li>
- <li>Only treat it as stuck after several hours with zero disk activity. Then hard power off, reboot, run <span class="mono">sfc /scannow</span> and <span class="mono">DISM /Online /Cleanup-Image /RestoreHealth</span> as admin, free a few GB, and re-run Setup.</li>
- </ol>
  </div>
- </details>
-
- <details class="baby-error">
- <summary>Ubuntu username / password screens</summary>
- <div class="baby-error-body">
- <ol>
- <li>These are Microsoft’s WSL setup screens, not a crash and not Proxmox.</li>
- <li>Create any username you like. Remember the password — it is your <span class="mono">sudo</span> password later.</li>
- </ol>
- </div>
- </details>
-
- <details class="baby-error">
- <summary>localhost:5757 looks broken / blank</summary>
- <div class="baby-error-body">
- <ol>
- <li>Do <strong>not</strong> open the site until Setup says <strong>OTACON IS READY</strong>.</li>
- <li>Opening early looks broken even when install is fine. Wait, then refresh.</li>
- <li>Still down after READY? Run <span class="mono">OtaconsKeep-Setup.bat --status</span> or ask in Discord.</li>
- </ol>
- </div>
- </details>
-
- <details class="baby-error">
- <summary>SETUP NEEDS HELP</summary>
- <div class="baby-error-body">
- <ol>
- <li>That screen is recovery, not a crash. Keep the window open.</li>
- <li>Press <strong>R</strong> to retry, <strong>O</strong> for logs, or <strong>X</strong> to exit.</li>
- </ol>
- </div>
- </details>
-
- <details class="baby-error">
- <summary>sudo: password / Permission denied</summary>
- <div class="baby-error-body">
- <ol>
- <li>Use your <strong>Ubuntu</strong> password, not your Windows password.</li>
- <li>Nothing appears while typing — press Enter after the password.</li>
- <li>Wrong password three times? Close the terminal, open Ubuntu again, retry.</li>
- </ol>
- </div>
- </details>
-
- <details class="baby-error">
- <summary>Installer file damaged / UTF-16 / wrong encoding</summary>
- <div class="baby-error-body">
- <ol>
- <li>Delete the bad .bat file.</li>
- <li>Re-download with the button on this site, or use the CMD one-liner above (it pulls from this site).</li>
- <li>Do <strong>not</strong> open raw.githubusercontent.com and use browser Save As — that often corrupts .bat encoding.</li>
- </ol>
- </div>
- </details>
-
- <p class="os-hint" style="margin-top:14px;">Still stuck? <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Ask in Discord</a> · full product page <a href="/otacon/#install">otacon/#install</a> · source <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem#install-otacon-core-no-experience-required" target="_blank" rel="noopener">GitHub README</a>.</p>
- </div>
-</div>
+ <p class="os-hint" style="margin: 4px 0 0;">Lighter install (skip chat model / voice trainer): set <span class="mono">OTACON_INSTALL_DEFAULT_MODEL=0</span> and/or <span class="mono">OTACON_INSTALL_VOICE_TRAINER=0</span> before the Linux command.</p>
 
  </div>
 
@@ -884,13 +680,13 @@ sudo apt install -y python3 python3-pip python3-venv curl git build-essential</p
  <span class="free-sticker" aria-label="Free">FREE</span>
  <div class="install-panel-head">
  <h3 class="install-panel-title">Install AI9 Manga Colorizer</h3>
- <span class="one-click-badge">One click · Windows</span>
+ <span class="one-click-badge">One-click or manual</span>
  </div>
  <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
  <p class="install-panel-lead">Local GPU manga colorization + Firefox reading extension. Covered under AI9 (OtaconsKeep family-adjacent). Does <strong>not</strong> require Lite Core. Same pattern as Otacon Setup: download one file from this site, double-click it. No Command Prompt. No ZIP required.</p>
  <div class="os-grid">
  <div class="os-card">
- <p class="os-label">Windows 10 / 11</p>
+ <p class="os-label">One-click · Windows</p>
  <div class="install-cta-row">
  <a class="download-btn" href="/downloads/AI9-Setup.bat" download="AI9-Setup.bat">Download AI9 Setup</a>
  <div class="install-demo-video install-demo-video--inline" aria-label="AI9 Manga Colorizer demo video">
@@ -912,209 +708,69 @@ sudo apt install -y python3 python3-pip python3-venv curl git build-essential</p
  <p class="os-hint" style="margin-top: 6px;"><a href="https://github.com/Otaconskeep/AI9/archive/refs/heads/main.zip">Download GitHub ZIP</a> if you prefer a full checkout first.</p>
  </details>
  </div>
- <div class="os-card">
- <p class="os-label">What it does</p>
- <p class="os-hint" style="margin: 0;">Installs Git / Python / Firefox if missing · picks the right PyTorch CUDA build for your GPU · downloads and verifies model weights · runs a real GPU inference test · registers auto-start. Requires an NVIDIA GPU with a current driver.</p>
- </div>
- </div>
-<div class="dual-install" id="ai9-baby-install">
- <p class="dual-install-lead"><strong>Two install methods.</strong> Method 1 is the Download button above (double-click). Method 2 is baby steps with prerequisites, one copy-paste line, and clickable fixes for common errors.</p>
-
- <div class="dual-methods">
- <div class="dual-method-card">
- <span class="method-tag">Method 1</span>
- <h4>One-click Setup</h4>
- <p>Download AI9-Setup.bat → open Downloads → double-click. Do not type the filename into Command Prompt.</p>
- </div>
- <div class="dual-method-card">
- <span class="method-tag">Method 2</span>
- <h4>Baby steps (manual)</h4>
- <p>Confirm GPU + driver, paste one CMD/PowerShell line, then load the Firefox extension (the one human click).</p>
- </div>
- </div>
-
- <nav class="baby-install-nav" aria-label="AI9 baby install">
- <a href="#ai9-prereqs">Step 1 · Prerequisites</a>
- <a href="#ai9-steps">Step 2 · Install</a>
- <a href="#ai9-errors">If you see an error</a>
- </nav>
-
- <div class="baby-step-block" id="ai9-prereqs">
- <h4><span class="step-num">Step 1</span> Prerequisites</h4>
- <div class="baby-prereq-table">
- <div class="baby-prereq-head" role="row">
- <span>Need</span><span>Required?</span><span>Quick check</span><span>Help</span>
- </div>
-
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">Windows 10/11</span>
- <span class="baby-prereq-need yes">Required</span>
- <span class="baby-prereq-check">64-bit Windows</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li>AI9 Setup is Windows-first. You do <strong>not</strong> need WSL or Linux.</li>
- <li>You do <strong>not</strong> need OtaconsKeep Lite installed.</li>
- </ol>
+ <div class="os-card os-card-manual">
+ <span class="manual-col-tag">Manual path</span>
+ <p class="os-label">Manual · click each step</p>
+ <p class="os-hint">Prefer copy-paste? Open Step 1, then Next for Step 2, and so on. Needs an NVIDIA GPU.</p>
+ <div class="manual-steps" data-manual-accordion>
+ <details class="manual-step" open>
+ <summary><span class="manual-step-num">1</span> Prerequisites</summary>
+ <div class="manual-step-body">
+ <ul>
+ <li>Windows 10/11 · no WSL · Lite not required.</li>
+ <li>NVIDIA GPU + current driver. Check: <span class="mono">nvidia-smi</span> in CMD.</li>
+ <li>winget helps install Git/Python/Firefox — install <a href="https://apps.microsoft.com/detail/9nblggh4nns1" target="_blank" rel="noopener">App Installer</a> if missing.</li>
+ </ul>
+ <button type="button" class="manual-next">Next · Step 2 →</button>
  </div>
  </details>
-
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">NVIDIA GPU + driver</span>
- <span class="baby-prereq-need yes">Required</span>
- <span class="baby-prereq-check">RTX 30/40/50 recommended</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li>Install a current <strong>Game Ready</strong> or <strong>Studio</strong> driver from NVIDIA.</li>
- <li>Confirm the GPU is visible: Start → search <strong>NVIDIA Control Panel</strong>, or run in CMD:
- <pre class="baby-code mono">nvidia-smi</pre>
- You should see your GPU name and a driver version.</li>
- <li>If <span class="mono">nvidia-smi</span> is not recognized, the driver is missing or not on PATH — reinstall the driver, reboot, retry.</li>
- </ol>
- </div>
- </details>
-
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">winget (App Installer)</span>
- <span class="baby-prereq-need maybe">Usually auto</span>
- <span class="baby-prereq-check">winget --version</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li>Setup uses winget to install Git / Python / Firefox if missing.</li>
- <li>Check: open CMD and run <span class="mono">winget --version</span>.</li>
- <li>If missing, install <a href="https://apps.microsoft.com/detail/9nblggh4nns1" target="_blank" rel="noopener">App Installer</a> from the Microsoft Store, then reopen CMD.</li>
- </ol>
- </div>
- </details>
-
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">Firefox (for the extension)</span>
- <span class="baby-prereq-need yes">Required</span>
- <span class="baby-prereq-check">Browser for reading</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li>Setup can install Firefox via winget. Or install Firefox yourself first.</li>
- <li>After install finishes, you must manually load the temporary add-on once (Step 2 below). Windows cannot click that for you.</li>
- </ol>
- </div>
- </details>
- </div>
- </div>
-
- <div class="baby-step-block" id="ai9-steps">
- <h4><span class="step-num">Step 2</span> Copy-paste or double-click</h4>
-
- <h4 style="margin:12px 0 8px;font-size:0.95rem;">Windows · Command Prompt (one line)</h4>
- <ol class="baby-steps">
- <li>Open <strong>Command Prompt</strong>.</li>
- <li>Paste and press Enter:
- <div class="codebox" style="margin-top:8px;">
+ <details class="manual-step">
+ <summary><span class="manual-step-num">2</span> One CMD line</summary>
+ <div class="manual-step-body">
+ <p>Open Command Prompt, paste, Enter:</p>
+ <div class="codebox">
  <code id="ai9-cmd-win">curl -L -o "%USERPROFILE%\Downloads\AI9-Setup.bat" "https://otaconskeep.github.io/downloads/AI9-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\AI9-Setup.bat"</code>
  <button class="copy-btn" data-copy-target="ai9-cmd-win">Copy</button>
  </div>
- </li>
- <li>Leave the black window open until it finishes. Approve UAC if winget asks.</li>
- </ol>
-
- <h4 style="margin:18px 0 8px;font-size:0.95rem;">Windows · PowerShell (one line)</h4>
+ <p>Or PowerShell:</p>
  <div class="codebox">
  <code id="ai9-cmd-ps">irm https://otaconskeep.github.io/downloads/AI9-Setup.bat -OutFile "$env:USERPROFILE\Downloads\AI9-Setup.bat"; Start-Process "$env:USERPROFILE\Downloads\AI9-Setup.bat"</code>
  <button class="copy-btn" data-copy-target="ai9-cmd-ps">Copy</button>
  </div>
-
- <h4 style="margin:18px 0 8px;font-size:0.95rem;">From a GitHub ZIP / clone</h4>
- <ol class="baby-steps">
- <li>Download <a href="https://github.com/Otaconskeep/AI9/archive/refs/heads/main.zip">AI9 ZIP</a>, extract it.</li>
- <li>Open the folder and <strong>double-click</strong> <span class="mono">install_ai9.bat</span> (do not type that name into CMD unless you <span class="mono">cd</span> there first).</li>
- </ol>
-
- <h4 style="margin:18px 0 8px;font-size:0.95rem;">Step 2b · Load the Firefox extension (required once)</h4>
- <ol class="baby-steps">
- <li>Open Firefox and go to <span class="mono">about:debugging#/runtime/this-firefox</span></li>
- <li>Click <strong>Load Temporary Add-on…</strong></li>
- <li>Select <span class="mono">C:\opt\manga-colorizer\extension\manifest.json</span> (default path).</li>
- <li>After a full Firefox restart you must load it again — that is a Firefox unsigned-addon limit.</li>
- </ol>
- <p class="os-hint" style="margin-top:10px;">When the server is up: <span class="mono">https://127.0.0.1:5000/</span> (self-signed cert warning is normal once).</p>
- </div>
-
- <div class="baby-step-block" id="ai9-errors">
- <h4><span class="step-num">If something looks wrong</span> Click the message you see</h4>
-
- <details class="baby-error">
- <summary>'AI9-Setup.bat' is not recognized</summary>
- <div class="baby-error-body">
- <ol>
- <li>You typed the filename into CMD without being in the Downloads folder.</li>
- <li>Fix: use the Method 1 download button and <strong>double-click</strong> the file, or use the full one-liner above (it downloads and starts for you).</li>
- </ol>
+ <button type="button" class="manual-next">Next · Step 3 →</button>
  </div>
  </details>
-
- <details class="baby-error">
- <summary>SmartScreen / “Windows protected your PC”</summary>
- <div class="baby-error-body">
+ <details class="manual-step">
+ <summary><span class="manual-step-num">3</span> Load Firefox extension</summary>
+ <div class="manual-step-body">
  <ol>
- <li>Click <strong>More info</strong> → <strong>Run anyway</strong>.</li>
- <li>Unsigned batch scripts often get this the first time.</li>
+ <li>Firefox → <span class="mono">about:debugging#/runtime/this-firefox</span></li>
+ <li><strong>Load Temporary Add-on…</strong></li>
+ <li>Pick <span class="mono">C:\opt\manga-colorizer\extension\manifest.json</span></li>
+ <li>Reload after a full Firefox restart (unsigned add-on limit).</li>
  </ol>
+ <p>Server: <span class="mono">https://127.0.0.1:5000/</span> (self-signed warning is normal).</p>
+ <button type="button" class="manual-next">Next · Step 4 →</button>
  </div>
  </details>
-
- <details class="baby-error">
- <summary>Window flashes and closes instantly</summary>
- <div class="baby-error-body">
- <ol>
- <li>Git Bash may be missing and winget failed. Install <a href="https://apps.microsoft.com/detail/9nblggh4nns1" target="_blank" rel="noopener">App Installer</a>, then rerun Setup.</li>
- <li>Or install <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git for Windows</a> yourself, then double-click Setup again.</li>
- </ol>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">4</span> If you see an error</summary>
+ <div class="manual-step-body">
+ <details class="baby-error"><summary>'AI9-Setup.bat' is not recognized</summary>
+ <div class="baby-error-body"><ol><li>Don’t type only the filename. Use the left download (double-click) or Step 2’s full line.</li></ol></div></details>
+ <details class="baby-error"><summary>SmartScreen</summary>
+ <div class="baby-error-body"><ol><li>More info → Run anyway.</li></ol></div></details>
+ <details class="baby-error"><summary>Window flashes and closes</summary>
+ <div class="baby-error-body"><ol><li>Install App Installer / Git, then rerun Setup.</li></ol></div></details>
+ <details class="baby-error"><summary>GPU / nvidia-smi failed</summary>
+ <div class="baby-error-body"><ol><li>Update NVIDIA driver, reboot, rerun Setup.</li></ol></div></details>
+ <details class="baby-error"><summary>Extension gone after restart</summary>
+ <div class="baby-error-body"><ol><li>Reload via about:debugging (Step 3).</li></ol></div></details>
  </div>
  </details>
-
- <details class="baby-error">
- <summary>nvidia-smi / CUDA / GPU test failed</summary>
- <div class="baby-error-body">
- <ol>
- <li>Update the NVIDIA driver, reboot, run <span class="mono">nvidia-smi</span> again.</li>
- <li>Rerun Setup — it is safe to run twice; it skips finished steps.</li>
- </ol>
  </div>
- </details>
-
- <details class="baby-error">
- <summary>Self-signed certificate warning in the browser</summary>
- <div class="baby-error-body">
- <ol>
- <li>Expected for local <span class="mono">https://127.0.0.1:5000/</span>.</li>
- <li>Click Advanced → proceed/accept once for this address.</li>
- </ol>
  </div>
- </details>
-
- <details class="baby-error">
- <summary>Extension gone after Firefox restart</summary>
- <div class="baby-error-body">
- <ol>
- <li>Unsigned temporary add-ons do not persist. Reload via about:debugging as in Step 2b.</li>
- </ol>
  </div>
- </details>
-
- <p class="os-hint" style="margin-top:14px;"><a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Ask in Discord</a> · <a href="https://github.com/Otaconskeep/AI9#install-the-easy-way" target="_blank" rel="noopener">GitHub install docs</a></p>
- </div>
-</div>
-
  </div>
 
  <div class="install-panel is-free" id="install-keeproute">

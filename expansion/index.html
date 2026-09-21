@@ -216,141 +216,58 @@
 
 <div class="wrap">
  <section id="foundation-install">
- <p class="tag premium">Install // Dual method</p>
- <h2>One-click Setup or baby steps</h2>
- <p class="intro">Preferred Method 1: download <a href="/downloads/OtaconExpansion-Setup.bat">OtaconExpansion-Setup.bat</a> (Lite must already work). Method 2 below is copy-paste baby steps with clickable error fixes. After install, open <span class="mono">http://127.0.0.1:5757/</span>.</p>
- <p style="margin:12px 0;"><a class="download-btn" href="/downloads/OtaconExpansion-Setup.bat" download="OtaconExpansion-Setup.bat">Download Expansion Setup</a></p>
- <div class="codebox">
- <code id="expansion-cmd">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon_expansion.sh | bash</code>
- <button class="copy-btn" data-copy-target="expansion-cmd">Copy</button>
+ <p class="tag premium">Install // One-click or manual</p>
+ <h2>One-click Setup or manual steps</h2>
+ <p class="intro">Left: one-click Expansion Setup (Lite must already work). Right: click Step 1, then Next. After install, open <span class="mono">http://127.0.0.1:5757/</span>.</p>
+ <div class="os-grid" style="margin-top:16px;">
+ <div class="os-card">
+ <p class="os-label">One-click · Windows</p>
+ <a class="download-btn" href="/downloads/OtaconExpansion-Setup.bat" download="OtaconExpansion-Setup.bat">Download Expansion Setup</a>
+ <p class="os-hint" style="margin-top:10px;">Lite must already work. Double-click the .bat. Same UI at <span class="mono">:5757</span>.</p>
  </div>
- <p class="os-hint" style="margin-top:10px;">Soft-update later: re-run <span class="mono">OtaconsKeep-Setup.bat</span> (Windows) so helpers + Linux app land on the <span class="mono">release.json</span> pin (<span class="mono">eb0a3b3</span>). On Linux/WSL prefer Setup; manual tip sync is <span class="mono">git -C ~/otacon-ai-ecosystem fetch &amp;&amp; git -C ~/otacon-ai-ecosystem reset --hard origin/main</span> then restart <span class="mono">otacon.service</span>. Hard-refresh the browser.</p>
-<div class="dual-install" id="expansion-baby-install">
- <p class="dual-install-lead"><strong>Two install methods</strong> after Lite is already working. Method 1: one-click Expansion Setup. Method 2: baby steps with a copy-paste line and clickable error fixes.</p>
-
- <div class="dual-methods">
- <div class="dual-method-card">
- <span class="method-tag">Method 1</span>
- <h4>One-click Expansion Setup</h4>
- <p>Download OtaconExpansion-Setup.bat and double-click. Requires Lite answering on localhost:5757.</p>
- </div>
- <div class="dual-method-card">
- <span class="method-tag">Method 2</span>
- <h4>Baby steps (manual)</h4>
- <p>Confirm Lite is healthy, then paste one CMD or Linux line. Open the UI when it finishes.</p>
- </div>
- </div>
-
- <nav class="baby-install-nav">
- <a href="#exp-prereqs">Step 1 · Prerequisites</a>
- <a href="#exp-steps">Step 2 · Install</a>
- <a href="#exp-errors">If you see an error</a>
- </nav>
-
- <div class="baby-step-block" id="exp-prereqs">
- <h4><span class="step-num">Step 1</span> Prerequisites</h4>
- <div class="baby-prereq-table">
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">OtaconsKeep Lite working</span>
- <span class="baby-prereq-need yes">Required</span>
- <span class="baby-prereq-check">http://127.0.0.1:5757</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li>Install Lite first: <a href="/#install-otacon">homepage Lite install</a> or <a href="/otacon/#install">otacon/#install</a>.</li>
- <li>Open <a href="http://127.0.0.1:5757/" target="_blank" rel="noopener">http://127.0.0.1:5757/</a> and confirm the UI loads.</li>
- <li>Expansion does not replace Lite — it unlocks licensed surfaces on the same UI.</li>
- </ol>
+ <div class="os-card os-card-manual">
+ <span class="manual-col-tag">Manual path</span>
+ <p class="os-label">Manual · click each step</p>
+ <p class="os-hint">Open Step 1, then Next.</p>
+ <div class="manual-steps" data-manual-accordion>
+ <details class="manual-step" open>
+ <summary><span class="manual-step-num">1</span> Lite must work</summary>
+ <div class="manual-step-body">
+ <p>Confirm <a href="http://127.0.0.1:5757/" target="_blank" rel="noopener">127.0.0.1:5757</a> loads. <a href="/#install-otacon">Install Lite first</a> if not.</p>
+ <button type="button" class="manual-next">Next · Step 2 →</button>
  </div>
  </details>
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">License / member access</span>
- <span class="baby-prereq-need yes">Required</span>
- <span class="baby-prereq-check">$1 supporter path</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li>Expansion is licensed. Get access via the <a href="/premium/">Premium / Expansion</a> path.</li>
- <li>You can still run the installer to stage files; entitlement gates premium surfaces in the product UI.</li>
- </ol>
- </div>
- </details>
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">GPU / Docker (optional)</span>
- <span class="baby-prereq-need no">Optional</span>
- <span class="baby-prereq-check">Genome / Video Studio</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li>Deck / Codec / roster work without Docker.</li>
- <li>Video Studio’s managed Comfy path wants Docker Desktop (WSL2) or an existing Comfy on :8188 / :8199 — guided inside the product UI.</li>
- </ol>
- </div>
- </details>
- </div>
- </div>
-
- <div class="baby-step-block" id="exp-steps">
- <h4><span class="step-num">Step 2</span> Copy-paste install</h4>
- <h4 style="margin:12px 0 8px;font-size:0.95rem;">Windows · Command Prompt (one line)</h4>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">2</span> Copy-paste install</summary>
+ <div class="manual-step-body">
+ <p><strong>Windows CMD:</strong></p>
  <div class="codebox">
  <code id="exp-cmd-win">curl -L -o "%USERPROFILE%\Downloads\OtaconExpansion-Setup.bat" "https://otaconskeep.github.io/downloads/OtaconExpansion-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\OtaconExpansion-Setup.bat"</code>
  <button class="copy-btn" data-copy-target="exp-cmd-win">Copy</button>
  </div>
- <h4 style="margin:18px 0 8px;font-size:0.95rem;">Linux / WSL (one line)</h4>
+ <p style="margin-top:8px;"><strong>Linux / WSL:</strong></p>
  <div class="codebox">
  <code id="exp-cmd-linux">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon_expansion.sh | bash</code>
  <button class="copy-btn" data-copy-target="exp-cmd-linux">Copy</button>
  </div>
- <p class="os-hint" style="margin-top:12px;">When done, open <span class="mono">http://127.0.0.1:5757/</span> — Deck, Codec, and guided Genome / Studio setup are in the product UI. Soft-update later with <span class="mono">OtaconsKeep-Setup.bat</span>.</p>
- </div>
-
- <div class="baby-step-block" id="exp-errors">
- <h4><span class="step-num">If something looks wrong</span> Click the message you see</h4>
- <details class="baby-error">
- <summary>Lite not detected / Core missing</summary>
- <div class="baby-error-body">
- <ol>
- <li>Finish Lite first until OTACON IS READY.</li>
- <li>Confirm <span class="mono">http://127.0.0.1:5757/</span> loads, then rerun Expansion Setup.</li>
- </ol>
+ <button type="button" class="manual-next">Next · Step 3 →</button>
  </div>
  </details>
- <details class="baby-error">
- <summary>SmartScreen / Administrator prompt</summary>
- <div class="baby-error-body">
- <ol>
- <li>More info → Run anyway. Click Yes on UAC. Same trust story as Lite Setup.</li>
- </ol>
- </div>
- </details>
- <details class="baby-error">
- <summary>Premium surfaces still locked</summary>
- <div class="baby-error-body">
- <ol>
- <li>Installer may have staged files; license entitlement is separate.</li>
- <li>Check member access on <a href="/premium/">Premium</a> / Discord, then hard-refresh the browser on :5757.</li>
- </ol>
- </div>
- </details>
- <details class="baby-error">
- <summary>Video Studio / Comfy not READY</summary>
- <div class="baby-error-body">
- <ol>
- <li>Open Expansion UI → Video Studio Setup. Start Docker Desktop if you use the managed sidecar.</li>
- <li>Or point at an existing Comfy on this PC. Images/LTX packs are roadmap; Studio READY means Comfy answering.</li>
- </ol>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">3</span> If you see an error</summary>
+ <div class="manual-step-body">
+ <details class="baby-error"><summary>Lite not detected</summary>
+ <div class="baby-error-body"><ol><li>Finish Lite to READY, then rerun Expansion.</li></ol></div></details>
+ <details class="baby-error"><summary>SmartScreen / UAC</summary>
+ <div class="baby-error-body"><ol><li>More info → Run anyway. Click Yes.</li></ol></div></details>
+ <details class="baby-error"><summary>Surfaces still locked</summary>
+ <div class="baby-error-body"><ol><li>License entitlement is separate — check <a href="/premium/">Premium</a>, hard-refresh :5757.</li></ol></div></details>
  </div>
  </details>
  </div>
-</div>
-
+ </div>
+ </div>
+ <p class="os-hint" style="margin-top:12px;">Soft-update later: re-run <span class="mono">OtaconsKeep-Setup.bat</span> (Windows). On Linux/WSL: <span class="mono">git -C ~/otacon-ai-ecosystem fetch &amp;&amp; git -C ~/otacon-ai-ecosystem reset --hard origin/main</span> then restart <span class="mono">otacon.service</span>. Hard-refresh the browser.</p>
  </section>
 </div>
 

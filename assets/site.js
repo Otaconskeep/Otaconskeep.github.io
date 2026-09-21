@@ -395,8 +395,39 @@
  resetSlot();
  }
 
+ // Manual install column: clickable steps; Next opens the following step.
+ function initManualSteps() {
+ document.querySelectorAll('.manual-steps').forEach(function (group) {
+ var steps = Array.prototype.slice.call(group.querySelectorAll(':scope > .manual-step'));
+ if (!steps.length) return;
+
+ steps.forEach(function (step, index) {
+ step.addEventListener('toggle', function () {
+ if (!step.open) return;
+ steps.forEach(function (other) {
+ if (other !== step) other.open = false;
+ });
+ });
+
+ var nextBtn = step.querySelector('.manual-next');
+ if (!nextBtn) return;
+ nextBtn.addEventListener('click', function (e) {
+ e.preventDefault();
+ var next = steps[index + 1];
+ if (!next) return;
+ steps.forEach(function (other) { other.open = false; });
+ next.open = true;
+ try {
+ next.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+ } catch (err) {}
+ });
+ });
+ });
+ }
+
  document.addEventListener('DOMContentLoaded', function () {
  initCopyButtons();
+ initManualSteps();
  initNavToggle();
  initGalleries();
  initTour();

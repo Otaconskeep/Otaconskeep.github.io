@@ -147,149 +147,58 @@
  <div class="install-panel" style="border-color: var(--premium-dim);">
  <div class="install-panel-head">
  <h3 class="install-panel-title" style="color: var(--premium-bright);">Otacon Expansion Setup</h3>
- <span class="one-click-badge" style="color: var(--premium-bright); border-color: var(--premium-dim);">Live · one-click · or baby steps</span>
+ <span class="one-click-badge" style="color: var(--premium-bright); border-color: var(--premium-dim);">One-click or manual</span>
  </div>
- <p class="install-panel-lead">One-click Windows Expansion installer: detects Lite/Core, installs the five-agent roster (Aria / Vector / Ledger / Muse / Sentry), and opens the same Deck/Codec UI with Expansion rails unlocked. Not the private Keep’s 16+ agent roster. Genome / Video Studio need GPU / Docker (or portable Comfy), guided Setup is in the product UI.</p>
- <div class="os-card" style="margin-top:14px;">
- <h4>Windows</h4>
- <a class="download-btn" href="/downloads/OtaconExpansion-Setup.bat" style="background: var(--premium); color: #150f24;" download>Download Expansion Setup</a>
- <p class="intro" style="margin-top:10px;font-size:0.88rem;">Saves as <code>OtaconExpansion-Setup.bat</code>. Delete any older placeholder in Downloads first, then double-click. Requires Lite already working.</p>
+ <p class="install-panel-lead">Left: one-click Expansion Setup. Right: manual steps you click open one at a time. Detects Lite/Core, installs the five-agent roster (Aria / Vector / Ledger / Muse / Sentry), same Deck/Codec UI. Genome / Video Studio need GPU / Docker (or portable Comfy), guided in the product UI.</p>
+ <div class="os-grid" style="margin-top:16px;">
+ <div class="os-card">
+ <p class="os-label">One-click · Windows</p>
+ <a class="download-btn" href="/downloads/OtaconExpansion-Setup.bat" style="background: var(--premium); color: #150f24;" download="OtaconExpansion-Setup.bat">Download Expansion Setup</a>
+ <p class="os-hint" style="margin-top:10px;">Saves as <span class="mono">OtaconExpansion-Setup.bat</span>. Double-click. Requires Lite already working.</p>
  </div>
- <div class="os-card" style="margin-top:14px;">
- <h4>Linux / macOS / WSL</h4>
- <p class="intro" style="font-size:0.88rem;">Requires Otaconskeep Lite already installed. Installs roster + Expansion surfaces; open <span class="mono">http://127.0.0.1:5757/</span> for Deck / Codec (same UI as Lite, Expansion unlocked).</p>
- <div class="codebox">
- <code id="premium-expansion-cmd">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon_expansion.sh | bash</code>
- <button class="copy-btn" data-copy-target="premium-expansion-cmd">Copy</button>
- </div>
- </div>
-<div class="dual-install" id="premium-baby-install">
- <p class="dual-install-lead"><strong>Two install methods</strong> after Lite is already working. Method 1: one-click Expansion Setup. Method 2: baby steps with a copy-paste line and clickable error fixes.</p>
-
- <div class="dual-methods">
- <div class="dual-method-card">
- <span class="method-tag">Method 1</span>
- <h4>One-click Expansion Setup</h4>
- <p>Download OtaconExpansion-Setup.bat and double-click. Requires Lite answering on localhost:5757.</p>
- </div>
- <div class="dual-method-card">
- <span class="method-tag">Method 2</span>
- <h4>Baby steps (manual)</h4>
- <p>Confirm Lite is healthy, then paste one CMD or Linux line. Open the UI when it finishes.</p>
- </div>
- </div>
-
- <nav class="baby-install-nav">
- <a href="#prem-exp-prereqs">Step 1 · Prerequisites</a>
- <a href="#prem-exp-steps">Step 2 · Install</a>
- <a href="#prem-exp-errors">If you see an error</a>
- </nav>
-
- <div class="baby-step-block" id="prem-exp-prereqs">
- <h4><span class="step-num">Step 1</span> Prerequisites</h4>
- <div class="baby-prereq-table">
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">OtaconsKeep Lite working</span>
- <span class="baby-prereq-need yes">Required</span>
- <span class="baby-prereq-check">http://127.0.0.1:5757</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li>Install Lite first: <a href="/#install-otacon">homepage Lite install</a> or <a href="/otacon/#install">otacon/#install</a>.</li>
- <li>Open <a href="http://127.0.0.1:5757/" target="_blank" rel="noopener">http://127.0.0.1:5757/</a> and confirm the UI loads.</li>
- <li>Expansion does not replace Lite — it unlocks licensed surfaces on the same UI.</li>
- </ol>
+ <div class="os-card os-card-manual">
+ <span class="manual-col-tag">Manual path</span>
+ <p class="os-label">Manual · click each step</p>
+ <p class="os-hint">Open Step 1, then Next.</p>
+ <div class="manual-steps" data-manual-accordion>
+ <details class="manual-step" open>
+ <summary><span class="manual-step-num">1</span> Lite must work</summary>
+ <div class="manual-step-body">
+ <p>Confirm <a href="http://127.0.0.1:5757/" target="_blank" rel="noopener">127.0.0.1:5757</a> loads. <a href="/#install-otacon">Install Lite first</a> if not.</p>
+ <button type="button" class="manual-next">Next · Step 2 →</button>
  </div>
  </details>
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">License / member access</span>
- <span class="baby-prereq-need yes">Required</span>
- <span class="baby-prereq-check">$1 supporter path</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li>Expansion is licensed. Get access via the <a href="/premium/">Premium / Expansion</a> path.</li>
- <li>You can still run the installer to stage files; entitlement gates premium surfaces in the product UI.</li>
- </ol>
- </div>
- </details>
- <details class="baby-prereq">
- <summary>
- <span class="baby-prereq-name">GPU / Docker (optional)</span>
- <span class="baby-prereq-need no">Optional</span>
- <span class="baby-prereq-check">Genome / Video Studio</span>
- <span class="baby-prereq-cta">Open baby steps</span>
- </summary>
- <div class="baby-prereq-body">
- <ol class="baby-steps">
- <li>Deck / Codec / roster work without Docker.</li>
- <li>Video Studio’s managed Comfy path wants Docker Desktop (WSL2) or an existing Comfy on :8188 / :8199 — guided inside the product UI.</li>
- </ol>
- </div>
- </details>
- </div>
- </div>
-
- <div class="baby-step-block" id="prem-exp-steps">
- <h4><span class="step-num">Step 2</span> Copy-paste install</h4>
- <h4 style="margin:12px 0 8px;font-size:0.95rem;">Windows · Command Prompt (one line)</h4>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">2</span> Copy-paste install</summary>
+ <div class="manual-step-body">
+ <p><strong>Windows CMD:</strong></p>
  <div class="codebox">
  <code id="prem-exp-cmd-win">curl -L -o "%USERPROFILE%\Downloads\OtaconExpansion-Setup.bat" "https://otaconskeep.github.io/downloads/OtaconExpansion-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\OtaconExpansion-Setup.bat"</code>
  <button class="copy-btn" data-copy-target="prem-exp-cmd-win">Copy</button>
  </div>
- <h4 style="margin:18px 0 8px;font-size:0.95rem;">Linux / WSL (one line)</h4>
+ <p style="margin-top:8px;"><strong>Linux / WSL:</strong></p>
  <div class="codebox">
  <code id="prem-exp-cmd-linux">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon_expansion.sh | bash</code>
  <button class="copy-btn" data-copy-target="prem-exp-cmd-linux">Copy</button>
  </div>
- <p class="os-hint" style="margin-top:12px;">When done, open <span class="mono">http://127.0.0.1:5757/</span> — Deck, Codec, and guided Genome / Studio setup are in the product UI. Soft-update later with <span class="mono">OtaconsKeep-Setup.bat</span>.</p>
- </div>
-
- <div class="baby-step-block" id="prem-exp-errors">
- <h4><span class="step-num">If something looks wrong</span> Click the message you see</h4>
- <details class="baby-error">
- <summary>Lite not detected / Core missing</summary>
- <div class="baby-error-body">
- <ol>
- <li>Finish Lite first until OTACON IS READY.</li>
- <li>Confirm <span class="mono">http://127.0.0.1:5757/</span> loads, then rerun Expansion Setup.</li>
- </ol>
+ <button type="button" class="manual-next">Next · Step 3 →</button>
  </div>
  </details>
- <details class="baby-error">
- <summary>SmartScreen / Administrator prompt</summary>
- <div class="baby-error-body">
- <ol>
- <li>More info → Run anyway. Click Yes on UAC. Same trust story as Lite Setup.</li>
- </ol>
- </div>
- </details>
- <details class="baby-error">
- <summary>Premium surfaces still locked</summary>
- <div class="baby-error-body">
- <ol>
- <li>Installer may have staged files; license entitlement is separate.</li>
- <li>Check member access on <a href="/premium/">Premium</a> / Discord, then hard-refresh the browser on :5757.</li>
- </ol>
- </div>
- </details>
- <details class="baby-error">
- <summary>Video Studio / Comfy not READY</summary>
- <div class="baby-error-body">
- <ol>
- <li>Open Expansion UI → Video Studio Setup. Start Docker Desktop if you use the managed sidecar.</li>
- <li>Or point at an existing Comfy on this PC. Images/LTX packs are roadmap; Studio READY means Comfy answering.</li>
- </ol>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">3</span> If you see an error</summary>
+ <div class="manual-step-body">
+ <details class="baby-error"><summary>Lite not detected</summary>
+ <div class="baby-error-body"><ol><li>Finish Lite to READY, then rerun Expansion.</li></ol></div></details>
+ <details class="baby-error"><summary>SmartScreen / UAC</summary>
+ <div class="baby-error-body"><ol><li>More info → Run anyway. Click Yes.</li></ol></div></details>
+ <details class="baby-error"><summary>Surfaces still locked</summary>
+ <div class="baby-error-body"><ol><li>License entitlement is separate — check Premium access, hard-refresh :5757.</li></ol></div></details>
  </div>
  </details>
  </div>
-</div>
-
-  <div class="btn-row" style="margin-top:16px;">
+ </div>
+ </div>
+ <div class="btn-row" style="margin-top:16px;">
  <a class="btn btn-primary" href="../otacon/#install">Install Otaconskeep Lite first &rarr;</a>
  <a class="btn btn-ghost" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener" style="border-color: var(--premium); color: var(--premium-bright);">Claim Discord early-access role &rarr;</a>
  </div>
