@@ -89,42 +89,87 @@ A profile can accept a current file yet continue searching forever if upgrade ta
 
 ## Guided lab
 
-1. Export or back up Sonarr/Radarr configuration.
-2. Record current quality definitions and profiles.
-3. Select one TRaSH profile as a reference—not as an unexplained copy/paste target.
-4. Translate its intent into the local written requirement.
-5. Import or create only the required CFs.
-6. Assign scores and document each score's reason.
-7. Set allowed qualities, order, cutoff, minimum CF score, and upgrade-until score.
-8. Use interactive search against a controlled monitored title.
-9. For at least five candidates, record:
-   - Parsed quality.
-   - Matched CFs.
-   - Total score.
-   - Rejection reason, if any.
-   - Whether the result is preferred over the existing file.
-10. Adjust only one rule if observed ranking violates the written policy, then repeat.
+Work in **one** app first (Sonarr *or* Radarr). Export/backup before edits. TRaSH Guides are a reference for intent—not a blind paste.
+
+1. **Export / back up current quality profiles.**
+
+:::windows
+```powershell
+cd COMPOSE_DIR
+# UI: Settings → General → Backup, download zip to a private folder
+# Also copy config bind mount:
+Copy-Item -Recurse .\sonarr\config $HOME\backups\sonarr-profiles-$(Get-Date -Format yyyyMMdd) -ErrorAction SilentlyContinue
+```
+:::
+
+:::linux
+```bash
+cd COMPOSE_DIR
+# UI backup zip AND:
+mkdir -p ~/backups/profiles-$(date +%Y%m%d)
+cp -a ./sonarr/config ~/backups/profiles-$(date +%Y%m%d)/sonarr 2>/dev/null || true
+cp -a ./radarr/config ~/backups/profiles-$(date +%Y%m%d)/radarr 2>/dev/null || true
+```
+:::
+
+2. **Record current state (workbook table).**  
+   For the profile you will change: allowed qualities, order, cutoff, upgrade allowed?, minimum Custom Format score, upgrade-until score, list of Custom Formats + scores.
+
+3. **Optional API dump of profiles** (redact; replace KEY/PORT):
+
+:::linux
+```bash
+curl -s "http://127.0.0.1:8989/api/v3/qualityprofile?apikey=YOUR_KEY" | head -c 400; echo
+curl -s "http://127.0.0.1:8989/api/v3/customformat?apikey=YOUR_KEY" | head -c 400; echo
+```
+:::
+
+:::windows
+```powershell
+curl.exe -s "http://127.0.0.1:8989/api/v3/qualityprofile?apikey=YOUR_KEY"
+curl.exe -s "http://127.0.0.1:8989/api/v3/customformat?apikey=YOUR_KEY"
+```
+:::
+
+4. **Write the local requirement in one sentence** (example: “Prefer 1080p WEB, reject incompatible HDR for this TV, allow upgrades until score ≥ X”).
+
+5. **Import or create only the Custom Formats that match that sentence.** Assign scores and write *why* each score exists.
+
+6. **Set qualities, cutoff, min CF score, upgrade-until.** Save the profile.
+
+7. **Interactive search a controlled monitored title.** For ≥5 release candidates, record in the workbook:
+
+```text
+release name | quality | CF score | preferred? | reason accepted/rejected
+```
+
+8. **If ranking violates the written policy, change only one rule**, save, repeat the five-candidate table.
+
+9. **Prove rollback:** restore from the backup zip or copied config (app stopped if required), reopen profile UI, confirm original scores return.
+
+:::linux
+```bash
+docker compose stop sonarr
+# restore config from ~/backups/... then:
+docker compose start sonarr
+docker compose logs --tail=50 sonarr
+```
+:::
 
 ## Example scoring exercise
 
-Use fictional candidates rather than real copyrighted content:
-
-| Candidate | Traits | Expected policy result |
-|---|---|---|
-| A | 1080p WEB-DL, desired audio | Strong preference |
-| B | 1080p WEB-DL, DV-only incompatible | Reject or penalize |
-| C | 1080p Blu-ray encode, preferred group | Competes with A per policy |
-| D | 2160p REMUX, enormous file | Reject if outside 1080p/storage requirement |
-| E | Low-quality source | Reject |
-
-If the application ranks these differently, investigate the parsed attributes and matching rules rather than editing several scores blindly.
+Keep the in-class scoring table from the lesson. Practice explaining each total out loud.
 
 ## Break/fix
 
-1. Set an unrealistically high upgrade-until score. Observe why the profile never considers itself complete.
-2. Give a minor preference a score larger than a hard compatibility concern. Observe the bad ranking.
-3. Temporarily remove the incompatible-HDR rule and inspect candidate eligibility.
-4. Restore the backed-up profile and prove the original ranking returns.
+1. Set an unreachable upgrade-until score; observe endless “not done” behavior; restore.
+
+2. Give a minor preference a higher score than a hard compatibility CF; observe bad ranking; restore.
+
+3. Temporarily remove an incompatible-HDR (or similar) CF; inspect newly eligible junk; restore.
+
+4. Restore backup and prove the five-candidate ranking matches the pre-change table.
+
 
 ## Common mistakes
 

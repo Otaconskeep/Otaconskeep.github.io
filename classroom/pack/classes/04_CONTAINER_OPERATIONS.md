@@ -65,47 +65,137 @@ Do not treat all warnings as faults. Tie logs to the test time and symptom. Reda
 
 ## Guided lab — safe update and rollback
 
-Use the Class 2 web service or another disposable service.
+Use the Class 2 `compose-lab` web service (or recreate it). Goal: prove you can update an explicit image tag and roll back with commands—not vibes.
 
-1. Record current image reference and `docker image inspect` result.
-2. Save a copy of the Compose file and persistent configuration.
-3. Run the user-level acceptance test.
-4. Change to a newer explicit image tag supported by the project.
-5. Run `docker compose config`, `pull`, and `up -d`.
-6. Observe startup logs and health.
-7. Repeat the acceptance test.
-8. Simulate failure by selecting a nonexistent tag or incompatible disposable configuration.
-9. Restore the recorded version/configuration.
-10. Prove the original test passes.
+1. **Record the current image identity (last-known-good).**
+
+:::windows
+```powershell
+cd $HOME\compose-lab
+docker compose ps
+docker compose images
+docker image inspect nginx:stable --format "Id={{.Id}} RepoTags={{.RepoTags}}"
+Copy-Item compose.yaml compose.yaml.bak
+curl.exe -s http://127.0.0.1:8080/ | findstr UNIQUE
+```
+:::
+
+:::linux
+```bash
+cd ~/compose-lab
+docker compose ps
+docker compose images
+docker image inspect nginx:stable --format 'Id={{.Id}} RepoTags={{.RepoTags}}'
+cp compose.yaml compose.yaml.bak
+curl -s http://127.0.0.1:8080/ | grep UNIQUE
+```
+:::
+
+   Write the image ID and tag in the workbook. That is your rollback target.
+
+2. **Run the acceptance test (before change).**  
+   Browser or curl must show your unique phrase. Record “PASS” + timestamp.
+
+3. **Change to another explicit tag, validate, pull, recreate.**  
+   Edit `image:` from `nginx:stable` to a newer explicit tag you choose from Docker Hub (example pattern `nginx:1.27`—pick one that exists today). Then:
+
+:::windows
+```powershell
+docker compose config
+docker compose pull
+docker compose up -d
+docker compose ps
+docker compose logs --tail=80 web
+docker compose images
+```
+:::
+
+:::linux
+```bash
+docker compose config
+docker compose pull
+docker compose up -d
+docker compose ps
+docker compose logs --tail=80 web
+docker image inspect $(docker compose images -q web) --format '{{.RepoTags}} {{.Id}}'
+```
+:::
+
+4. **Re-run the acceptance test.**  
+   `curl` the unique phrase again. If it fails, do not continue—roll back now.
+
+5. **Simulate a bad update (nonexistent tag), then restore.**
+
+:::windows
+```powershell
+# Temporarily set image: nginx:this-tag-does-not-exist-otacon
+docker compose pull
+docker compose up -d
+docker compose ps
+docker compose logs --tail=40 web
+Copy-Item compose.yaml.bak compose.yaml -Force
+docker compose pull
+docker compose up -d
+curl.exe -s http://127.0.0.1:8080/ | findstr UNIQUE
+```
+:::
+
+:::linux
+```bash
+# edit image to nginx:this-tag-does-not-exist-otacon, then:
+docker compose pull || true
+docker compose up -d || true
+docker compose ps
+docker compose logs --tail=40 web
+cp compose.yaml.bak compose.yaml
+docker compose pull
+docker compose up -d
+curl -s http://127.0.0.1:8080/ | grep UNIQUE
+```
+:::
+
+6. **Fill a mini service contract** (also use `templates/service_contract.csv`):
+
+```text
+purpose: compose-lab nginx demo
+image/version: (tag + image id)
+configuration path: ./compose.yaml , ./site
+media/download paths: n/a
+internal address/port: web:80
+published address/port: DOCKER-HOST:8080
+dependencies: none
+health test: curl unique phrase
+backup method: copy compose.yaml + site/
+update procedure: change tag -> config -> pull -> up -d -> test
+rollback procedure: restore compose.yaml.bak -> pull -> up -d -> test
+```
 
 ## ARR operational contract
 
-For every later service, record:
-
-```text
-purpose
-image/version
-configuration path
-media/download paths
-internal address and port
-published address and port
-dependencies
-health test
-backup method
-update procedure
-rollback procedure
-```
-
-This turns a pile of containers into an operable system.
+For every later service, record the same fields. This turns containers into an operable system.
 
 ## Break/fix scenarios
 
-- **Restart loop:** inspect exit code and first failure, not only the last repeated line.
-- **Port conflict:** identify the listener with `ss -lntp` or platform equivalent; change only the intended binding.
-- **Disk full:** use `docker system df`, filesystem usage, logs, downloads, and database growth to identify the consumer. Do not blindly prune volumes.
-- **Permission denied:** inspect numeric UID/GID and mount options.
-- **Dependency unavailable:** test DNS, TCP, protocol, and authentication in that order.
-- **Update regression:** restore the last-known-good tag and matching data/config backup when required.
+Run with commands; change only one variable at a time.
+
+- **Restart loop:** `docker compose ps` + `docker inspect --format '{{.State.ExitCode}} {{.State.Error}}' CID` + first error in `logs`.
+- **Port conflict:**
+
+:::windows
+```powershell
+netstat -ano | findstr :8080
+```
+:::
+
+:::linux
+```bash
+ss -lntp | grep 8080 || sudo lsof -i :8080
+```
+:::
+
+- **Disk pressure:** `docker system df` and host `df -h` / PowerShell `Get-PSDrive`. Do **not** run `docker system prune --volumes` casually.
+- **Permission denied:** inspect mount UID/GID and mode.
+- **Update regression:** restore last-known-good tag from step 1.
 
 ## Knowledge check
 

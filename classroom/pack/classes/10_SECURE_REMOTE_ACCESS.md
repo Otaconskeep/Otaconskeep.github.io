@@ -54,45 +54,112 @@ The tunnel encrypts and routes traffic; it does not automatically create a good 
 
 ## Guided lab
 
-Choose either the VPN path or tunnel-plus-access path. Use a disposable internal web service first—not a production admin panel.
+**Security objective:** remote access without opening ARR/HA admin ports to the whole internet. Pick **one** path: outbound tunnel + Access policy **or** VPN/mesh. Do both only if you have time.
 
 ### Common preparation
 
-1. Back up the target service.
-2. Record internal URL, port, protocol, and expected host headers.
-3. Confirm the service is not already exposed by router port forwarding or UPnP.
-4. Define allowed identities and denied cases.
+1. **Back up the target service** (HA backup or reverse-proxy config copy).
 
-### Tunnel path
+2. **Record origin details** in the workbook: internal URL (`http://HA-IP:8123`), port, TLS or not, expected hostname.
 
-1. Create the tunnel using current official instructions.
-2. Run the connector with least privilege.
-3. Map one test hostname to one test origin.
-4. Create an Access policy that allows only the intended identity with MFA.
-5. Test from an external network in a signed-out browser: access must be denied or redirected to authentication.
-6. Authenticate with an allowed identity: access must succeed.
-7. Test a disallowed identity: access must fail.
-8. Stop the connector: external access must fail closed while the internal service remains reachable locally.
+3. **Prove you are not already exposed.**
+
+:::linux
+```bash
+# From the HA/Docker host — list listeners (look for 8123/8096/8989 published on 0.0.0.0 unexpectedly)
+ss -lntp | egrep '8123|8096|8989|7878|9696' || true
+# From an external network (phone LTE), try http://PUBLIC-IP:8123 — expect failure
+```
+:::
+
+:::windows
+```powershell
+netstat -ano | findstr "8123 8989 7878"
+# External test from cellular network browser to your public IP — expect fail
+```
+:::
+
+4. **Define allow/deny identities** (who may authenticate; who must fail).
+
+### Tunnel path (example: Cloudflare Tunnel + Access)
+
+Follow **current** official tunnel docs for connector install. Then:
+
+1. Create tunnel; run connector with least privilege (dedicated user/service).
+
+:::linux
+```bash
+# Pattern after install — service name varies by distro/docs:
+sudo systemctl status cloudflared --no-pager
+sudo journalctl -u cloudflared -n 50 --no-pager
+```
+:::
+
+:::windows
+```powershell
+Get-Service cloudflared -ErrorAction SilentlyContinue
+# Or check the connector logs from the vendor's install path
+```
+:::
+
+2. Map one test hostname → one origin (`http://HA-IP:8123` or localhost connector side).
+
+3. Access policy: allow only your identity + MFA.
+
+4. **External signed-out browser:** must deny or redirect to auth.
+
+5. **Allowed identity:** must succeed.
+
+6. **Disallowed identity / other account:** must fail.
+
+7. **Fail closed:** stop connector; external access fails; LAN `http://HA-IP:8123` still works.
+
+:::linux
+```bash
+sudo systemctl stop cloudflared
+curl -sI --max-time 5 https://YOUR-TUNNEL-HOST/ || echo EXPECTED_EXTERNAL_FAIL
+curl -sI http://HA-IP:8123/ | head
+sudo systemctl start cloudflared
+```
+:::
 
 ### VPN path
 
-1. Enroll one remote client with its own identity.
-2. Authorize only required subnets/services.
-3. Prove the client can reach the test origin.
-4. Prove it cannot reach a deliberately excluded service.
-5. Revoke the device/identity and confirm access ends.
+1. Enroll one remote client with its own identity/key.
+
+2. Authorize only required subnets (HA LAN), not “full house flat”.
+
+3. Connect VPN; prove `curl http://HA-IP:8123` works.
+
+:::linux
+```bash
+ping -c 2 HA-IP
+curl -sI http://HA-IP:8123/ | head
+```
+:::
+
+:::windows
+```powershell
+ping -n 2 HA-IP
+curl.exe -sI http://HA-IP:8123/
+```
+:::
+
+4. Prove an excluded service/IP fails.
+
+5. Revoke device/identity; confirm access ends; remove test grants you no longer need.
 
 ## Reverse proxy awareness
 
-Home Assistant and other applications may need trusted-proxy and forwarded-header configuration. Trust only the actual proxy addresses/ranges. Overly broad trusted-proxy settings can let clients spoof source information.
+If you terminate TLS on a proxy, record host headers and whether HA `trusted_proxies` (or equivalent) is required—follow current HA docs.
 
 ## Break/fix and security tests
 
-- Remove the allow rule and confirm denial.
-- Use an incorrect origin port and diagnose from connector logs without weakening authentication.
-- Stop DNS resolution and distinguish hostname failure from origin failure.
-- Revoke one session or device and measure how quickly access disappears.
-- Confirm no unexpected router ports are open from an external perspective using an authorized method.
+1. Stop connector / disconnect VPN → external fail, LAN ok.
+
+2. Remove MFA temporarily in a controlled test only if policy allows—then restore MFA immediately.
+
+3. Attempt access with a second account that should be denied.
 
 ## Knowledge check
 

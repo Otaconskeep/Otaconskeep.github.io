@@ -212,23 +212,32 @@ flowchart TD<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-prose-block"><p>Use the sentence: <strong>“Turn on the office test light.”</strong> Replace the entity only with a safe test device/helper.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
+</div><div class="cr-prose-block"><p>Test the voice chain <strong>one layer at a time</strong>. Do not run full wake→action until layers 1–10 pass.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Record raw microphone audio. Confirm the sentence is intelligible, not clipped, and sufficiently loud.</p></div>
+  <div class="cr-step-text"><p><strong>Record raw mic audio</strong> (arecord/Audacity/Phone). Confirm intelligible, not clipped.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># Example if ALSA device exists on the satellite/host:
+arecord -l
+arecord -d 5 -f cd /tmp/voice-raw.wav
+aplay /tmp/voice-raw.wav
+ls -l /tmp/voice-raw.wav
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell"># Record with Voice Recorder / Audacity; save to Desktop\voice-raw.wav
+Get-Item $HOME\Desktop\voice-raw.wav | Format-List Name, Length, LastWriteTime
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Record raw microphone audio. Confirm the sentence is intelligible, not clipped, and sufficiently loud.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Record raw mic audio.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Trigger the wake word ten times at a fixed distance; record detections.</p></div>
+  <div class="cr-step-text"><p><strong>Wake word:</strong> 10 attempts at fixed distance → record detections / misses.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -241,33 +250,33 @@ flowchart TD<br />
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Speak ten unrelated phrases; record false activations.</p></div>
+  <div class="cr-step-text"><p><strong>False activations:</strong> 10 unrelated phrases → record false wakes.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Speak ten unrelated phrases; record false activations.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: False activations:.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Capture VAD start/end or recorded utterance and confirm no word is cut.</p></div>
+  <div class="cr-step-text"><p><strong>VAD/endpointing:</strong> confirm start/end do not chop words (inspect recording or pipeline debug).</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Capture VAD start/end or recorded utterance and confirm no word is cut.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: VAD/endpointing:.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Submit the audio to the configured STT service and save the transcript.</p></div>
+  <div class="cr-step-text"><p><strong>STT alone:</strong> submit the same audio/phrase to configured STT; save transcript text in workbook.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -280,7 +289,7 @@ flowchart TD<br />
 </div><div class="cr-step" data-step="6">
  <div class="cr-step-num">6</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Enter the exact transcript directly into Home Assistant Assist.</p></div>
+  <div class="cr-step-text"><p><strong>Assist text path:</strong> paste that exact transcript into HA Assist; record intent + target entity.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -293,33 +302,20 @@ flowchart TD<br />
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Confirm the recognized intent and target.</p></div>
+  <div class="cr-step-text"><p><strong>Action alone:</strong> call the HA service manually; confirm entity changes.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Confirm the recognized intent and target.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="8">
  <div class="cr-step-num">8</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Invoke the corresponding HA action manually.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Invoke the corresponding HA action manually.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="9">
- <div class="cr-step-num">9</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Send a fixed phrase to TTS and capture whether synthesis succeeds.</p></div>
+  <div class="cr-step-text"><p><strong>TTS alone:</strong> synthesize a fixed phrase; confirm audio file/stream exists.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -329,29 +325,31 @@ flowchart TD<br />
  
 </div>
  </div>
-</div><div class="cr-step" data-step="10">
- <div class="cr-step-num">10</div>
+</div><div class="cr-step" data-step="9">
+ <div class="cr-step-num">9</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Play known audio through the target speaker.</p></div>
+  <div class="cr-step-text"><p><strong>Playback alone:</strong> play a known WAV/MP3 on the target speaker.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">aplay /usr/share/sounds/alsa/Front_Center.wav 2&gt;/dev/null || ffplay -autoexit -nodisp /tmp/test.wav
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Play known audio through the target speaker.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Playback alone:.</div>
  
 </div>
  </div>
-</div><div class="cr-step" data-step="11">
- <div class="cr-step-num">11</div>
+</div><div class="cr-step" data-step="10">
+ <div class="cr-step-num">10</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Run the complete pipeline only after steps 1–10 pass.</p></div>
+  <div class="cr-step-text"><p><strong>Full pipeline</strong> only after 1–9 pass. Time wake→action latency; log failures by layer.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Run the complete pipeline only after steps 1–10 pass.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
  
 </div>
  </div>
@@ -363,59 +361,13 @@ flowchart TD<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><table>
-<thead>
-<tr>
-<th>Stage</th>
-<th>Criterion</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Microphone</td>
-<td>Clear recording without clipping</td>
-</tr>
-<tr>
-<td>Wake word</td>
-<td>At least 9/10 expected detections in test position; false accepts documented</td>
-</tr>
-<tr>
-<td>VAD</td>
-<td>Complete sentence retained</td>
-</tr>
-<tr>
-<td>STT</td>
-<td>Correct action and target words</td>
-</tr>
-<tr>
-<td>Intent</td>
-<td>Correct domain/action/entity selected</td>
-</tr>
-<tr>
-<td>HA</td>
-<td>Entity reaches expected state</td>
-</tr>
-<tr>
-<td>TTS</td>
-<td>Full phrase synthesized intelligibly</td>
-</tr>
-<tr>
-<td>Speaker</td>
-<td>Known sample plays at usable volume</td>
-</tr>
-<tr>
-<td>End to end</td>
-<td>Action and response complete within recorded latency target</td>
-</tr>
-</tbody>
-</table><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div></div></div>
+</div><div class="cr-prose-block cr-prose-code"><p>```text<br />
+Wake detect ≥ 8/10 at 1m<br />
+False wakes ≤ 1/10<br />
+STT exact match ≥ 4/5 fixed phrases<br />
+Assist maps to correct intent 5/5 when given perfect text<br />
+TTS intelligible 5/5<br />
+E2E success ≥ 7/10 from seating position</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div>
 <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Symptom-to-layer diagnosis</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -427,33 +379,29 @@ flowchart TD<br />
 <thead>
 <tr>
 <th>Symptom</th>
-<th>Investigate first</th>
+<th>Check layer first</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>No wake indication</td>
-<td>Microphone, wake engine, model, threshold</td>
+<td>Never wakes</td>
+<td>Mic / wake model</td>
 </tr>
 <tr>
-<td>Wake occurs; transcript is gibberish</td>
-<td>Captured audio, gain/noise, STT language/model</td>
+<td>Wakes but silence</td>
+<td>VAD / transport</td>
 </tr>
 <tr>
-<td>Transcript correct; wrong device</td>
-<td>Names, areas, exposed entities, intent resolution</td>
+<td>Wrong words</td>
+<td>STT / noise / model</td>
 </tr>
 <tr>
-<td>Device changes; no spoken answer</td>
-<td>TTS request, output route, speaker volume</td>
+<td>Right words, wrong action</td>
+<td>Assist / expose entities</td>
 </tr>
 <tr>
-<td>Works once; then hangs</td>
-<td>session state, stream close, concurrency, timeouts</td>
-</tr>
-<tr>
-<td>Slow response</td>
-<td>stage timestamps; do not guess</td>
+<td>Action ok, no voice back</td>
+<td>TTS / speaker</td>
 </tr>
 </tbody>
 </table><div class="cr-help">
@@ -471,12 +419,12 @@ flowchart TD<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
-</div><div class="cr-prose-block"><p>Introduce one controlled fault at a time: mute input, use the wrong STT language, rename the test entity, mute output. Predict the expected boundary failure, observe it, and restore the original state.</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>Mute mic; confirm wake fails. Unmute. Play TTS with speaker unplugged; confirm synthesis may succeed while playback fails—record both.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">

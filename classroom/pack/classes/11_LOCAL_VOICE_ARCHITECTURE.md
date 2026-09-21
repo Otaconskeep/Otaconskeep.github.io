@@ -61,48 +61,75 @@ TTS produces audio; the output device must play it. Test synthesis and playback 
 
 ## Guided lab
 
-Use the sentence: **“Turn on the office test light.”** Replace the entity only with a safe test device/helper.
+Test the voice chain **one layer at a time**. Do not run full wake→action until layers 1–10 pass.
 
-1. Record raw microphone audio. Confirm the sentence is intelligible, not clipped, and sufficiently loud.
-2. Trigger the wake word ten times at a fixed distance; record detections.
-3. Speak ten unrelated phrases; record false activations.
-4. Capture VAD start/end or recorded utterance and confirm no word is cut.
-5. Submit the audio to the configured STT service and save the transcript.
-6. Enter the exact transcript directly into Home Assistant Assist.
-7. Confirm the recognized intent and target.
-8. Invoke the corresponding HA action manually.
-9. Send a fixed phrase to TTS and capture whether synthesis succeeds.
-10. Play known audio through the target speaker.
-11. Run the complete pipeline only after steps 1–10 pass.
+1. **Record raw mic audio** (arecord/Audacity/Phone). Confirm intelligible, not clipped.
+
+:::linux
+```bash
+# Example if ALSA device exists on the satellite/host:
+arecord -l
+arecord -d 5 -f cd /tmp/voice-raw.wav
+aplay /tmp/voice-raw.wav
+ls -l /tmp/voice-raw.wav
+```
+:::
+
+:::windows
+```powershell
+# Record with Voice Recorder / Audacity; save to Desktop\voice-raw.wav
+Get-Item $HOME\Desktop\voice-raw.wav | Format-List Name, Length, LastWriteTime
+```
+:::
+
+2. **Wake word:** 10 attempts at fixed distance → record detections / misses.
+
+3. **False activations:** 10 unrelated phrases → record false wakes.
+
+4. **VAD/endpointing:** confirm start/end do not chop words (inspect recording or pipeline debug).
+
+5. **STT alone:** submit the same audio/phrase to configured STT; save transcript text in workbook.
+
+6. **Assist text path:** paste that exact transcript into HA Assist; record intent + target entity.
+
+7. **Action alone:** call the HA service manually; confirm entity changes.
+
+8. **TTS alone:** synthesize a fixed phrase; confirm audio file/stream exists.
+
+9. **Playback alone:** play a known WAV/MP3 on the target speaker.
+
+:::linux
+```bash
+aplay /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null || ffplay -autoexit -nodisp /tmp/test.wav
+```
+:::
+
+10. **Full pipeline** only after 1–9 pass. Time wake→action latency; log failures by layer.
 
 ## Acceptance criteria example
 
-| Stage | Criterion |
-|---|---|
-| Microphone | Clear recording without clipping |
-| Wake word | At least 9/10 expected detections in test position; false accepts documented |
-| VAD | Complete sentence retained |
-| STT | Correct action and target words |
-| Intent | Correct domain/action/entity selected |
-| HA | Entity reaches expected state |
-| TTS | Full phrase synthesized intelligibly |
-| Speaker | Known sample plays at usable volume |
-| End to end | Action and response complete within recorded latency target |
+```text
+Wake detect ≥ 8/10 at 1m
+False wakes ≤ 1/10
+STT exact match ≥ 4/5 fixed phrases
+Assist maps to correct intent 5/5 when given perfect text
+TTS intelligible 5/5
+E2E success ≥ 7/10 from seating position
+```
 
 ## Symptom-to-layer diagnosis
 
-| Symptom | Investigate first |
+| Symptom | Check layer first |
 |---|---|
-| No wake indication | Microphone, wake engine, model, threshold |
-| Wake occurs; transcript is gibberish | Captured audio, gain/noise, STT language/model |
-| Transcript correct; wrong device | Names, areas, exposed entities, intent resolution |
-| Device changes; no spoken answer | TTS request, output route, speaker volume |
-| Works once; then hangs | session state, stream close, concurrency, timeouts |
-| Slow response | stage timestamps; do not guess |
+| Never wakes | Mic / wake model |
+| Wakes but silence | VAD / transport |
+| Wrong words | STT / noise / model |
+| Right words, wrong action | Assist / expose entities |
+| Action ok, no voice back | TTS / speaker |
 
 ## Break/fix
 
-Introduce one controlled fault at a time: mute input, use the wrong STT language, rename the test entity, mute output. Predict the expected boundary failure, observe it, and restore the original state.
+Mute mic; confirm wake fails. Unmute. Play TTS with speaker unplugged; confirm synthesis may succeed while playback fails—record both.
 
 ## Knowledge check
 

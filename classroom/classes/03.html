@@ -177,8 +177,21 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-prose-block"><p>Create this project:</p>
-<pre><code class="language-yaml">name: network-lab
+</div><div class="cr-prose-block"><p><strong>Where to run:</strong> Docker host from Class 2 (Linux VM preferred).</p></div><div class="cr-lab-path"><h4>Setup — two containers on one user-defined bridge</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Create the network lab project.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">mkdir $HOME\network-lab -Force
+cd $HOME\network-lab
+@'
+name: network-lab
 services:
   responder:
     image: nginx:stable
@@ -190,29 +203,122 @@ services:
 networks:
   media_net:
     name: media_net
-</code></pre>
-<p>Then run:</p>
-<pre><code class="language-bash">docker compose up -d
-docker compose exec tester getent hosts responder
-docker compose exec tester curl -I http://responder:80
-docker network inspect media_net
-</code></pre>
-<p>Expected behavior: the tester resolves <code>responder</code> and receives an HTTP response, even though the responder has no published host port.</p>
-<p>Add a published port to the responder, recreate it, and test from the LAN. Record the difference between internal service discovery and host-port access.</p></div><div class="cr-lab-path"><h4>Apply the model to media services</h4><p>The later configuration uses names such as:</p>
-<pre><code class="language-text">Sonarr -&gt; http://prowlarr:9696
-Sonarr -&gt; http://qbittorrent:8080
-Radarr -&gt; http://sabnzbd:8080
-</code></pre>
-<p>The exact ports depend on the application configuration. Record them in <code>templates/service_contract.csv</code>; do not guess.</p><div class="cr-help">
+'@ | Set-Content -Encoding utf8 compose.yaml
+docker compose config
+docker compose up -d
+docker compose ps
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">mkdir -p ~/network-lab &amp;&amp; cd ~/network-lab
+cat &gt; compose.yaml &lt;&lt;'YAML'
+name: network-lab
+services:
+  responder:
+    image: nginx:stable
+    networks: [media_net]
+  tester:
+    image: curlimages/curl:latest
+    command: [&quot;sleep&quot;, &quot;infinity&quot;]
+    networks: [media_net]
+networks:
+  media_net:
+    name: media_net
+YAML
+docker compose config
+docker compose up -d
+docker compose ps
+</code></pre></div></div>
+  <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The later configuration uses names such as:
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Prove DNS + HTTP by service name (no published host port required).</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker compose exec tester getent hosts responder
+docker compose exec tester curl -sI http://responder:80
+docker network inspect media_net --format &quot;{{json .Containers}}&quot;
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose exec tester getent hosts responder
+docker compose exec tester curl -sI http://responder:80
+docker network inspect media_net
+docker network inspect media_net -f '{{range .Containers}}{{.Name}} {{.IPv4Address}}{{&quot;\n&quot;}}{{end}}'
+</code></pre></div>
+<p>Expected: <code>responder</code> resolves and <code>HTTP/1.1 200</code> (or similar) returns even though nothing is published to the LAN yet.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Show why <code>localhost</code> inside tester is wrong for reaching responder.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker compose exec tester curl -sI http://localhost:80
+# Expect failure — localhost is the tester container itself, not responder.
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose exec tester curl -sI --max-time 3 http://127.0.0.1:80 || echo &quot;EXPECTED_FAIL localhost&quot;
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Publish a host port and compare internal vs external access.</strong><br />
+   Edit responder to add:</p>
+<pre><code class="language-yaml">    ports:
+      - &quot;8081:80&quot;
+</code></pre>
+<p>Then recreate and test:</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker compose up -d
+curl.exe -sI http://127.0.0.1:8081/
+docker compose exec tester curl -sI http://responder:80
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose up -d
+curl -sI http://127.0.0.1:8081/
+# From another LAN machine (replace DOCKER-HOST):
+# curl -sI http://DOCKER-HOST:8081/
+docker compose exec tester curl -sI http://responder:80
+</code></pre></div>
+<p>Record in the workbook: <strong>internal</strong> <code>http://responder:80</code> vs <strong>external</strong> <code>http://DOCKER-HOST:8081</code>.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div></div></div><div class="cr-lab-path"><h4>Apply the model to media services</h4><p>Later ARR wiring uses names like:</p>
+<pre><code class="language-text">Sonarr -&gt; http://prowlarr:9696
+Sonarr -&gt; http://qbittorrent:8080
+Radarr -&gt; http://sabnzbd:8080
+</code></pre>
+<p>Exact ports go in <code>templates/service_contract.csv</code>—do not guess.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Later ARR wiring uses names like:
 
-``this setting``
-
-The exact ports depend on the application configuration.</div>
+``this setting`this settingtemplates/service_contract.csv`—do not guess.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
@@ -223,26 +329,46 @@ The exact ports depend on the application configuration.</div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
 </div><div class="cr-prose-block"><ol>
-<li>Disconnect <code>tester</code> from <code>media_net</code> with <code>docker network disconnect media_net network-lab-tester-1</code> using the actual container name from <code>docker compose ps</code>.</li>
-<li>Confirm name resolution or connectivity fails.</li>
-<li>Reconnect it and retest.</li>
-<li>Replace <code>responder</code> with <code>localhost</code> in the curl call and explain why it fails.</li>
-<li>Publish a port only on <code>127.0.0.1</code> and compare host-local access with LAN access.</li>
+<li><strong>Disconnect tester from the network, watch DNS fail, reconnect.</strong></li>
 </ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
  
-</div></div><div class="cr-prose-block"><p>Troubleshooting order:</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><p>:::windows</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Troubleshooting order:</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: :::windows</div>
  
-</div></div><div class="cr-prose-block cr-prose-code"><p>```text<br />
+</div></div><div class="cr-prose-block cr-prose-code"><p>```powershell<br />
+docker compose ps<br />
+docker network disconnect media_net $(docker compose ps -q tester)<br />
+docker compose exec tester getent hosts responder<br />
+docker network connect media_net $(docker compose ps -q tester)<br />
+docker compose exec tester getent hosts responder<br />
+docker compose exec tester curl -sI http://responder:80</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
+:::</p>
+<p>:::linux</p></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
+T=$(docker compose ps -q tester)<br />
+docker network disconnect media_net "$T"<br />
+docker compose exec tester getent hosts responder || echo EXPECTED_FAIL<br />
+docker network connect media_net "$T"<br />
+docker compose exec tester getent hosts responder<br />
+docker compose exec tester curl -sI http://responder:80</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
+:::</p>
+<ol start="2">
+<li>
+<p><strong>Replace <code>responder</code> with <code>localhost</code> in curl</strong> (already done above)—explain the failure in the workbook.</p>
+</li>
+<li>
+<p><strong>Bind only to loopback and compare LAN access.</strong> Change ports to <code>"127.0.0.1:8081:80"</code>, recreate, prove host-local works and another LAN device fails.</p>
+</li>
+</ol>
+<p>Troubleshooting order:</p></div><div class="cr-prose-block cr-prose-code"><p>```text<br />
 running container -&gt; shared network -&gt; DNS name -&gt; destination port -&gt; listener -&gt; application auth -&gt; firewall/routing</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div>
 <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Common mistakes</h3></div><div class="cr-help">
  <div class="cr-actions">

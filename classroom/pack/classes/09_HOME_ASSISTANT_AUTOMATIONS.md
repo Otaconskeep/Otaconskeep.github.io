@@ -53,46 +53,66 @@ Automation traces show which trigger fired, condition result, path taken, variab
 
 ## Guided lab
 
-Create two helpers if safe physical devices are unavailable: an input boolean as the trigger and a light helper or persistent notification as the output.
+Build one automation with explicit acceptance tests. Prefer helpers (`input_boolean`) so you never need real hardware risk.
 
-1. Write the requirement and acceptance criteria first.
-2. Build a trigger from the boolean turning on.
-3. Add a condition based on another helper representing “allowed.”
-4. Add the nominal action.
-5. Add logging or a persistent notification that records the test run.
-6. Select an intentional automation mode.
-7. Test positive case: trigger true and condition true.
-8. Test negative case: trigger true and condition false.
-9. Test repeated/rapid triggers and verify mode behavior.
-10. Restart Home Assistant and repeat the positive test.
-11. Inspect trace details for all cases.
+1. **Write requirement + acceptance criteria first** (workbook):
+
+```text
+When test_trigger turns on AND test_allowed is on → turn on test_lamp (helper)
+Notify/log that the run happened
+Mode: single (or restart — pick one and defend it)
+```
+
+2. **Create helpers** (UI → Helpers): `input_boolean.test_trigger`, `input_boolean.test_allowed`, `input_boolean.test_lamp`.
+
+3. **Build automation:** trigger = test_trigger turns on; condition = test_allowed is on; actions = turn on test_lamp + persistent notification / logbook.
+
+4. **Positive test:**
+
+:::linux
+```bash
+export HA=http://HA-IP:8123 TOKEN='YOUR_TOKEN'
+call() { curl -s -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d "$2" "$HA/api/services/$1"; echo; }
+# turn allowed on, trigger on:
+call input_boolean/turn_on '{"entity_id":"input_boolean.test_allowed"}'
+call input_boolean/turn_on '{"entity_id":"input_boolean.test_trigger"}'
+curl -s -H "Authorization: Bearer $TOKEN" "$HA/api/states/input_boolean.test_lamp"
+```
+:::
+
+:::windows
+```powershell
+# Use Developer Tools → Services, or:
+$H=@{Authorization="Bearer YOUR_TOKEN"; "Content-Type"="application/json"}
+Invoke-RestMethod -Headers $H -Method Post -Uri "http://HA-IP:8123/api/services/input_boolean/turn_on" -Body '{"entity_id":"input_boolean.test_allowed"}'
+Invoke-RestMethod -Headers $H -Method Post -Uri "http://HA-IP:8123/api/services/input_boolean/turn_on" -Body '{"entity_id":"input_boolean.test_trigger"}'
+Invoke-RestMethod -Headers $H -Uri "http://HA-IP:8123/api/states/input_boolean.test_lamp"
+```
+:::
+
+   Expect lamp on + notification. Open **Traces** and save a screenshot (no secrets).
+
+5. **Negative test:** allowed off, trigger on → lamp must stay off; trace stops at condition.
+
+6. **Rapid triggers:** flip trigger quickly; confirm mode behavior matches your choice (`single` vs `restart`).
+
+7. **Restart HA** and repeat the positive test once.
+
+8. **Inspect traces** for all cases; write pass/fail in the workbook.
 
 ## Monitoring the homelab
 
-Apply the same model to infrastructure without allowing HA to hide faults:
-
-- Trigger: Plex or a monitored endpoint becomes unavailable for a defined duration.
-- Condition: maintenance mode is off.
-- Action: notify the owner and capture context.
-
-Auto-restarts can be added only after detecting, confirming, limiting retries, and alerting on repeated failure. Otherwise automation can erase evidence and create restart loops.
+Optional stretch: notify when a critical binary sensor / container health helper fails—still use a helper first.
 
 ## Break/fix
 
-1. Change the condition so it is false. Confirm the trace stops at the condition.
-2. Point the action to a nonexistent entity. Confirm the trigger/condition pass and the action fails.
-3. Set a delay, trigger twice, and observe mode behavior.
-4. Disable the automation and confirm manual entity control still works.
+1. Force condition false; confirm trace stops at condition.
 
-## Failure taxonomy
+2. Point action at a nonexistent entity; confirm trigger/condition pass and action errors in trace.
 
-| Symptom | Likely layer |
-|---|---|
-| No trace exists | Trigger did not fire or automation disabled |
-| Trace stops at condition | Guard evaluated false/unknown |
-| Action shows error | Target/action/service/data issue |
-| Action succeeds but device unchanged | Integration/device/physical layer |
-| Works manually but not after restart | Initialization, unavailable state, or timing |
+3. Add a delay; trigger twice; observe mode.
+
+4. Disable automation; prove manual helper control still works.
 
 ## Knowledge check
 

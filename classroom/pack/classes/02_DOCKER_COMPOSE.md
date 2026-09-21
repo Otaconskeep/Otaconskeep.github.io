@@ -85,9 +85,19 @@ docker compose down
 
 ## Guided lab
 
-Create a directory containing this safe learning project:
+**Where to run:** Prefer the Linux VM from Class 1 (or a Linux Docker host). Docker Desktop on Windows works for this class’s CLI, but later ARR path labs assume Linux paths.
 
-```yaml
+Create a project folder and the files below. Use the OS toggle for host commands.
+
+### Setup — create the project files
+
+1. **Make the lab directory and Compose file.**
+
+:::windows
+```powershell
+mkdir $HOME\compose-lab\site -Force
+cd $HOME\compose-lab
+@'
 name: compose-lab
 services:
   web:
@@ -102,21 +112,161 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+'@ | Set-Content -Encoding utf8 compose.yaml
+@'
+<!doctype html><title>compose-lab</title>
+<h1>Otaconskeep compose-lab UNIQUE-PHRASE-001</h1>
+'@ | Set-Content -Encoding utf8 site\index.html
+Get-ChildItem -Recurse
 ```
+If the image healthcheck fails because `curl` is missing in nginx, edit `compose.yaml` and replace the healthcheck with:
+```yaml
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/"]
+```
+or remove the healthcheck for this learning lab and note that in the workbook.
+:::
 
-Create `site/index.html` containing a unique lab phrase. If the image lacks the healthcheck command, replace the healthcheck with one supported by the selected image rather than declaring the application broken.
+:::linux
+```bash
+mkdir -p ~/compose-lab/site
+cd ~/compose-lab
+cat > compose.yaml <<'YAML'
+name: compose-lab
+services:
+  web:
+    image: nginx:stable
+    ports:
+      - "8080:80"
+    volumes:
+      - ./site:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+YAML
+printf '%s\n' '<!doctype html><title>compose-lab</title>' \
+  '<h1>Otaconskeep compose-lab UNIQUE-PHRASE-001</h1>' > site/index.html
+ls -la site
+```
+If healthcheck fails for missing `curl`, switch the test to `wget -qO- http://localhost/` or remove healthcheck and document it.
+:::
 
-1. Run `docker compose config` and resolve all warnings/errors.
-2. Run `docker compose up -d`.
-3. Visit `http://DOCKER-HOST:8080`.
-4. Record `docker compose ps` and the health state.
-5. Edit the host file and refresh the browser to prove the bind mount.
-6. Run `docker compose down`, then `docker compose up -d`.
-7. Prove the unique content remains.
+2. **Validate the Compose model before starting anything.**
+
+:::windows
+```powershell
+cd $HOME\compose-lab
+docker compose config
+docker compose config --quiet
+```
+:::
+
+:::linux
+```bash
+cd ~/compose-lab
+docker compose config
+docker compose config --quiet && echo CONFIG_OK
+```
+:::
+
+   Fix any YAML/indent errors until `config` exits 0.
+
+3. **Start the stack and confirm the container is up.**
+
+:::windows
+```powershell
+docker compose up -d
+docker compose ps
+docker compose logs --tail=50 web
+```
+:::
+
+:::linux
+```bash
+docker compose up -d
+docker compose ps
+docker compose logs --tail=50 web
+```
+:::
+
+4. **Hit the published port from the host.**
+
+:::windows
+```powershell
+curl.exe -I http://127.0.0.1:8080/
+curl.exe -s http://127.0.0.1:8080/ | findstr UNIQUE-PHRASE
+```
+:::
+
+:::linux
+```bash
+curl -I http://127.0.0.1:8080/
+curl -s http://127.0.0.1:8080/ | grep UNIQUE-PHRASE
+```
+:::
+
+   Also open `http://DOCKER-HOST:8080` in a browser if the host is remote. Record the URL in the workbook.
+
+5. **Prove the bind mount: edit the host file, refresh, see the change.**
+
+:::windows
+```powershell
+(Get-Content site\index.html) -replace 'UNIQUE-PHRASE-001','UNIQUE-PHRASE-002' | Set-Content site\index.html
+curl.exe -s http://127.0.0.1:8080/ | findstr UNIQUE-PHRASE
+```
+:::
+
+:::linux
+```bash
+sed -i 's/UNIQUE-PHRASE-001/UNIQUE-PHRASE-002/' site/index.html
+curl -s http://127.0.0.1:8080/ | grep UNIQUE-PHRASE
+```
+:::
+
+6. **Recreate the container and prove content survives.**
+
+:::windows
+```powershell
+docker compose down
+docker compose up -d
+curl.exe -s http://127.0.0.1:8080/ | findstr UNIQUE-PHRASE-002
+docker compose ps
+```
+:::
+
+:::linux
+```bash
+docker compose down
+docker compose up -d
+curl -s http://127.0.0.1:8080/ | grep UNIQUE-PHRASE-002
+docker compose ps
+```
+:::
+
+7. **Capture evidence for the gate.**
+
+:::windows
+```powershell
+docker compose ps
+docker inspect --format "{{.State.Health.Status}}" $(docker compose ps -q web)
+docker compose logs --tail=20 web
+```
+:::
+
+:::linux
+```bash
+docker compose ps
+docker inspect --format '{{.State.Health.Status}}' "$(docker compose ps -q web)"
+docker compose logs --tail=20 web
+```
+:::
 
 ### ARR path design preview
 
-The later stack uses consistent paths so the downloader and importers describe the same files the same way:
+Later classes use one shared data tree so downloaders and importers see the same files:
 
 ```text
 /data
@@ -127,16 +277,44 @@ The later stack uses consistent paths so the downloader and importers describe t
     /tv
 ```
 
-Avoid separate, unrelated mounts such as `/downloads` in one container and `/incoming` in another. They can be mapped correctly, but beginners often create remote-path and hardlink problems.
+Avoid unrelated mounts such as `/downloads` in one container and `/incoming` in another unless you fully understand remote paths and hardlinks.
 
 ## Break/fix
 
-Perform these faults one at a time:
+Perform these faults **one at a time**. Restore before the next fault.
 
-1. Change the published host port to one already in use. Read the bind error and restore it.
-2. Introduce one indentation error. Use `docker compose config` to locate it.
-3. Remove write permission from a test writable directory. Observe the application log, inspect numeric ownership, then restore only the required access.
-4. Change an image tag, pull, recreate, verify, then roll back to the recorded prior tag.
+1. **Port already in use.** Change `"8080:80"` to a port your host already uses (or start a second compose on 8080). Read the bind error, restore 8080.
+
+:::windows
+```powershell
+docker compose up -d
+# read error, then fix compose.yaml and:
+docker compose up -d
+```
+:::
+
+:::linux
+```bash
+# After editing the port wrongly:
+docker compose up -d
+# restore port, then:
+docker compose up -d
+```
+:::
+
+2. **YAML indentation error.** Break indent under `services:`, run `docker compose config`, fix from the error line.
+
+3. **Permission denied on a writable mount.** Create `./writable`, mount it read-write, `chmod 000 writable` (Linux) or remove write ACL (Windows), recreate, read logs, restore permissions only.
+
+:::linux
+```bash
+mkdir -p writable && chmod 000 writable
+# after observing failure:
+chmod 755 writable
+```
+:::
+
+4. **Image tag change + rollback.** Record current tag `nginx:stable`, change to another explicit tag, `pull` + `up -d`, verify, then restore `nginx:stable` and prove the page still loads.
 
 ## Knowledge check
 

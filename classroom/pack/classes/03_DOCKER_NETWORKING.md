@@ -45,9 +45,17 @@ Do not publish every internal service simply because you can. A database used on
 
 ## Guided lab
 
-Create this project:
+**Where to run:** Docker host from Class 2 (Linux VM preferred).
 
-```yaml
+### Setup — two containers on one user-defined bridge
+
+1. **Create the network lab project.**
+
+:::windows
+```powershell
+mkdir $HOME\network-lab -Force
+cd $HOME\network-lab
+@'
 name: network-lab
 services:
   responder:
@@ -60,24 +68,103 @@ services:
 networks:
   media_net:
     name: media_net
+'@ | Set-Content -Encoding utf8 compose.yaml
+docker compose config
+docker compose up -d
+docker compose ps
 ```
+:::
 
-Then run:
+:::linux
+```bash
+mkdir -p ~/network-lab && cd ~/network-lab
+cat > compose.yaml <<'YAML'
+name: network-lab
+services:
+  responder:
+    image: nginx:stable
+    networks: [media_net]
+  tester:
+    image: curlimages/curl:latest
+    command: ["sleep", "infinity"]
+    networks: [media_net]
+networks:
+  media_net:
+    name: media_net
+YAML
+docker compose config
+docker compose up -d
+docker compose ps
+```
+:::
 
+2. **Prove DNS + HTTP by service name (no published host port required).**
+
+:::windows
+```powershell
+docker compose exec tester getent hosts responder
+docker compose exec tester curl -sI http://responder:80
+docker network inspect media_net --format "{{json .Containers}}"
+```
+:::
+
+:::linux
+```bash
+docker compose exec tester getent hosts responder
+docker compose exec tester curl -sI http://responder:80
+docker network inspect media_net
+docker network inspect media_net -f '{{range .Containers}}{{.Name}} {{.IPv4Address}}{{"\n"}}{{end}}'
+```
+:::
+
+   Expected: `responder` resolves and `HTTP/1.1 200` (or similar) returns even though nothing is published to the LAN yet.
+
+3. **Show why `localhost` inside tester is wrong for reaching responder.**
+
+:::windows
+```powershell
+docker compose exec tester curl -sI http://localhost:80
+# Expect failure — localhost is the tester container itself, not responder.
+```
+:::
+
+:::linux
+```bash
+docker compose exec tester curl -sI --max-time 3 http://127.0.0.1:80 || echo "EXPECTED_FAIL localhost"
+```
+:::
+
+4. **Publish a host port and compare internal vs external access.**  
+   Edit responder to add:
+```yaml
+    ports:
+      - "8081:80"
+```
+   Then recreate and test:
+
+:::windows
+```powershell
+docker compose up -d
+curl.exe -sI http://127.0.0.1:8081/
+docker compose exec tester curl -sI http://responder:80
+```
+:::
+
+:::linux
 ```bash
 docker compose up -d
-docker compose exec tester getent hosts responder
-docker compose exec tester curl -I http://responder:80
-docker network inspect media_net
+curl -sI http://127.0.0.1:8081/
+# From another LAN machine (replace DOCKER-HOST):
+# curl -sI http://DOCKER-HOST:8081/
+docker compose exec tester curl -sI http://responder:80
 ```
+:::
 
-Expected behavior: the tester resolves `responder` and receives an HTTP response, even though the responder has no published host port.
-
-Add a published port to the responder, recreate it, and test from the LAN. Record the difference between internal service discovery and host-port access.
+   Record in the workbook: **internal** `http://responder:80` vs **external** `http://DOCKER-HOST:8081`.
 
 ### Apply the model to media services
 
-The later configuration uses names such as:
+Later ARR wiring uses names like:
 
 ```text
 Sonarr -> http://prowlarr:9696
@@ -85,15 +172,37 @@ Sonarr -> http://qbittorrent:8080
 Radarr -> http://sabnzbd:8080
 ```
 
-The exact ports depend on the application configuration. Record them in `templates/service_contract.csv`; do not guess.
+Exact ports go in `templates/service_contract.csv`—do not guess.
 
 ## Break/fix
 
-1. Disconnect `tester` from `media_net` with `docker network disconnect media_net network-lab-tester-1` using the actual container name from `docker compose ps`.
-2. Confirm name resolution or connectivity fails.
-3. Reconnect it and retest.
-4. Replace `responder` with `localhost` in the curl call and explain why it fails.
-5. Publish a port only on `127.0.0.1` and compare host-local access with LAN access.
+1. **Disconnect tester from the network, watch DNS fail, reconnect.**
+
+:::windows
+```powershell
+docker compose ps
+docker network disconnect media_net $(docker compose ps -q tester)
+docker compose exec tester getent hosts responder
+docker network connect media_net $(docker compose ps -q tester)
+docker compose exec tester getent hosts responder
+docker compose exec tester curl -sI http://responder:80
+```
+:::
+
+:::linux
+```bash
+T=$(docker compose ps -q tester)
+docker network disconnect media_net "$T"
+docker compose exec tester getent hosts responder || echo EXPECTED_FAIL
+docker network connect media_net "$T"
+docker compose exec tester getent hosts responder
+docker compose exec tester curl -sI http://responder:80
+```
+:::
+
+2. **Replace `responder` with `localhost` in curl** (already done above)—explain the failure in the workbook.
+
+3. **Bind only to loopback and compare LAN access.** Change ports to `"127.0.0.1:8081:80"`, recreate, prove host-local works and another LAN device fails.
 
 Troubleshooting order:
 

@@ -208,146 +208,125 @@ flowchart TD<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-prose-block"><p>Create two helpers if safe physical devices are unavailable: an input boolean as the trigger and a light helper or persistent notification as the output.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
+</div><div class="cr-prose-block"><p>Build one automation with explicit acceptance tests. Prefer helpers (<code>input_boolean</code>) so you never need real hardware risk.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Write the requirement and acceptance criteria first.</p></div>
+  <div class="cr-step-text"><p><strong>Write requirement + acceptance criteria first</strong> (workbook):</p>
+<pre><code class="language-text">When test_trigger turns on AND test_allowed is on → turn on test_lamp (helper)
+Notify/log that the run happened
+Mode: single (or restart — pick one and defend it)
+</code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Write the requirement and acceptance criteria first.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Build a trigger from the boolean turning on.</p></div>
+  <div class="cr-step-text"><p><strong>Create helpers</strong> (UI → Helpers): <code>input_boolean.test_trigger</code>, <code>input_boolean.test_allowed</code>, <code>input_boolean.test_lamp</code>.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Build a trigger from the boolean turning on.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Create helpers.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Add a condition based on another helper representing “allowed.”</p></div>
+  <div class="cr-step-text"><p><strong>Build automation:</strong> trigger = test_trigger turns on; condition = test_allowed is on; actions = turn on test_lamp + persistent notification / logbook.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Add a condition based on another helper representing “allowed.”)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Add the nominal action.</p></div>
+  <div class="cr-step-text"><p><strong>Positive test:</strong></p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">export HA=http://HA-IP:8123 TOKEN='YOUR_TOKEN'
+call() { curl -s -H &quot;Authorization: Bearer $TOKEN&quot; -H &quot;Content-Type: application/json&quot; -d &quot;$2&quot; &quot;$HA/api/services/$1&quot;; echo; }
+# turn allowed on, trigger on:
+call input_boolean/turn_on '{&quot;entity_id&quot;:&quot;input_boolean.test_allowed&quot;}'
+call input_boolean/turn_on '{&quot;entity_id&quot;:&quot;input_boolean.test_trigger&quot;}'
+curl -s -H &quot;Authorization: Bearer $TOKEN&quot; &quot;$HA/api/states/input_boolean.test_lamp&quot;
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell"># Use Developer Tools → Services, or:
+$H=@{Authorization=&quot;Bearer YOUR_TOKEN&quot;; &quot;Content-Type&quot;=&quot;application/json&quot;}
+Invoke-RestMethod -Headers $H -Method Post -Uri &quot;http://HA-IP:8123/api/services/input_boolean/turn_on&quot; -Body '{&quot;entity_id&quot;:&quot;input_boolean.test_allowed&quot;}'
+Invoke-RestMethod -Headers $H -Method Post -Uri &quot;http://HA-IP:8123/api/services/input_boolean/turn_on&quot; -Body '{&quot;entity_id&quot;:&quot;input_boolean.test_trigger&quot;}'
+Invoke-RestMethod -Headers $H -Uri &quot;http://HA-IP:8123/api/states/input_boolean.test_lamp&quot;
+</code></pre></div>
+<p>Expect lamp on + notification. Open <strong>Traces</strong> and save a screenshot (no secrets).</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Add the nominal action.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Positive test:.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Add logging or a persistent notification that records the test run.</p></div>
+  <div class="cr-step-text"><p><strong>Negative test:</strong> allowed off, trigger on → lamp must stay off; trace stops at condition.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Add logging or a persistent notification that records the test run.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Negative test:.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="6">
  <div class="cr-step-num">6</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Select an intentional automation mode.</p></div>
+  <div class="cr-step-text"><p><strong>Rapid triggers:</strong> flip trigger quickly; confirm mode behavior matches your choice (<code>single</code> vs <code>restart</code>).</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Rapid triggers:.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Test positive case: trigger true and condition true.</p></div>
+  <div class="cr-step-text"><p><strong>Restart HA</strong> and repeat the positive test once.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Test positive case: trigger true and condition true.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Restart HA.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="8">
  <div class="cr-step-num">8</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Test negative case: trigger true and condition false.</p></div>
+  <div class="cr-step-text"><p><strong>Inspect traces</strong> for all cases; write pass/fail in the workbook.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Test negative case: trigger true and condition false.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="9">
- <div class="cr-step-num">9</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Test repeated/rapid triggers and verify mode behavior.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Test repeated/rapid triggers and verify mode behavior.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="10">
- <div class="cr-step-num">10</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Restart Home Assistant and repeat the positive test.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="11">
- <div class="cr-step-num">11</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Inspect trace details for all cases.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Inspect trace details for all cases.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Inspect traces.</div>
  
 </div>
  </div>
@@ -359,30 +338,12 @@ flowchart TD<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the hands-on part. Follow the numbered steps and keep notes of what you saw.</div>
  
-</div><div class="cr-prose-block"><p>Apply the same model to infrastructure without allowing HA to hide faults:</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>Optional stretch: notify when a critical binary sensor / container health helper fails—still use a helper first.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Apply the same model to infrastructure without allowing HA to hide faults:</div>
- 
-</div></div><div class="cr-prose-block"><ul>
-<li>Trigger: Plex or a monitored endpoint becomes unavailable for a defined duration.</li>
-<li>Condition: maintenance mode is off.</li>
-<li>Action: notify the owner and capture context.</li>
-</ul><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Trigger: Plex or a monitored endpoint becomes unavailable for a defined duration.</div>
- 
-</div></div><div class="cr-prose-block"><p>Auto-restarts can be added only after detecting, confirming, limiting retries, and alerting on repeated failure. Otherwise automation can erase evidence and create restart loops.</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
  
 </div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
@@ -393,10 +354,16 @@ flowchart TD<br />
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
 </div><div class="cr-prose-block"><ol>
-<li>Change the condition so it is false. Confirm the trace stops at the condition.</li>
-<li>Point the action to a nonexistent entity. Confirm the trigger/condition pass and the action fails.</li>
-<li>Set a delay, trigger twice, and observe mode behavior.</li>
-<li>Disable the automation and confirm manual entity control still works.</li>
+<li>Force condition false; confirm trace stops at condition.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="2">
+<li>Point action at a nonexistent entity; confirm trigger/condition pass and action errors in trace.</li>
 </ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -404,49 +371,23 @@ flowchart TD<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
  
-</div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Failure taxonomy</h3></div><div class="cr-help">
+</div></div><div class="cr-prose-block"><ol start="3">
+<li>Add a delay; trigger twice; observe mode.</li>
+</ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3.</div>
  
-</div><div class="cr-prose-block"><table>
-<thead>
-<tr>
-<th>Symptom</th>
-<th>Likely layer</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>No trace exists</td>
-<td>Trigger did not fire or automation disabled</td>
-</tr>
-<tr>
-<td>Trace stops at condition</td>
-<td>Guard evaluated false/unknown</td>
-</tr>
-<tr>
-<td>Action shows error</td>
-<td>Target/action/service/data issue</td>
-</tr>
-<tr>
-<td>Action succeeds but device unchanged</td>
-<td>Integration/device/physical layer</td>
-</tr>
-<tr>
-<td>Works manually but not after restart</td>
-<td>Initialization, unavailable state, or timing</td>
-</tr>
-</tbody>
-</table><div class="cr-help">
+</div></div><div class="cr-prose-block"><ol start="4">
+<li>Disable automation; prove manual helper control still works.</li>
+</ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">

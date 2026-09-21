@@ -217,8 +217,22 @@ docker compose down
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-prose-block"><p>Create a directory containing this safe learning project:</p>
-<pre><code class="language-yaml">name: compose-lab
+</div><div class="cr-prose-block"><p><strong>Where to run:</strong> Prefer the Linux VM from Class 1 (or a Linux Docker host). Docker Desktop on Windows works for this class’s CLI, but later ARR path labs assume Linux paths.</p>
+<p>Create a project folder and the files below. Use the OS toggle for host commands.</p></div><div class="cr-lab-path"><h4>Setup — create the project files</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Setup — create the project files)</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Make the lab directory and Compose file.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">mkdir $HOME\compose-lab\site -Force
+cd $HOME\compose-lab
+@'
+name: compose-lab
 services:
   web:
     image: nginx:stable
@@ -232,17 +246,177 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+'@ | Set-Content -Encoding utf8 compose.yaml
+@'
+&lt;!doctype html&gt;&lt;title&gt;compose-lab&lt;/title&gt;
+&lt;h1&gt;Otaconskeep compose-lab UNIQUE-PHRASE-001&lt;/h1&gt;
+'@ | Set-Content -Encoding utf8 site\index.html
+Get-ChildItem -Recurse
 </code></pre>
-<p>Create <code>site/index.html</code> containing a unique lab phrase. If the image lacks the healthcheck command, replace the healthcheck with one supported by the selected image rather than declaring the application broken.</p>
-<ol>
-<li>Run <code>docker compose config</code> and resolve all warnings/errors.</li>
-<li>Run <code>docker compose up -d</code>.</li>
-<li>Visit <code>http://DOCKER-HOST:8080</code>.</li>
-<li>Record <code>docker compose ps</code> and the health state.</li>
-<li>Edit the host file and refresh the browser to prove the bind mount.</li>
-<li>Run <code>docker compose down</code>, then <code>docker compose up -d</code>.</li>
-<li>Prove the unique content remains.</li>
-</ol></div><div class="cr-lab-path"><h4>ARR path design preview</h4><p>The later stack uses consistent paths so the downloader and importers describe the same files the same way:</p>
+<p>If the image healthcheck fails because <code>curl</code> is missing in nginx, edit <code>compose.yaml</code> and replace the healthcheck with:</p>
+<pre><code class="language-yaml">    healthcheck:
+      test: [&quot;CMD&quot;, &quot;wget&quot;, &quot;-qO-&quot;, &quot;http://localhost/&quot;]
+</code></pre>
+<p>or remove the healthcheck for this learning lab and note that in the workbook.</p></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">mkdir -p ~/compose-lab/site
+cd ~/compose-lab
+cat &gt; compose.yaml &lt;&lt;'YAML'
+name: compose-lab
+services:
+  web:
+    image: nginx:stable
+    ports:
+      - &quot;8080:80&quot;
+    volumes:
+      - ./site:/usr/share/nginx/html:ro
+    restart: unless-stopped
+    healthcheck:
+      test: [&quot;CMD&quot;, &quot;curl&quot;, &quot;-f&quot;, &quot;http://localhost/&quot;]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+YAML
+printf '%s\n' '&lt;!doctype html&gt;&lt;title&gt;compose-lab&lt;/title&gt;' \
+  '&lt;h1&gt;Otaconskeep compose-lab UNIQUE-PHRASE-001&lt;/h1&gt;' &gt; site/index.html
+ls -la site
+</code></pre>
+<p>If healthcheck fails for missing <code>curl</code>, switch the test to <code>wget -qO- http://localhost/</code> or remove healthcheck and document it.</p></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Validate the Compose model before starting anything.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">cd $HOME\compose-lab
+docker compose config
+docker compose config --quiet
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">cd ~/compose-lab
+docker compose config
+docker compose config --quiet &amp;&amp; echo CONFIG_OK
+</code></pre></div>
+<p>Fix any YAML/indent errors until <code>config</code> exits 0.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Start the stack and confirm the container is up.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker compose up -d
+docker compose ps
+docker compose logs --tail=50 web
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose up -d
+docker compose ps
+docker compose logs --tail=50 web
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Hit the published port from the host.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">curl.exe -I http://127.0.0.1:8080/
+curl.exe -s http://127.0.0.1:8080/ | findstr UNIQUE-PHRASE
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">curl -I http://127.0.0.1:8080/
+curl -s http://127.0.0.1:8080/ | grep UNIQUE-PHRASE
+</code></pre></div>
+<p>Also open <code>http://DOCKER-HOST:8080</code> in a browser if the host is remote. Record the URL in the workbook.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Prove the bind mount: edit the host file, refresh, see the change.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">(Get-Content site\index.html) -replace 'UNIQUE-PHRASE-001','UNIQUE-PHRASE-002' | Set-Content site\index.html
+curl.exe -s http://127.0.0.1:8080/ | findstr UNIQUE-PHRASE
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">sed -i 's/UNIQUE-PHRASE-001/UNIQUE-PHRASE-002/' site/index.html
+curl -s http://127.0.0.1:8080/ | grep UNIQUE-PHRASE
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This connects a real folder on your computer into the container so data can stay.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="6">
+ <div class="cr-step-num">6</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Recreate the container and prove content survives.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker compose down
+docker compose up -d
+curl.exe -s http://127.0.0.1:8080/ | findstr UNIQUE-PHRASE-002
+docker compose ps
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose down
+docker compose up -d
+curl -s http://127.0.0.1:8080/ | grep UNIQUE-PHRASE-002
+docker compose ps
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="7">
+ <div class="cr-step-num">7</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Capture evidence for the gate.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker compose ps
+docker inspect --format &quot;{{.State.Health.Status}}&quot; $(docker compose ps -q web)
+docker compose logs --tail=20 web
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose ps
+docker inspect --format '{{.State.Health.Status}}' &quot;$(docker compose ps -q web)&quot;
+docker compose logs --tail=20 web
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div></div></div><div class="cr-lab-path"><h4>ARR path design preview</h4><p>Later classes use one shared data tree so downloaders and importers see the same files:</p>
 <pre><code class="language-text">/data
   /torrents
   /usenet
@@ -250,12 +424,14 @@ services:
     /movies
     /tv
 </code></pre>
-<p>Avoid separate, unrelated mounts such as <code>/downloads</code> in one container and <code>/incoming</code> in another. They can be mapped correctly, but beginners often create remote-path and hardlink problems.</p><div class="cr-help">
+<p>Avoid unrelated mounts such as <code>/downloads</code> in one container and <code>/incoming</code> in another unless you fully understand remote paths and hardlinks.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Later classes use one shared data tree so downloaders and importers see the same files:
+
+``this setting`this setting/downloadsthis setting/incoming` in anoth…</div>
  
 </div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
@@ -265,26 +441,56 @@ services:
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
-</div><div class="cr-prose-block"><p>Perform these faults one at a time:</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>Perform these faults <strong>one at a time</strong>. Restore before the next fault.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Perform these faults one at a time:</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Perform these faults **one at a time**.</div>
  
 </div></div><div class="cr-prose-block"><ol>
-<li>Change the published host port to one already in use. Read the bind error and restore it.</li>
-<li>Introduce one indentation error. Use <code>docker compose config</code> to locate it.</li>
-<li>Remove write permission from a test writable directory. Observe the application log, inspect numeric ownership, then restore only the required access.</li>
-<li>Change an image tag, pull, recreate, verify, then roll back to the recorded prior tag.</li>
+<li><strong>Port already in use.</strong> Change <code>"8080:80"</code> to a port your host already uses (or start a second compose on 8080). Read the bind error, restore 8080.</li>
 </ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
  
-</div></div></div>
+</div></div><div class="cr-prose-block"><p>:::windows</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: :::windows</div>
+ 
+</div></div><div class="cr-prose-block cr-prose-code"><p>```powershell<br />
+docker compose up -d</p>
+<h1>read error, then fix compose.yaml and:</h1>
+<p>docker compose up -d</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
+:::</p>
+<p>:::linux</p></div><div class="cr-prose-block cr-prose-code"><p>```bash</p>
+<h1>After editing the port wrongly:</h1>
+<p>docker compose up -d</p>
+<h1>restore port, then:</h1>
+<p>docker compose up -d</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
+:::</p>
+<ol start="2">
+<li>
+<p><strong>YAML indentation error.</strong> Break indent under <code>services:</code>, run <code>docker compose config</code>, fix from the error line.</p>
+</li>
+<li>
+<p><strong>Permission denied on a writable mount.</strong> Create <code>./writable</code>, mount it read-write, <code>chmod 000 writable</code> (Linux) or remove write ACL (Windows), recreate, read logs, restore permissions only.</p>
+</li>
+</ol>
+<p>:::linux</p></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
+mkdir -p writable &amp;&amp; chmod 000 writable</p>
+<h1>after observing failure:</h1>
+<p>chmod 755 writable</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
+:::</p>
+<ol start="4">
+<li><strong>Image tag change + rollback.</strong> Record current tag <code>nginx:stable</code>, change to another explicit tag, <code>pull</code> + <code>up -d</code>, verify, then restore <code>nginx:stable</code> and prove the page still loads.</li>
+</ol></div></div>
 <div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>

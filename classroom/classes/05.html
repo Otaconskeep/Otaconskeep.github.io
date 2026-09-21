@@ -317,36 +317,103 @@ Host: /srv/data                 Containers: /data<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+</div><div class="cr-prose-block"><p><strong>Assumes:</strong> Sonarr, Radarr, and Prowlarr run on one Compose network (example name <code>media_net</code>) with service names <code>sonarr</code>, <code>radarr</code>, <code>prowlarr</code>. Adjust names to match your stack. Use only authorized indexers/content.</p>
+<p>Replace <code>COMPOSE_DIR</code> with your stack directory. Never paste real API keys into the workbook or screenshots.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Back up all existing ARR configuration databases.</p></div>
+  <div class="cr-step-text"><p><strong>Back up ARR config databases before changing anything.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">cd COMPOSE_DIR
+docker compose ps
+# Example paths — adjust to your bind mounts:
+Copy-Item -Recurse .\prowlarr\config $HOME\backups\prowlarr-$(Get-Date -Format yyyyMMdd) -ErrorAction SilentlyContinue
+Copy-Item -Recurse .\sonarr\config $HOME\backups\sonarr-$(Get-Date -Format yyyyMMdd) -ErrorAction SilentlyContinue
+Copy-Item -Recurse .\radarr\config $HOME\backups\radarr-$(Get-Date -Format yyyyMMdd) -ErrorAction SilentlyContinue
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">cd COMPOSE_DIR
+docker compose ps
+mkdir -p ~/backups/arr-$(date +%Y%m%d)
+# Adjust paths to your bind mounts:
+cp -a ./prowlarr/config ~/backups/arr-$(date +%Y%m%d)/prowlarr 2&gt;/dev/null || true
+cp -a ./sonarr/config ~/backups/arr-$(date +%Y%m%d)/sonarr 2&gt;/dev/null || true
+cp -a ./radarr/config ~/backups/arr-$(date +%Y%m%d)/radarr 2&gt;/dev/null || true
+ls -la ~/backups/arr-$(date +%Y%m%d)
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Back up all existing ARR configuration databases.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Confirm Prowlarr, Sonarr, and Radarr share the intended Docker network.</p></div>
+  <div class="cr-step-text"><p><strong>Confirm shared Docker network membership.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker network ls
+docker network inspect media_net
+docker compose ps
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker network ls
+docker network inspect media_net -f '{{range .Containers}}{{.Name}} {{.IPv4Address}}{{&quot;\n&quot;}}{{end}}'
+docker compose ps
+</code></pre></div>
+<p>All three apps should appear on the same user-defined network.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A Docker network is a private chat room so containers can find each other by name.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>From inside Prowlarr's container, resolve and reach each application by service name.</p></div>
+  <div class="cr-step-text"><p><strong>From inside Prowlarr, resolve and reach Sonarr/Radarr by service name.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker compose exec prowlarr getent hosts sonarr
+docker compose exec prowlarr getent hosts radarr
+docker compose exec prowlarr wget -qO- http://sonarr:8989/ping
+docker compose exec prowlarr wget -qO- http://radarr:7878/ping
+</code></pre>
+<p>If the image lacks <code>wget</code>/<code>getent</code>, use:</p>
+<pre><code class="language-powershell">docker compose exec prowlarr sh -c &quot;command -v curl; command -v wget; ls /&quot;
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose exec prowlarr getent hosts sonarr
+docker compose exec prowlarr getent hosts radarr
+docker compose exec -u 0 prowlarr sh -c 'wget -qO- http://sonarr:8989/ping || curl -sf http://sonarr:8989/ping'
+docker compose exec -u 0 prowlarr sh -c 'wget -qO- http://radarr:7878/ping || curl -sf http://radarr:7878/ping'
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Copy API keys privately (UI → Settings → General).</strong><br />
+   Store them in a password manager—not git, not Discord, not the workbook.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Copy API keys privately (UI → Settings → General).</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Add Sonarr and Radarr as Applications in Prowlarr (UI) and run connection tests.</strong><br />
+   Use URLs like <code>http://sonarr:8989</code> and <code>http://radarr:7878</code> (service DNS), sync categories as required, click <strong>Test</strong>. Do not use <code>localhost</code> for cross-container calls.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -356,62 +423,30 @@ Host: /srv/data                 Containers: /data<br />
  
 </div>
  </div>
-</div><div class="cr-step" data-step="4">
- <div class="cr-step-num">4</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Copy API keys through a private channel; do not place them in the workbook.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Copy API keys through a private channel; do not place them in the workbook.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="5">
- <div class="cr-step-num">5</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Add Sonarr and Radarr as applications in Prowlarr and run their connection tests.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Add Sonarr and Radarr as applications in Prowlarr and run their connection tests.)</div>
- 
-</div>
- </div>
 </div><div class="cr-step" data-step="6">
  <div class="cr-step-num">6</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Add one authorized test indexer and test it.</p></div>
+  <div class="cr-step-text"><p><strong>Optional API ping from the host</strong> (replace KEY; redact output before sharing):</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">curl.exe -s &quot;http://127.0.0.1:9696/api/v1/system/status?apikey=YOUR_PROWLARR_KEY&quot;
+curl.exe -s &quot;http://127.0.0.1:8989/api/v3/system/status?apikey=YOUR_SONARR_KEY&quot;
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">curl -s &quot;http://127.0.0.1:9696/api/v1/system/status?apikey=YOUR_PROWLARR_KEY&quot; | head -c 200; echo
+curl -s &quot;http://127.0.0.1:8989/api/v3/system/status?apikey=YOUR_SONARR_KEY&quot; | head -c 200; echo
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Optional API ping from the host.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Trigger application sync.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Sync means copy the settings from one app into another so they match.</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="8">
- <div class="cr-step-num">8</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>In Sonarr/Radarr, verify the expected indexer definition and categories appear.</p></div>
+  <div class="cr-step-text"><p><strong>Add one authorized test indexer in Prowlarr → Test → Sync to apps.</strong><br />
+   In Sonarr/Radarr → Settings → Indexers, confirm the synced entry and categories.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -421,10 +456,10 @@ Host: /srv/data                 Containers: /data<br />
  
 </div>
  </div>
-</div><div class="cr-step" data-step="9">
- <div class="cr-step-num">9</div>
+</div><div class="cr-step" data-step="8">
+ <div class="cr-step-num">8</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Configure a download client using distinct test categories.</p></div>
+  <div class="cr-step-text"><p><strong>Configure a download client with distinct test categories</strong> (example: <code>tv-sonarr</code>, <code>movies-radarr</code>). Run each app’s download-client <strong>Test</strong>.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -434,42 +469,34 @@ Host: /srv/data                 Containers: /data<br />
  
 </div>
  </div>
+</div><div class="cr-step" data-step="9">
+ <div class="cr-step-num">9</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Controlled interactive search.</strong><br />
+   In Sonarr or Radarr, interactive-search a monitored test title. Record why at least three candidates are accepted or rejected (quality, CF score, indexer, category)—no need to download if policy forbids it.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div>
+ </div>
 </div><div class="cr-step" data-step="10">
  <div class="cr-step-num">10</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Run the application's download-client test.</p></div>
+  <div class="cr-step-text"><p><strong>Hardlink proof (Linux host)</strong> when a completed file exists in both download and library paths:</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">stat -c 'device=%d inode=%i path=%n' /data/torrents/example.mkv /data/media/tv/example.mkv
+# Same device + inode =&gt; hardlink (not a full second copy)
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><p>Hardlinks across bind mounts are a Linux filesystem concern. Run the <code>stat</code> check inside the Linux VM/host that holds <code>/data</code>. On Windows-only Docker Desktop this class’s hardlink gate may be deferred until Path B storage is Linux.</p></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Run the application&#x27;s download-client test.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="11">
- <div class="cr-step-num">11</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Perform one controlled interactive search and inspect why candidates are accepted or rejected.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Perform one controlled interactive search and inspect why candidates are accepted or rejected.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="12">
- <div class="cr-step-num">12</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>If permitted, submit a harmless authorized test item and trace it through the queue. Otherwise stop at the search and connection-test evidence.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (If permitted, submit a harmless authorized test item and trace it through the queue. Otherwise stop at the search and connection-test evi…)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
  
 </div>
  </div>
@@ -481,26 +508,30 @@ Host: /srv/data                 Containers: /data<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
-</div><div class="cr-break-card"><h4>Wrong hostname</h4><p>Change the Sonarr address in Prowlarr to <code>localhost</code>. Observe the failure, explain the container namespace, and restore <code>http://sonarr:8989</code> or the recorded service address.</p><div class="cr-help">
+</div><div class="cr-break-card"><h4>Wrong hostname</h4><p>In Prowlarr, set Sonarr URL to <code>http://localhost:8989</code>, <strong>Test</strong> (expect fail). Explain container localhost. Restore <code>http://sonarr:8989</code> and retest.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># From prowlarr container, localhost is prowlarr — not sonarr:
+docker compose exec prowlarr sh -c 'wget -qO- http://127.0.0.1:8989/ping || echo EXPECTED_FAIL'
+docker compose exec prowlarr sh -c 'wget -qO- http://sonarr:8989/ping || curl -sf http://sonarr:8989/ping'
+</code></pre></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Localhost means “this same machine/container.” From inside another container it often points at the wrong place.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
-</div></div><div class="cr-break-card"><h4>Wrong category</h4><p>Use a mismatched test category. Observe how completed-download handling loses the expected association, then restore it.</p><div class="cr-help">
+</div></div><div class="cr-break-card"><h4>Wrong category</h4><p>Mismatch download category vs Sonarr category; observe import confusion; restore matching categories; retest client.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
  
-</div></div><div class="cr-break-card"><h4>Wrong path vocabulary</h4><p>Present the download client path under one container as <code>/downloads</code> and the importer as an unrelated <code>/incoming</code>. Diagnose the mismatch from logs; restore a shared <code>/data</code> model or a deliberately documented remote-path mapping.</p><div class="cr-help">
+</div></div><div class="cr-break-card"><h4>Wrong path vocabulary</h4><p>Point client completed path at <code>/downloads</code> while Sonarr expects <code>/data/...</code>. Read logs for path errors; restore shared <code>/data</code> model or document remote path mapping deliberately.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Present the download client path under one container as this setting and the importer as an unrelated this setting.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Point client completed path at this setting while Sonarr expects this setting.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-trouble"><div class="cr-box-head"><span class="cr-chip cr-chip-fix">Fix chart</span><h3>Troubleshooting matrix</h3></div><div class="cr-help">

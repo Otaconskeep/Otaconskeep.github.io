@@ -190,35 +190,192 @@ flowchart TD<br />
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
 </div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Guided build</h3></div><div class="cr-help">
+<div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab — private smart speaker build</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-prose-block"><p>Complete gates <strong>in order</strong>. Do not skip to end-to-end.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Inventory</strong> satellite hardware, mic, speaker, network, power, OS/firmware versions (workbook table).</p></div>
+  <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Inventory.</div>
  
-</div><div class="cr-prose-block"><ol>
-<li>Inventory satellite hardware, microphone, speaker, network, power, and firmware/software versions.</li>
-<li>Give the satellite a stable identity/address and restrict it to the required LAN/VLAN flows.</li>
-<li>Configure the audio devices explicitly rather than relying on changing default card numbers.</li>
-<li>Complete Gate A and save a sample.</li>
-<li>Configure one wake model and complete Gate B.</li>
-<li>Connect audio transport/Wyoming satellite path and complete Gate C.</li>
-<li>Select the Home Assistant voice pipeline containing the verified STT, conversation/intent path, and TTS provider.</li>
-<li>Expose only the required test entities to Assist.</li>
-<li>Complete Gates D–F separately.</li>
-<li>Complete Gate G ten times from the expected use position.</li>
-<li>Record latency distribution and failure categories.</li>
-<li>Disable WAN at the router/firewall for the test segment without disrupting LAN routing.</li>
-<li>Complete Gate H.</li>
-<li>Restore WAN and verify normal service.</li>
-</ol><div class="cr-help">
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Stable identity.</strong> Set hostname + reserved IP. Restrict firewall to required LAN flows only.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">hostnamectl
+ip -br addr
+ping -c 2 HA-IP
+ping -c 2 STT-HOST
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">hostname
+ipconfig
+ping -n 2 HA-IP
+</code></pre></div></div>
+  <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
  
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Pin audio devices explicitly</strong> (card/device names), not “default” indices that shuffle after reboot.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">arecord -l
+aplay -l
+# Save chosen device strings in workbook
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Pin audio devices explicitly.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Gate A — audio:</strong> record + playback sample; save file hash/path.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Gate A — audio:.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Gate B — wake:</strong> one wake model; 10/10 log sheet.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="6">
+ <div class="cr-step-num">6</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Gate C — STT path:</strong> Wyoming/satellite transport → transcript proof (Class 12 commands).</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="7">
+ <div class="cr-step-num">7</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Gate D — HA understanding:</strong> Assist intent from perfect text; expose only needed entities.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Gate D — HA understanding:.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="8">
+ <div class="cr-step-num">8</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Gate E — action:</strong> service call changes entity.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="9">
+ <div class="cr-step-num">9</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Gate F — TTS + playback:</strong> hear response on satellite speaker.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="10">
+ <div class="cr-step-num">10</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Gate G — E2E:</strong> 10 attempts from seating position; log latency + failure layer.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># Example timing wrapper around a manual attempt log:
+date -Is | tee -a ~/voice-e2e.log
+# after each attempt append: PASS/FAIL layer=... ms=...
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="11">
+ <div class="cr-step-num">11</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Gate H — offline privacy:</strong> disable WAN for the test segment <strong>without</strong> killing LAN routing to HA/STT/TTS.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># Example idea only — use your router/firewall controls preferentially:
+# On a test client VLAN, block 0.0.0.0/0 except RFC1918.
+ping -c 1 1.1.1.1 || echo WAN_BLOCKED_OK
+ping -c 1 HA-IP &amp;&amp; echo LAN_HA_OK
+</code></pre></div>
+<p>Repeat one local voice command successfully. Restore WAN. Confirm normal operation.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="12">
+ <div class="cr-step-num">12</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Responsibility map:</strong> write which box does wake/STT/intent/TTS/playback and where logs live.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
+ 
+</div>
+ </div>
 </div></div></div>
 <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Local LLM routing</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -227,17 +384,14 @@ flowchart TD<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><p>If adding Ollama or another local model, define two classes:</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>If you add an LLM, whitelist only low-risk intents. Lights/locks/garage need deterministic intents—not open-ended chat.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: If adding Ollama or another local model, define two classes:</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: If you add an LLM, whitelist only low-risk intents.</div>
  
-</div></div><div class="cr-prose-block cr-prose-code"><p>```text<br />
-Home control -&gt; deterministic Assist intent/action<br />
-Open conversation -&gt; local LLM agent</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
-<p>Test ambiguous commands and ensure the LLM cannot invoke unrestricted actions. Expose only necessary entities and apply Home Assistant permissions/policies supported by the current platform.</p></div></div>
+</div></div></div>
 <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Reliability and recovery</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -245,34 +399,12 @@ Open conversation -&gt; local LLM agent</p></div><div class="cr-prose-block cr-p
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><p>Define expected behavior for:</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>Document restart order: network → HA → Wyoming STT/TTS → satellite. Keep a known-good backup of HA and satellite config.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Define expected behavior for:</div>
- 
-</div></div><div class="cr-prose-block"><ul>
-<li>Satellite reboot.</li>
-<li>STT service restart.</li>
-<li>TTS service restart.</li>
-<li>Home Assistant restart.</li>
-<li>Network interruption.</li>
-<li>LLM unavailable.</li>
-<li>Wake engine unavailable.</li>
-</ul><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
- 
-</div></div><div class="cr-prose-block"><p>The system should recover automatically where safe, announce or signal degraded state where possible, and avoid infinite restart loops.</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The system should recover automatically where safe, announce or signal degraded state where possible, and avoid infinite restart loops.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix exam</h3></div><div class="cr-help">
@@ -282,34 +414,17 @@ Open conversation -&gt; local LLM agent</p></div><div class="cr-prose-block cr-p
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Break one piece, watch the failure, then repair it. That is how you learn diagnosis.</div>
  
-</div><div class="cr-prose-block"><p>An instructor or partner introduces one hidden fault from this list:</p><div class="cr-help">
+</div><div class="cr-prose-block"><ol>
+<li>Unplug speaker — note which gate fails.  </li>
+<li>Stop STT container — note failure layer.  </li>
+<li>Block HA from satellite — Assist must fail closed.  </li>
+<li>Restore each fault before the next.</li>
+</ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: An instructor or partner introduces one hidden fault from this list:</div>
- 
-</div></div><div class="cr-prose-block"><ul>
-<li>Wrong microphone device.</li>
-<li>Wake-word service stopped.</li>
-<li>STT language changed.</li>
-<li>HA entity renamed/unexposed.</li>
-<li>Piper endpoint stopped.</li>
-<li>Speaker muted.</li>
-<li>Firewall blocks one Wyoming flow.</li>
-</ul><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
- 
-</div></div><div class="cr-prose-block"><p>The student must identify the failed boundary using measurements, repair only that boundary, and rerun the gate. Full reinstallation is a failed diagnostic approach unless corruption is proven.</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The student must identify the failed boundary using measurements, repair only that boundary, and rerun the gate.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">

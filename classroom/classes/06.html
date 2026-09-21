@@ -324,36 +324,35 @@ flowchart TD<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+</div><div class="cr-prose-block"><p>Work in <strong>one</strong> app first (Sonarr <em>or</em> Radarr). Export/backup before edits. TRaSH Guides are a reference for intent—not a blind paste.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Export or back up Sonarr/Radarr configuration.</p></div>
+  <div class="cr-step-text"><p><strong>Export / back up current quality profiles.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">cd COMPOSE_DIR
+# UI: Settings → General → Backup, download zip to a private folder
+# Also copy config bind mount:
+Copy-Item -Recurse .\sonarr\config $HOME\backups\sonarr-profiles-$(Get-Date -Format yyyyMMdd) -ErrorAction SilentlyContinue
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">cd COMPOSE_DIR
+# UI backup zip AND:
+mkdir -p ~/backups/profiles-$(date +%Y%m%d)
+cp -a ./sonarr/config ~/backups/profiles-$(date +%Y%m%d)/sonarr 2&gt;/dev/null || true
+cp -a ./radarr/config ~/backups/profiles-$(date +%Y%m%d)/radarr 2&gt;/dev/null || true
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Export or back up Sonarr/Radarr configuration.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Record current quality definitions and profiles.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Record current quality definitions and profiles.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="3">
- <div class="cr-step-num">3</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Select one TRaSH profile as a reference—not as an unexplained copy/paste target.</p></div>
+  <div class="cr-step-text"><p><strong>Record current state (workbook table).</strong><br />
+   For the profile you will change: allowed qualities, order, cutoff, upgrade allowed?, minimum Custom Format score, upgrade-until score, list of Custom Formats + scores.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -363,99 +362,107 @@ flowchart TD<br />
  
 </div>
  </div>
-</div><div class="cr-step" data-step="4">
- <div class="cr-step-num">4</div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Translate its intent into the local written requirement.</p></div>
+  <div class="cr-step-text"><p><strong>Optional API dump of profiles</strong> (redact; replace KEY/PORT):</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">curl -s &quot;http://127.0.0.1:8989/api/v3/qualityprofile?apikey=YOUR_KEY&quot; | head -c 400; echo
+curl -s &quot;http://127.0.0.1:8989/api/v3/customformat?apikey=YOUR_KEY&quot; | head -c 400; echo
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">curl.exe -s &quot;http://127.0.0.1:8989/api/v3/qualityprofile?apikey=YOUR_KEY&quot;
+curl.exe -s &quot;http://127.0.0.1:8989/api/v3/customformat?apikey=YOUR_KEY&quot;
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Translate its intent into the local written requirement.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Write the local requirement in one sentence</strong> (example: “Prefer 1080p WEB, reject incompatible HDR for this TV, allow upgrades until score ≥ X”).</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Write the local requirement in one sentence.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Import or create only the required CFs.</p></div>
+  <div class="cr-step-text"><p><strong>Import or create only the Custom Formats that match that sentence.</strong> Assign scores and write <em>why</em> each score exists.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Import or create only the required CFs.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Import or create only the Custom Formats that match that sentence.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="6">
  <div class="cr-step-num">6</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Assign scores and document each score's reason.</p></div>
+  <div class="cr-step-text"><p><strong>Set qualities, cutoff, min CF score, upgrade-until.</strong> Save the profile.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Assign scores and document each score&#x27;s reason.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Set qualities, cutoff, min CF score, upgrade-until.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Set allowed qualities, order, cutoff, minimum CF score, and upgrade-until score.</p></div>
+  <div class="cr-step-text"><p><strong>Interactive search a controlled monitored title.</strong> For ≥5 release candidates, record in the workbook:</p>
+<pre><code class="language-text">release name | quality | CF score | preferred? | reason accepted/rejected
+</code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Set allowed qualities, order, cutoff, minimum CF score, and upgrade-until score.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Interactive search a controlled monitored title.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="8">
  <div class="cr-step-num">8</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Use interactive search against a controlled monitored title.</p></div>
+  <div class="cr-step-text"><p><strong>If ranking violates the written policy, change only one rule</strong>, save, repeat the five-candidate table.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Use interactive search against a controlled monitored title.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: If ranking violates the written policy, change only one rule.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="9">
  <div class="cr-step-num">9</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>For at least five candidates, record:<br />
-   - Parsed quality.<br />
-   - Matched CFs.<br />
-   - Total score.<br />
-   - Rejection reason, if any.<br />
-   - Whether the result is preferred over the existing file.</p></div>
+  <div class="cr-step-text"><p><strong>Prove rollback:</strong> restore from the backup zip or copied config (app stopped if required), reopen profile UI, confirm original scores return.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose stop sonarr
+# restore config from ~/backups/... then:
+docker compose start sonarr
+docker compose logs --tail=50 sonarr
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (For at least five candidates, record: - Parsed quality. - Matched CFs. - Total score. - Rejection reason, if any. - Whether the result is…)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="10">
- <div class="cr-step-num">10</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Adjust only one rule if observed ranking violates the written policy, then repeat.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Adjust only one rule if observed ranking violates the written policy, then repeat.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
 </div>
  </div>
@@ -467,61 +474,12 @@ flowchart TD<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><p>Use fictional candidates rather than real copyrighted content:</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>Keep the in-class scoring table from the lesson. Practice explaining each total out loud.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Use fictional candidates rather than real copyrighted content:</div>
- 
-</div></div><div class="cr-prose-block"><table>
-<thead>
-<tr>
-<th>Candidate</th>
-<th>Traits</th>
-<th>Expected policy result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A</td>
-<td>1080p WEB-DL, desired audio</td>
-<td>Strong preference</td>
-</tr>
-<tr>
-<td>B</td>
-<td>1080p WEB-DL, DV-only incompatible</td>
-<td>Reject or penalize</td>
-</tr>
-<tr>
-<td>C</td>
-<td>1080p Blu-ray encode, preferred group</td>
-<td>Competes with A per policy</td>
-</tr>
-<tr>
-<td>D</td>
-<td>2160p REMUX, enormous file</td>
-<td>Reject if outside 1080p/storage requirement</td>
-</tr>
-<tr>
-<td>E</td>
-<td>Low-quality source</td>
-<td>Reject</td>
-</tr>
-</tbody>
-</table><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div></div><div class="cr-prose-block"><p>If the application ranks these differently, investigate the parsed attributes and matching rules rather than editing several scores blindly.</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: If the application ranks these differently, investigate the parsed attributes and matching rules rather than editing several scores blindly.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Keep the in-class scoring table from the lesson.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
@@ -532,16 +490,40 @@ flowchart TD<br />
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
 </div><div class="cr-prose-block"><ol>
-<li>Set an unrealistically high upgrade-until score. Observe why the profile never considers itself complete.</li>
-<li>Give a minor preference a score larger than a hard compatibility concern. Observe the bad ranking.</li>
-<li>Temporarily remove the incompatible-HDR rule and inspect candidate eligibility.</li>
-<li>Restore the backed-up profile and prove the original ranking returns.</li>
+<li>Set an unreachable upgrade-until score; observe endless “not done” behavior; restore.</li>
 </ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="2">
+<li>Give a minor preference a higher score than a hard compatibility CF; observe bad ranking; restore.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="3">
+<li>Temporarily remove an incompatible-HDR (or similar) CF; inspect newly eligible junk; restore.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="4">
+<li>Restore backup and prove the five-candidate ranking matches the pre-change table.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
 </div></div></div>
 <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Common mistakes</h3></div><div class="cr-help">

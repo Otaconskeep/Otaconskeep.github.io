@@ -256,36 +256,66 @@ radarr:<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+</div><div class="cr-prose-block"><p>Pick <strong>one</strong> supported sync approach you actually run (recyclarr, Notifiarr profiles, manual export/import, or another maintained tool). Pin its version. Use a <strong>disposable test profile</strong>, not your only production profile.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Create a disposable test profile in Radarr or Sonarr.</p></div>
+  <div class="cr-step-text"><p><strong>Create a disposable test profile</strong> in Sonarr or Radarr (UI). Name it <code>otacon-test-profile</code>. Record initial qualities/cutoff/CF list.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Create a disposable test profile in Radarr or Sonarr.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Create a disposable test profile.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Record its initial qualities, cutoff, CF list, and scores.</p></div>
+  <div class="cr-step-text"><p><strong>Pin the tool version and show it.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell"># Example if using recyclarr via docker:
+docker compose exec recyclarr recyclarr --version
+# Or local binary:
+recyclarr --version
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose exec recyclarr recyclarr --version 2&gt;/dev/null || recyclarr --version
+command -v recyclarr; type recyclarr
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Record its initial qualities, cutoff, CF list, and scores.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Configure one supported sync tool against that test profile.</p></div>
+  <div class="cr-step-text"><p><strong>Point config at the test profile only.</strong> Validate / dry-run without applying.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># Pattern — exact subcommands depend on current tool docs:
+recyclarr config list
+recyclarr sync --dry-run
+# or: docker compose exec recyclarr recyclarr sync --dry-run
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker compose exec recyclarr recyclarr sync --dry-run
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Capture the proposed diff/log</strong> to a private file (redact secrets):</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">recyclarr sync --dry-run 2&gt;&amp;1 | tee ~/backups/recyclarr-dryrun-$(date +%Y%m%d).log | tail -n 40
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -295,127 +325,80 @@ radarr:<br />
  
 </div>
  </div>
-</div><div class="cr-step" data-step="4">
- <div class="cr-step-num">4</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Validate configuration without applying.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Validate configuration without applying.)</div>
- 
-</div>
- </div>
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Capture the proposed diff or detailed log.</p></div>
+  <div class="cr-step-text"><p><strong>Apply once</strong> to the test profile. Re-open the UI and compare to the dry-run.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Apply once.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="6">
  <div class="cr-step-num">6</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Apply once.</p></div>
+  <div class="cr-step-text"><p><strong>Apply a second time (idempotency).</strong> Expect no duplicate CFs / no destructive churn. Save both logs.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Apply once.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Apply a second time (idempotency).</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Apply a second time and verify no unwanted duplicates or repeated destructive change occur.</p></div>
+  <div class="cr-step-text"><p><strong>Create intentional drift:</strong> manually change one CF score in the test profile UI.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Apply a second time and verify no unwanted duplicates or repeated destructive change occur.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Create intentional drift:.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="8">
  <div class="cr-step-num">8</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Make one intentional manual drift change in the test profile.</p></div>
+  <div class="cr-step-text"><p><strong>Dry-run again</strong> and confirm the tool detects the drift. Decide: overwrite from source of truth, or update the declaration.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Make one intentional manual drift change in the test profile.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Dry-run again.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="9">
  <div class="cr-step-num">9</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Run preview again and confirm the drift is detected.</p></div>
+  <div class="cr-step-text"><p><strong>Apply the chosen resolution.</strong> Re-run Class 6’s five-candidate behavior check on a controlled title.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Run preview again and confirm the drift is detected.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Apply the chosen resolution.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="10">
  <div class="cr-step-num">10</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Decide whether the automation should overwrite it or whether the source declaration should be changed.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="11">
- <div class="cr-step-num">11</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Apply the chosen resolution.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Apply the chosen resolution.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="12">
- <div class="cr-step-num">12</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Run the five-candidate behavior test from Class 6.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Run the five-candidate behavior test from Class 6.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="13">
- <div class="cr-step-num">13</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Restore from backup or reverse the change to prove rollback.</p></div>
+  <div class="cr-step-text"><p><strong>Rollback proof:</strong> restore ARR backup from Class 6/7 start; confirm test profile gone or restored; record commands/UI steps used.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose stop sonarr
+# restore config backup
+docker compose start sonarr
+curl -sf &quot;http://127.0.0.1:8989/ping&quot; &amp;&amp; echo SONARR_UP
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -433,52 +416,12 @@ radarr:<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><table>
-<thead>
-<tr>
-<th>Change</th>
-<th style="text-align: right;">Risk</th>
-<th>Required response</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Add one positive preference</td>
-<td style="text-align: right;">Low/medium</td>
-<td>Preview and sample search</td>
-</tr>
-<tr>
-<td>Change rejection/large negative score</td>
-<td style="text-align: right;">High</td>
-<td>Backup and explicit sample set</td>
-</tr>
-<tr>
-<td>Change cutoff or upgrade target</td>
-<td style="text-align: right;">High</td>
-<td>Evaluate existing-file upgrade impact</td>
-</tr>
-<tr>
-<td>Change quality-size definitions</td>
-<td style="text-align: right;">High</td>
-<td>Test representative file sizes</td>
-</tr>
-<tr>
-<td>Delete/recreate profiles</td>
-<td style="text-align: right;">High</td>
-<td>Check assignments to titles and rollback</td>
-</tr>
-<tr>
-<td>Tool major-version update</td>
-<td style="text-align: right;">High</td>
-<td>Read migration notes and stage separately</td>
-</tr>
-</tbody>
-</table><div class="cr-help">
+</div><div class="cr-prose-block"><p>Before production syncs, label each change: low (cosmetic rename), medium (score tweak), high (cutoff / deletes / mass CF). High-risk needs backup + dry-run + test profile first.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
@@ -488,14 +431,36 @@ radarr:<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
-</div><div class="cr-prose-block"><ul>
-<li><strong>Bad API key:</strong> confirm 401/403 class before changing networks.</li>
-<li><strong>Bad base URL:</strong> prove DNS and TCP separately.</li>
-<li><strong>Schema error:</strong> validate against the installed tool version, not a blog post.</li>
-<li><strong>Unexpected mass change:</strong> stop, preserve logs, restore database/config backup, and compare declared inputs.</li>
-<li><strong>Oscillating scores:</strong> identify competing writers and establish one owner.</li>
-<li><strong>Successful sync but wrong results:</strong> return to the behavioral scoring test.</li>
-</ul><div class="cr-help">
+</div><div class="cr-prose-block"><ol>
+<li>Run sync twice; prove idempotency in logs.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Sync means copy the settings from one app into another so they match.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="2">
+<li>Point two tools at the same profile (or simulate conflicting ownership)—observe fight; pick one owner.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="3">
+<li>Break YAML/config syntax; show validator failure; fix.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> YAML is the indented text file that describes your services. Spaces matter.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="4">
+<li>Restore backup; prove scores match the pre-lab export.</li>
+</ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

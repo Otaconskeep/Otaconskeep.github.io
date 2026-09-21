@@ -222,62 +222,114 @@ docker system df</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-prose-block"><p>Use the Class 2 web service or another disposable service.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
+</div><div class="cr-prose-block"><p>Use the Class 2 <code>compose-lab</code> web service (or recreate it). Goal: prove you can update an explicit image tag and roll back with commands—not vibes.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Record current image reference and <code>docker image inspect</code> result.</p></div>
+  <div class="cr-step-text"><p><strong>Record the current image identity (last-known-good).</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">cd $HOME\compose-lab
+docker compose ps
+docker compose images
+docker image inspect nginx:stable --format &quot;Id={{.Id}} RepoTags={{.RepoTags}}&quot;
+Copy-Item compose.yaml compose.yaml.bak
+curl.exe -s http://127.0.0.1:8080/ | findstr UNIQUE
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">cd ~/compose-lab
+docker compose ps
+docker compose images
+docker image inspect nginx:stable --format 'Id={{.Id}} RepoTags={{.RepoTags}}'
+cp compose.yaml compose.yaml.bak
+curl -s http://127.0.0.1:8080/ | grep UNIQUE
+</code></pre></div>
+<p>Write the image ID and tag in the workbook. That is your rollback target.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Record current image reference and that command result.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Save a copy of the Compose file and persistent configuration.</p></div>
+  <div class="cr-step-text"><p><strong>Run the acceptance test (before change).</strong><br />
+   Browser or curl must show your unique phrase. Record “PASS” + timestamp.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Save a copy of the Compose file and persistent configuration.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Run the acceptance test (before change).</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Run the user-level acceptance test.</p></div>
+  <div class="cr-step-text"><p><strong>Change to another explicit tag, validate, pull, recreate.</strong><br />
+   Edit <code>image:</code> from <code>nginx:stable</code> to a newer explicit tag you choose from Docker Hub (example pattern <code>nginx:1.27</code>—pick one that exists today). Then:</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker compose config
+docker compose pull
+docker compose up -d
+docker compose ps
+docker compose logs --tail=80 web
+docker compose images
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose config
+docker compose pull
+docker compose up -d
+docker compose ps
+docker compose logs --tail=80 web
+docker image inspect $(docker compose images -q web) --format '{{.RepoTags}} {{.Id}}'
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Run the user-level acceptance test.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Change to a newer explicit image tag supported by the project.</p></div>
+  <div class="cr-step-text"><p><strong>Re-run the acceptance test.</strong><br />
+<code>curl</code> the unique phrase again. If it fails, do not continue—roll back now.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Change to a newer explicit image tag supported by the project.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Re-run the acceptance test.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Run <code>docker compose config</code>, <code>pull</code>, and <code>up -d</code>.</p></div>
+  <div class="cr-step-text"><p><strong>Simulate a bad update (nonexistent tag), then restore.</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell"># Temporarily set image: nginx:this-tag-does-not-exist-otacon
+docker compose pull
+docker compose up -d
+docker compose ps
+docker compose logs --tail=40 web
+Copy-Item compose.yaml.bak compose.yaml -Force
+docker compose pull
+docker compose up -d
+curl.exe -s http://127.0.0.1:8080/ | findstr UNIQUE
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># edit image to nginx:this-tag-does-not-exist-otacon, then:
+docker compose pull || true
+docker compose up -d || true
+docker compose ps
+docker compose logs --tail=40 web
+cp compose.yaml.bak compose.yaml
+docker compose pull
+docker compose up -d
+curl -s http://127.0.0.1:8080/ | grep UNIQUE
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -290,65 +342,25 @@ docker system df</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
 </div><div class="cr-step" data-step="6">
  <div class="cr-step-num">6</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Observe startup logs and health.</p></div>
+  <div class="cr-step-text"><p><strong>Fill a mini service contract</strong> (also use <code>templates/service_contract.csv</code>):</p>
+<pre><code class="language-text">purpose: compose-lab nginx demo
+image/version: (tag + image id)
+configuration path: ./compose.yaml , ./site
+media/download paths: n/a
+internal address/port: web:80
+published address/port: DOCKER-HOST:8080
+dependencies: none
+health test: curl unique phrase
+backup method: copy compose.yaml + site/
+update procedure: change tag -&gt; config -&gt; pull -&gt; up -d -&gt; test
+rollback procedure: restore compose.yaml.bak -&gt; pull -&gt; up -d -&gt; test
+</code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="7">
- <div class="cr-step-num">7</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Repeat the acceptance test.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Repeat the acceptance test.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="8">
- <div class="cr-step-num">8</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Simulate failure by selecting a nonexistent tag or incompatible disposable configuration.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Simulate failure by selecting a nonexistent tag or incompatible disposable configuration.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="9">
- <div class="cr-step-num">9</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Restore the recorded version/configuration.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Restore the recorded version/configuration.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="10">
- <div class="cr-step-num">10</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Prove the original test passes.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Prove the original test passes.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
 </div>
  </div>
@@ -360,26 +372,14 @@ docker system df</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><p>For every later service, record:</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>For every later service, record the same fields. This turns containers into an operable system.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: For every later service, record:</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: For every later service, record the same fields.</div>
  
-</div></div><div class="cr-prose-block cr-prose-code"><p>```text<br />
-purpose<br />
-image/version<br />
-configuration path<br />
-media/download paths<br />
-internal address and port<br />
-published address and port<br />
-dependencies<br />
-health test<br />
-backup method<br />
-update procedure<br />
-rollback procedure</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
-<p>This turns a pile of containers into an operable system.</p></div></div>
+</div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix scenarios</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -387,21 +387,41 @@ rollback procedure</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Break one piece, watch the failure, then repair it. That is how you learn diagnosis.</div>
  
-</div><div class="cr-prose-block"><ul>
-<li><strong>Restart loop:</strong> inspect exit code and first failure, not only the last repeated line.</li>
-<li><strong>Port conflict:</strong> identify the listener with <code>ss -lntp</code> or platform equivalent; change only the intended binding.</li>
-<li><strong>Disk full:</strong> use <code>docker system df</code>, filesystem usage, logs, downloads, and database growth to identify the consumer. Do not blindly prune volumes.</li>
-<li><strong>Permission denied:</strong> inspect numeric UID/GID and mount options.</li>
-<li><strong>Dependency unavailable:</strong> test DNS, TCP, protocol, and authentication in that order.</li>
-<li><strong>Update regression:</strong> restore the last-known-good tag and matching data/config backup when required.</li>
+</div><div class="cr-prose-block"><p>Run with commands; change only one variable at a time.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run with commands; change only one variable at a time.</div>
+ 
+</div></div><div class="cr-prose-block"><ul>
+<li><strong>Restart loop:</strong> <code>docker compose ps</code> + <code>docker inspect --format '{{.State.ExitCode}} {{.State.Error}}' CID</code> + first error in <code>logs</code>.</li>
+<li><strong>Port conflict:</strong></li>
 </ul><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
-</div></div></div>
+</div></div><div class="cr-prose-block"><p>:::windows</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: :::windows</div>
+ 
+</div></div><div class="cr-prose-block cr-prose-code"><p>```powershell<br />
+netstat -ano | findstr :8080</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
+:::</p>
+<p>:::linux</p></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
+ss -lntp | grep 8080 || sudo lsof -i :8080</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
+:::</p>
+<ul>
+<li><strong>Disk pressure:</strong> <code>docker system df</code> and host <code>df -h</code> / PowerShell <code>Get-PSDrive</code>. Do <strong>not</strong> run <code>docker system prune --volumes</code> casually.</li>
+<li><strong>Permission denied:</strong> inspect mount UID/GID and mode.</li>
+<li><strong>Update regression:</strong> restore last-known-good tag from step 1.</li>
+</ul></div></div>
 <div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>

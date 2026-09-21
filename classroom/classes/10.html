@@ -194,7 +194,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-prose-block"><p>Choose either the VPN path or tunnel-plus-access path. Use a disposable internal web service first—not a production admin panel.</p></div><div class="cr-lab-path"><h4>Common preparation</h4><div class="cr-help">
+</div><div class="cr-prose-block"><p><strong>Security objective:</strong> remote access without opening ARR/HA admin ports to the whole internet. Pick <strong>one</strong> path: outbound tunnel + Access policy <strong>or</strong> VPN/mesh. Do both only if you have time.</p></div><div class="cr-lab-path"><h4>Common preparation</h4><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -204,20 +204,20 @@
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Back up the target service.</p></div>
+  <div class="cr-step-text"><p><strong>Back up the target service</strong> (HA backup or reverse-proxy config copy).</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Back up the target service.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Record internal URL, port, protocol, and expected host headers.</p></div>
+  <div class="cr-step-text"><p><strong>Record origin details</strong> in the workbook: internal URL (<code>http://HA-IP:8123</code>), port, TLS or not, expected hostname.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -230,30 +230,37 @@
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Confirm the service is not already exposed by router port forwarding or UPnP.</p></div>
+  <div class="cr-step-text"><p><strong>Prove you are not already exposed.</strong></p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># From the HA/Docker host — list listeners (look for 8123/8096/8989 published on 0.0.0.0 unexpectedly)
+ss -lntp | egrep '8123|8096|8989|7878|9696' || true
+# From an external network (phone LTE), try http://PUBLIC-IP:8123 — expect failure
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">netstat -ano | findstr &quot;8123 8989 7878&quot;
+# External test from cellular network browser to your public IP — expect fail
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Prove you are not already exposed.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Define allowed identities and denied cases.</p></div>
+  <div class="cr-step-text"><p><strong>Define allow/deny identities</strong> (who may authenticate; who must fail).</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Define allowed identities and denied cases.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Define allow/deny identities.</div>
  
 </div>
  </div>
-</div></div></div><div class="cr-lab-path"><h4>Tunnel path</h4><div class="cr-help">
+</div></div></div><div class="cr-lab-path"><h4>Tunnel path (example: Cloudflare Tunnel + Access)</h4><div class="cr-prose-block"><p>Follow <strong>current</strong> official tunnel docs for connector install. Then:</p></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -263,104 +270,103 @@
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Create the tunnel using current official instructions.</p></div>
+  <div class="cr-step-text"><p>Create tunnel; run connector with least privilege (dedicated user/service).</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># Pattern after install — service name varies by distro/docs:
+sudo systemctl status cloudflared --no-pager
+sudo journalctl -u cloudflared -n 50 --no-pager
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">Get-Service cloudflared -ErrorAction SilentlyContinue
+# Or check the connector logs from the vendor's install path
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> This path is about safe remote reach or private download traffic — not opening every admin page to the world.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Run the connector with least privilege.</p></div>
+  <div class="cr-step-text"><p>Map one test hostname → one origin (<code>http://HA-IP:8123</code> or localhost connector side).</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Run the connector with least privilege.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Localhost means “this same machine/container.” From inside another container it often points at the wrong place.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Map one test hostname to one test origin.</p></div>
+  <div class="cr-step-text"><p>Access policy: allow only your identity + MFA.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Map one test hostname to one test origin.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Access policy: allow only your identity + MFA.)</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Create an Access policy that allows only the intended identity with MFA.</p></div>
+  <div class="cr-step-text"><p><strong>External signed-out browser:</strong> must deny or redirect to auth.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Create an Access policy that allows only the intended identity with MFA.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: External signed-out browser:.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Test from an external network in a signed-out browser: access must be denied or redirected to authentication.</p></div>
+  <div class="cr-step-text"><p><strong>Allowed identity:</strong> must succeed.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Test from an external network in a signed-out browser: access must be denied or redirected to authentication.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Allowed identity:.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="6">
  <div class="cr-step-num">6</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Authenticate with an allowed identity: access must succeed.</p></div>
+  <div class="cr-step-text"><p><strong>Disallowed identity / other account:</strong> must fail.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Authenticate with an allowed identity: access must succeed.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Disallowed identity / other account:.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Test a disallowed identity: access must fail.</p></div>
+  <div class="cr-step-text"><p><strong>Fail closed:</strong> stop connector; external access fails; LAN <code>http://HA-IP:8123</code> still works.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">sudo systemctl stop cloudflared
+curl -sI --max-time 5 https://YOUR-TUNNEL-HOST/ || echo EXPECTED_EXTERNAL_FAIL
+curl -sI http://HA-IP:8123/ | head
+sudo systemctl start cloudflared
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Test a disallowed identity: access must fail.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="8">
- <div class="cr-step-num">8</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Stop the connector: external access must fail closed while the internal service remains reachable locally.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Stop the connector: external access must fail closed while the internal service remains reachable locally.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This path is about safe remote reach or private download traffic — not opening every admin page to the world.</div>
  
 </div>
  </div>
@@ -374,65 +380,71 @@
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Enroll one remote client with its own identity.</p></div>
+  <div class="cr-step-text"><p>Enroll one remote client with its own identity/key.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Enroll one remote client with its own identity.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Enroll one remote client with its own identity/key.)</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Authorize only required subnets/services.</p></div>
+  <div class="cr-step-text"><p>Authorize only required subnets (HA LAN), not “full house flat”.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Authorize only required subnets/services.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Authorize only required subnets (HA LAN), not “full house flat”.)</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Prove the client can reach the test origin.</p></div>
+  <div class="cr-step-text"><p>Connect VPN; prove <code>curl http://HA-IP:8123</code> works.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">ping -c 2 HA-IP
+curl -sI http://HA-IP:8123/ | head
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">ping -n 2 HA-IP
+curl.exe -sI http://HA-IP:8123/
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Prove the client can reach the test origin.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This path is about safe remote reach or private download traffic — not opening every admin page to the world.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Prove it cannot reach a deliberately excluded service.</p></div>
+  <div class="cr-step-text"><p>Prove an excluded service/IP fails.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Prove it cannot reach a deliberately excluded service.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Prove an excluded service/IP fails.)</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Revoke the device/identity and confirm access ends.</p></div>
+  <div class="cr-step-text"><p>Revoke device/identity; confirm access ends; remove test grants you no longer need.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Revoke the device/identity and confirm access ends.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Revoke device/identity; confirm access ends; remove test grants you no longer need.)</div>
  
 </div>
  </div>
@@ -444,12 +456,12 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><p>Home Assistant and other applications may need trusted-proxy and forwarded-header configuration. Trust only the actual proxy addresses/ranges. Overly broad trusted-proxy settings can let clients spoof source information.</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>If you terminate TLS on a proxy, record host headers and whether HA <code>trusted_proxies</code> (or equivalent) is required—follow current HA docs.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: If you terminate TLS on a proxy, record host headers and whether HA this setting (or equivalent) is required—follow current HA docs.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix and security tests</h3></div><div class="cr-help">
@@ -459,18 +471,32 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Break one piece, watch the failure, then repair it. That is how you learn diagnosis.</div>
  
-</div><div class="cr-prose-block"><ul>
-<li>Remove the allow rule and confirm denial.</li>
-<li>Use an incorrect origin port and diagnose from connector logs without weakening authentication.</li>
-<li>Stop DNS resolution and distinguish hostname failure from origin failure.</li>
-<li>Revoke one session or device and measure how quickly access disappears.</li>
-<li>Confirm no unexpected router ports are open from an external perspective using an authorized method.</li>
-</ul><div class="cr-help">
+</div><div class="cr-prose-block"><ol>
+<li>Stop connector / disconnect VPN → external fail, LAN ok.</li>
+</ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This path is about safe remote reach or private download traffic — not opening every admin page to the world.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="2">
+<li>Remove MFA temporarily in a controlled test only if policy allows—then restore MFA immediately.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="3">
+<li>Attempt access with a second account that should be denied.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">

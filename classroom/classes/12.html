@@ -162,33 +162,43 @@ DNS -&gt; TCP port -&gt; Wyoming handshake/discovery -&gt; model load -&gt; infe
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Select a supported Whisper deployment from current Home Assistant documentation.</p></div>
+  <div class="cr-step-text"><p><strong>Deploy Whisper via current HA Wyoming docs</strong> (add-on, container, or supervised path you actually support).</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose ps | egrep -i 'whisper|wyoming' || true
+ss -lntp | egrep '10300|10301' || true
+curl -sv telnet://127.0.0.1:10300 2&gt;&amp;1 | head
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker compose ps
+# Confirm the Wyoming STT endpoint host/port from your docs, then:
+Test-NetConnection -ComputerName 127.0.0.1 -Port 10300
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Start it locally and confirm the intended model/language loads.</p></div>
+  <div class="cr-step-text"><p><strong>Confirm model/language loaded</strong> in logs.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose logs --tail=100 whisper 2&gt;/dev/null || docker compose logs --tail=100 | egrep -i 'whisper|model'
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Start it locally and confirm the intended model/language loads.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Connect it to Home Assistant through the supported Wyoming integration path.</p></div>
+  <div class="cr-step-text"><p><strong>Connect Wyoming STT in Home Assistant</strong> (Settings → Devices → add Wyoming).</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -201,57 +211,32 @@ DNS -&gt; TCP port -&gt; Wyoming handshake/discovery -&gt; model load -&gt; infe
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Record a fixed set of five phrases:<br />
-   - “Turn on the office light.”<br />
-   - “Set the bedroom temperature to seventy-two degrees.”<br />
-   - “Is Plex online?”<br />
-   - One household member/device name.<br />
-   - One phrase spoken with background noise.</p></div>
+  <div class="cr-step-text"><p><strong>Fixed phrase set</strong> (workbook)—run each <strong>3 times</strong>, record transcript + cold/warm latency:</p>
+<pre><code class="language-text">turn on test lamp
+turn off test lamp
+what time is it
+set timer for five minutes
+ignore this please
+</code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Record a fixed set of five phrases: - “Turn on the office light.” - “Set the bedroom temperature to seventy-two degrees.” - “Is Plex onli…)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Fixed phrase set.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Run each phrase three times.</p></div>
+  <div class="cr-step-text"><p><strong>Change only one variable</strong> (model size, mic distance, or noise) and repeat one phrase set.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Run each phrase three times.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="6">
- <div class="cr-step-num">6</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Record transcript, cold/warm latency, and errors.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Record transcript, cold/warm latency, and errors.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="7">
- <div class="cr-step-num">7</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Change only one variable—model, microphone distance, or noise control—and repeat.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Change only one variable—model, microphone distance, or noise control—and repeat.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Change only one variable.</div>
  
 </div>
  </div>
@@ -266,20 +251,23 @@ DNS -&gt; TCP port -&gt; Wyoming handshake/discovery -&gt; model load -&gt; infe
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Select a compatible Piper voice and matching metadata.</p></div>
+  <div class="cr-step-text"><p><strong>Deploy Piper</strong> per current docs; keep voice model + metadata together.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose ps | egrep -i 'piper|wyoming' || true
+ss -lntp | egrep '10200|10201' || true
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Connect the Piper Wyoming endpoint.</p></div>
+  <div class="cr-step-text"><p><strong>Add Wyoming TTS in HA</strong>; select the Piper voice.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -292,46 +280,33 @@ DNS -&gt; TCP port -&gt; Wyoming handshake/discovery -&gt; model load -&gt; infe
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Synthesize five fixed responses.</p></div>
+  <div class="cr-step-text"><p><strong>Synthesize five fixed responses</strong> (UI media player / <code>tts.speak</code> service). Confirm no clipping.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Synthesize five fixed responses.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Confirm none are clipped at the beginning or end.</p></div>
+  <div class="cr-step-text"><p><strong>Measure synthesis latency vs playback latency</strong> separately.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Confirm none are clipped at the beginning or end.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Measure synthesis latency vs playback latency.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Measure synthesis latency separately from playback latency.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Measure synthesis latency separately from playback latency.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="6">
- <div class="cr-step-num">6</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Test numbers, abbreviations, punctuation, entity names, and one long sentence.</p></div>
+  <div class="cr-step-text"><p><strong>Stress strings:</strong> numbers, abbreviations, entity names, one long sentence.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -341,16 +316,16 @@ DNS -&gt; TCP port -&gt; Wyoming handshake/discovery -&gt; model load -&gt; infe
  
 </div>
  </div>
-</div><div class="cr-step" data-step="7">
- <div class="cr-step-num">7</div>
+</div><div class="cr-step" data-step="6">
+ <div class="cr-step-num">6</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Change one voice parameter only if the implementation supports it and compare intelligibility.</p></div>
+  <div class="cr-step-text"><p><strong>Change one voice parameter only</strong> (if supported); compare intelligibility.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Change one voice parameter only if the implementation supports it and compare intelligibility.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Change one voice parameter only.</div>
  
 </div>
  </div>
@@ -362,19 +337,11 @@ DNS -&gt; TCP port -&gt; Wyoming handshake/discovery -&gt; model load -&gt; infe
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><p>If Whisper and an LLM share a GPU or CPU, perform:</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
- 
-</div></div><div class="cr-prose-block"><ol>
-<li>STT baseline at idle.</li>
-<li>STT while the LLM is generating.</li>
-<li>TTS baseline.</li>
-<li>TTS during STT.</li>
-<li>Record latency, memory pressure, errors, and thermal/power behavior.</li>
+</div><div class="cr-prose-block"><ol>
+<li>STT baseline idle  </li>
+<li>STT while LLM generating (if present)  </li>
+<li>TTS baseline  </li>
+<li>TTS during STT</li>
 </ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -382,14 +349,24 @@ DNS -&gt; TCP port -&gt; Wyoming handshake/discovery -&gt; model load -&gt; infe
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
  
-</div></div><div class="cr-prose-block"><p>Route or schedule workloads based on evidence. “GPU available” does not mean simultaneous models fit or meet latency targets.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><p>:::linux</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Route or schedule workloads based on evidence.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: :::linux</div>
  
-</div></div></div>
+</div></div><div class="cr-prose-block cr-prose-code"><p>```bash</p>
+<h1>Host pressure snapshot while testing:</h1>
+<p>free -h<br />
+uptime<br />
+docker stats --no-stream</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
+:::</p>
+<p>:::windows</p></div><div class="cr-prose-block cr-prose-code"><p>```powershell<br />
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 10<br />
+docker stats --no-stream</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
+:::</p>
+<p>Record latency, memory, errors, thermal/fan behavior.</p></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -397,18 +374,32 @@ DNS -&gt; TCP port -&gt; Wyoming handshake/discovery -&gt; model load -&gt; infe
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
-</div><div class="cr-prose-block"><ul>
-<li>Wrong STT language: observe systematic transcript errors; restore language/model.</li>
-<li>Missing/mismatched Piper metadata: observe load failure and repair the model pair.</li>
-<li>Closed port: distinguish TCP failure from model failure.</li>
-<li>Slow model: compare cold versus warm request and compute saturation.</li>
-<li>Audio format mismatch: inspect sample rate/channels/encoding across the boundary.</li>
-</ul><div class="cr-help">
+</div><div class="cr-prose-block"><ol>
+<li>Point HA at the wrong Wyoming port; confirm failure mode; restore.</li>
+</ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="2">
+<li>Remove Piper metadata mismatch deliberately; observe error; restore matching pair.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="3">
+<li>Saturate CPU with a disposable load; rerun one STT phrase; compare latency.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">

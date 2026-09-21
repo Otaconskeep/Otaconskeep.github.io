@@ -225,49 +225,78 @@ attributes: brightness, color_temp, friendly_name</p></div><div class="cr-prose-
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+</div><div class="cr-prose-block"><p><strong>Goal:</strong> a reachable Home Assistant instance, one stable entity, dashboard proof, restart proof, and a backup you can restore from.</p>
+<p>Prefer HA OS in a VM (Class 1) or a documented Container install. Record which one you use.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Deploy Home Assistant OS in the VM design from Class 1, or document the existing supported installation.</p></div>
+  <div class="cr-step-text"><p><strong>Deploy or document the install.</strong><br />
+   If new VM: create from Class 1, attach HA OS image per current docs, boot, note the onboarding URL. If Container:</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># Example pattern — follow current HA Container docs for exact compose:
+mkdir -p ~/ha-config
+docker compose ps
+# After your compose exists:
+curl -sI http://127.0.0.1:8123/ | head
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">curl.exe -sI http://127.0.0.1:8123/
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Reserve or otherwise stabilize its LAN address.</p></div>
+  <div class="cr-step-text"><p><strong>Stabilize the LAN address.</strong> Reserve DHCP or set static IP. Record <code>http://HA-IP:8123</code> in the workbook.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">ping -c 2 HA-IP
+curl -sI http://HA-IP:8123/ | head
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">ping -n 2 HA-IP
+curl.exe -sI http://HA-IP:8123/
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Reserve or otherwise stabilize its LAN address.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Stabilize the LAN address.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Complete onboarding with a strong unique credential and correct location/time zone.</p></div>
+  <div class="cr-step-text"><p><strong>Complete onboarding</strong> with a strong unique password, correct location/time zone. Do not reuse your email password.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Complete onboarding with a strong unique credential and correct location/time zone.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Complete onboarding.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Add one safe local integration or built-in demo/test entity.</p></div>
+  <div class="cr-step-text"><p><strong>Add one safe local integration</strong> (demo/sun/input helper is fine) or a local device you own.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Add one safe local integration.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Assign area + rename entity ID</strong> before automations depend on it (Settings → Devices &amp; services / Entities). Write old→new ID in the workbook.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -277,23 +306,10 @@ attributes: brightness, color_temp, friendly_name</p></div><div class="cr-prose-
  
 </div>
  </div>
-</div><div class="cr-step" data-step="5">
- <div class="cr-step-num">5</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Assign the device/entities to an area.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Assign the device/entities to an area.)</div>
- 
-</div>
- </div>
 </div><div class="cr-step" data-step="6">
  <div class="cr-step-num">6</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Rename one entity to a stable meaningful ID before building dependencies on it.</p></div>
+  <div class="cr-step-text"><p><strong>Dashboard card</strong> showing state + control for that entity.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -306,20 +322,31 @@ attributes: brightness, color_temp, friendly_name</p></div><div class="cr-prose-
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Build a dashboard card showing current state and control.</p></div>
+  <div class="cr-step-text"><p><strong>Developer Tools proof.</strong></p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># From a machine that can reach HA — Long-Lived Token in password manager only:
+export HA=http://HA-IP:8123
+export TOKEN='YOUR_LONG_LIVED_TOKEN'
+curl -s -H &quot;Authorization: Bearer $TOKEN&quot; -H &quot;Content-Type: application/json&quot; \
+  &quot;$HA/api/states/ENTITY_ID&quot; | head -c 400; echo
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">$HA = &quot;http://HA-IP:8123&quot;
+$TOKEN = &quot;YOUR_LONG_LIVED_TOKEN&quot;
+curl.exe -s -H &quot;Authorization: Bearer $TOKEN&quot; -H &quot;Content-Type: application/json&quot; &quot;$HA/api/states/ENTITY_ID&quot;
+</code></pre></div>
+<p>Also use UI Developer Tools → States / Services to inspect attributes and call one <strong>safe</strong> service (example: toggle an <code>input_boolean</code>).</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Build a dashboard card showing current state and control.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Developer Tools proof.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="8">
  <div class="cr-step-num">8</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>In Developer Tools, inspect the entity's state and attributes.</p></div>
+  <div class="cr-step-text"><p><strong>Restart HA and prove recovery.</strong> UI restart or host reboot. Confirm entity + dashboard return. Time the outage in the workbook.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -332,33 +359,15 @@ attributes: brightness, color_temp, friendly_name</p></div><div class="cr-prose-
 </div><div class="cr-step" data-step="9">
  <div class="cr-step-num">9</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Invoke one safe action manually.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Invoke one safe action manually.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="10">
- <div class="cr-step-num">10</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Restart Home Assistant and prove the entity and dashboard return.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="11">
- <div class="cr-step-num">11</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Create a backup and copy it to protected storage.</p></div>
+  <div class="cr-step-text"><p><strong>Create a backup</strong> (HA OS: Settings → System → Backups). Copy the backup file off-box.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">mkdir -p ~/backups/ha
+# Copy from the path your install uses, e.g. backup share or download via UI
+ls -lh ~/backups/ha
+sha256sum ~/backups/ha/*.tar 2&gt;/dev/null | tee ~/backups/ha/SHA256SUMS
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">New-Item -ItemType Directory -Force $HOME\backups\ha | Out-Null
+Get-FileHash $HOME\backups\ha\* -Algorithm SHA256 | Format-Table
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -368,16 +377,16 @@ attributes: brightness, color_temp, friendly_name</p></div><div class="cr-prose-
  
 </div>
  </div>
-</div><div class="cr-step" data-step="12">
- <div class="cr-step-num">12</div>
+</div><div class="cr-step" data-step="10">
+ <div class="cr-step-num">10</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Record the restore procedure; use a disposable environment for a full restore test if production risk is unacceptable.</p></div>
+  <div class="cr-step-text"><p><strong>Write the restore procedure</strong> in the workbook. If production risk is high, restore into a disposable VM instead of overwriting the live box.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Record the restore procedure; use a disposable environment for a full restore test if production risk is unacceptable.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Write the restore procedure.</div>
  
 </div>
  </div>
@@ -389,21 +398,41 @@ attributes: brightness, color_temp, friendly_name</p></div><div class="cr-prose-
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
-</div><div class="cr-prose-block"><p>Disable the test integration or disconnect the disposable device. Observe the difference between <code>off</code>, <code>unknown</code>, and <code>unavailable</code>. Restore it and measure recovery time.</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Disable the test integration or disconnect the disposable device.</div>
- 
-</div></div><div class="cr-prose-block"><p>Change only a dashboard card to point to a nonexistent entity. Prove the backend integration still works and repair the presentation layer without re-pairing the device.</p><div class="cr-help">
+</div><div class="cr-prose-block"><ol>
+<li>Rename an entity after a dashboard depends on it—observe break—rename back or update the card.</li>
+</ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
  
-</div></div></div>
+</div></div><div class="cr-prose-block"><ol start="2">
+<li>Stop the HA VM/container briefly; confirm UI down; start; confirm recovery.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2.</div>
+ 
+</div></div><div class="cr-prose-block"><p>:::linux</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: :::linux</div>
+ 
+</div></div><div class="cr-prose-block cr-prose-code"><p>```bash</p>
+<h1>Container example:</h1>
+<p>docker compose stop homeassistant<br />
+curl -sI --max-time 3 http://HA-IP:8123/ || echo EXPECTED_DOWN<br />
+docker compose start homeassistant<br />
+curl -sI http://HA-IP:8123/ | head</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
+:::</p>
+<ol start="3">
+<li>Attempt action on <code>unavailable</code> vs <code>off</code> entities; record the difference.</li>
+</ol></div></div>
 <div class="cr-box cr-box-trouble"><div class="cr-box-head"><span class="cr-chip cr-chip-fix">Fix chart</span><h3>Troubleshooting layers</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -412,8 +441,7 @@ attributes: brightness, color_temp, friendly_name</p></div><div class="cr-prose-
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is your first-aid chart. Match the problem, then try the checks in order.</div>
  
 </div><div class="cr-prose-block cr-prose-code"><p>```text<br />
-Physical power/radio -&gt; IP/protocol -&gt; integration -&gt; device -&gt; entity state -&gt; automation -&gt; dashboard</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
-<p>If the dashboard is wrong but Developer Tools shows correct state, the fault is above the entity layer. If the entity is unavailable, dashboard edits will not repair the integration.</p></div></div>
+power/network -&gt; HA process up -&gt; UI loads -&gt; entity exists -&gt; correct state -&gt; service call -&gt; automation</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div>
 <div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>

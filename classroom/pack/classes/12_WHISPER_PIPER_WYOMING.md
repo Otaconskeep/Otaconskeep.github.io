@@ -47,48 +47,99 @@ DNS -> TCP port -> Wyoming handshake/discovery -> model load -> inference -> out
 
 ## Guided lab — STT
 
-1. Select a supported Whisper deployment from current Home Assistant documentation.
-2. Start it locally and confirm the intended model/language loads.
-3. Connect it to Home Assistant through the supported Wyoming integration path.
-4. Record a fixed set of five phrases:
-   - “Turn on the office light.”
-   - “Set the bedroom temperature to seventy-two degrees.”
-   - “Is Plex online?”
-   - One household member/device name.
-   - One phrase spoken with background noise.
-5. Run each phrase three times.
-6. Record transcript, cold/warm latency, and errors.
-7. Change only one variable—model, microphone distance, or noise control—and repeat.
+1. **Deploy Whisper via current HA Wyoming docs** (add-on, container, or supervised path you actually support).
+
+:::linux
+```bash
+docker compose ps | egrep -i 'whisper|wyoming' || true
+ss -lntp | egrep '10300|10301' || true
+curl -sv telnet://127.0.0.1:10300 2>&1 | head
+```
+:::
+
+:::windows
+```powershell
+docker compose ps
+# Confirm the Wyoming STT endpoint host/port from your docs, then:
+Test-NetConnection -ComputerName 127.0.0.1 -Port 10300
+```
+:::
+
+2. **Confirm model/language loaded** in logs.
+
+:::linux
+```bash
+docker compose logs --tail=100 whisper 2>/dev/null || docker compose logs --tail=100 | egrep -i 'whisper|model'
+```
+:::
+
+3. **Connect Wyoming STT in Home Assistant** (Settings → Devices → add Wyoming).
+
+4. **Fixed phrase set** (workbook)—run each **3 times**, record transcript + cold/warm latency:
+
+```text
+turn on test lamp
+turn off test lamp
+what time is it
+set timer for five minutes
+ignore this please
+```
+
+5. **Change only one variable** (model size, mic distance, or noise) and repeat one phrase set.
 
 ## Guided lab — TTS
 
-1. Select a compatible Piper voice and matching metadata.
-2. Connect the Piper Wyoming endpoint.
-3. Synthesize five fixed responses.
-4. Confirm none are clipped at the beginning or end.
-5. Measure synthesis latency separately from playback latency.
-6. Test numbers, abbreviations, punctuation, entity names, and one long sentence.
-7. Change one voice parameter only if the implementation supports it and compare intelligibility.
+1. **Deploy Piper** per current docs; keep voice model + metadata together.
+
+:::linux
+```bash
+docker compose ps | egrep -i 'piper|wyoming' || true
+ss -lntp | egrep '10200|10201' || true
+```
+:::
+
+2. **Add Wyoming TTS in HA**; select the Piper voice.
+
+3. **Synthesize five fixed responses** (UI media player / `tts.speak` service). Confirm no clipping.
+
+4. **Measure synthesis latency vs playback latency** separately.
+
+5. **Stress strings:** numbers, abbreviations, entity names, one long sentence.
+
+6. **Change one voice parameter only** (if supported); compare intelligibility.
 
 ## Resource contention test
 
-If Whisper and an LLM share a GPU or CPU, perform:
+1. STT baseline idle  
+2. STT while LLM generating (if present)  
+3. TTS baseline  
+4. TTS during STT  
 
-1. STT baseline at idle.
-2. STT while the LLM is generating.
-3. TTS baseline.
-4. TTS during STT.
-5. Record latency, memory pressure, errors, and thermal/power behavior.
+:::linux
+```bash
+# Host pressure snapshot while testing:
+free -h
+uptime
+docker stats --no-stream
+```
+:::
 
-Route or schedule workloads based on evidence. “GPU available” does not mean simultaneous models fit or meet latency targets.
+:::windows
+```powershell
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 10
+docker stats --no-stream
+```
+:::
+
+Record latency, memory, errors, thermal/fan behavior.
 
 ## Break/fix
 
-- Wrong STT language: observe systematic transcript errors; restore language/model.
-- Missing/mismatched Piper metadata: observe load failure and repair the model pair.
-- Closed port: distinguish TCP failure from model failure.
-- Slow model: compare cold versus warm request and compute saturation.
-- Audio format mismatch: inspect sample rate/channels/encoding across the boundary.
+1. Point HA at the wrong Wyoming port; confirm failure mode; restore.
+
+2. Remove Piper metadata mismatch deliberately; observe error; restore matching pair.
+
+3. Saturate CPU with a disposable load; rerun one STT phrase; compare latency.
 
 ## Knowledge check
 

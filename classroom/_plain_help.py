@@ -248,12 +248,21 @@ def extract_numbered_steps(md: str, *, min_steps: int = 1) -> list[str] | None:
             continue
         chunk = [m.group(2)]
         i += 1
+        in_fence = False
         while i < len(lines):
             line = lines[i]
-            if re.match(r"^\d+\.\s+", line):
-                break
-            if re.match(r"^#{1,3}\s+", line):
-                break
+            stripped = line.strip()
+            if stripped.startswith("```"):
+                in_fence = not in_fence
+                chunk.append(line)
+                i += 1
+                continue
+            if not in_fence:
+                if re.match(r"^\d+\.\s+", line):
+                    break
+                # Only ATX ##+ headings end a step. Do not treat bash `# comments` as headings.
+                if re.match(r"^#{2,6}\s+\S", line):
+                    break
             chunk.append(line)
             i += 1
         text = "\n".join(chunk).strip()

@@ -439,15 +439,16 @@ df -h
 Get-CimInstance Win32_Processor | Select-Object Name, VirtualizationFirmwareEnabled
 </code></pre>
 <p>You want firmware virtualization <strong>Yes</strong> / <code>VirtualizationFirmwareEnabled : True</code>.</p></div>
-<p>:::linux<br />
-```bash<br />
-egrep -c '(vmx|svm)' /proc/cpuinfo</p></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">egrep -c '(vmx|svm)' /proc/cpuinfo
+# Result should be &gt; 0. Also useful:
+lscpu | egrep 'Virtualization|Hypervisor|Flags'
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the BIOS/UEFI switch that lets your CPU run virtual machines well. Turn it on, save, reboot.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A hypervisor creates and runs virtual machines. Type 2 sits on your OS; Type 1 sits on the hardware.</div>
  
 </div>
  </div>
@@ -461,9 +462,13 @@ egrep -c '(vmx|svm)' /proc/cpuinfo</p></div>
 <pre><code class="language-powershell">Get-Disk | Where-Object BusType -eq 'USB' | Format-Table Number, FriendlyName, Size
 Get-Volume | Format-Table DriveLetter, FileSystemLabel, DriveType, Size
 </code></pre></div>
-<p>:::linux<br />
-```bash<br />
-lsblk -o NAME,SIZE,MODEL,TRAN,MOUNTPOINT</p></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">lsblk -o NAME,SIZE,MODEL,TRAN,MOUNTPOINT
+# Example only — YOUR USB might be /dev/sdb or /dev/sdc, NOT /dev/sda (usually the main disk)
+# Unmount partitions first if mounted, then:
+sudo dd if=$HOME/Downloads/proxmox.iso of=/dev/sdX bs=4M status=progress oflag=sync
+sync
+</code></pre>
+<p>Replace <code>proxmox.iso</code> and <code>/dev/sdX</code> with your real paths. Triple-check <code>sdX</code>.</p></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -638,9 +643,13 @@ hostname -I
 <p>First connect: type <code>yes</code> to trust the host key. If <code>ssh</code> is missing:</p>
 <pre><code class="language-powershell">Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
 </code></pre></div>
-<p>:::linux<br />
-```bash<br />
-ssh YOURUSER@GUEST-IP</p></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">ssh YOURUSER@GUEST-IP
+# Optional connectivity checks first:
+ping -c 2 GUEST-IP
+nc -vz GUEST-IP 22
+</code></pre></div>
+<pre><code>Inside the SSH session, re-run `hostname` and `ip -br addr` to prove you are on the guest.
+</code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -886,10 +895,18 @@ echo test &gt; ~/DELETE-ME/note.txt
 ls ~/DELETE-ME
 </code></pre>
 <p>Shut down the guest, then restore:</p>
-<p>:::windows<br />
-```powershell<br />
-$VB = "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"<br />
-&amp; $VB controlvm "lab-linux-01" acpipowerbutton</p></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">$VB = &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot;
+&amp; $VB controlvm &quot;lab-linux-01&quot; acpipowerbutton
+# wait until powered off, then:
+&amp; $VB snapshot &quot;lab-linux-01&quot; restore &quot;before-break&quot;
+&amp; $VB startvm &quot;lab-linux-01&quot; --type gui
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">VBoxManage controlvm &quot;lab-linux-01&quot; acpipowerbutton
+# wait until powered off, then:
+VBoxManage snapshot &quot;lab-linux-01&quot; restore &quot;before-break&quot;
+VBoxManage startvm &quot;lab-linux-01&quot; --type gui
+</code></pre></div>
+<p>Guest check: <code>ls ~/DELETE-ME</code> should fail (folder gone).</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -944,14 +961,18 @@ VBoxManage snapshot &quot;lab-linux-01&quot; list
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Plan Path B before Class 2.</strong><br />
     Write spare-PC plan + USB + Ethernet. Quick reachability test you will use later:</p>
-<p>:::windows<br />
-```powershell</p></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell"># After Proxmox exists:
+curl.exe -kI https://PROXMOX-IP:8006
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># After Proxmox exists:
+curl -kI https://PROXMOX-IP:8006
+</code></pre></div></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Plan Path B before Class 2.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
 </div>
  </div>
