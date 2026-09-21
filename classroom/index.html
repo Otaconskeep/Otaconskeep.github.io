@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Homelab Academy · Classroom · Otaconskeep</title>
-<meta name="description" content="Self-paced ARR, Home Assistant, and local voice course.">
+<title>Homelab Academy · Classroom</title>
+<meta name="description" content="Guided Homelab/ARR/HA/Voice curriculum with labs and checkpoints.">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921b">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921c">
 </head>
 <body>
 <div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>ACADEMY<span class="blink"></span></span></div></div>
@@ -33,80 +33,54 @@
  <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
  </div></div>
-</nav>
-<nav class="cr-subnav" aria-label="Classroom">
+</nav><nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
- <a href="/classroom/start.html">Start here</a>
- <a href="/classroom/path.html">Choose path</a>
+ <a href="/classroom/start.html">Start</a>
+ <a href="/classroom/path.html">Path</a>
  <a href="/classroom/glossary.html">Glossary</a>
- <a href="/classroom/courses/00-fundamentals/">Course 0</a>
- <a href="/classroom/courses/01-arr-stack/">Course 1</a>
- <a href="/classroom/courses/04-ha-fundamentals/">HA 101</a>
- <a href="/classroom/courses/06-local-voice/">Voice</a>
+ <a href="/classroom/units/1-infrastructure/">Unit 1</a>
+ <a href="/classroom/units/2-arr/">Unit 2</a>
+ <a href="/classroom/units/3-home-assistant/">Unit 3</a>
+ <a href="/classroom/units/4-voice/">Unit 4</a>
+ <a href="/classroom/final-exam.html">Final exam</a>
  </div>
 </nav>
 <div class="wrap">
 <section class="hero flush">
- <div class="stamp">HOMELAB ACADEMY<small>self-paced · classroom</small></div>
+ <div class="stamp">HOMELAB ACADEMY<small>guided curriculum</small></div>
  <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom</p>
- <h1 class="display" style="font-size:clamp(2.1rem,6vw,3.5rem);">Ultimate Homelab<br>ARR · Home Assistant · Voice</h1>
- <p class="lede">Not a wiki dump. Every lesson teaches <strong>one concept</strong>, shows <strong>one picture</strong>, gives <strong>one action</strong>, then a <strong>checkpoint</strong> before you move on. Windows and Linux split only where install paths differ — then rejoin the common course.</p>
+ <h1 class="display" style="font-size:clamp(2rem,6vw,3.4rem);">Watch is the lecture.<br>This site is the lab.</h1>
+ <p class="lede">Thirteen classes across four units. Each class is a six-page workbook: learn → vocabulary → picture → guided notes → Windows/Linux lab → break/fix/checkpoint. <strong>No videos are embedded</strong> — pair optional off-site lectures with current official docs.</p>
  <div class="btn-row" style="margin-top:22px;">
   <a class="btn btn-primary" href="start.html">Start here</a>
-  <a class="btn btn-ghost" href="path.html">Choose your path</a>
+  <a class="btn btn-ghost" href="path.html">Choose path</a>
   <a class="btn btn-ghost" href="glossary.html">Glossary</a>
+  <a class="btn btn-ghost" href="final-exam.html">Final exam</a>
  </div>
 </section>
-<pre class="cr-diagram"><span class="hi">START HERE</span>
-   │
-   ├── What are we building?
-   ├── Network diagram
-   ├── Acronyms / terminology
-   └── Hardware checklist
-          │
-          ▼
-     <span class="hi">CHOOSE YOUR PATH</span>
-      Windows (WSL2+Docker)  ·  Linux (Ubuntu+Docker)
-          │
-          └──────────► <span class="hi">COMMON COURSE</span>
-                         Docker → Storage → ARR
-                         Home Assistant → Voice → Advanced</pre>
+<pre class="cr-diagram"><span class="hi">RECOMMENDED ORDER</span>
+1 Virtualization → 2 Compose → 3 Networking → 4 Playground
+→ 5 Prowlarr → 6 TRaSH → 7 Recyclarr/sync
+→ 8 HA beginner → 9 Automation → 10 Remote access
+→ 11 Voice architecture → 12 Whisper/Piper → 13 Local speaker
+→ FINAL EXAM verification matrix</pre>
+<div class="cr-course-grid">
+ <a class="cr-course-card" href="units/1-infrastructure/"><div class="num">1</div><div><h3>Infrastructure &amp; Docker</h3><p>Classes 1–4</p><div class="meta">🟢→🟡</div></div></a>
+ <a class="cr-course-card" href="units/2-arr/"><div class="num">2</div><div><h3>ARR Media Automation</h3><p>Classes 5–7</p><div class="meta">🟢→🟡</div></div></a>
+ <a class="cr-course-card" href="units/3-home-assistant/"><div class="num">3</div><div><h3>Home Assistant</h3><p>Classes 8–10</p><div class="meta">🟢→🔴</div></div></a>
+ <a class="cr-course-card" href="units/4-voice/"><div class="num">4</div><div><h3>Local Voice</h3><p>Classes 11–13</p><div class="meta">🟢→🔴</div></div></a>
+</div>
+<div class="cr-callout tip"><strong>Important rule:</strong> older NetworkChuck/IBRACORP lectures teach concepts. Do not blindly copy every command or UI screen — always prefer current Docker, TRaSH, Servarr, and Home Assistant documentation linked in each class.</div>
 <section>
- <p class="tag">Eight courses</p>
- <h2>Curriculum map</h2>
- <p class="intro">Pick Course 0 if you are new. Skip ahead only if you can pass the previous course lab.</p>
- <div class="cr-course-grid"><a class="cr-course-card" href="courses/00-fundamentals/">
- <div class="num">00</div>
- <div><h3>Homelab Fundamentals</h3><p>Networking, IPs, DNS, storage, Docker, Windows/Linux basics.</p><div class="meta">🟢 Baby step — no previous knowledge expected</div></div>
-</a><a class="cr-course-card" href="courses/01-arr-stack/">
- <div class="num">01</div>
- <div><h3>Building the ARR Stack</h3><p>TRaSH order, qBit, SAB, Prowlarr, Sonarr, Radarr, Recyclarr.</p><div class="meta">🟢 Baby step — no previous knowledge expected</div></div>
-</a><a class="cr-course-card" href="courses/02-perfecting-arr/">
- <div class="num">02</div>
- <div><h3>Perfecting the ARR Stack</h3><p>Hardlinks, Custom Formats, anime, Maintainerr, cross-seed.</p><div class="meta">🟡 Intermediate — Docker/networking basics</div></div>
-</a><a class="cr-course-card" href="courses/03-plex-jellyfin/">
- <div class="num">03</div>
- <div><h3>Plex / Jellyfin</h3><p>Libraries, Direct Play, transcoding, hardware encode, remote access.</p><div class="meta">🟡 Intermediate — Docker/networking basics</div></div>
-</a><a class="cr-course-card" href="courses/04-ha-fundamentals/">
- <div class="num">04</div>
- <div><h3>Home Assistant Fundamentals</h3><p>Devices, entities, integrations, dashboards, automations.</p><div class="meta">🟢 Baby step — no previous knowledge expected</div></div>
-</a><a class="cr-course-card" href="courses/05-ha-advanced/">
- <div class="num">05</div>
- <div><h3>Home Assistant Advanced</h3><p>Zigbee, ESPHome, MQTT, Matter, Thread, network isolation.</p><div class="meta">🟡 Intermediate — Docker/networking basics</div></div>
-</a><a class="cr-course-card" href="courses/06-local-voice/">
- <div class="num">06</div>
- <div><h3>Local Voice</h3><p>Assist, Whisper, Piper, Wyoming, Linux Voice Assistant, satellites.</p><div class="meta">🟡 Intermediate — Docker/networking basics</div></div>
-</a><a class="cr-course-card" href="courses/07-ultimate/">
- <div class="num">07</div>
- <div><h3>Ultimate Homelab</h3><p>VLANs, VPNs, reverse proxies, backups, GPUs, local AI, HA.</p><div class="meta">🔴 Advanced — VPN, VLANs, proxies, custom voice, GPU</div></div>
-</a></div>
+ <p class="tag">Coming expansions</p>
+ <h2>More lectures later</h2>
+ <p class="intro">Next backlog: dedicated beginner+advanced pairs for Sonarr, Radarr, SAB, qBit, hardlinks, Recyclarr deep-dives, Plex/Jellyfin, Zigbee, ESPHome, MQTT, VLANs, UniFi, Linux Voice Assistant, and troubleshooting studios — so every module has ≥1 beginner lecture + ≥1 advanced lecture + official guide.</p>
 </section>
-<div class="cr-callout tip"><strong>Classroom rule:</strong> if the checkpoint boxes are not all true, do not continue. Fix the gate first — that is how this stays a course, not a scroll of hope.</div>
 </div>
 <footer class="sitefoot"><div class="wrap">
 <span>Otaconskeep Classroom · Homelab Academy</span>
 <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
 </div></footer>
-<script src="/classroom/classroom.js?v=20260921b"></script>
+<script src="/classroom/classroom.js?v=20260921c"></script>
 </body></html>

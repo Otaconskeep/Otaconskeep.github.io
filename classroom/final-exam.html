@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Final exam · Classroom</title>
+<meta name="description" content="Homelab verification matrix.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/final-exam.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921c">
+</head>
+<body>
+<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>FINAL EXAM<span class="blink"></span></span></div></div>
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div></div>
+</nav><nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/start.html">Start</a>
+ <a href="/classroom/path.html">Path</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ <a href="/classroom/units/1-infrastructure/">Unit 1</a>
+ <a href="/classroom/units/2-arr/">Unit 2</a>
+ <a href="/classroom/units/3-home-assistant/">Unit 3</a>
+ <a href="/classroom/units/4-voice/">Unit 4</a>
+ <a href="/classroom/final-exam.html">Final exam</a>
+ </div>
+</nav>
+<div class="wrap">
+<section class="hero flush"><span class="cr-badge adv">🔴 Advanced</span>
+<h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);margin-top:12px;">Final exam — working homelab</h1>
+<p class="lede">Not a written test. A verification matrix. “It seems to work” is not a grade.</p></section>
+<pre class="cr-diagram">REQUEST MOVIE → SEERR → RADARR → PROWLARR → qBIT/SAB → /data/media → PLEX
+
+HOME ASSISTANT
+  |-- monitors infrastructure
+  |-- runs automations
+  +-- local voice → "Is Plex online?" → spoken answer</pre>
+<div class="cr-check" data-check-id="final-exam">
+ <h3>Verification matrix</h3>
+ <label><input type="checkbox" data-k="0"><strong>Docker persistent</strong> — Destroy/recreate container; config survives</label><label><input type="checkbox" data-k="1"><strong>ARR connectivity</strong> — API tests green</label><label><input type="checkbox" data-k="2"><strong>Hardlinks</strong> — Same inode / no duplicate storage (when using torrents)</label><label><input type="checkbox" data-k="3"><strong>Prowlarr</strong> — Indexer propagates to ARRs</label><label><input type="checkbox" data-k="4"><strong>TRaSH</strong> — Expected CFs and scores present</label><label><input type="checkbox" data-k="5"><strong>Download</strong> — Request reaches downloader</label><label><input type="checkbox" data-k="6"><strong>Import</strong> — Correct path/name under /data/media</label><label><input type="checkbox" data-k="7"><strong>Plex/Jellyfin</strong> — Media detected</label><label><input type="checkbox" data-k="8"><strong>HA</strong> — Automation works</label><label><input type="checkbox" data-k="9"><strong>STT</strong> — Known sentence transcribed</label><label><input type="checkbox" data-k="10"><strong>TTS</strong> — Known response spoken</label><label><input type="checkbox" data-k="11"><strong>Voice</strong> — End-to-end command passes</label><label><input type="checkbox" data-k="12"><strong>Local operation</strong> — Internet disconnected; core functions survive</label>
+ <div class="cr-gate">All requirements evidenced → you finished Homelab Academy v1</div>
+</div>
+<div class="cr-pager"><a href="units/4-voice/classes/13-voice-capstone.html">← Class 13</a><a href="/classroom/">Academy home →</a></div>
+</div>
+<footer class="sitefoot"><div class="wrap">
+<span>Otaconskeep Classroom · Homelab Academy</span>
+<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
+</div></footer>
+<script src="/classroom/classroom.js?v=20260921c"></script>
+</body></html>
