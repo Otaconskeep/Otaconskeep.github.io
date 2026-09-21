@@ -11,8 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20260920h">
-<link rel="stylesheet" href="assets/product-explainers.css?v=20260920h">
+<link rel="stylesheet" href="assets/style.css?v=20260920i">
+<link rel="stylesheet" href="assets/product-explainers.css?v=20260920i">
 </head>
 <body>
 
@@ -50,31 +50,15 @@
  <p class="meta" style="margin-top: 26px; letter-spacing: 0.1em;">AGENTS // MEMORY // VOICE // ROOMS // LOCAL AI<br>MEDIA // AUTOMATION // GPU NODES // HOMELAB</p>
  <div class="btn-row" style="margin-top: 26px;">
  <a class="btn btn-primary btn-install" href="#install-otacon">Install OtaconsKeep Lite</a>
- <a class="btn btn-ghost" href="#products">See products</a>
- <a class="btn btn-ghost" href="/about/">Why it exists</a>
+ <a class="btn btn-ghost" href="#watch">Watch Demo</a>
+ <a class="btn btn-ghost" href="#products">Explore the ecosystem</a>
  </div>
  <p class="meta" style="margin-top: 18px;">CREATED BY: <strong>Antonio G. Garcia</strong> · Built for the Keep.</p>
  </section>
 </div>
 
-
-<section class="hero-video" aria-label="Otaconskeep video">
- <div class="wrap">
- <div class="hero-video-frame hero-video-frame--compact">
- <iframe
- src="https://www.youtube-nocookie.com/embed/vYXsi4ZRStw"
- title="Otaconskeep"
- allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
- allowfullscreen
- loading="lazy"
- referrerpolicy="strict-origin-when-cross-origin"></iframe>
- </div>
- </div>
-</section>
-
-
 <div class="wrap quickpick-wrap" id="products">
- <p class="tag" style="margin: 8px 0 12px;">Products</p>
+ <p class="tag" style="margin: 8px 0 12px;">Explore the ecosystem</p>
  <div class="quickpick-grid">
 
 <article class="quickpick is-free" data-product-id="lite" style="--qp-accent: var(--signal);">
@@ -119,14 +103,13 @@
  <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
  <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="34" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="36" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="38" cy="34" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="38" cy="20" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 16v16M24 12l14 8M24 12L10 34M24 36l14-2" stroke="currentColor" stroke-width="1.5" opacity=".7"/></svg>
  <div class="qp-badges">
- <span class="qp-badge" data-kind="access">Premium</span>
- <span class="qp-badge" data-kind="access">Licensed</span>
- <span class="qp-badge" data-kind="runtime">Docker optional</span>
+ <span class="qp-badge" data-kind="access">Licensed · Available now</span>
+ <span class="qp-badge" data-kind="runtime">Requires Lite</span>
  </div>
  <h3>OtaconsKeep Premium / Expansion</h3>
  <p class="qp-cost paid">One-time donation required · $1</p>
- <p>Expands the OtaconsKeep core into a deeper multi-agent system with specialized agents, richer persistent relationships, advanced coordination, and additional creative and automation capabilities.</p>
- <p class="qp-support">Some Expansion capabilities install directly with the core, while GPU-intensive creative features require additional local services such as Docker and compatible GPU hardware.</p>
+ <p>Licensed multi-agent layer on OtaconsKeep Lite: five-agent roster, Deck/Codec, Aria. Installer available today for members. Some GPU/creative sidecars remain optional.</p>
+ <p class="qp-support">Requires OtaconsKeep Lite first. Genome Voice Trainer and Video Studio need GPU / Docker (or portable Comfy) and are not READY on every fresh PC.</p>
  <div class="qp-actions">
  <a class="btn btn-ghost" href="/expansion/" style="border-color: var(--premium); color: var(--premium-bright);">Expansion status</a>
  <a class="btn btn-ghost" href="/premium/" style="border-color: var(--premium); color: var(--premium-bright);">Member HQ</a>
@@ -180,6 +163,21 @@
  </div>
 </div>
 
+
+
+<section class="hero-video" id="watch" aria-label="Otaconskeep video">
+ <div class="wrap">
+ <div class="hero-video-frame hero-video-frame--compact">
+ <iframe
+ src="https://www.youtube-nocookie.com/embed/vYXsi4ZRStw"
+ title="Otaconskeep"
+ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+ allowfullscreen
+ loading="lazy"
+ referrerpolicy="strict-origin-when-cross-origin"></iframe>
+ </div>
+ </div>
+</section>
 
 <aside class="proof-strip" id="proof-strip" aria-label="Engineering proof status">
  <div class="wrap proof-strip-inner">
@@ -521,7 +519,7 @@
  <thead><tr><th>Tier</th><th>What it is</th><th>Status</th><th>Price</th></tr></thead>
  <tbody>
  <tr><td><strong>OtaconsKeep Lite</strong></td><td>Free · open source · self-hosted · never costs anything</td><td>Install today</td><td>Free</td></tr>
- <tr><td><strong>Premium / Expansion</strong></td><td>Licensed multi-agent layer; installer available today; GPU/creative sidecars optional</td><td>Licensed members · <a href="/expansion/">honest fresh-PC notes</a></td><td>One-time donation · $1</td></tr>
+ <tr><td><strong>Premium / Expansion</strong></td><td>Licensed · Available now · requires Lite · GPU/creative sidecars optional</td><td>Licensed members · <a href="/expansion/">honest fresh-PC notes</a></td><td>One-time donation · $1</td></tr>
  <tr><td><strong>Keep Desk</strong></td><td>Local command deck · supporter install vault</td><td>Licensed members (same seat as Premium)</td><td>One-time donation · $1</td></tr>
  <tr><td><strong>Keep Blueprint</strong></td><td>The broader ecosystem architecture demonstrated by the real Keep</td><td>Reference only</td><td>Not offered publicly</td></tr>
  <tr><td><strong>Otaconskeep Services</strong></td><td>Architecture · deployment · support</td><td>Available now</td><td>Contact for scope/pricing</td></tr>
@@ -698,7 +696,7 @@
  <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
  <div class="install-panel-head">
  <h3 class="install-panel-title" style="color: var(--premium-bright);">OtaconsKeep Expansion / Premium</h3>
- <span class="one-click-badge" style="color: var(--premium-bright); border-color: var(--premium-dim);">Licensed · installer today</span>
+ <span class="one-click-badge" style="color: var(--premium-bright); border-color: var(--premium-dim);">Licensed · Available now</span>
  </div>
  <p class="qp-cost paid">One-time donation required · $1</p>
  <p class="install-panel-lead"><strong>Premium / Expansion</strong> — available to licensed members; installer available today; some GPU/creative sidecars remain optional or in development. Five-agent roster, relationship engine, Command Deck / Codec. Requires Lite first.</p>
