@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921f">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921g">
 </head>
 <body>
 
@@ -64,25 +64,84 @@
 
 <div class="wrap">
  
- <div class="cr-box"><h3>Automation model</h3><p>An automation has three core parts:</p>
-<pre><code class="language-text">WHEN trigger occurs
-IF conditions are true
-THEN perform actions
-</code></pre>
-<p>Triggers begin evaluation. Conditions guard execution. Actions express intended changes. This separation matters when diagnosing “it did not run.”</p>
-<pre><code class="language-text">flowchart TD
-    T[&quot;Trigger&quot;] --&gt; C{&quot;Conditions true?&quot;}
-    C --&gt;|&quot;yes&quot;| A[&quot;Actions&quot;]
-    C --&gt;|&quot;no&quot;| N[&quot;No action&quot;]
-    A --&gt; V[&quot;Verify resulting state&quot;]
-</code></pre></div>
-<div class="cr-box"><h3>Example requirement</h3><blockquote>
+ <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Automation model</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>An automation has three core parts:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div><div class="cr-prose-block cr-prose-code"><p>```text<br />
+WHEN trigger occurs<br />
+IF conditions are true<br />
+THEN perform actions</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
+<p>Triggers begin evaluation. Conditions guard execution. Actions express intended changes. This separation matters when diagnosing “it did not run.”</p></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+flowchart TD<br />
+    T["Trigger"] --&gt; C{"Conditions true?"}<br />
+    C --&gt;|"yes"| A["Actions"]<br />
+    C --&gt;|"no"| N["No action"]<br />
+    A --&gt; V["Verify resulting state"]</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Example requirement</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><blockquote>
 <p>When the office test switch turns on after sunset, turn on the office test light at 40 percent. Do nothing during daytime. If the light is unavailable, create a persistent notification.</p>
-</blockquote>
-<p>This requirement is measurable. It identifies trigger, condition, nominal action, exception behavior, and expected state.</p></div>
-<div class="cr-box"><h3>State versus event</h3><p>A state trigger reacts when an entity changes state. An event trigger reacts to a bus event. Time, sun, template, webhook, zone, device, and other trigger families express different initiation mechanisms. Pick the type that matches the requirement rather than the one easiest to click.</p></div>
-<div class="cr-box"><h3>Modes and concurrency</h3><p>Automation modes control what happens when a new trigger occurs while a prior run is active:</p>
-<table>
+</blockquote><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: &gt; When the office test switch turns on after sunset, turn on the office test light at 40 percent.</div>
+ 
+</div></div><div class="cr-prose-block"><p>This requirement is measurable. It identifies trigger, condition, nominal action, exception behavior, and expected state.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: This requirement is measurable.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>State versus event</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>A state trigger reacts when an entity changes state. An event trigger reacts to a bus event. Time, sun, template, webhook, zone, device, and other trigger families express different initiation mechanisms. Pick the type that matches the requirement rather than the one easiest to click.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Modes and concurrency</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Automation modes control what happens when a new trigger occurs while a prior run is active:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div><div class="cr-prose-block"><table>
 <thead>
 <tr>
 <th>Mode</th>
@@ -107,37 +166,248 @@ THEN perform actions
 <td>Run multiple invocations concurrently</td>
 </tr>
 </tbody>
-</table>
-<p>The right mode depends on safety and intent. A door announcement may use queued behavior; a motion-controlled timer may use restart; parallel actions can create races if they modify the same system.</p></div>
-<div class="cr-box"><h3>Traces</h3><p>Automation traces show which trigger fired, condition result, path taken, variables, and action errors. Use the trace before editing unrelated devices or reinstalling an integration.</p></div>
-<div class="cr-box cr-box-lab"><h3>Guided lab</h3><p>Create two helpers if safe physical devices are unavailable: an input boolean as the trigger and a light helper or persistent notification as the output.</p>
-<ol>
-<li>Write the requirement and acceptance criteria first.</li>
-<li>Build a trigger from the boolean turning on.</li>
-<li>Add a condition based on another helper representing “allowed.”</li>
-<li>Add the nominal action.</li>
-<li>Add logging or a persistent notification that records the test run.</li>
-<li>Select an intentional automation mode.</li>
-<li>Test positive case: trigger true and condition true.</li>
-<li>Test negative case: trigger true and condition false.</li>
-<li>Test repeated/rapid triggers and verify mode behavior.</li>
-<li>Restart Home Assistant and repeat the positive test.</li>
-<li>Inspect trace details for all cases.</li>
-</ol></div>
-<div class="cr-box"><h3>Monitoring the homelab</h3><p>Apply the same model to infrastructure without allowing HA to hide faults:</p>
-<ul>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div></div><div class="cr-prose-block"><p>The right mode depends on safety and intent. A door announcement may use queued behavior; a motion-controlled timer may use restart; parallel actions can create races if they modify the same system.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The right mode depends on safety and intent.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Traces</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Automation traces show which trigger fired, condition result, path taken, variables, and action errors. Use the trace before editing unrelated devices or reinstalling an integration.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-prose-block"><p>Create two helpers if safe physical devices are unavailable: an input boolean as the trigger and a light helper or persistent notification as the output.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Write the requirement and acceptance criteria first.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Write the requirement and acceptance criteria first.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Build a trigger from the boolean turning on.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Build a trigger from the boolean turning on.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Add a condition based on another helper representing “allowed.”</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Add a condition based on another helper representing “allowed.”)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Add the nominal action.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Add the nominal action.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Add logging or a persistent notification that records the test run.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Add logging or a persistent notification that records the test run.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="6">
+ <div class="cr-step-num">6</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Select an intentional automation mode.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="7">
+ <div class="cr-step-num">7</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Test positive case: trigger true and condition true.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Test positive case: trigger true and condition true.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="8">
+ <div class="cr-step-num">8</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Test negative case: trigger true and condition false.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Test negative case: trigger true and condition false.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="9">
+ <div class="cr-step-num">9</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Test repeated/rapid triggers and verify mode behavior.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Test repeated/rapid triggers and verify mode behavior.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="10">
+ <div class="cr-step-num">10</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Restart Home Assistant and repeat the positive test.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="11">
+ <div class="cr-step-num">11</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Inspect trace details for all cases.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Inspect trace details for all cases.)</div>
+ 
+</div>
+ </div>
+</div></div></div>
+<div class="cr-box cr-box-lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Monitoring the homelab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the hands-on part. Follow the numbered steps and keep notes of what you saw.</div>
+ 
+</div><div class="cr-prose-block"><p>Apply the same model to infrastructure without allowing HA to hide faults:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Apply the same model to infrastructure without allowing HA to hide faults:</div>
+ 
+</div></div><div class="cr-prose-block"><ul>
 <li>Trigger: Plex or a monitored endpoint becomes unavailable for a defined duration.</li>
 <li>Condition: maintenance mode is off.</li>
 <li>Action: notify the owner and capture context.</li>
-</ul>
-<p>Auto-restarts can be added only after detecting, confirming, limiting retries, and alerting on repeated failure. Otherwise automation can erase evidence and create restart loops.</p></div>
-<div class="cr-box"><h3>Break/fix</h3><ol>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Trigger: Plex or a monitored endpoint becomes unavailable for a defined duration.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Auto-restarts can be added only after detecting, confirming, limiting retries, and alerting on repeated failure. Otherwise automation can erase evidence and create restart loops.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><ol>
 <li>Change the condition so it is false. Confirm the trace stops at the condition.</li>
 <li>Point the action to a nonexistent entity. Confirm the trigger/condition pass and the action fails.</li>
 <li>Set a delay, trigger twice, and observe mode behavior.</li>
 <li>Disable the automation and confirm manual entity control still works.</li>
-</ol></div>
-<div class="cr-box"><h3>Failure taxonomy</h3><table>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Failure taxonomy</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><table>
 <thead>
 <tr>
 <th>Symptom</th>
@@ -166,20 +436,105 @@ THEN perform actions
 <td>Initialization, unavailable state, or timing</td>
 </tr>
 </tbody>
-</table></div>
-<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Answer in your own words without looking first. This proves you understand, not that you can copy.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If you miss one, re-read that section and try again before the gate.</div>
+</div><div class="cr-prose-block"><ol>
 <li>What is the difference between a trigger and a condition?</li>
 <li>Why test a negative case?</li>
 <li>When is <code>restart</code> mode useful?</li>
 <li>What does an automation trace prove?</li>
 <li>Why should an auto-restart loop have a retry limit?</li>
-</ol></div>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div>
 <div class="cr-check" data-check-id="gate-09">
- <h3>Practical gate — pass before you continue</h3>
- <label><input type="checkbox" data-k="0"> Requirement and acceptance criteria are written.</label><label><input type="checkbox" data-k="1"> Positive test passes.</label><label><input type="checkbox" data-k="2"> Negative test prevents the action.</label><label><input type="checkbox" data-k="3"> Repeated-trigger behavior matches the selected mode.</label><label><input type="checkbox" data-k="4"> The trace identifies each path.</label><label><input type="checkbox" data-k="5"> Restart does not break the automation.</label><label><input type="checkbox" data-k="6"> Failure behavior creates useful evidence.</label>
- <div class="cr-gate">All boxes true → continue</div>
+ <div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical gate — pass before you continue</h3></div>
+ <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
 </div>
-<div class="cr-callout tip"><strong>2026 correction:</strong> <p>Current Home Assistant uses action-oriented terminology in places where old material may say “call service.” Follow the current editor/schema while retaining trigger-condition-action logic and trace-based diagnosis.</p></div>
+ <div class="cr-check-item"><label><input type="checkbox" data-k="0"> <span>Requirement and acceptance criteria are written.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Requirement and acceptance criteria are written.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="1"> <span>Positive test passes.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Positive test passes.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="2"> <span>Negative test prevents the action.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Negative test prevents the action.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="3"> <span>Repeated-trigger behavior matches the selected mode.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Repeated-trigger behavior matches the selected mode.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="4"> <span>The trace identifies each path.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (The trace identifies each path.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="5"> <span>Restart does not break the automation.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="6"> <span>Failure behavior creates useful evidence.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Failure behavior creates useful evidence.)</div>
+ 
+</div></div>
+ <div class="cr-gate">All boxes true → continue to the next class</div>
+</div>
+<div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>Current Home Assistant uses action-oriented terminology in places where old material may say “call service.” Follow the current editor/schema while retaining trigger-condition-action logic and trace-based diagnosis.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Software screens change. The ideas stay. Prefer current official docs when a button moved.</div>
+ 
+</div></div>
  <div class="cr-pager"><a href="08.html">← Class 8</a><a href="10.html">Class 10 →</a></div>
 </div>
 
@@ -189,5 +544,5 @@ THEN perform actions
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921f"></script>
+<script src="/classroom/classroom.js?v=20260921g"></script>
 </body></html>

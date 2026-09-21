@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921f">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921g">
 </head>
 <body>
 
@@ -151,7 +151,14 @@
 </tr>
 </tbody>
 </table></div>
-<div class="cr-box"><h3>Final architecture</h3><pre><code class="language-text">flowchart TD
+<div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Final architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><pre class="cr-diagram">flowchart TD
     U[&quot;User request&quot;] --&gt; S[&quot;Seerr&quot;]
     S --&gt; A[&quot;Sonarr / Radarr&quot;]
     A --&gt; P[&quot;Prowlarr&quot;]
@@ -162,16 +169,37 @@
     H[&quot;Home Assistant&quot;] --&gt; O[&quot;Monitoring + automations&quot;]
     V[&quot;Local voice satellite&quot;] --&gt; H
     H --&gt; V
-</code></pre></div>
-<div class="cr-box"><h3>Stage gates</h3><h3>Gate 1 — Infrastructure</h3>
+</pre></div>
+<div class="cr-box cr-box-gate"><div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical gate</h3></div><h3>Gate 1 — Infrastructure</h3>
 <p>Classes 1–4 must pass before building the media applications. The student can explain persistence, ports, networks, name resolution, logs, health, updates, and rollback.</p>
 <h3>Gate 2 — Media automation</h3>
 <p>Classes 5–7 must pass before automation is considered reliable. The student can trace a request through indexer search, download-client submission, completed-download import, naming, and library discovery.</p>
 <h3>Gate 3 — Home automation</h3>
 <p>Classes 8–10 must pass before remote access is enabled. The student has a current backup, a tested restore path, and denies unauthenticated external access.</p>
 <h3>Gate 4 — Voice</h3>
-<p>Classes 11–13 must pass one component at a time. The full voice pipeline is attempted only after microphone, wake word, STT, intent/action, TTS, and playback pass independently.</p></div>
-<div class="cr-box"><h3>Evidence rule</h3><p>“It seems to work” is not evidence. Acceptable evidence is an observed result tied to a requirement: command output, API test, application test button, log excerpt, screenshot with secrets removed, file metadata, or a repeatable test record.</p></div>
+<p>Classes 11–13 must pass one component at a time. The full voice pipeline is attempted only after microphone, wake word, STT, intent/action, TTS, and playback pass independently.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
+</div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Evidence rule</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>“It seems to work” is not evidence. Acceptable evidence is an observed result tied to a requirement: command output, API test, application test button, log excerpt, screenshot with secrets removed, file metadata, or a repeatable test record.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div></div>
  <div class="cr-pager"><a href="/classroom/">← Academy</a><a href="classes/">Classes →</a></div>
 </div>
 
@@ -181,5 +209,5 @@
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921f"></script>
+<script src="/classroom/classroom.js?v=20260921g"></script>
 </body></html>

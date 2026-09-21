@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921f">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921g">
 </head>
 <body>
 
@@ -64,77 +64,442 @@
 
 <div class="wrap">
  
- <div class="cr-box"><h3>Outcomes</h3><p>You will understand instances, integrations, devices, entities, areas, services/actions, states, dashboards, helpers, add-ons, backups, and the separation between Home Assistant OS and containerized installations.</p></div>
-<div class="cr-box"><h3>Object model</h3><pre><code class="language-text">flowchart TD
-    I[&quot;Integration&quot;] --&gt; D[&quot;Device&quot;]
-    D --&gt; E1[&quot;Entity: power&quot;]
-    D --&gt; E2[&quot;Entity: temperature&quot;]
-    D --&gt; E3[&quot;Entity: availability&quot;]
-    E1 --&gt; A[&quot;Area + dashboard + automation&quot;]
-    E2 --&gt; A
-</code></pre>
-<p>An integration connects Home Assistant to a platform or protocol. A device is a physical or logical product. An entity is one controllable or observable property. Automations usually reason over entity state and invoke actions/services.</p></div>
-<div class="cr-box"><h3>Installation choices</h3><h3>Home Assistant OS</h3>
-<p>A complete managed appliance model with Supervisor and add-on support. It fits well in a dedicated VM and is the course's default for the capstone.</p>
-<h3>Home Assistant Container</h3>
-<p>Runs Home Assistant Core in Docker. The operator manages surrounding services and does not receive the same managed add-on environment. This is valid, but instructions written for add-ons cannot be copied directly.</p>
-<p>Do not combine installation models mentally. First record which model you operate, then follow matching documentation.</p></div>
-<div class="cr-box"><h3>States, actions, and history</h3><p>An entity has a current state plus attributes. An action changes or requests something. A state value can be <code>unknown</code> or <code>unavailable</code>; automations must handle these deliberately.</p>
-<p>Example:</p>
-<pre><code class="language-text">entity_id: light.office
-state: on
-attributes: brightness, color_temp, friendly_name
-</code></pre>
-<p>Home Assistant's developer tools let you inspect live state and manually invoke actions. These are diagnostic instruments, not merely advanced features.</p></div>
-<div class="cr-box"><h3>Naming and areas</h3><p>Assign stable, human-readable names. Avoid encoding temporary room names or manufacturer details into every identity. Areas make dashboards and voice sentences more natural.</p>
-<p>Good entity management supports:</p>
-<ul>
+ <div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Outcomes</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These are the words you will keep hearing. Learn them once so later lessons feel less scary.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a word shows up again, open this section and match it to the table.</div>
+</div><div class="cr-prose-block"><p>You will understand instances, integrations, devices, entities, areas, services/actions, states, dashboards, helpers, add-ons, backups, and the separation between Home Assistant OS and containerized installations.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Object model</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+flowchart TD<br />
+    I["Integration"] --&gt; D["Device"]<br />
+    D --&gt; E1["Entity: power"]<br />
+    D --&gt; E2["Entity: temperature"]<br />
+    D --&gt; E3["Entity: availability"]<br />
+    E1 --&gt; A["Area + dashboard + automation"]<br />
+    E2 --&gt; A</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
+<p>An integration connects Home Assistant to a platform or protocol. A device is a physical or logical product. An entity is one controllable or observable property. Automations usually reason over entity state and invoke actions/services.</p></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Installation choices</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>Home Assistant OS</h4><p>A complete managed appliance model with Supervisor and add-on support. It fits well in a dedicated VM and is the course's default for the capstone.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A complete managed appliance model with Supervisor and add-on support.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Home Assistant Container</h4><p>Runs Home Assistant Core in Docker. The operator manages surrounding services and does not receive the same managed add-on environment. This is valid, but instructions written for add-ons cannot be copied directly.</p>
+<p>Do not combine installation models mentally. First record which model you operate, then follow matching documentation.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>States, actions, and history</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>An entity has a current state plus attributes. An action changes or requests something. A state value can be <code>unknown</code> or <code>unavailable</code>; automations must handle these deliberately.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Example:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Example:</div>
+ 
+</div></div><div class="cr-prose-block cr-prose-code"><p>```text<br />
+entity_id: light.office<br />
+state: on<br />
+attributes: brightness, color_temp, friendly_name</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
+<p>Home Assistant's developer tools let you inspect live state and manually invoke actions. These are diagnostic instruments, not merely advanced features.</p></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Naming and areas</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Assign stable, human-readable names. Avoid encoding temporary room names or manufacturer details into every identity. Areas make dashboards and voice sentences more natural.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Assign stable, human-readable names.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Good entity management supports:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div><div class="cr-prose-block"><ul>
 <li>Readable automations.</li>
 <li>Useful voice commands.</li>
 <li>Faster troubleshooting.</li>
 <li>Migration when hardware changes.</li>
-</ul></div>
-<div class="cr-box"><h3>Backups</h3><p>A backup is valuable only if it can be located, protected, and restored. Record:</p>
-<ul>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Readable automations.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Backups</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>A backup is valuable only if it can be located, protected, and restored. Record:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><ul>
 <li>Backup scope.</li>
 <li>Creation time and HA version.</li>
 <li>Storage location outside the instance.</li>
 <li>Encryption/recovery information if applicable.</li>
 <li>Restore test result.</li>
-</ul>
-<p>Snapshots, VM backups, and HA backups protect different failure modes. Use layers for important systems.</p></div>
-<div class="cr-box cr-box-lab"><h3>Guided lab</h3><ol>
-<li>Deploy Home Assistant OS in the VM design from Class 1, or document the existing supported installation.</li>
-<li>Reserve or otherwise stabilize its LAN address.</li>
-<li>Complete onboarding with a strong unique credential and correct location/time zone.</li>
-<li>Add one safe local integration or built-in demo/test entity.</li>
-<li>Assign the device/entities to an area.</li>
-<li>Rename one entity to a stable meaningful ID before building dependencies on it.</li>
-<li>Build a dashboard card showing current state and control.</li>
-<li>In Developer Tools, inspect the entity's state and attributes.</li>
-<li>Invoke one safe action manually.</li>
-<li>Restart Home Assistant and prove the entity and dashboard return.</li>
-<li>Create a backup and copy it to protected storage.</li>
-<li>Record the restore procedure; use a disposable environment for a full restore test if production risk is unacceptable.</li>
-</ol></div>
-<div class="cr-box"><h3>Break/fix</h3><p>Disable the test integration or disconnect the disposable device. Observe the difference between <code>off</code>, <code>unknown</code>, and <code>unavailable</code>. Restore it and measure recovery time.</p>
-<p>Change only a dashboard card to point to a nonexistent entity. Prove the backend integration still works and repair the presentation layer without re-pairing the device.</p></div>
-<div class="cr-box"><h3>Troubleshooting layers</h3><pre><code class="language-text">Physical power/radio -&gt; IP/protocol -&gt; integration -&gt; device -&gt; entity state -&gt; automation -&gt; dashboard
-</code></pre>
-<p>If the dashboard is wrong but Developer Tools shows correct state, the fault is above the entity layer. If the entity is unavailable, dashboard edits will not repair the integration.</p></div>
-<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Snapshots, VM backups, and HA backups protect different failure modes. Use layers for important systems.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Snapshots, VM backups, and HA backups protect different failure modes.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Deploy Home Assistant OS in the VM design from Class 1, or document the existing supported installation.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Reserve or otherwise stabilize its LAN address.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Reserve or otherwise stabilize its LAN address.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Complete onboarding with a strong unique credential and correct location/time zone.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Complete onboarding with a strong unique credential and correct location/time zone.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Add one safe local integration or built-in demo/test entity.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Assign the device/entities to an area.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Assign the device/entities to an area.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="6">
+ <div class="cr-step-num">6</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Rename one entity to a stable meaningful ID before building dependencies on it.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="7">
+ <div class="cr-step-num">7</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Build a dashboard card showing current state and control.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Build a dashboard card showing current state and control.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="8">
+ <div class="cr-step-num">8</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>In Developer Tools, inspect the entity's state and attributes.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="9">
+ <div class="cr-step-num">9</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Invoke one safe action manually.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Invoke one safe action manually.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="10">
+ <div class="cr-step-num">10</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Restart Home Assistant and prove the entity and dashboard return.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="11">
+ <div class="cr-step-num">11</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Create a backup and copy it to protected storage.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="12">
+ <div class="cr-step-num">12</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Record the restore procedure; use a disposable environment for a full restore test if production risk is unacceptable.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Record the restore procedure; use a disposable environment for a full restore test if production risk is unacceptable.)</div>
+ 
+</div>
+ </div>
+</div></div></div>
+<div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><p>Disable the test integration or disconnect the disposable device. Observe the difference between <code>off</code>, <code>unknown</code>, and <code>unavailable</code>. Restore it and measure recovery time.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Disable the test integration or disconnect the disposable device.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Change only a dashboard card to point to a nonexistent entity. Prove the backend integration still works and repair the presentation layer without re-pairing the device.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-trouble"><div class="cr-box-head"><span class="cr-chip cr-chip-fix">Fix chart</span><h3>Troubleshooting layers</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is your first-aid chart. Match the problem, then try the checks in order.</div>
+ 
+</div><div class="cr-prose-block cr-prose-code"><p>```text<br />
+Physical power/radio -&gt; IP/protocol -&gt; integration -&gt; device -&gt; entity state -&gt; automation -&gt; dashboard</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
+<p>If the dashboard is wrong but Developer Tools shows correct state, the fault is above the entity layer. If the entity is unavailable, dashboard edits will not repair the integration.</p></div></div>
+<div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Answer in your own words without looking first. This proves you understand, not that you can copy.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If you miss one, re-read that section and try again before the gate.</div>
+</div><div class="cr-prose-block"><ol>
 <li>What is the difference between a device and an entity?</li>
 <li>How does Home Assistant OS differ from Home Assistant Container?</li>
 <li>Why should <code>unavailable</code> not be treated as <code>off</code>?</li>
 <li>What evidence makes a backup credible?</li>
 <li>Why assign areas before voice automation?</li>
-</ol></div>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div></div>
 <div class="cr-check" data-check-id="gate-08">
- <h3>Practical gate — pass before you continue</h3>
- <label><input type="checkbox" data-k="0"> Installation model is documented.</label><label><input type="checkbox" data-k="1"> One integration supplies a working entity.</label><label><input type="checkbox" data-k="2"> Entity state and attributes can be inspected.</label><label><input type="checkbox" data-k="3"> A safe manual action succeeds.</label><label><input type="checkbox" data-k="4"> Dashboard survives restart.</label><label><input type="checkbox" data-k="5"> A current backup exists outside the instance.</label><label><input type="checkbox" data-k="6"> The student can locate the appropriate restore procedure.</label>
- <div class="cr-gate">All boxes true → continue</div>
+ <div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical gate — pass before you continue</h3></div>
+ <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
 </div>
-<div class="cr-callout tip"><strong>2026 correction:</strong> <p>Home Assistant navigation and terminology change frequently. Use current official documentation for exact menu paths. Preserve the object model and verification steps even when the UI labels differ from the lecture.</p></div>
+ <div class="cr-check-item"><label><input type="checkbox" data-k="0"> <span>Installation model is documented.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Installation model is documented.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="1"> <span>One integration supplies a working entity.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="2"> <span>Entity state and attributes can be inspected.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="3"> <span>A safe manual action succeeds.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (A safe manual action succeeds.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="4"> <span>Dashboard survives restart.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Dashboard survives restart.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="5"> <span>A current backup exists outside the instance.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="6"> <span>The student can locate the appropriate restore procedure.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (The student can locate the appropriate restore procedure.)</div>
+ 
+</div></div>
+ <div class="cr-gate">All boxes true → continue to the next class</div>
+</div>
+<div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>Home Assistant navigation and terminology change frequently. Use current official documentation for exact menu paths. Preserve the object model and verification steps even when the UI labels differ from the lecture.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Software screens change. The ideas stay. Prefer current official docs when a button moved.</div>
+ 
+</div></div>
  <div class="cr-pager"><a href="07.html">← Class 7</a><a href="09.html">Class 9 →</a></div>
 </div>
 
@@ -144,5 +509,5 @@ attributes: brightness, color_temp, friendly_name
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921f"></script>
+<script src="/classroom/classroom.js?v=20260921g"></script>
 </body></html>

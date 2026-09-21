@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921f">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921g">
 </head>
 <body>
 
@@ -61,8 +61,29 @@
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Mission scenario</h3><p>Build and demonstrate a homelab where an authorized user can request permitted media, trace the request through the ARR pipeline, discover the imported item in a media server, ask Home Assistant whether the media service is online, and receive a local spoken response. Core local tests must pass with WAN disconnected.</p></div>
-<div class="cr-box"><h3>Required architecture</h3><pre><code class="language-text">flowchart TD
+ <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Mission scenario</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Build and demonstrate a homelab where an authorized user can request permitted media, trace the request through the ARR pipeline, discover the imported item in a media server, ask Home Assistant whether the media service is online, and receive a local spoken response. Core local tests must pass with WAN disconnected.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Required architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><pre class="cr-diagram">flowchart TD
     U[&quot;Authorized user&quot;] --&gt; S[&quot;Seerr request&quot;]
     S --&gt; R[&quot;Sonarr / Radarr&quot;]
     R --&gt; P[&quot;Prowlarr&quot;]
@@ -73,16 +94,37 @@
     V[&quot;Voice satellite&quot;] --&gt; H[&quot;Home Assistant&quot;]
     H --&gt; X[&quot;Media health sensor&quot;]
     H --&gt; V
-</code></pre></div>
-<div class="cr-box"><h3>Constraints</h3><ul>
+</pre></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Constraints</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>Use only authorized indexers, sources, and test media.</li>
 <li>No administrative application is directly exposed to the public internet.</li>
 <li>Every stateful service has a current backup and documented restore target.</li>
 <li>Persistent paths, identities, networks, and ports are documented.</li>
 <li>One source of truth owns automated quality/profile configuration.</li>
 <li>Voice STT and TTS run locally for the offline requirement.</li>
-</ul></div>
-<div class="cr-box"><h3>Verification matrix</h3><table>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-trouble"><div class="cr-box-head"><span class="cr-chip cr-chip-fix">Fix chart</span><h3>Verification matrix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Match your symptom, then check the short list.</div>
+ 
+</div><div class="cr-prose-block"><table>
 <thead>
 <tr>
 <th>ID</th>
@@ -201,8 +243,22 @@
 <td>Service returns with verified state</td>
 </tr>
 </tbody>
-</table></div>
-<div class="cr-box"><h3>Demonstration sequence</h3><ol>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Match your symptom, then check the short list.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Demonstration sequence</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Present the architecture and inventory.</li>
 <li>Show Compose validation and running health state.</li>
 <li>Demonstrate persistent data after recreation.</li>
@@ -218,9 +274,29 @@
 <li>Restore WAN and verify normal operation.</li>
 <li>Introduce one hidden fault and diagnose it by boundary.</li>
 <li>Show backups and execute one safe restoration in a disposable target.</li>
-</ol></div>
-<div class="cr-box"><h3>Critical failures</h3><p>Any of the following prevents a pass until corrected:</p>
-<ul>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Sync means copy the settings from one app into another so they match.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Critical failures</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Any of the following prevents a pass until corrected:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Any of the following prevents a pass until corrected:</div>
+ 
+</div></div><div class="cr-prose-block"><ul>
 <li>Public unauthenticated admin interface.</li>
 <li>Secrets in submitted screenshots/configuration.</li>
 <li>No recovery copy for stateful configuration.</li>
@@ -228,8 +304,22 @@
 <li>Quality automation applied broadly without backup or behavioral test.</li>
 <li>Voice “local” claim without a WAN-disconnect demonstration.</li>
 <li>Destructive testing against irreplaceable data.</li>
-</ul></div>
-<div class="cr-box"><h3>Final score</h3><table>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Final score</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><table>
 <thead>
 <tr>
 <th>Category</th>
@@ -270,8 +360,21 @@
 <td style="text-align: right;"><strong>100</strong></td>
 </tr>
 </tbody>
-</table>
-<p>Pass requires at least 80 points and zero unresolved critical failures.</p></div>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Pass requires at least 80 points and zero unresolved critical failures.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Pass requires at least 80 points and zero unresolved critical failures.</div>
+ 
+</div></div></div>
  <div class="cr-pager"><a href="classes/13.html">← Class 13</a><a href="/classroom/">Academy →</a></div>
 </div>
 
@@ -281,5 +384,5 @@
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921f"></script>
+<script src="/classroom/classroom.js?v=20260921g"></script>
 </body></html>

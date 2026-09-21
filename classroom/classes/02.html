@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921f">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921g">
 </head>
 <body>
 
@@ -64,8 +64,21 @@
 
 <div class="wrap">
  
- <div class="cr-box"><h3>Outcomes and vocabulary</h3><p>You will distinguish image, container, registry, service, volume, and bind mount; read YAML; convert <code>docker run</code> intent into Compose; manage environment values; publish ports; add healthchecks; and prove data persistence.</p>
-<table>
+ <div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Outcomes and vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These are the words you will keep hearing. Learn them once so later lessons feel less scary.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a word shows up again, open this section and match it to the table.</div>
+</div><div class="cr-prose-block"><p>You will distinguish image, container, registry, service, volume, and bind mount; read YAML; convert <code>docker run</code> intent into Compose; manage environment values; publish ports; add healthchecks; and prove data persistence.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This connects a real folder on your computer into the container so data can stay.</div>
+ 
+</div></div><div class="cr-prose-block"><table>
 <thead>
 <tr>
 <th>Term</th>
@@ -110,8 +123,22 @@
 <td>Command that reports application readiness/health</td>
 </tr>
 </tbody>
-</table></div>
-<div class="cr-box"><h3>Lesson</h3><p>A long <code>docker run</code> command records configuration only in shell history and human memory. Compose stores the desired state in a file that can be reviewed, versioned without secrets, validated, and redeployed.</p>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These are the words you will keep hearing. Learn them once so later lessons feel less scary.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Lesson</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching part. Read it slowly. The lab comes next so you can try the idea with your hands.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a paragraph feels dense, tap What this means under that block.</div>
+</div><div class="cr-prose-block"><p>A long <code>docker run</code> command records configuration only in shell history and human memory. Compose stores the desired state in a file that can be reviewed, versioned without secrets, validated, and redeployed.</p>
 <pre><code class="language-text">flowchart TD
     Y[&quot;compose.yaml&quot;] --&gt; C[&quot;Docker Compose&quot;]
     C --&gt; W[&quot;web service&quot;]
@@ -127,31 +154,65 @@
       - &quot;8080:80&quot;
     restart: unless-stopped
 </code></pre>
-<p>The left side of <code>8080:80</code> is the host port; the right side is the port inside the container.</p>
-<h3>Persistence</h3>
-<p>Containers are replaceable. Persistent state must live outside the writable container layer.</p>
+<p>The left side of <code>8080:80</code> is the host port; the right side is the port inside the container.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Persistence</h4><p>Containers are replaceable. Persistent state must live outside the writable container layer.</p>
 <pre><code class="language-yaml">services:
   app:
     image: example/app:1.2.3
     volumes:
       - ./config:/config
 </code></pre>
-<p>Destroying and recreating the container should not destroy <code>./config</code>. This is a requirement to test, not an assumption.</p>
-<h3>Paths and identity</h3>
-<p>Linux container processes use numeric user and group IDs. A container can see a bind-mounted path yet fail to write if the host permissions do not match the container identity. Record PUID/PGID or equivalent ownership decisions in the service contract.</p>
-<p>Windows students should run the production-like lab inside the Linux VM from Class 1. Windows path syntax, Desktop file sharing, WSL filesystems, and case sensitivity add variables that distract from the container model.</p>
-<h3>Secrets</h3>
-<p>An <code>.env</code> file can reduce repetition, but it is not encryption. Do not commit API keys, passwords, or tunnel tokens. Prefer purpose-built secrets mechanisms where supported, restrict file permissions, and keep a safe recovery record.</p>
-<h3>Lifecycle</h3>
-<pre><code class="language-bash">docker compose config
+<p>Destroying and recreating the container should not destroy <code>./config</code>. This is a requirement to test, not an assumption.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> YAML is the indented text file that describes your services. Spaces matter.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Paths and identity</h4><p>Linux container processes use numeric user and group IDs. A container can see a bind-mounted path yet fail to write if the host permissions do not match the container identity. Record PUID/PGID or equivalent ownership decisions in the service contract.</p>
+<p>Windows students should run the production-like lab inside the Linux VM from Class 1. Windows path syntax, Desktop file sharing, WSL filesystems, and case sensitivity add variables that distract from the container model.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Secrets</h4><p>An <code>.env</code> file can reduce repetition, but it is not encryption. Do not commit API keys, passwords, or tunnel tokens. Prefer purpose-built secrets mechanisms where supported, restrict file permissions, and keep a safe recovery record.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This path is about safe remote reach or private download traffic — not opening every admin page to the world.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Lifecycle</h4><pre><code class="language-bash">docker compose config
 docker compose pull
 docker compose up -d
 docker compose ps
 docker compose logs --tail=100
 docker compose down
 </code></pre>
-<p><code>config</code> validates and renders the model. <code>pull</code> downloads declared images. <code>up -d</code> reconciles running resources to the file. <code>down</code> removes project containers and networks; adding <code>-v</code> can remove volumes and is therefore not used casually.</p></div>
-<div class="cr-box cr-box-lab"><h3>Guided lab</h3><p>Create a directory containing this safe learning project:</p>
+<p><code>config</code> validates and renders the model. <code>pull</code> downloads declared images. <code>up -d</code> reconciles running resources to the file. <code>down</code> removes project containers and networks; adding <code>-v</code> can remove volumes and is therefore not used casually.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-prose-block"><p>Create a directory containing this safe learning project:</p>
 <pre><code class="language-yaml">name: compose-lab
 services:
   web:
@@ -167,47 +228,210 @@ services:
       timeout: 5s
       retries: 3
 </code></pre>
-<p>Create <code>site/index.html</code> containing a unique lab phrase. If the image lacks the healthcheck command, replace the healthcheck with one supported by the selected image rather than declaring the application broken.</p>
-<ol>
-<li>Run <code>docker compose config</code> and resolve all warnings/errors.</li>
-<li>Run <code>docker compose up -d</code>.</li>
-<li>Visit <code>http://DOCKER-HOST:8080</code>.</li>
-<li>Record <code>docker compose ps</code> and the health state.</li>
-<li>Edit the host file and refresh the browser to prove the bind mount.</li>
-<li>Run <code>docker compose down</code>, then <code>docker compose up -d</code>.</li>
-<li>Prove the unique content remains.</li>
-</ol>
-<h3>ARR path design preview</h3>
-<p>The later stack uses consistent paths so the downloader and importers describe the same files the same way:</p>
-<pre><code class="language-text">/data
-  /torrents
-  /usenet
-  /media
-    /movies
-    /tv
-</code></pre>
-<p>Avoid separate, unrelated mounts such as <code>/downloads</code> in one container and <code>/incoming</code> in another. They can be mapped correctly, but beginners often create remote-path and hardlink problems.</p></div>
-<div class="cr-box"><h3>Break/fix</h3><p>Perform these faults one at a time:</p>
-<ol>
+<p>Create <code>site/index.html</code> containing a unique lab phrase. If the image lacks the healthcheck command, replace the healthcheck with one supported by the selected image rather than declaring the application broken.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Run <code>docker compose config</code> and resolve all warnings/errors.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Run <code>docker compose up -d</code>.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Visit <code>http://DOCKER-HOST:8080</code>.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Visit that command.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Record <code>docker compose ps</code> and the health state.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Edit the host file and refresh the browser to prove the bind mount.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This connects a real folder on your computer into the container so data can stay.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="6">
+ <div class="cr-step-num">6</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Run <code>docker compose down</code>, then <code>docker compose up -d</code>.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="7">
+ <div class="cr-step-num">7</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Prove the unique content remains.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Prove the unique content remains.)</div>
+ 
+</div>
+ </div>
+</div></div></div>
+<div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><p>Perform these faults one at a time:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Perform these faults one at a time:</div>
+ 
+</div></div><div class="cr-prose-block"><ol>
 <li>Change the published host port to one already in use. Read the bind error and restore it.</li>
 <li>Introduce one indentation error. Use <code>docker compose config</code> to locate it.</li>
 <li>Remove write permission from a test writable directory. Observe the application log, inspect numeric ownership, then restore only the required access.</li>
 <li>Change an image tag, pull, recreate, verify, then roll back to the recorded prior tag.</li>
-</ol></div>
-<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Answer in your own words without looking first. This proves you understand, not that you can copy.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If you miss one, re-read that section and try again before the gate.</div>
+</div><div class="cr-prose-block"><ol>
 <li>Why should persistent data not remain only in the container layer?</li>
 <li>In <code>8080:80</code>, which is the host port?</li>
 <li>What does <code>docker compose config</code> prove?</li>
 <li>Is <code>.env</code> encryption?</li>
 <li>What is the difference between an image and a container?</li>
 <li>Why can a mounted directory be visible but not writable?</li>
-</ol></div>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div></div>
 <div class="cr-check" data-check-id="gate-02">
- <h3>Practical gate — pass before you continue</h3>
- <label><input type="checkbox" data-k="0"> Compose validates.</label><label><input type="checkbox" data-k="1"> The service is reachable on the documented host port.</label><label><input type="checkbox" data-k="2"> Configuration/content survives `down` and `up`.</label><label><input type="checkbox" data-k="3"> Logs and health status can be retrieved.</label><label><input type="checkbox" data-k="4"> The student can identify every mount&#x27;s host and container side.</label><label><input type="checkbox" data-k="5"> No real secret is stored in a tracked course file.</label>
- <div class="cr-gate">All boxes true → continue</div>
+ <div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical gate — pass before you continue</h3></div>
+ <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
 </div>
-<div class="cr-callout tip"><strong>2026 correction:</strong> <p>Use <code>docker compose</code> (Compose v2 plugin) in current environments. Old tutorials may use the standalone <code>docker-compose</code> command or obsolete schema keys. Validate against current Docker Compose documentation.</p></div>
+ <div class="cr-check-item"><label><input type="checkbox" data-k="0"> <span>Compose validates.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Compose validates.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="1"> <span>The service is reachable on the documented host port.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="2"> <span>Configuration/content survives `down` and `up`.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Configuration/content survives that command and that command.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="3"> <span>Logs and health status can be retrieved.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="4"> <span>The student can identify every mount&#x27;s host and container side.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (The student can identify every mount&#x27;s host and container side.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="5"> <span>No real secret is stored in a tracked course file.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (No real secret is stored in a tracked course file.)</div>
+ 
+</div></div>
+ <div class="cr-gate">All boxes true → continue to the next class</div>
+</div>
+<div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>Use <code>docker compose</code> (Compose v2 plugin) in current environments. Old tutorials may use the standalone <code>docker-compose</code> command or obsolete schema keys. Validate against current Docker Compose documentation.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Software screens change. The ideas stay. Prefer current official docs when a button moved.</div>
+ 
+</div></div>
  <div class="cr-pager"><a href="01.html">← Class 1</a><a href="03.html">Class 3 →</a></div>
 </div>
 
@@ -217,5 +441,5 @@ services:
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921f"></script>
+<script src="/classroom/classroom.js?v=20260921g"></script>
 </body></html>

@@ -9,11 +9,22 @@ from pathlib import Path
 
 import markdown
 
+from _plain_help import (
+    extract_h3_blocks,
+    extract_numbered_steps,
+    help_widget,
+    kind_badge,
+    kind_class,
+    plain_for_paragraph,
+    plain_for_section,
+    plain_for_step,
+)
+
 SITE = Path("/root/otaconskeep-site/classroom")
 PACK = SITE / "pack"
 CLASSES_DIR = SITE / "classes"
 GH = Path("/root/Classroom")
-CSS_V = "20260921f"
+CSS_V = "20260921g"
 
 NAV = f'''<nav class="topnav">
  <div class="wrap">
@@ -250,28 +261,197 @@ def render_gate(body_md: str, cid: str) -> str:
         m = re.match(r"- \[[ xX]?\]\s*(.+)", line.strip())
         if m:
             items.append(m.group(1).strip())
+    mean, more = plain_for_section("practical gate", "gate")
     if not items:
-        return f'<div class="cr-box"><h3>Practical gate</h3>{md_fragment(body_md)}</div>'
+        return (
+            f'<div class="cr-box cr-box-gate"><div class="cr-box-head">{kind_badge("gate")}<h3>Practical gate</h3></div>'
+            f"{md_fragment(body_md)}{help_widget(mean, more)}</div>"
+        )
     boxes = "".join(
-        f'<label><input type="checkbox" data-k="{i}"> {H.escape(t)}</label>'
+        f'<div class="cr-check-item">'
+        f'<label><input type="checkbox" data-k="{i}"> '
+        f"<span>{H.escape(t)}</span></label>"
+        f"{help_widget(plain_for_step(t))}"
+        f"</div>"
         for i, t in enumerate(items)
     )
     return f'''<div class="cr-check" data-check-id="{H.escape(cid)}">
- <h3>Practical gate — pass before you continue</h3>
+ <div class="cr-box-head">{kind_badge("gate")}<h3>Practical gate — pass before you continue</h3></div>
+ {help_widget(mean, more)}
  {boxes}
- <div class="cr-gate">All boxes true → continue</div>
+ <div class="cr-gate">All boxes true → continue to the next class</div>
 </div>'''
+
+
+def render_lab_steps(steps: list[str], title: str) -> str:
+    mean, more = plain_for_section(title, "lab")
+    cards = []
+    for i, step in enumerate(steps, 1):
+        cards.append(
+            f'''<div class="cr-step" data-step="{i}">
+ <div class="cr-step-num">{i}</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text">{md_fragment(step)}</div>
+  {help_widget(plain_for_step(step))}
+ </div>
+</div>'''
+        )
+    return (
+        f'<div class="{kind_class("lab")}" id="lab">'
+        f'<div class="cr-box-head">{kind_badge("lab")}<h3>{H.escape(title)}</h3></div>'
+        f"{help_widget(mean, more)}"
+        f'<div class="cr-step-list">{"".join(cards)}</div>'
+        f"</div>"
+    )
+
+
+def render_break_blocks(blocks: list[tuple[str, str]], title: str) -> str:
+    mean, more = plain_for_section(title, "break")
+    parts = [help_widget(mean, more)]
+    for sub, body in blocks:
+        if not sub and not body:
+            continue
+        head = f"<h4>{H.escape(sub)}</h4>" if sub else ""
+        parts.append(
+            f'<div class="cr-break-card">'
+            f"{head}{md_fragment(body)}"
+            f"{help_widget(plain_for_paragraph(body) if body else plain_for_step(sub))}"
+            f"</div>"
+        )
+    return (
+        f'<div class="{kind_class("break")}">'
+        f'<div class="cr-box-head">{kind_badge("break")}<h3>{H.escape(title)}</h3></div>'
+        f'{"".join(parts)}</div>'
+    )
+
+
+def render_prose_with_help(body: str, kind: str, title: str) -> str:
+    """Split ### blocks or paragraphs and attach plain-language help."""
+    mean, more = plain_for_section(title, kind)
+    chunks = []
+    h3s = extract_h3_blocks(body)
+    if h3s:
+        for sub, text in h3s:
+            if not text and not sub:
+                continue
+            head = f"<h4>{H.escape(sub)}</h4>" if sub else ""
+            chunks.append(
+                f'<div class="cr-prose-block">{head}{md_fragment(text)}'
+                f"{help_widget(plain_for_paragraph(text) or plain_for_step(sub or title))}</div>"
+            )
+    else:
+        # Split on blank lines into paragraph groups; keep code fences intact
+        pieces = re.split(r"\n(?=```)", body)
+        buf = []
+        for piece in pieces:
+            if piece.startswith("```"):
+                if buf:
+                    text = "\n\n".join(buf).strip()
+                    if text:
+                        chunks.append(
+                            f'<div class="cr-prose-block">{md_fragment(text)}'
+                            f"{help_widget(plain_for_paragraph(text))}</div>"
+                        )
+                    buf = []
+                chunks.append(f'<div class="cr-prose-block cr-prose-code">{md_fragment(piece)}</div>')
+            else:
+                paras = [p.strip() for p in re.split(r"\n\s*\n", piece) if p.strip()]
+                for p in paras:
+                    # tables stay as one block
+                    if p.lstrip().startswith("|"):
+                        chunks.append(
+                            f'<div class="cr-prose-block">{md_fragment(p)}'
+                            f"{help_widget(plain_for_section(title, kind)[0])}</div>"
+                        )
+                    else:
+                        chunks.append(
+                            f'<div class="cr-prose-block">{md_fragment(p)}'
+                            f"{help_widget(plain_for_paragraph(p))}</div>"
+                        )
+    return (
+        f'<div class="{kind_class(kind)}">'
+        f'<div class="cr-box-head">{kind_badge(kind)}<h3>{H.escape(title)}</h3></div>'
+        f"{help_widget(mean, more)}"
+        f'{"".join(chunks)}</div>'
+    )
 
 
 def render_section(h2: str, body: str, class_id: str) -> str:
     kind = SECTION_KIND.get(h2.lower().strip(), "box")
-    title = H.escape(h2)
+    # Fuzzy kind from title words
+    low = h2.lower()
+    if kind == "box":
+        if "lab" in low:
+            kind = "lab"
+        elif "break" in low or "fix" in low and "exercise" in low:
+            kind = "break"
+        elif "vocab" in low or "outcome" in low:
+            kind = "vocab"
+        elif "architect" in low or "diagram" in low or "flow" in low:
+            kind = "diagram"
+        elif "trouble" in low or "matrix" in low:
+            kind = "trouble"
+        elif "knowledge" in low or "quiz" in low or "check" in low:
+            kind = "quiz"
+        elif "gate" in low:
+            kind = "gate"
+        elif "correction" in low or "scope" in low or "legal" in low:
+            kind = "tip"
+
     if kind == "gate":
         return render_gate(body, f"gate-{class_id}")
+
+    if kind == "lab":
+        steps = extract_numbered_steps(body)
+        if steps:
+            # Preserve any preamble before the numbered list
+            pre = []
+            for line in body.splitlines():
+                if re.match(r"^\d+\.\s+", line.strip()):
+                    break
+                pre.append(line)
+            preamble = "\n".join(pre).strip()
+            out = render_lab_steps(steps, h2)
+            if preamble:
+                mean, more = plain_for_section(h2, "lab")
+                out = (
+                    f'<div class="{kind_class("lab")}" id="lab">'
+                    f'<div class="cr-box-head">{kind_badge("lab")}<h3>{H.escape(h2)}</h3></div>'
+                    f"{help_widget(mean, more)}"
+                    f'<div class="cr-prose-block">{md_fragment(preamble)}</div>'
+                    f'<div class="cr-step-list">'
+                    + "".join(
+                        f'''<div class="cr-step" data-step="{i}">
+ <div class="cr-step-num">{i}</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text">{md_fragment(step)}</div>
+  {help_widget(plain_for_step(step))}
+ </div>
+</div>'''
+                        for i, step in enumerate(steps, 1)
+                    )
+                    + "</div></div>"
+                )
+            return out
+        return render_prose_with_help(body, "lab", h2)
+
+    if kind == "break":
+        blocks = extract_h3_blocks(body)
+        if blocks:
+            return render_break_blocks(blocks, h2)
+        return render_prose_with_help(body, "break", h2)
+
+    if kind == "tip":
+        mean, more = plain_for_section(h2, "tip")
+        return (
+            f'<div class="cr-callout tip">'
+            f'<div class="cr-box-head">{kind_badge("tip")}<strong>{H.escape(h2)}</strong></div>'
+            f"{md_fragment(body)}{help_widget(mean, more)}</div>"
+        )
+
     if kind == "diagram":
-        # Prefer pre diagrams for ASCII / flowchart text
+        mean, more = plain_for_section(h2, "diagram")
         inner = md_fragment(body)
-        # Promote fenced code to cr-diagram when it's architecture
         inner = re.sub(
             r"<pre><code[^>]*>(.*?)</code></pre>",
             lambda m: f'<pre class="cr-diagram">{m.group(1)}</pre>',
@@ -279,21 +459,13 @@ def render_section(h2: str, body: str, class_id: str) -> str:
             flags=re.S,
             count=1,
         )
-        return f'<div class="cr-box"><h3>{title}</h3>{inner}</div>'
-    if kind == "tip":
-        return f'<div class="cr-callout tip"><strong>{title}:</strong> {md_fragment(body)}</div>'
-    if kind == "lab":
-        return f'<div class="cr-box cr-box-lab"><h3>{title}</h3>{md_fragment(body)}</div>'
-    if kind == "break":
-        return f'<div class="cr-box cr-box-break"><h3>{title}</h3>{md_fragment(body)}</div>'
-    if kind == "quiz":
-        return f'<div class="cr-box cr-box-quiz"><h3>{title}</h3>{md_fragment(body)}</div>'
-    if kind == "vocab":
-        return f'<div class="cr-box"><h3>{title}</h3>{md_fragment(body)}</div>'
-    if kind == "trouble":
-        return f'<div class="cr-box"><h3>{title}</h3>{md_fragment(body)}</div>'
-    return f'<div class="cr-box"><h3>{title}</h3>{md_fragment(body)}</div>'
+        return (
+            f'<div class="{kind_class("diagram")}">'
+            f'<div class="cr-box-head">{kind_badge("diagram")}<h3>{H.escape(h2)}</h3></div>'
+            f"{help_widget(mean, more)}{inner}</div>"
+        )
 
+    return render_prose_with_help(body, kind, h2)
 
 def render_doc_page(md_text: str, page_title: str, lede: str | None = None) -> str:
     """Generic pack markdown → sectioned cr-boxes (for workbook/map/etc)."""

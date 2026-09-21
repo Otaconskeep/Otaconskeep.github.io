@@ -59,9 +59,9 @@
     });
   }
 
-  function closestStep(el) {
+  function closestHelp(el) {
     while (el && el !== document) {
-      if (el.classList && el.classList.contains('cr-step')) return el;
+      if (el.classList && el.classList.contains('cr-help')) return el;
       el = el.parentNode;
     }
     return null;
@@ -79,16 +79,18 @@
     }
     var btn = e.target.closest && e.target.closest('.cr-btn[data-cr]');
     if (!btn) return;
-    var step = closestStep(btn);
-    if (!step) return;
+    e.preventDefault();
+    e.stopPropagation();
+    var help = closestHelp(btn);
+    if (!help) return;
     var kind = btn.getAttribute('data-cr');
-    var panel = step.querySelector('.cr-panel.' + (kind === 'mean' ? 'mean' : 'more'));
+    var panel = help.querySelector('.cr-panel.' + (kind === 'mean' ? 'mean' : 'more'));
     if (!panel) return;
     var open = btn.getAttribute('aria-expanded') === 'true';
-    step.querySelectorAll('.cr-btn[data-cr]').forEach(function (b) {
+    help.querySelectorAll('.cr-btn[data-cr]').forEach(function (b) {
       if (b !== btn) b.setAttribute('aria-expanded', 'false');
     });
-    step.querySelectorAll('.cr-panel').forEach(function (p) {
+    help.querySelectorAll('.cr-panel').forEach(function (p) {
       if (p !== panel) p.hidden = true;
     });
     btn.setAttribute('aria-expanded', open ? 'false' : 'true');

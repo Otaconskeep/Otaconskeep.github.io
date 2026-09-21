@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921f">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921g">
 </head>
 <body>
 
@@ -64,8 +64,29 @@
 
 <div class="wrap">
  
- <div class="cr-box"><h3>Outcomes</h3><p>You will understand default and user-defined bridges, embedded DNS, port publishing, host networking, <code>none</code>, MACVLAN, IPVLAN, overlay networks, and why the ARR stack normally starts with a user-defined bridge.</p></div>
-<div class="cr-box"><h3>Core model</h3><p>Docker networking has two separate jobs:</p>
+ <div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Outcomes</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These are the words you will keep hearing. Learn them once so later lessons feel less scary.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a word shows up again, open this section and match it to the table.</div>
+</div><div class="cr-prose-block"><p>You will understand default and user-defined bridges, embedded DNS, port publishing, host networking, <code>none</code>, MACVLAN, IPVLAN, overlay networks, and why the ARR stack normally starts with a user-defined bridge.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core model</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Docker networking has two separate jobs:</p>
 <ol>
 <li>Let containers communicate with each other.</li>
 <li>Decide which services are reachable from the host or other networks.</li>
@@ -76,9 +97,14 @@
     S --&gt;|&quot;prowlarr:9696&quot;| P[&quot;Prowlarr&quot;]
     S --&gt;|&quot;qbittorrent:8080&quot;| Q[&quot;qBittorrent&quot;]
 </code></pre>
-<p>Inside a container, <code>localhost</code> means that container. Sonarr calling <code>localhost:9696</code> attempts to reach Sonarr, not Prowlarr. On a user-defined bridge, call <code>http://prowlarr:9696</code> using the Compose service name.</p>
-<h3>Drivers</h3>
-<table>
+<p>Inside a container, <code>localhost</code> means that container. Sonarr calling <code>localhost:9696</code> attempts to reach Sonarr, not Prowlarr. On a user-defined bridge, call <code>http://prowlarr:9696</code> using the Compose service name.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Drivers</h4><table>
 <thead>
 <tr>
 <th>Driver/mode</th>
@@ -124,10 +150,29 @@
 </tr>
 </tbody>
 </table>
-<p>User-defined bridges provide predictable grouping and automatic name resolution. Port publishing is still needed for LAN users to access a service, but container-to-container calls do not need a published host port when both services share the network.</p>
-<h3>Exposure and isolation</h3>
-<p>Do not publish every internal service simply because you can. A database used only by one application can remain reachable only on its Docker network. ARR web interfaces normally remain LAN-only or VPN-protected.</p></div>
-<div class="cr-box cr-box-lab"><h3>Guided lab</h3><p>Create this project:</p>
+<p>User-defined bridges provide predictable grouping and automatic name resolution. Port publishing is still needed for LAN users to access a service, but container-to-container calls do not need a published host port when both services share the network.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Exposure and isolation</h4><p>Do not publish every internal service simply because you can. A database used only by one application can remain reachable only on its Docker network. ARR web interfaces normally remain LAN-only or VPN-protected.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A Docker network is a private chat room so containers can find each other by name.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-prose-block"><p>Create this project:</p>
 <pre><code class="language-yaml">name: network-lab
 services:
   responder:
@@ -148,45 +193,158 @@ docker compose exec tester curl -I http://responder:80
 docker network inspect media_net
 </code></pre>
 <p>Expected behavior: the tester resolves <code>responder</code> and receives an HTTP response, even though the responder has no published host port.</p>
-<p>Add a published port to the responder, recreate it, and test from the LAN. Record the difference between internal service discovery and host-port access.</p>
-<h3>Apply the model to media services</h3>
-<p>The later configuration uses names such as:</p>
+<p>Add a published port to the responder, recreate it, and test from the LAN. Record the difference between internal service discovery and host-port access.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Apply the model to media services</h4><p>The later configuration uses names such as:</p>
 <pre><code class="language-text">Sonarr -&gt; http://prowlarr:9696
 Sonarr -&gt; http://qbittorrent:8080
 Radarr -&gt; http://sabnzbd:8080
 </code></pre>
-<p>The exact ports depend on the application configuration. Record them in <code>templates/service_contract.csv</code>; do not guess.</p></div>
-<div class="cr-box"><h3>Break/fix</h3><ol>
+<p>The exact ports depend on the application configuration. Record them in <code>templates/service_contract.csv</code>; do not guess.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The later configuration uses names such as:
+
+``this setting``
+
+The exact ports depend on the application configuration.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><ol>
 <li>Disconnect <code>tester</code> from <code>media_net</code> with <code>docker network disconnect media_net network-lab-tester-1</code> using the actual container name from <code>docker compose ps</code>.</li>
 <li>Confirm name resolution or connectivity fails.</li>
 <li>Reconnect it and retest.</li>
 <li>Replace <code>responder</code> with <code>localhost</code> in the curl call and explain why it fails.</li>
 <li>Publish a port only on <code>127.0.0.1</code> and compare host-local access with LAN access.</li>
-</ol>
-<p>Troubleshooting order:</p>
-<pre><code class="language-text">running container -&gt; shared network -&gt; DNS name -&gt; destination port -&gt; listener -&gt; application auth -&gt; firewall/routing
-</code></pre></div>
-<div class="cr-box"><h3>Common mistakes</h3><ul>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Troubleshooting order:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Troubleshooting order:</div>
+ 
+</div></div><div class="cr-prose-block cr-prose-code"><p>```text<br />
+running container -&gt; shared network -&gt; DNS name -&gt; destination port -&gt; listener -&gt; application auth -&gt; firewall/routing</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Common mistakes</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>Using host LAN IPs for all internal calls and creating unnecessary hairpin paths.</li>
 <li>Assuming <code>localhost</code> refers to the Docker host.</li>
 <li>Adding <code>network_mode: host</code> as a universal fix.</li>
 <li>Using MACVLAN before checking parent interface, switch port, Wi-Fi limitations, and host-to-container reachability.</li>
 <li>Publishing database or admin ports to every interface.</li>
 <li>Debugging authentication before proving TCP reachability.</li>
-</ul></div>
-<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Answer in your own words without looking first. This proves you understand, not that you can copy.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If you miss one, re-read that section and try again before the gate.</div>
+</div><div class="cr-prose-block"><ol>
 <li>What does <code>localhost</code> mean inside Sonarr's container?</li>
 <li>Why is a user-defined bridge better than the legacy default for a Compose stack?</li>
 <li>Does container-to-container traffic require a published host port?</li>
 <li>When is overlay networking relevant?</li>
 <li>Why is host networking not a harmless troubleshooting switch?</li>
-</ol></div>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div></div>
 <div class="cr-check" data-check-id="gate-03">
- <h3>Practical gate — pass before you continue</h3>
- <label><input type="checkbox" data-k="0"> Two containers communicate by service name.</label><label><input type="checkbox" data-k="1"> The student proves an unexposed service is unreachable from the LAN.</label><label><input type="checkbox" data-k="2"> Internal and external addresses are recorded separately.</label><label><input type="checkbox" data-k="3"> A deliberate network disconnect is diagnosed and repaired.</label><label><input type="checkbox" data-k="4"> No ARR/downloader admin interface is publicly exposed.</label>
- <div class="cr-gate">All boxes true → continue</div>
+ <div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical gate — pass before you continue</h3></div>
+ <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
 </div>
-<div class="cr-callout tip"><strong>2026 correction:</strong> <p>The lecture's driver survey is valuable, but a single-host ARR stack rarely needs MACVLAN, IPVLAN, or overlay networking. Start with a user-defined bridge and adopt advanced drivers only from an explicit requirement.</p></div>
+ <div class="cr-check-item"><label><input type="checkbox" data-k="0"> <span>Two containers communicate by service name.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="1"> <span>The student proves an unexposed service is unreachable from the LAN.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (The student proves an unexposed service is unreachable from the LAN.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="2"> <span>Internal and external addresses are recorded separately.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Internal and external addresses are recorded separately.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="3"> <span>A deliberate network disconnect is diagnosed and repaired.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (A deliberate network disconnect is diagnosed and repaired.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="4"> <span>No ARR/downloader admin interface is publicly exposed.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (No ARR/downloader admin interface is publicly exposed.)</div>
+ 
+</div></div>
+ <div class="cr-gate">All boxes true → continue to the next class</div>
+</div>
+<div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>The lecture's driver survey is valuable, but a single-host ARR stack rarely needs MACVLAN, IPVLAN, or overlay networking. Start with a user-defined bridge and adopt advanced drivers only from an explicit requirement.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Software screens change. The ideas stay. Prefer current official docs when a button moved.</div>
+ 
+</div></div>
  <div class="cr-pager"><a href="02.html">← Class 2</a><a href="04.html">Class 4 →</a></div>
 </div>
 
@@ -196,5 +354,5 @@ Radarr -&gt; http://sabnzbd:8080
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921f"></script>
+<script src="/classroom/classroom.js?v=20260921g"></script>
 </body></html>
