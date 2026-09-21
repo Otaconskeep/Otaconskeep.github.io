@@ -425,9 +425,42 @@
  });
  }
 
+ // Manual path OS chooser: Windows / Linux / Advanced WSL.
+ function initOsChoosers() {
+ document.querySelectorAll('[data-os-chooser]').forEach(function (chooser) {
+ var root = chooser.closest('.os-card-manual') || chooser.parentElement;
+ if (!root) return;
+ var buttons = Array.prototype.slice.call(chooser.querySelectorAll('[data-os-target]'));
+ var paths = Array.prototype.slice.call(root.querySelectorAll('[data-os-path]'));
+
+ function activate(key) {
+ buttons.forEach(function (btn) {
+ var on = btn.getAttribute('data-os-target') === key;
+ btn.classList.toggle('is-active', on);
+ btn.setAttribute('aria-selected', on ? 'true' : 'false');
+ });
+ paths.forEach(function (path) {
+ var on = path.getAttribute('data-os-path') === key;
+ path.classList.toggle('is-active', on);
+ if (on) {
+ var steps = path.querySelectorAll(':scope > .manual-steps > .manual-step');
+ steps.forEach(function (step, i) { step.open = i === 0; });
+ }
+ });
+ }
+
+ buttons.forEach(function (btn) {
+ btn.addEventListener('click', function () {
+ activate(btn.getAttribute('data-os-target'));
+ });
+ });
+ });
+ }
+
  document.addEventListener('DOMContentLoaded', function () {
  initCopyButtons();
  initManualSteps();
+ initOsChoosers();
  initNavToggle();
  initGalleries();
  initTour();
