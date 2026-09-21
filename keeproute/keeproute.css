@@ -726,12 +726,178 @@
  place-items: center;
  font-size: 0.85rem;
 }
+.kr-step-plain {
+ padding-left: 18px;
+}
+.kr-step-plain::before {
+ display: none;
+ content: none;
+}
 .kr-step h3 { font-size: 1.05rem; margin-bottom: 6px; }
 .kr-step p { margin: 0; color: var(--cream-dim); }
 .kr-step.pending {
  border-style: dashed;
  border-color: var(--warn-dim);
 }
+
+.kr-install-nav {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ margin: 18px 0 8px;
+}
+.kr-install-nav a {
+ display: inline-flex;
+ align-items: center;
+ padding: 8px 12px;
+ border: 1px solid var(--line-bright);
+ border-radius: 6px;
+ background: var(--bg-elevated);
+ color: var(--cream);
+ text-decoration: none;
+ font-size: 0.9rem;
+ font-weight: 600;
+}
+.kr-install-nav a:hover {
+ border-color: var(--accent);
+ color: var(--accent-bright);
+}
+
+.kr-prereq-table {
+ display: grid;
+ gap: 8px;
+ margin-top: 16px;
+}
+.kr-prereq-head {
+ display: grid;
+ grid-template-columns: minmax(140px, 1.2fr) 100px minmax(140px, 1.4fr) 120px;
+ gap: 10px;
+ padding: 8px 14px;
+ font-size: 0.72rem;
+ letter-spacing: 0.06em;
+ text-transform: uppercase;
+ color: var(--cream-dim);
+ border-bottom: 1px solid var(--line);
+}
+@media (max-width: 800px) {
+ .kr-prereq-head { display: none; }
+}
+.kr-prereq {
+ border: 1px solid var(--line);
+ border-radius: 6px;
+ background: var(--bg-elevated);
+ overflow: hidden;
+}
+.kr-prereq > summary {
+ list-style: none;
+ cursor: pointer;
+ display: grid;
+ grid-template-columns: minmax(140px, 1.2fr) 100px minmax(140px, 1.4fr) 120px;
+ gap: 10px;
+ align-items: center;
+ padding: 12px 14px;
+ color: var(--cream);
+}
+.kr-prereq > summary::-webkit-details-marker { display: none; }
+.kr-prereq > summary::after {
+ content: none;
+}
+@media (max-width: 800px) {
+ .kr-prereq > summary {
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+   "name need"
+   "check cta";
+ }
+ .kr-prereq-name { grid-area: name; }
+ .kr-prereq-need { grid-area: need; justify-self: end; }
+ .kr-prereq-check { grid-area: check; }
+ .kr-prereq-cta { grid-area: cta; justify-self: end; }
+}
+.kr-prereq-name {
+ font-weight: 700;
+ font-size: 0.98rem;
+}
+.kr-prereq-need {
+ display: inline-flex;
+ justify-content: center;
+ align-items: center;
+ padding: 3px 8px;
+ border-radius: 999px;
+ font-size: 0.72rem;
+ font-weight: 700;
+ letter-spacing: 0.04em;
+ text-transform: uppercase;
+ border: 1px solid var(--line);
+ width: fit-content;
+}
+.kr-prereq-need.yes {
+ color: #43d98a;
+ border-color: #2f6f4e;
+ background: rgba(67, 217, 138, 0.08);
+}
+.kr-prereq-need.maybe {
+ color: #e0a83c;
+ border-color: #8a6a28;
+ background: rgba(224, 168, 60, 0.08);
+}
+.kr-prereq-need.no {
+ color: #8db3d9;
+ border-color: #33455e;
+ background: rgba(141, 179, 217, 0.08);
+}
+.kr-prereq-check {
+ color: var(--cream-dim);
+ font-size: 0.88rem;
+}
+.kr-prereq-cta {
+ color: var(--accent-bright);
+ font-size: 0.82rem;
+ font-weight: 700;
+ text-align: right;
+}
+.kr-prereq[open] {
+ border-color: var(--accent);
+}
+.kr-prereq[open] > summary .kr-prereq-cta::after {
+ content: " · close";
+ opacity: 0.7;
+}
+.kr-prereq-body {
+ padding: 0 14px 16px;
+ border-top: 1px solid var(--line);
+}
+.kr-prereq-note {
+ margin: 12px 0 0;
+ color: var(--cream-dim);
+ font-size: 0.9rem;
+}
+.kr-baby {
+ margin: 12px 0 0;
+ padding-left: 1.25rem;
+ color: var(--cream-dim);
+}
+.kr-baby > li {
+ margin: 0 0 10px;
+ line-height: 1.45;
+}
+.kr-baby > li:last-child { margin-bottom: 0; }
+.kr-code {
+ margin-top: 8px;
+ padding: 12px;
+ background: var(--surface);
+ border: 1px solid var(--line);
+ overflow: auto;
+ font-size: 0.86rem;
+ line-height: 1.45;
+ white-space: pre-wrap;
+}
+.kr-prereq-done {
+ margin: 14px 0 0;
+ color: var(--cream);
+ font-weight: 600;
+}
+
 .kr-providers {
  display: grid;
  grid-template-columns: repeat(3, 1fr);

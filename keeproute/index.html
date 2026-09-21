@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
-<link rel="stylesheet" href="keeproute.css?v=20260919g">
+<link rel="stylesheet" href="keeproute.css?v=20260920h">
 </head>
 <body>
 
@@ -57,6 +57,7 @@
  <a href="#proscons">Pros &amp; Cons</a>
  <a href="#limitations">Limitations</a>
  <a href="#install">Install</a>
+ <a href="#prereqs">Prerequisites</a>
  <a href="#faq">FAQ</a>
  </div>
 </nav>
@@ -715,74 +716,305 @@
  <section id="install">
  <p class="tag">Install</p>
  <h2>Install KeepRoute on your own computer</h2>
- <p class="intro">No one-click installer required. You install the same KeepRoute field UI we run on OtaconsKeep hardware, on <strong>your</strong> machine. Follow the steps in order.</p>
+ <p class="intro">No one-click installer yet. You install the same KeepRoute field UI we run on OtaconsKeep hardware, on <strong>your</strong> machine. Do it in two parts: <strong>1)</strong> check prerequisites (click any tool you do not have yet), then <strong>2)</strong> follow the numbered install steps.</p>
 
  <div class="info-note">
- <strong>What you are installing:</strong> the KeepRoute UI (the screen formerly shown as Aria on our Keep) plus OmniRoute underneath.
+ <strong>What you are installing:</strong> the KeepRoute UI plus OmniRoute underneath.
  KeepRoute remembers jobs as missions when the Mission Controller is also running; the UI alone still lets you ask Auto / providers through OmniRoute.
  </div>
 
- <div class="kr-install-steps">
- <div class="kr-step">
- <h3>What you need first</h3>
- <p>
- • A computer you control (Linux is the path we document here; Windows users can use WSL2 Ubuntu)<br>
- • <strong>Python 3.10+</strong><br>
- • <strong>Docker</strong> (to run OmniRoute)<br>
- • <strong>pip</strong> for Python packages<br>
- • Optional but recommended: a GPU for Local AI, if you have no GPU, use cloud providers only
- </p>
- <p style="margin-top:10px;">Optional foundation: install <a href="/otacon/#install">OtaconsKeep Lite</a> first if you also want the broader Keep agent ecosystem. KeepRoute does not require Lite to run.</p>
+ <div class="kr-install-nav" aria-label="Install parts">
+ <a href="#prereqs">Part 1 · Prerequisites</a>
+ <a href="#install-steps">Part 2 · Install steps</a>
+ <a href="#install-fail">If something fails</a>
  </div>
 
+ <div class="kr-step kr-step-plain" id="prereqs">
+ <h3>Part 1 · Prerequisites checklist</h3>
+ <p>Click a row if you do <strong>not</strong> have that tool yet. Each row opens baby-step install help. When every Required row is done, go to Part 2.</p>
+
+ <div class="kr-prereq-table" role="table" aria-label="KeepRoute prerequisites">
+ <div class="kr-prereq-head" role="row">
+ <span role="columnheader">Need</span>
+ <span role="columnheader">Required?</span>
+ <span role="columnheader">Quick check</span>
+ <span role="columnheader">Help</span>
+ </div>
+
+ <details class="kr-prereq" id="prereq-os">
+ <summary>
+ <span class="kr-prereq-name">Computer + terminal</span>
+ <span class="kr-prereq-need yes">Required</span>
+ <span class="kr-prereq-check"><span class="mono">uname -a</span> or open Terminal / PowerShell</span>
+ <span class="kr-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="kr-prereq-body">
+ <ol class="kr-baby">
+ <li><strong>Pick where you install.</strong> Linux (Ubuntu/Debian) is the path we document. On Windows 10/11, use <strong>WSL2 Ubuntu</strong> (not plain PowerShell) for these same commands.</li>
+ <li><strong>Open a terminal.</strong> Linux: search “Terminal”. Windows: install WSL first (row below), then open <strong>Ubuntu</strong> from the Start menu.</li>
+ <li><strong>Make a folder for KeepRoute</strong> (you will reuse this path):
+ <pre class="mono kr-code">mkdir -p ~/keeproute
+cd ~/keeproute
+pwd</pre>
+ You should see a path like <span class="mono">/home/YOURNAME/keeproute</span>.</li>
+ <li>Optional: install OtaconsKeep Lite first if you also want the broader Keep agent ecosystem. KeepRoute does <strong>not</strong> require Lite. <a href="/otacon/#install">Lite install →</a></li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="kr-prereq" id="prereq-wsl">
+ <summary>
+ <span class="kr-prereq-name">Windows only · WSL2 Ubuntu</span>
+ <span class="kr-prereq-need maybe">Windows</span>
+ <span class="kr-prereq-check">Start menu → “Ubuntu”</span>
+ <span class="kr-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="kr-prereq-body">
+ <p class="kr-prereq-note">Skip this entire row if you already use Linux.</p>
+ <ol class="kr-baby">
+ <li>Open <strong>PowerShell as Administrator</strong> (right-click Start → Terminal (Admin) / PowerShell (Admin)).</li>
+ <li>Install WSL + Ubuntu:
+ <pre class="mono kr-code">wsl --install -d Ubuntu</pre>
+ </li>
+ <li>Restart the PC if Windows asks. After reboot, Ubuntu may open and ask for a <strong>new Linux username and password</strong>. Remember that password, you need it for <span class="mono">sudo</span>.</li>
+ <li>Open <strong>Ubuntu</strong> from the Start menu. All KeepRoute commands below run <em>inside Ubuntu</em>, not in PowerShell.</li>
+ <li>Update packages once:
+ <pre class="mono kr-code">sudo apt update
+sudo apt upgrade -y</pre>
+ </li>
+ <li>Confirm you are in Linux:
+ <pre class="mono kr-code">uname -a</pre>
+ You should see <span class="mono">Linux</span> in the output.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="kr-prereq" id="prereq-python">
+ <summary>
+ <span class="kr-prereq-name">Python 3.10+</span>
+ <span class="kr-prereq-need yes">Required</span>
+ <span class="kr-prereq-check"><span class="mono">python3 --version</span></span>
+ <span class="kr-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="kr-prereq-body">
+ <ol class="kr-baby">
+ <li>Check what you already have:
+ <pre class="mono kr-code">python3 --version</pre>
+ Need <strong>3.10 or newer</strong> (3.11 / 3.12 is fine). If the command is “not found”, continue.</li>
+ <li><strong>Ubuntu / Debian / WSL Ubuntu:</strong>
+ <pre class="mono kr-code">sudo apt update
+sudo apt install -y python3 python3-venv python3-pip</pre>
+ </li>
+ <li>Check again:
+ <pre class="mono kr-code">python3 --version</pre>
+ Example good output: <span class="mono">Python 3.12.3</span>.</li>
+ <li>If your distro only offers an older Python, install from the deadsnakes PPA (Ubuntu) or use your package manager’s “python3.11” / “python3.12” package, then call that binary (for example <span class="mono">python3.12</span>) in later steps.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="kr-prereq" id="prereq-pip">
+ <summary>
+ <span class="kr-prereq-name">pip (Python packages)</span>
+ <span class="kr-prereq-need yes">Required</span>
+ <span class="kr-prereq-check"><span class="mono">python3 -m pip --version</span></span>
+ <span class="kr-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="kr-prereq-body">
+ <ol class="kr-baby">
+ <li>Always call pip <em>through</em> Python (safer than a bare <span class="mono">pip</span> command):
+ <pre class="mono kr-code">python3 -m pip --version</pre>
+ </li>
+ <li>If that fails on Ubuntu / Debian / WSL:
+ <pre class="mono kr-code">sudo apt update
+sudo apt install -y python3-pip</pre>
+ </li>
+ <li>Upgrade pip for your user (optional but helpful):
+ <pre class="mono kr-code">python3 -m pip install --user --upgrade pip</pre>
+ </li>
+ <li>Confirm Flask can install (you will do the real install in Part 2):
+ <pre class="mono kr-code">python3 -m pip install --user flask</pre>
+ If you see a PATH warning about <span class="mono">~/.local/bin</span>, that is normal; KeepRoute still runs with <span class="mono">python3 desk/app.py</span>.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="kr-prereq" id="prereq-docker">
+ <summary>
+ <span class="kr-prereq-name">Docker + Compose</span>
+ <span class="kr-prereq-need yes">Required</span>
+ <span class="kr-prereq-check"><span class="mono">docker --version</span> · <span class="mono">docker compose version</span></span>
+ <span class="kr-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="kr-prereq-body">
+ <ol class="kr-baby">
+ <li>Check:
+ <pre class="mono kr-code">docker --version
+docker compose version</pre>
+ Both should print a version. If either fails, continue.</li>
+ <li><strong>Ubuntu / Debian / WSL Ubuntu (simple path):</strong>
+ <pre class="mono kr-code">sudo apt update
+sudo apt install -y docker.io docker-compose-v2</pre>
+ On some systems the Compose plugin is <span class="mono">docker-compose-plugin</span>. Either is fine as long as <span class="mono">docker compose</span> works.</li>
+ <li>Let your user run Docker without typing <span class="mono">sudo</span> every time:
+ <pre class="mono kr-code">sudo usermod -aG docker "$USER"</pre>
+ Then <strong>log out and log back in</strong> (WSL: close Ubuntu and open it again). New groups only apply after a fresh login.</li>
+ <li>Start Docker if it is not running:
+ <pre class="mono kr-code">sudo service docker start
+# or on systemd hosts:
+sudo systemctl enable --now docker</pre>
+ </li>
+ <li>Verify with a hello container:
+ <pre class="mono kr-code">docker run --rm hello-world</pre>
+ You should see a “Hello from Docker!” message.</li>
+ <li><strong>Windows note:</strong> Docker Desktop + WSL2 backend also works. Install Docker Desktop, enable WSL integration for your Ubuntu distro, then run the same <span class="mono">docker</span> commands inside Ubuntu.</li>
+ <li>Official docs if your distro differs: <a href="https://docs.docker.com/engine/install/" target="_blank" rel="noopener">Docker Engine install</a>.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="kr-prereq" id="prereq-unzip">
+ <summary>
+ <span class="kr-prereq-name">unzip (and curl)</span>
+ <span class="kr-prereq-need yes">Required</span>
+ <span class="kr-prereq-check"><span class="mono">unzip -v</span> · <span class="mono">curl --version</span></span>
+ <span class="kr-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="kr-prereq-body">
+ <ol class="kr-baby">
+ <li>Check:
+ <pre class="mono kr-code">unzip -v | head -1
+curl --version | head -1</pre>
+ </li>
+ <li>Install if missing (Ubuntu / Debian / WSL):
+ <pre class="mono kr-code">sudo apt update
+sudo apt install -y unzip curl</pre>
+ </li>
+ <li>Confirm again with the same check commands.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="kr-prereq" id="prereq-ollama">
+ <summary>
+ <span class="kr-prereq-name">Ollama (Local AI)</span>
+ <span class="kr-prereq-need no">Optional</span>
+ <span class="kr-prereq-check">Local replies without paid APIs</span>
+ <span class="kr-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="kr-prereq-body">
+ <p class="kr-prereq-note">Skip if you will only use cloud providers (Claude, OpenAI, etc.). No GPU? Cloud-only is fine.</p>
+ <ol class="kr-baby">
+ <li>Install Ollama from the official site instructions for your OS: <a href="https://ollama.com/download" target="_blank" rel="noopener">ollama.com/download</a>.</li>
+ <li>Pull a small chat model (example):
+ <pre class="mono kr-code">ollama pull qwen2.5:3b</pre>
+ </li>
+ <li>Confirm it answers:
+ <pre class="mono kr-code">ollama run qwen2.5:3b "Say hi in one short sentence."</pre>
+ </li>
+ <li>Later, connect Ollama inside the OmniRoute dashboard so KeepRoute can route trivial work to Local.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="kr-prereq" id="prereq-keys">
+ <summary>
+ <span class="kr-prereq-name">Provider API keys</span>
+ <span class="kr-prereq-need maybe">For cloud</span>
+ <span class="kr-prereq-check">Have keys ready before “Add providers”</span>
+ <span class="kr-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="kr-prereq-body">
+ <ol class="kr-baby">
+ <li>Decide which cloud providers you will use (Claude, OpenAI/Codex, xAI/Grok, etc.). Local-only skips this.</li>
+ <li>Create API keys in each provider’s own console. Keep them in a password manager.</li>
+ <li><strong>Never</strong> paste keys into Discord, email, GitHub issues, or this website. Keys stay on your computer inside OmniRoute / KeepRoute.</li>
+ <li>You will paste keys into the OmniRoute dashboard (and KeepRoute’s OmniRoute API key field) in Part 2, Step 4.</li>
+ </ol>
+ </div>
+ </details>
+ </div>
+
+ <p class="kr-prereq-done">When the Required rows are done, continue to <a href="#install-steps">Part 2 · Install steps</a>.</p>
+ </div>
+
+ <div class="kr-install-steps" id="install-steps">
  <div class="kr-step">
  <h3>Download the KeepRoute UI package</h3>
- <p>This is the KeepRoute field UI, same product surface as our Keep desk, branded KeepRoute.</p>
- <p style="margin-top:10px;">
- <a class="btn btn-primary" href="/downloads/KeepRoute-UI.zip" download>Download KeepRoute-UI.zip</a>
- </p>
- <p style="margin-top:10px;">Unzip it somewhere permanent, for example:</p>
- <pre class="mono" style="margin-top:8px;padding:12px;background:var(--surface);border:1px solid var(--line);overflow:auto;">mkdir -p ~/keeproute
+ <ol class="kr-baby">
+ <li>Click download (saves <span class="mono">KeepRoute-UI.zip</span>):
+ <p style="margin-top:10px;"><a class="btn btn-primary" href="/downloads/KeepRoute-UI.zip" download>Download KeepRoute-UI.zip</a></p>
+ </li>
+ <li>In your terminal, go to the KeepRoute folder and unzip:
+ <pre class="mono kr-code">mkdir -p ~/keeproute
 cd ~/keeproute
-unzip ~/Downloads/KeepRoute-UI.zip
-# You should see: desk/ docker-compose.omniroute.yml README.txt</pre>
+# If the zip landed in Downloads (Linux / WSL):
+unzip -o ~/Downloads/KeepRoute-UI.zip
+# WSL tip: Windows Downloads is often:
+# unzip -o /mnt/c/Users/YOUR_WINDOWS_USER/Downloads/KeepRoute-UI.zip
+ls</pre>
+ </li>
+ <li>You should see a folder (often <span class="mono">KeepRoute-UI</span>) containing at least:
+ <span class="mono">desk/</span>, <span class="mono">docker-compose.omniroute.yml</span>, and <span class="mono">README.txt</span>.</li>
+ <li>Enter that folder and stay there for the next steps:
+ <pre class="mono kr-code">cd ~/keeproute/KeepRoute-UI
+# If the unzip created a nested folder name, cd into whatever ls showed.
+pwd
+ls</pre>
+ </li>
+ </ol>
  </div>
 
  <div class="kr-step">
- <h3>Install OmniRoute (the routing engine)</h3>
- <p>OmniRoute is the upstream open-source data plane. KeepRoute uses it; we did not invent it. Product write-up: <a href="https://github.com/Otaconskeep/KeepRoute" target="_blank" rel="noopener">github.com/Otaconskeep/KeepRoute</a>.</p>
- <pre class="mono" style="margin-top:8px;padding:12px;background:var(--surface);border:1px solid var(--line);overflow:auto;">cd ~/keeproute/KeepRoute-UI
-# Set your OWN first-login password (do not reuse examples from the internet)
-export OMNIROUTE_INITIAL_PASSWORD='pick-a-strong-password'
-docker compose -f docker-compose.omniroute.yml up -d
-docker ps | grep omniroute</pre>
- <p style="margin-top:10px;">OmniRoute listens on your machine at <span class="mono">http://127.0.0.1:20127</span> (loopback). Open the OmniRoute dashboard in a browser if the image exposes one, sign in with the password you set, and connect providers there (Claude / OpenAI / Cursor / xAI / Ollama, etc.).</p>
- <p style="margin-top:8px;">Upstream project: <a href="https://github.com/diegosouzapw/OmniRoute" target="_blank" rel="noopener">github.com/diegosouzapw/OmniRoute</a></p>
+ <h3>Start OmniRoute (the routing engine)</h3>
+ <ol class="kr-baby">
+ <li>Still inside the KeepRoute-UI folder, pick a <strong>strong first-login password</strong> (yours alone, not an example from the internet):
+ <pre class="mono kr-code">export OMNIROUTE_INITIAL_PASSWORD='pick-a-strong-password'</pre>
+ </li>
+ <li>Start OmniRoute with Docker Compose:
+ <pre class="mono kr-code">docker compose -f docker-compose.omniroute.yml up -d</pre>
+ </li>
+ <li>Confirm the container is up:
+ <pre class="mono kr-code">docker ps | grep -i omni</pre>
+ You should see a running container line. If not, scroll to <a href="#install-fail">If something fails</a>.</li>
+ <li>OmniRoute listens on your machine at <span class="mono">http://127.0.0.1:20127</span> (loopback only). Open that URL in a browser if a dashboard appears, sign in with the password you set, and connect providers there (Claude / OpenAI / Cursor / xAI / Ollama, etc.).</li>
+ <li>Product write-up: <a href="https://github.com/Otaconskeep/KeepRoute" target="_blank" rel="noopener">KeepRoute on GitHub</a>. Upstream gateway: <a href="https://github.com/diegosouzapw/OmniRoute" target="_blank" rel="noopener">OmniRoute on GitHub</a>.</li>
+ </ol>
  </div>
 
  <div class="kr-step">
- <h3>Install Python deps and start KeepRoute UI</h3>
- <pre class="mono" style="margin-top:8px;padding:12px;background:var(--surface);border:1px solid var(--line);overflow:auto;">cd ~/keeproute/KeepRoute-UI
-python3 -m pip install --user flask
-mkdir -p desk/state
+ <h3>Install Python deps and start the KeepRoute UI</h3>
+ <ol class="kr-baby">
+ <li>Still in the KeepRoute-UI folder, install Flask for your user:
+ <pre class="mono kr-code">python3 -m pip install --user flask</pre>
+ </li>
+ <li>Create an empty credentials file (KeepRoute will fill this later from the UI):
+ <pre class="mono kr-code">mkdir -p desk/state
 echo '{}' > desk/state/credentials.json
-chmod 600 desk/state/credentials.json
-
-export OMNIROUTE_HOST=http://127.0.0.1:20127
+chmod 600 desk/state/credentials.json</pre>
+ </li>
+ <li>Point KeepRoute at OmniRoute and start the UI (leave this terminal open):
+ <pre class="mono kr-code">export OMNIROUTE_HOST=http://127.0.0.1:20127
 export OMNIROUTE_DESK_PORT=20129
 export OMNIROUTE_DESK_BIND=127.0.0.1
 python3 desk/app.py</pre>
- <p style="margin-top:10px;">Leave that terminal open. In your browser open:</p>
+ </li>
+ <li>In your browser open:
  <p class="mono" style="margin-top:6px;font-size:1.05rem;color:var(--accent-bright);">http://127.0.0.1:20129/</p>
- <p style="margin-top:8px;">You should see the <strong>KEEPROUTE</strong> screen (providers on the left, ask box on the right).</p>
- <p style="margin-top:8px;">Optional: copy <span class="mono">keeproute-ui.service.example</span> into your user systemd units so it starts on login.</p>
+ You should see the <strong>KEEPROUTE</strong> screen (providers on the left, ask box on the right).</li>
+ <li>Optional later: copy <span class="mono">keeproute-ui.service.example</span> into your user systemd units so it starts on login.</li>
+ </ol>
  </div>
 
  <div class="kr-step">
  <h3>Add providers and keys (inside KeepRoute)</h3>
- <p>In the KeepRoute UI click <strong>ADD PROVIDERS</strong>.</p>
+ <ol class="kr-baby">
+ <li>In the KeepRoute UI click <strong>ADD PROVIDERS</strong>.</li>
+ <li>Create or copy an <strong>OmniRoute API key</strong> from the OmniRoute dashboard, paste it into KeepRoute, then <strong>Save Keys</strong>. That alone is usually enough for Auto.</li>
+ <li>Connect each cloud provider you use <em>inside OmniRoute first</em>, then confirm it appears under Your Providers in KeepRoute.</li>
+ </ol>
  <div class="kr-providers">
- <div class="kr-prov"><strong>OmniRoute API key</strong><span>Usually enough for Auto</span><span>Create/copy this inside your OmniRoute dashboard, then paste into KeepRoute → Save Keys.</span></div>
+ <div class="kr-prov"><strong>OmniRoute API key</strong><span>Usually enough for Auto</span><span>Create/copy inside OmniRoute → paste into KeepRoute → Save Keys.</span></div>
  <div class="kr-prov"><strong>Claude</strong><span>Cloud · usually paid</span><span>Connect in OmniRoute, then confirm it appears under Your Providers.</span></div>
  <div class="kr-prov"><strong>Codex / OpenAI</strong><span>Cloud · usually paid</span><span>Same: connect in OmniRoute, refresh KeepRoute.</span></div>
  <div class="kr-prov"><strong>Cursor</strong><span>Agent runtime</span><span>Optional coding executor when you use Cursor.</span></div>
@@ -794,22 +1026,35 @@ python3 desk/app.py</pre>
 
  <div class="kr-step">
  <h3>Test it</h3>
- <p><strong>1.</strong> Leave <strong>Auto</strong> selected.<br>
- <strong>2.</strong> Type: <span class="mono">Hi</span> → press <strong>GO</strong> → expect a Local / inexpensive route when Local is healthy.<br>
- <strong>3.</strong> Type: <span class="mono">Write a small Python calculator</span> → expect a coding-capable provider when one is connected.<br>
- <strong>4.</strong> Status lights: green = connected; Routed = used on the last job.</p>
+ <ol class="kr-baby">
+ <li>Leave <strong>Auto</strong> selected.</li>
+ <li>Type <span class="mono">Hi</span> → press <strong>GO</strong> → expect a Local / inexpensive route when Local is healthy.</li>
+ <li>Type <span class="mono">Write a small Python calculator</span> → expect a coding-capable provider when one is connected.</li>
+ <li>Status lights: green = connected; Routed = used on the last job.</li>
+ </ol>
  </div>
 
  <div class="kr-step">
- <h3>Optional, Mission Controller (full KeepRoute 1.0 orchestration)</h3>
- <p>The field UI works with OmniRoute alone. For persistent missions, checkpoints, and the full KeepRoute 1.0 control plane, also run the Mission Controller sidecar from the KeepRoute 1.0 release package when you have it, and set:</p>
- <pre class="mono" style="margin-top:8px;padding:12px;background:var(--surface);border:1px solid var(--line);overflow:auto;">export MISSION_CONTROLLER_URL=http://127.0.0.1:20130</pre>
- <p style="margin-top:8px;">Auto policy is owned by Mission Controller when that service is present.</p>
+ <h3>Optional · Mission Controller (full KeepRoute 1.0 orchestration)</h3>
+ <ol class="kr-baby">
+ <li>The field UI works with OmniRoute alone.</li>
+ <li>For persistent missions, checkpoints, and the full KeepRoute 1.0 control plane, also run the Mission Controller sidecar from the KeepRoute 1.0 release package when you have it.</li>
+ <li>Then set:
+ <pre class="mono kr-code">export MISSION_CONTROLLER_URL=http://127.0.0.1:20130</pre>
+ Auto policy is owned by Mission Controller when that service is present.</li>
+ </ol>
  </div>
 
  <div class="kr-step">
- <h3>Done</h3>
- <p>You can type normal requests. Prefer <strong>Auto</strong> unless you intentionally force a provider. To stop: Ctrl+C in the KeepRoute terminal, and <span class="mono">docker compose -f docker-compose.omniroute.yml down</span> if you want OmniRoute stopped too.</p>
+ <h3>Done · daily use</h3>
+ <ol class="kr-baby">
+ <li>Type normal requests. Prefer <strong>Auto</strong> unless you intentionally force a provider.</li>
+ <li>To stop KeepRoute UI: press <span class="mono">Ctrl+C</span> in its terminal.</li>
+ <li>To stop OmniRoute:
+ <pre class="mono kr-code">cd ~/keeproute/KeepRoute-UI
+docker compose -f docker-compose.omniroute.yml down</pre>
+ </li>
+ </ol>
  </div>
  </div>
 
@@ -826,13 +1071,15 @@ python3 desk/app.py</pre>
  → OPEN KEEPROUTE
  </div>
 
- <details style="margin-top:22px;" class="full-gallery">
+ <details style="margin-top:22px;" class="full-gallery" id="install-fail">
  <summary>If something fails</summary>
  <div style="padding:14px 4px 4px;color:var(--cream-dim);">
  <p><strong>Page won’t open:</strong> confirm <span class="mono">python3 desk/app.py</span> is still running and you used <span class="mono">127.0.0.1:20129</span>.</p>
  <p style="margin-top:8px;"><strong>Providers missing:</strong> connect them in OmniRoute first, save the OmniRoute API key in KeepRoute, then refresh the page.</p>
- <p style="margin-top:8px;"><strong>Docker errors:</strong> install Docker Engine, log out/in (or restart), retry <span class="mono">docker compose … up -d</span>.</p>
- <p style="margin-top:8px;"><strong>Local AI silent:</strong> no GPU / no Ollama is fine, use cloud providers; Local is optional.</p>
+ <p style="margin-top:8px;"><strong>Docker errors:</strong> go back to <a href="#prereq-docker">Docker baby steps</a>, log out/in after adding the docker group, then retry <span class="mono">docker compose … up -d</span>.</p>
+ <p style="margin-top:8px;"><strong>python3 / pip missing:</strong> <a href="#prereq-python">Python</a> · <a href="#prereq-pip">pip</a>.</p>
+ <p style="margin-top:8px;"><strong>unzip failed:</strong> <a href="#prereq-unzip">unzip / curl</a>.</p>
+ <p style="margin-top:8px;"><strong>Local AI silent:</strong> no GPU / no Ollama is fine, use cloud providers; Local is optional (<a href="#prereq-ollama">Ollama steps</a>).</p>
  </div>
  </details>
  </section>
