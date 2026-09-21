@@ -433,6 +433,18 @@
  renderDiagram('family') +
  '<p class="intro" style="margin:10px 0 0;font-size:0.9rem;">' + esc(catalog.family_note) + '</p></div>';
 
+ var videoHtml =
+ '<div class="product-family-video" id="product-family-video" aria-label="OtaconsKeep video">' +
+ '<div class="install-demo-video">' +
+ '<div class="install-demo-video-frame">' +
+ '<iframe src="https://www.youtube-nocookie.com/embed/vYXsi4ZRStw" ' +
+ 'title="OtaconsKeep" ' +
+ 'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+ 'allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>' +
+ '</div></div>' +
+ '<p class="intro" style="margin:10px 0 0;font-size:0.85rem;">' +
+ '<a href="https://youtu.be/vYXsi4ZRStw" target="_blank" rel="noopener">Watch on YouTube →</a></p></div>';
+
  var rows = (catalog.comparison || []).map(function (r) {
  return '<tr><td><strong>' + esc(r.product) + '</strong></td><td>' + esc(r.what) +
  '</td><td>' + esc(r.best_if) + '</td></tr>';
@@ -449,7 +461,7 @@
  '<th style="text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);color:var(--cream-faint);font:600 0.7rem JetBrains Mono,monospace;text-transform:uppercase;">Best if you want</th>' +
  '</tr></thead><tbody>' + rows + '</tbody></table></div></section>';
 
- mount.insertAdjacentHTML('afterend', familyHtml + compareHtml);
+ mount.insertAdjacentHTML('afterend', familyHtml + videoHtml + compareHtml);
  }
 
  function checkHash() {
