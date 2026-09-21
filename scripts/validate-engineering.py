@@ -37,6 +37,8 @@ REQUIRED = [
     "hardware.json",
     "behavioral_models.json",
     "diagrams.json",
+    "math.json",
+    "analysis.json",
 ]
 
 FORBIDDEN = [
@@ -122,6 +124,10 @@ def collect_ids(data):
         add(r["id"], "behavioral_model", "behavioral_models")
     for r in data["diagrams.json"].get("diagrams", []):
         add(r["id"], "diagram", "diagrams")
+    for r in data.get("math.json", {}).get("worked_examples", []) or []:
+        add(r["id"], "math_trace", "math")
+    for r in data.get("analysis.json", {}).get("datasets", []) or []:
+        add(r["id"], "dataset", "analysis")
     # overview EXT / ACT ids may overlap with interfaces intentionally — allow without uniqueness
     return ids
 
@@ -133,7 +139,7 @@ def resolve(ids, ref, ctx):
         # Allow overview context node ids and informal subsystem labels
         if ref.startswith(("EXT-", "ACT-", "DEP-", "TIER-", "HW-", "PAR-", "MOD-PROV")):
             return
-        if ref in {"Creative Systems", "Public Expansion docs", "Engineering portal", "V&V", "Expansion"}:
+        if ref in {"Creative Systems", "Public Expansion docs", "Engineering portal", "V&V", "Expansion", "Web UI"}:
             return
         raise AssertionError(f"unknown reference {ref!r} from {ctx}")
 

@@ -13,6 +13,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
 <link rel="stylesheet" href="../assets/engineering.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -71,6 +73,7 @@
     <a href="#analysis">Analysis</a>
     <a href="#benchmarks">Benchmarks</a>
     <a href="#models">Models &amp; Data</a>
+    <a href="#math">Math</a>
     <a href="#behavioral">Behavioral Models</a>
     <a href="#releases">Releases</a>
     <a href="#issues">Known Issues</a>
@@ -190,8 +193,15 @@
       <div id="panel-models" class="eng-panel-section"></div>
     </section>
 
+    <section class="eng-section" id="sec-math" hidden>
+      <h2>Emotion Continuity Math</h2>
+      <p class="intro">KaTeX-rendered theory from MOD-EMO-001 / Formula 5. Worked examples are MOCK teaching traces until measured EVID packs attach.</p>
+      <div id="panel-math" class="eng-panel-section"></div>
+    </section>
+
     <section class="eng-section" id="sec-behavioral" hidden>
-      <h2>Mathematical Behavioral Models</h2>
+      <h2>Behavioral Models</h2>
+      <p class="intro">Parameter tables and model IDs. Theory lives under <a href="#math">Math</a>.</p>
       <div id="panel-behavioral" class="eng-panel-section"></div>
     </section>
 

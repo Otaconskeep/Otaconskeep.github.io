@@ -524,3 +524,114 @@
 @media (max-width: 560px) {
   .eng-lifecycle button { font-size: 0.62rem; padding: 6px 7px; }
 }
+
+/* Math / MOCK analysis / honesty chrome */
+.eng-badge-mock {
+  display: inline-block;
+  font: 700 0.65rem JetBrains Mono, monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1a1208;
+  background: #f0b429;
+  border: 1px solid #c9921a;
+  padding: 2px 7px;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.eng-callout-amber {
+  border: 1px solid rgba(240, 180, 41, 0.45);
+  background: rgba(240, 180, 41, 0.08);
+  color: var(--cream-dim);
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  margin: 0 0 16px;
+}
+
+.eng-mock-card {
+  border: 1px solid var(--line);
+  background: #0a0e14;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  margin: 0 0 14px;
+}
+
+.eng-katex {
+  overflow-x: auto;
+  margin: 10px 0 16px;
+  padding: 12px 14px;
+  background: #0a0e14;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--accent-bright);
+}
+
+.eng-katex .katex-display {
+  margin: 0;
+}
+
+.eng-heat {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 8px 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px;
+  background: #0a0e14;
+}
+
+.eng-heat-row {
+  display: flex;
+  align-items: stretch;
+}
+
+.eng-heat-lab {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 72px;
+  max-width: 96px;
+  padding: 4px 6px;
+  font: 500 0.62rem JetBrains Mono, monospace;
+  color: var(--cream-faint);
+  word-break: break-all;
+}
+
+.eng-heat-row > .eng-heat-lab:first-child {
+  justify-content: flex-start;
+}
+
+.eng-heat-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 36px;
+  margin: 1px;
+  font: 600 0.65rem JetBrains Mono, monospace;
+  color: var(--cream);
+  border-radius: 2px;
+}
+
+.eng-risk-card {
+  border: 1px solid var(--line);
+  background: #0a0e14;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  margin: 12px 0;
+}
+
+.eng-risk-card h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: var(--accent-bright);
+}
+
+.eng-diagram-caption {
+  font-size: 0.8rem;
+  color: var(--cream-faint);
+  margin: 6px 0 0;
+}

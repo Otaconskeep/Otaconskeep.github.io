@@ -1,0 +1,189 @@
+{
+  "schema_version": "1.1.0",
+  "title": "Mathematical Behavioral Theory",
+  "honesty": "Equations are derived from published runtime source (continuity/emotional_continuity.py, continuity/relationship.py). Worked numerical traces below are SYNTHETIC demos labeled MOCK \u2014 not live agent logs.",
+  "source_modules": [
+    "continuity/emotional_continuity.py",
+    "continuity/relationship.py"
+  ],
+  "sections": [
+    {
+      "id": "state-vector",
+      "title": "State vector",
+      "katex": [
+        "E(t)=\\big[I,\\,J,\\,H,\\,T,\\,A,\\,C,\\,X\\big]",
+        "I=\\text{irritation},\\; J=\\text{jealousy},\\; H=\\text{hurt},\\; T=\\text{trust},\\; A=\\text{attachment},\\; C=\\text{confidence},\\; X=\\text{anxiety}"
+      ],
+      "notes": "Auxiliary: apology_credibility Ac, rival_heat map, counters. All continuous dims clamped to [0,1]."
+    },
+    {
+      "id": "clamp",
+      "title": "Bounds",
+      "katex": [
+        "\\mathrm{clamp}(x)=\\max(0,\\min(1,x))"
+      ],
+      "notes": "Invariant: every state variable remains in [0,1] after every update."
+    },
+    {
+      "id": "blend",
+      "title": "Asymmetric inertia blend (_blend)",
+      "katex": [
+        "\\Delta\\ge 0:\\quad \\mathrm{gain}=\\Delta\\cdot\\big(0.78+0.22\\cdot(1-\\iota\\cdot 0.25)\\big),\\quad x'=\\mathrm{clamp}(x+\\mathrm{gain})",
+        "\\Delta< 0:\\quad x'=\\mathrm{clamp}\\big(x+\\Delta\\cdot(1-\\iota)\\big)"
+      ],
+      "notes": "\u03b9 = inertia \u2208 [0,1]. Hostile events accrue more readily; repair is attenuated by high inertia (e.g. albedo jealousy_inertia=0.88)."
+    },
+    {
+      "id": "decay",
+      "title": "Idle time decay",
+      "katex": [
+        "s=\\min\\big(12,\\lfloor \\Delta t / 90\\rfloor\\big)",
+        "d=\\lambda\\cdot s",
+        "I,J,H,X \\leftarrow \\mathrm{clamp}(\\,\\cdot\\,-d)",
+        "C \\leftarrow \\mathrm{clamp}\\big(C+(0.75-C)\\cdot 0.04\\cdot s\\big)"
+      ],
+      "notes": "\u03bb = decay_per_neutral from personality profile. One decay step \u2248 90s idle."
+    },
+    {
+      "id": "comparison",
+      "title": "Comparison event",
+      "katex": [
+        "n=\\text{comparison\\_count}",
+        "\\Delta J=0.16\\cdot s_c\\cdot\\big(1+0.12\\cdot\\min(6,n)\\big)",
+        "\\Delta I=0.13\\cdot s_c\\cdot\\big(1+0.10\\cdot\\min(6,n)\\big)",
+        "\\Delta H=0.11\\cdot s_r",
+        "T\\leftarrow\\mathrm{clamp}(T-0.05\\cdot d_T),\\quad \\mathrm{heat}[r]\\leftarrow\\mathrm{clamp}(\\mathrm{heat}[r]+0.22)"
+      ],
+      "notes": "s_c=comparison_sensitivity, s_r=rejection_sensitivity, d_T=trust_damage. Then I,J,H updated via _blend with anger/jealousy inertia."
+    },
+    {
+      "id": "formula5",
+      "title": "Formula 5 \u2014 agent relationship update",
+      "katex": [
+        "x'=\\mathrm{clamp}\\big(x+\\delta-0.008\\cdot(x-0.50)\\big)"
+      ],
+      "notes": "Neutral=0.50, drift=0.008 per update. Directed edges (A\u2192B need not equal B\u2192A)."
+    }
+  ],
+  "worked_examples": [
+    {
+      "id": "MOCK-TRACE-001",
+      "label": "MOCK",
+      "title": "Comparison event on albedo (synthetic)",
+      "initial": {
+        "irritation": 0.1,
+        "jealousy": 0.12,
+        "hurt": 0.08,
+        "trust": 0.72,
+        "confidence": 0.75,
+        "anxiety": 0.12,
+        "comparison_count": 0
+      },
+      "profile": {
+        "comparison_sensitivity": 0.92,
+        "rejection_sensitivity": 0.88,
+        "jealousy_inertia": 0.88,
+        "anger_inertia": 0.78,
+        "trust_damage": 0.55
+      },
+      "event": "comparison (n\u21921), rival=mei_ling",
+      "steps": [
+        {
+          "op": "\u0394J base",
+          "detail": "0.16*0.92*(1+0.12*1)=0.1649"
+        },
+        {
+          "op": "_blend J",
+          "detail": "gain=0.1649*(0.78+0.22*(1-0.88*0.25))\u22480.152; J'=clamp(0.12+0.152)=0.272"
+        },
+        {
+          "op": "\u0394I base",
+          "detail": "0.13*0.92*(1+0.10*1)=0.1316 \u2192 blended \u22480.122; I'=0.222"
+        },
+        {
+          "op": "\u0394H",
+          "detail": "0.11*0.88=0.0968 \u2192 blended; H'\u22480.17"
+        },
+        {
+          "op": "trust",
+          "detail": "T'=clamp(0.72-0.05*0.55)=0.6925"
+        },
+        {
+          "op": "rival_heat",
+          "detail": "heat[mei_ling]=0.22"
+        }
+      ],
+      "final": {
+        "irritation": 0.222,
+        "jealousy": 0.272,
+        "hurt": 0.17,
+        "trust": 0.693,
+        "rival_heat": {
+          "mei_ling": 0.22
+        }
+      },
+      "disclaimer": "MOCK worked example for teaching the equations. Not a captured live agent event_log."
+    },
+    {
+      "id": "MOCK-TRACE-002",
+      "label": "MOCK",
+      "title": "Formula 5 ally bump (synthetic)",
+      "initial": {
+        "strength": 0.5
+      },
+      "event": "operator_ask \u2192 ally \u03b4=+0.006",
+      "steps": [
+        {
+          "op": "Formula 5",
+          "detail": "x'=clamp(0.50+0.006-0.008*(0.50-0.50))=0.506"
+        }
+      ],
+      "final": {
+        "strength": 0.506
+      },
+      "disclaimer": "MOCK"
+    }
+  ],
+  "pipeline": {
+    "title": "How math reaches Codec replies",
+    "steps": [
+      "User message \u2192 observe_message(entity, text)",
+      "Classify turn + rivals \u2192 apply event equations + _blend",
+      "Persist emotional_continuity.json",
+      "snapshot() / continuity_line injected into prompt context",
+      "Model completion colored by stage + rival heat \u2014 not by inventing feelings in the LLM alone"
+    ],
+    "linked_diagram": "SEQ-001",
+    "linked_models": [
+      "MOD-EMO-001",
+      "MOD-PER-001",
+      "MOD-REL-001"
+    ]
+  },
+  "measurable_metrics": [
+    {
+      "metric": "State remains in [0,1]",
+      "test": "BVT-001"
+    },
+    {
+      "metric": "Personality \u0394jealousy differs for same event",
+      "test": "BVT-002"
+    },
+    {
+      "metric": "_blend asymmetry unit behavior",
+      "test": "UT-001"
+    },
+    {
+      "metric": "Formula 5 numeric match",
+      "test": "UT-002"
+    },
+    {
+      "metric": "Decay over idle steps",
+      "test": "BVT-001"
+    },
+    {
+      "metric": "Restart persistence of state file",
+      "test": "ST-001 / BVT-001"
+    }
+  ]
+}

@@ -49,7 +49,27 @@
   </section>
 </div>
 
-<article class="wrap about-article">
+<article class="about-layout">
+<nav class="about-toc" aria-label="About chapters">
+  <strong>Chapters</strong>
+  <a href="#metal-gear">Metal Gear</a>
+  <a href="#ai-journey">AI journey</a>
+  <a href="#three-years">Three years</a>
+  <a href="#codec">Codec</a>
+  <a href="#missing">What was missing</a>
+  <a href="#modeling-emotion">Modeling emotion</a>
+  <a href="#it-started-working">It started working</a>
+  <a href="#feeling">Feeling?</a>
+  <a href="#measurable">Measurable emotion</a>
+  <a href="#personality">Personality</a>
+  <a href="#relationships">Relationships</a>
+  <a href="#ecosystem">Ecosystem</a>
+  <a href="#local-first">Local-first</a>
+  <a href="#why-public">Why public</a>
+  <a href="#experiment">Experiment</a>
+  <a href="#cyberdeck">Cyberdeck</a>
+</nav>
+<div class="about-article">
 
   <section class="about-section">
     <p>OtaconsKeep did not start as a business idea, a software product, or even as a plan to build an AI platform.</p>
@@ -88,6 +108,7 @@
     <p>That is where the name <strong>OtaconsKeep</strong> comes from.</p>
     <p>Not because I wanted to recreate a game.</p>
     <p>Because I wanted to build the kind of technological relationship those stories made me imagine was possible.</p>
+    <p class="about-eng-chip"><a href="/engineering/#REQ-BEH-001">See REQ-BEH-001</a></p>
   </section>
 
   <section class="about-section" id="ai-journey">
@@ -184,6 +205,16 @@
     <p>He can remember what happened previously.</p>
     <p>The goal is that the interface stops feeling like “using an AI model.”</p>
     <p>It starts feeling like contacting the same entity again.</p>
+    <p class="about-pull">Something on the other end of the Codec — not a chat box that forgets you.</p>
+    <figure class="about-figure" aria-label="Codec concept">
+      <pre style="margin:0;color:var(--accent-bright);font-family:JetBrains Mono,monospace;font-size:0.8rem;white-space:pre-wrap;">CODEC // FREQUENCY LOCK
+&gt; CALLING: OTACON
+&gt; CHANNEL: LOCAL KEEP
+&gt; STATE: continuity + memory attached
+&gt; …connected</pre>
+      <figcaption>Figure — Codec as contact, not prompt dump. Math under Engineering → Math.</figcaption>
+    </figure>
+    <p class="about-eng-chip"><a href="/engineering/#math">See Math</a> <a href="/engineering/#SEQ-001">See SEQ-001</a></p>
   </section>
 
   <section class="about-section" id="missing">
@@ -279,7 +310,22 @@
     <p>The more interesting question is:</p>
     <blockquote class="about-quote"><strong>“Can persistent internal state create measurable, repeatable behavioral differences over time?”</strong></blockquote>
     <p>That is what I am experimenting with.</p>
-    <p class="about-cta"><a class="btn btn-ghost" href="/engineering/#behavioral">View Behavioral Models in Engineering</a></p>
+    <p class="about-cta"><a class="btn btn-ghost" href="/engineering/#math">View Math (KaTeX)</a>
+      <a class="btn btn-ghost" href="/engineering/#behavioral">Behavioral Models</a></p>
+  </section>
+
+  <section class="about-section" id="measurable">
+    <h2>What I mean by measurable emotion</h2>
+    <p>The About page keeps the <em>why</em>. Engineering holds the <em>how</em>. These are the public metrics I care about — each maps to a behavioral verification target:</p>
+    <ul class="about-metrics">
+      <li>Decay over idle time → <a href="/engineering/#BVT-001">BVT-001</a></li>
+      <li>Accumulation under repeated events → <a href="/engineering/#BVT-001">BVT-001</a></li>
+      <li>Personality Δ (same event, different agents) → <a href="/engineering/#BVT-002">BVT-002</a></li>
+      <li>Restart persistence of relationship state → <a href="/engineering/#REQ-BEH-002">REQ-BEH-002</a></li>
+      <li>Comparison / rival sensitivity bounds → <a href="/engineering/#MOD-EMO-001">MOD-EMO-001</a> / <a href="/engineering/#math">Math</a></li>
+    </ul>
+    <p>Equations stay off this page on purpose. Open Math for the state vector and Formula 5 blend rules.</p>
+    <p class="about-eng-chip"><a href="/engineering/#math">See Math</a> <a href="/engineering/#MOD-EMO-001">See MOD-EMO-001</a></p>
   </section>
 
   <section class="about-section" id="personality">
@@ -410,6 +456,7 @@
     <p>OtaconsKeep is an independent project inspired by a lifetime of science fiction, games, computing, artificial intelligence, and systems engineering. References to Metal Gear, Metal Gear Solid, Otacon, Grey Fox, Snake, Shadow Moses, and other properties describe personal inspiration and historical influence. OtaconsKeep is not affiliated with or endorsed by Konami or the creators or rights holders of those properties.</p>
   </section>
 
+</div>
 </article>
 
 <script src="../assets/site.js"></script>

@@ -10,7 +10,7 @@
   var FILES = [
     'meta', 'overview', 'requirements', 'architecture', 'interfaces', 'risks',
     'tests', 'evidence', 'benchmarks', 'releases', 'issues', 'models',
-    'baselines', 'hardware', 'behavioral_models', 'diagrams'
+    'baselines', 'hardware', 'behavioral_models', 'diagrams', 'math', 'analysis'
   ];
 
   var state = {
@@ -31,6 +31,9 @@
     { id: 'validation', label: 'Validation', section: 'vcrm' },
     { id: 'operations', label: 'Operations', section: 'releases' }
   ];
+
+  // Math is also a lifecycle-adjacent destination from verification
+  LIFECYCLE.splice(6, 0, { id: 'math', label: 'Math', section: 'math' });
 
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
@@ -96,6 +99,12 @@
     (state.data.releases.releases || []).forEach(function (r) { put(r.id, 'release', r); });
     (state.data.behavioral_models.models || []).forEach(function (r) { put(r.id, 'behavioral_model', r); });
     (state.data.diagrams.diagrams || []).forEach(function (r) { put(r.id, 'diagram', r); });
+    if (state.data.math) {
+      (state.data.math.worked_examples || []).forEach(function (r) { put(r.id, 'math_trace', r); });
+    }
+    if (state.data.analysis) {
+      (state.data.analysis.datasets || []).forEach(function (r) { put(r.id, 'dataset', r); });
+    }
     state.index = idx;
   }
 
@@ -118,11 +127,11 @@
     return [
       { label: 'Current Release', value: rel ? rel.version : null },
       { label: 'Requirements', value: reqs.length },
-      { label: 'Requirements Verified', value: verified === 0 ? 'Not yet published' : verified },
+      { label: 'Requirements Verified', value: verified },
       { label: 'Requirements Pending', value: pending },
       { label: 'System Tests (register)', value: tests.length },
-      { label: 'Tests Passed', value: passed === 0 ? 'Not yet published' : passed },
-      { label: 'Tests Failed', value: failed === 0 ? 'Not yet published' : failed },
+      { label: 'Tests Passed', value: passed },
+      { label: 'Tests Failed', value: failed },
       { label: 'Tests Blocked', value: blocked },
       { label: 'Open Risks', value: openRisks },
       { label: 'High Risks (≥9)', value: highRisks },
@@ -222,13 +231,138 @@
   function renderReqTable(root) {
     var rows = (state.data.requirements.requirements || []).filter(function (r) { return matchFilters(r.id + ' ' + r.title, r); });
     if (!rows.length) { root.innerHTML = empty('No requirements match filters.'); return; }
-    root.innerHTML = '<div class="eng-table-wrap"><table class="eng-table" aria-label="System requirements">' +
-      '<thead><tr><th>ID</th><th>Title</th><th>Category</th><th>Priority</th><th>Status</th><th>Verify</th><th>Subsystem</th></tr></thead><tbody>' +
+    root.innerHTML =
+      '<p class="intro">Baseline ' + escapeHtml(state.data.requirements.baseline_id || '') +
+      ' — ' + escapeHtml(state.data.requirements.notes || '') + ' Click an ID for rationale, G/W/T acceptance, and planned vs executed verification.</p>' +
+      '<div class="eng-table-wrap"><table class="eng-table" aria-label="System requirements">' +
+      '<thead><tr><th>ID</th><th>Title</th><th>Category</th><th>Priority</th><th>Status</th><th>Verify</th><th>Planned</th><th>Executed</th></tr></thead><tbody>' +
       rows.map(function (r) {
         return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.title) + '</td><td>' + escapeHtml(r.category) +
           '</td><td>' + escapeHtml(r.priority) + '</td><td>' + statusHtml(r.status) + '</td><td>' +
-          escapeHtml(r.verification_method) + '</td><td>' + idBtn(r.allocated_subsystem) + '</td></tr>';
+          escapeHtml(r.verification_method) + '</td><td>' + escapeHtml(r.verification_planned || '—') +
+          '</td><td>' + escapeHtml(r.verification_executed || '—') + '</td></tr>';
       }).join('') + '</tbody></table></div>';
+  }
+
+  function renderMath(root) {
+    var m = state.data.math;
+    if (!m) { root.innerHTML = empty(); return; }
+    var html = '<p class="intro">' + escapeHtml(m.honesty) + '</p>';
+    html += '<div class="eng-callout-amber">KaTeX theory + MOCK worked traces. Behavioral Models keeps parameter tables; this tab is the rendered math.</div>';
+    (m.sections || []).forEach(function (sec) {
+      html += '<h3 id="' + escapeHtml(sec.id) + '">' + escapeHtml(sec.title) + '</h3>';
+      (sec.katex || []).forEach(function (eq) {
+        html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
+      });
+      if (sec.notes) html += '<p class="intro">' + escapeHtml(sec.notes) + '</p>';
+    });
+    html += '<h3>Worked numerical examples</h3>';
+    (m.worked_examples || []).forEach(function (ex) {
+      html += '<div class="eng-mock-card"><span class="eng-badge-mock">' + escapeHtml(ex.label || 'MOCK') + '</span> ' +
+        '<strong>' + escapeHtml(ex.id) + '</strong> — ' + escapeHtml(ex.title) +
+        '<pre class="eng-eq">' + escapeHtml(JSON.stringify({ initial: ex.initial, event: ex.event, steps: ex.steps, final: ex.final }, null, 2)) +
+        '</pre><p class="intro">' + escapeHtml(ex.disclaimer || '') + '</p></div>';
+    });
+    if (m.pipeline) {
+      html += '<h3>' + escapeHtml(m.pipeline.title) + '</h3><ol style="color:var(--cream-dim)">';
+      (m.pipeline.steps || []).forEach(function (s) { html += '<li>' + escapeHtml(s) + '</li>'; });
+      html += '</ol><p class="intro">Linked: ' + (m.pipeline.linked_models || []).map(idBtn).join(' ') +
+        ' ' + idBtn(m.pipeline.linked_diagram) + '</p>';
+    }
+    html += '<h3>Measurable metrics ↔ tests</h3><div class="eng-table-wrap"><table class="eng-table"><thead><tr><th>Metric</th><th>Test</th></tr></thead><tbody>';
+    (m.measurable_metrics || []).forEach(function (row) {
+      html += '<tr><td>' + escapeHtml(row.metric) + '</td><td>' + idBtn(row.test) + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    html += '<p class="intro"><a href="/about/#feeling">About: why measurable emotion</a> · <a href="#behavioral">Behavioral Models parameters</a></p>';
+    root.innerHTML = html;
+    typesetKatex(root);
+  }
+
+  function typesetKatex(root) {
+    if (!window.katex) return;
+    $all('[data-katex]', root).forEach(function (el) {
+      try {
+        window.katex.render(el.getAttribute('data-katex'), el, { throwOnError: false, displayMode: true });
+      } catch (e) { el.textContent = el.getAttribute('data-katex'); }
+    });
+  }
+
+  function renderHeatmap(corr) {
+    var vars = corr.variables || [];
+    var mat = corr.matrix || [];
+    var html = '<div class="eng-heat" role="img" aria-label="' + escapeHtml(corr.title) + '">';
+    html += '<div class="eng-heat-row"><span class="eng-heat-lab"></span>' + vars.map(function (v) {
+      return '<span class="eng-heat-lab">' + escapeHtml(v) + '</span>';
+    }).join('') + '</div>';
+    mat.forEach(function (row, i) {
+      html += '<div class="eng-heat-row"><span class="eng-heat-lab">' + escapeHtml(vars[i] || '') + '</span>';
+      row.forEach(function (v) {
+        var t = (v + 1) / 2;
+        var bg = 'rgba(57,230,200,' + (0.15 + 0.75 * Math.abs(v)).toFixed(2) + ')';
+        if (v < 0) bg = 'rgba(239,95,107,' + (0.15 + 0.75 * Math.abs(v)).toFixed(2) + ')';
+        html += '<span class="eng-heat-cell" style="background:' + bg + '" title="' + v + '">' + Number(v).toFixed(2) + '</span>';
+      });
+      html += '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderAnalysis(root) {
+    var a = state.data.analysis;
+    if (!a) { root.innerHTML = empty('No dataset available'); return; }
+    var html = '<p class="intro">' + escapeHtml(a.honesty) + '</p>';
+    html += '<div class="eng-callout-amber">Status: ' + escapeHtml(a.status) + ' — MOCK datasets are watermarked. Do not cite as production performance.</div>';
+    html += '<h3>Datasets</h3><ul style="color:var(--cream-dim)">';
+    (a.datasets || []).forEach(function (d) {
+      html += '<li><span class="eng-badge-mock">' + escapeHtml(d.label) + '</span> ' + idBtn(d.id) +
+        ' — ' + escapeHtml(d.title) + ' · <a href="' + escapeHtml(d.path) + '">CSV</a><br>' + escapeHtml(d.description) + '</li>';
+    });
+    html += '</ul>';
+    (a.correlations || []).forEach(function (c) {
+      html += '<h3><span class="eng-badge-mock">' + escapeHtml(c.label) + '</span> ' + escapeHtml(c.title) + '</h3>';
+      html += renderHeatmap(c);
+      html += '<p class="intro">' + escapeHtml(c.note || '') + '</p>';
+    });
+    if (a.sensitivity) {
+      var s = a.sensitivity;
+      html += '<h3><span class="eng-badge-mock">' + escapeHtml(s.label) + '</span> ' + escapeHtml(s.title) + '</h3>';
+      html += '<p class="intro">Baseline ΔJ ≈ ' + escapeHtml(String(s.baseline_delta_j)) + '</p><ul style="color:var(--cream-dim)">';
+      (s.bars || []).forEach(function (b) {
+        html += '<li>' + escapeHtml(b.param) + ': low ' + b.low + ' / high ' + b.high + '</li>';
+      });
+      html += '</ul><p class="intro">' + escapeHtml(s.note || '') + '</p>';
+    }
+    root.innerHTML = html;
+  }
+
+  function renderBenchmarks(root) {
+    var b = state.data.benchmarks;
+    var html = '';
+    if (b.plan) {
+      html += '<h3>' + escapeHtml(b.plan.title) + ' (' + escapeHtml(b.plan.id) + ')</h3>';
+      html += '<p class="intro">' + escapeHtml(b.plan.method) + ' Rule: ' + escapeHtml(b.plan.rule) + '</p>';
+      html += '<ul style="color:var(--cream-dim)">' + (b.plan.classes || []).map(function (c) {
+        return '<li>' + escapeHtml(c) + '</li>';
+      }).join('') + '</ul>';
+    }
+    var rows = b.benchmarks || [];
+    if (!rows.length) {
+      html += empty(b.status || 'No engineering record has been published for this category.');
+    } else {
+      html += '<div class="eng-table-wrap"><table class="eng-table" aria-label="Benchmarks"><thead><tr>' +
+        '<th>ID</th><th>Label</th><th>Class</th><th>Date</th><th>Hardware</th><th>N</th><th>Result</th><th>Raw</th></tr></thead><tbody>';
+      rows.forEach(function (r) {
+        html += '<tr><td>' + idBtn(r.id) + '</td><td><span class="eng-badge-mock">' + escapeHtml(r.label || '') +
+          '</span></td><td>' + escapeHtml(r.class) + '</td><td>' + escapeHtml(r.date || '—') +
+          '</td><td>' + escapeHtml(r.hardware || '—') + '</td><td>' + escapeHtml(String(r.n == null ? '—' : r.n)) +
+          '</td><td>' + escapeHtml(r.result || '—') + '</td><td>' +
+          (r.raw ? '<a href="' + escapeHtml(r.raw) + '">link</a>' : '—') + '</td></tr>';
+      });
+      html += '</tbody></table></div>';
+    }
+    root.innerHTML = html;
   }
 
   function renderHardware(root) {
@@ -277,7 +411,8 @@
         '<div class="eng-diagram-toolbar"><strong class="mono" style="flex:1;color:var(--cream-dim);font-size:0.8rem;">' +
         idBtn(d.id) + ' · ' + escapeHtml(d.title) + '</strong>' +
         '<button type="button" data-fs="' + escapeHtml(d.id) + '">Fullscreen</button></div>' +
-        '<pre class="mermaid">' + escapeHtml(d.mermaid) + '</pre></div>';
+        '<pre class="mermaid">' + escapeHtml(d.mermaid) + '</pre>' +
+        '<p class="eng-diagram-caption">' + escapeHtml(d.title) + ' · type ' + escapeHtml(d.type) + '</p></div>';
     }).join('');
     runMermaid(root);
   }
@@ -291,7 +426,7 @@
 
   function renderSysML(root) {
     root.innerHTML = '<p class="intro">SysML-style views derived from real subsystems. Steps shown only where implementation exists.</p><div id="eng-sysml-diagrams"></div>';
-    renderDiagrams($('#eng-sysml-diagrams'), ['BDD-001', 'IBD-001', 'SEQ-001', 'SEQ-002', 'ACT-001', 'ACT-002', 'ACT-003', 'STM-001', 'STM-002']);
+    renderDiagrams($('#eng-sysml-diagrams'), ['BDD-001', 'IBD-001', 'PAR-001', 'SEQ-001', 'SEQ-002', 'ACT-001', 'ACT-002', 'ACT-003', 'STM-001', 'STM-002']);
   }
 
   function renderInterfaces(root) {
@@ -359,23 +494,25 @@
   function renderVCRM(root) {
     var reqs = state.data.requirements.requirements || [];
     root.innerHTML =
-      '<p class="intro">Verification Cross-Reference Matrix. Results reflect published test records only.</p>' +
+      '<p class="intro">Verification Cross-Reference Matrix with <strong>Planned</strong> vs <strong>Executed</strong> columns. Pending does not mean PASS. ST-003 Blocked + EVID-001 is the honesty pattern.</p>' +
       '<div class="eng-toolbar"><button type="button" class="eng-export" data-export="vcrm">Export CSV</button></div>' +
       '<div class="eng-table-wrap"><table class="eng-table" aria-label="VCRM"><thead><tr>' +
-      '<th>Requirement</th><th>Method</th><th>Level</th><th>Test</th><th>Procedure</th><th>Evidence</th><th>Result</th><th>Build</th><th>Date</th><th>Status</th></tr></thead><tbody>' +
+      '<th>Requirement</th><th>Method</th><th>Test</th><th>Planned</th><th>Executed</th><th>Evidence</th><th>Result</th><th>Status</th></tr></thead><tbody>' +
       reqs.map(function (r) {
         var tests = r.linked_tests || [];
         if (!tests.length) {
           return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.verification_method) +
-            '</td><td>—</td><td>—</td><td>—</td><td>—</td><td>' + statusHtml('Verification Pending') +
-            '</td><td>—</td><td>—</td><td>' + statusHtml(r.status) + '</td></tr>';
+            '</td><td>—</td><td>' + escapeHtml(r.verification_planned || '—') +
+            '</td><td>' + escapeHtml(r.verification_executed || '—') +
+            '</td><td>—</td><td>' + statusHtml('Verification Pending') +
+            '</td><td>' + statusHtml(r.status) + '</td></tr>';
         }
         return tests.map(function (tid) {
           var t = state.index[tid] && state.index[tid].record || {};
           return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.verification_method) + '</td><td>' +
-            escapeHtml(t.class || '—') + '</td><td>' + idBtn(tid) + '</td><td>' + escapeHtml(t.procedure || 'Not yet published') +
+            idBtn(tid) + '</td><td>' + escapeHtml(r.verification_planned || t.procedure || '—') +
+            '</td><td>' + escapeHtml(r.verification_executed || t.execution_date || '—') +
             '</td><td>' + ((t.evidence || []).map(idBtn).join(' ') || '—') + '</td><td>' + statusHtml(t.result) +
-            '</td><td>' + escapeHtml(t.software_version || '—') + '</td><td>' + escapeHtml(t.execution_date || '—') +
             '</td><td>' + statusHtml(t.result) + '</td></tr>';
         }).join('');
       }).join('') + '</tbody></table></div>';
@@ -442,40 +579,52 @@
           (ids.length || '') + '</button>';
       }
     }
+    var cards = risks.map(function (r) {
+      var steps = r.mitigation_steps || {};
+      var road = (r.roadmap || []).map(function (x) {
+        return '<li>' + escapeHtml(x.step) + ' — <em>' + escapeHtml(x.status) + '</em></li>';
+      }).join('');
+      return '<article class="eng-risk-card">' +
+        '<h3>' + idBtn(r.id) + ' ' + escapeHtml(r.title) + ' ' + statusHtml(r.status) + '</h3>' +
+        '<p><strong>Scenario:</strong> ' + escapeHtml(r.scenario || r.description) + '</p>' +
+        '<p><strong>Cause chain:</strong> ' + escapeHtml((r.cause_chain || [r.cause]).join(' → ')) + '</p>' +
+        '<p><strong>Detection:</strong> ' + escapeHtml((r.detection || []).join('; ') || '—') + '</p>' +
+        '<p><strong>Mitigation strategy</strong></p><ul style="color:var(--cream-dim);font-size:0.88rem">' +
+        '<li>Prevent: ' + escapeHtml((steps.prevent || []).join('; ') || '—') + '</li>' +
+        '<li>Detect: ' + escapeHtml((steps.detect || []).join('; ') || '—') + '</li>' +
+        '<li>Respond: ' + escapeHtml((steps.respond || []).join('; ') || '—') + '</li>' +
+        '<li>Recover: ' + escapeHtml((steps.recover || []).join('; ') || '—') + '</li></ul>' +
+        '<p><strong>Residual:</strong> P' + r.residual_probability + '×S' + r.residual_severity +
+        '=' + r.residual_risk + ' — ' + escapeHtml(r.residual_rationale || '') + '</p>' +
+        '<p><strong>Owner / review:</strong> ' + escapeHtml(r.owner || '—') + ' / ' + escapeHtml(r.review_date || '—') + '</p>' +
+        (road ? '<p><strong>Roadmap</strong></p><ul style="color:var(--cream-dim);font-size:0.88rem">' + road + '</ul>' : '') +
+        '<p>Links: ' + (r.linked_requirements || []).map(idBtn).join(' ') + ' ' +
+        (r.linked_tests || []).map(idBtn).join(' ') + '</p></article>';
+    }).join('');
     root.innerHTML =
-      '<p class="intro">Probability × severity matrix (1–5). Click a cell to open listed risks.</p>' +
+      '<p class="intro">Probability × severity matrix (1–5). Open a risk ID for full narrative. RSK-005 remains Open at residual 9 until WSL gate is green.</p>' +
       '<div class="eng-risk-matrix" role="grid" aria-label="Risk matrix">' + matrix + '</div>' +
       '<div class="eng-toolbar" style="margin-top:14px;"><button type="button" class="eng-export" data-export="risks">Export CSV</button></div>' +
-      '<div class="eng-table-wrap"><table class="eng-table" aria-label="Risk register"><thead><tr>' +
-      '<th>ID</th><th>Title</th><th>P</th><th>S</th><th>Initial</th><th>Residual</th><th>Status</th><th>Mitigation</th></tr></thead><tbody>' +
-      risks.map(function (r) {
-        return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.title) + '</td><td>' + r.probability +
-          '</td><td>' + r.severity + '</td><td>' + r.initial_risk + '</td><td>' + r.residual_risk +
-          '</td><td>' + statusHtml(r.status) + '</td><td>' + escapeHtml(r.mitigation) + '</td></tr>';
-      }).join('') + '</tbody></table></div>' +
-      '<h3 style="margin:18px 0 8px;font-size:1rem;">Risk mitigation traceability</h3>' +
-      '<div class="eng-table-wrap"><table class="eng-table"><thead><tr><th>Risk</th><th>Mitigation</th><th>Requirements</th><th>Tests</th></tr></thead><tbody>' +
-      risks.map(function (r) {
-        return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.mitigation) + '</td><td>' +
-          (r.linked_requirements || []).map(idBtn).join(' ') + '</td><td>' +
-          (r.linked_tests || []).map(idBtn).join(' ') + '</td></tr>';
-      }).join('') + '</tbody></table></div>';
+      cards;
   }
 
-  function renderAnalysis(root) {
-    root.innerHTML = empty('No dataset available') +
-      '<p class="intro" style="margin-top:12px;">Correlation matrices (hardware vs performance, VRAM vs capability, REX closure, etc.) will render here when CSV/JSON ingest lands under data/engineering/ingest/.</p>';
-  }
-
-  function renderBenchmarks(root) {
-    var b = state.data.benchmarks;
-    if (!b.benchmarks || !b.benchmarks.length) {
-      root.innerHTML = empty(b.status) +
-        '<p class="intro" style="margin-top:10px;">Supported classes (awaiting measured runs): ' +
-        escapeHtml((b.classes_supported || []).join(', ')) + '</p>';
-      return;
-    }
-    /* real rows would render here */
+  function renderBehavioral(root) {
+    var bm = state.data.behavioral_models;
+    var models = bm.models || [];
+    root.innerHTML =
+      '<p class="intro">Parameter tables and model IDs. For KaTeX theory and MOCK worked examples see <a href="#math">Math</a>.</p>' +
+      '<p class="intro">Behavior Model <strong class="mono">' + escapeHtml(bm.behavior_model_version) +
+      '</strong> · Personality Schema <strong class="mono">' + escapeHtml(bm.personality_schema_version) +
+      '</strong> · Relationship <strong class="mono">' + escapeHtml((bm.relationship_model_versions || []).join(' / ')) + '</strong></p>' +
+      '<div class="eng-card-grid" style="margin-bottom:16px;">' +
+      models.map(function (m) {
+        return '<button type="button" class="eng-card" data-eng-id="' + escapeHtml(m.id) + '"><h3>' +
+          escapeHtml(m.id) + '</h3><p>' + escapeHtml(m.name) + ' — ' + escapeHtml(m.purpose) + '</p></button>';
+      }).join('') + '</div>' +
+      renderEmotionTables(bm) +
+      renderPersonalityCompare(bm) +
+      '<h3 style="margin:18px 0 8px;font-size:1rem;">State traces</h3>' +
+      '<p class="intro">Live traces are not exported. Teaching MOCK traces live under <a href="#math">Math</a>.</p>';
   }
 
   function renderModels(root) {
@@ -490,25 +639,6 @@
           '</td><td>' + escapeHtml(m.hosting) + '</td><td>' + (m.fine_tuned_by_otaconskeep ? 'Yes' : 'No') +
           '</td><td>' + escapeHtml(m.statement || '') + '</td></tr>';
       }).join('') + '</tbody></table></div>';
-  }
-
-  function renderBehavioral(root) {
-    var bm = state.data.behavioral_models;
-    var models = bm.models || [];
-    root.innerHTML =
-      '<p class="intro">Mathematical behavioral models extracted from runtime source. Equations are implementation-derived — not decorative.</p>' +
-      '<p class="intro">Behavior Model <strong class="mono">' + escapeHtml(bm.behavior_model_version) +
-      '</strong> · Personality Schema <strong class="mono">' + escapeHtml(bm.personality_schema_version) +
-      '</strong> · Relationship <strong class="mono">' + escapeHtml((bm.relationship_model_versions || []).join(' / ')) + '</strong></p>' +
-      '<div class="eng-card-grid" style="margin-bottom:16px;">' +
-      models.map(function (m) {
-        return '<button type="button" class="eng-card" data-eng-id="' + escapeHtml(m.id) + '"><h3>' +
-          escapeHtml(m.id) + '</h3><p>' + escapeHtml(m.name) + ' — ' + escapeHtml(m.purpose) + '</p></button>';
-      }).join('') + '</div>' +
-      renderEmotionTables(bm) +
-      renderPersonalityCompare(bm) +
-      '<h3 style="margin:18px 0 8px;font-size:1rem;">State traces / sensitivity</h3>' +
-      empty((bm.simulation_hooks && bm.simulation_hooks.state_traces) || 'No fabricated traces.');
   }
 
   function renderEmotionTables(bm) {
@@ -610,6 +740,7 @@
     analysis: renderAnalysis,
     benchmarks: renderBenchmarks,
     models: renderModels,
+    math: renderMath,
     behavioral: renderBehavioral,
     releases: renderReleases,
     issues: renderIssues,
@@ -771,6 +902,40 @@
     });
   }
 
+  function sectionForType(type) {
+    var map = {
+      requirement: 'requirements',
+      architecture: 'architecture',
+      interface: 'interfaces',
+      risk: 'risk',
+      test: 'tests',
+      evidence: 'vv',
+      issue: 'issues',
+      model: 'models',
+      baseline: 'architecture',
+      release: 'releases',
+      behavioral_model: 'behavioral',
+      diagram: 'models-sysml',
+      math_trace: 'math',
+      dataset: 'analysis'
+    };
+    return map[type] || 'overview';
+  }
+
+  function resolveHash(hash) {
+    if (SECTION_RENDERERS[hash]) {
+      showSection(hash);
+      return;
+    }
+    var entry = state.index[hash];
+    if (entry) {
+      showSection(sectionForType(entry.type));
+      openDetail(hash);
+      return;
+    }
+    showSection('overview');
+  }
+
   function boot() {
     var status = $('#eng-load-status');
     Promise.all(FILES.map(function (f) {
@@ -780,8 +945,10 @@
       if (status) status.textContent = 'Engineering data loaded · schema ' +
         (state.data.meta.schema_version || '') + ' · audited ' + (state.data.meta.last_audited || '');
       bindChrome();
-      var hash = (location.hash || '#overview').replace('#', '');
-      showSection(SECTION_RENDERERS[hash] ? hash : 'overview');
+      resolveHash((location.hash || '#overview').replace('#', ''));
+      window.addEventListener('hashchange', function () {
+        resolveHash((location.hash || '#overview').replace('#', ''));
+      });
     }).catch(function (err) {
       if (status) status.textContent = 'Failed to load engineering data: ' + err.message;
     });

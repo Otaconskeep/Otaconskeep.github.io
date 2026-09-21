@@ -238,6 +238,49 @@
 </div>
 
 <div class="wrap">
+  <section id="engineering-faq">
+    <p class="tag">Engineering</p>
+    <h2>Evidence portal</h2>
+    <p class="intro">How to read the Engineering pages without mistaking scaffolding for a qualification report.</p>
+
+    <details class="install-toggle" open>
+      <summary>What does “Verified” mean on Engineering?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;"><strong>Verified</strong> means a requirement has attached executed test evidence (EVID-*) with a recorded result — not Design Intent and not “looks implemented.” Until then the status stays Verification Pending. The portal does not invent PASS. See <a href="/engineering/#vcrm">VCRM</a>.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>Where are the emotion equations?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Rendered theory (KaTeX state vector, blend/decay, Formula 5) lives under <a href="/engineering/#math">Engineering → Math</a>. Parameter tables and model IDs stay on <a href="/engineering/#behavioral">Behavioral Models</a>. About explains the <em>why</em>; Math is the <em>how</em>.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>Why do so many VCRM cells say Pending?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Because Planned procedures exist before Executed runs. Pending is honesty, not a soft PASS. Columns split Planned vs Executed; ST-003 Blocked + EVID-001 is the pattern. Mock analysis data is labeled MOCK and does not flip Verified.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>Lite vs Reference Keep — what claims are safe?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;"><strong>Lite</strong> is the free public Core install. <strong>Reference Keep</strong> is Antonio’s private depth reference — not a downloadable clone. Safe claim: Lite gives persistent local agents + Codec/Command Center paths documented on install. Unsafe claim: “your install matches the full private Keep.” Boundaries are listed on <a href="/engineering/#overview">Engineering Overview</a>.</p>
+      </div>
+    </details>
+
+    <details class="install-toggle">
+      <summary>How do I reproduce a BVT locally?</summary>
+      <div class="install-box">
+        <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Open the test ID on <a href="/engineering/#tests">Tests</a> (e.g. BVT-001 / BVT-002). Follow the published procedure field when present; if procedure is still “Not yet published,” wait for an EVID pack — teaching MOCK traces under Math are not a substitute for a measured run.</p>
+      </div>
+    </details>
+  </section>
+</div>
+
+<div class="wrap">
   <section>
     <p class="tag">Still stuck?</p>
     <h2>Ask a real person</h2>

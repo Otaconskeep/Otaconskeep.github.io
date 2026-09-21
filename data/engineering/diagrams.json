@@ -3,14 +3,14 @@
     {
       "id": "BDD-001",
       "type": "bdd",
-      "title": "Top-level Block Definition",
-      "mermaid": "flowchart TB\n  OK[OtaconsKeep Core]\n  OK --> AR[Agent Runtime]\n  OK --> MEM[Memory]\n  OK --> MR[Model Router]\n  OK --> RT[Model Runtime]\n  OK --> TL[Tool Layer]\n  OK --> UI[Web UI / Surfaces]\n  OK --> PER[Persistence]\n  OK --> INST[Installer / Updater]\n  OK -.-> EC[Emotional Continuity]\n  OK -.-> REL[Relationship Engines]\n  OK -.-> REX[REX Control Plane]\n  MR --> RT\n  AR --> MEM\n  AR --> TL\n  AR -.-> EC\n  AR -.-> REL"
+      "title": "BDD \u2014 Core blocks with ports (public)",
+      "mermaid": "classDiagram\n  direction TB\n  class OtaconsKeepCore {\n    +persistState()\n    +routeCapability()\n  }\n  class AgentRuntime {\n    +identity\n    +assembleContext()\n  }\n  class Memory {\n    +conversationStore\n    +longTermStore\n  }\n  class ModelRouter {\n    +llmPort\n    +ttsPort\n    +sttPort\n  }\n  class ModelRuntime {\n    +ollamaClient\n    +vramTierSelect()\n  }\n  class EmotionalContinuity {\n    +E_vector\n    +observe_message()\n  }\n  class RelationshipEngine {\n    +Formula5\n  }\n  class ToolLayer\n  class WebUI\n  class Persistence\n  OtaconsKeepCore --> AgentRuntime\n  OtaconsKeepCore --> ModelRouter\n  OtaconsKeepCore --> Persistence\n  AgentRuntime --> Memory\n  AgentRuntime --> ToolLayer\n  AgentRuntime --> EmotionalContinuity : optional\n  AgentRuntime --> RelationshipEngine : optional\n  ModelRouter --> ModelRuntime\n  WebUI --> OtaconsKeepCore : IF-002\n  ModelRuntime --> ModelRouter : IF-001"
     },
     {
       "id": "IBD-001",
       "type": "ibd",
-      "title": "Top-level Internal Flows",
-      "mermaid": "flowchart LR\n  U[User] -->|HTTP| UI[Web UI]\n  UI -->|API JSON| API[Core API]\n  API --> AR[Agent Runtime]\n  AR --> MR[Model Router]\n  MR -->|local| OL[Ollama]\n  MR -.->|optional| EP[External Providers]\n  AR --> MEM[Memory]\n  AR --> TL[Tools]\n  AR -.-> EC[Emotional Continuity]\n  REX[REX] -->|jobs| TL\n  INST[Installer] --> OS[OS / WSL]\n  INST --> RT[Model Runtime setup]"
+      "title": "IBD \u2014 typed item flows (public)",
+      "mermaid": "flowchart LR\n  U[User] -->|HTTP JSON IF-002| UI[Web UI]\n  UI -->|API JSON| API[Core API]\n  API -->|context+message| AR[Agent Runtime]\n  AR -->|ObserveEvent| EC[Emotional Continuity]\n  AR -->|Retrieve/Store| MEM[Memory]\n  AR -->|CapabilityRequest| MR[Model Router]\n  MR -->|InferenceRequest IF-001| OL[Ollama]\n  MR -.->|optional| EP[External Providers]\n  AR -->|ToolCall| TL[Tools]\n  REX[REX] -->|Job| TL\n  INST[Installer] -->|OS Feature Ops IF-003| OS[WSL/OS]"
     },
     {
       "id": "SEQ-001",
@@ -65,6 +65,12 @@
       "type": "vmodel",
       "title": "V-Model mapping",
       "mermaid": "flowchart LR\n  UN[User Needs] --- VAL[Validation]\n  SR[System Requirements] --- SV[System Verification]\n  AR[Architecture] --- IV[Integration Verification]\n  DD[Detailed Design] --- UV[Unit Verification]\n  IMP[Implementation] --- INT[Integration]\n  UN --> SR --> AR --> DD --> IMP --> INT\n  INT --> UV --> IV --> SV --> VAL"
+    },
+    {
+      "id": "PAR-001",
+      "type": "parametric",
+      "title": "Parametric \u2014 emotion constraints",
+      "mermaid": "flowchart TB\n  subgraph Constraints\n    C1[\"clamp: 0 \u2264 x \u2264 1\"]\n    C2[\"_blend(+\u0394) accrues\"]\n    C3[\"_blend(-\u0394) * (1-\u03b9)\"]\n    C4[\"decay: \u03bb * min(12, \u0394t/90)\"]\n    C5[\"\u0394J = 0.16 sc (1+0.12 min(6,n))\"]\n  end\n  E[\"E = [I,J,H,T,A,C,X]\"] --> C1\n  E --> C2\n  E --> C3\n  E --> C4\n  Event[comparison] --> C5 --> J[J via _blend]\n  P[Personality \u03b9, sc, sr] --> C2\n  P --> C3\n  P --> C5"
     }
   ]
 }

@@ -3,7 +3,7 @@
     {
       "id": "EVID-001",
       "type": "documentation",
-      "source": "Public Otacon page — Windows install honesty notes",
+      "source": "Public Otacon page \u2014 Windows install honesty notes",
       "generated_date": "2026-09-20",
       "associated_release": "Lite public",
       "associated_test": "ST-003",
@@ -12,7 +12,35 @@
       "path": "/otacon/#install",
       "summary": "Documents that automated Windows lab historically lacked nested virtualization; full end-to-end release-gate not claimed PASS.",
       "redacted": false
+    },
+    {
+      "id": "EVID-MOCK-001",
+      "type": "synthetic_trace",
+      "source": "Engineering Math worked example MOCK-TRACE-001",
+      "generated_date": "2026-09-20",
+      "associated_release": "Engineering portal 1.1",
+      "associated_test": "UT-001",
+      "associated_requirement": "REQ-BEH-002",
+      "hash": null,
+      "path": "/engineering/#math",
+      "summary": "MOCK numerical walkthrough of comparison event on albedo profile \u2014 teaching aid, not live log.",
+      "redacted": false,
+      "label": "MOCK"
+    },
+    {
+      "id": "EVID-MOCK-002",
+      "type": "synthetic_dataset",
+      "source": "mock_emotion_sensitivity.csv",
+      "generated_date": "2026-09-20",
+      "associated_release": "Engineering portal 1.1",
+      "associated_test": "BVT-002",
+      "associated_requirement": "REQ-BEH-003",
+      "hash": null,
+      "path": "/data/engineering/ingest/mock_emotion_sensitivity.csv",
+      "summary": "MOCK CSV for Analysis heatmap \u2014 watermarked synthetic.",
+      "redacted": false,
+      "label": "MOCK"
     }
   ],
-  "notes": "Additional CI logs, screenshots, and soak outputs intentionally omitted from public package pending sanitization."
+  "notes": "MOCK evidence is explicitly labeled. MEASURED packs still sparse. Private CI logs omitted."
 }

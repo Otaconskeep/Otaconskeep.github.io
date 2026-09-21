@@ -1,6 +1,46 @@
 {
-  "benchmarks": [],
-  "status": "No engineering record has been published for this category.",
+  "status": "Plan published; measured Lite rows still sparse",
+  "plan": {
+    "id": "BENCH-PLAN-001",
+    "title": "Lite public benchmark plan",
+    "classes": [
+      "cold start duration",
+      "time to first token (TTFT)",
+      "tokens/second by VRAM tier",
+      "installer duration (Windows resume path)",
+      "Codec round-trip latency",
+      "BVT runtime"
+    ],
+    "method": "Document hardware, build/commit ID, N runs, mean and p95, attach raw logs as EVID when MEASURED.",
+    "rule": "Never invent PASS. MOCK rows allowed only with label MOCK."
+  },
+  "benchmarks": [
+    {
+      "id": "BENCH-MOCK-001",
+      "label": "MOCK",
+      "class": "tokens/second",
+      "system_version": "synthetic",
+      "date": "2026-09-20",
+      "hardware": "SYNTHETIC",
+      "cpu": "n/a",
+      "ram": "n/a",
+      "gpu": "synthetic VRAM buckets",
+      "vram": "0\u201324 GB mock",
+      "os": "n/a",
+      "model": "qwen2.5 tier table",
+      "quantization": "n/a",
+      "configuration": "See mock_vram_throughput.csv",
+      "n": 35,
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "min": null,
+      "max": null,
+      "pass_threshold": null,
+      "result": "MOCK dataset only \u2014 not a qualification run",
+      "raw": "/data/engineering/ingest/mock_vram_throughput.csv"
+    }
+  ],
   "classes_supported": [
     "LLM latency",
     "time to first token",
@@ -11,13 +51,13 @@
     "API latency",
     "installer duration",
     "startup duration",
-    "video generation time",
-    "image generation time",
+    "Codec round-trip",
+    "BVT runtime",
     "REX task closure",
     "resource usage"
   ],
   "ingestion_hooks": {
-    "csv": "Planned: data/engineering/ingest/benchmarks/*.csv",
-    "json": "Planned: append to benchmarks array with BENCH-xxx IDs"
+    "csv": "data/engineering/ingest/",
+    "json": "append to benchmarks array with BENCH-xxx IDs"
   }
 }

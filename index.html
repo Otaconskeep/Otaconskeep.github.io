@@ -42,6 +42,16 @@
     </div></div>
 </nav>
 
+<aside class="proof-strip" id="proof-strip" aria-label="Engineering proof status">
+  <div class="wrap proof-strip-inner">
+    <span class="proof-kicker">Engineering evidence</span>
+    <span class="proof-chip" id="proof-reqs">… reqs</span>
+    <span class="proof-chip" id="proof-verified">… verified</span>
+    <span class="proof-chip" id="proof-risks">… risks open</span>
+    <a class="proof-link" href="/engineering/">Open Engineering →</a>
+  </div>
+</aside>
+
 <section class="hero-video" aria-label="Otaconskeep video">
   <div class="wrap">
     <div class="hero-video-frame hero-video-frame--compact">
@@ -158,12 +168,14 @@
     <p class="meta" style="margin-top: 26px; letter-spacing: 0.1em;">AGENTS // MEMORY // VOICE // ROOMS // LOCAL AI<br>MEDIA // AUTOMATION // GPU NODES // HOMELAB</p>
     <p class="meta">CREATED BY: <strong>Antonio G. Garcia</strong> · Built for the Keep.</p>
     <div class="btn-row" style="margin-top: 26px;">
-      <a class="btn btn-primary btn-install" href="#install-otacon">Install Otaconskeep Lite</a>
-      <a class="btn btn-primary btn-install" href="#install-ai9">Install AI9 Manga Colorizer</a>
+      <a class="btn btn-primary btn-install" href="#install-otacon">Install Lite</a>
+      <a class="btn btn-ghost" href="/keepdesk/#demo">Watch the Deck</a>
+      <a class="btn btn-ghost" href="/engineering/">Engineering evidence</a>
     </div>
-    <div class="btn-row" style="margin-top: 10px;">
-      <a class="btn btn-ghost" href="#today">What You Get Today</a>
-      <a class="btn btn-ghost" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+    <div class="claims-box" id="claims-evidence">
+      <p class="claims-title">Claims vs evidence</p>
+      <p class="claims-body">About describes <em>why</em> measurable emotion matters. Engineering holds the math (state vector, blend/decay), VCRM, and MOCK analysis until Verified evidence attaches. Today: honesty over theater.</p>
+      <p class="claims-links"><a href="/about/#feeling">About → emotion thesis</a> · <a href="/engineering/#math">Math</a> · <a href="/engineering/#vcrm">VCRM</a></p>
     </div>
   </section>
 </div>
@@ -681,5 +693,29 @@
 
 <script src="assets/site.js"></script>
 <script src="assets/product-explainers.js"></script>
+<script>
+(function () {
+  function set(id, text) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = text;
+  }
+  Promise.all([
+    fetch('/data/engineering/requirements.json').then(function (r) { return r.json(); }),
+    fetch('/data/engineering/risks.json').then(function (r) { return r.json(); })
+  ]).then(function (pair) {
+    var reqs = pair[0].requirements || [];
+    var risks = pair[1].risks || [];
+    var verified = reqs.filter(function (r) { return String(r.status).toLowerCase() === 'verified'; }).length;
+    var open = risks.filter(function (r) { return /open|mitigating|monitoring/i.test(r.status || ''); }).length;
+    set('proof-reqs', reqs.length + ' reqs');
+    set('proof-verified', verified + ' verified');
+    set('proof-risks', open + ' risks open');
+  }).catch(function () {
+    set('proof-reqs', 'see Engineering');
+    set('proof-verified', '0 verified');
+    set('proof-risks', 'risks → Engineering');
+  });
+})();
+</script>
 </body>
 </html>
