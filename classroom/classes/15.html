@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921n">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921o">
 </head>
 <body>
 
@@ -76,7 +76,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><p>You will understand what an IPv4 address is for, how to read it on Windows and Linux, what the subnet mask and default gateway do, how DHCP usually hands out addresses at home, and how a device decides “same street / hand it over” versus “call the router.” You will practice a beginner subnet-reading hack that covers most home and small-lab <code>/24</code> networks—then you will prove it with commands, not vibes.</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>You will understand what an IPv4 address is for, how to read it on Windows and Linux, what the subnet mask and default gateway do, how DHCP usually hands out addresses at home, and how a device decides “same street / hand it over” versus “call the router.” You will see why IPv4’s roughly <strong>4.3 billion</strong> addresses felt endless in 1983 and why classful allocation (A/B/C plus reserved D/E and loopback) burned through that pool too fast. You will practice a beginner subnet-reading hack that covers most home and small-lab <code>/24</code> networks, contrast <strong>classful</strong> defaults with <strong>classless</strong> masks you actually use, and prove loopback with ping—then you will prove it with commands, not vibes.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -138,6 +138,30 @@
 <tr>
 <td><code>/24</code></td>
 <td>Shorthand for mask <code>255.255.255.0</code> (first three octets = network on common home LANs)</td>
+</tr>
+<tr>
+<td>Classful addressing</td>
+<td>Historic A/B/C scheme: first octet range implied a <strong>default</strong> mask and therefore a fixed “huge / medium / small” network size</td>
+</tr>
+<tr>
+<td>Classless addressing</td>
+<td>Modern practice: choose any valid mask (CIDR) that fits the hosts you need—defaults are history, not law</td>
+</tr>
+<tr>
+<td>IANA</td>
+<td>Internet Assigned Numbers Authority—the top allocator of public IP space (regions and operators get slices under it)</td>
+</tr>
+<tr>
+<td>Loopback</td>
+<td>Special addresses starting with <code>127</code> that talk to <strong>this</strong> host only (classic test: <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>Multicast (Class D)</td>
+<td>One-to-many delivery addresses (<code>224</code>–<code>239</code>); not for ordinary host assignment</td>
+</tr>
+<tr>
+<td>Ping</td>
+<td>ICMP echo request/reply—“are you reachable?”—everyday reachability check</td>
 </tr>
 </tbody>
 </table><div class="cr-help">
@@ -288,12 +312,125 @@ Mask: 255.255.255.   0
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> DHCP is how most home devices get an IP automatically from the router.</div>
  
-</div></div><div class="cr-prose-block"><h4>Private vs public (one careful sentence)</h4><p>Addresses like <code>192.168.x.x</code>, <code>10.x.x.x</code>, and many <code>172.16–31.x.x</code> are <strong>private</strong>. Your router translates when you browse the public Internet. Your “what’s my IP” website shows a <strong>public</strong> address on the WAN side—not the <code>192.168</code> on your laptop. Both matter; do not confuse them when debugging port forwards or tunnels (Class 10).</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Why ~4.3 billion felt endless—and then did not</h4><p>IPv4 uses <strong>32 bits</strong>. That is <strong>2³² = 4,294,967,296</strong> possible values—about <strong>4.3 billion</strong>. When the modern Internet’s addressing era is dated to <strong>1 January 1983</strong>, that number looked absurdly large. Two things the early designers could not fully price in:</p>
+<ol>
+<li>The Internet became a global utility, not a research curiosity.</li>
+<li>Nearly everything gained a network stack—phones, cameras, VMs, containers, IoT—not “a few computers per site.”</li>
+</ol>
+<p>Public IPv4 free-pool exhaustion is real. Later classes cover the operational bandaids (private addressing + NAT, CIDR, and IPv6). This section is about the <strong>first</strong> design choice that made scarcity arrive early: <strong>classful</strong> chunking.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Classful ranges (A–E) — what exams still expect you to know</h4><p>Early IPv4 organized public space into <strong>classes</strong>. For Classes A/B/C, the <strong>first octet</strong> told you the <strong>default</strong> subnet mask—and therefore how many hosts that “network” assumed.</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>First-octet range (decimal)</th>
+<th>Default mask</th>
+<th>Rough idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td><code>1</code>–<code>126</code></td>
+<td><code>255.0.0.0</code> (<code>/8</code>)</td>
+<td>Few networks, <strong>huge</strong> host space (~16.7M addresses each)</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td><code>128</code>–<code>191</code></td>
+<td><code>255.255.0.0</code> (<code>/16</code>)</td>
+<td>Medium networks (~65K addresses each)</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td><code>192</code>–<code>223</code></td>
+<td><code>255.255.255.0</code> (<code>/24</code>)</td>
+<td>Many networks, <strong>small</strong> host space (256 addresses each—then subtract reserved)</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td><code>224</code>–<code>239</code></td>
+<td><em>(no host default)</em></td>
+<td><strong>Multicast</strong>—not for ordinary unicast host assignment</td>
+</tr>
+<tr>
+<td><strong>E</strong></td>
+<td><code>240</code>–<code>255</code></td>
+<td><em>(no host default)</em></td>
+<td><strong>Reserved / experimental</strong>—do not assign to normal hosts</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gap to notice:</strong> Class A stops at <code>126</code>, Class B starts at <code>128</code>. <strong><code>127</code> is missing on purpose</strong>—that is the <strong>loopback</strong> block (next section), not a Class A for you to hand out.</p>
+<p><strong>Default-mask math with the 255/0 hack</strong></p>
+<ul>
+<li>Class A <code>10.0.0.0</code> with <code>255.0.0.0</code> → only the first octet is locked → three host octets → on the order of <strong>16 million</strong> addresses in that <em>default</em> classful network (far larger than any home LAN).</li>
+<li>Class B <code>172.16.0.0</code> with <code>255.255.0.0</code> → first two octets locked → about <strong>65,534</strong> usable hosts if you stayed classful (still enormous for a single flat LAN).</li>
+<li>Class C <code>192.168.1.0</code> with <code>255.255.255.0</code> → first three octets locked → the familiar <strong>254</strong> usable-host story from earlier.</li>
+</ul>
+<p>Historically, large organizations received <strong>entire Class A</strong> (<code>/8</code>) blocks because planners assumed “plenty left.” Many of those blocks were later <strong>subnetted</strong> into smaller pieces. The registry that sits at the top of public allocation is <strong>IANA</strong> (with Regional Internet Registries below it). You do not need their org chart for this class—you need the idea: <strong>big default chunks were easy to give away and hard to claw back.</strong></p>
+<p>Memorize the chart if you are exam-bound. In the lab, treat defaults as <strong>history</strong>, not as how your home router must be configured.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Classful vs classless (your first honest look at “subnetting”)</h4><p><strong>Classful</strong> means: “This first octet says I am Class A, so my <em>default</em> mask is <code>/8</code>.”</p>
+<p><strong>Classless</strong> means: “I own (or privately use) a block, and I pick a <strong>longer</strong> mask to carve <strong>smaller</strong> networks.” Example:</p>
+<pre><code class="language-text">Allocated / classful view:  10.0.0.0     mask 255.0.0.0     (/8)
+One slice you actually use: 10.7.1.0     mask 255.255.255.0 (/24)
+</code></pre>
+<p>The address still <em>looks</em> Class A by first octet, but the mask <code>255.255.255.0</code> makes a normal-sized LAN. That is a <strong>classless</strong> network: you broke the default. Modern practice is almost all classless (CIDR). Classful defaults still matter for reading old docs and exam questions.</p>
+<p>Subnetting deeper (borrowing host bits, VLSM, summarization) is the next skill layer. This class only needs: <strong>mask decides size; class letter is a default, not a prison.</strong></p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Old IPv4 classes A–C each had a default mask size. Learn the chart for exams; real labs use classless masks (CIDR).</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Class D and E — addresses you do not assign to laptops</h4><ul>
+<li><strong>Class D (<code>224</code>–<code>239</code>):</strong> multicast. Important for many protocols; <strong>not</strong> for “give this to my NAS as its main IP.”</li>
+<li><strong>Class E (<code>240</code>–<code>255</code>):</strong> reserved/experimental space. Treat as <strong>off-limits</strong> for normal host addressing in this Academy.</li>
+</ul>
+<p>Together with loopback and other special ranges, they are why “4.3 billion total” is not the same as “4.3 billion free for random devices.”</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Old IPv4 classes A–C each had a default mask size. Learn the chart for exams; real labs use classless masks (CIDR).</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Loopback — `127` talks to this host only</h4><p>Anything whose first octet is <strong><code>127</code></strong> is <strong>loopback</strong>: traffic stays on the local host. The classic address is <strong><code>127.0.0.1</code></strong> (also nicknamed localhost).</p>
+<p><strong>Why it exists:</strong> prove the IP stack on <em>this</em> machine is alive without involving Wi-Fi, a switch, or the Internet.</p>
+<p><strong>Ping</strong> sends an ICMP echo and waits for a reply—“are you there?” It is the most common first reachability tool in IT.</p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">ping -n 4 127.0.0.1
+# Same idea — any 127.x.x.x should answer locally on a healthy stack:
+ping -n 2 127.15.15.8
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">ping -c 4 127.0.0.1
+# Same idea — any 127.x.x.x should answer locally on a healthy stack:
+ping -c 2 127.15.15.8
+</code></pre></div>
+<p>If <code>127.0.0.1</code> fails, fix the local OS/network stack before blaming Netflix or your gateway.</p>
+<p><strong>Design critique (for exams and interviews):</strong> the whole <code>127.0.0.0/8</code> block is reserved for loopback—about <strong>16 million</strong> addresses—while day-to-day testing almost always uses <code>.1</code>. You still must <strong>recognize</strong> the range; do not assign <code>127.x</code> to a lab VM as if it were a LAN address.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Private vs public (one careful sentence)</h4><p>Addresses like <code>192.168.x.x</code>, <code>10.x.x.x</code>, and many <code>172.16–31.x.x</code> are <strong>private</strong>. Your router translates when you browse the public Internet. Your “what’s my IP” website shows a <strong>public</strong> address on the WAN side—not the <code>192.168</code> on your laptop. Both matter; do not confuse them when debugging port forwards or tunnels (Class 10). Private space plus NAT is one of the <strong>operational bandaids</strong> that stretched IPv4 after classful giveaways and Internet growth; IPv6 is the long-term enlargement of the address space.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
@@ -394,7 +531,7 @@ arp -a
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Same-network test:.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Ping asks “are you reachable?” with a small echo packet. First tool when something seems offline.</div>
  
 </div>
  </div>
@@ -429,7 +566,7 @@ tracert -d 1.1.1.1
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Workbook:.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Ping asks “are you reachable?” with a small echo packet. First tool when something seems offline.</div>
  
 </div>
  </div>
@@ -483,6 +620,71 @@ tracert -d 1.1.1.1
  
 </div>
  </div>
+</div></div></div><div class="cr-lab-path"><h4>Path D — Classes, loopback, and ping</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Classify your LAN IP by first octet</strong> using the A–E chart. Write: class letter, <em>default</em> classful mask, and <strong>your actual</strong> mask. Are they the same? (Most home LANs are Class C <em>looking</em> with a <code>/24</code> mask—or Class A <em>looking</em> <code>10.x</code> with a classless <code>/24</code>.)</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Old IPv4 classes A–C each had a default mask size. Learn the chart for exams; real labs use classless masks (CIDR).</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Workbook contrast:</strong> one row for “classful default size,” one row for “my real network size.” One sentence: “Classful told me <strong><em>_; classless/mask told me </em></strong>_.”</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Old IPv4 classes A–C each had a default mask size. Learn the chart for exams; real labs use classless masks (CIDR).</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Loopback proof</strong></p>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">ping -n 4 127.0.0.1
+ping -n 2 127.0.0.2
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">ping -c 4 127.0.0.1
+ping -c 2 127.0.0.2
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Workbook:</strong> “Loopback succeeded / failed. I would / would not assign a <code>127.x</code> address to a NAS.” Circle Class D and E on the chart and write “not for unicast hosts.”</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Old IPv4 classes A–C each had a default mask size. Learn the chart for exams; real labs use classless masks (CIDR).</div>
+ 
+</div>
+ </div>
 </div></div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -518,6 +720,24 @@ tracert -d 1.1.1.1
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3.</div>
  
+</div></div><div class="cr-prose-block"><ol start="4">
+<li><strong>Class vs mask:</strong> take a <code>10.x</code> address with mask <code>255.255.255.0</code> and explain to a partner why calling it “a Class A network of 16 million hosts” would be wrong for <em>your</em> LAN.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Old IPv4 classes A–C each had a default mask size. Learn the chart for exams; real labs use classless masks (CIDR).</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="5">
+<li><strong>Loopback vs LAN:</strong> with Wi-Fi off, confirm <code>ping 127.0.0.1</code> still works while <code>ping 1.1.1.1</code> fails—local stack vs Internet path.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
 </div></div></div>
 <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Common mistakes</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -533,12 +753,15 @@ tracert -d 1.1.1.1
 <li>Assigning <code>.0</code> or <code>.255</code> to a host on a <code>/24</code>.</li>
 <li>Duplicating an IP already leased by DHCP.</li>
 <li>Debugging Docker DNS before confirming the host even has a gateway.</li>
+<li>Treating <strong>classful defaults</strong> as how the Internet still assigns every network (it does not—CIDR/classless won).</li>
+<li>Putting a <strong>Class D/E</strong> or <strong><code>127.x</code></strong> address on a lab host “because the chart had free numbers.”</li>
+<li>Confusing “4.3 billion total IPv4 values” with “4.3 billion free for my devices.”</li>
 </ul><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> DHCP is how most home devices get an IP automatically from the router.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
  
 </div></div></div>
 <div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">
@@ -556,6 +779,10 @@ tracert -d 1.1.1.1
 <li>On <code>192.168.1.0/24</code>, what are the network and broadcast addresses?</li>
 <li>Why is “256 usable hosts” the wrong answer for that <code>/24</code>?</li>
 <li>Who usually assigns addresses automatically at home?</li>
+<li>About how many IPv4 addresses exist in total, and why that is not the same as “available for hosts”?</li>
+<li>Give the first-octet ranges and default masks for Classes A, B, and C. What are D and E for?</li>
+<li>Why is <code>127</code> missing between Class A and Class B? What command proves loopback?</li>
+<li>What is the difference between a classful network and a classless network? Give one example with <code>10.x</code>.</li>
 </ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -593,7 +820,7 @@ tracert -d 1.1.1.1
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Same-LAN ping and Internet ping are both demonstrated (or failures explained with evidence).)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Ping asks “are you reachable?” with a small echo packet. First tool when something seems offline.</div>
  
 </div></div><div class="cr-check-item"><label><input type="checkbox" data-k="3"> <span>Usable-address calculation for their `/24` (or documented non-/24 with instructor help) is in the workbook.</span></label><div class="cr-help">
  <div class="cr-actions">
@@ -609,7 +836,28 @@ tracert -d 1.1.1.1
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> The broadcast address talks to every host on that subnet. Do not assign it to a normal device.</div>
  
-</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="5"> <span>No home street address, no real public IP doxxing, and no secrets in shared screenshots.</span></label><div class="cr-help">
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="5"> <span>Student maps their LAN IP to a historic class, states the default mask, and contrasts it with the real mask (classful vs classless).</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Old IPv4 classes A–C each had a default mask size. Learn the chart for exams; real labs use classless masks (CIDR).</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="6"> <span>Student demonstrates `ping 127.0.0.1` and explains why `127.0.0.0/8` is not LAN address space.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="7"> <span>Student names Class D (multicast) and Class E (reserved) as non-assignable for ordinary hosts.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Old IPv4 classes A–C each had a default mask size. Learn the chart for exams; real labs use classless masks (CIDR).</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="8"> <span>No home street address, no real public IP doxxing, and no secrets in shared screenshots.</span></label><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -619,7 +867,7 @@ tracert -d 1.1.1.1
 </div></div>
  <div class="cr-gate">All boxes true → continue to the next class</div>
 </div>
-<div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>Windows/macOS/Linux UI labels move; <code>ip</code> is preferred over <code>ifconfig</code> on modern Linux. Masks may appear as CIDR (<code>/24</code>) in some tools—same idea as <code>255.255.255.0</code>. Consumer Wi-Fi “smart” features can hide raw fields behind “Automatic.” Prefer official OS networking docs for exact clicks; the durable skills are the trio, the 255/0 reading hack, local vs gateway decision, and reserved addresses.</p><div class="cr-help">
+<div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>Windows/macOS/Linux UI labels move; <code>ip</code> is preferred over <code>ifconfig</code> on modern Linux. Masks may appear as CIDR (<code>/24</code>) in some tools—same idea as <code>255.255.255.0</code>. Consumer Wi-Fi “smart” features can hide raw fields behind “Automatic.” Classful A/B/C defaults are exam and history literacy—<strong>production networks are classless/CIDR</strong>. Public IPv4 scarcity is managed with private ranges, NAT, careful allocation, and IPv6—not by pretending 1980s class sizes still match every site. Prefer official OS networking docs and IANA/RIR special-purpose address registries for exact reserved ranges; the durable skills are the trio, the 255/0 reading hack, local vs gateway decision, reserved addresses, class chart literacy, and loopback testing.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -636,5 +884,5 @@ tracert -d 1.1.1.1
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921n"></script>
+<script src="/classroom/classroom.js?v=20260921o"></script>
 </body></html>

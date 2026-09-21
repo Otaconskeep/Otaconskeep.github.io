@@ -24,7 +24,7 @@ SITE = Path("/root/otaconskeep-site/classroom")
 PACK = SITE / "pack"
 CLASSES_DIR = SITE / "classes"
 GH = Path("/root/Classroom")
-CSS_V = "20260921n"
+CSS_V = "20260921o"
 
 OSBAR = '''<div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>

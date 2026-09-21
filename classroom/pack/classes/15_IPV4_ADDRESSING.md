@@ -1,10 +1,10 @@
 # Class 15 — IPv4 addresses, masks, and gateways
 
-**Build output:** find your host’s IPv4, mask, and gateway; explain network vs host bits with the “255 / 0” reading hack; calculate usable addresses on a simple `/24`; prove same-LAN vs via-gateway reachability
+**Build output:** find your host’s IPv4, mask, and gateway; explain network vs host bits with the “255 / 0” reading hack; map an address to its historic class (A–E) and default mask; calculate usable addresses on a simple `/24`; prove same-LAN vs via-gateway reachability; prove loopback with `ping 127.0.0.1`
 
 ## What you will learn
 
-You will understand what an IPv4 address is for, how to read it on Windows and Linux, what the subnet mask and default gateway do, how DHCP usually hands out addresses at home, and how a device decides “same street / hand it over” versus “call the router.” You will practice a beginner subnet-reading hack that covers most home and small-lab `/24` networks—then you will prove it with commands, not vibes.
+You will understand what an IPv4 address is for, how to read it on Windows and Linux, what the subnet mask and default gateway do, how DHCP usually hands out addresses at home, and how a device decides “same street / hand it over” versus “call the router.” You will see why IPv4’s roughly **4.3 billion** addresses felt endless in 1983 and why classful allocation (A/B/C plus reserved D/E and loopback) burned through that pool too fast. You will practice a beginner subnet-reading hack that covers most home and small-lab `/24` networks, contrast **classful** defaults with **classless** masks you actually use, and prove loopback with ping—then you will prove it with commands, not vibes.
 
 ## Vocabulary
 
@@ -20,6 +20,12 @@ You will understand what an IPv4 address is for, how to read it on Windows and L
 | Host | A device with an IP: PC, phone, VM, AP, camera, printer… |
 | Private address | Ranges used inside homes/labs (not routed on the public Internet as global uniques)—e.g. `192.168.0.0/16` |
 | `/24` | Shorthand for mask `255.255.255.0` (first three octets = network on common home LANs) |
+| Classful addressing | Historic A/B/C scheme: first octet range implied a **default** mask and therefore a fixed “huge / medium / small” network size |
+| Classless addressing | Modern practice: choose any valid mask (CIDR) that fits the hosts you need—defaults are history, not law |
+| IANA | Internet Assigned Numbers Authority—the top allocator of public IP space (regions and operators get slices under it) |
+| Loopback | Special addresses starting with `127` that talk to **this** host only (classic test: `127.0.0.1`) |
+| Multicast (Class D) | One-to-many delivery addresses (`224`–`239`); not for ordinary host assignment |
+| Ping | ICMP echo request/reply—“are you reachable?”—everyday reachability check |
 
 ## Lesson
 
@@ -124,9 +130,92 @@ That leaves **254** theoretically assignable host addresses. In practice your **
 
 If you answered “256” on the challenge, you counted reserved addresses. If you answered “254,” you remembered network + broadcast. If you answered “253,” you also subtracted a typical gateway. Write which model you used in the workbook.
 
+### Why ~4.3 billion felt endless—and then did not
+
+IPv4 uses **32 bits**. That is **2³² = 4,294,967,296** possible values—about **4.3 billion**. When the modern Internet’s addressing era is dated to **1 January 1983**, that number looked absurdly large. Two things the early designers could not fully price in:
+
+1. The Internet became a global utility, not a research curiosity.
+2. Nearly everything gained a network stack—phones, cameras, VMs, containers, IoT—not “a few computers per site.”
+
+Public IPv4 free-pool exhaustion is real. Later classes cover the operational bandaids (private addressing + NAT, CIDR, and IPv6). This section is about the **first** design choice that made scarcity arrive early: **classful** chunking.
+
+### Classful ranges (A–E) — what exams still expect you to know
+
+Early IPv4 organized public space into **classes**. For Classes A/B/C, the **first octet** told you the **default** subnet mask—and therefore how many hosts that “network” assumed.
+
+| Class | First-octet range (decimal) | Default mask | Rough idea |
+|---|---|---|---|
+| **A** | `1`–`126` | `255.0.0.0` (`/8`) | Few networks, **huge** host space (~16.7M addresses each) |
+| **B** | `128`–`191` | `255.255.0.0` (`/16`) | Medium networks (~65K addresses each) |
+| **C** | `192`–`223` | `255.255.255.0` (`/24`) | Many networks, **small** host space (256 addresses each—then subtract reserved) |
+| **D** | `224`–`239` | *(no host default)* | **Multicast**—not for ordinary unicast host assignment |
+| **E** | `240`–`255` | *(no host default)* | **Reserved / experimental**—do not assign to normal hosts |
+
+**Gap to notice:** Class A stops at `126`, Class B starts at `128`. **`127` is missing on purpose**—that is the **loopback** block (next section), not a Class A for you to hand out.
+
+**Default-mask math with the 255/0 hack**
+
+- Class A `10.0.0.0` with `255.0.0.0` → only the first octet is locked → three host octets → on the order of **16 million** addresses in that *default* classful network (far larger than any home LAN).
+- Class B `172.16.0.0` with `255.255.0.0` → first two octets locked → about **65,534** usable hosts if you stayed classful (still enormous for a single flat LAN).
+- Class C `192.168.1.0` with `255.255.255.0` → first three octets locked → the familiar **254** usable-host story from earlier.
+
+Historically, large organizations received **entire Class A** (`/8`) blocks because planners assumed “plenty left.” Many of those blocks were later **subnetted** into smaller pieces. The registry that sits at the top of public allocation is **IANA** (with Regional Internet Registries below it). You do not need their org chart for this class—you need the idea: **big default chunks were easy to give away and hard to claw back.**
+
+Memorize the chart if you are exam-bound. In the lab, treat defaults as **history**, not as how your home router must be configured.
+
+### Classful vs classless (your first honest look at “subnetting”)
+
+**Classful** means: “This first octet says I am Class A, so my *default* mask is `/8`.”
+
+**Classless** means: “I own (or privately use) a block, and I pick a **longer** mask to carve **smaller** networks.” Example:
+
+```text
+Allocated / classful view:  10.0.0.0     mask 255.0.0.0     (/8)
+One slice you actually use: 10.7.1.0     mask 255.255.255.0 (/24)
+```
+
+The address still *looks* Class A by first octet, but the mask `255.255.255.0` makes a normal-sized LAN. That is a **classless** network: you broke the default. Modern practice is almost all classless (CIDR). Classful defaults still matter for reading old docs and exam questions.
+
+Subnetting deeper (borrowing host bits, VLSM, summarization) is the next skill layer. This class only needs: **mask decides size; class letter is a default, not a prison.**
+
+### Class D and E — addresses you do not assign to laptops
+
+- **Class D (`224`–`239`):** multicast. Important for many protocols; **not** for “give this to my NAS as its main IP.”
+- **Class E (`240`–`255`):** reserved/experimental space. Treat as **off-limits** for normal host addressing in this Academy.
+
+Together with loopback and other special ranges, they are why “4.3 billion total” is not the same as “4.3 billion free for random devices.”
+
+### Loopback — `127` talks to this host only
+
+Anything whose first octet is **`127`** is **loopback**: traffic stays on the local host. The classic address is **`127.0.0.1`** (also nicknamed localhost).
+
+**Why it exists:** prove the IP stack on *this* machine is alive without involving Wi-Fi, a switch, or the Internet.
+
+**Ping** sends an ICMP echo and waits for a reply—“are you there?” It is the most common first reachability tool in IT.
+
+:::windows
+```powershell
+ping -n 4 127.0.0.1
+# Same idea — any 127.x.x.x should answer locally on a healthy stack:
+ping -n 2 127.15.15.8
+```
+:::
+
+:::linux
+```bash
+ping -c 4 127.0.0.1
+# Same idea — any 127.x.x.x should answer locally on a healthy stack:
+ping -c 2 127.15.15.8
+```
+:::
+
+If `127.0.0.1` fails, fix the local OS/network stack before blaming Netflix or your gateway.
+
+**Design critique (for exams and interviews):** the whole `127.0.0.0/8` block is reserved for loopback—about **16 million** addresses—while day-to-day testing almost always uses `.1`. You still must **recognize** the range; do not assign `127.x` to a lab VM as if it were a LAN address.
+
 ### Private vs public (one careful sentence)
 
-Addresses like `192.168.x.x`, `10.x.x.x`, and many `172.16–31.x.x` are **private**. Your router translates when you browse the public Internet. Your “what’s my IP” website shows a **public** address on the WAN side—not the `192.168` on your laptop. Both matter; do not confuse them when debugging port forwards or tunnels (Class 10).
+Addresses like `192.168.x.x`, `10.x.x.x`, and many `172.16–31.x.x` are **private**. Your router translates when you browse the public Internet. Your “what’s my IP” website shows a **public** address on the WAN side—not the `192.168` on your laptop. Both matter; do not confuse them when debugging port forwards or tunnels (Class 10). Private space plus NAT is one of the **operational bandaids** that stretched IPv4 after classful giveaways and Internet growth; IPv6 is the long-term enlargement of the address space.
 
 ## Guided lab
 
@@ -211,6 +300,30 @@ tracert -d 1.1.1.1
 
 3. **Static caution (do not break production):** pick an unused address **inside** the subnet but **outside** the DHCP pool if you later static a lab VM. Record the choice; do not implement on a critical host until Class 1/Proxmox needs it.
 
+### Path D — Classes, loopback, and ping
+
+1. **Classify your LAN IP by first octet** using the A–E chart. Write: class letter, *default* classful mask, and **your actual** mask. Are they the same? (Most home LANs are Class C *looking* with a `/24` mask—or Class A *looking* `10.x` with a classless `/24`.)
+
+2. **Workbook contrast:** one row for “classful default size,” one row for “my real network size.” One sentence: “Classful told me ____; classless/mask told me ____.”
+
+3. **Loopback proof**
+
+:::windows
+```powershell
+ping -n 4 127.0.0.1
+ping -n 2 127.0.0.2
+```
+:::
+
+:::linux
+```bash
+ping -c 4 127.0.0.1
+ping -c 2 127.0.0.2
+```
+:::
+
+4. **Workbook:** “Loopback succeeded / failed. I would / would not assign a `127.x` address to a NAS.” Circle Class D and E on the chart and write “not for unicast hosts.”
+
 ## Break/fix
 
 1. **Disconnect Wi-Fi / unplug Ethernet** → `ipconfig` / `ip addr` loses address or shows disconnected → restore → address returns (DHCP) or static returns.
@@ -218,6 +331,10 @@ tracert -d 1.1.1.1
 2. **Wrong mental model:** pretend a host `10.0.0.5` is “local” to your `192.168.1.0/24` without a router—explain why the mask says no.
 
 3. **Gateway down simulation (lab only):** if you can safely shut WAN on a test router, confirm LAN pings still work while `1.1.1.1` fails—proves local vs remote paths.
+
+4. **Class vs mask:** take a `10.x` address with mask `255.255.255.0` and explain to a partner why calling it “a Class A network of 16 million hosts” would be wrong for *your* LAN.
+
+5. **Loopback vs LAN:** with Wi-Fi off, confirm `ping 127.0.0.1` still works while `ping 1.1.1.1` fails—local stack vs Internet path.
 
 ## Common mistakes
 
@@ -227,6 +344,9 @@ tracert -d 1.1.1.1
 - Assigning `.0` or `.255` to a host on a `/24`.
 - Duplicating an IP already leased by DHCP.
 - Debugging Docker DNS before confirming the host even has a gateway.
+- Treating **classful defaults** as how the Internet still assigns every network (it does not—CIDR/classless won).
+- Putting a **Class D/E** or **`127.x`** address on a lab host “because the chart had free numbers.”
+- Confusing “4.3 billion total IPv4 values” with “4.3 billion free for my devices.”
 
 ## Knowledge check
 
@@ -237,6 +357,10 @@ tracert -d 1.1.1.1
 5. On `192.168.1.0/24`, what are the network and broadcast addresses?
 6. Why is “256 usable hosts” the wrong answer for that `/24`?
 7. Who usually assigns addresses automatically at home?
+8. About how many IPv4 addresses exist in total, and why that is not the same as “available for hosts”?
+9. Give the first-octet ranges and default masks for Classes A, B, and C. What are D and E for?
+10. Why is `127` missing between Class A and Class B? What command proves loopback?
+11. What is the difference between a classful network and a classless network? Give one example with `10.x`.
 
 ## Practical gate
 
@@ -245,8 +369,11 @@ tracert -d 1.1.1.1
 - [ ] Same-LAN ping and Internet ping are both demonstrated (or failures explained with evidence).
 - [ ] Usable-address calculation for their `/24` (or documented non-/24 with instructor help) is in the workbook.
 - [ ] Student can explain network address, broadcast address, and why the gateway consumes an address.
+- [ ] Student maps their LAN IP to a historic class, states the default mask, and contrasts it with the real mask (classful vs classless).
+- [ ] Student demonstrates `ping 127.0.0.1` and explains why `127.0.0.0/8` is not LAN address space.
+- [ ] Student names Class D (multicast) and Class E (reserved) as non-assignable for ordinary hosts.
 - [ ] No home street address, no real public IP doxxing, and no secrets in shared screenshots.
 
 ## 2026 correction
 
-Windows/macOS/Linux UI labels move; `ip` is preferred over `ifconfig` on modern Linux. Masks may appear as CIDR (`/24`) in some tools—same idea as `255.255.255.0`. Consumer Wi-Fi “smart” features can hide raw fields behind “Automatic.” Prefer official OS networking docs for exact clicks; the durable skills are the trio, the 255/0 reading hack, local vs gateway decision, and reserved addresses.
+Windows/macOS/Linux UI labels move; `ip` is preferred over `ifconfig` on modern Linux. Masks may appear as CIDR (`/24`) in some tools—same idea as `255.255.255.0`. Consumer Wi-Fi “smart” features can hide raw fields behind “Automatic.” Classful A/B/C defaults are exam and history literacy—**production networks are classless/CIDR**. Public IPv4 scarcity is managed with private ranges, NAT, careful allocation, and IPv6—not by pretending 1980s class sizes still match every site. Prefer official OS networking docs and IANA/RIR special-purpose address registries for exact reserved ranges; the durable skills are the trio, the 255/0 reading hack, local vs gateway decision, reserved addresses, class chart literacy, and loopback testing.

@@ -16,7 +16,7 @@
 | 12 | Whisper, Piper, and Wyoming | Local STT and TTS services | Known-sentence and known-response tests |
 | 13 | Private smart speaker | Wake-to-action-to-speech system | Internet-disconnected end-to-end pass |
 | 14 | n8n homelab automation | n8n + RSS digest + guarded Keep Agent | Item-flow explained; approval before mutation |
-| 15 | IPv4 addresses and gateways | Read IP/mask/gateway; `/24` usable math | Same-LAN vs gateway proof; reserved addresses explained |
+| 15 | IPv4 addresses and gateways | Read IP/mask/gateway; classful chart; `/24` usable math; loopback | Same-LAN vs gateway; class vs classless contrast; reserved + loopback explained |
 
 ## Final architecture
 
