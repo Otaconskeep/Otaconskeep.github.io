@@ -407,7 +407,7 @@
 </div>
 
 <div class="wrap">
- <section>
+ <section id="path">
  <p class="tag">03 // Growth Path</p>
  <h2>Where the foundation leads</h2>
  <div class="progression">
@@ -522,17 +522,17 @@
 <div class="wrap">
  <section id="install">
  <p class="tag">Install</p>
- <h2>Lite. AI9. Premium.</h2>
- <p class="intro">Three products. Lite's normal install already includes Default Model (chat) and Voice Trainer. Premium is invite-only while it's in development.</p>
+ <h2>Install the OtaconsKeep family</h2>
+ <p class="intro">One roof, five public paths. <strong>Lite</strong> (Otacon Core) is the free foundation with Default Model + Voice Trainer. <strong>AI9</strong> colorizes manga on your GPU with no Lite required. <strong>KeepRoute</strong> keeps long AI missions alive. <strong>Keep Desk</strong> is the local command deck. <strong>Expansion / Premium</strong> is the licensed multi-agent layer.</p>
 
  <div class="install-stack">
 
  <div class="install-panel" id="install-otacon">
  <div class="install-panel-head">
- <h3 class="install-panel-title">Install Otacon</h3>
- <span class="one-click-badge">One click</span>
+ <h3 class="install-panel-title">Install OtaconsKeep Lite</h3>
+ <span class="one-click-badge">One click · free</span>
  </div>
- <p class="install-panel-lead">Agents on your hardware, with Ollama + a VRAM-sized chat model and Genome Voice Trainer included. Install once; it starts itself after that.</p>
+ <p class="install-panel-lead">Otacon Core on your hardware: agents, memory, Ollama + a VRAM-sized chat model, and Genome Voice Trainer. Install once; it starts itself after that.</p>
  <div class="os-grid">
  <div class="os-card">
  <p class="os-label">Windows</p>
@@ -613,21 +613,59 @@
  </div>
  </div>
 
+ <div class="install-panel" id="install-keeproute">
+ <div class="install-panel-head">
+ <h3 class="install-panel-title">Install KeepRoute</h3>
+ <span class="one-click-badge">Free · 1.0 stable</span>
+ </div>
+ <p class="install-panel-lead">Mission-state orchestration on top of OmniRoute: checkpoints, recovery, and cross-agent continuation when a model hits a limit. Does not replace Lite; pairs with it.</p>
+ <div class="os-grid">
+ <div class="os-card">
+ <p class="os-label">Get KeepRoute</p>
+ <a class="download-btn" href="/keeproute/#install">Open KeepRoute install</a>
+ <p class="os-hint">UI package + OmniRoute compose path, provider keys, and smoke checks live on the KeepRoute page.</p>
+ </div>
+ <div class="os-card">
+ <p class="os-label">Why OmniRoute</p>
+ <p class="os-hint">Why we built on OmniRoute instead of Jev or a cloud-only decision router &mdash; <a href="/keeproute/#why-omniroute">read the comparison</a>.</p>
+ </div>
+ </div>
+ </div>
+
+ <div class="install-panel" id="install-keepdesk">
+ <div class="install-panel-head">
+ <h3 class="install-panel-title">Install Keep Desk</h3>
+ <span class="one-click-badge">Supporter vault</span>
+ </div>
+ <p class="install-panel-lead">Local Grok Bot–class command deck: named teammates, LIVE browser, jobs, and Why dossiers on hardware you own. Install vault unlocks after Buy Me a Coffee (Premium seats included).</p>
+ <div class="os-grid">
+ <div class="os-card">
+ <p class="os-label">Enter Keep Desk</p>
+ <a class="download-btn" href="/keepdesk/#vault">Unlock install vault</a>
+ <p class="os-hint">Demo, honest limits, and the supporter gate are on the Keep Desk page.</p>
+ </div>
+ <div class="os-card">
+ <p class="os-label">Already Premium?</p>
+ <p class="os-hint">Your Member HQ seat unlocks Keep Desk too. One license, both vaults &mdash; <a href="/premium/">open Member HQ</a>.</p>
+ </div>
+ </div>
+ </div>
+
  <div class="install-panel" id="install-premium" style="border-color: var(--premium-dim);">
  <div class="install-panel-head">
- <h3 class="install-panel-title" style="color: var(--premium-bright);">Otaconskeep Premium</h3>
- <span class="one-click-badge" style="color: var(--premium-bright); border-color: var(--premium-dim);">Invite only</span>
+ <h3 class="install-panel-title" style="color: var(--premium-bright);">OtaconsKeep Expansion / Premium</h3>
+ <span class="one-click-badge" style="color: var(--premium-bright); border-color: var(--premium-dim);">Licensed</span>
  </div>
- <p class="install-panel-lead">The Expansion layer: five-agent roster, relationship engine, command-center surfaces, free local Video Studio. In active development &mdash; not a public download yet.</p>
+ <p class="install-panel-lead">The Expansion layer on Core: five-agent roster, relationship engine, Command Deck / Codec, optional Genome + Video Studio. Installable today for licensed seats; GPU sidecars need hardware.</p>
  <div class="os-grid">
  <div class="os-card">
  <p class="os-label">Get access</p>
- <a class="download-btn" href="/premium/" style="background: var(--premium); color: #150f24;">Request Early Access</a>
- <p class="os-hint">Password-protected. Ask Antonio directly, or in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>, for the current access code.</p>
+ <a class="download-btn" href="/premium/" style="background: var(--premium); color: #150f24;">Member HQ / license</a>
+ <p class="os-hint">Support on Buy Me a Coffee or ask in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>. Antonio issues the seat, then unlock Member HQ.</p>
  </div>
  <div class="os-card">
  <p class="os-label">Read first</p>
- <p class="os-hint">See exactly what's built, what's spec-only, and what's still missing before asking for a code &mdash; <a href="/expansion/">full Expansion spec</a>.</p>
+ <p class="os-hint">Honest fresh-PC notes, what is READY vs optional &mdash; <a href="/expansion/">full Expansion status</a>. Setup bat: <a href="/downloads/OtaconExpansion-Setup.bat" download>Download Expansion Setup</a>.</p>
  </div>
  </div>
  </div>
@@ -639,17 +677,27 @@
 <div class="wrap">
  <section id="projects">
  <p class="tag">05 // The Umbrella</p>
- <h2>Otaconskeep → Otacon + AI9</h2>
- <p class="intro">Two public installs under one roof. Otacon is the agent platform (Default Model + Voice Trainer included). AI9 is the manga colorizer: black-and-white pages in, color out, on your NVIDIA GPU, no cloud API. Family-adjacent to OtaconsKeep; it does <strong>not</strong> require Lite Core. <a href="https://youtu.be/aUiwMACSPBk" target="_blank" rel="noopener">Watch the AI9 video</a> or open the <a href="/ai9/">AI9 page</a> for the embedded walkthrough.</p>
+ <h2>OtaconsKeep AI Ecosystem</h2>
+ <p class="intro">The public family under one roof: Lite agents, mission routing, a local command desk, Expansion, and AI9. Otacon Core is the free foundation (Default Model + Voice Trainer). KeepRoute keeps long jobs alive on OmniRoute. Keep Desk is the supporter command deck. Expansion deepens the multi-agent layer. AI9 colorizes manga on your GPU and does <strong>not</strong> require Lite Core.</p>
 
  <div class="treebox" style="margin-bottom: 28px;">OTACONSKEEP
  │
- ├── <strong>OTACON</strong>: agents · memory · identity ·
+ ├── <strong>OTACON / LITE</strong>: agents · memory · identity ·
  │ │ orchestration · Default Model (chat) ·
  │ │ Voice Trainer (Genome Piper)
  │ │
+ ├── <strong>KEEPROUTE</strong>: mission state · checkpoints ·
+ │ │ recovery · OmniRoute data plane
+ │ │
+ ├── <strong>KEEP DESK</strong>: command deck · LIVE browser ·
+ │ │ named teammates · Why dossiers
+ │ │
+ ├── <strong>EXPANSION / PREMIUM</strong>: five-agent roster ·
+ │ │ Deck / Codec · optional Genome + Video Studio
+ │ │
  └── <strong>AI9 MANGA COLORIZER</strong>: local GPU
- manga colorization · Firefox extension</div>
+ manga colorization · Firefox extension
+ (family-adjacent · no Lite Core required)</div>
 
  <figure class="shot-card project-demo" style="margin-bottom: 28px;">
  <img src="assets/img/ai9-manga-colorizer-demo.gif" width="960" height="561" alt="AI9 Manga Colorizer demo: a black-and-white manga page running through local GPU colorization to the finished colored result.">
@@ -661,22 +709,82 @@
  <article class="project-card">
  <span class="kicker">Project 01 · Agent Platform</span>
  <h3>Otacon<span>AI Ecosystem</span></h3>
- <p style="color: var(--cream-dim); margin: 0;">Persistent AI agents with identity, memory, and voice. Normal install includes Default Model (Ollama chat) and Genome Voice Trainer. See <a href="#today">what you get today</a>.</p>
+ <p style="color: var(--cream-dim); margin: 0;">Persistent AI agents with identity, memory, voice, and local orchestration. Normal Lite install includes Default Model (Ollama chat) and Genome Voice Trainer. Expansion, KeepRoute, and Keep Desk build on that foundation. See <a href="#today">what you get today</a> and the <a href="#path">foundation path</a>.</p>
+ <ul>
+ <li>One-click Windows + curl Linux install</li>
+ <li>Default Model + Voice Trainer in the normal path</li>
+ <li>Pairs with KeepRoute, Keep Desk, and Expansion</li>
+ </ul>
 
  <div class="btn-row">
- <a class="btn btn-primary btn-install" href="#install-otacon">Install Otacon</a>
+ <a class="btn btn-primary btn-install" href="#install-otacon">Install Lite</a>
+ <a class="btn btn-ghost" href="/otacon/">Otacon guide</a>
  </div>
  <div class="btn-row">
  <a class="btn btn-ghost" href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">Otacon on GitHub</a>
  <a class="btn btn-ghost" href="https://github.com/Otaconskeep/otacon-voice-trainer" target="_blank" rel="noopener">Voice Trainer on GitHub</a>
- <a class="btn btn-ghost" href="/otacon/">Learn More</a>
+ <a class="btn btn-ghost" href="/keeproute/">KeepRoute</a>
+ <a class="btn btn-ghost" href="/keepdesk/">Keep Desk</a>
+ </div>
+ <div class="btn-row">
+ <a class="btn btn-ghost" href="/expansion/">Expansion</a>
+ <a class="btn btn-ghost" href="/engineering/">Engineering</a>
+ <a class="btn btn-ghost" href="https://youtu.be/OitYjPlbTng" target="_blank" rel="noopener">Install video</a>
+ <a class="btn btn-ghost" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
  </div>
  </article>
 
  <article class="project-card">
- <span class="kicker">Project 02 · Manga Colorizer</span>
+ <span class="kicker">Project 02 · Mission Orchestration</span>
+ <h3>KeepRoute<span>1.0 · OmniRoute</span></h3>
+ <p style="color: var(--cream-dim); margin: 0;">Keeps AI work moving when models hit limits. Missions get IDs, checkpoints, and handoff so you are not rebuilding progress by hand. Built on OmniRoute; OtaconsKeep owns the mission layer.</p>
+ <ul>
+ <li>Checkpoints, recovery, cross-agent continuation</li>
+ <li>Local-first policy for trivial work</li>
+ <li>Why OmniRoute over Jev &mdash; documented on the KeepRoute page</li>
+ </ul>
+ <div class="btn-row">
+ <a class="btn btn-primary btn-install" href="/keeproute/#install">Install KeepRoute</a>
+ </div>
+ <div class="btn-row">
+ <a class="btn btn-ghost" href="/keeproute/">KeepRoute 1.0</a>
+ <a class="btn btn-ghost" href="/keeproute/#why-omniroute">Why OmniRoute</a>
+ <a class="btn btn-ghost" href="https://github.com/Otaconskeep/KeepRoute" target="_blank" rel="noopener">GitHub</a>
+ </div>
+ </article>
+
+ <article class="project-card">
+ <span class="kicker">Project 03 · Command Deck</span>
+ <h3>Keep Desk<span>Local teammates</span></h3>
+ <p style="color: var(--cream-dim); margin: 0;">Named AI teammates on a computer you own: Command Deck UI, LIVE browser, jobs, and Why dossiers. Grok Bot energy, local-first. Supporter install vault (Premium seats unlock it too).</p>
+ <div class="btn-row">
+ <a class="btn btn-primary btn-install" href="/keepdesk/">Enter Keep Desk</a>
+ </div>
+ <div class="btn-row">
+ <a class="btn btn-ghost" href="/keepdesk/#demo">Watch the Deck</a>
+ <a class="btn btn-ghost" href="/keepdesk/#vault">Unlock vault</a>
+ <a class="btn btn-ghost" href="/premium/">Member HQ</a>
+ </div>
+ </article>
+
+ <article class="project-card">
+ <span class="kicker">Project 04 · Premium Layer</span>
+ <h3>Expansion<span>Licensed</span></h3>
+ <p style="color: var(--cream-dim); margin: 0;">Five-agent roster, Deck / Codec, relationship engine, optional Genome + Video Studio. Requires Core; GPU sidecars need hardware. Honest status before you buy a seat.</p>
+ <div class="btn-row">
+ <a class="btn btn-primary btn-install" href="/expansion/">Expansion status</a>
+ </div>
+ <div class="btn-row">
+ <a class="btn btn-ghost" href="/premium/">Member HQ</a>
+ <a class="btn btn-ghost" href="#install-premium">Install path</a>
+ <a class="btn btn-ghost" href="/downloads/OtaconExpansion-Setup.bat" download>Expansion Setup</a>
+ </div>
+ </article>
+
+ <article class="project-card">
+ <span class="kicker">Project 05 · Manga Colorizer</span>
  <h3>AI9<span>Manga Colorizer</span></h3>
- <p style="color: var(--cream-dim); margin: 0;"><strong style="color: var(--cream);">AI9 is the manga colorizer.</strong> Local GPU pipeline for Firefox: detect your NVIDIA card, pick the right CUDA/PyTorch build, colorize manga pages on-device. No cloud API in the loop. The GIF above is a real capture from that pipeline.</p>
+ <p style="color: var(--cream-dim); margin: 0;"><strong style="color: var(--cream);">AI9 is the manga colorizer.</strong> Local GPU pipeline for Firefox: detect your NVIDIA card, pick the right CUDA/PyTorch build, colorize manga pages on-device. No cloud API in the loop. Family-adjacent; does <strong>not</strong> require Lite Core. The GIF above is a real capture from that pipeline.</p>
  <ul>
  <li>RTX 30 / 40 / 50-series (Blackwell) support</li>
  <li>Automatic GPU detection &amp; PyTorch/CUDA wheel selection</li>
@@ -689,6 +797,7 @@
  <div class="btn-row">
  <a class="btn btn-ghost" href="https://github.com/Otaconskeep/AI9" target="_blank" rel="noopener">View on GitHub</a>
  <a class="btn btn-ghost" href="/ai9/">See full demo &amp; install</a>
+ <a class="btn btn-ghost" href="https://youtu.be/aUiwMACSPBk" target="_blank" rel="noopener">Watch video</a>
  </div>
  </article>
 

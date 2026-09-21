@@ -287,7 +287,7 @@ section h2 {
 section > p.intro { max-width: 64ch; color: var(--cream-dim); margin-bottom: 28px; }
 
 /* ---------------- project cards (home) ---------------- */
-.projects { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
 @media (max-width: 800px) { .projects { grid-template-columns: 1fr; } }
 
 .project-card {

@@ -50,6 +50,7 @@
  <a href="#ui">See the UI</a>
  <a href="#how">How it works</a>
  <a href="#compare">OmniRoute vs KeepRoute</a>
+ <a href="#why-omniroute">Why OmniRoute</a>
  <a href="#different">What changed</a>
  <a href="#benchmarks">Benchmarks</a>
  <a href="#security">Security</a>
@@ -73,6 +74,7 @@
  <a class="btn btn-ghost" href="#watch">Watch the short</a>
  <a class="btn btn-ghost" href="#ui">See the UI</a>
  <a class="btn btn-ghost" href="#compare">OmniRoute vs KeepRoute</a>
+ <a class="btn btn-ghost" href="#why-omniroute">Why OmniRoute (not Jev)</a>
  <a class="btn btn-ghost" href="#benchmarks">See the proof</a>
  <a class="btn btn-ghost" href="https://github.com/Otaconskeep/KeepRoute" target="_blank" rel="noopener">GitHub write-up</a>
  </div>
@@ -451,6 +453,75 @@
 </div>
 
 <div class="wrap">
+ <section id="why-omniroute">
+ <p class="tag">Why OmniRoute · why not Jev</p>
+ <h2>We need a local gateway, not a cloud judgment model</h2>
+ <p class="intro"><strong>OmniRoute</strong> and <strong>Jev</strong> both get mentioned in “AI routing” conversations, but they solve different problems. KeepRoute needs a <em>local multi-provider data plane</em> that Claude, Codex, Cursor, Grok, and Ollama can actually talk to. Jev is a typed decision / judgment layer (TypeSafe AI) that scores complexity, gates tool calls, and advises which model tier to use, usually via cloud gateway or MCP. Useful elsewhere. Wrong job for KeepRoute’s foundation.</p>
+
+ <div class="kr-diff-banner" role="note" style="margin-top:18px;">
+ <div class="kr-diff-side stock">
+ <p class="kr-diff-label">Jev (TypeSafe AI)</p>
+ <p class="kr-diff-line">A decision model: classify the turn, pick fast / balanced / deep, gate risky tools, review patches. Host agent still owns files and commands.</p>
+ <p class="kr-diff-meta">Cloud / MCP · judgments · waitlist / gateway keys</p>
+ </div>
+ <div class="kr-diff-vs" aria-hidden="true"><span>VS</span></div>
+ <div class="kr-diff-side ours">
+ <p class="kr-diff-label">OmniRoute (upstream)</p>
+ <p class="kr-diff-line">A local OpenAI-compatible gateway: one endpoint, many providers, combos, fallback, health, and circuit handling on hardware you control.</p>
+ <p class="kr-diff-meta">Self-hosted · provider traffic · keys stay local</p>
+ </div>
+ </div>
+
+ <div class="kr-why-build" style="margin-top:22px;">
+ <article>
+ <h3>What OmniRoute gives KeepRoute</h3>
+ <p>A real data plane on <span class="mono">127.0.0.1</span>: providers connected once, Auto routing, fallbacks when Claude hits quota, local models for cheap work. KeepRoute’s Mission Controller sits <em>on top</em> of that plane. Without a gateway like OmniRoute, there is nothing durable to hand a mission to when the executor changes.</p>
+ </article>
+ <article>
+ <h3>What Jev actually is</h3>
+ <p>Jev answers typed questions: next step, risk, model tier, tool allow/block. It does not run your Claude/Codex/Cursor sessions, hold provider API keys on your LAN, or expose an OpenAI-compatible proxy your Keep UI can stream through. It is middleware <em>advice</em>, not the traffic pipe KeepRoute wraps.</p>
+ </article>
+ <article>
+ <h3>Why OmniRoute wins for this stack</h3>
+ <p><strong>Local-first and offline-capable.</strong> Provider keys and routing stay on your machine. No waitlist for the core path. Works with the same agent CLIs OtaconsKeep already uses. Open source, Docker-friendly, and already proven under KeepRoute’s soak tests. Jev still needs a host model and usually a cloud gateway bill for the judgments themselves.</p>
+ </article>
+ <article>
+ <h3>Can they coexist?</h3>
+ <p>Yes, in theory. You could ask Jev “is this turn deep enough for Opus?” while OmniRoute still carries the request. That does not replace OmniRoute. KeepRoute’s bet is mission continuity on a self-hosted gateway, not outsourcing every routing judgment to a third-party decision model.</p>
+ </article>
+ </div>
+
+ <div class="tablewrap kr-table" style="margin-top:20px;">
+ <table>
+ <thead>
+ <tr>
+ <th>Question</th>
+ <th>Jev</th>
+ <th>OmniRoute</th>
+ <th>KeepRoute (on OmniRoute)</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr><td>Primary job</td><td>Typed decisions / judgments</td><td>Provider &amp; model traffic routing</td><td>Mission state, checkpoints, handoff</td></tr>
+ <tr><td>Where it runs</td><td class="uses">Cloud gateway / MCP client</td><td class="yes">Local (self-hosted)</td><td class="yes">Local, on OmniRoute</td></tr>
+ <tr><td>Holds provider keys for Claude / Codex / …</td><td class="no">No (advice only)</td><td class="yes">Yes</td><td class="uses">Uses OmniRoute</td></tr>
+ <tr><td>OpenAI-compatible proxy for CLIs / UI</td><td class="no">No</td><td class="yes">Yes</td><td class="uses">Uses OmniRoute</td></tr>
+ <tr><td>Fallback when a provider fails</td><td class="uses">Can suggest a tier</td><td class="yes">Yes (gateway)</td><td class="yes">Yes + mission continuation</td></tr>
+ <tr><td>Persistent Mission ID / checkpoints</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td></tr>
+ <tr><td>Fits OtaconsKeep local-first rule</td><td class="no">Cloud-centric by default</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+ </tbody>
+ </table>
+ </div>
+
+ <div class="kr-principle" style="margin-top:20px;">
+ <strong>Bottom line: OmniRoute is the pipe. Jev is a referee. KeepRoute needs the pipe.</strong>
+ <span>We chose OmniRoute so missions, keys, and recovery stay on hardware we control. Jev can advise a host agent; it cannot be the KeepRoute data plane.</span>
+ </div>
+ <p class="kr-disclaimer">Jev description based on public TypeSafe / Vercel AI Gateway / OpenRouter listings. OmniRoute based on upstream public docs. Neither product is “bad”; they are different layers.</p>
+ </section>
+</div>
+
+<div class="wrap">
  <section id="why-usecase">
  <p class="tag">Why it helps this use case</p>
  <h2>Better for long-running agent work, not “better at everything”</h2>
@@ -799,6 +870,9 @@ python3 desk/app.py</pre>
  </details>
  <details><summary>Did you fork OmniRoute?</summary>
  <p>KeepRoute extends OmniRoute with an independent stateful orchestration/control layer. We do not present KeepRoute as “our OmniRoute fork.” Upstream OmniRoute remains its own project, KeepRoute is OtaconsKeep’s mission layer on top.</p>
+ </details>
+ <details><summary>Why OmniRoute instead of Jev?</summary>
+ <p><strong>Different layers.</strong> <a href="#why-omniroute">Jev</a> (TypeSafe AI) is a cloud/MCP decision model that judges complexity and tool risk. OmniRoute is a local multi-provider gateway that actually carries Claude / Codex / Cursor / Grok / Ollama traffic. KeepRoute needs that local pipe for missions and keys. Jev can advise a host agent; it cannot replace OmniRoute as the KeepRoute data plane. Full comparison: <a href="#why-omniroute">Why OmniRoute · why not Jev</a>.</p>
  </details>
  <details><summary>What happens when Claude reaches its limit?</summary>
  <p>KeepRoute can checkpoint the mission and continue on another eligible provider/agent when the path is supported. That is different from simply retrying the same prompt blindly.</p>
