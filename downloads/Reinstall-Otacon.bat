@@ -1,4 +1,3 @@
-REM site-publish tip=6c98d64 2026-09-18
 @echo off
 REM ============================================================
 REM  Reinstall-Otacon.bat

@@ -218,6 +218,19 @@ fi
 if [[ "$_wsl_net_ok" != "1" ]]; then
   echo "EXP_FAIL=wsl_network"
   echo "EXP_FAIL_DETAIL=cannot_resolve_github"
+  printf '\n'
+  printf ' ################################################################\n'
+  printf ' #  !!!  ACTION REQUIRED - NETWORK  !!!\n'
+  printf ' #  WSL CANNOT REACH GITHUB (WINDOWS MAY STILL WORK)\n'
+  printf ' ################################################################\n'
+  printf '     Windows downloads and WSL networking are SEPARATE stacks.\n'
+  printf '     YOU MUST: fix WSL DNS/default route / VPN / .wslconfig, then:\n'
+  printf '       wsl --shutdown\n'
+  printf '       ping -c2 github.com   (inside Ubuntu)\n'
+  printf '     Then re-run Expansion Setup.\n'
+  printf '     Guide: %%LOCALAPPDATA%%\\OtaconsKeep\\TROUBLESHOOTING.txt section 2\n'
+  printf ' ################################################################\n'
+  printf '\n'
   die "WSL/Linux cannot reach github.com (no DNS/default route). Windows may still download fine — these are separate stacks. Fix WSL networking (default route / .wslconfig / VPN adapters), then rerun Expansion. Log: $INSTALL_LOG"
 fi
 ok "WSL/Linux can resolve github.com"
@@ -544,6 +557,33 @@ if [[ -n "${VPY:-}" ]] && [[ -f "$INSTALL_DIR/core/hardware_profile.py" ]]; then
   EXP_STUDIO_AUTO="$(printf '%s\n' "$STUDIO_OUT" | sed -n '3p')"
   EXP_STUDIO_ASSETS="$(printf '%s\n' "$STUDIO_OUT" | sed -n '4p')"
   ok "Studio profile=${EXP_STUDIO_PROFILE:-?} comfy=${EXP_STUDIO_COMFY:-?} auto=${EXP_STUDIO_AUTO:-?} assets=${EXP_STUDIO_ASSETS:-none}"
+  case "${EXP_STUDIO_PROFILE:-}" in
+    *LTX2*|*24GB*|*32GB*)
+      _free_gb="$(df -Pk "$OWNER_HOME" 2>/dev/null | awk 'NR==2{printf "%.0f", $4/1024/1024}')"
+      if [[ -n "${_free_gb:-}" ]] && [[ "$_free_gb" -lt 100 ]]; then
+        printf '\n'
+        printf ' ################################################################\n'
+        printf ' #  !!!  ACTION REQUIRED - DISK  !!!\n'
+        printf ' #  LTX-2 / 24GB+ STUDIO NEEDS ~100 GB FREE\n'
+        printf ' ################################################################\n'
+        printf '     Free space near home: %s GB (need ~100 GB for LTX packs).\n' "$_free_gb"
+        printf '     YOU MUST free space; keep models in WSL/Docker (not /mnt/c).\n'
+        printf ' ################################################################\n'
+        printf '\n'
+        warn "Low disk for LTX-2 path — pack downloads may fail until space is freed."
+      fi
+      printf '\n'
+      printf ' ################################################################\n'
+      printf ' #  !!!  NOTE - VIDEO ENGINE  !!!\n'
+      printf ' #  PROFILE SELECTED LTX-2 (24GB+ / RTX 4090 CLASS)\n'
+      printf ' ################################################################\n'
+      printf '     Packs may download LTX-2 while Workshop video still uses Wan\n'
+      printf '     until the LTX submitter ships. If video asks for Wan packs,\n'
+      printf '     update Expansion + see TROUBLESHOOTING.txt section 9.\n'
+      printf ' ################################################################\n'
+      printf '\n'
+      ;;
+  esac
   # Kick hardware-matched creative packs (Z-Image + video + music) in the background
   # when this PC is auto-install eligible. Does not wait for multi-GB downloads.
   if [[ "${EXP_STUDIO_AUTO:-0}" == "1" ]]; then
@@ -573,6 +613,55 @@ else:
   fi
 fi
 echo "EXP_STUDIO_PROFILE=${EXP_STUDIO_PROFILE:-unknown}"
+
+# ------------------------------------------------------------------------------
+# Home Assistant + n8n sidecars (Docker) — easiest Expansion path
+# ------------------------------------------------------------------------------
+EXP_HA_STATE=skipped
+EXP_N8N_STATE=skipped
+if [[ -n "${VPY:-}" ]]; then
+  log "Ensuring managed Home Assistant container (after Docker)"
+  HA_OUT="$(
+    run_as_owner "$OWNER" -- env HOME="$OWNER_HOME" PYTHONPATH="$INSTALL_DIR" \
+      "$VPY" -c "
+from expansion.capabilities.home_assistant_sidecar import ensure_home_assistant_sidecar
+r = ensure_home_assistant_sidecar(wait_sec=120)
+print('ok=%s action=%s endpoint=%s token=%s' % (
+    int(bool(r.get('ok'))), r.get('action'), r.get('endpoint') or '',
+    int(bool(r.get('token_configured'))),
+))
+if r.get('error'):
+    print('error=%s' % (str(r.get('error'))[:200],))
+" 2>/dev/null || echo 'ok=0 action=error'
+  )"
+  ok "Home Assistant sidecar: ${HA_OUT}"
+  echo "EXP_HA_KICK=${HA_OUT}"
+  case "$HA_OUT" in
+    *ok=1*) EXP_HA_STATE=ready ;;
+    *docker_missing*) EXP_HA_STATE=no_docker ;;
+    *) EXP_HA_STATE=degraded ;;
+  esac
+  log "Ensuring managed n8n container (after Docker)"
+  N8N_OUT="$(
+    run_as_owner "$OWNER" -- env HOME="$OWNER_HOME" PYTHONPATH="$INSTALL_DIR" \
+      "$VPY" -c "
+from expansion.capabilities.n8n_sidecar import ensure_n8n_sidecar
+r = ensure_n8n_sidecar(wait_sec=90)
+print('ok=%s action=%s endpoint=%s' % (int(bool(r.get('ok'))), r.get('action'), r.get('endpoint') or ''))
+if r.get('error'):
+    print('error=%s' % (str(r.get('error'))[:200],))
+" 2>/dev/null || echo 'ok=0 action=error'
+  )"
+  ok "n8n sidecar: ${N8N_OUT}"
+  echo "EXP_N8N_KICK=${N8N_OUT}"
+  case "$N8N_OUT" in
+    *ok=1*) EXP_N8N_STATE=ready ;;
+    *docker_missing*) EXP_N8N_STATE=no_docker ;;
+    *) EXP_N8N_STATE=degraded ;;
+  esac
+fi
+echo "EXP_HA_STATE=$EXP_HA_STATE"
+echo "EXP_N8N_STATE=$EXP_N8N_STATE"
 
 # ------------------------------------------------------------------------------
 # Final summary
@@ -643,12 +732,12 @@ printf '  - Migration contract: docs/KEEP_EXPANSION_MIGRATION.md\n'
 printf '\033[1;33mFeature matrix (this install):\033[0m\n'
 printf '  - Foundation roster/schema     : installed (verified by this script)\n'
 printf '  - Entitled surfaces (War Room) : check /api/expansion/entitlement after restart\n'
-printf '  - Optional Discord/HA/n8n      : auto-install from Ops (credentials only when required)\n'
+printf '  - Optional Discord/HA/n8n      : HA+n8n containers auto-start when Docker is ready\n'
 printf '\n'
 printf '\033[1;33mRecommended next (Otacon can finish these):\033[0m\n'
 printf '  [ ] Discord         — Ops → Configure Discord (paste bot token once)\n'
-printf '  [ ] Home Assistant  — Ops → Connect HA (URL + long-lived token once)\n'
-printf '  [ ] n8n             — Ops → Install n8n (Docker; no credential for base)\n'
+printf '  [ ] Home Assistant  — open http://127.0.0.1:8123, onboard, paste long-lived token in Ops\n'
+printf '  [ ] n8n             — open http://127.0.0.1:5678 (container auto-installed with Expansion)\n'
 printf '  API: POST /api/expansion/integrations/configure  {\"component\":\"discord|home_assistant|n8n\"}\n'
 printf '  - Page Builder                 : page registry metadata only (not a page factory)\n'
 printf '  - Full status and roadmap      : %s\n' "$SPEC_URL"
