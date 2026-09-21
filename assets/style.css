@@ -2224,35 +2224,53 @@ button.btn {
 .about-metrics li { margin: 0.4rem 0; line-height: 1.5; }
 .about-metrics a { color: var(--accent-bright); }
 
-.about-hero-grid {
+/* Match about-layout frame (980px + 20px side padding) */
+.about-hero {
+ max-width: 980px;
+ margin-left: auto;
+ margin-right: auto;
+ padding-left: 20px;
+ padding-right: 20px;
+ padding-bottom: 8px;
+}
+
+.about-hero-inner {
  display: grid;
- grid-template-columns: minmax(140px, 200px) minmax(0, 1fr);
- gap: 28px;
- align-items: center;
+ grid-template-columns: 88px minmax(0, 1fr);
+ gap: 18px;
+ align-items: start;
+ max-width: 720px;
+ margin-left: 220px; /* align with about-article column (200px TOC + 32px gap) */
 }
 
 .about-portrait {
  margin: 0;
+ width: 88px;
 }
 
 .about-portrait img {
  display: block;
- width: 100%;
- max-width: 200px;
- aspect-ratio: 1;
+ width: 88px;
+ height: 88px;
  object-fit: cover;
  border-radius: 4px;
  border: 1px solid var(--line-bright);
- box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.about-hero-copy .display {
+ font-size: clamp(1.85rem, 4vw, 2.6rem);
+ margin: 0 0 0.35rem;
 }
 
 .about-hero-copy .lede {
- margin-bottom: 0.6rem;
+ margin: 0 0 0.45rem;
+ font-size: 1rem;
+ max-width: 36rem;
 }
 
 .about-hero-meta {
  margin: 0;
- font: 500 0.82rem JetBrains Mono, monospace;
+ font: 500 0.78rem JetBrains Mono, monospace;
 }
 
 .about-hero-meta a {
@@ -2277,9 +2295,14 @@ button.btn {
  }
  .about-toc strong { width: 100%; }
  .about-toc a { border-left: none; padding-left: 0; }
- .about-hero-grid {
- grid-template-columns: 1fr;
- justify-items: start;
+ .about-hero-inner {
+ margin-left: 0;
+ grid-template-columns: 72px minmax(0, 1fr);
+ gap: 14px;
  }
- .about-portrait img { max-width: 160px; }
+ .about-portrait,
+ .about-portrait img {
+ width: 72px;
+ height: 72px;
+ }
 }
