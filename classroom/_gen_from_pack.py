@@ -323,7 +323,7 @@ def gen_hub():
  <section class="hero flush">
  <div class="stamp">HOMELAB ACADEMY<small>free · 13-class pack</small></div>
  <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom</p>
- <h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Watch is the lecture.<br>This site is the lab.</h1>
+ <h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Build. Break. Fix. Verify.</h1>
  <p class="lede">Build-first curriculum for ARR, Home Assistant, and local voice. Same Otaconskeep chrome as the rest of the Keep — structured lessons, checkpoints, and a final verification matrix.</p>
  <div class="btn-row" style="margin-top:26px;">
   <a class="btn btn-primary" href="classes/01.html">Start Class 1</a>
