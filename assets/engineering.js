@@ -392,58 +392,131 @@
  }).join('') + '</tbody></table></div>';
  }
 
+  function mathVarIcon(kind) {
+    var icons = {
+      weight: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3l2.5 6.5H22l-5.5 4 2.1 6.5L12 16.8 5.4 20l2.1-6.5L2 9.5h7.5z"/></svg>',
+      trigger: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13 2L4 14h7l-1 8 10-14h-7l1-6z"/></svg>',
+      state: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>',
+      event: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 5v5.2l3.5 2.1-.8 1.3L11 13V7h2z"/></svg>',
+      relation: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 10a3 3 0 110-6 3 3 0 010 6zm8 0a3 3 0 110-6 3 3 0 010 6zM4 20v-1a5 5 0 015-5h1.2a6.5 6.5 0 000 2H9a3 3 0 00-3 3v1H4zm16 0v-1a3 3 0 00-3-3h-1.2a6.5 6.5 0 000-2H17a5 5 0 015 5v1h-2z"/></svg>',
+      memory: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 4h12a2 2 0 012 2v14l-8-3.5L4 20V6a2 2 0 012-2z"/></svg>',
+      goal: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 3a7 7 0 110 14 7 7 0 010-14zm0 3a4 4 0 100 8 4 4 0 000-8zm0 2.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>',
+      clamp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 7h16v2H4V7zm0 8h16v2H4v-2zm3-4h10v2H7v-2z"/></svg>',
+      score: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 19h2V9H4v10zm4 0h2V5H8v14zm4 0h2v-7h-2v7zm4 0h2V8h-2v11zm4 0h2v-4h-2v4z"/></svg>',
+      default: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2L2 7l10 5 10-5-10-5zm0 9L2 6v2l10 5 10-5V6l-10 5zm0 4L2 10v2l10 5 10-5v-2l-10 5z"/></svg>'
+    };
+    return icons[kind] || icons.default;
+  }
+
+  function mathVarKind(sym, def) {
+    var blob = String(sym || '') + ' ' + String(def || '');
+    blob = blob.toLowerCase();
+    if (/weight|w_t|b_d|confidence factor|modifier/.test(blob)) return 'weight';
+    if (/trigger|g_t|match|active/.test(blob)) return 'trigger';
+    if (/state|x_t|mood|baseline|x\^|x★|x\*/.test(blob)) return 'state';
+    if (/event|delta|δ|impact|ω/.test(blob)) return 'event';
+    if (/relation|trust|target|y_j|bond|person/.test(blob)) return 'relation';
+    if (/memory|γ|recency|retrieval|m_/.test(blob)) return 'memory';
+    if (/goal|utilit|u_k|g_t/.test(blob)) return 'goal';
+    if (/clip|clamp|cap|bound|δ_/.test(blob)) return 'clamp';
+    if (/score|quality|q_t|argmax|valence/.test(blob)) return 'score';
+    return 'default';
+  }
+
+  function parseVarCard(v, lineFallback) {
+    if (v && (v.sym || v.def)) {
+      return { sym: v.sym || '', def: v.def || '', kind: mathVarKind(v.sym, v.def) };
+    }
+    var line = String(lineFallback || '');
+    var m = line.match(/^(.+?)\s+is\s+(.+?)\.?$/i);
+    if (m) return { sym: m[1].trim(), def: m[2].trim(), kind: mathVarKind(m[1], m[2]) };
+    return { sym: '', def: line, kind: 'default' };
+  }
+
+  function renderMathVarCards(sec, s) {
+    var cards = [];
+    if (sec.variables && sec.variables.length) {
+      cards = sec.variables.map(function (v) { return parseVarCard(v); });
+    } else if (s.variables_explained && s.variables_explained.length) {
+      cards = s.variables_explained.map(function (line) { return parseVarCard(null, line); });
+    }
+    if (!cards.length) return '';
+    var html = '<div class="eng-math-block" data-tone="vars">';
+    html += '<h5 class="eng-math-h">Variables</h5>';
+    html += '<div class="eng-math-vargrid">';
+    cards.forEach(function (c, i) {
+      var tone = ['cyan', 'amber', 'violet', 'green', 'rose'][i % 5];
+      html += '<div class="eng-math-varcard" data-tone="' + tone + '">';
+      html += '<div class="eng-math-varicon" data-kind="' + escapeHtml(c.kind) + '">' + mathVarIcon(c.kind) + '</div>';
+      html += '<div class="eng-math-varbody">';
+      if (c.sym) html += '<div class="eng-math-varsym">' + escapeHtml(c.sym) + '</div>';
+      html += '<div class="eng-math-defvar">' + escapeHtml(c.def) + '</div>';
+      html += '</div></div>';
+    });
+    html += '</div></div>';
+    return html;
+  }
+
+  function mathBlock(tone, title, bodyHtml) {
+    if (!bodyHtml) return '';
+    return '<div class="eng-math-block" data-tone="' + tone + '">' +
+      '<h5 class="eng-math-h">' + escapeHtml(title) + '</h5>' +
+      bodyHtml + '</div>';
+  }
+
   function renderMathChapter(sec) {
     var s = sec.simplified || {};
     var html = '<article class="eng-math-chapter" id="' + escapeHtml(sec.id) + '">';
     html += '<h3>' + escapeHtml(String(sec.number) + ') ' + sec.title) + '</h3>';
     if (s.headline || sec.simple_explanation) {
-      html += '<p class="eng-math-q">Answers: <em>“' + escapeHtml(s.headline || sec.simple_explanation) + '”</em></p>';
+      html += '<p class="eng-math-q"><span class="eng-math-q-kicker">Answers</span> ' +
+        escapeHtml(s.headline || sec.simple_explanation) + '</p>';
     }
 
-    html += '<h4>Equation</h4>';
+    html += '<h4 class="eng-math-eq-label">Equation</h4>';
     (sec.katex || []).forEach(function (eq) {
       html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
     });
 
     html += '<div class="eng-math-easy">';
-    html += '<p class="eng-math-easy-label">Plain-language explanation</p>';
-    if (s.plain_equation || sec.meaning) {
-      html += '<p>' + escapeHtml(s.plain_equation || ('In words: ' + sec.meaning)) + '</p>';
+    html += '<div class="eng-math-easy-banner">Plain-language explanation</div>';
+
+    var lead = s.plain_equation || (sec.meaning ? ('In words: ' + sec.meaning) : '');
+    if (lead) {
+      html += '<p class="eng-math-easy-lead"><strong>' + escapeHtml(lead) + '</strong></p>';
     }
-    var varLines = s.variables_explained;
-    if ((!varLines || !varLines.length) && sec.variables && sec.variables.length) {
-      varLines = sec.variables.map(function (v) {
-        return (v.sym || '') + ' is ' + (v.def || '') + '.';
-      });
-    }
-    if (varLines && varLines.length) {
-      html += '<p><strong>Variables</strong></p><ul class="eng-math-vars">';
-      varLines.forEach(function (line) { html += '<li>' + escapeHtml(line) + '</li>'; });
-      html += '</ul>';
-    }
+
+    html += renderMathVarCards(sec, s);
+
     if (s.how_it_touches_agents) {
-      html += '<p><strong>How this touches an agent</strong></p><p>' + escapeHtml(s.how_it_touches_agents) + '</p>';
+      html += mathBlock('agent', 'How this touches an agent',
+        '<p class="eng-math-body">' + escapeHtml(s.how_it_touches_agents) + '</p>');
     }
     if (s.how_it_works || sec.why_this_logic) {
-      html += '<p><strong>How it works</strong></p><p>' + escapeHtml(s.how_it_works || sec.why_this_logic) + '</p>';
+      html += mathBlock('logic', 'Why this logic / how it works',
+        '<p class="eng-math-body">' + escapeHtml(s.how_it_works || sec.why_this_logic) + '</p>');
     }
     if (s.why_it_works) {
-      html += '<p><strong>Why it was built this way</strong></p><p>' + escapeHtml(s.why_it_works) + '</p>';
+      html += mathBlock('why', 'Why these choices',
+        '<p class="eng-math-body">' + escapeHtml(s.why_it_works) + '</p>');
     } else if (sec.psychology_theory_basis && sec.psychology_theory_basis.length) {
-      html += '<p><strong>Theory basis</strong></p><ul class="eng-math-vars">';
-      sec.psychology_theory_basis.forEach(function (p) { html += '<li>' + escapeHtml(p) + '</li>'; });
-      html += '</ul>';
+      html += mathBlock('why', 'Theory basis',
+        '<ul class="eng-math-chiprow">' + sec.psychology_theory_basis.map(function (p) {
+          return '<li>' + escapeHtml(p) + '</li>';
+        }).join('') + '</ul>');
     }
     if (s.how_put_together || sec.why_these_variables) {
-      html += '<p><strong>How it fits the stack</strong></p><p>' + escapeHtml(s.how_put_together || sec.why_these_variables) + '</p>';
+      html += mathBlock('stack', 'Why these variables / how it fits the stack',
+        '<p class="eng-math-body">' + escapeHtml(s.how_put_together || sec.why_these_variables) + '</p>');
     }
     if (s.connects_to) {
-      html += '<p class="eng-math-connect">' + escapeHtml(s.connects_to) + '</p>';
+      html += mathBlock('link', 'Connection',
+        '<p class="eng-math-body">' + escapeHtml(s.connects_to) + '</p>');
     }
     html += '</div>';
 
     if (sec.summary_equation) {
-      html += '<h4>Short summary</h4>';
+      html += '<h4 class="eng-math-eq-label">Short summary</h4>';
       (sec.summary_equation.katex || []).forEach(function (eq) {
         html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
       });
