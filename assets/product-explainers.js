@@ -188,7 +188,10 @@
  );
  },
  'family': function () {
- return svgWrap(
+ var caption = 'Lite is the foundation; Expansion, Keep Desk, and KeepRoute build around it. AI9 is family-adjacent and does not require Lite Core.';
+ var svg =
+ '<svg viewBox="0 0 440 190" xmlns="http://www.w3.org/2000/svg">' +
+ '<defs><marker id="pxArrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#39e6c8"/></marker></defs>' +
  node(130, 8, 180, 40, 'OtaconsKeep Lite', 'Core foundation') +
  arrow(160, 48, 75, 78) + arrow(220, 48, 220, 78) + arrow(280, 48, 365, 78) +
  node(20, 78, 110, 44, 'Expansion', 'multi-agent') +
@@ -196,14 +199,11 @@
  node(310, 78, 110, 44, 'KeepRoute', 'orchestration') +
  arrow(365, 122, 365, 140) +
  node(300, 140, 130, 36, 'OmniRoute') +
- // AI9 sits aside — not under Lite; dashed separator + clear single-line label
- '<line x1="20" y1="198" x2="420" y2="198" stroke="#2d3e56" stroke-width="1" stroke-dasharray="4 4"/>' +
- node(20, 210, 200, 44, 'AI9 GPU colorizer', 'family-adjacent') +
- '<text x="320" y="228" text-anchor="middle" fill="#8ea0b6" font-size="10" font-family="JetBrains Mono,monospace">Does not require</text>' +
- '<text x="320" y="244" text-anchor="middle" fill="#8ea0b6" font-size="10" font-family="JetBrains Mono,monospace">Lite Core</text>',
- '0 0 440 270',
- 'Lite is the foundation; Expansion, Keep Desk, and KeepRoute build around it. AI9 is family-adjacent and does not require Lite Core.'
- );
+ '</svg>';
+ return '<div class="px-diagram" role="img" aria-label="' + esc(caption) + '">' + svg +
+ '<div class="px-family-ai9"><strong>AI9 GPU colorizer</strong>' +
+ '<span>Family-adjacent · does not require Lite Core</span></div>' +
+ '<p class="caption">' + esc(caption) + '</p></div>';
  }
  };
 
