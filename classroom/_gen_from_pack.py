@@ -13,7 +13,7 @@ SITE = Path("/root/otaconskeep-site/classroom")
 PACK = SITE / "pack"
 CLASSES_DIR = SITE / "classes"
 GH = Path("/root/Classroom")
-CSS_V = "20260921e"
+CSS_V = "20260921f"
 
 NAV = f'''<nav class="topnav">
  <div class="wrap">
@@ -120,8 +120,31 @@ SECTION_KIND = {
 }
 
 
+def scrub_lectures(text: str) -> str:
+    """Remove lecture video lines and YouTube URLs from pack markdown."""
+    out = []
+    for line in text.splitlines():
+        s = line.strip()
+        if re.match(r"\*\*Lecture:\*\*", s, re.I):
+            continue
+        if re.match(r"\*\*Time:\*\*", s, re.I):
+            continue
+        if re.match(r"\*\*Build output:\*\*", s, re.I):
+            continue
+        # Drop bare YouTube links / markdown links to YouTube
+        if re.search(r"youtube\.com|youtu\.be", s, re.I):
+            continue
+        out.append(line)
+    text = "\n".join(out)
+    # Strip any remaining youtube URLs inline
+    text = re.sub(r"https?://(?:www\.)?(?:youtube\.com/\S+|youtu\.be/\S+)", "", text)
+    text = re.sub(r"\[([^\]]+)\]\(\s*\)", r"\1", text)
+    return text
+
+
 def md_fragment(text: str) -> str:
     MD.reset()
+    text = scrub_lectures(text)
     text = re.sub(
         r"```mermaid\n(.*?)```",
         lambda m: "```text\n" + m.group(1).strip() + "\n```",
@@ -133,6 +156,13 @@ def md_fragment(text: str) -> str:
         r'<a href="(https?://[^"]+)"',
         r'<a href="\1" target="_blank" rel="noopener"',
         html,
+    )
+    # Never leave youtube anchors even if scrub missed
+    html = re.sub(
+        r'<a href="https?://(?:www\.)?(?:youtube\.com|youtu\.be)[^"]*"[^>]*>.*?</a>',
+        "",
+        html,
+        flags=re.I | re.S,
     )
     return html
 
@@ -294,14 +324,14 @@ def gen_hub():
  <div class="stamp">HOMELAB ACADEMY<small>free · 13-class pack</small></div>
  <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom</p>
  <h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Watch is the lecture.<br>This site is the lab.</h1>
- <p class="lede">Build-first curriculum for ARR, Home Assistant, and local voice. Same Otaconskeep chrome as the rest of the Keep — structured lessons, checkpoints, and a final verification matrix. No video embeds.</p>
+ <p class="lede">Build-first curriculum for ARR, Home Assistant, and local voice. Same Otaconskeep chrome as the rest of the Keep — structured lessons, checkpoints, and a final verification matrix.</p>
  <div class="btn-row" style="margin-top:26px;">
   <a class="btn btn-primary" href="classes/01.html">Start Class 1</a>
   <a class="btn btn-ghost" href="workbook.html">Student workbook</a>
   <a class="btn btn-ghost" href="final-exam.html">Final capstone</a>
   <a class="btn btn-ghost" href="references/">References</a>
  </div>
- <p class="meta" style="margin-top:22px;">WATCH → UNDERSTAND → BUILD → BREAK → FIX → VERIFY</p>
+ <p class="meta" style="margin-top:22px;">UNDERSTAND → BUILD → BREAK → FIX → VERIFY</p>
  </section>
 </div>
 
@@ -360,18 +390,8 @@ def gen_classes():
     for i, (num, fn, title, unit, unit_name) in enumerate(CLASS_META):
         raw = (PACK / "classes" / fn).read_text()
         _md_title, lead, sections = split_sections(raw)
-        lecture, time, build, lead_rest = parse_meta(lead)
-
-        meta_bits = []
-        if lecture:
-            meta_bits.append(f"<div><span>Lecture</span>{md_fragment(lecture)}</div>")
-        if time:
-            meta_bits.append(f"<div><span>Time</span><p>{H.escape(time)}</p></div>")
-        if build:
-            meta_bits.append(f"<div><span>Build output</span><p>{H.escape(build)}</p></div>")
-        meta_html = f'<div class="cr-meta-grid">{"".join(meta_bits)}</div>' if meta_bits else ""
-
-        lead_html = f'<div class="cr-box"><h3>Before you start</h3>{md_fragment(lead_rest)}</div>' if lead_rest else ""
+        _lecture, _time, _build, lead_rest = parse_meta(scrub_lectures(lead))
+        lead_html = f'<div class="cr-box"><h3>Before you start</h3>{md_fragment(lead_rest)}</div>' if lead_rest.strip() else ""
 
         section_html = "\n".join(render_section(h2, body, num) for h2, body in sections)
 
@@ -388,8 +408,7 @@ def gen_classes():
  <div class="stamp">CLASS {int(num):02d}<small>unit {unit} · {H.escape(unit_name.lower())}</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
  <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">{H.escape(title)}</h1>
- <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
- {meta_html}
+ <p class="lede">Guided lab, break/fix, quiz, and practical gate. Prefer current official docs linked in References.</p>
  </section>
 </div>
 
@@ -448,6 +467,9 @@ def gen_references():
     out.mkdir(parents=True, exist_ok=True)
     links = []
     for f in sorted(ref.glob("*.md")):
+        # Do not publish video-link catalogs on the public site
+        if "VIDEO" in f.stem.upper():
+            continue
         slug = f.stem.lower().replace("_", "-")
         html_name = f"{slug}.html"
         sections_html, _ = render_doc_page(f.read_text(), f.stem)
@@ -456,7 +478,7 @@ def gen_references():
  <section class="hero flush">
  <p class="tag">References</p>
  <h1 class="display" style="font-size:clamp(1.7rem,4.5vw,2.6rem);">{H.escape(f.stem.replace("_", " ").title())}</h1>
- <p class="lede">Lecture links stay as text. Videos are not embedded on Academy pages.</p>
+ <p class="lede">Current official documentation for commands and UI. No lecture videos on Academy pages.</p>
  </section>
 </div>
 <div class="wrap">
@@ -467,6 +489,11 @@ def gen_references():
         write(out / html_name, wrap(f"{f.stem} · Classroom", f.stem, f"/classroom/references/{html_name}", "REFS", body))
         links.append(f'<li><a href="{html_name}">{H.escape(f.stem.replace("_", " ").title())}</a></li>')
 
+    # Remove previously generated video-links page if present
+    stale = out / "video-links.html"
+    if stale.exists():
+        stale.unlink()
+
     trows = "".join(
         f'<li><a href="/classroom/pack/templates/{H.escape(t.name)}">{H.escape(t.name)}</a></li>'
         for t in sorted((PACK / "templates").glob("*"))
@@ -476,7 +503,7 @@ def gen_references():
  <section class="hero flush">
  <p class="tag">References</p>
  <h1 class="display" style="font-size:clamp(1.9rem,5vw,3rem);">References &amp; templates</h1>
- <p class="lede">Official docs, lecture link list, and CSV evidence templates from the pack.</p>
+ <p class="lede">Official docs and CSV evidence templates. Lecture videos are not listed on this site.</p>
  </section>
 </div>
 <div class="wrap">
