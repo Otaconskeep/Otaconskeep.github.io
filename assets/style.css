@@ -299,6 +299,8 @@ section > p.intro { max-width: 64ch; color: var(--cream-dim); margin-bottom: 28p
  flex-direction: column;
  gap: 18px;
  box-shadow: var(--shadow);
+ position: relative;
+ overflow: visible;
 }
 .project-card .kicker {
  font-family: 'JetBrains Mono', monospace;
@@ -401,6 +403,8 @@ section > p.intro { max-width: 64ch; color: var(--cream-dim); margin-bottom: 28p
  display: flex;
  flex-direction: column;
  gap: 16px;
+ position: relative;
+ overflow: visible;
 }
 .install-panel + .install-panel { margin-top: 18px; }
 .install-panel-head {
@@ -1639,6 +1643,8 @@ footer a:hover { color: var(--accent-bright); }
  display: flex;
  flex-direction: column;
  gap: 8px;
+ position: relative;
+ overflow: visible;
 }
 .quickpick .qp-eyebrow {
  font-family: 'JetBrains Mono', monospace;
@@ -1651,6 +1657,76 @@ footer a:hover { color: var(--accent-bright); }
 .quickpick p { font-size: 0.86rem; color: var(--cream-dim); margin: 0; }
 .quickpick p.qp-support { flex-grow: 0; }
 .quickpick .btn { margin-top: 6px; justify-content: center; width: 100%; }
+
+/* ---------------- FREE corner sticker ---------------- */
+.is-free {
+ --free-sticker-pad: 1.1rem;
+}
+.free-sticker {
+ position: absolute;
+ top: 14px;
+ right: -10px;
+ z-index: 3;
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ min-width: 5.4rem;
+ padding: 0.55rem 1.35rem;
+ transform: rotate(14deg);
+ transform-origin: center center;
+ background: linear-gradient(135deg, #2fe08a 0%, #18b86a 55%, #0e8f52 100%);
+ color: #04140e;
+ border: 2px solid #e8fff2;
+ border-radius: 3px;
+ box-shadow:
+ 0 8px 18px rgba(0, 0, 0, 0.45),
+ 0 0 0 1px rgba(4, 20, 14, 0.35),
+ inset 0 1px 0 rgba(255, 255, 255, 0.35);
+ font-family: 'Bricolage Grotesque', sans-serif;
+ font-weight: 900;
+ font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+ letter-spacing: 0.14em;
+ line-height: 1;
+ text-transform: uppercase;
+ pointer-events: none;
+ user-select: none;
+}
+.free-sticker::before {
+ content: "";
+ position: absolute;
+ inset: 3px;
+ border: 1px dashed rgba(4, 20, 14, 0.28);
+ border-radius: 2px;
+ pointer-events: none;
+}
+.project-card .free-sticker,
+.install-panel .free-sticker {
+ top: 18px;
+ right: -8px;
+ min-width: 6rem;
+ font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+ padding: 0.62rem 1.45rem;
+}
+.quickpick.is-free {
+ padding-top: 22px;
+ padding-right: 34px;
+}
+.project-card.is-free,
+.install-panel.is-free {
+ padding-top: 30px;
+ padding-right: 36px;
+}
+@media (max-width: 600px) {
+ .free-sticker {
+  top: 10px;
+  right: -6px;
+  min-width: 4.6rem;
+  font-size: 0.95rem;
+  padding: 0.45rem 1rem;
+  transform: rotate(12deg);
+ }
+}
+
 button.btn {
  font: inherit;
  cursor: pointer;
