@@ -632,10 +632,10 @@
  var badge = r.label === 'MEASURED' ? 'eng-badge-measured' : 'eng-badge-mock';
  html += '<tr><td>' + idBtn(r.id) + '</td><td><span class="' + badge + '">' + escapeHtml(r.label || '') +
  '</span></td><td>' + escapeHtml(r.series || r.class || '-') + '</td><td>' + escapeHtml(r.gpu || r.hardware || '-') +
- '</td><td>' + escapeHtml(r.vram || '-') + '</td><td>' + escapeHtml(r.mean == null ? ', ' : String(r.mean)) +
- '</td><td>' + escapeHtml(r.p95 == null ? ', ' : String(r.p95)) +
- '</td><td>' + escapeHtml(r.ttft_ms_mean == null ? ', ' : String(r.ttft_ms_mean)) +
- '</td><td>' + escapeHtml(String(r.n == null ? ', ' : r.n)) +
+ '</td><td>' + escapeHtml(r.vram || '-') + '</td><td>' + escapeHtml(r.mean == null ? '-' : String(r.mean)) +
+ '</td><td>' + escapeHtml(r.p95 == null ? '-' : String(r.p95)) +
+ '</td><td>' + escapeHtml(r.ttft_ms_mean == null ? '-' : String(r.ttft_ms_mean)) +
+ '</td><td>' + escapeHtml(String(r.n == null ? '-' : r.n)) +
  '</td><td>' + escapeHtml(r.date || '-') + '</td></tr>';
  });
  html += '</tbody></table></div>';
@@ -781,9 +781,9 @@
  var tests = r.linked_tests || [];
  if (!tests.length) {
  return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.verification_method) +
- '</td><td>, </td><td>' + escapeHtml(r.verification_planned || '-') +
+ '</td><td>-</td><td>' + escapeHtml(r.verification_planned || '-') +
  '</td><td>' + escapeHtml(r.verification_executed || '-') +
- '</td><td>, </td><td>' + statusHtml('Verification Pending') +
+ '</td><td>-</td><td>' + statusHtml('Verification Pending') +
  '</td><td>' + statusHtml(r.status) + '</td></tr>';
  }
  return tests.map(function (tid) {
