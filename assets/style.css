@@ -467,6 +467,31 @@ section > p.intro { max-width: 64ch; color: var(--cream-dim); margin-bottom: 28p
  border: 0;
  display: block;
 }
+.install-cta-row {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 12px 14px;
+}
+.install-cta-row .download-btn {
+ flex: 0 0 auto;
+}
+.install-demo-video--inline {
+ margin: 0;
+ width: auto;
+ flex: 0 0 auto;
+}
+.install-demo-video--inline .install-demo-video-frame {
+ width: 176px;
+ max-width: 176px;
+ border-radius: 5px;
+}
+@media (max-width: 480px) {
+ .install-demo-video--inline .install-demo-video-frame {
+  width: 148px;
+  max-width: 148px;
+ }
+}
 .os-grid {
  display: grid;
  grid-template-columns: 1fr 1fr;
