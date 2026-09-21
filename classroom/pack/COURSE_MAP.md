@@ -16,6 +16,7 @@
 | 12 | Whisper, Piper, and Wyoming | Local STT and TTS services | Known-sentence and known-response tests |
 | 13 | Private smart speaker | Wake-to-action-to-speech system | Internet-disconnected end-to-end pass |
 | 14 | n8n homelab automation | n8n + RSS digest + guarded Keep Agent | Item-flow explained; approval before mutation |
+| 15 | IPv4 addresses and gateways | Read IP/mask/gateway; `/24` usable math | Same-LAN vs gateway proof; reserved addresses explained |
 
 ## Final architecture
 
@@ -39,7 +40,7 @@ flowchart TD
 
 ### Gate 1 — Infrastructure
 
-Classes 1–4 must pass before building the media applications. The student can explain persistence, ports, networks, name resolution, logs, health, updates, and rollback.
+Classes 1–4 must pass before building the media applications. The student can explain persistence, ports, networks, name resolution, logs, health, updates, and rollback. Class 15 (IPv4 addressing) may be taken early alongside Classes 1–3; the student must read IP, mask, and gateway and explain local vs via-gateway delivery.
 
 ### Gate 2 — Media automation
 

@@ -18,7 +18,7 @@ The course progression is:
 ## Package contents
 
 - `COURSE_MAP.md` — sequence, prerequisites, deliverables, and capstone architecture.
-- `classes/01...14` — complete class lessons with labs, troubleshooting, quizzes, and gates (Class 14 = n8n).
+- `classes/01...15` — complete class lessons with labs, troubleshooting, quizzes, and gates (Class 14 = n8n; Class 15 = IPv4 addressing).
 - `STUDENT_WORKBOOK.md` — reusable note and evidence pages for every class.
 - `INSTRUCTOR_ANSWER_KEY.md` — quiz answers and practical acceptance criteria.
 - `FINAL_CAPSTONE.md` — end-to-end ARR, media, Home Assistant, and local-voice exam.
