@@ -2684,3 +2684,196 @@ button.btn {
  white-space: pre-wrap;
  font-family: 'JetBrains Mono', monospace;
 }
+
+/* ---------------- Lite install IA (guided + OS chooser) ---------------- */
+.install-pill-row {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 6px;
+ margin: 0 0 12px;
+}
+.install-pill {
+ font: 700 0.65rem JetBrains Mono, monospace;
+ letter-spacing: 0.06em;
+ text-transform: uppercase;
+ color: var(--cream-dim);
+ border: 1px solid var(--line);
+ border-radius: 4px;
+ padding: 3px 8px;
+}
+.install-pill.ok {
+ color: #43d98a;
+ border-color: #2f6f4e;
+ background: rgba(67, 217, 138, 0.08);
+}
+.install-path-strip {
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 6px 4px;
+ margin: 12px 0 0;
+ font-size: 0.82rem;
+ color: var(--cream-dim);
+ line-height: 1.35;
+}
+.install-path-strip strong {
+ color: var(--cream);
+ font-weight: 700;
+}
+.install-path-strip .path-arrow {
+ color: var(--accent-bright);
+ margin: 0 2px;
+ font-weight: 700;
+}
+.install-time-note {
+ margin: 10px 0 0;
+ font-size: 0.86rem;
+ color: var(--cream-dim);
+ line-height: 1.4;
+}
+.install-secondary-links {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px 16px;
+ margin: 12px 0 0;
+ font-size: 0.88rem;
+}
+.install-secondary-links a { color: var(--accent-bright); }
+.setup-handles {
+ margin-top: 14px;
+ padding: 12px 14px;
+ border: 1px solid var(--line);
+ border-radius: 7px;
+ background: var(--bg-elevated);
+}
+.setup-handles h4 {
+ margin: 0 0 8px;
+ font-size: 0.92rem;
+}
+.setup-handles ul {
+ list-style: none;
+ margin: 0;
+ padding: 0;
+ display: grid;
+ gap: 5px;
+}
+.setup-handles li {
+ margin: 0;
+ font-size: 0.86rem;
+ color: var(--cream);
+ display: flex;
+ gap: 8px;
+ align-items: baseline;
+}
+.setup-handles .ok { color: #43d98a; font-weight: 700; }
+.install-needs {
+ margin-top: 12px;
+ padding: 12px 14px;
+ border: 1px dashed var(--line-bright);
+ border-radius: 7px;
+}
+.install-needs h4 { margin: 0 0 8px; font-size: 0.92rem; }
+.install-needs ul {
+ list-style: none;
+ margin: 0;
+ padding: 0;
+ display: grid;
+ gap: 5px;
+}
+.install-needs li {
+ margin: 0;
+ font-size: 0.86rem;
+ color: var(--cream-dim);
+}
+.install-success {
+ margin-top: 14px;
+ padding: 14px 16px;
+ border: 1px solid #2f6f4e;
+ border-radius: 8px;
+ background: rgba(67, 217, 138, 0.08);
+}
+.install-success .success-kicker {
+ margin: 0 0 6px;
+ font: 700 0.68rem JetBrains Mono, monospace;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: #43d98a;
+}
+.install-success h4 {
+ margin: 0 0 8px;
+ font-size: 1.05rem;
+ color: var(--cream);
+}
+.install-success p {
+ margin: 0;
+ font-size: 0.9rem;
+ color: var(--cream-dim);
+ line-height: 1.45;
+}
+.install-help-block {
+ margin-top: 12px;
+ border: 1px solid var(--line);
+ border-radius: 7px;
+ background: var(--surface);
+ overflow: hidden;
+}
+.install-help-block > summary {
+ list-style: none;
+ cursor: pointer;
+ padding: 12px 14px;
+ font-weight: 700;
+ color: var(--cream);
+}
+.install-help-block > summary::-webkit-details-marker { display: none; }
+.install-help-block > summary::before {
+ content: "▸ ";
+ color: var(--accent-bright);
+}
+.install-help-block[open] > summary::before { content: "▾ "; }
+.install-help-inner {
+ padding: 0 14px 14px;
+ border-top: 1px solid var(--line);
+}
+.install-help-inner h5 {
+ margin: 14px 0 8px;
+ font-size: 0.82rem;
+ letter-spacing: 0.04em;
+ text-transform: uppercase;
+ color: var(--cream-dim);
+}
+.os-chooser {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 8px;
+ margin: 10px 0 12px;
+}
+.os-chooser-btn {
+ display: block;
+ width: 100%;
+ text-align: left;
+ cursor: pointer;
+ border: 1px solid var(--line);
+ border-radius: 6px;
+ background: var(--bg-elevated);
+ color: var(--cream);
+ padding: 10px 12px;
+ font: 600 0.9rem Figtree, sans-serif;
+}
+.os-chooser-btn:hover { border-color: var(--accent); }
+.os-chooser-btn.is-active {
+ border-color: var(--accent);
+ background: rgba(232, 140, 48, 0.1);
+}
+.os-chooser-btn .os-choice-sub {
+ display: block;
+ margin-top: 3px;
+ font: 500 0.78rem Figtree, sans-serif;
+ color: var(--cream-dim);
+}
+.os-path { display: none; }
+.os-path.is-active { display: block; }
+.manual-step-body .step-actions {
+ margin: 8px 0 0;
+ padding-left: 1.15rem;
+}
+.manual-step-body .step-actions li { margin: 0 0 6px; }

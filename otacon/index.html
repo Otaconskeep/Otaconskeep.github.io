@@ -93,21 +93,43 @@
 
 <div class="wrap">
  <section id="install">
- <p class="tag">Install // One-click or manual</p>
+ <p class="tag">Install // Guided or manual</p>
  <h2>Install Otacon</h2>
- <p class="intro">Left: one-click Setup. Right: manual steps you click open one at a time. Includes Default Model + Voice Trainer.</p>
-
- <div class="install-panel" style="margin-bottom: 28px;">
+ <p class="intro">Guided Windows Setup on the left. Manual step-by-step on the right — pick Windows, Ubuntu, or Advanced WSL first. Includes<div class="install-panel" id="install-otacon" style="margin-bottom: 28px;">
  <div class="install-panel-head">
- <h3 class="install-panel-title">Otacon</h3>
- <span class="one-click-badge">One-click or manual</span>
+ <h3 class="install-panel-title">Install Otacon</h3>
+ <span class="one-click-badge">Guided Windows installer</span>
  </div>
- <p class="install-panel-lead">Core + chat model by VRAM + Voice Trainer. Under 6GB → <span class="mono">qwen2.5:1.5b</span> · ≥6 → <span class="mono">3b</span> · ≥8 → <span class="mono">7b</span> · ≥16 → <span class="mono">14b</span>.</p>
+ <div class="install-pill-row" aria-label="Lite trust signals">
+ <span class="install-pill ok">Free</span>
+ <span class="install-pill ok">Open source</span>
+ <span class="install-pill ok">Runs locally</span>
+ <span class="install-pill ok">No account</span>
+ <span class="install-pill ok">No license key</span>
+ </div>
+ <p class="install-panel-lead">Persistent AI agents, memory, a local Ollama chat model, Genome Voice Trainer, and the OtaconsKeep Command Center — on your hardware.</p>
+
  <div class="os-grid">
  <div class="os-card">
- <p class="os-label">One-click · Windows</p>
+ <p class="os-label">★ Recommended · Windows</p>
+ <p class="os-hint" style="margin-bottom:10px;">Download one file. OtaconsKeep handles WSL, dependencies, Ollama, the default model, Voice Trainer, service setup, and health checks.</p>
  <a class="download-btn" href="/downloads/OtaconsKeep-Setup.bat" download="OtaconsKeep-Setup.bat">Download OtaconsKeep Setup</a>
- <div class="install-demo-video" aria-label="Otaconskeep Lite install video">
+
+ <div class="install-path-strip" aria-label="Install steps">
+ <strong>1. Download</strong><span class="path-arrow">→</span>
+ <strong>2. Double-click</strong><span class="path-arrow">→</span>
+ <strong>3. Approve Windows</strong><span class="path-arrow">→</span>
+ <strong>4. OTACON IS READY</strong>
+ </div>
+ <p class="install-time-note">Typical first setup: <strong>~10–30 minutes</strong> depending on your PC and internet. Windows may require <strong>one restart</strong> while enabling WSL — Setup resumes afterward.</p>
+
+ <div class="install-secondary-links">
+ <a href="https://youtu.be/OitYjPlbTng" target="_blank" rel="noopener">Watch install video</a>
+ <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">View source</a>
+ <a href="/faq/#uninstall">How to uninstall</a>
+ </div>
+
+ <div class="install-demo-video" aria-label="Otaconskeep Lite install video" style="margin-top:12px;">
  <div class="install-demo-video-frame">
  <iframe
  src="https://www.youtube-nocookie.com/embed/OitYjPlbTng"
@@ -118,102 +140,297 @@
  referrerpolicy="strict-origin-when-cross-origin"></iframe>
  </div>
  </div>
- <p class="os-hint" style="margin-top: 8px;"><a href="https://youtu.be/OitYjPlbTng" target="_blank" rel="noopener">Watch the one-click install walkthrough →</a></p>
- <p class="os-hint" style="margin-top: 10px;"><strong>Already installed but GPU/chat looks wrong?</strong></p>
- <p style="margin: 8px 0 0;">
- <a class="download-btn" href="/downloads/Fix-Otacon-GPU.bat" download="Fix-Otacon-GPU.bat" style="background: transparent; border: 1px solid var(--accent); color: var(--cream);">Fix GPU detection</a>
- </p>
- <p style="margin: 8px 0 0;">
- <a class="download-btn" href="/downloads/Reinstall-Otacon.bat" download="Reinstall-Otacon.bat" style="background: transparent; border: 1px solid var(--cream-dim); color: var(--cream-dim);">Full reinstall</a>
- </p>
- <div class="setup-normal-disclaimer" role="note">
- <strong>These are normal, not failures</strong>
- <p>If something below happens, do not close everything and start over. Setup is still working.</p>
+
+ <div class="setup-handles">
+ <h4>What Setup handles</h4>
  <ul>
- <li><strong>Windows SmartScreen</strong> may say it protected your PC. Click <strong>More info</strong>, then <strong>Run anyway</strong>.</li>
- <li><strong>Administrator / Yes popup</strong> is required. Click <strong>Yes</strong>. A new Setup window may open, that is expected. The old window can stay open or say setup continues in the new one.</li>
- <li><strong>Long waits</strong> (minutes with a black window and progress text) are normal while Windows enables Linux and Otacon installs. Do not close the window.</li>
- <li><strong>Restart required</strong> does <em>not</em> mean install failed. Save your work, restart, then Setup should show <strong>WELCOME BACK</strong> and continue. Or double-click the same <span class="mono">OtaconsKeep-Setup.bat</span> again.</li>
- <li><strong>"Updates are underway, please keep your computer on"</strong> with the Windows spinner, right after that restart, is Windows itself finishing the Linux/WSL feature install, not Otacon, and not a crash. This can take 15&ndash;45+ minutes, longer on a hard drive instead of an SSD. If a drive activity light is flickering, it's working. Only treat it as stuck after several hours with zero drive activity &mdash; if so: hard power off, reboot, run <span class="mono">sfc /scannow</span> then <span class="mono">DISM /Online /Cleanup-Image /RestoreHealth</span> as admin, confirm you have a few GB free, then re-run <span class="mono">OtaconsKeep-Setup.bat</span> (it resumes, it won't start over).</li>
- <li><strong>Ubuntu username / password</strong> screens are part of Windows Linux setup, not a crash, and not Proxmox.</li>
- <li><strong>Do not open</strong> <span class="mono">localhost:5757</span> until the window says <strong>OTACON IS READY</strong>. Opening early looks broken even when install is fine.</li>
- <li>If you see <strong>SETUP NEEDS HELP</strong>, that is recovery, not a crash. Press <strong>R</strong> to retry, <strong>O</strong> for logs, or <strong>X</strong> to exit. The window should stay open.</li>
+ <li><span class="ok">✓</span> Enables / configures WSL2 when needed</li>
+ <li><span class="ok">✓</span> Installs OtaconsKeep Core</li>
+ <li><span class="ok">✓</span> Detects your hardware</li>
+ <li><span class="ok">✓</span> Installs Ollama</li>
+ <li><span class="ok">✓</span> Chooses a chat model based on available VRAM</li>
+ <li><span class="ok">✓</span> Installs Genome Voice Trainer when supported</li>
+ <li><span class="ok">✓</span> Runs installation health checks</li>
+ <li><span class="ok">✓</span> Registers Otacon as a background service</li>
+ <li><span class="ok">✓</span> Configures automatic startup after Windows login</li>
  </ul>
  </div>
- <p class="os-hint">Saves as <span class="mono">OtaconsKeep-Setup.bat</span>. Double-click, follow the guided stages, restart once if asked. Setup resumes automatically. Do not open localhost until it says OTACON IS READY.</p>
- <p class="os-hint" style="margin-top: 8px;"><strong>Use this button only.</strong> Do not open raw GitHub and Save As, that can corrupt the installer encoding.</p>
- <p class="os-hint" style="margin-top: 8px;"><a href="https://github.com/Otaconskeep/otacons-ai-ecosystem/archive/refs/heads/main.zip">Having trouble downloading? Download the GitHub ZIP instead</a>.</p>
+
+ <div class="install-needs">
+ <h4>What you need</h4>
+ <ul>
+ <li><strong>Windows</strong> 10 or 11 (WSL2 support — Setup enables it if needed)</li>
+ <li><strong>GPU:</strong> optional — CPU-only works</li>
+ <li><strong>NVIDIA GPU:</strong> automatically detected when present</li>
+ <li><strong>Internet:</strong> required for initial setup / model download</li>
+ <li><strong>AI model:</strong> automatically sized for your hardware</li>
+ <li><strong>Disk:</strong> leave ~10+ GB free for a comfortable first install</li>
+ </ul>
  </div>
+
+ <div class="install-success">
+ <p class="success-kicker">You’re finished when you see</p>
+ <h4>✓ OTACON IS READY</h4>
+ <p>Then open <a href="http://localhost:5757" target="_blank" rel="noopener"><strong>http://localhost:5757</strong></a> to enter your Keep. Bookmark it — that address is local to this PC.</p>
+ </div>
+
+ <details class="install-help-block">
+ <summary>Having trouble? First-install help</summary>
+ <div class="install-help-inner">
+ <h5>Normal things you may see</h5>
+ <details class="baby-error"><summary>Windows protected your PC / SmartScreen</summary>
+ <div class="baby-error-body"><ol><li>Click <strong>More info</strong> → <strong>Run anyway</strong>.</li><li>Expected for a new unsigned Setup file.</li></ol></div></details>
+ <details class="baby-error"><summary>Administrator / “allow this app” (UAC)</summary>
+ <div class="baby-error-body"><ol><li>Click <strong>Yes</strong>. Setup needs permission for WSL and services.</li><li>A second Setup window may open — that is expected.</li></ol></div></details>
+ <details class="baby-error"><summary>Windows asks you to restart</summary>
+ <div class="baby-error-body"><ol><li>Normal while enabling WSL. Save work and restart.</li><li>After reboot, Setup should show <strong>WELCOME BACK</strong>, or double-click the same <span class="mono">OtaconsKeep-Setup.bat</span> again.</li></ol></div></details>
+ <details class="baby-error"><summary>Ubuntu asks for a username / password</summary>
+ <div class="baby-error-body"><ol><li>Windows is creating OtaconsKeep’s local WSL Linux environment.</li><li>Choose any username and a password you will remember (needed later for <span class="mono">sudo</span>).</li></ol></div></details>
+ <details class="baby-error"><summary>“Updates are underway, please keep your computer on”</summary>
+ <div class="baby-error-body"><ol><li>Windows is finishing Linux/WSL features — not an Otacon crash.</li><li>Can take 15–45+ minutes. Drive activity usually means it is still working.</li></ol></div></details>
+ <details class="baby-error"><summary>Setup stays on one step for several minutes</summary>
+ <div class="baby-error-body"><ol><li>Dependencies and AI models can be large. Leave the window open.</li></ol></div></details>
+ <details class="baby-error"><summary>Black terminal window with progress text</summary>
+ <div class="baby-error-body"><ol><li>That is Setup working. Do not close it until <strong>OTACON IS READY</strong>.</li></ol></div></details>
+
+ <h5>Something actually went wrong?</h5>
+ <details class="baby-error"><summary>SETUP NEEDS HELP</summary>
+ <div class="baby-error-body"><ol><li>Recovery mode — not a silent crash. Press <strong>R</strong> to retry, <strong>O</strong> for logs, or <strong>X</strong> to exit.</li></ol></div></details>
+ <details class="baby-error"><summary>localhost:5757 blank / broken</summary>
+ <div class="baby-error-body"><ol><li>Wait until Setup says <strong>OTACON IS READY</strong>, then open or refresh the address.</li></ol></div></details>
+ <details class="baby-error"><summary>Installer file damaged / wrong encoding</summary>
+ <div class="baby-error-body"><ol><li>Delete the bad .bat.</li><li>Re-download with the button above (or the GitHub ZIP fallback below) — not browser Save As on a raw GitHub file.</li></ol></div></details>
+ <details class="baby-error"><summary>'curl' is not recognized (manual path)</summary>
+ <div class="baby-error-body"><ol><li>Use the download button above instead, or try the PowerShell option under Manual → Windows.</li></ol></div></details>
+ <p class="os-hint" style="margin-top:12px;"><a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Ask in Discord</a></p>
+ </div>
+ </details>
+
+ <details class="install-help-block">
+ <summary>Advanced · download notes, ZIP, Linux command</summary>
+ <div class="install-help-inner">
+ <p style="margin-top:12px;"><strong>Recommended:</strong> use the download button above. It provides the Windows-formatted installer exactly as tested.</p>
+ <p>Prefer reviewing the code first? <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">View source</a>.</p>
+ <p>If the browser blocks the download, use the <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem/archive/refs/heads/main.zip">GitHub ZIP</a>, extract it, then run <span class="mono">OtaconsKeep-Setup.bat</span> from the folder. Do not Save As on a single raw <span class="mono">.bat</span> from GitHub.</p>
+ <p style="margin-top:10px;"><strong>Already on Linux?</strong> Use the Manual column → Ubuntu / Debian, or paste:</p>
+ <div class="codebox">
+ <code id="otacon-cmd-full">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
+ <button class="copy-btn" data-copy-target="otacon-cmd-full">Copy</button>
+ </div>
+ <p class="os-hint" style="margin-top:8px;">Lighter install (skip chat model / voice trainer): put <span class="mono">OTACON_INSTALL_DEFAULT_MODEL=0</span> and/or <span class="mono">OTACON_INSTALL_VOICE_TRAINER=0</span> on the <span class="mono">bash</span> side of the pipe.</p>
+ </div>
+ </details>
+ </div>
+
  <div class="os-card os-card-manual">
- <span class="manual-col-tag">Manual path</span>
- <p class="os-label">Manual · click each step</p>
- <p class="os-hint">No download button? Open Step 1, finish it, click <strong>Next</strong> for Step 2, and keep going.</p>
+ <span class="manual-col-tag">Method 2</span>
+ <p class="os-label">Manual install — step by step</p>
+ <p class="os-hint">Baby steps. No Linux knowledge required. Pick your computer first — then only those steps appear.</p>
+
+ <p style="margin:12px 0 6px;font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--cream-dim);font-weight:700;">What are you using?</p>
+ <div class="os-chooser" role="tablist" aria-label="Choose your OS" data-os-chooser>
+ <button type="button" class="os-chooser-btn is-active" data-os-target="win" role="tab" aria-selected="true">Windows 10 / 11<span class="os-choice-sub">Recommended for most people</span></button>
+ <button type="button" class="os-chooser-btn" data-os-target="linux" role="tab" aria-selected="false">Ubuntu / Debian<span class="os-choice-sub">Linux install</span></button>
+ <button type="button" class="os-chooser-btn" data-os-target="wsl" role="tab" aria-selected="false">Advanced · WSL by hand<span class="os-choice-sub">Only if Guided Setup won’t run</span></button>
+ </div>
+
+ <!-- WINDOWS PATH -->
+ <div class="os-path is-active" id="otacon-path-win" data-os-path="win">
  <div class="manual-steps" data-manual-accordion>
  <details class="manual-step" open>
- <summary><span class="manual-step-num">1</span> Prerequisites</summary>
+ <summary><span class="manual-step-num">1</span> Check your computer</summary>
  <div class="manual-step-body">
  <ul>
- <li><strong>OS:</strong> Windows 10/11, or Ubuntu/Debian (WSL2 Ubuntu is fine).</li>
- <li><strong>Password:</strong> Admin/UAC on Windows, or Ubuntu <span class="mono">sudo</span> password (not your Windows PIN).</li>
- <li><strong>Space / time:</strong> ~10+ GB free · first run often 15–45 min. Do not close the window.</li>
- <li><strong>Internet:</strong> needed for packages + chat model on first install.</li>
+ <li>✓ Windows 10 or Windows 11</li>
+ <li>✓ About 10+ GB free disk space</li>
+ <li>✓ Internet connection</li>
+ <li>✓ Permission to install software (Admin / Yes when Windows asks)</li>
+ </ul>
+ <p><strong>You do not need</strong> to install Python, Git, Ubuntu, Ollama, or WSL yourself. Setup handles that.</p>
+ <button type="button" class="manual-next">Next · Step 2 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">2</span> Open Command Prompt</summary>
+ <div class="manual-step-body">
+ <ol class="step-actions">
+ <li>Press the <strong>Windows key</strong>.</li>
+ <li>Type <strong>cmd</strong>.</li>
+ <li>Click <strong>Command Prompt</strong>.</li>
+ </ol>
+ <p>You should see a black window. That is correct.</p>
+ <button type="button" class="manual-next">Next · Step 3 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">3</span> Copy and paste</summary>
+ <div class="manual-step-body">
+ <div class="codebox">
+ <code id="otacon-lite-cmd-win">curl -L -o "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat" "https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat"</code>
+ <button class="copy-btn" data-copy-target="otacon-lite-cmd-win">Copy</button>
+ </div>
+ <ol class="step-actions">
+ <li>Click the black Command Prompt window.</li>
+ <li>Right-click once to paste (or Ctrl+V).</li>
+ <li>Press <strong>Enter</strong>.</li>
+ </ol>
+ <details class="baby-error" style="margin-top:10px;"><summary>CMD command didn’t work? Try PowerShell ▾</summary>
+ <div class="baby-error-body">
+ <div class="codebox">
+ <code id="otacon-lite-cmd-ps">irm https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat -OutFile "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"; Start-Process "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"</code>
+ <button class="copy-btn" data-copy-target="otacon-lite-cmd-ps">Copy</button>
+ </div>
+ </div></details>
+ <button type="button" class="manual-next">Next · Step 4 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">4</span> Approve Windows</summary>
+ <div class="manual-step-body">
+ <p>If Windows says <strong>Windows protected your PC</strong>:</p>
+ <p>Choose <strong>More info → Run anyway</strong>.</p>
+ <p style="margin-top:8px;">If Windows asks <strong>Do you want to allow this app to make changes?</strong></p>
+ <p>Click <strong>Yes</strong>.</p>
+ <button type="button" class="manual-next">Next · Step 5 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">5</span> Let Setup run</summary>
+ <div class="manual-step-body">
+ <ul>
+ <li>Leave the Setup window open.</li>
+ <li>First installation can take <strong>15–45 minutes</strong>.</li>
+ <li>Some steps may appear to stop moving while Windows installs components or downloads AI models — that can be normal.</li>
+ <li>Your PC may restart once. Restart normally. After Windows starts again, Setup should continue. If it doesn’t, double-click <span class="mono">OtaconsKeep-Setup.bat</span> again.</li>
+ </ul>
+ <button type="button" class="manual-next">Next · Step 6 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">6</span> You’re done</summary>
+ <div class="manual-step-body">
+ <div class="install-success" style="margin-top:0;">
+ <p class="success-kicker">Finish line</p>
+ <h4>✓ OTACON IS READY</h4>
+ <p>When you see this message, installation is complete.</p>
+ </div>
+ <p style="margin-top:12px;"><a class="download-btn" href="http://localhost:5757" target="_blank" rel="noopener">Open OtaconsKeep</a></p>
+ <p class="os-hint" style="margin-top:10px;">Bookmark <span class="mono">http://localhost:5757</span> — this is your local OtaconsKeep.</p>
+ </div>
+ </details>
+ </div>
+ </div>
+
+ <!-- LINUX PATH -->
+ <div class="os-path" id="otacon-path-linux" data-os-path="linux">
+ <div class="manual-steps" data-manual-accordion>
+ <details class="manual-step" open>
+ <summary><span class="manual-step-num">1</span> Check your computer</summary>
+ <div class="manual-step-body">
+ <ul>
+ <li>✓ Ubuntu or Debian (desktop or server)</li>
+ <li>✓ ~10+ GB free · internet</li>
+ <li>✓ Your user can use <span class="mono">sudo</span> (password when asked)</li>
  </ul>
  <button type="button" class="manual-next">Next · Step 2 →</button>
  </div>
  </details>
  <details class="manual-step">
- <summary><span class="manual-step-num">2</span> Windows · one CMD line</summary>
+ <summary><span class="manual-step-num">2</span> Open a terminal</summary>
  <div class="manual-step-body">
- <p>Open <strong>Command Prompt</strong> (search “cmd”). Paste this whole line, press Enter:</p>
- <div class="codebox">
- <code id="otacon-lite-cmd-win">curl -L -o "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat" "https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat"</code>
- <button class="copy-btn" data-copy-target="otacon-lite-cmd-win">Copy</button>
- </div>
- <p>Approve SmartScreen / Admin if asked. Wait for <strong>OTACON IS READY</strong>, then open <a href="http://localhost:5757" target="_blank" rel="noopener">localhost:5757</a>.</p>
- <p style="margin-top:8px;"><strong>PowerShell instead?</strong></p>
- <div class="codebox">
- <code id="otacon-lite-cmd-ps">irm https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat -OutFile "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"; Start-Process "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"</code>
- <button class="copy-btn" data-copy-target="otacon-lite-cmd-ps">Copy</button>
- </div>
+ <p>Press Super/Windows key, type <strong>terminal</strong>, press Enter. Or use your existing SSH session.</p>
  <button type="button" class="manual-next">Next · Step 3 →</button>
  </div>
  </details>
  <details class="manual-step">
- <summary><span class="manual-step-num">3</span> Linux / WSL · one line</summary>
+ <summary><span class="manual-step-num">3</span> Copy and paste</summary>
  <div class="manual-step-body">
- <p>Open <strong>Terminal</strong> or the <strong>Ubuntu</strong> app. Paste, press Enter:</p>
  <div class="codebox">
- <code id="otacon-lite-cmd-linux">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
- <button class="copy-btn" data-copy-target="otacon-lite-cmd-linux">Copy</button>
+ <code id="otacon-lite-cmd-linux-baby">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
+ <button class="copy-btn" data-copy-target="otacon-lite-cmd-linux-baby">Copy</button>
  </div>
- <p>Type your Ubuntu password when asked (nothing appears). When it prints <span class="mono">http://127.0.0.1:5757</span>, open that.</p>
- <p style="margin-top:8px;"><strong>No WSL yet?</strong> PowerShell as Admin:</p>
- <pre class="baby-code mono">wsl --install -d Ubuntu</pre>
- <p>Restart if asked, open Ubuntu, then run the curl line above.</p>
+ <ol class="step-actions">
+ <li>Click the terminal window.</li>
+ <li>Paste (right-click, or Ctrl+Shift+V).</li>
+ <li>Press Enter.</li>
+ <li>When asked for your password, type it (nothing appears) and press Enter.</li>
+ </ol>
  <button type="button" class="manual-next">Next · Step 4 →</button>
  </div>
  </details>
  <details class="manual-step">
- <summary><span class="manual-step-num">4</span> If you see an error</summary>
+ <summary><span class="manual-step-num">4</span> Wait, then open Otacon</summary>
  <div class="manual-step-body">
- <p>Click the message that matches what you see:</p>
- <details class="baby-error"><summary>“Windows protected your PC” / SmartScreen</summary>
- <div class="baby-error-body"><ol><li>More info → <strong>Run anyway</strong>.</li><li>Prefer this site’s download / CMD line, not raw GitHub Save As.</li></ol></div></details>
- <details class="baby-error"><summary>Administrator / UAC prompt</summary>
- <div class="baby-error-body"><ol><li>Click <strong>Yes</strong>. A second Setup window is normal.</li></ol></div></details>
- <details class="baby-error"><summary>'curl' is not recognized</summary>
- <div class="baby-error-body"><ol><li>Use the <strong>one-click</strong> button on the left, or the PowerShell line in Step 2.</li></ol></div></details>
- <details class="baby-error"><summary>Restart required / WELCOME BACK</summary>
- <div class="baby-error-body"><ol><li>Not a failure. Restart, then re-run the same Setup if needed.</li></ol></div></details>
- <details class="baby-error"><summary>localhost:5757 blank</summary>
- <div class="baby-error-body"><ol><li>Wait until Setup says <strong>OTACON IS READY</strong>, then refresh.</li></ol></div></details>
- <details class="baby-error"><summary>sudo / password denied</summary>
- <div class="baby-error-body"><ol><li>Use your <strong>Ubuntu</strong> password. Typing is invisible — press Enter after.</li></ol></div></details>
- <details class="baby-error"><summary>Installer damaged / wrong encoding</summary>
- <div class="baby-error-body"><ol><li>Delete the bad .bat. Re-run Step 2’s CMD line (pulls from this site).</li></ol></div></details>
- <p class="os-hint" style="margin-top:10px;"><a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Ask in Discord</a></p>
+ <p>First run often takes <strong>10–30 minutes</strong>. When it prints <span class="mono">http://127.0.0.1:5757</span>, open that address.</p>
+ <div class="install-success" style="margin-top:10px;">
+ <p class="success-kicker">Finish line</p>
+ <h4>✓ Install finished</h4>
+ <p><a href="http://127.0.0.1:5757" target="_blank" rel="noopener"><strong>Open http://127.0.0.1:5757</strong></a></p>
+ </div>
  </div>
  </details>
+ </div>
+ </div>
+
+ <!-- ADVANCED WSL PATH -->
+ <div class="os-path" id="otacon-path-wsl" data-os-path="wsl">
+ <div class="manual-steps" data-manual-accordion>
+ <details class="manual-step" open>
+ <summary><span class="manual-step-num">1</span> Only if Guided Setup won’t run</summary>
+ <div class="manual-step-body">
+ <p>Most Windows users should use the <strong>Download</strong> button on the left. Use this path only when you need to set up WSL yourself.</p>
+ <button type="button" class="manual-next">Next · Step 2 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">2</span> Install Ubuntu (WSL)</summary>
+ <div class="manual-step-body">
+ <p>Open <strong>PowerShell as Administrator</strong>, then run:</p>
+ <pre class="baby-code mono">wsl --install -d Ubuntu</pre>
+ <p>Restart if Windows asks. Open <strong>Ubuntu</strong> from the Start menu and create a username/password you’ll remember.</p>
+ <button type="button" class="manual-next">Next · Step 3 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">3</span> Run the Linux installer inside Ubuntu</summary>
+ <div class="manual-step-body">
+ <div class="codebox">
+ <code id="otacon-lite-cmd-wsl">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
+ <button class="copy-btn" data-copy-target="otacon-lite-cmd-wsl">Copy</button>
+ </div>
+ <p>When finished, open <a href="http://127.0.0.1:5757" target="_blank" rel="noopener">http://127.0.0.1:5757</a>.</p>
+ </div>
+ </details>
+ </div>
+ </div>
+
+ <details class="install-help-block" style="margin-top:12px;">
+ <summary>Need help? Click the message you see</summary>
+ <div class="install-help-inner">
+ <h5>Normal</h5>
+ <details class="baby-error"><summary>Windows protected your PC</summary>
+ <div class="baby-error-body"><ol><li>More info → Run anyway.</li></ol></div></details>
+ <details class="baby-error"><summary>Restart / WELCOME BACK</summary>
+ <div class="baby-error-body"><ol><li>Expected. Restart, then continue Setup.</li></ol></div></details>
+ <details class="baby-error"><summary>Ubuntu username / password</summary>
+ <div class="baby-error-body"><ol><li>Windows creating the local Linux environment. Remember the password.</li></ol></div></details>
+ <h5>Actually stuck</h5>
+ <details class="baby-error"><summary>'curl' is not recognized</summary>
+ <div class="baby-error-body"><ol><li>Use the left Download button, or PowerShell under Windows Step 3.</li></ol></div></details>
+ <details class="baby-error"><summary>SETUP NEEDS HELP</summary>
+ <div class="baby-error-body"><ol><li>Press R to retry, O for logs.</li></ol></div></details>
+ <details class="baby-error"><summary>sudo / Permission denied</summary>
+ <div class="baby-error-body"><ol><li>Use your Ubuntu password (invisible while typing).</li></ol></div></details>
+ <details class="baby-error"><summary>localhost doesn’t load after READY</summary>
+ <div class="baby-error-body"><ol><li>Refresh, or ask in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>.</li></ol></div></details>
+ </div>
+ </details>
+ </div>
+ </div>
+</div>
+
+
+ ils>
  </div>
  </div>
  </div>
