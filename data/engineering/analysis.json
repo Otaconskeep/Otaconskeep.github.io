@@ -1,124 +1,124 @@
 {
-  "status": "MOCK datasets published",
-  "honesty": "All ingest/*.csv files in this package are SYNTHETIC / MOCK unless labeled MEASURED. They exist so Analysis is not empty and correlation UI can be exercised. Do not cite as production performance.",
-  "datasets": [
-    {
-      "id": "DS-MOCK-EMO-001",
-      "label": "MOCK",
-      "title": "Attachment \u00d7 sensitivity \u2192 \u0394jealousy",
-      "path": "/data/engineering/ingest/mock_emotion_sensitivity.csv",
-      "description": "Synthetic samples illustrating that higher attachment and comparison_sensitivity amplify \u0394J under comparison events (per MOD-EMO-001 structure)."
-    },
-    {
-      "id": "DS-MOCK-VRAM-001",
-      "label": "MOCK",
-      "title": "VRAM tier \u2194 tokens/s (synthetic)",
-      "path": "/data/engineering/ingest/mock_vram_throughput.csv",
-      "description": "Synthetic throughput by VRAM bucket for UI heatmap demos. Not installer measurements."
-    }
-  ],
-  "correlations": [
-    {
-      "id": "CORR-MOCK-001",
-      "label": "MOCK",
-      "title": "Emotion sensitivity matrix (Pearson, synthetic)",
-      "variables": [
-        "attachment",
-        "comparison_sensitivity",
-        "delta_jealousy",
-        "delta_trust",
-        "n_comparisons"
-      ],
-      "matrix": [
-        [
-          1.0,
-          0.12,
-          0.61,
-          -0.18,
-          0.08
-        ],
-        [
-          0.12,
-          1.0,
-          0.74,
-          -0.22,
-          0.05
-        ],
-        [
-          0.61,
-          0.74,
-          1.0,
-          -0.31,
-          0.42
-        ],
-        [
-          -0.18,
-          -0.22,
-          -0.31,
-          1.0,
-          -0.15
-        ],
-        [
-          0.08,
-          0.05,
-          0.42,
-          -0.15,
-          1.0
-        ]
-      ],
-      "note": "Values computed on MOCK CSV seed=42 style pattern \u2014 watermarked MOCK."
-    },
-    {
-      "id": "CORR-MOCK-002",
-      "label": "MOCK",
-      "title": "VRAM \u2194 tokens/s (synthetic)",
-      "variables": [
-        "vram_gb",
-        "tokens_per_sec",
-        "ttft_ms"
-      ],
-      "matrix": [
-        [
-          1.0,
-          0.68,
-          -0.55
-        ],
-        [
-          0.68,
-          1.0,
-          -0.62
-        ],
-        [
-          -0.55,
-          -0.62,
-          1.0
-        ]
-      ],
-      "note": "MOCK \u2014 not a Lite qualification result."
-    }
-  ],
-  "sensitivity": {
-    "id": "SENS-MOCK-001",
-    "label": "MOCK",
-    "title": "Tornado: \u00b110% comparison_sensitivity on \u0394J (albedo profile, n=1)",
-    "baseline_delta_j": 0.1649,
-    "bars": [
-      {
-        "param": "comparison_sensitivity",
-        "low": 0.1484,
-        "high": 0.1814
-      },
-      {
-        "param": "rejection_sensitivity",
-        "low": 0.1649,
-        "high": 0.1649
-      },
-      {
-        "param": "jealousy_inertia",
-        "low": 0.158,
-        "high": 0.149
-      }
-    ],
-    "note": "Illustrative tornado from equation algebra; MOCK."
-  }
+ "status": "MOCK datasets published",
+ "honesty": "All ingest/*.csv files in this package are SYNTHETIC / MOCK unless labeled MEASURED. They exist so Analysis is not empty and correlation UI can be exercised. Do not cite as production performance.",
+ "datasets": [
+ {
+ "id": "DS-MOCK-EMO-001",
+ "label": "MOCK",
+ "title": "Attachment \u00d7 sensitivity \u2192 \u0394jealousy",
+ "path": "/data/engineering/ingest/mock_emotion_sensitivity.csv",
+ "description": "Synthetic samples illustrating that higher attachment and comparison_sensitivity amplify \u0394J under comparison events (per MOD-EMO-001 structure)."
+ },
+ {
+ "id": "DS-MOCK-VRAM-001",
+ "label": "MOCK",
+ "title": "VRAM tier \u2194 tokens/s (synthetic)",
+ "path": "/data/engineering/ingest/mock_vram_throughput.csv",
+ "description": "Synthetic throughput by VRAM bucket for UI heatmap demos. Not installer measurements."
+ }
+ ],
+ "correlations": [
+ {
+ "id": "CORR-MOCK-001",
+ "label": "MOCK",
+ "title": "Emotion sensitivity matrix (Pearson, synthetic)",
+ "variables": [
+ "attachment",
+ "comparison_sensitivity",
+ "delta_jealousy",
+ "delta_trust",
+ "n_comparisons"
+ ],
+ "matrix": [
+ [
+ 1.0,
+ 0.12,
+ 0.61,
+ -0.18,
+ 0.08
+ ],
+ [
+ 0.12,
+ 1.0,
+ 0.74,
+ -0.22,
+ 0.05
+ ],
+ [
+ 0.61,
+ 0.74,
+ 1.0,
+ -0.31,
+ 0.42
+ ],
+ [
+ -0.18,
+ -0.22,
+ -0.31,
+ 1.0,
+ -0.15
+ ],
+ [
+ 0.08,
+ 0.05,
+ 0.42,
+ -0.15,
+ 1.0
+ ]
+ ],
+ "note": "Values computed on MOCK CSV seed=42 style pattern \u2014 watermarked MOCK."
+ },
+ {
+ "id": "CORR-MOCK-002",
+ "label": "MOCK",
+ "title": "VRAM \u2194 tokens/s (synthetic)",
+ "variables": [
+ "vram_gb",
+ "tokens_per_sec",
+ "ttft_ms"
+ ],
+ "matrix": [
+ [
+ 1.0,
+ 0.68,
+ -0.55
+ ],
+ [
+ 0.68,
+ 1.0,
+ -0.62
+ ],
+ [
+ -0.55,
+ -0.62,
+ 1.0
+ ]
+ ],
+ "note": "MOCK \u2014 not a Lite qualification result."
+ }
+ ],
+ "sensitivity": {
+ "id": "SENS-MOCK-001",
+ "label": "MOCK",
+ "title": "Tornado: \u00b110% comparison_sensitivity on \u0394J (albedo profile, n=1)",
+ "baseline_delta_j": 0.1649,
+ "bars": [
+ {
+ "param": "comparison_sensitivity",
+ "low": 0.1484,
+ "high": 0.1814
+ },
+ {
+ "param": "rejection_sensitivity",
+ "low": 0.1649,
+ "high": 0.1649
+ },
+ {
+ "param": "jealousy_inertia",
+ "low": 0.158,
+ "high": 0.149
+ }
+ ],
+ "note": "Illustrative tornado from equation algebra; MOCK."
+ }
 }

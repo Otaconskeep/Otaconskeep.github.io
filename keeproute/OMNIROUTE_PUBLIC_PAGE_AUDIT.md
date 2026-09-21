@@ -1,11 +1,9 @@
 # KeepRoute / OmniRoute Public Page Audit
 
-**Product page:** KEEPROUTE 1.0 — OtaconsKeep Stateful AI Orchestration  
-**Public path:** `/keeproute/`  
-**Audit time (UTC):** 2026-09-19T23:55:57Z  
+**Product page:** KEEPROUTE 1.0, OtaconsKeep Stateful AI Orchestration 
+**Public path:** `/keeproute/` 
+**Audit time (UTC):** 2026-09-19T23:55:57Z 
 **Publication recommendation:** **GO** (security/privacy leak scan PASS; installer claims honest)
-
----
 
 ## Files changed
 
@@ -22,16 +20,12 @@
 
 No private evidence trees, mission JSON, or private lab filesystem paths were copied into the public site.
 
----
-
 ## Page URL / path
 
 - Local preview: `http://127.0.0.1:8000/keeproute/` (from repo root via `python -m http.server`)
 - Production: `https://otaconskeep-site.otaconskeep.workers.dev/keeproute/`
 
 Top-level tab label: **KeepRoute**
-
----
 
 ## Content sections
 
@@ -53,8 +47,6 @@ Top-level tab label: **KeepRoute**
 16. FAQ
 17. “I don’t understand” beginner mode
 
----
-
 ## Benchmark sources (sanitized)
 
 Published numbers are release-test observations only (sample sizes shown):
@@ -72,8 +64,6 @@ Published numbers are release-test observations only (sample sizes shown):
 
 **Not claimed:** apples-to-apples performance % vs unmodified stock OmniRoute.
 
----
-
 ## Stock comparison sources
 
 Upstream (public):
@@ -84,8 +74,6 @@ Upstream (public):
 
 KeepRoute column reflects OtaconsKeep orchestration capabilities verified in the 1.0 release campaign. Stock is described neutrally as the routing data plane.
 
----
-
 ## Security scan result
 
 **PASS**
@@ -94,7 +82,7 @@ Primary scan: no matches for private RFC1918 ranges, private absolute filesystem
 
 Secondary review: educational mentions of “API keys / secrets” appear only as warnings (do not paste keys into the browser). No actual secrets shipped.
 
-Pre-existing note (outside KeepRoute page): `downloads/index.html` historically mentions a local UI port in soft-update guidance — not introduced by this page.
+Pre-existing note (outside KeepRoute page): `downloads/index.html` historically mentions a local UI port in soft-update guidance, not introduced by this page.
 
 ### Security claims honesty
 
@@ -103,24 +91,20 @@ Pre-existing note (outside KeepRoute page): `downloads/index.html` historically 
 | No secrets in frontend | Claimed (verified for this page) |
 | Server-side provider credentials (design) | Claimed as design intent |
 | Private data-plane binding (design) | Claimed as design intent |
-| Encryption of all mission state at rest | **NOT VERIFIED — not claimed** |
-| Encrypted backups of all sensitive state | **NOT VERIFIED — not claimed** |
-| TLS everywhere | Deployment-dependent — not overclaimed |
-
----
+| Encryption of all mission state at rest | **NOT VERIFIED, not claimed** |
+| Encrypted backups of all sensitive state | **NOT VERIFIED, not claimed** |
+| TLS everywhere | Deployment-dependent, not overclaimed |
 
 ## Installation test result
 
 | Item | Result |
 |---|---|
-| Dedicated KeepRoute one-click installer (OmniRoute + Mission Controller + Auto Guard + providers + smoke) | **NOT SHIPPED** — page marks **pending** |
+| Dedicated KeepRoute one-click installer (OmniRoute + Mission Controller + Auto Guard + providers + smoke) | **NOT SHIPPED**, page marks **pending** |
 | OtaconsKeep Lite Setup.bat (existing public installer) | Linked as today’s foundation path |
 | Provider credential examples with real secrets | None (forbidden) |
 | Advanced setup exposing lab topology | Not published |
 
 Acceptance: installer honesty requirement met (no fabricated KeepRoute packager).
-
----
 
 ## Screenshots / assets created
 
@@ -131,22 +115,16 @@ Acceptance: installer honesty requirement met (no fabricated KeepRoute packager)
 - Provider status “READY” mock (sanitized, fictional statuses)
 - No live-lab screenshots (avoids IP/path/user leakage)
 
----
-
 ## Limitations disclosed
 
 Full limitations section includes non-guarantees, handoff package boundaries, cost/outage reality, checkpoint≠backup, and public-safe residual operational notes (warm-up delay, cosmetic gateway health noise, intentional private data-plane binding).
 
----
-
 ## Remaining gaps
 
-1. **KeepRoute one-click installer** not yet available — must ship before “Easy Install KeepRoute” can be unmarked pending.
-2. **Encryption-at-rest / encrypted backups** not verified as product features — left NOT VERIFIED.
+1. **KeepRoute one-click installer** not yet available, must ship before “Easy Install KeepRoute” can be unmarked pending.
+2. **Encryption-at-rest / encrypted backups** not verified as product features, left NOT VERIFIED.
 3. **Home quickpick** now has four cards; layout updated to 2×2 / 4-col responsive.
 4. Site deploy/push not performed by this audit (working tree ready for operator commit/push).
-
----
 
 ## Acceptance checklist
 
@@ -159,8 +137,6 @@ Full limitations section includes non-guarantees, handoff package boundaries, co
 | E | Leak scan PASS; no secrets; security claims match reality | PASS |
 | F | Charts/diagrams/mobile readable | PASS |
 | G | Links: OtaconsKeep download, Otacon guide, public OmniRoute GitHub; no admin/private links | PASS |
-
----
 
 ## Publication recommendation
 

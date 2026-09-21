@@ -1,423 +1,423 @@
 {
-  "schema_version": "1.0.0",
-  "mode_storage_key": "ok_explainer_mode",
-  "comparison": [
-    {
-      "product": "OtaconsKeep Lite",
-      "what": "Core self-hosted AI platform",
-      "best_if": "You want your own persistent AI system on hardware you control"
-    },
-    {
-      "product": "Expansion",
-      "what": "Licensed multi-agent layer on Core",
-      "best_if": "You want a team of specialized AI agents with richer coordination"
-    },
-    {
-      "product": "Keep Desk",
-      "what": "Visual AI team workspace",
-      "best_if": "You want a cinematic desk to talk to and manage named local teammates"
-    },
-    {
-      "product": "KeepRoute",
-      "what": "Stateful AI orchestration",
-      "best_if": "Long AI work should survive model limits, failures, and handoffs"
-    },
-    {
-      "product": "AI9",
-      "what": "Local GPU manga colorizer",
-      "best_if": "You want black-and-white manga colored on your PC via Firefox"
-    }
-  ],
-  "family_note": "AI9 is a specialized OtaconsKeep-family GPU app. It does not require OtaconsKeep Lite Core to colorize manga. Expansion and Keep Desk build on / around the Core ecosystem. KeepRoute adds mission orchestration on top of OmniRoute.",
-  "products": [
-    {
-      "id": "lite",
-      "hash": "lite-explainer",
-      "name": "OtaconsKeep Lite",
-      "tagline": "The free public foundation for running your own AI agents on your computer.",
-      "access": ["Free", "Open Source"],
-      "maturity": ["Stable"],
-      "runtime": ["Local", "CPU", "GPU optional"],
-      "icon": "core",
-      "accent": "var(--signal)",
-      "shortDescription": "Run your own persistent AI agents on your computer, with memory, tools, voice, automation, and a local web interface. Lite is the complete free public foundation of OtaconsKeep.",
-      "supportingLine": "No license key. No artificial usage cap. Available AI capability depends on your hardware and the models you choose to run.",
-      "actions": [
-        { "label": "Install Lite", "href": "#install-otacon", "primary": true },
-        { "label": "Watch install video", "href": "https://youtu.be/OitYjPlbTng", "external": true },
-        { "label": "What is it?", "explainer": true }
-      ],
-      "quick": {
-        "headline": "What is OtaconsKeep Lite?",
-        "opening": "OtaconsKeep Lite lets you run your own AI system on your computer instead of treating every AI conversation like a disposable chat window.",
-        "points": [
-          "Your AI helpers (agents) can remember information between conversations.",
-          "They can use tools and connect to services you choose to attach.",
-          "Voice features and a local web interface are part of the normal install path.",
-          "Everything important stays on hardware you control when you use local models."
-        ],
-        "visual": "flow-lite",
-        "bestFor": "People who want a self-hosted AI environment they control.",
-        "runsOn": "Your own computer (Windows with WSL2, or Linux).",
-        "requires": "Installer path; local model runtime (Ollama) for on-device chat when Default Model is enabled.",
-        "cost": "Free and open source.",
-        "important": "The software is free, but larger local AI models and creative features need stronger hardware (especially GPU memory).",
-        "relationship": "Lite is the foundation the rest of the OtaconsKeep ecosystem builds on."
-      },
-      "technical": {
-        "systemRole": "Public Otacon Core / Lite runtime: local-first agent platform with web UI, provider-neutral capability routing, memory, tools, and optional local Ollama Default Model + Genome Voice Trainer.",
-        "components": [
-          "Web UI / Command Center surfaces",
-          "Core API and agent runtime",
-          "Memory and persistent state stores",
-          "Model / capability router (LLM, TTS, STT backends)",
-          "Ollama local model path (VRAM-tiered Default Model)",
-          "Tool execution layer",
-          "Installer / updater (OtaconsKeep-Setup.bat, Linux paths)"
-        ],
-        "dataFlow": [
-          "User → OtaconsKeep UI",
-          "UI → Core API / Agent Runtime",
-          "Runtime → Model Router → Ollama or configured providers",
-          "Runtime ↔ Memory / Tools / Integrations",
-          "State written to local persistence"
-        ],
-        "visual": "arch-lite",
-        "dependencies": [
-          "Windows: WSL2 for the one-click path",
-          "Ollama for Default Model chat (loopback)",
-          "Optional external AI providers if configured",
-          "Optional Home Assistant / Discord / ARR (operator credentials)"
-        ],
-        "persistence": "Per-agent conversation history and long-term memory on local storage. Continuity/relationship engines persist JSON state when enabled (deeper surfaces more common in Expansion / Reference Keep).",
-        "networking": "Local service endpoints on the operator machine. Chat Default Model uses local Ollama. Outbound network only as needed for downloads or optional remote providers.",
-        "hardware": "CPU-capable with smaller model under 6GB VRAM; ≥6/≥8/≥16 GB VRAM selects larger Default Model tiers (qwen2.5 1.5b/3b/7b/14b).",
-        "installation": "Windows one-click Setup with reboot/resume for WSL; Linux/WSL documented on Otacon page. Fix-Otacon-GPU.bat for GPU detection issues.",
-        "limitations": [
-          "End-to-end Windows WSL automated release-gate still partially blocked by lab constraints (documented honestly).",
-          "Speech-to-text and image/video generation need their own providers when desired.",
-          "Reference Keep depth (large multi-agent media farm) is not a Lite download clone."
-        ],
-        "statusNotes": "Lite is the complete free public platform — not a trial.",
-        "engineeringLinks": [
-          { "label": "View System Architecture", "href": "/engineering/#architecture" },
-          { "label": "View Requirements", "href": "/engineering/#requirements" },
-          { "label": "View Interfaces", "href": "/engineering/#interfaces" },
-          { "label": "View Hardware Capability", "href": "/engineering/#hardware" },
-          { "label": "View V&V", "href": "/engineering/#vv" }
-        ]
-      }
-    },
-    {
-      "id": "ai9",
-      "hash": "ai9-explainer",
-      "name": "AI9 Colorizer",
-      "tagline": "Colorize black-and-white manga locally with your GPU in Firefox.",
-      "access": ["Free"],
-      "maturity": ["Stable"],
-      "runtime": ["GPU", "Browser Extension", "Local"],
-      "icon": "colorizer",
-      "accent": "var(--keep-ref)",
-      "shortDescription": "Automatically colorize black-and-white manga images in Firefox using a GPU on your own computer. The browser sends the image to your local AI9 service, your GPU processes it, and the colorized result returns to the page.",
-      "supportingLine": "Built for local processing rather than uploading manga pages to a remote colorization service.",
-      "actions": [
-        { "label": "Install AI9", "href": "#install-ai9", "primary": true },
-        { "label": "Watch AI9 video", "href": "https://youtu.be/aUiwMACSPBk", "external": true },
-        { "label": "What is it?", "explainer": true }
-      ],
-      "quick": {
-        "headline": "What is AI9 Colorizer?",
-        "opening": "AI9 Colorizer lets Firefox use your computer’s graphics card to colorize black-and-white manga images.",
-        "points": [
-          "You stay on the page instead of downloading, uploading elsewhere, and downloading again.",
-          "Colorization runs on your machine — not a remote manga upload service.",
-          "The installer detects NVIDIA GPU / CUDA / PyTorch paths and verifies with a real GPU inference test."
-        ],
-        "visual": "flow-ai9",
-        "bestFor": "People reading black-and-white manga who want local AI-assisted colorization.",
-        "runsOn": "Your computer and NVIDIA GPU, with Firefox.",
-        "requires": "NVIDIA GPU with a current driver; Windows installer path (Git Bash installed if needed).",
-        "cost": "Free.",
-        "important": "Image AI work depends heavily on GPU performance and available VRAM.",
-        "relationship": "Part of the OtaconsKeep project family. It does not require OtaconsKeep Lite Core to colorize pages."
-      },
-      "technical": {
-        "systemRole": "Standalone local GPU colorization pipeline with a Firefox-facing client and a local AI9 service performing inference.",
-        "components": [
-          "Firefox extension / page integration",
-          "Local AI9 API service",
-          "Image preprocessing",
-          "GPU inference (PyTorch/CUDA selected by installer)",
-          "Postprocessing and return to browser",
-          "Hardware detection and auto-start registration"
-        ],
-        "dataFlow": [
-          "Black-and-white manga image in Firefox",
-          "→ AI9 local API",
-          "→ preprocess",
-          "→ GPU inference",
-          "→ postprocess",
-          "→ colorized image back to Firefox"
-        ],
-        "visual": "arch-ai9",
-        "dependencies": [
-          "NVIDIA GPU + driver",
-          "PyTorch CUDA build selected by installer",
-          "Firefox",
-          "Windows Setup BAT (Git / Python installed if missing)"
-        ],
-        "persistence": "Model weights verified and stored locally by installer. Caching behavior is local to the AI9 install; no OtaconsKeep Core state required.",
-        "networking": "Localhost service between Firefox and AI9. No cloud colorization API in the primary path.",
-        "hardware": "Public docs: NVIDIA RTX 30/40/50-series support today. Exact per-SKU Engineering PASS matrix is published separately when available.",
-        "installation": "AI9-Setup.bat: detects GPU, installs deps, downloads/verifies weights, runs GPU inference test, registers auto-start.",
-        "limitations": [
-          "Requires NVIDIA GPU — not a CPU-first product.",
-          "VRAM constrains speed and workable image sizes.",
-          "Independent of Lite Core; do not assume shared agent memory."
-        ],
-        "statusNotes": "Free local GPU pipeline with public install video and demo capture.",
-        "engineeringLinks": [
-          { "label": "View Hardware Capability", "href": "/engineering/#hardware" },
-          { "label": "View Benchmarks", "href": "/engineering/#benchmarks" },
-          { "label": "View Model Provenance", "href": "/engineering/#models" }
-        ]
-      }
-    },
-    {
-      "id": "expansion",
-      "hash": "expansion-explainer",
-      "name": "OtaconsKeep Premium / Expansion",
-      "tagline": "A licensed multi-agent layer that turns Core into a specialized AI team.",
-      "access": ["Premium", "Licensed", "Supporter"],
-      "maturity": ["Stable"],
-      "runtime": ["Local", "GPU optional", "Docker optional"],
-      "icon": "constellation",
-      "accent": "var(--premium, #c4a1ff)",
-      "shortDescription": "Expands the OtaconsKeep core into a deeper multi-agent system with specialized agents, richer persistent relationships, advanced coordination, and additional creative and automation capabilities.",
-      "supportingLine": "Some Expansion capabilities install with Core today; GPU-intensive creative features need extra local services such as Docker and compatible GPU hardware.",
-      "actions": [
-        { "label": "Expansion status", "href": "/expansion/" },
-        { "label": "Member HQ", "href": "/premium/" },
-        { "label": "What is it?", "explainer": true }
-      ],
-      "quick": {
-        "headline": "What is the OtaconsKeep Expansion?",
-        "opening": "The Expansion takes the single-platform foundation of OtaconsKeep and turns it into a broader team of specialized AI agents.",
-        "points": [
-          "Different agents can have different jobs, personalities, memories, and responsibilities.",
-          "They can work individually or inside larger workflows coordinated through OtaconsKeep.",
-          "Public Expansion ships a five-agent team: Aria (coordinator), Vector (systems), Ledger (data), Muse (creative/media), Sentry (security/ops).",
-          "Command Deck and Codec chat surfaces ship today for working with the team."
-        ],
-        "visual": "flow-expansion",
-        "bestFor": "People who want a persistent local AI team rather than a single chatbot.",
-        "runsOn": "Your computer, on top of OtaconsKeep Core / Lite.",
-        "requires": "OtaconsKeep Core. Some features also need Docker, GPU, and additional local models/services.",
-        "cost": "Premium / licensed supporter features (Member HQ via Buy Me a Coffee).",
-        "important": "Aria + Deck/Codec install today. Genome Voice Trainer and Video Studio are optional sidecars — not READY on every fresh PC without GPU/Docker.",
-        "relationship": "Licensed layer above free Core. The private Reference Keep is a deeper personal environment — not a downloadable Expansion clone."
-      },
-      "technical": {
-        "systemRole": "Licensed multi-agent product on Otacon Core: five-agent Lite roster, hierarchy, mood/relationship continuity, Command Deck / Codec, guided Genome + Video Studio setup.",
-        "components": [
-          "Aria — Command coordinator (Dashboard + Codec)",
-          "Vector — Systems & infrastructure",
-          "Ledger — Data & continuity",
-          "Muse — Creative & media curation",
-          "Sentry — Security & operations",
-          "Command Deck / Codec surfaces",
-          "Emotional continuity + relationship engines",
-          "Optional Genome Voice Trainer / Video Studio (Comfy/Docker)"
-        ],
-        "dataFlow": [
-          "Operator → Deck/Codec UI",
-          "→ Agent runtime with roster identity",
-          "→ Personality / relationship / emotional state overlays",
-          "→ Model router / tools",
-          "→ Persistent dossiers, journals, memory"
-        ],
-        "visual": "arch-expansion",
-        "dependencies": [
-          "OtaconsKeep Lite / Otacon Core required",
-          "License via Member HQ",
-          "Docker Desktop or existing ComfyUI for managed Video Studio sidecar",
-          "NVIDIA GPU path for Genome Voice Trainer when used"
-        ],
-        "persistence": "Agent creation provisions roster ID, persona, hierarchy, voice binding, motion manifest, emotional-state init, relationship graph, dossier/journal, room ownership as one logical unit (rollback/resumable on failure).",
-        "networking": "Local UI (documented Expansion entry on operator machine). Optional Discord routing if operator-configured.",
-        "hardware": "Foundation chat/Deck path does not require a GPU. Creative sidecars do.",
-        "installation": "OtaconExpansion-Setup.bat after Core. Soft-update via OtaconsKeep-Setup pin path documented on Expansion page.",
-        "capabilityStatus": [
-          { "item": "Five-agent roster + Aria chat", "status": "Available now" },
-          { "item": "Command Deck / Codec", "status": "Available now" },
-          { "item": "Genome Voice Trainer", "status": "Requires extra setup (GPU)" },
-          { "item": "Video Studio / Comfy", "status": "Requires extra setup (Docker/Comfy)" },
-          { "item": "Deeper Keep rooms / full LTX packs", "status": "Planned / landing" }
-        ],
-        "limitations": [
-          "Do not expect Genome/Video Studio READY on every bare PC.",
-          "Private 16+ agent Keep canon is not the public Expansion SKU.",
-          "REX-depth War Room operations are Reference Keep / executor depth — not claimed as Lite-only."
-        ],
-        "statusNotes": "Honest fresh-PC status is the Expansion page source of truth.",
-        "engineeringLinks": [
-          { "label": "View Behavioral Models", "href": "/engineering/#behavioral" },
-          { "label": "View System Architecture", "href": "/engineering/#architecture" },
-          { "label": "View Risk Register", "href": "/engineering/#risk" },
-          { "label": "View Known Issues", "href": "/engineering/#issues" }
-        ]
-      }
-    },
-    {
-      "id": "keepdesk",
-      "hash": "keepdesk-explainer",
-      "name": "Keep Desk",
-      "tagline": "A visual command center for named local AI teammates on a workstation you own.",
-      "access": ["Supporter"],
-      "maturity": ["Beta"],
-      "runtime": ["Local", "GPU optional"],
-      "icon": "desk",
-      "accent": "var(--signal)",
-      "shortDescription": "A visual AI command center for running named local AI teammates from one shared workstation. Talk to agents, assign work, watch activity, and manage local AI workflows from a cinematic desktop interface.",
-      "supportingLine": "Built around local models and the OtaconsKeep ecosystem, with supporter access to the install vault.",
-      "actions": [
-        { "label": "Enter Keep Desk", "href": "/keepdesk/", "primary": true },
-        { "label": "Watch the Deck", "href": "/keepdesk/#demo" },
-        { "label": "Unlock Install Vault", "href": "/keepdesk/#vault" },
-        { "label": "What is it?", "explainer": true }
-      ],
-      "quick": {
-        "headline": "What is Keep Desk?",
-        "opening": "Keep Desk gives your AI agents something closer to a shared digital office — one place to talk to named teammates instead of juggling separate chatbot windows.",
-        "points": [
-          "Agents appear as named teammates inside one interface.",
-          "You can talk, assign work, and see activity without starting from zero every time.",
-          "Designed around local models (Ollama-compatible) on a computer you control.",
-          "Demo is public; installer access is through the supporter vault (Buy Me a Coffee)."
-        ],
-        "visual": "flow-keepdesk",
-        "bestFor": "People who want AI agents to feel like an organized team instead of separate chatbots.",
-        "runsOn": "A computer you control.",
-        "requires": "Local model runtime where configured; supporter vault for install access.",
-        "cost": "Demo public; install via supporter vault.",
-        "important": "Keep Desk is a workspace experience in the OtaconsKeep family — not a replacement for Lite Core, and not identical to Expansion’s licensed roster product.",
-        "relationship": "Uses OtaconsKeep ecosystem concepts (Deck, agents, local models). Expansion is the licensed multi-agent Core add-on; Keep Desk is the supporter workstation/deck product with its own install vault."
-      },
-      "technical": {
-        "systemRole": "Supporter-distributed Command Deck style workstation UI for named local agents, jobs/tasks, and local Ollama-oriented execution — demo public, install vault gated.",
-        "components": [
-          "Keep Desk / Command Deck UI",
-          "Conversation / Codec-style interaction layer",
-          "Named agent roster presentation",
-          "Local Ollama-compatible model path",
-          "Task / job visibility and Why-style outcome dossiers (product surfaces)",
-          "Supporter install vault"
-        ],
-        "dataFlow": [
-          "User → Keep Desk UI",
-          "→ Command / conversation layer",
-          "→ Agent runtime",
-          "→ Local model",
-          "↘ Tools / tasks / memory"
-        ],
-        "visual": "arch-keepdesk",
-        "dependencies": [
-          "Local workstation",
-          "Ollama-compatible models where configured",
-          "Supporter vault credentials for installer"
-        ],
-        "persistence": "Agent/session and job state are local to the Keep Desk deployment. Exact store layout is in the private install tree — public Engineering does not publish private paths.",
-        "networking": "Local-first. Optional outbound only for model pulls or operator-chosen integrations.",
-        "hardware": "Benefits from GPU for larger local models; not required for every demo path.",
-        "installation": "Public demo on keepdesk page; Unlock Install Vault for supporter installers.",
-        "limitations": [
-          "Not the same product SKU as Expansion Member HQ license.",
-          "Internal ‘Grok Bot genre’ language is inspiration history — not the public definition.",
-          "Claimable completion percentages on marketing banners are product-page claims, not Engineering VCRM evidence."
-        ],
-        "statusNotes": "Demo public; installer via BMC supporter vault.",
-        "engineeringLinks": [
-          { "label": "View System Architecture", "href": "/engineering/#architecture" },
-          { "label": "View Behavioral Models", "href": "/engineering/#behavioral" },
-          { "label": "View Releases", "href": "/engineering/#releases" }
-        ]
-      }
-    },
-    {
-      "id": "keeproute",
-      "hash": "keeproute-explainer",
-      "name": "KeepRoute",
-      "tagline": "Keep long AI missions alive across model limits, failures, and handoffs.",
-      "access": ["Free"],
-      "maturity": ["Stable", "1.0"],
-      "runtime": ["Local"],
-      "icon": "route",
-      "accent": "var(--accent-bright)",
-      "shortDescription": "Keep AI work moving when models hit limits, fail, or need to be switched. KeepRoute preserves mission state and lets work continue across compatible AI models instead of forcing you to start over.",
-      "supportingLine": "Built on OmniRoute with OtaconsKeep mission state, checkpoints, recovery, and handoff behavior.",
-      "actions": [
-        { "label": "Open KeepRoute 1.0", "href": "/keeproute/", "primary": true },
-        { "label": "What is it?", "explainer": true }
-      ],
-      "quick": {
-        "headline": "What is KeepRoute?",
-        "opening": "Imagine you are halfway through a long coding task and the AI you are using hits a usage limit. Normally you stop, switch tools, re-explain everything, and hope the next AI understands. KeepRoute is designed so the mission can continue.",
-        "points": [
-          "The AI model can change; the mission does not have to start over.",
-          "Checkpoints remember where work left off.",
-          "Recovery and handoff behavior keep unfinished jobs moving.",
-          "Built for long coding, research, and automation workflows."
-        ],
-        "visual": "flow-keeproute",
-        "bestFor": "Long AI-assisted coding, research, and automation workflows.",
-        "runsOn": "Your tooling environment with KeepRoute / OmniRoute configured.",
-        "requires": "Compatible model/provider routes via OmniRoute; KeepRoute mission layer on top.",
-        "cost": "Free. KeepRoute 1.0 is a stable public OtaconsKeep product (see the KeepRoute page for install).",
-        "important": "OmniRoute routes requests. KeepRoute owns the mission. They are not the same thing.",
-        "relationship": "KeepRoute sits above OmniRoute inside the OtaconsKeep ecosystem — it adds mission state, not merely another model switcher."
-      },
-      "technical": {
-        "systemRole": "OtaconsKeep stateful orchestration layer on top of OmniRoute: missions, checkpoints, recovery, local-first routing policy, and agent/model handoff.",
-        "components": [
-          "KeepRoute mission control (state, checkpoints, remaining work)",
-          "Recovery and continuation logic",
-          "Handoff between agents/models",
-          "Routing policy (local-first where configured)",
-          "OmniRoute — upstream request routing gateway between compatible providers/models"
-        ],
-        "dataFlow": [
-          "Coding tool / agent work",
-          "→ KeepRoute (mission state, checkpoints, recovery, handoff)",
-          "→ OmniRoute (provider/model routing)",
-          "→ Available models / providers"
-        ],
-        "visual": "arch-keeproute",
-        "omniVsKeep": {
-          "omniroute": "Underlying model/provider routing layer. Moves AI request traffic between compatible backends.",
-          "keeproute": "OtaconsKeep orchestration around that routing. Preserves the job: checkpoints, continuation, failure recovery, handoff."
-        },
-        "dependencies": [
-          "OmniRoute upstream routing capability",
-          "Configured model/provider endpoints",
-          "KeepRoute UI / field install (see /keeproute/ and downloads)"
-        ],
-        "persistence": "Mission/checkpoint state is the product differentiator — preserved across provider switches so work can resume.",
-        "networking": "Talks to configured local and/or remote model endpoints according to routing policy. Not a Cursor↔Cursor loop.",
-        "hardware": "Depends on the models you route to; KeepRoute itself is orchestration, not a GPU colorizer.",
-        "installation": "Documented on /keeproute/ including KeepRoute-UI download path.",
-        "limitations": [
-          "Cannot invent context a downstream model never receives — checkpoints reduce, not eliminate, handoff loss.",
-          "Provider outages still require reachable alternatives.",
-          "Do not describe KeepRoute as ‘just OmniRoute’."
-        ],
-        "statusNotes": "Public KeepRoute 1.0 marked Stable on the product page.",
-        "engineeringLinks": [
-          { "label": "View System Architecture", "href": "/engineering/#architecture" },
-          { "label": "View Interfaces", "href": "/engineering/#interfaces" },
-          { "label": "View V&V Evidence", "href": "/engineering/#vv" },
-          { "label": "View Releases", "href": "/engineering/#releases" }
-        ]
-      }
-    }
-  ]
+ "schema_version": "1.0.0",
+ "mode_storage_key": "ok_explainer_mode",
+ "comparison": [
+ {
+ "product": "OtaconsKeep Lite",
+ "what": "Core self-hosted AI platform",
+ "best_if": "You want your own persistent AI system on hardware you control"
+ },
+ {
+ "product": "Expansion",
+ "what": "Licensed multi-agent layer on Core",
+ "best_if": "You want a team of specialized AI agents with richer coordination"
+ },
+ {
+ "product": "Keep Desk",
+ "what": "Visual AI team workspace",
+ "best_if": "You want a cinematic desk to talk to and manage named local teammates"
+ },
+ {
+ "product": "KeepRoute",
+ "what": "Stateful AI orchestration",
+ "best_if": "Long AI work should survive model limits, failures, and handoffs"
+ },
+ {
+ "product": "AI9",
+ "what": "Local GPU manga colorizer",
+ "best_if": "You want black-and-white manga colored on your PC via Firefox"
+ }
+ ],
+ "family_note": "AI9 is a specialized OtaconsKeep-family GPU app. It does not require OtaconsKeep Lite Core to colorize manga. Expansion and Keep Desk build on / around the Core ecosystem. KeepRoute adds mission orchestration on top of OmniRoute.",
+ "products": [
+ {
+ "id": "lite",
+ "hash": "lite-explainer",
+ "name": "OtaconsKeep Lite",
+ "tagline": "The free public foundation for running your own AI agents on your computer.",
+ "access": ["Free", "Open Source"],
+ "maturity": ["Stable"],
+ "runtime": ["Local", "CPU", "GPU optional"],
+ "icon": "core",
+ "accent": "var(--signal)",
+ "shortDescription": "Run your own persistent AI agents on your computer, with memory, tools, voice, automation, and a local web interface. Lite is the complete free public foundation of OtaconsKeep.",
+ "supportingLine": "No license key. No artificial usage cap. Available AI capability depends on your hardware and the models you choose to run.",
+ "actions": [
+ { "label": "Install Lite", "href": "#install-otacon", "primary": true },
+ { "label": "Watch install video", "href": "https://youtu.be/OitYjPlbTng", "external": true },
+ { "label": "What is it?", "explainer": true }
+ ],
+ "quick": {
+ "headline": "What is OtaconsKeep Lite?",
+ "opening": "OtaconsKeep Lite lets you run your own AI system on your computer instead of treating every AI conversation like a disposable chat window.",
+ "points": [
+ "Your AI helpers (agents) can remember information between conversations.",
+ "They can use tools and connect to services you choose to attach.",
+ "Voice features and a local web interface are part of the normal install path.",
+ "Everything important stays on hardware you control when you use local models."
+ ],
+ "visual": "flow-lite",
+ "bestFor": "People who want a self-hosted AI environment they control.",
+ "runsOn": "Your own computer (Windows with WSL2, or Linux).",
+ "requires": "Installer path; local model runtime (Ollama) for on-device chat when Default Model is enabled.",
+ "cost": "Free and open source.",
+ "important": "The software is free, but larger local AI models and creative features need stronger hardware (especially GPU memory).",
+ "relationship": "Lite is the foundation the rest of the OtaconsKeep ecosystem builds on."
+ },
+ "technical": {
+ "systemRole": "Public Otacon Core / Lite runtime: local-first agent platform with web UI, provider-neutral capability routing, memory, tools, and optional local Ollama Default Model + Genome Voice Trainer.",
+ "components": [
+ "Web UI / Command Center surfaces",
+ "Core API and agent runtime",
+ "Memory and persistent state stores",
+ "Model / capability router (LLM, TTS, STT backends)",
+ "Ollama local model path (VRAM-tiered Default Model)",
+ "Tool execution layer",
+ "Installer / updater (OtaconsKeep-Setup.bat, Linux paths)"
+ ],
+ "dataFlow": [
+ "User → OtaconsKeep UI",
+ "UI → Core API / Agent Runtime",
+ "Runtime → Model Router → Ollama or configured providers",
+ "Runtime ↔ Memory / Tools / Integrations",
+ "State written to local persistence"
+ ],
+ "visual": "arch-lite",
+ "dependencies": [
+ "Windows: WSL2 for the one-click path",
+ "Ollama for Default Model chat (loopback)",
+ "Optional external AI providers if configured",
+ "Optional Home Assistant / Discord / ARR (operator credentials)"
+ ],
+ "persistence": "Per-agent conversation history and long-term memory on local storage. Continuity/relationship engines persist JSON state when enabled (deeper surfaces more common in Expansion / Reference Keep).",
+ "networking": "Local service endpoints on the operator machine. Chat Default Model uses local Ollama. Outbound network only as needed for downloads or optional remote providers.",
+ "hardware": "CPU-capable with smaller model under 6GB VRAM; ≥6/≥8/≥16 GB VRAM selects larger Default Model tiers (qwen2.5 1.5b/3b/7b/14b).",
+ "installation": "Windows one-click Setup with reboot/resume for WSL; Linux/WSL documented on Otacon page. Fix-Otacon-GPU.bat for GPU detection issues.",
+ "limitations": [
+ "End-to-end Windows WSL automated release-gate still partially blocked by lab constraints (documented honestly).",
+ "Speech-to-text and image/video generation need their own providers when desired.",
+ "Reference Keep depth (large multi-agent media farm) is not a Lite download clone."
+ ],
+ "statusNotes": "Lite is the complete free public platform, not a trial.",
+ "engineeringLinks": [
+ { "label": "View System Architecture", "href": "/engineering/#architecture" },
+ { "label": "View Requirements", "href": "/engineering/#requirements" },
+ { "label": "View Interfaces", "href": "/engineering/#interfaces" },
+ { "label": "View Hardware Capability", "href": "/engineering/#hardware" },
+ { "label": "View V&V", "href": "/engineering/#vv" }
+ ]
+ }
+ },
+ {
+ "id": "ai9",
+ "hash": "ai9-explainer",
+ "name": "AI9 Colorizer",
+ "tagline": "Colorize black-and-white manga locally with your GPU in Firefox.",
+ "access": ["Free"],
+ "maturity": ["Stable"],
+ "runtime": ["GPU", "Browser Extension", "Local"],
+ "icon": "colorizer",
+ "accent": "var(--keep-ref)",
+ "shortDescription": "Automatically colorize black-and-white manga images in Firefox using a GPU on your own computer. The browser sends the image to your local AI9 service, your GPU processes it, and the colorized result returns to the page.",
+ "supportingLine": "Built for local processing rather than uploading manga pages to a remote colorization service.",
+ "actions": [
+ { "label": "Install AI9", "href": "#install-ai9", "primary": true },
+ { "label": "Watch AI9 video", "href": "https://youtu.be/aUiwMACSPBk", "external": true },
+ { "label": "What is it?", "explainer": true }
+ ],
+ "quick": {
+ "headline": "What is AI9 Colorizer?",
+ "opening": "AI9 Colorizer lets Firefox use your computer’s graphics card to colorize black-and-white manga images.",
+ "points": [
+ "You stay on the page instead of downloading, uploading elsewhere, and downloading again.",
+ "Colorization runs on your machine, not a remote manga upload service.",
+ "The installer detects NVIDIA GPU / CUDA / PyTorch paths and verifies with a real GPU inference test."
+ ],
+ "visual": "flow-ai9",
+ "bestFor": "People reading black-and-white manga who want local AI-assisted colorization.",
+ "runsOn": "Your computer and NVIDIA GPU, with Firefox.",
+ "requires": "NVIDIA GPU with a current driver; Windows installer path (Git Bash installed if needed).",
+ "cost": "Free.",
+ "important": "Image AI work depends heavily on GPU performance and available VRAM.",
+ "relationship": "Part of the OtaconsKeep project family. It does not require OtaconsKeep Lite Core to colorize pages."
+ },
+ "technical": {
+ "systemRole": "Standalone local GPU colorization pipeline with a Firefox-facing client and a local AI9 service performing inference.",
+ "components": [
+ "Firefox extension / page integration",
+ "Local AI9 API service",
+ "Image preprocessing",
+ "GPU inference (PyTorch/CUDA selected by installer)",
+ "Postprocessing and return to browser",
+ "Hardware detection and auto-start registration"
+ ],
+ "dataFlow": [
+ "Black-and-white manga image in Firefox",
+ "→ AI9 local API",
+ "→ preprocess",
+ "→ GPU inference",
+ "→ postprocess",
+ "→ colorized image back to Firefox"
+ ],
+ "visual": "arch-ai9",
+ "dependencies": [
+ "NVIDIA GPU + driver",
+ "PyTorch CUDA build selected by installer",
+ "Firefox",
+ "Windows Setup BAT (Git / Python installed if missing)"
+ ],
+ "persistence": "Model weights verified and stored locally by installer. Caching behavior is local to the AI9 install; no OtaconsKeep Core state required.",
+ "networking": "Localhost service between Firefox and AI9. No cloud colorization API in the primary path.",
+ "hardware": "Public docs: NVIDIA RTX 30/40/50-series support today. Exact per-SKU Engineering PASS matrix is published separately when available.",
+ "installation": "AI9-Setup.bat: detects GPU, installs deps, downloads/verifies weights, runs GPU inference test, registers auto-start.",
+ "limitations": [
+ "Requires NVIDIA GPU, not a CPU-first product.",
+ "VRAM constrains speed and workable image sizes.",
+ "Independent of Lite Core; do not assume shared agent memory."
+ ],
+ "statusNotes": "Free local GPU pipeline with public install video and demo capture.",
+ "engineeringLinks": [
+ { "label": "View Hardware Capability", "href": "/engineering/#hardware" },
+ { "label": "View Benchmarks", "href": "/engineering/#benchmarks" },
+ { "label": "View Model Provenance", "href": "/engineering/#models" }
+ ]
+ }
+ },
+ {
+ "id": "expansion",
+ "hash": "expansion-explainer",
+ "name": "OtaconsKeep Premium / Expansion",
+ "tagline": "A licensed multi-agent layer that turns Core into a specialized AI team.",
+ "access": ["Premium", "Licensed", "Supporter"],
+ "maturity": ["Stable"],
+ "runtime": ["Local", "GPU optional", "Docker optional"],
+ "icon": "constellation",
+ "accent": "var(--premium, #c4a1ff)",
+ "shortDescription": "Expands the OtaconsKeep core into a deeper multi-agent system with specialized agents, richer persistent relationships, advanced coordination, and additional creative and automation capabilities.",
+ "supportingLine": "Some Expansion capabilities install with Core today; GPU-intensive creative features need extra local services such as Docker and compatible GPU hardware.",
+ "actions": [
+ { "label": "Expansion status", "href": "/expansion/" },
+ { "label": "Member HQ", "href": "/premium/" },
+ { "label": "What is it?", "explainer": true }
+ ],
+ "quick": {
+ "headline": "What is the OtaconsKeep Expansion?",
+ "opening": "The Expansion takes the single-platform foundation of OtaconsKeep and turns it into a broader team of specialized AI agents.",
+ "points": [
+ "Different agents can have different jobs, personalities, memories, and responsibilities.",
+ "They can work individually or inside larger workflows coordinated through OtaconsKeep.",
+ "Public Expansion ships a five-agent team: Aria (coordinator), Vector (systems), Ledger (data), Muse (creative/media), Sentry (security/ops).",
+ "Command Deck and Codec chat surfaces ship today for working with the team."
+ ],
+ "visual": "flow-expansion",
+ "bestFor": "People who want a persistent local AI team rather than a single chatbot.",
+ "runsOn": "Your computer, on top of OtaconsKeep Core / Lite.",
+ "requires": "OtaconsKeep Core. Some features also need Docker, GPU, and additional local models/services.",
+ "cost": "Premium / licensed supporter features (Member HQ via Buy Me a Coffee).",
+ "important": "Aria + Deck/Codec install today. Genome Voice Trainer and Video Studio are optional sidecars, not READY on every fresh PC without GPU/Docker.",
+ "relationship": "Licensed layer above free Core. The private Reference Keep is a deeper personal environment, not a downloadable Expansion clone."
+ },
+ "technical": {
+ "systemRole": "Licensed multi-agent product on Otacon Core: five-agent Lite roster, hierarchy, mood/relationship continuity, Command Deck / Codec, guided Genome + Video Studio setup.",
+ "components": [
+ "Aria, Command coordinator (Dashboard + Codec)",
+ "Vector, Systems & infrastructure",
+ "Ledger, Data & continuity",
+ "Muse, Creative & media curation",
+ "Sentry, Security & operations",
+ "Command Deck / Codec surfaces",
+ "Emotional continuity + relationship engines",
+ "Optional Genome Voice Trainer / Video Studio (Comfy/Docker)"
+ ],
+ "dataFlow": [
+ "Operator → Deck/Codec UI",
+ "→ Agent runtime with roster identity",
+ "→ Personality / relationship / emotional state overlays",
+ "→ Model router / tools",
+ "→ Persistent dossiers, journals, memory"
+ ],
+ "visual": "arch-expansion",
+ "dependencies": [
+ "OtaconsKeep Lite / Otacon Core required",
+ "License via Member HQ",
+ "Docker Desktop or existing ComfyUI for managed Video Studio sidecar",
+ "NVIDIA GPU path for Genome Voice Trainer when used"
+ ],
+ "persistence": "Agent creation provisions roster ID, persona, hierarchy, voice binding, motion manifest, emotional-state init, relationship graph, dossier/journal, room ownership as one logical unit (rollback/resumable on failure).",
+ "networking": "Local UI (documented Expansion entry on operator machine). Optional Discord routing if operator-configured.",
+ "hardware": "Foundation chat/Deck path does not require a GPU. Creative sidecars do.",
+ "installation": "OtaconExpansion-Setup.bat after Core. Soft-update via OtaconsKeep-Setup pin path documented on Expansion page.",
+ "capabilityStatus": [
+ { "item": "Five-agent roster + Aria chat", "status": "Available now" },
+ { "item": "Command Deck / Codec", "status": "Available now" },
+ { "item": "Genome Voice Trainer", "status": "Requires extra setup (GPU)" },
+ { "item": "Video Studio / Comfy", "status": "Requires extra setup (Docker/Comfy)" },
+ { "item": "Deeper Keep rooms / full LTX packs", "status": "Planned / landing" }
+ ],
+ "limitations": [
+ "Do not expect Genome/Video Studio READY on every bare PC.",
+ "Private 16+ agent Keep canon is not the public Expansion SKU.",
+ "REX-depth War Room operations are Reference Keep / executor depth, not claimed as Lite-only."
+ ],
+ "statusNotes": "Honest fresh-PC status is the Expansion page source of truth.",
+ "engineeringLinks": [
+ { "label": "View Behavioral Models", "href": "/engineering/#behavioral" },
+ { "label": "View System Architecture", "href": "/engineering/#architecture" },
+ { "label": "View Risk Register", "href": "/engineering/#risk" },
+ { "label": "View Known Issues", "href": "/engineering/#issues" }
+ ]
+ }
+ },
+ {
+ "id": "keepdesk",
+ "hash": "keepdesk-explainer",
+ "name": "Keep Desk",
+ "tagline": "A visual command center for named local AI teammates on a workstation you own.",
+ "access": ["Supporter"],
+ "maturity": ["Beta"],
+ "runtime": ["Local", "GPU optional"],
+ "icon": "desk",
+ "accent": "var(--signal)",
+ "shortDescription": "A visual AI command center for running named local AI teammates from one shared workstation. Talk to agents, assign work, watch activity, and manage local AI workflows from a cinematic desktop interface.",
+ "supportingLine": "Built around local models and the OtaconsKeep ecosystem, with supporter access to the install vault.",
+ "actions": [
+ { "label": "Enter Keep Desk", "href": "/keepdesk/", "primary": true },
+ { "label": "Watch the Deck", "href": "/keepdesk/#demo" },
+ { "label": "Unlock Install Vault", "href": "/keepdesk/#vault" },
+ { "label": "What is it?", "explainer": true }
+ ],
+ "quick": {
+ "headline": "What is Keep Desk?",
+ "opening": "Keep Desk gives your AI agents something closer to a shared digital office, one place to talk to named teammates instead of juggling separate chatbot windows.",
+ "points": [
+ "Agents appear as named teammates inside one interface.",
+ "You can talk, assign work, and see activity without starting from zero every time.",
+ "Designed around local models (Ollama-compatible) on a computer you control.",
+ "Demo is public; installer access is through the supporter vault (Buy Me a Coffee)."
+ ],
+ "visual": "flow-keepdesk",
+ "bestFor": "People who want AI agents to feel like an organized team instead of separate chatbots.",
+ "runsOn": "A computer you control.",
+ "requires": "Local model runtime where configured; supporter vault for install access.",
+ "cost": "Demo public; install via supporter vault.",
+ "important": "Keep Desk is a workspace experience in the OtaconsKeep family, not a replacement for Lite Core, and not identical to Expansion’s licensed roster product.",
+ "relationship": "Uses OtaconsKeep ecosystem concepts (Deck, agents, local models). Expansion is the licensed multi-agent Core add-on; Keep Desk is the supporter workstation/deck product with its own install vault."
+ },
+ "technical": {
+ "systemRole": "Supporter-distributed Command Deck style workstation UI for named local agents, jobs/tasks, and local Ollama-oriented execution, demo public, install vault gated.",
+ "components": [
+ "Keep Desk / Command Deck UI",
+ "Conversation / Codec-style interaction layer",
+ "Named agent roster presentation",
+ "Local Ollama-compatible model path",
+ "Task / job visibility and Why-style outcome dossiers (product surfaces)",
+ "Supporter install vault"
+ ],
+ "dataFlow": [
+ "User → Keep Desk UI",
+ "→ Command / conversation layer",
+ "→ Agent runtime",
+ "→ Local model",
+ "↘ Tools / tasks / memory"
+ ],
+ "visual": "arch-keepdesk",
+ "dependencies": [
+ "Local workstation",
+ "Ollama-compatible models where configured",
+ "Supporter vault credentials for installer"
+ ],
+ "persistence": "Agent/session and job state are local to the Keep Desk deployment. Exact store layout is in the private install tree, public Engineering does not publish private paths.",
+ "networking": "Local-first. Optional outbound only for model pulls or operator-chosen integrations.",
+ "hardware": "Benefits from GPU for larger local models; not required for every demo path.",
+ "installation": "Public demo on keepdesk page; Unlock Install Vault for supporter installers.",
+ "limitations": [
+ "Not the same product SKU as Expansion Member HQ license.",
+ "Internal ‘Grok Bot genre’ language is inspiration history, not the public definition.",
+ "Claimable completion percentages on marketing banners are product-page claims, not Engineering VCRM evidence."
+ ],
+ "statusNotes": "Demo public; installer via BMC supporter vault.",
+ "engineeringLinks": [
+ { "label": "View System Architecture", "href": "/engineering/#architecture" },
+ { "label": "View Behavioral Models", "href": "/engineering/#behavioral" },
+ { "label": "View Releases", "href": "/engineering/#releases" }
+ ]
+ }
+ },
+ {
+ "id": "keeproute",
+ "hash": "keeproute-explainer",
+ "name": "KeepRoute",
+ "tagline": "Keep long AI missions alive across model limits, failures, and handoffs.",
+ "access": ["Free"],
+ "maturity": ["Stable", "1.0"],
+ "runtime": ["Local"],
+ "icon": "route",
+ "accent": "var(--accent-bright)",
+ "shortDescription": "Keep AI work moving when models hit limits, fail, or need to be switched. KeepRoute preserves mission state and lets work continue across compatible AI models instead of forcing you to start over.",
+ "supportingLine": "Built on OmniRoute with OtaconsKeep mission state, checkpoints, recovery, and handoff behavior.",
+ "actions": [
+ { "label": "Open KeepRoute 1.0", "href": "/keeproute/", "primary": true },
+ { "label": "What is it?", "explainer": true }
+ ],
+ "quick": {
+ "headline": "What is KeepRoute?",
+ "opening": "Imagine you are halfway through a long coding task and the AI you are using hits a usage limit. Normally you stop, switch tools, re-explain everything, and hope the next AI understands. KeepRoute is designed so the mission can continue.",
+ "points": [
+ "The AI model can change; the mission does not have to start over.",
+ "Checkpoints remember where work left off.",
+ "Recovery and handoff behavior keep unfinished jobs moving.",
+ "Built for long coding, research, and automation workflows."
+ ],
+ "visual": "flow-keeproute",
+ "bestFor": "Long AI-assisted coding, research, and automation workflows.",
+ "runsOn": "Your tooling environment with KeepRoute / OmniRoute configured.",
+ "requires": "Compatible model/provider routes via OmniRoute; KeepRoute mission layer on top.",
+ "cost": "Free. KeepRoute 1.0 is a stable public OtaconsKeep product (see the KeepRoute page for install).",
+ "important": "OmniRoute routes requests. KeepRoute owns the mission. They are not the same thing.",
+ "relationship": "KeepRoute sits above OmniRoute inside the OtaconsKeep ecosystem, it adds mission state, not merely another model switcher."
+ },
+ "technical": {
+ "systemRole": "OtaconsKeep stateful orchestration layer on top of OmniRoute: missions, checkpoints, recovery, local-first routing policy, and agent/model handoff.",
+ "components": [
+ "KeepRoute mission control (state, checkpoints, remaining work)",
+ "Recovery and continuation logic",
+ "Handoff between agents/models",
+ "Routing policy (local-first where configured)",
+ "OmniRoute, upstream request routing gateway between compatible providers/models"
+ ],
+ "dataFlow": [
+ "Coding tool / agent work",
+ "→ KeepRoute (mission state, checkpoints, recovery, handoff)",
+ "→ OmniRoute (provider/model routing)",
+ "→ Available models / providers"
+ ],
+ "visual": "arch-keeproute",
+ "omniVsKeep": {
+ "omniroute": "Underlying model/provider routing layer. Moves AI request traffic between compatible backends.",
+ "keeproute": "OtaconsKeep orchestration around that routing. Preserves the job: checkpoints, continuation, failure recovery, handoff."
+ },
+ "dependencies": [
+ "OmniRoute upstream routing capability",
+ "Configured model/provider endpoints",
+ "KeepRoute UI / field install (see /keeproute/ and downloads)"
+ ],
+ "persistence": "Mission/checkpoint state is the product differentiator, preserved across provider switches so work can resume.",
+ "networking": "Talks to configured local and/or remote model endpoints according to routing policy. Not a Cursor↔Cursor loop.",
+ "hardware": "Depends on the models you route to; KeepRoute itself is orchestration, not a GPU colorizer.",
+ "installation": "Documented on /keeproute/ including KeepRoute-UI download path.",
+ "limitations": [
+ "Cannot invent context a downstream model never receives, checkpoints reduce, not eliminate, handoff loss.",
+ "Provider outages still require reachable alternatives.",
+ "Do not describe KeepRoute as ‘just OmniRoute’."
+ ],
+ "statusNotes": "Public KeepRoute 1.0 marked Stable on the product page.",
+ "engineeringLinks": [
+ { "label": "View System Architecture", "href": "/engineering/#architecture" },
+ { "label": "View Interfaces", "href": "/engineering/#interfaces" },
+ { "label": "View V&V Evidence", "href": "/engineering/#vv" },
+ { "label": "View Releases", "href": "/engineering/#releases" }
+ ]
+ }
+ }
+ ]
 }

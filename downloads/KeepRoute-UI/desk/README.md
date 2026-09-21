@@ -1,4 +1,4 @@
-# KeepRoute — OtaconsKeep field UI
+# KeepRoute, OtaconsKeep field UI
 
 GUI in front. OmniRoute underneath. Providers you connect (Claude, Codex, Cursor, Grok, Local LLM).
 
@@ -22,6 +22,6 @@ Or install the example systemd user unit from this package.
 ## Flow
 
 1. Start OmniRoute, then KeepRoute UI
-2. Open **ADD PROVIDERS** — paste keys — **SAVE KEYS**
+2. Open **ADD PROVIDERS**, paste keys, **SAVE KEYS**
 3. Leave **Auto** selected (or pick a provider)
-4. Type a request — **GO**
+4. Type a request, **GO**

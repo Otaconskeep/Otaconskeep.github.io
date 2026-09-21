@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Premium Operator Desk — Otaconskeep</title>
+<title>Premium Operator Desk, Otaconskeep</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,256 +14,256 @@
 <body>
 
 <div class="filebar">
-  <div class="wrap">
-    <span>FILE // PREMIUM-OPS</span>
-    <span>OPERATOR DESK</span>
-  </div>
+ <div class="wrap">
+ <span>FILE // PREMIUM-OPS</span>
+ <span>OPERATOR DESK</span>
+ </div>
 </div>
 
 <nav class="topnav">
-  <div class="wrap">
-    <a class="brand" href="../../">Otaconskeep</a>
-    <div class="navlinks">
-      <a href="../">Premium gate</a>
-      <a href="https://www.buymeacoffee.com/otaconskeep" target="_blank" rel="noopener">Buy Me a Coffee</a>
-      <button type="button" class="nav-signout" id="ops-lock" hidden>Lock desk</button>
-    </div>
-  </div>
+ <div class="wrap">
+ <a class="brand" href="../../">Otaconskeep</a>
+ <div class="navlinks">
+ <a href="../">Premium gate</a>
+ <a href="https://www.buymeacoffee.com/otaconskeep" target="_blank" rel="noopener">Buy Me a Coffee</a>
+ <button type="button" class="nav-signout" id="ops-lock" hidden>Lock desk</button>
+ </div>
+ </div>
 </nav>
 
 <div class="wrap">
 
-  <div id="ops-gate" class="gate-panel" style="max-width:520px;margin:48px auto;">
-    <p class="gate-icon">&#128737; Operator only</p>
-    <h1>Premium Operator Desk</h1>
-    <p>Check licenses, payment refs, seat limits, and unlock signals. Not for members.</p>
-    <form class="gate-form" id="ops-form" autocomplete="off">
-      <input type="password" id="ops-pin" placeholder="OPS PIN" aria-label="Operator PIN" autocomplete="off">
-      <button type="submit">Unlock desk</button>
-    </form>
-    <p class="gate-error" id="ops-error"></p>
-    <p class="gate-hint">Set Discord webhook in <code>premium/premium.js</code> (<code>NOTIFY_WEBHOOK_URL</code>) so unlocks ping you.</p>
-  </div>
+ <div id="ops-gate" class="gate-panel" style="max-width:520px;margin:48px auto;">
+ <p class="gate-icon">&#128737; Operator only</p>
+ <h1>Premium Operator Desk</h1>
+ <p>Check licenses, payment refs, seat limits, and unlock signals. Not for members.</p>
+ <form class="gate-form" id="ops-form" autocomplete="off">
+ <input type="password" id="ops-pin" placeholder="OPS PIN" aria-label="Operator PIN" autocomplete="off">
+ <button type="submit">Unlock desk</button>
+ </form>
+ <p class="gate-error" id="ops-error"></p>
+ <p class="gate-hint">Set Discord webhook in <code>premium/premium.js</code> (<code>NOTIFY_WEBHOOK_URL</code>) so unlocks ping you.</p>
+ </div>
 
-  <div id="ops-desk" class="ops-desk" hidden>
+ <div id="ops-desk" class="ops-desk" hidden>
 
-    <section class="member-hero">
-      <div class="stamp premium">Operator desk<small>licenses · payments · sharing</small></div>
-      <h1 class="display member-title">Seat ledger</h1>
-      <p class="lede">How you know someone paid: BMC receipt &rarr; you add/update a row in <code>premium.js</code> with <code>paymentRef</code> + <code>licenseId</code> &rarr; they unlock &rarr; webhook/local log shows License ID.</p>
-    </section>
+ <section class="member-hero">
+ <div class="stamp premium">Operator desk<small>licenses · payments · sharing</small></div>
+ <h1 class="display member-title">Seat ledger</h1>
+ <p class="lede">How you know someone paid: BMC receipt &rarr; you add/update a row in <code>premium.js</code> with <code>paymentRef</code> + <code>licenseId</code> &rarr; they unlock &rarr; webhook/local log shows License ID.</p>
+ </section>
 
-    <section>
-      <p class="tag premium">Webhook</p>
-      <div class="member-panel">
-        <p id="webhook-status" class="intro"></p>
-        <p class="intro">Create a Discord channel webhook, paste the URL into <code>NOTIFY_WEBHOOK_URL</code> in <code>premium/premium.js</code>, commit, redeploy. Every unlock then posts member, License ID, payment ref, IP, TZ, UA.</p>
-      </div>
-    </section>
+ <section>
+ <p class="tag premium">Webhook</p>
+ <div class="member-panel">
+ <p id="webhook-status" class="intro"></p>
+ <p class="intro">Create a Discord channel webhook, paste the URL into <code>NOTIFY_WEBHOOK_URL</code> in <code>premium/premium.js</code>, commit, redeploy. Every unlock then posts member, License ID, payment ref, IP, TZ, UA.</p>
+ </div>
+ </section>
 
-    <section>
-      <p class="tag premium">Lookup</p>
-      <form class="gate-form" id="lookup-form" style="justify-content:flex-start;margin-bottom:16px;">
-        <input type="text" id="lookup-q" placeholder="Access name or License ID" aria-label="Lookup" style="min-width:240px;">
-        <button type="submit">Check</button>
-      </form>
-      <pre class="ops-result mono" id="lookup-result">Enter an access name (BLOCK) or License ID (OK-PREM-BLOCK-001).</pre>
-    </section>
+ <section>
+ <p class="tag premium">Lookup</p>
+ <form class="gate-form" id="lookup-form" style="justify-content:flex-start;margin-bottom:16px;">
+ <input type="text" id="lookup-q" placeholder="Access name or License ID" aria-label="Lookup" style="min-width:240px;">
+ <button type="submit">Check</button>
+ </form>
+ <pre class="ops-result mono" id="lookup-result">Enter an access name (BLOCK) or License ID (OK-PREM-BLOCK-001).</pre>
+ </section>
 
-    <section>
-      <p class="tag premium">All licenses</p>
-      <div class="ops-table-wrap">
-        <table class="ops-table" id="lic-table">
-          <thead>
-            <tr>
-              <th>Access</th>
-              <th>License ID</th>
-              <th>Status</th>
-              <th>Seats</th>
-              <th>Tier</th>
-              <th>Issued</th>
-              <th>Payment ref</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
+ <section>
+ <p class="tag premium">All licenses</p>
+ <div class="ops-table-wrap">
+ <table class="ops-table" id="lic-table">
+ <thead>
+ <tr>
+ <th>Access</th>
+ <th>License ID</th>
+ <th>Status</th>
+ <th>Seats</th>
+ <th>Tier</th>
+ <th>Issued</th>
+ <th>Payment ref</th>
+ <th>Notes</th>
+ </tr>
+ </thead>
+ <tbody></tbody>
+ </table>
+ </div>
+ </section>
 
-    <section>
-      <p class="tag premium">Unlock log (this browser)</p>
-      <p class="intro">Local signal only — the Discord webhook is the durable feed. This log helps when testing on your machine.</p>
-      <pre class="ops-result mono" id="unlock-log">No local unlock events yet.</pre>
-      <button type="button" class="btn btn-ghost" id="clear-log" style="margin-top:10px;">Clear local log</button>
-    </section>
+ <section>
+ <p class="tag premium">Unlock log (this browser)</p>
+ <p class="intro">Local signal only, the Discord webhook is the durable feed. This log helps when testing on your machine.</p>
+ <pre class="ops-result mono" id="unlock-log">No local unlock events yet.</pre>
+ <button type="button" class="btn btn-ghost" id="clear-log" style="margin-top:10px;">Clear local log</button>
+ </section>
 
-    <section>
-      <p class="tag premium">Sharing response protocol</p>
-      <div class="member-panel protocol">
-        <ol class="protocol-list">
-          <li><strong>Detect:</strong> Webhook shows same License ID from distant IPs/timezones in a short window, or member reports a leak.</li>
-          <li><strong>Confirm:</strong> Message the original payer on Discord with License ID + times. Ask if they authorized the other unlocks.</li>
-          <li><strong>Contain:</strong> In <code>premium.js</code> set <code>status: 'suspended'</code> or <code>'revoked'</code>, rotate password/PIN hashes, redeploy. Suspended seats fail unlock with a clear message.</li>
-          <li><strong>Resolve:</strong> If payer was compromised — re-issue new credentials, keep License ID or bump suffix. If intentional sharing — revoke; they can buy a new seat.</li>
-          <li><strong>Record:</strong> Update <code>paymentRef</code> / <code>notes</code> with the incident date so the ledger stays honest.</li>
-        </ol>
-      </div>
-    </section>
+ <section>
+ <p class="tag premium">Sharing response protocol</p>
+ <div class="member-panel protocol">
+ <ol class="protocol-list">
+ <li><strong>Detect:</strong> Webhook shows same License ID from distant IPs/timezones in a short window, or member reports a leak.</li>
+ <li><strong>Confirm:</strong> Message the original payer on Discord with License ID + times. Ask if they authorized the other unlocks.</li>
+ <li><strong>Contain:</strong> In <code>premium.js</code> set <code>status: 'suspended'</code> or <code>'revoked'</code>, rotate password/PIN hashes, redeploy. Suspended seats fail unlock with a clear message.</li>
+ <li><strong>Resolve:</strong> If payer was compromised, re-issue new credentials, keep License ID or bump suffix. If intentional sharing, revoke; they can buy a new seat.</li>
+ <li><strong>Record:</strong> Update <code>paymentRef</code> / <code>notes</code> with the incident date so the ledger stays honest.</li>
+ </ol>
+ </div>
+ </section>
 
-    <section>
-      <p class="tag premium">Issuing a new paid seat</p>
-      <div class="member-panel">
-        <ol class="protocol-list">
-          <li>Confirm BMC payment (amount, name/note, date).</li>
-          <li>Pick access name (A–Z0–9). Generate password + 4-digit PIN.</li>
-          <li>Add hashes to <code>USERS</code> and a row to <code>LICENSES</code> with <code>licenseId</code>, <code>paymentRef</code> (e.g. <code>BMC #1234 · $20 · 2026-09-17</code>), <code>seats: 1</code>, <code>status: 'active'</code>.</li>
-          <li>Commit, deploy, DM credentials + License ID. Never post secrets in public Discord.</li>
-        </ol>
-      </div>
-    </section>
+ <section>
+ <p class="tag premium">Issuing a new paid seat</p>
+ <div class="member-panel">
+ <ol class="protocol-list">
+ <li>Confirm BMC payment (amount, name/note, date).</li>
+ <li>Pick access name (A-Z0-9). Generate password + 4-digit PIN.</li>
+ <li>Add hashes to <code>USERS</code> and a row to <code>LICENSES</code> with <code>licenseId</code>, <code>paymentRef</code> (e.g. <code>BMC #1234 · $20 · 2026-09-17</code>), <code>seats: 1</code>, <code>status: 'active'</code>.</li>
+ <li>Commit, deploy, DM credentials + License ID. Never post secrets in public Discord.</li>
+ </ol>
+ </div>
+ </section>
 
-  </div>
+ </div>
 </div>
 
 <footer>
-  <div class="wrap">
-    <span>Premium Operator Desk · Antonio only</span>
-    <span><a href="../">Back to gate</a></span>
-  </div>
+ <div class="wrap">
+ <span>Premium Operator Desk · Antonio only</span>
+ <span><a href="../">Back to gate</a></span>
+ </div>
 </footer>
 
 <script src="../premium.js"></script>
 <script>
 (function () {
-  // Operator PIN hash = SHA-256("OTACON-OPS:keep-ledger") — rotate by changing this hash.
-  var OPS_PIN_HASH = 'fc47a9123a91d9c7456bda50ca344db57701fa75ddae1a4f058e52443c6dd703';
-  var P = window.OtaconsPremium || {};
-  var LICENSES = P.LICENSES || {};
+ // Operator PIN hash = SHA-256("OTACON-OPS:keep-ledger"), rotate by changing this hash.
+ var OPS_PIN_HASH = 'fc47a9123a91d9c7456bda50ca344db57701fa75ddae1a4f058e52443c6dd703';
+ var P = window.OtaconsPremium || {};
+ var LICENSES = P.LICENSES || {};
 
-  var opsGate = document.getElementById('ops-gate');
-  var opsDesk = document.getElementById('ops-desk');
-  var opsForm = document.getElementById('ops-form');
-  var opsPin = document.getElementById('ops-pin');
-  var opsError = document.getElementById('ops-error');
-  var opsLock = document.getElementById('ops-lock');
-  var webhookStatus = document.getElementById('webhook-status');
-  var lookupForm = document.getElementById('lookup-form');
-  var lookupQ = document.getElementById('lookup-q');
-  var lookupResult = document.getElementById('lookup-result');
-  var unlockLog = document.getElementById('unlock-log');
-  var clearLog = document.getElementById('clear-log');
-  var tbody = document.querySelector('#lic-table tbody');
+ var opsGate = document.getElementById('ops-gate');
+ var opsDesk = document.getElementById('ops-desk');
+ var opsForm = document.getElementById('ops-form');
+ var opsPin = document.getElementById('ops-pin');
+ var opsError = document.getElementById('ops-error');
+ var opsLock = document.getElementById('ops-lock');
+ var webhookStatus = document.getElementById('webhook-status');
+ var lookupForm = document.getElementById('lookup-form');
+ var lookupQ = document.getElementById('lookup-q');
+ var lookupResult = document.getElementById('lookup-result');
+ var unlockLog = document.getElementById('unlock-log');
+ var clearLog = document.getElementById('clear-log');
+ var tbody = document.querySelector('#lic-table tbody');
 
-  async function sha256Hex(text) {
-    var enc = new TextEncoder().encode(text);
-    var digest = await crypto.subtle.digest('SHA-256', enc);
-    return Array.prototype.map.call(new Uint8Array(digest), function (b) {
-      return ('0' + b.toString(16)).slice(-2);
-    }).join('');
-  }
+ async function sha256Hex(text) {
+ var enc = new TextEncoder().encode(text);
+ var digest = await crypto.subtle.digest('SHA-256', enc);
+ return Array.prototype.map.call(new Uint8Array(digest), function (b) {
+ return ('0' + b.toString(16)).slice(-2);
+ }).join('');
+ }
 
-  function openDesk() {
-    opsGate.hidden = true;
-    opsDesk.hidden = false;
-    if (opsLock) opsLock.hidden = false;
-    try { sessionStorage.setItem('otaconskeep_ops', '1'); } catch (e) {}
-    renderTable();
-    renderWebhook();
-    renderLog();
-  }
+ function openDesk() {
+ opsGate.hidden = true;
+ opsDesk.hidden = false;
+ if (opsLock) opsLock.hidden = false;
+ try { sessionStorage.setItem('otaconskeep_ops', '1'); } catch (e) {}
+ renderTable();
+ renderWebhook();
+ renderLog();
+ }
 
-  function lockDesk() {
-    opsDesk.hidden = true;
-    opsGate.hidden = false;
-    if (opsLock) opsLock.hidden = true;
-    try { sessionStorage.removeItem('otaconskeep_ops'); } catch (e) {}
-    if (opsPin) opsPin.value = '';
-  }
+ function lockDesk() {
+ opsDesk.hidden = true;
+ opsGate.hidden = false;
+ if (opsLock) opsLock.hidden = true;
+ try { sessionStorage.removeItem('otaconskeep_ops'); } catch (e) {}
+ if (opsPin) opsPin.value = '';
+ }
 
-  function renderWebhook() {
-    var url = P.NOTIFY_WEBHOOK_URL || '';
-    webhookStatus.textContent = url
-      ? 'Webhook configured (' + url.slice(0, 32) + '…). Unlocks will notify Discord.'
-      : 'Webhook NOT configured — unlocks only write a local browser log. Paste NOTIFY_WEBHOOK_URL in premium.js.';
-    webhookStatus.style.color = url ? 'var(--signal)' : 'var(--warn)';
-  }
+ function renderWebhook() {
+ var url = P.NOTIFY_WEBHOOK_URL || '';
+ webhookStatus.textContent = url
+ ? 'Webhook configured (' + url.slice(0, 32) + '…). Unlocks will notify Discord.'
+ : 'Webhook NOT configured, unlocks only write a local browser log. Paste NOTIFY_WEBHOOK_URL in premium.js.';
+ webhookStatus.style.color = url ? 'var(--signal)' : 'var(--warn)';
+ }
 
-  function renderTable() {
-    var keys = Object.keys(LICENSES).sort();
-    tbody.innerHTML = keys.map(function (k) {
-      var L = LICENSES[k];
-      return '<tr data-status="' + (L.status || '') + '">' +
-        '<td class="mono">' + k + '</td>' +
-        '<td class="mono">' + (L.licenseId || '') + '</td>' +
-        '<td>' + (L.status || '') + '</td>' +
-        '<td>' + (L.seats != null ? L.seats : 1) + '</td>' +
-        '<td>' + (L.tier || '') + '</td>' +
-        '<td>' + (L.issued || '') + '</td>' +
-        '<td>' + (L.paymentRef || '') + '</td>' +
-        '<td>' + (L.notes || '') + '</td>' +
-        '</tr>';
-    }).join('');
-  }
+ function renderTable() {
+ var keys = Object.keys(LICENSES).sort();
+ tbody.innerHTML = keys.map(function (k) {
+ var L = LICENSES[k];
+ return '<tr data-status="' + (L.status || '') + '">' +
+ '<td class="mono">' + k + '</td>' +
+ '<td class="mono">' + (L.licenseId || '') + '</td>' +
+ '<td>' + (L.status || '') + '</td>' +
+ '<td>' + (L.seats != null ? L.seats : 1) + '</td>' +
+ '<td>' + (L.tier || '') + '</td>' +
+ '<td>' + (L.issued || '') + '</td>' +
+ '<td>' + (L.paymentRef || '') + '</td>' +
+ '<td>' + (L.notes || '') + '</td>' +
+ '</tr>';
+ }).join('');
+ }
 
-  function renderLog() {
-    try {
-      var log = JSON.parse(localStorage.getItem('otaconskeep_premium_unlock_log') || '[]');
-      unlockLog.textContent = log.length ? JSON.stringify(log, null, 2) : 'No local unlock events yet.';
-    } catch (e) {
-      unlockLog.textContent = 'Could not read local log.';
-    }
-  }
+ function renderLog() {
+ try {
+ var log = JSON.parse(localStorage.getItem('otaconskeep_premium_unlock_log') || '[]');
+ unlockLog.textContent = log.length ? JSON.stringify(log, null, 2) : 'No local unlock events yet.';
+ } catch (e) {
+ unlockLog.textContent = 'Could not read local log.';
+ }
+ }
 
-  function findLicense(q) {
-    q = String(q || '').trim();
-    if (!q) return null;
-    var up = q.toUpperCase().replace(/[^A-Z0-9-]/g, '');
-    if (LICENSES[up]) return { access: up, lic: LICENSES[up] };
-    var keys = Object.keys(LICENSES);
-    for (var i = 0; i < keys.length; i++) {
-      var L = LICENSES[keys[i]];
-      if (L.licenseId && L.licenseId.toUpperCase() === up) return { access: keys[i], lic: L };
-    }
-    return null;
-  }
+ function findLicense(q) {
+ q = String(q || '').trim();
+ if (!q) return null;
+ var up = q.toUpperCase().replace(/[^A-Z0-9-]/g, '');
+ if (LICENSES[up]) return { access: up, lic: LICENSES[up] };
+ var keys = Object.keys(LICENSES);
+ for (var i = 0; i < keys.length; i++) {
+ var L = LICENSES[keys[i]];
+ if (L.licenseId && L.licenseId.toUpperCase() === up) return { access: keys[i], lic: L };
+ }
+ return null;
+ }
 
-  opsForm.addEventListener('submit', async function (ev) {
-    ev.preventDefault();
-    opsError.textContent = '';
-    var pin = (opsPin.value || '').trim();
-    try {
-      var h = await sha256Hex(pin);
-      if (h === OPS_PIN_HASH) openDesk();
-      else {
-        opsError.textContent = 'Incorrect operator PIN.';
-        opsPin.value = '';
-      }
-    } catch (e) {
-      opsError.textContent = 'Needs HTTPS for verification.';
-    }
-  });
+ opsForm.addEventListener('submit', async function (ev) {
+ ev.preventDefault();
+ opsError.textContent = '';
+ var pin = (opsPin.value || '').trim();
+ try {
+ var h = await sha256Hex(pin);
+ if (h === OPS_PIN_HASH) openDesk();
+ else {
+ opsError.textContent = 'Incorrect operator PIN.';
+ opsPin.value = '';
+ }
+ } catch (e) {
+ opsError.textContent = 'Needs HTTPS for verification.';
+ }
+ });
 
-  if (opsLock) opsLock.addEventListener('click', lockDesk);
+ if (opsLock) opsLock.addEventListener('click', lockDesk);
 
-  lookupForm.addEventListener('submit', function (ev) {
-    ev.preventDefault();
-    var hit = findLicense(lookupQ.value);
-    if (!hit) {
-      lookupResult.textContent = 'No license matched "' + lookupQ.value + '".';
-      return;
-    }
-    lookupResult.textContent = JSON.stringify({ accessName: hit.access, license: hit.lic }, null, 2);
-  });
+ lookupForm.addEventListener('submit', function (ev) {
+ ev.preventDefault();
+ var hit = findLicense(lookupQ.value);
+ if (!hit) {
+ lookupResult.textContent = 'No license matched "' + lookupQ.value + '".';
+ return;
+ }
+ lookupResult.textContent = JSON.stringify({ accessName: hit.access, license: hit.lic }, null, 2);
+ });
 
-  clearLog.addEventListener('click', function () {
-    try { localStorage.removeItem('otaconskeep_premium_unlock_log'); } catch (e) {}
-    renderLog();
-  });
+ clearLog.addEventListener('click', function () {
+ try { localStorage.removeItem('otaconskeep_premium_unlock_log'); } catch (e) {}
+ renderLog();
+ });
 
-  try {
-    if (sessionStorage.getItem('otaconskeep_ops') === '1') openDesk();
-  } catch (e) {}
+ try {
+ if (sessionStorage.getItem('otaconskeep_ops') === '1') openDesk();
+ } catch (e) {}
 })();
 </script>
 </body>
