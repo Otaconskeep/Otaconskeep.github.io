@@ -1,12 +1,12 @@
 {
   "baseline_id": "BL-REQ-0004",
   "baseline_status": "Draft",
-  "notes": "MBSE requirements baseline BL-REQ-0004 (159 shall-statements). Level 1 = system, Level 2 = subsystem/capability, Level 3 = component/detail. All statements use 'The system shall'. Verified=Yes only with evidence. Columns include verification approach, planned/executed, risk level, and rationales.",
+  "notes": "MBSE requirements baseline BL-REQ-0004 (159 shall-statements). Level 1 = system, Level 2 = subsystem/capability, Level 3 = component/detail. All statements use 'The system shall'. Verified=Yes only with evidence.",
   "requirements": [
     {
       "id": "REQ-AI-001",
       "title": "Third-party model provenance disclosure",
-      "text": "The system shall state that third-party foundation models were not trained by OtaconsKeep.",
+      "text": "The system shall engineering Model Provenance shall state that third-party foundation models were not trained by OtaconsKeep.",
       "category": "AI/Model",
       "priority": "P1",
       "rationale": "Avoid false training claims.",
@@ -46,7 +46,7 @@
     {
       "id": "REQ-AVAIL-001",
       "title": "Installer honesty on incomplete lab proof",
-      "text": "The system shall not claim full Windows WSL end-to-end release-gate proof while the automated lab path remains unconfirmed.",
+      "text": "The system shall public documentation shall not claim full Windows WSL end-to-end release-gate proof while the automated lab path remains unconfirmed.",
       "category": "Availability",
       "priority": "P1",
       "rationale": "Honesty as brand; avoids vaporous “verified install” claims.",
@@ -88,7 +88,7 @@
     {
       "id": "REQ-DATA-001",
       "title": "Distinguish MOCK vs MEASURED evidence",
-      "text": "The system shall be labeled MOCK, MEASURED, or REFERENCE-KEEP-REDACTED.",
+      "text": "The system shall published analysis and benchmark artifacts shall be labeled MOCK, MEASURED, or REFERENCE-KEEP-REDACTED.",
       "category": "Data",
       "priority": "P0",
       "rationale": "Honesty banner; avoid false PASS.",
@@ -173,7 +173,7 @@
     {
       "id": "REQ-HW-001",
       "title": "VRAM-tier default model selection",
-      "text": "The system shall select an Ollama chat model tier based on detected VRAM: under 6GB → qwen2.5:1.5b; ≥6 → 3b; ≥8 → 7b; ≥16 → 14b.",
+      "text": "The system shall default Model installation shall select an Ollama chat model tier based on detected VRAM: under 6GB → qwen2.5:1.5b; ≥6 → 3b; ≥8 → 7b; ≥16 → 14b.",
       "category": "Hardware",
       "priority": "P1",
       "rationale": "Avoid installing oversized models that thrash low-VRAM machines.",
@@ -219,7 +219,7 @@
     {
       "id": "REQ-NET-001",
       "title": "Optional integrations offline-safe",
-      "text": "The system shall be optional; Core shall remain usable when they are absent.",
+      "text": "The system shall home Assistant, Discord, and ARR integrations shall be optional; Core shall remain usable when they are absent.",
       "category": "Network",
       "priority": "P1",
       "rationale": "Local-first; FAQ.",
@@ -301,7 +301,7 @@
     {
       "id": "REQ-SEC-001",
       "title": "No vendor account dependency for local operation",
-      "text": "The system shall not require authentication against OtaconsKeep operator private accounts for local operation.",
+      "text": "The system shall lite, AI9, and Expansion foundation layers shall not require authentication against OtaconsKeep operator private accounts for local operation.",
       "category": "Security",
       "priority": "P0",
       "rationale": "Privacy and independence; FAQ claim.",
@@ -345,7 +345,7 @@
     {
       "id": "REQ-SW-001",
       "title": "Public Lite free of license key",
-      "text": "The system shall not require a license key or artificial time limit for Core operation.",
+      "text": "The system shall otaconsKeep Lite shall not require a license key or artificial time limit for Core operation.",
       "category": "Software",
       "priority": "P0",
       "rationale": "FAQ free claim.",
@@ -430,7 +430,7 @@
     {
       "id": "REQ-AI-002",
       "title": "No OK-trained foundation claim",
-      "text": "The system shall state OtaconsKeep does not claim to have trained the third-party foundation weights it routes to.",
+      "text": "The system shall public Models & Data shall state OtaconsKeep does not claim to have trained the third-party foundation weights it routes to.",
       "category": "AI/Model",
       "priority": "P0",
       "rationale": "Provenance honesty.",
@@ -506,7 +506,7 @@
     {
       "id": "REQ-AI-005",
       "title": "Context window honesty",
-      "text": "The system shall not imply infinite context; long chats may summarize or truncate per implementation.",
+      "text": "The system shall not imply infinite context; long chats may summarize or truncate per implementation; long chats may summarize or truncate per implementation.",
       "category": "AI/Model",
       "priority": "P2",
       "rationale": "Expectation management.",
@@ -546,7 +546,7 @@
     {
       "id": "REQ-BEH-001",
       "title": "Emotional continuity state vector",
-      "text": "The system shall maintain a bounded continuous state vector including irritation, jealousy, hurt, trust, attachment, confidence, and anxiety.",
+      "text": "The system shall where emotional continuity is enabled, each agent shall maintain a bounded continuous state vector including irritation, jealousy, hurt, trust, attachment, confidence, and anxiety.",
       "category": "AI/Model",
       "priority": "P1",
       "rationale": "About thesis: remembering ≠ being affected. State enables measurable persistence.",
@@ -593,7 +593,7 @@
     {
       "id": "REQ-BEH-010",
       "title": "No fabricated consciousness claim",
-      "text": "The system shall not claim the Continuity Model proves consciousness.",
+      "text": "The system shall not claim the Continuity Model proves consciousness consciousness.",
       "category": "Operational",
       "priority": "P0",
       "rationale": "Honesty / About feeling section.",
@@ -631,7 +631,7 @@
     {
       "id": "REQ-BEH-014",
       "title": "MOCK traces labeled",
-      "text": "The system shall be labeled MOCK.",
+      "text": "The system shall label teaching and synthetic continuity traces published on Engineering as MOCK.",
       "category": "Operational",
       "priority": "P0",
       "rationale": "Honesty banner pattern.",
@@ -709,7 +709,7 @@
     {
       "id": "REQ-CODEC-002",
       "title": "Agent switch without session loss",
-      "text": "The system shall not destroy other agents' persisted histories.",
+      "text": "The system shall preserve other agents' persisted histories when the active Codec agent is switched' persisted histories.",
       "category": "Usability",
       "priority": "P0",
       "rationale": "Multi-agent Keep requires non-destructive switching.",
@@ -794,7 +794,7 @@
     {
       "id": "REQ-CODEC-008",
       "title": "Hard refresh safety",
-      "text": "The system shall not wipe server-side agent memory.",
+      "text": "The system shall preserve server-side agent memory across browser hard-refresh.",
       "category": "Reliability",
       "priority": "P0",
       "rationale": "Operators hard-refresh constantly.",
@@ -835,7 +835,7 @@
     {
       "id": "REQ-DATA-002",
       "title": "No training on operator chats by default",
-      "text": "The system shall not upload operator chats for OtaconsKeep model training by default.",
+      "text": "The system shall not upload operator chats for OtaconsKeep model training by default for OtaconsKeep model training by default.",
       "category": "Data",
       "priority": "P0",
       "rationale": "Trust.",
@@ -875,7 +875,7 @@
     {
       "id": "REQ-DATA-004",
       "title": "No identifying telemetry by default",
-      "text": "The system shall not enable identifying telemetry by default.",
+      "text": "The system shall not enable identifying telemetry by default by default.",
       "category": "Data",
       "priority": "P0",
       "rationale": "Local-first privacy.",
@@ -991,7 +991,7 @@
     {
       "id": "REQ-ENG-003",
       "title": "No fabricated PASS",
-      "text": "The system shall not mark Verified/PASS without evidence objects.",
+      "text": "The system shall not mark Verified or PASS without evidence objects without evidence objects.",
       "category": "Maintainability",
       "priority": "P0",
       "rationale": "Accuracy policy.",
@@ -1107,7 +1107,7 @@
     {
       "id": "REQ-ENG-006",
       "title": "Analysis MOCK watermark",
-      "text": "The system shall be labeled MOCK/SYNTHETIC.",
+      "text": "The system shall label synthetic continuity traces as MOCK/SYNTHETIC.",
       "category": "Maintainability",
       "priority": "P0",
       "rationale": "Honesty.",
@@ -1221,7 +1221,7 @@
     {
       "id": "REQ-ENG-009",
       "title": "Requirements baseline ID",
-      "text": "The system shall publish baseline_id.",
+      "text": "The system shall publish a requirements baseline_id in the Engineering package.",
       "category": "Maintainability",
       "priority": "P1",
       "rationale": "Configuration management.",
@@ -1259,7 +1259,7 @@
     {
       "id": "REQ-ENG-010",
       "title": "Known issues register",
-      "text": "The system shall publish a Known Issues register.",
+      "text": "The system shall publish a Known Issues register in Engineering.",
       "category": "Maintainability",
       "priority": "P1",
       "rationale": "Honesty debt tracker.",
@@ -1297,7 +1297,7 @@
     {
       "id": "REQ-ENG-011",
       "title": "Releases register",
-      "text": "The system shall publish a Releases/qualification register.",
+      "text": "The system shall publish a Releases and qualification register in the Engineering portal.",
       "category": "Maintainability",
       "priority": "P1",
       "rationale": "Configuration baseline.",
@@ -1335,7 +1335,7 @@
     {
       "id": "REQ-EXP-001",
       "title": "Expansion boundary honesty",
-      "text": "The system shall not claim Reference Keep multi-node farm as automatic Expansion READY on every PC.",
+      "text": "The system shall not claim Reference Keep multi-node farm as automatic Expansion READY on every PC multi-node farm as automatic Expansion READY on every PC.",
       "category": "Operational",
       "priority": "P0",
       "rationale": "Overview out-of-scope.",
@@ -1497,7 +1497,7 @@
     {
       "id": "REQ-FUNC-003",
       "title": "Codec contact metaphor",
-      "text": "The system shall be able to select an agent identity and continue a conversation that retains prior context for that identity.",
+      "text": "The system shall when Codec/Deck surfaces are present, the operator shall be able to select an agent identity and continue a conversation that retains prior context for that identity.",
       "category": "Functional",
       "priority": "P0",
       "rationale": "About Codec thesis.",
@@ -1540,7 +1540,7 @@
     {
       "id": "REQ-FUNC-004",
       "title": "Tool execution path",
-      "text": "The system shall be able to invoke configured tools and return tool results into the conversation pipeline.",
+      "text": "The system shall agent runtime shall be able to invoke configured tools and return tool results into the conversation pipeline.",
       "category": "Functional",
       "priority": "P1",
       "rationale": "Ecosystem beyond text box.",
@@ -1581,7 +1581,7 @@
     {
       "id": "REQ-FUNC-005",
       "title": "Expansion five-agent roster",
-      "text": "The system shall provision a five-agent Lite roster (Aria, Vector, Ledger, Muse, Sentry) with hierarchy placement.",
+      "text": "The system shall public Expansion shall provision a five-agent Lite roster (Aria, Vector, Ledger, Muse, Sentry) with hierarchy placement.",
       "category": "Functional",
       "priority": "P1",
       "rationale": "Public Expansion product definition.",
@@ -1623,7 +1623,7 @@
     {
       "id": "REQ-FUNC-006",
       "title": "Honest Expansion sidecar status",
-      "text": "The system shall distinguish Available now vs Requires extra setup for Genome and Video Studio.",
+      "text": "The system shall public Expansion documentation shall distinguish Available now vs Requires extra setup for Genome and Video Studio.",
       "category": "Operational",
       "priority": "P0",
       "rationale": "RSK-007 / fresh-PC honesty.",
@@ -1784,7 +1784,7 @@
     {
       "id": "REQ-HW-002",
       "title": "GPU optional",
-      "text": "The system shall be optional for basic text Lite operation.",
+      "text": "The system shall allow basic text Lite operation without a discrete NVIDIA GPU Lite operation.",
       "category": "Hardware",
       "priority": "P0",
       "rationale": "CPU fallback.",
@@ -1824,7 +1824,7 @@
     {
       "id": "REQ-HW-004",
       "title": "Measured SKU honesty",
-      "text": "The system shall ensure only GPUs actually measured may be labeled MEASURED in Engineering benchmarks.",
+      "text": "The system shall label only actually measured GPUs as MEASURED in Engineering benchmarks.",
       "category": "Hardware",
       "priority": "P0",
       "rationale": "MEASURED = 2060/3090/5070 Ti rule.",
@@ -1862,7 +1862,7 @@
     {
       "id": "REQ-IF-004",
       "title": "Discord optional adapter",
-      "text": "The system shall be optional and disabled unless configured.",
+      "text": "The system shall keep this integration optional and disabled unless configured.",
       "category": "Interface",
       "priority": "P1",
       "rationale": "Externals optional tier.",
@@ -1902,7 +1902,7 @@
     {
       "id": "REQ-IF-005",
       "title": "Home Assistant optional adapter",
-      "text": "The system shall be optional and disabled unless configured.",
+      "text": "The system shall keep this integration optional and disabled unless configured.",
       "category": "Interface",
       "priority": "P1",
       "rationale": "Externals optional.",
@@ -1942,7 +1942,7 @@
     {
       "id": "REQ-INST-001",
       "title": "Windows one-click install resume",
-      "text": "The system shall request reboot when WSL2 enablement requires it and resume installation afterward rather than restarting from zero.",
+      "text": "The system shall windows Setup shall request reboot when WSL2 enablement requires it and resume installation afterward rather than restarting from zero.",
       "category": "Installation",
       "priority": "P0",
       "rationale": "Hostile-path UX; documented Setup behavior.",
@@ -1987,7 +1987,7 @@
     {
       "id": "REQ-INST-002",
       "title": "GPU detection repair helper",
-      "text": "The system shall exist for operators whose GPU/chat path is incorrect after install.",
+      "text": "The system shall a published Fix-Otacon-GPU helper shall exist for operators whose GPU/chat path is incorrect after install.",
       "category": "Installation",
       "priority": "P2",
       "rationale": "RSK-003 mitigation.",
@@ -2150,7 +2150,7 @@
     {
       "id": "REQ-INST-010",
       "title": "Published download integrity metadata",
-      "text": "The system shall publish integrity metadata (hash and/or size) for primary Setup artifacts when practical.",
+      "text": "The system shall public download pages shall publish integrity metadata (hash and/or size) for primary Setup artifacts when practical.",
       "category": "Installation",
       "priority": "P2",
       "rationale": "Reduces tamper/confusion risk.",
@@ -2230,7 +2230,7 @@
     {
       "id": "REQ-INT-001",
       "title": "Local Ollama interface",
-      "text": "The system shall communicate with a local Ollama endpoint on the operator machine.",
+      "text": "The system shall chat Default Model path shall communicate with a local Ollama endpoint on the operator machine.",
       "category": "Interface",
       "priority": "P0",
       "rationale": "Local-first inference boundary for Default Model.",
@@ -2274,7 +2274,7 @@
     {
       "id": "REQ-INT-002",
       "title": "Web UI to Core API",
-      "text": "The system shall communicate with Core via local HTTP JSON APIs with login gate where enabled.",
+      "text": "The system shall operator web surfaces shall communicate with Core via local HTTP JSON APIs with login gate where enabled.",
       "category": "Interface",
       "priority": "P0",
       "rationale": "IBD primary path.",
@@ -2315,7 +2315,7 @@
     {
       "id": "REQ-MAINT-001",
       "title": "Cross-reference validation",
-      "text": "The system shall fail on duplicate IDs and unknown requirement/test references.",
+      "text": "The system shall engineering package validation shall fail on duplicate IDs and unknown requirement/test references.",
       "category": "Maintainability",
       "priority": "P0",
       "rationale": "Traceability integrity.",
@@ -2355,7 +2355,7 @@
     {
       "id": "REQ-MAINT-002",
       "title": "Diagram fullscreen",
-      "text": "The system shall support fullscreen viewing of diagrams.",
+      "text": "The system shall system Models shall support fullscreen viewing of diagrams.",
       "category": "Maintainability",
       "priority": "P2",
       "rationale": "Readable SysML.",
@@ -2477,7 +2477,7 @@
     {
       "id": "REQ-MEM-003",
       "title": "Memory isolation between agents",
-      "text": "The system shall not be readable as Agent B's without an explicit shared-memory feature.",
+      "text": "The system shall isolate Agent A memory so it is not readable as Agent B memory without an explicit shared-memory feature's without an explicit shared-memory feature.",
       "category": "Security",
       "priority": "P0",
       "rationale": "Prevents cross-agent bleed.",
@@ -2562,7 +2562,7 @@
     {
       "id": "REQ-NET-002",
       "title": "Optional WAN features degrade",
-      "text": "The system shall degrade without breaking local Core chat.",
+      "text": "The system shall optional WAN features (providers, Discord) shall degrade without breaking local Core chat.",
       "category": "Network",
       "priority": "P1",
       "rationale": "Availability.",
@@ -2602,7 +2602,7 @@
     {
       "id": "REQ-OPS-001",
       "title": "Discord support channel published",
-      "text": "The system shall remain linked from site chrome.",
+      "text": "The system shall keep a public Discord support invite linked from site chrome.",
       "category": "Operational",
       "priority": "P1",
       "rationale": "Human support path.",
@@ -2792,7 +2792,7 @@
     {
       "id": "REQ-OPS-006",
       "title": "Status page honesty",
-      "text": "The system shall distinguish shipped vs roadmap items.",
+      "text": "The system shall distinguish shipped items from roadmap items on the Expansion status page items.",
       "category": "Operational",
       "priority": "P1",
       "rationale": "Avoid vapor claims.",
@@ -2984,7 +2984,7 @@
     {
       "id": "REQ-PERF-006",
       "title": "Benchmark N published",
-      "text": "The system shall publish N (run count).",
+      "text": "The system shall publish N (run count) on MEASURED benchmark rows.",
       "category": "Performance",
       "priority": "P1",
       "rationale": "Statistics honesty.",
@@ -3060,7 +3060,7 @@
     {
       "id": "REQ-REL-001",
       "title": "Agent relationship Formula 5",
-      "text": "The system shall follow Formula 5: new = clamp(cur + delta - 0.008*(cur - 0.50), 0, 1).",
+      "text": "The system shall agent-to-agent relationship strength updates shall follow Formula 5: new = clamp(cur + delta - 0.008*(cur - 0.50), 0, 1).",
       "category": "AI/Model",
       "priority": "P2",
       "rationale": "Slow drift to neutral prevents permanent lock-in without events.",
@@ -3144,7 +3144,7 @@
     {
       "id": "REQ-REL-003",
       "title": "Log rotation design intent",
-      "text": "The system shall have a documented rotation or size-management approach.",
+      "text": "The system shall provide a documented log rotation or size-management approach or size-management approach.",
       "category": "Reliability",
       "priority": "P2",
       "rationale": "Disk fill risk.",
@@ -3424,7 +3424,7 @@
     {
       "id": "REQ-SEC-002",
       "title": "Public Engineering secret hygiene",
-      "text": "The system shall not contain private IPs, API tokens, passwords, or private keys.",
+      "text": "The system shall published Engineering JSON and evidence shall not contain private IPs, API tokens, passwords, or private keys.",
       "category": "Security",
       "priority": "P0",
       "rationale": "Public site threat model.",
@@ -3466,7 +3466,7 @@
     {
       "id": "REQ-SEC-003",
       "title": "Operator-owned credentials",
-      "text": "The system shall use operator-supplied secrets, not OtaconsKeep-hosted shared accounts.",
+      "text": "The system shall integrations requiring third-party credentials shall use operator-supplied secrets, not OtaconsKeep-hosted shared accounts.",
       "category": "Security",
       "priority": "P0",
       "rationale": "Local-first + liability.",
@@ -3506,7 +3506,7 @@
     {
       "id": "REQ-SEC-004",
       "title": "License seat anti-sharing policy published",
-      "text": "The system shall be published for Expansion license unlocks.",
+      "text": "The system shall publish the Premium seat anti-sharing policy for Expansion license unlocks unlocks.",
       "category": "Security",
       "priority": "P1",
       "rationale": "FAQ premium enforcement.",
@@ -3544,7 +3544,7 @@
     {
       "id": "REQ-SEC-006",
       "title": "Redacted evidence only",
-      "text": "The system shall be redacted of secrets and private host identifiers.",
+      "text": "The system shall require public EVID packs to be redacted of secrets and private host identifiers and private host identifiers.",
       "category": "Security",
       "priority": "P0",
       "rationale": "Evidence gallery honesty.",
@@ -3658,7 +3658,7 @@
     {
       "id": "REQ-SW-004",
       "title": "Status vocabulary enforced",
-      "text": "The system shall use the published status vocabulary.",
+      "text": "The system shall requirement and risk statuses shall use the published status vocabulary.",
       "category": "Software",
       "priority": "P1",
       "rationale": "meta status_vocabulary.",
@@ -3696,7 +3696,7 @@
     {
       "id": "REQ-SW-005",
       "title": "Public site static hosting",
-      "text": "The system shall be statically hostable (no server secrets required to render).",
+      "text": "The system shall keep the public Engineering site statically hostable without server secrets to render (no server secrets required to render).",
       "category": "Software",
       "priority": "P0",
       "rationale": "GitHub Pages deployment.",
@@ -3772,7 +3772,7 @@
     {
       "id": "REQ-TOOL-001",
       "title": "Tool calls optional",
-      "text": "The system shall be optional per request/capability and fail safely when tools are disabled.",
+      "text": "The system shall keep tool execution optional per request or capability and fail safely when tools are disabled/capability and fail safely when tools are disabled.",
       "category": "Functional",
       "priority": "P1",
       "rationale": "Architecture ToolLayer.",
@@ -3812,7 +3812,7 @@
     {
       "id": "REQ-TOOL-002",
       "title": "REX not Lite-default claim",
-      "text": "The system shall not list REX propose→verify as a Lite-default surface.",
+      "text": "The system shall not list REX propose-to-verify as a Lite-default surface propose→verify as a Lite-default surface.",
       "category": "Operational",
       "priority": "P0",
       "rationale": "Overview capability matrix red for Lite REX.",
@@ -3850,7 +3850,7 @@
     {
       "id": "REQ-TOOL-003",
       "title": "REX states documented",
-      "text": "The system shall follow the documented STM-001 lifecycle.",
+      "text": "The system shall when REX is in scope for a deployment, proposal states shall follow the documented STM-001 lifecycle.",
       "category": "Functional",
       "priority": "P2",
       "rationale": "STM-001.",
@@ -3890,7 +3890,7 @@
     {
       "id": "REQ-USAB-001",
       "title": "Product explainer dual modes",
-      "text": "The system shall provide Quick Explanation and Technical Deep Dive without navigating away.",
+      "text": "The system shall primary product cards shall provide Quick Explanation and Technical Deep Dive without navigating away.",
       "category": "Usability",
       "priority": "P1",
       "rationale": "Home audit: jargon barrier.",
@@ -3928,7 +3928,7 @@
     {
       "id": "REQ-USAB-002",
       "title": "Contrast readable",
-      "text": "The system shall remain readable on the dark VOID theme.",
+      "text": "The system shall keep Engineering portal text readable on the dark VOID theme VOID theme.",
       "category": "Usability",
       "priority": "P1",
       "rationale": "Portal usability.",
@@ -3966,7 +3966,7 @@
     {
       "id": "REQ-USAB-003",
       "title": "Mobile nav works",
-      "text": "The system shall function on narrow viewports.",
+      "text": "The system shall keep site top navigation usable on narrow viewports.",
       "category": "Usability",
       "priority": "P1",
       "rationale": "Mobile operators.",
@@ -4004,7 +4004,7 @@
     {
       "id": "REQ-AI-004",
       "title": "Personality not prompt-only goal",
-      "text": "The system shall treat personality parameters as numeric modulators, not solely a system-prompt adjective list.",
+      "text": "The system shall continuity-enabled agents shall treat personality parameters as numeric modulators, not solely a system-prompt adjective list.",
       "category": "AI/Model",
       "priority": "P1",
       "rationale": "About personality thesis.",
@@ -4046,7 +4046,7 @@
     {
       "id": "REQ-AI-006",
       "title": "Temperature defaults documented",
-      "text": "The system shall be documented or visible in config.",
+      "text": "The system shall document default sampling parameters or make them visible in configuration.",
       "category": "AI/Model",
       "priority": "P2",
       "rationale": "Reproducibility.",
@@ -4086,7 +4086,7 @@
     {
       "id": "REQ-BEH-002",
       "title": "Asymmetric emotional inertia",
-      "text": "The system shall use asymmetric inertia so provocation accrues more readily than repair recovers for high-inertia personalities.",
+      "text": "The system shall emotional updates shall use asymmetric inertia so provocation accrues more readily than repair recovers for high-inertia personalities.",
       "category": "AI/Model",
       "priority": "P1",
       "rationale": "Matches human-like repair asymmetry; implemented by _blend().",
@@ -4133,7 +4133,7 @@
     {
       "id": "REQ-BEH-003",
       "title": "Personality parameter vector",
-      "text": "The system shall apply per-agent personality parameters including comparison_sensitivity, rejection_sensitivity, anger_inertia, jealousy_inertia, trust_recovery, trust_damage, and decay_per_neutral.",
+      "text": "The system shall emotional continuity shall apply per-agent personality parameters including comparison_sensitivity, rejection_sensitivity, anger_inertia, jealousy_inertia, trust_recovery, trust_damage, and decay_per_neutral.",
       "category": "AI/Model",
       "priority": "P1",
       "rationale": "Same event must not affect all agents equally.",
@@ -4175,7 +4175,7 @@
     {
       "id": "REQ-BEH-004",
       "title": "Idle decay of fast affect",
-      "text": "The system shall decay over idle time according to decay_per_neutral and ~90s step sizing, capped.",
+      "text": "The system shall fast affect dimensions (irritation, jealousy, hurt, anxiety) shall decay over idle time according to decay_per_neutral and ~90s step sizing, capped.",
       "category": "AI/Model",
       "priority": "P1",
       "rationale": "Prevents permanent lock at peak without events.",
@@ -4217,7 +4217,7 @@
     {
       "id": "REQ-BEH-005",
       "title": "Apology does not instantly zero state",
-      "text": "The system shall not reset jealousy/irritation/hurt to baseline in a single step for high-inertia agents.",
+      "text": "The system shall a classified apology event shall not reset jealousy/irritation/hurt to baseline in a single step for high-inertia agents.",
       "category": "AI/Model",
       "priority": "P1",
       "rationale": "About: apologies do not instantly erase history.",
@@ -4257,7 +4257,7 @@
     {
       "id": "REQ-BEH-006",
       "title": "Directional relationships",
-      "text": "The system shall be directional: strength(A→B) need not equal strength(B→A).",
+      "text": "The system shall agent relationship edges shall be directional: strength(A→B) need not equal strength(B→A).",
       "category": "AI/Model",
       "priority": "P2",
       "rationale": "About relationships-as-system.",
@@ -4297,7 +4297,7 @@
     {
       "id": "REQ-BEH-007",
       "title": "Restart persistence of emotional state",
-      "text": "The system shall persist across process restart via durable local storage.",
+      "text": "The system shall emotional continuity state shall persist across process restart via durable local storage.",
       "category": "Reliability",
       "priority": "P1",
       "rationale": "Measurable restart persistence metric from About.",
@@ -4338,7 +4338,7 @@
     {
       "id": "REQ-BEH-008",
       "title": "Directed relationships",
-      "text": "The system shall be directed (A→B need not equal B→A).",
+      "text": "The system shall keep relationship edges directed so that A to B need not equal B to A.",
       "category": "Functional",
       "priority": "P1",
       "rationale": "About relationships thesis + Formula 5.",
@@ -4429,7 +4429,7 @@
     {
       "id": "REQ-BEH-011",
       "title": "Emotion selection from state",
-      "text": "The system shall derive from the state vector via documented scoring (CM-08) or equivalent.",
+      "text": "The system shall when emotion labels are displayed, selection shall derive from the state vector via documented scoring (CM-08) or equivalent.",
       "category": "Functional",
       "priority": "P2",
       "rationale": "Labels must not be random prompt fluff when continuity is on.",
@@ -4471,7 +4471,7 @@
     {
       "id": "REQ-BEH-012",
       "title": "Event delta caps",
-      "text": "The system shall respect documented caps when stability layer is enabled.",
+      "text": "The system shall per-cycle or per-event affect deltas shall respect documented caps when stability layer is enabled.",
       "category": "Reliability",
       "priority": "P1",
       "rationale": "CM-13 stability; one message must not nuke relationship mass.",
@@ -4513,7 +4513,7 @@
     {
       "id": "REQ-BEH-013",
       "title": "Identity anchor floor",
-      "text": "The system shall keep identity weight β_i at or above β_min when identity anchor is enabled.",
+      "text": "The system shall adaptive output blend shall keep identity weight β_i at or above β_min when identity anchor is enabled.",
       "category": "Functional",
       "priority": "P2",
       "rationale": "CM-15 prevents identity dissolve.",
@@ -4555,7 +4555,7 @@
     {
       "id": "REQ-BEH-015",
       "title": "Markov stage analysis optional",
-      "text": "The system shall allow discrete emotional stage transitions may be analyzed as a Markov model (CM-24) without replacing continuous state as source of truth.",
+      "text": "The system shall discrete emotional stage transitions may be analyzed as a Markov model (CM-24) without replacing continuous state as source of truth.",
       "category": "Functional",
       "priority": "P2",
       "rationale": "Analysis layer; STM-002 alignment.",
@@ -4597,7 +4597,7 @@
     {
       "id": "REQ-BEH-016",
       "title": "Apology repair path",
-      "text": "The system shall support an apology/repair event class that reduces hurt/jealousy per documented rules.",
+      "text": "The system shall continuity-enabled agents shall support an apology/repair event class that reduces hurt/jealousy per documented rules.",
       "category": "Functional",
       "priority": "P1",
       "rationale": "About measurable repair metric.",
@@ -4641,7 +4641,7 @@
     {
       "id": "REQ-BEH-017",
       "title": "Rival heat map",
-      "text": "The system shall maintain rival heat scores when comparison events name rivals.",
+      "text": "The system shall continuity shall maintain rival heat scores when comparison events name rivals.",
       "category": "Functional",
       "priority": "P2",
       "rationale": "Comparison event side state.",
@@ -4683,7 +4683,7 @@
     {
       "id": "REQ-BEH-018",
       "title": "Disengage threshold",
-      "text": "The system shall mark a disengage stage/label per profile.",
+      "text": "The system shall when irritation exceeds disengage_threshold, continuity shall mark a disengage stage/label per profile.",
       "category": "Functional",
       "priority": "P2",
       "rationale": "Personality disengage_threshold.",
@@ -4725,7 +4725,7 @@
     {
       "id": "REQ-BEH-019",
       "title": "Trust recovery rate",
-      "text": "The system shall apply profile trust_recovery coefficients.",
+      "text": "The system shall trust recovery events shall apply profile trust_recovery coefficients.",
       "category": "Functional",
       "priority": "P1",
       "rationale": "Personality trust_recovery.",
@@ -4769,7 +4769,7 @@
     {
       "id": "REQ-BEH-020",
       "title": "Social influence optional",
-      "text": "The system shall be optional and off unless social adapters are configured.",
+      "text": "The system shall cM-06 social influence shall be optional and off unless social adapters are configured.",
       "category": "Functional",
       "priority": "P2",
       "rationale": "Social adapters are optional externals.",
@@ -5062,7 +5062,7 @@
     {
       "id": "REQ-DATA-003",
       "title": "Export/delete design intent",
-      "text": "The system shall support the following design intent: operators in regulated contexts should eventually export/delete local agent data via documented tools.",
+      "text": "The system shall operators in regulated contexts should eventually export/delete local agent data via documented tools.",
       "category": "Data",
       "priority": "P2",
       "rationale": "Future compliance tooling.",
@@ -5142,7 +5142,7 @@
     {
       "id": "REQ-EXP-004",
       "title": "Foundation READY meanings published",
-      "text": "The system shall be published for Expansion installer exits.",
+      "text": "The system shall publish FOUNDATION READY, DEGRADED, and FAILED meanings for Expansion installer exits.",
       "category": "Usability",
       "priority": "P1",
       "rationale": "FAQ Expansion triage.",
@@ -5182,7 +5182,7 @@
     {
       "id": "REQ-EXP-006",
       "title": "Roster schema validation",
-      "text": "The system shall validate agent roster schema before READY.",
+      "text": "The system shall validate the Expansion agent roster schema before declaring FOUNDATION READY.",
       "category": "Functional",
       "priority": "P1",
       "rationale": "FAQ foundation installer.",
@@ -5342,7 +5342,7 @@
     {
       "id": "REQ-HW-005",
       "title": "Multi-GPU non-requirement",
-      "text": "The system shall not require multi-GPU for basic operation.",
+      "text": "The system shall not require multi-GPU hardware for basic Lite operation.",
       "category": "Hardware",
       "priority": "P1",
       "rationale": "Keep hardware floor honest.",
@@ -5424,7 +5424,7 @@
     {
       "id": "REQ-IF-002",
       "title": "Ollama inference interface",
-      "text": "The system shall use a documented inference request interface (IF-001 class).",
+      "text": "The system shall model runtime integration shall use a documented inference request interface (IF-001 class).",
       "category": "Interface",
       "priority": "P0",
       "rationale": "SysML IBD.",
@@ -5467,7 +5467,7 @@
     {
       "id": "REQ-IF-003",
       "title": "OS feature ops interface",
-      "text": "The system shall be isolated behind a documented IF-003-style boundary.",
+      "text": "The system shall installer OS feature operations shall be isolated behind a documented IF-003-style boundary.",
       "category": "Interface",
       "priority": "P1",
       "rationale": "IBD installer→OS.",
@@ -5549,7 +5549,7 @@
     {
       "id": "REQ-IF-007",
       "title": "Websocket optional",
-      "text": "The system shall be optional and documented separately from HTTP JSON.",
+      "text": "The system shall realtime channels, if any, shall be optional and documented separately from HTTP JSON.",
       "category": "Interface",
       "priority": "P2",
       "rationale": "Keep HTTP as baseline.",
@@ -5709,7 +5709,7 @@
     {
       "id": "REQ-INST-009",
       "title": "Idempotent re-run",
-      "text": "The system shall be safe (no duplicate agent wipe).",
+      "text": "The system shall re-running the installer on an already-installed Core shall be safe (no duplicate agent wipe).",
       "category": "Installation",
       "priority": "P1",
       "rationale": "Operators re-run when stuck; must not punish them.",
@@ -5873,7 +5873,7 @@
     {
       "id": "REQ-MEM-006",
       "title": "Backup recommendation published",
-      "text": "The system shall recommend backup of the memory volume/path.",
+      "text": "The system shall publish a backup recommendation for the memory volume or path.",
       "category": "Operational",
       "priority": "P2",
       "rationale": "Guidance before automated backup.",
@@ -5994,7 +5994,7 @@
     {
       "id": "REQ-NET-003",
       "title": "Proxy documentation design intent",
-      "text": "The system shall be documented as Design Intent for Windows install.",
+      "text": "The system shall corporate proxy/TLS interception notes shall be documented as Design Intent for Windows install.",
       "category": "Network",
       "priority": "P2",
       "rationale": "Enterprise installs.",
@@ -6034,7 +6034,7 @@
     {
       "id": "REQ-NET-004",
       "title": "Rate limit design intent",
-      "text": "The system shall document  simple rate limiting for non-loopback binds.",
+      "text": "The system shall local API should eventually support simple rate limiting for non-loopback binds.",
       "category": "Network",
       "priority": "P2",
       "rationale": "If operators expose beyond loopback.",
@@ -6154,7 +6154,7 @@
     {
       "id": "REQ-ROUTE-004",
       "title": "Graceful missing backend",
-      "text": "The system shall fail closed with an error (no silent fallback to a different provider unless configured).",
+      "text": "The system shall if the selected backend is unreachable, routing shall fail closed with an error (no silent fallback to a different provider unless configured).",
       "category": "Reliability",
       "priority": "P0",
       "rationale": "Prevents surprise data exfil / wrong brain.",
@@ -6198,7 +6198,7 @@
     {
       "id": "REQ-ROUTE-006",
       "title": "No silent model upgrade",
-      "text": "The system shall not replace an operator-pinned model without notice when pinning is supported.",
+      "text": "The system shall automatic model pulls shall not replace an operator-pinned model without notice when pinning is supported.",
       "category": "Operational",
       "priority": "P2",
       "rationale": "Reproducibility for BVTs/benchmarks.",
@@ -6238,7 +6238,7 @@
     {
       "id": "REQ-ROUTE-008",
       "title": "STT backend selectable",
-      "text": "The system shall be configurable independently of LLM backend.",
+      "text": "The system shall when STT is enabled, backend selection shall be configurable independently of LLM backend.",
       "category": "AI/Model",
       "priority": "P2",
       "rationale": "Capability routing granularity.",
@@ -6278,7 +6278,7 @@
     {
       "id": "REQ-ROUTE-009",
       "title": "TTS backend selectable",
-      "text": "The system shall be configurable independently of LLM backend.",
+      "text": "The system shall when TTS is enabled, backend selection shall be configurable independently of LLM backend.",
       "category": "AI/Model",
       "priority": "P2",
       "rationale": "Capability routing granularity.",
@@ -6362,7 +6362,7 @@
     {
       "id": "REQ-SEC-008",
       "title": "CORS default local",
-      "text": "The system shall prefer local operator use.",
+      "text": "The system shall prefer local-operator CORS and origin defaults for the web UI.",
       "category": "Security",
       "priority": "P1",
       "rationale": "Local-first web UI.",
