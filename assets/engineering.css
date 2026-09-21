@@ -1356,3 +1356,83 @@
 }
 
 .eng-math-flow li { margin: 0.45rem 0; }
+
+/* MBSE requirements table */
+.eng-req-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 0 0 12px;
+}
+
+.eng-req-level {
+  display: inline-block;
+  font: 800 0.72rem JetBrains Mono, monospace;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.eng-req-level[data-level="1"] {
+  color: #04130f;
+  background: var(--accent-bright);
+}
+
+.eng-req-level[data-level="2"] {
+  color: #1a1208;
+  background: #f0b429;
+}
+
+.eng-req-level[data-level="3"] {
+  color: #1a1020;
+  background: #c4b5fd;
+}
+
+.eng-req-table {
+  min-width: 1400px;
+}
+
+.eng-req-shall {
+  min-width: 280px;
+  max-width: 420px;
+  font-weight: 600;
+  color: var(--cream);
+  line-height: 1.4;
+}
+
+.eng-req-approach,
+.eng-req-rationale {
+  min-width: 180px;
+  max-width: 280px;
+  font-size: 0.8rem;
+  color: var(--cream-dim);
+  line-height: 1.35;
+}
+
+.eng-risk-lvl {
+  font: 700 0.72rem JetBrains Mono, monospace;
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.eng-risk-lvl[data-lvl="High"],
+.eng-risk-lvl[data-lvl="Critical"] {
+  color: #ef5f6b;
+  background: rgba(239, 95, 107, 0.15);
+}
+
+.eng-risk-lvl[data-lvl="Medium"] {
+  color: #f0b429;
+  background: rgba(240, 180, 41, 0.15);
+}
+
+.eng-risk-lvl[data-lvl="Low"],
+.eng-risk-lvl[data-lvl="Negligible"] {
+  color: #43d98a;
+  background: rgba(67, 217, 138, 0.12);
+}
+
+.eng-risk-lvl[data-lvl="None"] {
+  color: var(--cream-faint);
+}

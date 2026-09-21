@@ -376,21 +376,55 @@
  return '<div class="eng-card" tabindex="0"><h3>' + escapeHtml(title) + '</h3><p>' + escapeHtml(body) + '</p></div>';
  }
 
- function renderReqTable(root) {
- var rows = (state.data.requirements.requirements || []).filter(function (r) { return matchFilters(r.id + ' ' + r.title, r); });
- if (!rows.length) { root.innerHTML = empty('No requirements match filters.'); return; }
- root.innerHTML =
- '<p class="intro">Baseline ' + escapeHtml(state.data.requirements.baseline_id || '') +
- ', ' + escapeHtml(state.data.requirements.notes || '') + ' Click an ID for rationale, G/W/T acceptance, and planned vs executed verification.</p>' +
- '<div class="eng-table-wrap"><table class="eng-table" aria-label="System requirements">' +
- '<thead><tr><th>ID</th><th>Title</th><th>Category</th><th>Priority</th><th>Status</th><th>Verify</th><th>Planned</th><th>Executed</th></tr></thead><tbody>' +
- rows.map(function (r) {
- return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.title) + '</td><td>' + escapeHtml(r.category) +
- '</td><td>' + escapeHtml(r.priority) + '</td><td>' + statusHtml(r.status) + '</td><td>' +
- escapeHtml(r.verification_method) + '</td><td>' + escapeHtml(r.verification_planned || '-') +
- '</td><td>' + escapeHtml(r.verification_executed || '-') + '</td></tr>';
- }).join('') + '</tbody></table></div>';
- }
+  function renderReqTable(root) {
+    var pack = state.data.requirements;
+    var rows = (pack.requirements || []).filter(function (r) {
+      return matchFilters(r.id + ' ' + r.title + ' ' + r.text, r);
+    });
+    if (!rows.length) { root.innerHTML = empty('No requirements match filters.'); return; }
+    var legend =
+      '<div class="eng-req-legend">' +
+      '<span class="eng-req-level" data-level="1">L1 System</span>' +
+      '<span class="eng-req-level" data-level="2">L2 Subsystem</span>' +
+      '<span class="eng-req-level" data-level="3">L3 Component</span>' +
+      '<span class="intro" style="margin:0">MBSE / SysML shall-statements. Verified=Yes only with evidence.</span></div>';
+    root.innerHTML =
+      '<p class="intro"><strong>' + escapeHtml(pack.baseline_id || '') + '</strong> · ' +
+      escapeHtml(pack.methodology || 'MBSE / SysML requirements') + '</p>' +
+      '<p class="intro">' + escapeHtml(pack.notes || '') + ' Click an ID for full record (acceptance G/W/T, rationales).</p>' +
+      legend +
+      '<div class="eng-toolbar"><button type="button" class="eng-export" data-export="rtm">Export CSV</button></div>' +
+      '<div class="eng-table-wrap"><table class="eng-table eng-req-table" aria-label="System requirements">' +
+      '<thead><tr>' +
+      '<th>Level</th><th>ID</th><th>Title</th><th>Text (shall)</th><th>Category</th><th>Priority</th>' +
+      '<th>Verification method</th><th>Verification approach</th><th>Verified</th>' +
+      '<th>Planned</th><th>Executed</th><th>Risk</th><th>Risk level</th><th>Risk rationale</th>' +
+      '<th>Verification rationale</th>' +
+      '</tr></thead><tbody>' +
+      rows.map(function (r) {
+        var lvl = r.level || 2;
+        return '<tr data-level="' + lvl + '">' +
+          '<td><span class="eng-req-level" data-level="' + lvl + '">L' + lvl + '</span></td>' +
+          '<td>' + idBtn(r.id) + '</td>' +
+          '<td>' + escapeHtml(r.title) + '</td>' +
+          '<td class="eng-req-shall">' + escapeHtml(r.text) + '</td>' +
+          '<td>' + escapeHtml(r.category) + '</td>' +
+          '<td>' + escapeHtml(r.priority) + '</td>' +
+          '<td>' + escapeHtml(r.verification_method || '-') + '</td>' +
+          '<td class="eng-req-approach">' + escapeHtml(r.verification_approach || '-') + '</td>' +
+          '<td>' + (r.verified === 'Yes'
+            ? '<span class="eng-status" data-tone="ok">Yes</span>'
+            : '<span class="eng-status" data-tone="warn">No</span>') + '</td>' +
+          '<td>' + escapeHtml(r.verification_planned || '-') + '</td>' +
+          '<td>' + escapeHtml(r.verification_executed || '-') + '</td>' +
+          '<td>' + (r.risk && r.risk !== 'None' ? idBtn(r.risk) : 'None') + '</td>' +
+          '<td><span class="eng-risk-lvl" data-lvl="' + escapeHtml(String(r.risk_level || 'None')) + '">' +
+            escapeHtml(r.risk_level || 'None') + '</span></td>' +
+          '<td class="eng-req-rationale">' + escapeHtml(r.risk_rationale || '-') + '</td>' +
+          '<td class="eng-req-rationale">' + escapeHtml(r.verification_rationale || '-') + '</td>' +
+          '</tr>';
+      }).join('') + '</tbody></table></div>';
+  }
 
   function mathVarIcon(kind) {
     var icons = {
@@ -1155,7 +1189,7 @@
  '<button type="button" class="close" id="eng-drawer-close" aria-label="Close">Close</button>' +
  '<h2>' + escapeHtml(id) + '</h2>' +
  '<p style="color:var(--cream-dim);margin:0 0 8px;">Type: ' + escapeHtml(entry.type) + '</p>' +
- '<dl>' + Object.keys(r).map(function (k) {
+ '<dl>' + orderedKeys(r, entry.type).map(function (k) {
  var v = r[k];
  var display;
  if (Array.isArray(v)) display = v.map(function (x) {
@@ -1177,29 +1211,33 @@
  $('#eng-backdrop').classList.remove('open');
  }
 
- function exportCsv(kind) {
- var rows = [];
- if (kind === 'rtm' || kind === 'vcrm') {
- (state.data.requirements.requirements || []).forEach(function (r) {
- rows.push([r.id, r.title, (r.linked_architecture || []).join('|'), r.allocated_subsystem,
- r.verification_method, (r.linked_tests || []).join('|'), r.status]);
- });
- } else if (kind === 'risks') {
- (state.data.risks.risks || []).forEach(function (r) {
- rows.push([r.id, r.title, r.probability, r.severity, r.initial_risk, r.residual_risk, r.status, r.mitigation]);
- });
- } else if (kind === 'rtm-json') {
- downloadBlob(JSON.stringify(state.data.requirements, null, 2), 'requirements.json', 'application/json');
- return;
- }
- var csv = rows.map(function (r) {
- return r.map(function (c) {
- var s = String(c == null ? '' : c);
- return '"' + s.replace(/"/g, '""') + '"';
- }).join(',');
- }).join('\n');
- downloadBlob(csv, kind + '.csv', 'text/csv');
- }
+  function exportCsv(kind) {
+    var rows = [];
+    if (kind === 'rtm' || kind === 'vcrm') {
+      (state.data.requirements.requirements || []).forEach(function (r) {
+        rows.push([
+          r.level, r.id, r.title, r.text, r.category, r.priority,
+          r.verification_method, r.verification_approach, r.verified,
+          r.verification_planned, r.verification_executed,
+          r.risk, r.risk_level, r.risk_rationale, r.verification_rationale, r.status
+        ]);
+      });
+    } else if (kind === 'risks') {
+      (state.data.risks.risks || []).forEach(function (r) {
+        rows.push([r.id, r.title, r.probability, r.severity, r.initial_risk, r.residual_risk, r.status, r.mitigation]);
+      });
+    } else if (kind === 'rtm-json') {
+      downloadBlob(JSON.stringify(state.data.requirements, null, 2), 'requirements.json', 'application/json');
+      return;
+    }
+    var csv = rows.map(function (r) {
+      return r.map(function (c) {
+        var s = String(c == null ? '' : c);
+        return '"' + s.replace(/"/g, '""') + '"';
+      }).join(',');
+    }).join('\n');
+    downloadBlob(csv, kind + '.csv', 'text/csv');
+  }
 
  function downloadBlob(text, name, type) {
  var a = document.createElement('a');
