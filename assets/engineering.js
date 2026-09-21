@@ -387,214 +387,166 @@
  rows.map(function (r) {
  return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.title) + '</td><td>' + escapeHtml(r.category) +
  '</td><td>' + escapeHtml(r.priority) + '</td><td>' + statusHtml(r.status) + '</td><td>' +
- escapeHtml(r.verification_method) + '</td><td>' + escapeHtml(r.verification_planned || ', ') +
- '</td><td>' + escapeHtml(r.verification_executed || ', ') + '</td></tr>';
+ escapeHtml(r.verification_method) + '</td><td>' + escapeHtml(r.verification_planned || '-') +
+ '</td><td>' + escapeHtml(r.verification_executed || '-') + '</td></tr>';
  }).join('') + '</tbody></table></div>';
  }
 
- var mathMode = 'choose'; // choose | formal | simplified
+  function renderMathChapter(sec) {
+    var s = sec.simplified || {};
+    var html = '<article class="eng-math-chapter" id="' + escapeHtml(sec.id) + '">';
+    html += '<h3>' + escapeHtml(String(sec.number) + ') ' + sec.title) + '</h3>';
+    if (s.headline || sec.simple_explanation) {
+      html += '<p class="eng-math-q">Answers: <em>“' + escapeHtml(s.headline || sec.simple_explanation) + '”</em></p>';
+    }
 
- function renderMathChapterFormal(sec) {
- var html = '<article class="eng-math-chapter" id="' + escapeHtml(sec.id) + '">';
- html += '<h3>' + escapeHtml(String(sec.number) + ') ' + sec.title) + '</h3>';
- html += '<h4>Equation</h4>';
- (sec.katex || []).forEach(function (eq) {
- html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
- });
- if (sec.meaning) html += '<h4>Meaning</h4><p class="intro">' + escapeHtml(sec.meaning) + '</p>';
- if (sec.variables && sec.variables.length) {
- html += '<h4>Variables</h4><ul class="eng-math-vars">';
- sec.variables.forEach(function (v) {
- html += '<li><span class="mono">' + escapeHtml(v.sym) + '</span>: ' + escapeHtml(v.def) + '</li>';
- });
- html += '</ul>';
- }
- if (sec.why_this_logic) html += '<h4>Why this logic</h4><p class="intro">' + escapeHtml(sec.why_this_logic) + '</p>';
- if (sec.why_these_variables) html += '<h4>Why these variables</h4><p class="intro">' + escapeHtml(sec.why_these_variables) + '</p>';
- if (sec.psychology_theory_basis && sec.psychology_theory_basis.length) {
- html += '<h4>Psychology / theory basis</h4><ul style="color:var(--cream-dim)">';
- sec.psychology_theory_basis.forEach(function (p) { html += '<li>' + escapeHtml(p) + '</li>'; });
- html += '</ul>';
- }
- if (sec.simple_explanation) {
- html += '<h4>Core question</h4><p class="intro"><em>“' + escapeHtml(sec.simple_explanation) + '”</em></p>';
- }
- if (sec.summary_equation) {
- html += '<h4>Short summary equation</h4>';
- (sec.summary_equation.katex || []).forEach(function (eq) {
- html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
- });
- if (sec.summary_equation.meaning) html += '<p class="intro">' + escapeHtml(sec.summary_equation.meaning) + '</p>';
- if (sec.summary_equation.simple) html += '<p class="intro">' + escapeHtml(sec.summary_equation.simple) + '</p>';
- }
- html += '</article>';
- return html;
- }
+    html += '<h4>Equation</h4>';
+    (sec.katex || []).forEach(function (eq) {
+      html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
+    });
 
- function renderMathChapterSimplified(sec) {
- var s = sec.simplified || {};
- var html = '<article class="eng-math-chapter eng-math-simple" id="' + escapeHtml(sec.id) + '">';
- html += '<h3>' + escapeHtml(String(sec.number) + ') ' + sec.title) + '</h3>';
- if (s.headline) html += '<p class="eng-math-q">Question this answers: <em>“' + escapeHtml(s.headline) + '”</em></p>';
- html += '<h4>Equation (still shown, then explained)</h4>';
- (sec.katex || []).forEach(function (eq) {
- html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
- });
- if (s.plain_equation) html += '<p class="intro">' + escapeHtml(s.plain_equation) + '</p>';
- if (s.variables_explained && s.variables_explained.length) {
- html += '<h4>Every variable, in plain language</h4><ul class="eng-math-vars">';
- s.variables_explained.forEach(function (line) {
- html += '<li>' + escapeHtml(line) + '</li>';
- });
- html += '</ul>';
- }
- if (s.how_it_touches_agents) {
- html += '<h4>How this touches an agent</h4><p class="intro">' + escapeHtml(s.how_it_touches_agents) + '</p>';
- }
- if (s.how_it_works) {
- html += '<h4>How it works</h4><p class="intro">' + escapeHtml(s.how_it_works) + '</p>';
- }
- if (s.why_it_works) {
- html += '<h4>Why it was built this way</h4><p class="intro">' + escapeHtml(s.why_it_works) + '</p>';
- }
- if (s.how_put_together) {
- html += '<h4>How it fits the stack</h4><p class="intro">' + escapeHtml(s.how_put_together) + '</p>';
- }
- if (s.connects_to) {
- html += '<p class="intro eng-math-connect">' + escapeHtml(s.connects_to) + '</p>';
- }
- html += '</article>';
- return html;
- }
+    html += '<div class="eng-math-easy">';
+    html += '<p class="eng-math-easy-label">Plain-language explanation</p>';
+    if (s.plain_equation || sec.meaning) {
+      html += '<p>' + escapeHtml(s.plain_equation || ('In words: ' + sec.meaning)) + '</p>';
+    }
+    var varLines = s.variables_explained;
+    if ((!varLines || !varLines.length) && sec.variables && sec.variables.length) {
+      varLines = sec.variables.map(function (v) {
+        return (v.sym || '') + ' is ' + (v.def || '') + '.';
+      });
+    }
+    if (varLines && varLines.length) {
+      html += '<p><strong>Variables</strong></p><ul class="eng-math-vars">';
+      varLines.forEach(function (line) { html += '<li>' + escapeHtml(line) + '</li>'; });
+      html += '</ul>';
+    }
+    if (s.how_it_touches_agents) {
+      html += '<p><strong>How this touches an agent</strong></p><p>' + escapeHtml(s.how_it_touches_agents) + '</p>';
+    }
+    if (s.how_it_works || sec.why_this_logic) {
+      html += '<p><strong>How it works</strong></p><p>' + escapeHtml(s.how_it_works || sec.why_this_logic) + '</p>';
+    }
+    if (s.why_it_works) {
+      html += '<p><strong>Why it was built this way</strong></p><p>' + escapeHtml(s.why_it_works) + '</p>';
+    } else if (sec.psychology_theory_basis && sec.psychology_theory_basis.length) {
+      html += '<p><strong>Theory basis</strong></p><ul class="eng-math-vars">';
+      sec.psychology_theory_basis.forEach(function (p) { html += '<li>' + escapeHtml(p) + '</li>'; });
+      html += '</ul>';
+    }
+    if (s.how_put_together || sec.why_these_variables) {
+      html += '<p><strong>How it fits the stack</strong></p><p>' + escapeHtml(s.how_put_together || sec.why_these_variables) + '</p>';
+    }
+    if (s.connects_to) {
+      html += '<p class="eng-math-connect">' + escapeHtml(s.connects_to) + '</p>';
+    }
+    html += '</div>';
 
- function renderMath(root) {
- var m = state.data.math;
- if (!m) { root.innerHTML = empty(); return; }
- var html = '';
- html += '<p class="intro"><strong>' + escapeHtml(m.title || 'Continuity Model') + '</strong>';
- if (m.created_by) html += ' · Created by ' + escapeHtml(m.created_by);
- html += '</p>';
- html += '<p class="intro">' + escapeHtml(m.honesty) + '</p>';
+    if (sec.summary_equation) {
+      html += '<h4>Short summary</h4>';
+      (sec.summary_equation.katex || []).forEach(function (eq) {
+        html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
+      });
+      if (sec.summary_equation.meaning) html += '<p class="intro">' + escapeHtml(sec.summary_equation.meaning) + '</p>';
+      if (sec.summary_equation.simple) html += '<p class="intro">' + escapeHtml(sec.summary_equation.simple) + '</p>';
+    }
+    html += '</article>';
+    return html;
+  }
 
- html += '<div class="eng-math-mode" role="group" aria-label="Math reading mode">';
- html += '<p class="eng-math-mode-label">Choose how to read the Continuity Model</p>';
- html += '<div class="eng-math-mode-btns">';
- html += '<button type="button" class="eng-math-mode-btn' + (mathMode === 'formal' ? ' active' : '') +
- '" data-math-mode="formal">Mathematical explanation</button>';
- html += '<button type="button" class="eng-math-mode-btn' + (mathMode === 'simplified' ? ' active' : '') +
- '" data-math-mode="simplified">Simplified explanation</button>';
- html += '</div></div>';
+  function renderMath(root) {
+    var m = state.data.math;
+    if (!m) { root.innerHTML = empty(); return; }
+    var html = '';
+    html += '<p class="intro"><strong>' + escapeHtml(m.title || 'Continuity Model') + '</strong>';
+    if (m.created_by) html += ' · Created by ' + escapeHtml(m.created_by);
+    html += '</p>';
+    html += '<p class="intro">' + escapeHtml(m.honesty) + '</p>';
 
- if (mathMode === 'choose') {
- html += '<div class="eng-math-choose">';
- html += '<p class="intro">Pick a path. <strong>Mathematical</strong> keeps the formal write-up: equations, variable tables, theory basis. ';
- html += '<strong>Simplified</strong> keeps the same equations on screen, then explains every symbol, how each formula touches an agent during a Codec turn, why the form was chosen, and how the pieces connect.</p>';
- html += '<p class="intro">Runtime code today implements a subset (state vector, blend and decay, comparison events, Formula 5). The rest is design theory published for evidence completeness.</p>';
- html += '</div>';
- root.innerHTML = html;
- $all('[data-math-mode]', root).forEach(function (btn) {
- btn.addEventListener('click', function () {
- mathMode = btn.getAttribute('data-math-mode');
- renderMath(root);
- bindDynamic(root);
- });
- });
- return;
- }
+    if (m.simplified_intro) {
+      html += '<h3>' + escapeHtml(m.simplified_intro.title) + '</h3>';
+      (m.simplified_intro.body || []).forEach(function (p) {
+        html += '<p class="intro">' + escapeHtml(p) + '</p>';
+      });
+    }
 
- if (mathMode === 'simplified' && m.simplified_intro) {
- html += '<h3>' + escapeHtml(m.simplified_intro.title) + '</h3>';
- (m.simplified_intro.body || []).forEach(function (p) {
- html += '<p class="intro">' + escapeHtml(p) + '</p>';
- });
- }
+    if (m.rationale) {
+      html += '<h3>' + escapeHtml(m.rationale.title) + '</h3><ul style="color:var(--cream-dim)">';
+      (m.rationale.body || []).forEach(function (b) { html += '<li>' + escapeHtml(b) + '</li>'; });
+      html += '</ul>';
+      var j = m.rationale.core_logic_justification || {};
+      html += '<div class="eng-math-justify"><p><strong>Why multiplication:</strong> ' + escapeHtml(j.multiplication || '') + '</p>';
+      html += '<p><strong>Why summation:</strong> ' + escapeHtml(j.summation || '') + '</p>';
+      html += '<p><strong>Why decay:</strong> ' + escapeHtml(j.decay || '') + '</p>';
+      html += '<p><strong>Why bounded noise:</strong> ' + escapeHtml(j.bounded_noise || '') + '</p></div>';
+    }
 
- if (mathMode === 'formal') {
- html += '<div class="eng-callout-amber">Formal Continuity Model (CM-01…CM-25): equations, meaning, variables, rationale, psychology basis. Runtime mapping follows the chapters.</div>';
- if (m.rationale) {
- html += '<h3>' + escapeHtml(m.rationale.title) + '</h3><ul style="color:var(--cream-dim)">';
- (m.rationale.body || []).forEach(function (b) { html += '<li>' + escapeHtml(b) + '</li>'; });
- html += '</ul>';
- var j = m.rationale.core_logic_justification || {};
- html += '<div class="eng-math-justify"><p><strong>Why multiplication:</strong> ' + escapeHtml(j.multiplication || '') + '</p>';
- html += '<p><strong>Why summation:</strong> ' + escapeHtml(j.summation || '') + '</p>';
- html += '<p><strong>Why decay:</strong> ' + escapeHtml(j.decay || '') + '</p>';
- html += '<p><strong>Why bounded noise:</strong> ' + escapeHtml(j.bounded_noise || '') + '</p></div>';
- }
- if (m.manual_note) {
- html += '<blockquote class="eng-math-note">' + escapeHtml(m.manual_note) + '</blockquote>';
- }
- }
+    if (m.manual_note) {
+      html += '<blockquote class="eng-math-note">' + escapeHtml(m.manual_note) + '</blockquote>';
+    }
 
- html += '<h3>Table of contents</h3><ol class="eng-math-toc">';
- (m.toc || m.chapters || []).forEach(function (t) {
- var id = t.id || ('CM-' + String(t.number).padStart(2, '0'));
- html += '<li><a href="#' + escapeHtml(id) + '">' + escapeHtml(String(t.number || '') + '. ' + (t.title || '')) + '</a></li>';
- });
- html += '</ol>';
+    html += '<h3>Table of contents</h3><ol class="eng-math-toc">';
+    (m.toc || m.chapters || []).forEach(function (t) {
+      var id = t.id || ('CM-' + String(t.number).padStart(2, '0'));
+      html += '<li><a href="#' + escapeHtml(id) + '">' + escapeHtml(String(t.number || '') + '. ' + (t.title || '')) + '</a></li>';
+    });
+    html += '</ol>';
 
- (m.chapters || []).forEach(function (sec) {
- html += mathMode === 'simplified' ? renderMathChapterSimplified(sec) : renderMathChapterFormal(sec);
- });
+    html += '<p class="intro">Each section shows the generalized equation first, then the plain-language explanation immediately under it.</p>';
 
- if (mathMode === 'formal' && m.runtime_mapping) {
- html += '<h3 id="runtime-mapping">' + escapeHtml(m.runtime_mapping.title) + '</h3>';
- html += '<p class="intro">' + escapeHtml(m.runtime_mapping.note || '') + '</p>';
- (m.runtime_mapping.sections || []).forEach(function (sec) {
- html += '<h4 id="' + escapeHtml(sec.id) + '">' + escapeHtml(sec.title) + '</h4>';
- (sec.katex || []).forEach(function (eq) {
- html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
- });
- if (sec.notes) html += '<p class="intro">' + escapeHtml(sec.notes) + '</p>';
- });
- }
+    (m.chapters || []).forEach(function (sec) {
+      html += renderMathChapter(sec);
+    });
 
- if (mathMode === 'formal' && m.markov_or_notes) {
- html += '<h3>' + escapeHtml(m.markov_or_notes.title) + '</h3>';
- html += '<p class="intro">' + escapeHtml(m.markov_or_notes.body) + '</p>';
- }
+    html += '<h3>How the equations interact during a Codec turn</h3>';
+    html += '<ol class="eng-math-flow" style="color:var(--cream-dim)">';
+    html += '<li><strong>Identity and traits load</strong> (CM-01, CM-15). Dossier lines become weights; identity keeps a floor.</li>';
+    html += '<li><strong>Event arrives</strong> (CM-03, CM-12, CM-13). Inputs are normalized and capped, then turned into state deltas.</li>';
+    html += '<li><strong>State and relationships update</strong> (CM-04, CM-05, CM-07). Mood moves, bonds shift, residue carries forward, then decay pulls toward baseline.</li>';
+    html += '<li><strong>Memory and goals compete</strong> (CM-09, CM-18, CM-19, CM-22). Relevant memories score; goals get utilities; conflict resolution picks a dominant driver (CM-20).</li>';
+    html += '<li><strong>Reply assembles</strong> (CM-11, CM-16). Output mixes identity with adaptive continuity; quality can feed learning (CM-21).</li>';
+    html += '</ol>';
+    html += '<p class="intro">Social and device equations (CM-06, CM-10, CM-17) only join when those adapters are configured. Markov and OR views (CM-24, CM-25) are analysis and planning layers, not a replacement for the continuous state.</p>';
 
- if (mathMode === 'simplified') {
- html += '<h3>How the equations interact during a Codec turn</h3>';
- html += '<ol class="eng-math-flow" style="color:var(--cream-dim)">';
- html += '<li><strong>Identity and traits load</strong> (CM-01, CM-15). Dossier lines become weights; identity keeps a floor.</li>';
- html += '<li><strong>Event arrives</strong> (CM-03, CM-12, CM-13). Inputs are normalized and capped, then turned into state deltas.</li>';
- html += '<li><strong>State and relationships update</strong> (CM-04, CM-05, CM-07). Mood moves, bonds shift, residue carries forward, then decay pulls toward baseline.</li>';
- html += '<li><strong>Memory and goals compete</strong> (CM-09, CM-18, CM-19, CM-22). Relevant memories score; goals get utilities; conflict resolution picks a dominant driver (CM-20).</li>';
- html += '<li><strong>Reply assembles</strong> (CM-11, CM-16). Output mixes identity with adaptive continuity; quality can feed learning (CM-21).</li>';
- html += '</ol>';
- html += '<p class="intro">Social and device equations (CM-06, CM-10, CM-17) only join when those adapters are configured. Markov and OR views (CM-24, CM-25) are analysis and planning layers, not a replacement for the continuous state.</p>';
- }
+    if (m.runtime_mapping) {
+      html += '<h3 id="runtime-mapping">' + escapeHtml(m.runtime_mapping.title) + '</h3>';
+      html += '<p class="intro">' + escapeHtml(m.runtime_mapping.note || '') + '</p>';
+      (m.runtime_mapping.sections || []).forEach(function (sec) {
+        html += '<h4 id="' + escapeHtml(sec.id) + '">' + escapeHtml(sec.title) + '</h4>';
+        (sec.katex || []).forEach(function (eq) {
+          html += '<div class="eng-katex" data-katex="' + escapeHtml(eq) + '"></div>';
+        });
+        if (sec.notes) html += '<p class="intro">' + escapeHtml(sec.notes) + '</p>';
+      });
+    }
 
- html += '<h3>Worked numerical examples</h3>';
- (m.worked_examples || []).forEach(function (ex) {
- html += '<div class="eng-mock-card"><span class="eng-badge-mock">' + escapeHtml(ex.label || 'MOCK') + '</span> ' +
- '<strong>' + escapeHtml(ex.id) + '</strong>: ' + escapeHtml(ex.title) +
- '<pre class="eng-eq">' + escapeHtml(JSON.stringify({ initial: ex.initial, event: ex.event, steps: ex.steps, final: ex.final }, null, 2)) +
- '</pre><p class="intro">' + escapeHtml(ex.disclaimer || '') + '</p></div>';
- });
- if (m.pipeline) {
- html += '<h3>' + escapeHtml(m.pipeline.title) + '</h3><ol style="color:var(--cream-dim)">';
- (m.pipeline.steps || []).forEach(function (s) { html += '<li>' + escapeHtml(s) + '</li>'; });
- html += '</ol><p class="intro">Linked: ' + (m.pipeline.linked_models || []).map(idBtn).join(' ') +
- ' ' + idBtn(m.pipeline.linked_diagram) + '</p>';
- }
- html += '<h3>Measurable metrics and tests</h3><div class="eng-table-wrap"><table class="eng-table"><thead><tr><th>Metric</th><th>Test</th></tr></thead><tbody>';
- (m.measurable_metrics || []).forEach(function (row) {
- html += '<tr><td>' + escapeHtml(row.metric) + '</td><td>' + idBtn(row.test) + '</td></tr>';
- });
- html += '</tbody></table></div>';
- html += '<p class="intro"><a href="/about/#feeling">About: measurable emotion</a> · <a href="#behavioral">Behavioral Models</a></p>';
- root.innerHTML = html;
- typesetKatex(root);
- $all('[data-math-mode]', root).forEach(function (btn) {
- btn.addEventListener('click', function () {
- mathMode = btn.getAttribute('data-math-mode');
- renderMath(root);
- bindDynamic(root);
- });
- });
- }
+    if (m.markov_or_notes) {
+      html += '<h3>' + escapeHtml(m.markov_or_notes.title) + '</h3>';
+      html += '<p class="intro">' + escapeHtml(m.markov_or_notes.body) + '</p>';
+    }
+
+    html += '<h3>Worked numerical examples</h3>';
+    (m.worked_examples || []).forEach(function (ex) {
+      html += '<div class="eng-mock-card"><span class="eng-badge-mock">' + escapeHtml(ex.label || 'MOCK') + '</span> ' +
+        '<strong>' + escapeHtml(ex.id) + '</strong>: ' + escapeHtml(ex.title) +
+        '<pre class="eng-eq">' + escapeHtml(JSON.stringify({ initial: ex.initial, event: ex.event, steps: ex.steps, final: ex.final }, null, 2)) +
+        '</pre><p class="intro">' + escapeHtml(ex.disclaimer || '') + '</p></div>';
+    });
+    if (m.pipeline) {
+      html += '<h3>' + escapeHtml(m.pipeline.title) + '</h3><ol style="color:var(--cream-dim)">';
+      (m.pipeline.steps || []).forEach(function (s) { html += '<li>' + escapeHtml(s) + '</li>'; });
+      html += '</ol><p class="intro">Linked: ' + (m.pipeline.linked_models || []).map(idBtn).join(' ') +
+        ' ' + idBtn(m.pipeline.linked_diagram) + '</p>';
+    }
+    html += '<h3>Measurable metrics and tests</h3><div class="eng-table-wrap"><table class="eng-table"><thead><tr><th>Metric</th><th>Test</th></tr></thead><tbody>';
+    (m.measurable_metrics || []).forEach(function (row) {
+      html += '<tr><td>' + escapeHtml(row.metric) + '</td><td>' + idBtn(row.test) + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    html += '<p class="intro"><a href="/about/#feeling">About: measurable emotion</a> · <a href="#behavioral">Behavioral Models</a></p>';
+    root.innerHTML = html;
+    typesetKatex(root);
+  }
 
  function typesetKatex(root) {
  if (!window.katex) return;
@@ -679,12 +631,12 @@
  rows.forEach(function (r) {
  var badge = r.label === 'MEASURED' ? 'eng-badge-measured' : 'eng-badge-mock';
  html += '<tr><td>' + idBtn(r.id) + '</td><td><span class="' + badge + '">' + escapeHtml(r.label || '') +
- '</span></td><td>' + escapeHtml(r.series || r.class || ', ') + '</td><td>' + escapeHtml(r.gpu || r.hardware || ', ') +
- '</td><td>' + escapeHtml(r.vram || ', ') + '</td><td>' + escapeHtml(r.mean == null ? ', ' : String(r.mean)) +
+ '</span></td><td>' + escapeHtml(r.series || r.class || '-') + '</td><td>' + escapeHtml(r.gpu || r.hardware || '-') +
+ '</td><td>' + escapeHtml(r.vram || '-') + '</td><td>' + escapeHtml(r.mean == null ? ', ' : String(r.mean)) +
  '</td><td>' + escapeHtml(r.p95 == null ? ', ' : String(r.p95)) +
  '</td><td>' + escapeHtml(r.ttft_ms_mean == null ? ', ' : String(r.ttft_ms_mean)) +
  '</td><td>' + escapeHtml(String(r.n == null ? ', ' : r.n)) +
- '</td><td>' + escapeHtml(r.date || ', ') + '</td></tr>';
+ '</td><td>' + escapeHtml(r.date || '-') + '</td></tr>';
  });
  html += '</tbody></table></div>';
  html += '<p class="intro">' + escapeHtml(b.status || '') + '</p>';
@@ -829,17 +781,17 @@
  var tests = r.linked_tests || [];
  if (!tests.length) {
  return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.verification_method) +
- '</td><td>, </td><td>' + escapeHtml(r.verification_planned || ', ') +
- '</td><td>' + escapeHtml(r.verification_executed || ', ') +
+ '</td><td>, </td><td>' + escapeHtml(r.verification_planned || '-') +
+ '</td><td>' + escapeHtml(r.verification_executed || '-') +
  '</td><td>, </td><td>' + statusHtml('Verification Pending') +
  '</td><td>' + statusHtml(r.status) + '</td></tr>';
  }
  return tests.map(function (tid) {
  var t = state.index[tid] && state.index[tid].record || {};
  return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.verification_method) + '</td><td>' +
- idBtn(tid) + '</td><td>' + escapeHtml(r.verification_planned || t.procedure || ', ') +
- '</td><td>' + escapeHtml(r.verification_executed || t.execution_date || ', ') +
- '</td><td>' + ((t.evidence || []).map(idBtn).join(' ') || ', ') + '</td><td>' + statusHtml(t.result) +
+ idBtn(tid) + '</td><td>' + escapeHtml(r.verification_planned || t.procedure || '-') +
+ '</td><td>' + escapeHtml(r.verification_executed || t.execution_date || '-') +
+ '</td><td>' + ((t.evidence || []).map(idBtn).join(' ') || '-') + '</td><td>' + statusHtml(t.result) +
  '</td><td>' + statusHtml(t.result) + '</td></tr>';
  }).join('');
  }).join('') + '</tbody></table></div>';
@@ -882,7 +834,7 @@
  tests.map(function (t) {
  return '<tr><td>' + idBtn(t.id) + '</td><td>' + escapeHtml(t.title) + '</td><td>' + escapeHtml(t.class) +
  '</td><td>' + (t.requirements || []).map(idBtn).join(' ') + '</td><td>' + statusHtml(t.result) +
- '</td><td>' + ((t.evidence || []).map(idBtn).join(' ') || ', ') + '</td></tr>';
+ '</td><td>' + ((t.evidence || []).map(idBtn).join(' ') || '-') + '</td></tr>';
  }).join('') + '</tbody></table></div>';
  }
 
@@ -915,15 +867,15 @@
  '<h3>' + idBtn(r.id) + ' ' + escapeHtml(r.title) + ' ' + statusHtml(r.status) + '</h3>' +
  '<p><strong>Scenario:</strong> ' + escapeHtml(r.scenario || r.description) + '</p>' +
  '<p><strong>Cause chain:</strong> ' + escapeHtml((r.cause_chain || [r.cause]).join(' → ')) + '</p>' +
- '<p><strong>Detection:</strong> ' + escapeHtml((r.detection || []).join('; ') || ', ') + '</p>' +
+ '<p><strong>Detection:</strong> ' + escapeHtml((r.detection || []).join('; ') || '-') + '</p>' +
  '<p><strong>Mitigation strategy</strong></p><ul style="color:var(--cream-dim);font-size:0.88rem">' +
- '<li>Prevent: ' + escapeHtml((steps.prevent || []).join('; ') || ', ') + '</li>' +
- '<li>Detect: ' + escapeHtml((steps.detect || []).join('; ') || ', ') + '</li>' +
- '<li>Respond: ' + escapeHtml((steps.respond || []).join('; ') || ', ') + '</li>' +
- '<li>Recover: ' + escapeHtml((steps.recover || []).join('; ') || ', ') + '</li></ul>' +
+ '<li>Prevent: ' + escapeHtml((steps.prevent || []).join('; ') || '-') + '</li>' +
+ '<li>Detect: ' + escapeHtml((steps.detect || []).join('; ') || '-') + '</li>' +
+ '<li>Respond: ' + escapeHtml((steps.respond || []).join('; ') || '-') + '</li>' +
+ '<li>Recover: ' + escapeHtml((steps.recover || []).join('; ') || '-') + '</li></ul>' +
  '<p><strong>Residual:</strong> P' + r.residual_probability + '×S' + r.residual_severity +
  '=' + r.residual_risk + ', ' + escapeHtml(r.residual_rationale || '') + '</p>' +
- '<p><strong>Owner / review:</strong> ' + escapeHtml(r.owner || ', ') + ' / ' + escapeHtml(r.review_date || ', ') + '</p>' +
+ '<p><strong>Owner / review:</strong> ' + escapeHtml(r.owner || '-') + ' / ' + escapeHtml(r.review_date || '-') + '</p>' +
  (road ? '<p><strong>Roadmap</strong></p><ul style="color:var(--cream-dim);font-size:0.88rem">' + road + '</ul>' : '') +
  '<p>Links: ' + (r.linked_requirements || []).map(idBtn).join(' ') + ' ' +
  (r.linked_tests || []).map(idBtn).join(' ') + '</p></article>';
