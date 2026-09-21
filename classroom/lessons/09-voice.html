@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classroom 09: Local voice: Assist, Wyoming, Linux Voice Assistant · Otaconskeep</title>
+<meta name="description" content="Keep Whisper/Piper. Move satellites off archived wyoming-satellite.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/lessons/09-voice.html">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../classroom.css?v=20260921a">
+</head>
+<body>
+<div class="filebar"><div class="wrap"><span>CLASSROOM // LESSON 09</span><span>TRACK // VOICE<span class="blink"></span></span></div></div>
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Curriculum</a>
+ <a href="/classroom/lessons/01-start-here.html">01 Start</a>
+ <a href="/classroom/lessons/02-folders-hardlinks.html">02 Folders</a>
+ <a href="/classroom/lessons/03-downloaders.html">03 Downloaders</a>
+ <a href="/classroom/lessons/04-arr-apps.html">04 ARR apps</a>
+ <a href="/classroom/lessons/05-recyclarr.html">05 Recyclarr</a>
+ <a href="/classroom/lessons/06-media-servers.html">06 Media</a>
+ <a href="/classroom/lessons/07-home-assistant.html">07 Home Assistant</a>
+ <a href="/classroom/lessons/08-devices-mesh.html">08 Devices</a>
+ <a href="/classroom/lessons/09-voice.html">09 Voice</a>
+ </div>
+</nav>
+<div class="wrap">
+ <section class="hero flush">
+ <p class="tag">Lesson 09 · Voice</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Local voice: Assist, Wyoming, Linux Voice Assistant</h1>
+ <p class="lede">Fully local voice is real in 2026. Understand the pipeline, validate one layer at a time, and use the modern satellite path.</p>
+ </section>
+ <div class="cr-step">
+ <h3>The voice pipeline</h3>
+ <p class="cr-body">Microphone → wake word → speech-to-text → conversation/intent/LLM → text-to-speech → speaker.</p>
+ <div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Hear → notice your name → turn speech into text → decide what you meant → talk back out the speaker. Five stations on an assembly line.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Official Home Assistant Assist + fully local voice assistant guide.</div>
+</div>
+<div class="cr-step">
+ <h3>Wyoming services still matter</h3>
+ <p class="cr-body">Wyoming Protocol is still the bridge for Whisper, Piper, Speech-to-Phrase, openWakeWord — including running heavy STT/TTS on another LAN machine/GPU.</p>
+ <div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Wyoming is the radio cable between Home Assistant and the big listening/talking computers. That cable is not dead.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Great layout: satellites on the edge; Whisper/Piper on a powerful box; HA in the middle.</div>
+</div>
+<div class="cr-step">
+ <h3>wyoming-satellite is legacy — use Linux Voice Assistant</h3>
+ <p class="cr-body">rhasspy/wyoming-satellite was archived 2026-01-27. Replacement: OHF Linux Voice Assistant using the ESPHome protocol (timers, media player, stop wake listening, continued conversation). Install via HA OS App, Pi image, Docker, or systemd. It appears in HA through ESPHome. STT/TTS can still be Wyoming.</p>
+ <div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Old Pi satellite software retired. New satellite software talks the ESPHome way Home Assistant prefers now — while Whisper and Piper can stay on Wyoming.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> <div class="cr-flow">OLD: Pi → wyoming-satellite → HA<br><span class="hi">NEW: Pi → Linux Voice Assistant → ESPHome protocol → HA</span><br>Whisper / Piper may still be Wyoming services</div>Study: OHF Linux Voice Assistant on GitHub.</div>
+</div>
+<div class="cr-step">
+ <h3>Wake words: validate layers apart</h3>
+ <p class="cr-body">Start with a known wake word like “ok nabu.” Do not debug custom wake word + mic + Whisper + intent + Piper + speaker all at once.</p>
+ <div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Fix one station on the assembly line before you rebuild all five. Otherwise you never know which station jammed.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> HA enable wake word + customize wake word guides. Everything Smart Home’s Voice Preview Edition videos are a latency/behavior reference. Piper+Whisper walkthrough videos help once HA Assist already works with push-to-talk.</div>
+</div>
+ <div class="cr-refs"><h3>Read next / sources</h3><ul><li><a href="https://www.home-assistant.io/voice_control/" target="_blank" rel="noopener">HA Assist</a></li><li><a href="https://www.home-assistant.io/integrations/wyoming/" target="_blank" rel="noopener">Wyoming Protocol</a></li><li><a href="https://github.com/OHF-Voice/linux-voice-assistant" target="_blank" rel="noopener">Linux Voice Assistant</a></li></ul></div>
+ <div class="cr-pager"><a href="08-devices-mesh.html">← 08 ESPHome, Zigbee, Matter &amp; Thread</a><a href="/classroom/">Back to curriculum</a></div>
+</div>
+<footer class="sitefoot"><div class="wrap"><span>Otaconskeep Classroom</span><span><a href="https://github.com/Otaconskeep/Classroom">github.com/Otaconskeep/Classroom</a></span></div></footer>
+<script src="../classroom.js?v=20260921a"></script>
+</body></html>

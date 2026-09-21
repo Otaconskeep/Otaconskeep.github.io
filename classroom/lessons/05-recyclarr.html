@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classroom 05: Recyclarr and TRaSH profiles · Otaconskeep</title>
+<meta name="description" content="Stop hand-scoring hundreds of Custom Formats.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/lessons/05-recyclarr.html">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../classroom.css?v=20260921a">
+</head>
+<body>
+<div class="filebar"><div class="wrap"><span>CLASSROOM // LESSON 05</span><span>TRACK // ARR CALIBRATION<span class="blink"></span></span></div></div>
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Curriculum</a>
+ <a href="/classroom/lessons/01-start-here.html">01 Start</a>
+ <a href="/classroom/lessons/02-folders-hardlinks.html">02 Folders</a>
+ <a href="/classroom/lessons/03-downloaders.html">03 Downloaders</a>
+ <a href="/classroom/lessons/04-arr-apps.html">04 ARR apps</a>
+ <a href="/classroom/lessons/05-recyclarr.html">05 Recyclarr</a>
+ <a href="/classroom/lessons/06-media-servers.html">06 Media</a>
+ <a href="/classroom/lessons/07-home-assistant.html">07 Home Assistant</a>
+ <a href="/classroom/lessons/08-devices-mesh.html">08 Devices</a>
+ <a href="/classroom/lessons/09-voice.html">09 Voice</a>
+ </div>
+</nav>
+<div class="wrap">
+ <section class="hero flush">
+ <p class="tag">Lesson 05 · ARR calibration</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Recyclarr and TRaSH profiles</h1>
+ <p class="lede">TRaSH Custom Formats and quality profiles are the source of truth. Recyclarr syncs them on a schedule from Git-controlled YAML.</p>
+ </section>
+ <div class="cr-step">
+ <h3>Do not invent scores by hand</h3>
+ <p class="cr-body">Use TRaSH Radarr/Sonarr Custom Format libraries and quality profile guides. There is no single universal “best” profile — resolution, HDR, devices, storage, and bandwidth matter.</p>
+ <div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Custom Formats are grading rubrics. TRaSH already wrote good rubrics. Copying homework from the maintained book beats inventing grades at midnight.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> <ul><li>Typical homelab set: WEB 1080p TV · WEB/UHD premium TV · Anime profile · HD Bluray+WEB movies · UHD movies · efficient 1080p for kids/background</li><li>Sync tools TRaSH recognizes: Recyclarr, Notifiarr, Configarr, Clonarr</li></ul></div>
+</div>
+<div class="cr-step">
+ <h3>Recyclarr as your sync engine</h3>
+ <p class="cr-body">Prefer Git-controlled Recyclarr YAML → scheduled sync → Sonarr/Radarr. That is reproducible. Clonarr/Notifiarr GUIs exist if you want a browser UI.</p>
+ <div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Recyclarr is the robot that updates the grading rubrics for you every week so you do not click 150 checkboxes again.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Read Recyclarr docs. Store YAML in git. Start with one profile per library, sync, test a grab, then expand.</div>
+</div>
+<div class="cr-step">
+ <h3>Watch a visual explanation once</h3>
+ <p class="cr-body">IBRACORP’s TRaSH profile videos still help you see what scores do in the UI. Then come back to TRaSH text as the living source.</p>
+ <div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Watch once to understand the picture. Keep the book for the numbers that change over time.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Search IBRACORP TRaSH / Custom Formats on YouTube for the visual walkthrough and follow-up.</div>
+</div>
+ <div class="cr-refs"><h3>Read next / sources</h3><ul><li><a href="https://recyclarr.dev/" target="_blank" rel="noopener">Recyclarr documentation</a></li><li><a href="https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/" target="_blank" rel="noopener">TRaSH Radarr Custom Formats</a></li><li><a href="https://trash-guides.info/Sonarr/" target="_blank" rel="noopener">TRaSH Sonarr Quality Profiles</a></li></ul></div>
+ <div class="cr-pager"><a href="04-arr-apps.html">← 04 Prowlarr, Sonarr, Radarr, Lidarr</a><a href="06-media-servers.html">06 Plex, Jellyfin, and library tools →</a></div>
+</div>
+<footer class="sitefoot"><div class="wrap"><span>Otaconskeep Classroom</span><span><a href="https://github.com/Otaconskeep/Classroom">github.com/Otaconskeep/Classroom</a></span></div></footer>
+<script src="../classroom.js?v=20260921a"></script>
+</body></html>

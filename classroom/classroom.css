@@ -1,0 +1,255 @@
+/* Classroom — teaching UI */
+:root {
+  --cr-mean: #8db3d9;
+  --cr-more: #39e6c8;
+}
+
+.cr-subnav {
+  position: sticky;
+  top: 52px;
+  z-index: 15;
+  background: rgba(9, 12, 17, 0.94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+}
+.cr-subnav .wrap {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 24px;
+  scrollbar-width: thin;
+}
+.cr-subnav a {
+  flex: 0 0 auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cream-dim);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+.cr-subnav a:hover,
+.cr-subnav a.is-active {
+  color: var(--accent-bright);
+  border-color: var(--accent-dim);
+  background: rgba(57, 230, 200, 0.06);
+}
+
+.cr-track {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0;
+}
+.cr-lesson-card {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.cr-lesson-card:hover {
+  border-color: var(--accent-dim);
+  background: var(--surface-2);
+}
+.cr-lesson-card .num {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--accent-bright);
+  text-align: center;
+}
+.cr-lesson-card h3 {
+  font-size: 1.05rem;
+  margin: 0 0 4px;
+  color: var(--cream);
+}
+.cr-lesson-card p {
+  margin: 0;
+  color: var(--cream-dim);
+  font-size: 0.92rem;
+}
+.cr-lesson-card .go {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+}
+@media (max-width: 640px) {
+  .cr-lesson-card { grid-template-columns: 40px 1fr; }
+  .cr-lesson-card .go { display: none; }
+}
+
+.cr-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+@media (max-width: 800px) {
+  .cr-pillars { grid-template-columns: 1fr; }
+}
+.cr-pillar {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 16px;
+  background: var(--surface);
+  border-top: 3px solid var(--accent);
+}
+.cr-pillar h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  margin-bottom: 8px;
+}
+.cr-pillar p { margin: 0; color: var(--cream-dim); font-size: 0.95rem; }
+
+.cr-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 28px 0 8px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.cr-pager a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cream-dim);
+  border: 1px solid var(--line-bright);
+  border-radius: 4px;
+  padding: 10px 14px;
+}
+.cr-pager a:hover { color: var(--accent-bright); border-color: var(--accent); }
+
+.cr-step {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 18px 18px 14px;
+  margin: 16px 0;
+}
+.cr-step h3 {
+  font-size: 1.15rem;
+  margin: 0 0 8px;
+  color: var(--cream);
+}
+.cr-step > .cr-body {
+  color: var(--cream-dim);
+  margin: 0 0 12px;
+  font-size: 1.02rem;
+}
+.cr-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.cr-btn {
+  font-family: 'Figtree', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid var(--line-bright);
+}
+.cr-btn[data-cr="mean"] { border-color: color-mix(in srgb, var(--cr-mean) 55%, var(--line)); color: var(--cr-mean); }
+.cr-btn[data-cr="more"] { border-color: color-mix(in srgb, var(--cr-more) 55%, var(--line)); color: var(--cr-more); }
+.cr-btn[aria-expanded="true"] {
+  background: rgba(57, 230, 200, 0.08);
+}
+.cr-btn[data-cr="mean"][aria-expanded="true"] {
+  background: rgba(141, 179, 217, 0.12);
+}
+.cr-panel {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: 6px;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+.cr-panel[hidden] { display: none !important; }
+.cr-panel.mean {
+  background: rgba(141, 179, 217, 0.1);
+  border: 1px solid rgba(141, 179, 217, 0.35);
+  color: var(--cream);
+}
+.cr-panel.more {
+  background: rgba(57, 230, 200, 0.07);
+  border: 1px solid rgba(57, 230, 200, 0.28);
+  color: var(--cream-dim);
+}
+.cr-panel.mean strong { color: #9ec4ef; }
+.cr-panel.more strong { color: var(--accent-bright); }
+.cr-panel ul { margin: 8px 0 0; padding-left: 1.2rem; }
+.cr-panel li { margin-bottom: 6px; }
+
+.cr-tree {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  color: var(--cream);
+  margin: 12px 0;
+}
+.cr-callout {
+  border-left: 4px solid var(--warn);
+  background: rgba(224, 168, 60, 0.08);
+  padding: 12px 16px;
+  border-radius: 0 6px 6px 0;
+  margin: 16px 0;
+  color: var(--cream);
+}
+.cr-callout.tip {
+  border-left-color: var(--accent-bright);
+  background: rgba(57, 230, 200, 0.07);
+}
+.cr-refs {
+  margin-top: 22px;
+  padding: 16px;
+  border: 1px dashed var(--line-bright);
+  border-radius: 6px;
+}
+.cr-refs h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+  margin-bottom: 10px;
+}
+.cr-refs ul { margin: 0; padding-left: 1.15rem; color: var(--cream-dim); }
+.cr-refs li { margin-bottom: 6px; }
+
+.cr-flow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--cream-dim);
+  margin: 14px 0;
+  line-height: 1.8;
+}
+.cr-flow .hi { color: var(--accent-bright); font-weight: 700; }

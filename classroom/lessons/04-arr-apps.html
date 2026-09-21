@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classroom 04: Prowlarr, Sonarr, Radarr, Lidarr · Otaconskeep</title>
+<meta name="description" content="One indexer brain. Separate anime from normal TV.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/lessons/04-arr-apps.html">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="stylesheet" href="../classroom.css?v=20260921a">
+</head>
+<body>
+<div class="filebar"><div class="wrap"><span>CLASSROOM // LESSON 04</span><span>TRACK // ARR APPS<span class="blink"></span></span></div></div>
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Curriculum</a>
+ <a href="/classroom/lessons/01-start-here.html">01 Start</a>
+ <a href="/classroom/lessons/02-folders-hardlinks.html">02 Folders</a>
+ <a href="/classroom/lessons/03-downloaders.html">03 Downloaders</a>
+ <a href="/classroom/lessons/04-arr-apps.html">04 ARR apps</a>
+ <a href="/classroom/lessons/05-recyclarr.html">05 Recyclarr</a>
+ <a href="/classroom/lessons/06-media-servers.html">06 Media</a>
+ <a href="/classroom/lessons/07-home-assistant.html">07 Home Assistant</a>
+ <a href="/classroom/lessons/08-devices-mesh.html">08 Devices</a>
+ <a href="/classroom/lessons/09-voice.html">09 Voice</a>
+ </div>
+</nav>
+<div class="wrap">
+ <section class="hero flush">
+ <p class="tag">Lesson 04 · ARR apps</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Prowlarr, Sonarr, Radarr, Lidarr</h1>
+ <p class="lede">Prowlarr owns indexers. Sonarr/Radarr/Lidarr own libraries. Keep anime on its own TRaSH-aware profile path (Sonarr v4).</p>
+ </section>
+ <div class="cr-step">
+ <h3>Prowlarr is the indexer hub</h3>
+ <p class="cr-body">Add indexers once in Prowlarr and sync apps. Do not maintain separate indexer lists inside every ARR app.</p>
+ <div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Prowlarr is the shared phone book. Sonarr and Radarr call the same book instead of each keeping a messy paper copy.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> <div class="cr-flow">Prowlarr → Sonarr / Radarr / Lidarr → qBittorrent / SABnzbd → /data/media → Plex / Jellyfin</div></div>
+</div>
+<div class="cr-step">
+ <h3>Sonarr + Radarr basics</h3>
+ <p class="cr-body">Connect download clients with the category paths from Lesson 03. Point root folders at /data/media/tv and /data/media/movies. Confirm hardlink/atomic-move settings after the shared /data mount is correct.</p>
+ <div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Tell each librarian which shelf is theirs and which mail slot brings new books. If the shelf path is wrong, they file copies in the wrong room.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Official Servarr wiki for each app. Verify a test import creates a hardlink (same inode) on Linux when using torrents.</div>
+</div>
+<div class="cr-step">
+ <h3>Anime is not normal TV</h3>
+ <p class="cr-body">Use TRaSH’s dedicated Sonarr Anime configuration. Do not blindly merge anime into your normal WEB-1080p TV profile. Sonarr v4 is required for current anime guide material.</p>
+ <div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Anime naming and release groups play by different rules. Mixing them with normal shows is like filing comic books using a cookbook index.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> TRaSH Sonarr Anime Profile. Keep a separate category and folder under /data/.../anime.</div>
+</div>
+ <div class="cr-refs"><h3>Read next / sources</h3><ul><li><a href="https://trash-guides.info/Prowlarr/" target="_blank" rel="noopener">TRaSH Prowlarr</a></li><li><a href="https://trash-guides.info/Sonarr/" target="_blank" rel="noopener">TRaSH Sonarr</a></li><li><a href="https://trash-guides.info/Radarr/" target="_blank" rel="noopener">TRaSH Radarr</a></li></ul></div>
+ <div class="cr-pager"><a href="03-downloaders.html">← 03 qBittorrent, SABnzbd, and Gluetun</a><a href="05-recyclarr.html">05 Recyclarr and TRaSH profiles →</a></div>
+</div>
+<footer class="sitefoot"><div class="wrap"><span>Otaconskeep Classroom</span><span><a href="https://github.com/Otaconskeep/Classroom">github.com/Otaconskeep/Classroom</a></span></div></footer>
+<script src="../classroom.js?v=20260921a"></script>
+</body></html>

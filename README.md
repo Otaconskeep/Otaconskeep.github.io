@@ -28,6 +28,7 @@ keepdesk/ Keep Desk (Watch the Deck)
 keeproute/ KeepRoute 1.0
 expansion/ Expansion (honest fresh-PC status)
 ai9/ AI9 Manga Colorizer
+ classroom/           ARR + Home Automation Classroom
 cloud/ Redirect → Keep Desk vs-cloud
 premium/ Member HQ
 assets/ Shared CSS/JS/media
