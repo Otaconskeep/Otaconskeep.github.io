@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Class 1 — Proxmox, VMs, and LXC · Classroom</title>
-<meta name="description" content="Proxmox, VMs, and LXC">
+<title>Class 1 — VMs, hypervisors, and Proxmox · Classroom</title>
+<meta name="description" content="VMs, hypervisors, and Proxmox">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/classes/01.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921g">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921h">
 </head>
 <body>
 
@@ -57,7 +57,7 @@
  <section class="hero flush">
  <div class="stamp">CLASS 01<small>unit 1 · infrastructure</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
- <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Proxmox, VMs, and LXC</h1>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">VMs, hypervisors, and Proxmox</h1>
  <p class="lede">Guided lab, break/fix, quiz, and practical gate. Prefer current official docs linked in References.</p>
  </section>
 </div>
@@ -71,12 +71,12 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><p>You will learn how one physical computer can host multiple isolated systems, what Proxmox manages, how VMs differ from LXC system containers, how virtual storage and networking work, and why the course places Docker inside a Linux VM.</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>You will understand what a virtual machine really is (a full computer living inside another computer), why hypervisors exist, the difference between Type 2 (app-on-your-OS) and Type 1 (OS replaced by the hypervisor), and how to stand up a safe practice box without risking your daily desktop. You will also learn how VMs differ from LXC, how storage and networking attach to guests, and why this Academy puts Docker inside a Linux VM later.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: You will learn how one physical computer can host multiple isolated systems, what Proxmox manages, how VMs differ from LXC system containers, how virtual sto…</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A hypervisor creates and runs virtual machines. Type 2 sits on your OS; Type 1 sits on the hardware.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
@@ -96,43 +96,63 @@
 <tbody>
 <tr>
 <td>Host</td>
-<td>Physical server running the hypervisor</td>
+<td>The real machine (or OS) that owns the hardware</td>
 </tr>
 <tr>
 <td>Guest</td>
-<td>VM or container managed by the host</td>
+<td>A VM or container that thinks it is “the” computer</td>
 </tr>
 <tr>
 <td>Hypervisor</td>
-<td>Platform that creates and schedules virtual computers</td>
+<td>Software that creates fake hardware and schedules guests</td>
+</tr>
+<tr>
+<td>Type 2 hypervisor</td>
+<td>App installed on Windows/macOS/Linux (example: VirtualBox)</td>
+</tr>
+<tr>
+<td>Type 1 hypervisor</td>
+<td>Installed on bare metal; the hypervisor <em>is</em> the host OS (example: Proxmox VE)</td>
 </tr>
 <tr>
 <td>KVM/QEMU</td>
-<td>Linux virtualization stack used for Proxmox VMs</td>
+<td>Linux virtualization stack used under Proxmox VMs</td>
 </tr>
 <tr>
 <td>LXC</td>
-<td>Linux system container sharing the host kernel</td>
+<td>Linux system container that shares the host kernel</td>
 </tr>
 <tr>
 <td>ISO</td>
-<td>Install-disc image used to install an OS</td>
+<td>Install-disc image used to install an operating system</td>
 </tr>
 <tr>
 <td>vCPU</td>
-<td>CPU execution capacity presented to a guest</td>
+<td>CPU time presented to a guest (scheduled, not always exclusive)</td>
 </tr>
 <tr>
 <td>Bridge</td>
-<td>Virtual switch connecting guests and physical networking</td>
+<td>Virtual switch connecting guests to each other and/or the LAN</td>
 </tr>
 <tr>
-<td><code>vmbr0</code></td>
-<td>Common name of Proxmox's primary Linux bridge</td>
+<td>NAT (guest network)</td>
+<td>Guest shares the host’s internet path; often not a full peer on your LAN</td>
+</tr>
+<tr>
+<td>Bridged (guest network)</td>
+<td>Guest gets an address on the real LAN like another PC</td>
 </tr>
 <tr>
 <td>Snapshot</td>
-<td>Point-in-time guest state; not a substitute for a backup</td>
+<td>Freeze-frame of a guest you can restore later</td>
+</tr>
+<tr>
+<td>Clone</td>
+<td>Full copy of a guest for experiments or backup-like recovery</td>
+</tr>
+<tr>
+<td><code>vmbr0</code></td>
+<td>Common name of Proxmox’s primary Linux bridge</td>
 </tr>
 </tbody>
 </table><div class="cr-help">
@@ -150,14 +170,142 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching part. Read it slowly. The lab comes next so you can try the idea with your hands.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a paragraph feels dense, tap What this means under that block.</div>
-</div><div class="cr-prose-block"><p>Without virtualization, a server normally runs one operating system directly on its hardware. Virtualization inserts a management layer that presents virtual CPU, memory, disk, firmware, and network devices to separate guests.</p>
+</div><div class="cr-prose-block"><h4>What a virtual machine is</h4><p>Open your laptop. Inside the case sit real parts: CPU, RAM, storage, network chip. An operating system (Windows, macOS, or Linux) sits on top and turns those parts into something you can use.</p>
+<p>A <strong>virtual machine</strong> is another complete computer that lives <em>inside</em> that setup. It gets virtual CPU, virtual RAM, a virtual disk, and a virtual network card. The guest OS boots, paints a desktop, and runs programs. From the guest’s point of view, it is the only computer in the room. From your point of view, it is software sharing your real hardware.</p>
+<p>You do not need a second physical PC just to try Linux, practice networking, or break configuration on purpose. You carve out a slice of what you already own.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Open your laptop.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Why you want one</h4><p>Three reasons show up again and again in real labs:</p>
+<ol>
+<li><strong>Safe practice.</strong> Mess up the guest. Delete it. Rebuild it. Your daily host OS stays untouched.</li>
+<li><strong>Learn other operating systems.</strong> Run Ubuntu, Debian, a server trial, or a second Windows install without repartitioning your only disk.</li>
+<li><strong>Isolation when you experiment.</strong> Labs, scrapers, new stacks, and “what if I change this?” work are safer inside a guest—especially if you keep sharing features (clipboard, folders, bridged LAN) turned down until you need them.</li>
+</ol>
+<p>Virtualization is not a toy idea. It is how cloud providers and most serious IT shops pack many systems onto fewer machines. Learning it once pays off for the rest of this Academy.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Hypervisors: Type 2 vs Type 1</h4><p>The <strong>hypervisor</strong> is the piece that performs the “computer inside a computer” trick.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type 2</th>
+<th>Type 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where it lives</td>
+<td>App on your existing OS</td>
+<td>Installed on the hardware itself</td>
+</tr>
+<tr>
+<td>Everyday example</td>
+<td>VirtualBox on a Windows laptop</td>
+<td>Proxmox VE on a spare PC</td>
+</tr>
+<tr>
+<td>Who owns the hardware</td>
+<td>Your host OS shares RAM/CPU with the hypervisor</td>
+<td>Hypervisor owns the hardware and feeds guests</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Learning on the machine you already use</td>
+<td>Always-on labs, more guests, more RAM for VMs</td>
+</tr>
+<tr>
+<td>Tradeoff</td>
+<td>Easy and free; host OS still eats resources</td>
+<td>Requires dedicating (or wiping) a machine; more power</td>
+</tr>
+</tbody>
+</table>
+<p>Both types create guests. Type 2 asks the host OS for resources. Type 1 sits closer to the metal and usually gives you more room for bigger labs.</p>
+<p>This class supports <strong>both paths</strong>. The Academy’s default for later classes is a <strong>dedicated Proxmox host</strong> (Type 1). If you only have one laptop today, start with <strong>VirtualBox</strong> (Type 2), finish the gate with a working guest, then move Proxmox onto spare hardware when you can.</p>
+<pre><code class="language-text">Type 2 (laptop path)
+  Hardware → Windows/macOS/Linux → VirtualBox → Guest OS
+
+Type 1 (Academy default)
+  Hardware → Proxmox VE → VM / LXC guests
+</code></pre><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Firmware: turn on hardware virtualization</h4><p>Modern guests expect 64-bit virtualization support in the CPU. In firmware (BIOS/UEFI) look for <strong>Intel VT-x / VMX</strong> or <strong>AMD-V / SVM</strong> and set it to <strong>Enabled</strong>. Keys vary by vendor (<code>Del</code>, <code>F2</code>, <code>F10</code>, <code>F12</code>). Change only that setting, save, and reboot. Without it, many 64-bit guests will refuse to start or run poorly.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the BIOS/UEFI switch that lets your CPU run virtual machines well. Turn it on, save, reboot.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Path A — Type 2 on your daily computer (VirtualBox)</h4><p>Use this when you do not yet have a spare PC.</p>
+<ol>
+<li>Download the guest <strong>ISO</strong> you want (Ubuntu Desktop/Server is a solid first choice). Start the download early; ISOs are large.</li>
+<li>Install <strong>VirtualBox</strong> for your host OS from the official site. Accept defaults.</li>
+<li>Install the matching <strong>Extension Pack</strong> if you need USB passthrough and related extras.</li>
+<li>Create a new VM: name it, choose Linux + a 64-bit Debian/Ubuntu-class type, give it modest RAM (often 2 GB to start on a 8–16 GB host), create a dynamically allocated virtual disk (20 GB+), and assign more than one vCPU only if your host has cores to spare—stay under about half your physical cores.</li>
+<li>Attach the ISO as the virtual optical drive and start the VM.</li>
+<li>Install the guest OS. Guided partitioning of the <em>virtual</em> disk is safe for your host disk; you are formatting the fake drive, not your Windows/macOS partition.</li>
+<li>Learn the <strong>host key</strong> (often Right Ctrl on Windows/Linux) so you can release the mouse/keyboard back to the host.</li>
+</ol>
+<p><strong>Power features worth using on day one</strong></p>
+<ul>
+<li><strong>Pause</strong> — freeze the guest like pausing a game; resumes where you left off.</li>
+<li><strong>Save state</strong> — close the guest and reopen later with apps still open.</li>
+<li><strong>Snapshot</strong> — take a restore point before a risky change; roll back if it breaks.</li>
+<li><strong>Clone</strong> — duplicate a known-good machine before you thrash a copy.</li>
+</ul>
+<p><strong>Network modes (keep this mental model)</strong></p>
+<ul>
+<li><strong>NAT</strong> — guest reaches the internet through the host; it is usually <em>not</em> a full peer on your home LAN. Good default for isolation.</li>
+<li><strong>Bridged</strong> — guest appears on the LAN with its own address. Convenient for SSH from other devices; less isolation.</li>
+</ul>
+<p>Clipboard sharing, drag-and-drop, and shared folders are convenient and weaken isolation. Leave them off until you understand the tradeoff.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Path B — Type 1 on spare hardware (Proxmox VE)</h4><p>Use this when you have an old laptop/desktop (or a small server) you can dedicate. This is the path later Academy classes assume.</p>
+<p>Proxmox replaces the previous OS on that machine. Back up anything you care about first. Prefer a <strong>wired Ethernet</strong> uplink for the host; bridging Wi-Fi is a common pain point.</p>
+<p>High-level install flow:</p>
+<ol>
+<li>Download the current Proxmox VE ISO and write it to USB (on Windows, imaging tools often need <strong>DD mode</strong>, not a naive ISO copy).</li>
+<li>Boot the target machine from USB (set boot order in firmware if needed).</li>
+<li>Install Proxmox: accept the license, choose the target disk, set locale, set a strong <code>root</code> password, set hostname and management IP/gateway/DNS.</li>
+<li>Remove the USB, reboot, and open <code>https://SERVER-IP:8006</code> from another computer. Trust the self-signed certificate warning for a local lab, or replace the cert later.</li>
+<li>Ignore the “no subscription” nag if you are on the free/no-subscription path; the hypervisor still works.</li>
+<li>Upload guest ISOs to storage that allows <strong>ISO image</strong> content.</li>
+<li>Create a VM, attach the ISO, install Linux, enable SSH.</li>
+<li>Optionally create an LXC from a template to feel the speed difference.</li>
+</ol>
+<p><strong>Single-disk storage note:</strong> fresh installs sometimes leave usable space split oddly between <code>local</code> and <code>local-lvm</code>. Before you fill the host with disks, confirm which storage accepts <strong>disk images</strong> and that you have the capacity you expect. Official Proxmox docs cover resizing; do that housecleaning <em>before</em> you depend on the box.</p>
 <pre><code class="language-text">flowchart TD
     H[&quot;Physical server&quot;] --&gt; P[&quot;Proxmox VE&quot;]
-    P --&gt; V1[&quot;HA OS VM&quot;]
-    P --&gt; V2[&quot;Linux Docker VM&quot;]
+    P --&gt; V1[&quot;Linux Docker VM&quot;]
+    P --&gt; V2[&quot;Optional second VM&quot;]
     P --&gt; C1[&quot;Test LXC&quot;]
-</code></pre>
-<p>A VM has its own kernel. An LXC shares the Proxmox host's Linux kernel. That single distinction explains most tradeoffs: VMs cost more resources but provide broader OS compatibility and stronger separation; LXCs start quickly and use fewer resources but remain tied to the host kernel.</p>
+</code></pre><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>VM vs LXC vs Docker</h4><p>A <strong>VM</strong> has its own kernel. An <strong>LXC</strong> shares the Proxmox host kernel. That one fact drives most tradeoffs:</p>
 <table>
 <thead>
 <tr>
@@ -194,44 +342,51 @@
 </tr>
 </tbody>
 </table>
-<p>Docker is an application-container platform, not a synonym for either VM or LXC. The beginner architecture used here is:</p>
-<pre><code class="language-text">Proxmox -&gt; Debian/Ubuntu VM -&gt; Docker Engine -&gt; applications
+<p><strong>Docker</strong> is an application-container platform. It is not a synonym for VM or LXC. The beginner architecture for this Academy is:</p>
+<pre><code class="language-text">Proxmox → Debian/Ubuntu VM → Docker Engine → applications
 </code></pre>
-<p>This avoids combining LXC nesting, device mappings, Docker storage drivers, and application troubleshooting before the student understands the separate layers.</p><div class="cr-help">
+<p>That avoids nesting Docker inside LXC (and the storage/device headaches that follow) before you understand each layer.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Without virtualization, a server normally runs one operating system directly on its hardware.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
-</div></div><div class="cr-prose-block"><h4>Resource allocation</h4><p>Allocating four vCPUs does not normally dedicate four physical cores forever. The hypervisor schedules work. Memory is less forgiving: the host and every running guest need enough real RAM. Keep headroom for Proxmox, filesystem cache, backup jobs, and workload spikes.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Resource allocation</h4><p>vCPUs are scheduled. Four vCPUs does not mean four cores locked forever. <strong>RAM is less forgiving:</strong> the host plus every running guest need real memory. Leave headroom for the hypervisor, disk cache, backups, and spikes. On a laptop Type 2 setup, watch Task Manager / Activity Monitor / <code>htop</code> with your normal apps open before you gift the guest huge RAM.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A hypervisor creates and runs virtual machines. Type 2 sits on your OS; Type 1 sits on the hardware.</div>
  
-</div></div><div class="cr-prose-block"><h4>Storage</h4><p>Capacity and content type are separate ideas. A Proxmox storage target may allow ISO images, VM disks, container root filesystems, backups, templates, or only a subset. “The disk has free space” does not prove it accepts the content you are creating.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Storage</h4><p>Capacity and <strong>content type</strong> are separate. A storage target may allow ISOs, VM disks, container filesystems, backups, or only some of those. Free space on the wrong content type still blocks “Create disk.” Dynamically allocated virtual disks grow as used; fixed disks reserve space up front (sometimes faster, always hungrier).</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Capacity and content type are separate ideas.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Capacity and **content type** are separate.</div>
  
-</div></div><div class="cr-prose-block"><h4>Networking</h4><p><code>vmbr0</code> behaves like a virtual Ethernet switch. A guest NIC attaches to the bridge, the bridge attaches to a physical NIC, and frames can reach the LAN.</p>
+</div></div><div class="cr-prose-block"><h4>Networking on Proxmox</h4><p><code>vmbr0</code> behaves like a virtual Ethernet switch. Guest NICs attach to the bridge; the bridge attaches to a physical NIC; frames can reach the LAN.</p>
 <pre><code class="language-text">flowchart TD
-    S[&quot;Physical switch&quot;] --&gt; N[&quot;Host NIC&quot;]
+    S[&quot;Physical switch / router&quot;] --&gt; N[&quot;Host NIC&quot;]
     N --&gt; B[&quot;vmbr0&quot;]
     B --&gt; A[&quot;VM 100&quot;]
     B --&gt; D[&quot;VM 110&quot;]
     B --&gt; L[&quot;LXC 200&quot;]
 </code></pre>
-<p>The management workstation can be Windows, Linux, or macOS. Proxmox normally runs on a separate dedicated system and is managed at <code>https://SERVER-IP:8006</code>.</p><div class="cr-help">
+<p>Manage Proxmox from a second device at <code>https://SERVER-IP:8006</code>. The management workstation can be Windows, Linux, or macOS.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: this setting behaves like a virtual Ethernet switch.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Isolation vs convenience (both paths)</h4><p>The guest is valuable because it is a sandboxed world. Every convenience feature—bridged LAN, shared clipboard, shared folders, USB passthrough—makes the sandbox thinner. For learning and break/fix work, start strict. Open doors on purpose, one at a time, and write down what you changed.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
@@ -241,6 +396,13 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-prose-block"><p>Pick <strong>one</strong> primary path. Complete every step for that path. If you finish Path A today, schedule Path B when spare hardware exists—the rest of the Academy assumes you can reach a Proxmox UI.</p></div><div class="cr-lab-path"><h4>Path B — Proxmox (preferred)</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
@@ -250,7 +412,7 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Confirm the target disk contains no irreplaceable data. Installing Proxmox can erase it.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
 </div>
  </div>
@@ -263,20 +425,20 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Enable AMD-V/SVM or Intel VT-x in firmware if disabled.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the BIOS/UEFI switch that lets your CPU run virtual machines well. Turn it on, save, reboot.</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>Write the current Proxmox ISO to a USB drive and boot the server from it.</p></div>
+  <div class="cr-step-text"><p>Write the current Proxmox ISO to a USB drive (use a reliable imager; on Rufus prefer DD mode) and boot the server from it with Ethernet connected.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Write the current Proxmox ISO to a USB drive and boot the server from it.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
 </div>
  </div>
@@ -296,18 +458,31 @@
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p>From a second computer, reach <code>https://SERVER-IP:8006</code> and authenticate.</p></div>
+  <div class="cr-step-text"><p>From a second computer, reach <code>https://SERVER-IP:8006</code> and authenticate as <code>root</code>.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (From a second computer, reach that command and authenticate.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (From a second computer, reach that command and authenticate as that command.)</div>
  
 </div>
  </div>
 </div><div class="cr-step" data-step="6">
  <div class="cr-step-num">6</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Confirm storage that will hold VM disks allows disk-image content; fix content types before creating guests.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Confirm storage that will hold VM disks allows disk-image content; fix content types before creating guests.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="7">
+ <div class="cr-step-num">7</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Upload a Debian or Ubuntu Server ISO.</p></div>
   <div class="cr-help">
@@ -315,12 +490,12 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Upload a Debian or Ubuntu Server ISO.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD.</div>
  
 </div>
  </div>
-</div><div class="cr-step" data-step="7">
- <div class="cr-step-num">7</div>
+</div><div class="cr-step" data-step="8">
+ <div class="cr-step-num">8</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Create <code>lab-linux-01</code> with 2 vCPU, 2–4 GB RAM, 20–32 GB disk, and a NIC on <code>vmbr0</code>.</p></div>
   <div class="cr-help">
@@ -328,12 +503,12 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Create that command with 2 vCPU, 2–4 GB RAM, 20–32 GB disk, and a NIC on that command.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> vmbr0 is Proxmox’s usual virtual switch. Guests plug into it to reach the network.</div>
  
 </div>
  </div>
-</div><div class="cr-step" data-step="8">
- <div class="cr-step-num">8</div>
+</div><div class="cr-step" data-step="9">
+ <div class="cr-step-num">9</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Install the guest OS and enable SSH.</p></div>
   <div class="cr-help">
@@ -345,8 +520,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="9">
- <div class="cr-step-num">9</div>
+</div><div class="cr-step" data-step="10">
+ <div class="cr-step-num">10</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>In the guest, run:</p></div>
   <div class="cr-help">
@@ -358,8 +533,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="10">
- <div class="cr-step-num">10</div>
+</div><div class="cr-step" data-step="11">
+ <div class="cr-step-num">11</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>SSH from the workstation: <code>ssh USER@VM-IP</code>.</p></div>
   <div class="cr-help">
@@ -371,8 +546,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="11">
- <div class="cr-step-num">11</div>
+</div><div class="cr-step" data-step="12">
+ <div class="cr-step-num">12</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Download a Debian LXC template and create CT 200 with 1 CPU, 1 GB RAM, and 8 GB disk.</p></div>
   <div class="cr-help">
@@ -380,12 +555,12 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Download a Debian LXC template and create CT 200 with 1 CPU, 1 GB RAM, and 8 GB disk.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> LXC is a lightweight Linux system that shares the host kernel—fast to start, less separate than a VM.</div>
  
 </div>
  </div>
-</div><div class="cr-step" data-step="12">
- <div class="cr-step-num">12</div>
+</div><div class="cr-step" data-step="13">
+ <div class="cr-step-num">13</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Compare <code>free -h</code>, <code>uname -a</code>, boot time, and visible device model between VM and LXC.</p></div>
   <div class="cr-help">
@@ -393,11 +568,161 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Compare that command, that command, boot time, and visible device model between VM and LXC.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> LXC is a lightweight Linux system that shares the host kernel—fast to start, less separate than a VM.</div>
  
 </div>
  </div>
-</div></div></div>
+</div><div class="cr-step" data-step="14">
+ <div class="cr-step-num">14</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Take a VM snapshot named <code>before-break</code>, make a harmless desktop change, restore the snapshot, and confirm the change is gone.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A snapshot is a restore point. Take one before a risky change so you can roll back fast.</div>
+ 
+</div>
+ </div>
+</div></div></div><div class="cr-lab-path"><h4>Path A — VirtualBox (acceptable first finish)</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Enable VT-x / AMD-V in firmware if needed.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the BIOS/UEFI switch that lets your CPU run virtual machines well. Turn it on, save, reboot.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Download an Ubuntu (or Debian) ISO and install VirtualBox plus Extension Pack if you need USB features.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Create a 64-bit Linux VM with 2 GB RAM (or more if the host can spare it), 2 vCPUs max if the host has ≥4 cores, and a 20 GB+ dynamically allocated disk.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Create a 64-bit Linux VM with 2 GB RAM (or more if the host can spare it), 2 vCPUs max if the host has ≥4 cores, and a 20 GB+ dynamically…)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Attach the ISO, install the guest, and log in to a working desktop or console.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>From the guest, verify internet reachability (<code>ping</code> or a browser).</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (From the guest, verify internet reachability (that command or a browser).)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="6">
+ <div class="cr-step-num">6</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Practice pause → resume, then save-state → restore.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Practice pause → resume, then save-state → restore.)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="7">
+ <div class="cr-step-num">7</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Take a snapshot, break something small (delete a test file), restore the snapshot, and prove recovery.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A snapshot is a restore point. Take one before a risky change so you can roll back fast.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="8">
+ <div class="cr-step-num">8</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Note your network mode (NAT vs bridged) and whether the guest appears on the LAN.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="9">
+ <div class="cr-step-num">9</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Write in your workbook: host OS, VirtualBox version, guest name, RAM/vCPU/disk, and snapshot name.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="10">
+ <div class="cr-step-num">10</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Plan the spare-hardware Proxmox install so you can repeat Path B before Class 2.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
+</div>
+ </div>
+</div></div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break it, then fix it</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -405,23 +730,25 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Break one piece, watch the failure, then repair it. That is how you learn diagnosis.</div>
  
-</div><div class="cr-prose-block"><p>Detach the VM's virtual NIC or attach it to the wrong bridge. Observe whether the guest still has a link, address, route, gateway reachability, and DNS. Restore the original configuration one change at a time.</p><div class="cr-help">
+</div><div class="cr-break-card"><h4>Network break</h4><p>Detach the VM’s virtual NIC or attach it to the wrong bridge / disable the adapter in VirtualBox. Observe link, address, route, gateway, internet IP, and DNS. Restore one change at a time.</p>
+<p>Troubleshoot in order:</p>
+<pre><code class="language-text">Virtual NIC → bridge/NAT mode → IP address → route → gateway → internet IP → DNS → application
+</code></pre>
+<p>If <code>ping 1.1.1.1</code> works but a hostname lookup fails, routing works and DNS is the likely fault. Do not reinstall the guest.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
  
-</div></div><div class="cr-prose-block"><p>Troubleshoot in order:</p><div class="cr-help">
+</div></div><div class="cr-break-card"><h4>Snapshot break</h4><p>With a known-good snapshot taken, change a visible setting or file inside the guest. Restore the snapshot. Confirm the guest returned to the saved point. If restore fails, stop and fix storage/snapshot configuration before more experimentation.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Troubleshoot in order:</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A snapshot is a restore point. Take one before a risky change so you can roll back fast.</div>
  
-</div></div><div class="cr-prose-block cr-prose-code"><p>```text<br />
-Virtual NIC -&gt; bridge -&gt; IP address -&gt; route -&gt; gateway -&gt; internet IP -&gt; DNS -&gt; application</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
-<p>If <code>ping 1.1.1.1</code> works but a hostname lookup fails, routing works and DNS is the likely fault. Do not reinstall the guest.</p></div></div>
+</div></div></div>
 <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Common mistakes</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -430,18 +757,20 @@ Virtual NIC -&gt; bridge -&gt; IP address -&gt; route -&gt; gateway -&gt; intern
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
 </div><div class="cr-prose-block"><ul>
-<li>Installing onto the only copy of important data.</li>
-<li>Giving one guest nearly all RAM and starving the host.</li>
-<li>Treating snapshots as independent backups.</li>
-<li>Assuming LXC and Docker are the same.</li>
-<li>Using Wi-Fi as the default server uplink without understanding bridge limitations.</li>
+<li>Installing a Type 1 hypervisor onto the only copy of important data.</li>
+<li>Giving one guest nearly all RAM and starving the host (or your browser).</li>
+<li>Treating snapshots as independent off-box backups.</li>
+<li>Assuming LXC and Docker are the same thing.</li>
+<li>Using Wi-Fi as the default Proxmox uplink without understanding bridge limits.</li>
+<li>Turning on bridged networking, shared folders, and clipboard sharing all at once “for convenience.”</li>
 <li>Changing IP, bridge, firewall, and DNS simultaneously during diagnosis.</li>
+<li>Skipping firmware virtualization and blaming the ISO when 64-bit guests fail.</li>
 </ul><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">
@@ -452,17 +781,21 @@ Virtual NIC -&gt; bridge -&gt; IP address -&gt; route -&gt; gateway -&gt; intern
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Answer in your own words without looking first. This proves you understand, not that you can copy.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If you miss one, re-read that section and try again before the gate.</div>
 </div><div class="cr-prose-block"><ol>
+<li>In plain words, what is a virtual machine?</li>
 <li>What is the difference between a host and a guest?</li>
-<li>Which guest type normally has its own kernel?</li>
-<li>What does <code>vmbr0</code> behave like?</li>
+<li>How does a Type 2 hypervisor differ from a Type 1 hypervisor?</li>
+<li>Which guest type normally has its own kernel: VM or LXC?</li>
+<li>What does <code>vmbr0</code> behave like on Proxmox?</li>
 <li>Why is a successful ping to <code>1.1.1.1</code> but failed hostname lookup useful?</li>
-<li>Why does this course put Docker in a Linux VM?</li>
+<li>Why does this course put Docker in a Linux VM instead of nesting it in LXC on day one?</li>
+<li>Name one benefit and one risk of bridged networking versus NAT.</li>
+<li>What problem do snapshots solve that “just reinstall” is too slow for?</li>
 </ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
 </div></div></div>
 <div class="cr-check" data-check-id="gate-01">
@@ -475,52 +808,66 @@ Virtual NIC -&gt; bridge -&gt; IP address -&gt; route -&gt; gateway -&gt; intern
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
 </div>
- <div class="cr-check-item"><label><input type="checkbox" data-k="0"> <span>Proxmox UI is reachable at the recorded management address.</span></label><div class="cr-help">
+ <div class="cr-check-item"><label><input type="checkbox" data-k="0"> <span>You can explain Type 1 vs Type 2 without reading notes.</span></label><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Proxmox UI is reachable at the recorded management address.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A hypervisor creates and runs virtual machines. Type 2 sits on your OS; Type 1 sits on the hardware.</div>
  
-</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="1"> <span>The VM receives the expected IP configuration.</span></label><div class="cr-help">
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="1"> <span>Firmware virtualization (VT-x or AMD-V) is enabled on the machine you use for guests.</span></label><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (The VM receives the expected IP configuration.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the BIOS/UEFI switch that lets your CPU run virtual machines well. Turn it on, save, reboot.</div>
  
-</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="2"> <span>Gateway, internet IP, and DNS tests pass independently.</span></label><div class="cr-help">
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="2"> <span>A guest OS boots and you can log in (VirtualBox **or** Proxmox VM).</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="3"> <span>You demonstrated pause/save-state **or** a Proxmox start/stop cycle and recorded it.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="4"> <span>You took a snapshot (or Proxmox snapshot), changed something, restored, and proved it.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="5"> <span>Gateway, internet IP, and DNS tests pass independently on the guest (or you documented the exact failing layer).</span></label><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
  
-</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="3"> <span>SSH works from the management workstation.</span></label><div class="cr-help">
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="6"> <span>If on Proxmox: UI reachable at the recorded address, SSH to the VM works, and you can explain physical NIC → bridge → guest NIC.</span></label><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (SSH works from the management workstation.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
-</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="4"> <span>The LXC boots and its kernel relationship can be explained.</span></label><div class="cr-help">
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="7"> <span>If on VirtualBox only: workbook includes a dated plan for moving to Proxmox before Class 2 labs that need it.</span></label><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (The LXC boots and its kernel relationship can be explained.)</div>
- 
-</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="5"> <span>The student can draw physical NIC -&gt; bridge -&gt; guest NIC from memory.</span></label><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (The student can draw physical NIC -&gt; bridge -&gt; guest NIC from memory.)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
  
 </div></div>
  <div class="cr-gate">All boxes true → continue to the next class</div>
 </div>
-<div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>Use the current Proxmox documentation for exact installer screens and supported versions. The 2021 lecture remains useful for the virtualization model, but current Proxmox guidance and hardware support take precedence.</p><div class="cr-help">
+<div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>Use current official VirtualBox and Proxmox documentation for installer screens, Extension Pack pairing, and supported versions. Video walkthroughs age; the model (host/guest, Type 1 vs Type 2, snapshot discipline, NAT vs bridge) stays. Prefer current ISOs and release notes over any year-stamped screenshot.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -537,5 +884,5 @@ Virtual NIC -&gt; bridge -&gt; IP address -&gt; route -&gt; gateway -&gt; intern
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921g"></script>
+<script src="/classroom/classroom.js?v=20260921h"></script>
 </body></html>

@@ -24,7 +24,7 @@ SITE = Path("/root/otaconskeep-site/classroom")
 PACK = SITE / "pack"
 CLASSES_DIR = SITE / "classes"
 GH = Path("/root/Classroom")
-CSS_V = "20260921g"
+CSS_V = "20260921h"
 
 NAV = f'''<nav class="topnav">
  <div class="wrap">
@@ -95,7 +95,7 @@ HEAD = '''<!doctype html>
 '''
 
 CLASS_META = [
-    ("01", "01_PROXMOX_VIRTUALIZATION.md", "Proxmox, VMs, and LXC", "1", "Infrastructure"),
+    ("01", "01_PROXMOX_VIRTUALIZATION.md", "VMs, hypervisors, and Proxmox", "1", "Infrastructure"),
     ("02", "02_DOCKER_COMPOSE.md", "Docker Compose", "1", "Infrastructure"),
     ("03", "03_DOCKER_NETWORKING.md", "Docker networking", "1", "Infrastructure"),
     ("04", "04_CONTAINER_OPERATIONS.md", "Container operations", "1", "Infrastructure"),
@@ -283,7 +283,7 @@ def render_gate(body_md: str, cid: str) -> str:
 </div>'''
 
 
-def render_lab_steps(steps: list[str], title: str) -> str:
+def render_lab_steps(steps: list[str], title: str, *, wrap_box: bool = True) -> str:
     mean, more = plain_for_section(title, "lab")
     cards = []
     for i, step in enumerate(steps, 1):
@@ -296,13 +296,102 @@ def render_lab_steps(steps: list[str], title: str) -> str:
  </div>
 </div>'''
         )
+    inner = (
+        f"{help_widget(mean, more)}"
+        f'<div class="cr-step-list">{"".join(cards)}</div>'
+    )
+    if not wrap_box:
+        head = f"<h4>{H.escape(title)}</h4>" if title else ""
+        return f'<div class="cr-lab-path">{head}{inner}</div>'
     return (
         f'<div class="{kind_class("lab")}" id="lab">'
         f'<div class="cr-box-head">{kind_badge("lab")}<h3>{H.escape(title)}</h3></div>'
-        f"{help_widget(mean, more)}"
-        f'<div class="cr-step-list">{"".join(cards)}</div>'
-        f"</div>"
+        f"{inner}</div>"
     )
+
+
+def render_lab_section(h2: str, body: str) -> str:
+    """Lab with optional ### path subsections and numbered step cards."""
+    mean, more = plain_for_section(h2, "lab")
+    blocks = extract_h3_blocks(body)
+    if blocks:
+        parts = [
+            f'<div class="{kind_class("lab")}" id="lab">',
+            f'<div class="cr-box-head">{kind_badge("lab")}<h3>{H.escape(h2)}</h3></div>',
+            help_widget(mean, more),
+        ]
+        for sub, text in blocks:
+            steps = extract_numbered_steps(text) or []
+            # Also accept short lists (<3) inside a named path
+            if not steps:
+                steps = []
+                for line in text.splitlines():
+                    m = re.match(r"^(\d+)\.\s+(.+)$", line.strip())
+                    if m:
+                        steps.append(m.group(2).strip())
+            if sub and steps:
+                # preamble inside subsection before numbers
+                pre = []
+                for line in text.splitlines():
+                    if re.match(r"^\d+\.\s+", line.strip()):
+                        break
+                    pre.append(line)
+                preamble = "\n".join(pre).strip()
+                parts.append(f'<div class="cr-lab-path"><h4>{H.escape(sub)}</h4>')
+                if preamble:
+                    parts.append(f'<div class="cr-prose-block">{md_fragment(preamble)}</div>')
+                parts.append(help_widget(plain_for_step(sub) if not preamble else plain_for_paragraph(preamble)))
+                parts.append('<div class="cr-step-list">')
+                for i, step in enumerate(steps, 1):
+                    parts.append(
+                        f'''<div class="cr-step" data-step="{i}">
+ <div class="cr-step-num">{i}</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text">{md_fragment(step)}</div>
+  {help_widget(plain_for_step(step))}
+ </div>
+</div>'''
+                    )
+                parts.append("</div></div>")
+            elif sub:
+                parts.append(
+                    f'<div class="cr-lab-path"><h4>{H.escape(sub)}</h4>'
+                    f"{md_fragment(text)}"
+                    f"{help_widget(plain_for_paragraph(text) or plain_for_step(sub))}</div>"
+                )
+            elif text:
+                parts.append(f'<div class="cr-prose-block">{md_fragment(text)}</div>')
+        parts.append("</div>")
+        return "".join(parts)
+
+    steps = extract_numbered_steps(body)
+    if steps:
+        pre = []
+        for line in body.splitlines():
+            if re.match(r"^\d+\.\s+", line.strip()):
+                break
+            pre.append(line)
+        preamble = "\n".join(pre).strip()
+        if preamble:
+            cards = "".join(
+                f'''<div class="cr-step" data-step="{i}">
+ <div class="cr-step-num">{i}</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text">{md_fragment(step)}</div>
+  {help_widget(plain_for_step(step))}
+ </div>
+</div>'''
+                for i, step in enumerate(steps, 1)
+            )
+            return (
+                f'<div class="{kind_class("lab")}" id="lab">'
+                f'<div class="cr-box-head">{kind_badge("lab")}<h3>{H.escape(h2)}</h3></div>'
+                f"{help_widget(mean, more)}"
+                f'<div class="cr-prose-block">{md_fragment(preamble)}</div>'
+                f'<div class="cr-step-list">{cards}</div></div>'
+            )
+        return render_lab_steps(steps, h2)
+    return render_prose_with_help(body, "lab", h2)
 
 
 def render_break_blocks(blocks: list[tuple[str, str]], title: str) -> str:
@@ -402,38 +491,7 @@ def render_section(h2: str, body: str, class_id: str) -> str:
         return render_gate(body, f"gate-{class_id}")
 
     if kind == "lab":
-        steps = extract_numbered_steps(body)
-        if steps:
-            # Preserve any preamble before the numbered list
-            pre = []
-            for line in body.splitlines():
-                if re.match(r"^\d+\.\s+", line.strip()):
-                    break
-                pre.append(line)
-            preamble = "\n".join(pre).strip()
-            out = render_lab_steps(steps, h2)
-            if preamble:
-                mean, more = plain_for_section(h2, "lab")
-                out = (
-                    f'<div class="{kind_class("lab")}" id="lab">'
-                    f'<div class="cr-box-head">{kind_badge("lab")}<h3>{H.escape(h2)}</h3></div>'
-                    f"{help_widget(mean, more)}"
-                    f'<div class="cr-prose-block">{md_fragment(preamble)}</div>'
-                    f'<div class="cr-step-list">'
-                    + "".join(
-                        f'''<div class="cr-step" data-step="{i}">
- <div class="cr-step-num">{i}</div>
- <div class="cr-step-body">
-  <div class="cr-step-text">{md_fragment(step)}</div>
-  {help_widget(plain_for_step(step))}
- </div>
-</div>'''
-                        for i, step in enumerate(steps, 1)
-                    )
-                    + "</div></div>"
-                )
-            return out
-        return render_prose_with_help(body, "lab", h2)
+        return render_lab_section(h2, body)
 
     if kind == "break":
         blocks = extract_h3_blocks(body)

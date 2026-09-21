@@ -73,6 +73,38 @@ SECTION_PLAIN: dict[str, tuple[str, str]] = {
         "These boxes are the pass rules. Check a box only when you have real proof for that line.",
         "“It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.",
     ),
+    "what a virtual machine is": (
+        "A virtual machine is a full computer made of software. It runs inside your real computer and gets its own fake hardware.",
+        "The guest OS does not know it is sharing your laptop. Treat it like a second PC you can delete.",
+    ),
+    "why you want one": (
+        "VMs let you practice and break things without wrecking the computer you use every day.",
+        "Safe practice, other operating systems, and isolation are the three big wins.",
+    ),
+    "hypervisors: type 2 vs type 1": (
+        "The hypervisor is the app (or OS) that creates VMs. Type 2 sits on your normal OS. Type 1 replaces it on dedicated hardware.",
+        "Same goal—make guests. Different place in the stack and different power.",
+    ),
+    "path a — type 2 on your daily computer (virtualbox)": (
+        "This path installs VirtualBox on the computer you already use. Good when you have no spare PC yet.",
+        "Finish a working guest and snapshots here, then plan a Proxmox box for later classes.",
+    ),
+    "path b — type 1 on spare hardware (proxmox ve)": (
+        "This path installs Proxmox on a machine you can dedicate. That is the Academy’s default for later labs.",
+        "Back up the disk first. Prefer wired Ethernet for the host.",
+    ),
+    "vm vs lxc vs docker": (
+        "A VM has its own kernel. An LXC shares the host kernel. Docker packages apps and is a different layer again.",
+        "This course puts Docker inside a Linux VM so each layer stays understandable.",
+    ),
+    "isolation vs convenience (both paths)": (
+        "Every sharing feature makes the sandbox thinner. Turn them on only when you need them.",
+        "Bridged LAN, clipboard, and shared folders are convenience doors—not free upgrades.",
+    ),
+    "firmware: turn on hardware virtualization": (
+        "Your CPU has a switch for virtualization. Turn it on in BIOS/UEFI or 64-bit guests may fail.",
+        "Look for VT-x / VMX (Intel) or AMD-V / SVM (AMD).",
+    ),
     "2026 correction": (
         "Software screens change. The ideas stay. Prefer current official docs when a button moved.",
         "",
@@ -122,6 +154,18 @@ KIND_PLAIN = {
 
 # Keyword rules for lab / prose steps → plain words
 STEP_RULES: list[tuple[re.Pattern[str], str]] = [
+    (re.compile(r"\bVirtualBox\b|\bExtension Pack\b", re.I), "VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers."),
+    (re.compile(r"\bProxmox\b", re.I), "Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser."),
+    (re.compile(r"\bType\s*[12]\b|\bhypervisor\b", re.I), "A hypervisor creates and runs virtual machines. Type 2 sits on your OS; Type 1 sits on the hardware."),
+    (re.compile(r"\bVT-x\b|\bAMD-V\b|\bSVM\b|\bVMX\b|\bfirmware\b.*virtual", re.I), "This is the BIOS/UEFI switch that lets your CPU run virtual machines well. Turn it on, save, reboot."),
+    (re.compile(r"\bsnapshot\b", re.I), "A snapshot is a restore point. Take one before a risky change so you can roll back fast."),
+    (re.compile(r"\bclone\b", re.I), "A clone is a full copy of a VM. Break the copy; keep the original clean."),
+    (re.compile(r"\bNAT\b", re.I), "NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN."),
+    (re.compile(r"\bbridged?\b", re.I), "Bridged networking puts the guest on the real LAN with its own address—handy and less isolated."),
+    (re.compile(r"\bISO\b", re.I), "An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD."),
+    (re.compile(r"\bhost key\b|Right Ctrl", re.I), "The host key releases mouse and keyboard from the guest window back to your real desktop."),
+    (re.compile(r"\bLXC\b|\bcontainer template\b", re.I), "LXC is a lightweight Linux system that shares the host kernel—fast to start, less separate than a VM."),
+    (re.compile(r"\bvmbr0\b", re.I), "vmbr0 is Proxmox’s usual virtual switch. Guests plug into it to reach the network."),
     (re.compile(r"\bbackup\b", re.I), "Make a safety copy first so a mistake does not erase your work."),
     (re.compile(r"\bdocker\s+compose\b", re.I), "Compose is the recipe file that starts and stops your app group together."),
     (re.compile(r"\bdocker\s+network\b|\bmedia_net\b|\bproject network\b", re.I), "A Docker network is a private chat room so containers can find each other by name."),

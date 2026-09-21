@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921g">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921h">
 </head>
 <body>
 
@@ -76,7 +76,7 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
  
 </div></div></div>
 <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core model</h3></div><div class="cr-help">
@@ -102,7 +102,7 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
  
 </div></div><div class="cr-prose-block"><h4>Drivers</h4><table>
 <thead>
@@ -155,7 +155,7 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
  
 </div></div><div class="cr-prose-block"><h4>Exposure and isolation</h4><p>Do not publish every internal service simply because you can. A database used only by one application can remain reachable only on its Docker network. ARR web interfaces normally remain LAN-only or VPN-protected.</p><div class="cr-help">
  <div class="cr-actions">
@@ -165,7 +165,7 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A Docker network is a private chat room so containers can find each other by name.</div>
  
 </div></div></div>
-<div class="cr-box cr-box-lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+<div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
@@ -193,14 +193,7 @@ docker compose exec tester curl -I http://responder:80
 docker network inspect media_net
 </code></pre>
 <p>Expected behavior: the tester resolves <code>responder</code> and receives an HTTP response, even though the responder has no published host port.</p>
-<p>Add a published port to the responder, recreate it, and test from the LAN. Record the difference between internal service discovery and host-port access.</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
- 
-</div></div><div class="cr-prose-block"><h4>Apply the model to media services</h4><p>The later configuration uses names such as:</p>
+<p>Add a published port to the responder, recreate it, and test from the LAN. Record the difference between internal service discovery and host-port access.</p></div><div class="cr-lab-path"><h4>Apply the model to media services</h4><p>The later configuration uses names such as:</p>
 <pre><code class="language-text">Sonarr -&gt; http://prowlarr:9696
 Sonarr -&gt; http://qbittorrent:8080
 Radarr -&gt; http://sabnzbd:8080
@@ -286,7 +279,7 @@ running container -&gt; shared network -&gt; DNS name -&gt; destination port -&g
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
  
 </div></div></div>
 <div class="cr-check" data-check-id="gate-03">
@@ -354,5 +347,5 @@ running container -&gt; shared network -&gt; DNS name -&gt; destination port -&g
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921g"></script>
+<script src="/classroom/classroom.js?v=20260921h"></script>
 </body></html>

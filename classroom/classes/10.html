@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921g">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921h">
 </head>
 <body>
 
@@ -131,7 +131,7 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> This path is about safe remote reach or private download traffic — not opening every admin page to the world.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
 </div></div></div>
 <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Cloudflare concepts</h3></div><div class="cr-help">
@@ -189,8 +189,14 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-prose-block"><p>Choose either the VPN path or tunnel-plus-access path. Use a disposable internal web service first—not a production admin panel.</p>
-<h3>Common preparation</h3></div><div class="cr-step-list"><div class="cr-step" data-step="1">
+</div><div class="cr-prose-block"><p>Choose either the VPN path or tunnel-plus-access path. Use a disposable internal web service first—not a production admin panel.</p></div><div class="cr-lab-path"><h4>Common preparation</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Common preparation)</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Back up the target service.</p></div>
@@ -242,8 +248,15 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="5">
- <div class="cr-step-num">5</div>
+</div></div></div><div class="cr-lab-path"><h4>Tunnel path</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This path is about safe remote reach or private download traffic — not opening every admin page to the world.</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Create the tunnel using current official instructions.</p></div>
   <div class="cr-help">
@@ -255,8 +268,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="6">
- <div class="cr-step-num">6</div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Run the connector with least privilege.</p></div>
   <div class="cr-help">
@@ -268,8 +281,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="7">
- <div class="cr-step-num">7</div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Map one test hostname to one test origin.</p></div>
   <div class="cr-help">
@@ -281,8 +294,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="8">
- <div class="cr-step-num">8</div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Create an Access policy that allows only the intended identity with MFA.</p></div>
   <div class="cr-help">
@@ -294,8 +307,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="9">
- <div class="cr-step-num">9</div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Test from an external network in a signed-out browser: access must be denied or redirected to authentication.</p></div>
   <div class="cr-help">
@@ -307,8 +320,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="10">
- <div class="cr-step-num">10</div>
+</div><div class="cr-step" data-step="6">
+ <div class="cr-step-num">6</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Authenticate with an allowed identity: access must succeed.</p></div>
   <div class="cr-help">
@@ -320,8 +333,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="11">
- <div class="cr-step-num">11</div>
+</div><div class="cr-step" data-step="7">
+ <div class="cr-step-num">7</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Test a disallowed identity: access must fail.</p></div>
   <div class="cr-help">
@@ -333,8 +346,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="12">
- <div class="cr-step-num">12</div>
+</div><div class="cr-step" data-step="8">
+ <div class="cr-step-num">8</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Stop the connector: external access must fail closed while the internal service remains reachable locally.</p></div>
   <div class="cr-help">
@@ -346,8 +359,15 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="13">
- <div class="cr-step-num">13</div>
+</div></div></div><div class="cr-lab-path"><h4>VPN path</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This path is about safe remote reach or private download traffic — not opening every admin page to the world.</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Enroll one remote client with its own identity.</p></div>
   <div class="cr-help">
@@ -359,8 +379,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="14">
- <div class="cr-step-num">14</div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Authorize only required subnets/services.</p></div>
   <div class="cr-help">
@@ -372,8 +392,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="15">
- <div class="cr-step-num">15</div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Prove the client can reach the test origin.</p></div>
   <div class="cr-help">
@@ -385,8 +405,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="16">
- <div class="cr-step-num">16</div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Prove it cannot reach a deliberately excluded service.</p></div>
   <div class="cr-help">
@@ -398,8 +418,8 @@
  
 </div>
  </div>
-</div><div class="cr-step" data-step="17">
- <div class="cr-step-num">17</div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p>Revoke the device/identity and confirm access ends.</p></div>
   <div class="cr-help">
@@ -411,7 +431,7 @@
  
 </div>
  </div>
-</div></div></div>
+</div></div></div></div>
 <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Reverse proxy awareness</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -520,7 +540,7 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
  
 </div></div><div class="cr-check-item"><label><input type="checkbox" data-k="6"> <span>Rollback removes the external path without breaking local use.</span></label><div class="cr-help">
  <div class="cr-actions">
@@ -549,5 +569,5 @@
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921g"></script>
+<script src="/classroom/classroom.js?v=20260921h"></script>
 </body></html>

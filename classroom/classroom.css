@@ -447,6 +447,24 @@
 }
 .cr-check .cr-help { margin-left: 26px; }
 
+.cr-lab-path {
+  margin: 16px 0 8px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(57,230,200,.22);
+  background: rgba(57,230,200,.03);
+}
+.cr-lab-path h4 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+  color: var(--cr-lin);
+}
+.cr-lab-path + .cr-lab-path {
+  border-color: rgba(91,159,212,.28);
+  background: rgba(91,159,212,.04);
+}
+.cr-lab-path + .cr-lab-path h4 { color: #9ec4ef; }
+
 .cr-btn:hover { filter: brightness(1.08); }
 .cr-btn:focus-visible {
   outline: 2px solid var(--accent-bright);

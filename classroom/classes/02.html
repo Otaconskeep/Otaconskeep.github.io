@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921g">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921h">
 </head>
 <body>
 
@@ -228,97 +228,30 @@ services:
       timeout: 5s
       retries: 3
 </code></pre>
-<p>Create <code>site/index.html</code> containing a unique lab phrase. If the image lacks the healthcheck command, replace the healthcheck with one supported by the selected image rather than declaring the application broken.</p></div><div class="cr-step-list"><div class="cr-step" data-step="1">
- <div class="cr-step-num">1</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Run <code>docker compose config</code> and resolve all warnings/errors.</p></div>
-  <div class="cr-help">
+<p>Create <code>site/index.html</code> containing a unique lab phrase. If the image lacks the healthcheck command, replace the healthcheck with one supported by the selected image rather than declaring the application broken.</p>
+<ol>
+<li>Run <code>docker compose config</code> and resolve all warnings/errors.</li>
+<li>Run <code>docker compose up -d</code>.</li>
+<li>Visit <code>http://DOCKER-HOST:8080</code>.</li>
+<li>Record <code>docker compose ps</code> and the health state.</li>
+<li>Edit the host file and refresh the browser to prove the bind mount.</li>
+<li>Run <code>docker compose down</code>, then <code>docker compose up -d</code>.</li>
+<li>Prove the unique content remains.</li>
+</ol></div><div class="cr-lab-path"><h4>ARR path design preview</h4><p>The later stack uses consistent paths so the downloader and importers describe the same files the same way:</p>
+<pre><code class="language-text">/data
+  /torrents
+  /usenet
+  /media
+    /movies
+    /tv
+</code></pre>
+<p>Avoid separate, unrelated mounts such as <code>/downloads</code> in one container and <code>/incoming</code> in another. They can be mapped correctly, but beginners often create remote-path and hardlink problems.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
  
-</div>
- </div>
-</div><div class="cr-step" data-step="2">
- <div class="cr-step-num">2</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Run <code>docker compose up -d</code>.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="3">
- <div class="cr-step-num">3</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Visit <code>http://DOCKER-HOST:8080</code>.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Visit that command.)</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="4">
- <div class="cr-step-num">4</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Record <code>docker compose ps</code> and the health state.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="5">
- <div class="cr-step-num">5</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Edit the host file and refresh the browser to prove the bind mount.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> This connects a real folder on your computer into the container so data can stay.</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="6">
- <div class="cr-step-num">6</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Run <code>docker compose down</code>, then <code>docker compose up -d</code>.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
- 
-</div>
- </div>
-</div><div class="cr-step" data-step="7">
- <div class="cr-step-num">7</div>
- <div class="cr-step-body">
-  <div class="cr-step-text"><p>Prove the unique content remains.</p></div>
-  <div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Prove the unique content remains.)</div>
- 
-</div>
- </div>
 </div></div></div>
 <div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -441,5 +374,5 @@ services:
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921g"></script>
+<script src="/classroom/classroom.js?v=20260921h"></script>
 </body></html>
