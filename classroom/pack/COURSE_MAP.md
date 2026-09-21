@@ -15,6 +15,7 @@
 | 11 | Local voice architecture | Instrumented Assist pipeline | Stage-by-stage trace |
 | 12 | Whisper, Piper, and Wyoming | Local STT and TTS services | Known-sentence and known-response tests |
 | 13 | Private smart speaker | Wake-to-action-to-speech system | Internet-disconnected end-to-end pass |
+| 14 | n8n homelab automation | n8n + RSS digest + guarded Keep Agent | Item-flow explained; approval before mutation |
 
 ## Final architecture
 
@@ -30,6 +31,8 @@ flowchart TD
     H["Home Assistant"] --> O["Monitoring + automations"]
     V["Local voice satellite"] --> H
     H --> V
+    N["n8n"] --> H
+    N --> Lab["SSH / HTTP checks"]
 ```
 
 ## Stage gates
@@ -49,6 +52,10 @@ Classes 8–10 must pass before remote access is enabled. The student has a curr
 ### Gate 4 — Voice
 
 Classes 11–13 must pass one component at a time. The full voice pipeline is attempted only after microphone, wake word, STT, intent/action, TTS, and playback pass independently.
+
+### Gate 5 — Workflow automation
+
+Class 14 must pass with n8n on the lab network only. The student can explain JSON item cardinality, keep credentials out of git, and require human approval before any mutating agent action.
 
 ## Evidence rule
 

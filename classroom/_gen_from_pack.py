@@ -24,7 +24,7 @@ SITE = Path("/root/otaconskeep-site/classroom")
 PACK = SITE / "pack"
 CLASSES_DIR = SITE / "classes"
 GH = Path("/root/Classroom")
-CSS_V = "20260921j"
+CSS_V = "20260921k"
 
 OSBAR = '''<div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>
@@ -114,6 +114,7 @@ CLASS_META = [
     ("11", "11_LOCAL_VOICE_ARCHITECTURE.md", "Local voice architecture", "4", "Voice"),
     ("12", "12_WHISPER_PIPER_WYOMING.md", "Whisper, Piper, Wyoming", "4", "Voice"),
     ("13", "13_PRIVATE_SMART_SPEAKER.md", "Private smart speaker", "4", "Voice"),
+    ("14", "14_N8N_HOMELAB_AUTOMATION.md", "n8n homelab automation", "5", "Automation"),
 ]
 
 MD = markdown.Markdown(extensions=["tables", "fenced_code", "nl2br", "sane_lists"])
@@ -575,7 +576,7 @@ def gen_hub():
     body = f'''
 <div class="wrap">
  <section class="hero flush">
- <div class="stamp">HOMELAB ACADEMY<small>free · 13-class pack</small></div>
+ <div class="stamp">HOMELAB ACADEMY<small>free · 14-class pack</small></div>
  <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom</p>
  <h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Build. Break. Fix. Verify.</h1>
  <p class="lede">Build-first curriculum for ARR, Home Assistant, and local voice. Same Otaconskeep chrome as the rest of the Keep — structured lessons, checkpoints, and a final verification matrix.</p>
@@ -607,6 +608,7 @@ Classes 1–4   Infrastructure (Compose, networks, ops)
 Classes 5–7   ARR / Prowlarr / TRaSH / config sync
 Classes 8–10  Home Assistant + secure remote access
 Classes 11–13 Local voice → private smart speaker
+Class 14       n8n automation → guarded Keep Agent
 → FINAL CAPSTONE verification matrix</pre>
  </section>
 </div>
@@ -614,7 +616,7 @@ Classes 11–13 Local voice → private smart speaker
 <div class="wrap">
  <section>
  <p class="tag">02 // Classes</p>
- <h2>All thirteen lessons</h2>
+ <h2>All fourteen lessons</h2>
  <div class="cr-course-grid">
 {''.join(cards)}
  </div>
@@ -635,7 +637,7 @@ Classes 11–13 Local voice → private smart speaker
  </section>
 </div>
 '''
-    write(SITE / "index.html", wrap("Homelab Academy · Classroom", "13-class ARR + HA + voice curriculum.", "/classroom/", "ACADEMY", body))
+    write(SITE / "index.html", wrap("Homelab Academy · Classroom", "14-class ARR + HA + voice + n8n curriculum.", "/classroom/", "ACADEMY", body))
 
 
 def gen_classes():
@@ -782,6 +784,7 @@ def gen_glossary_stub():
   <a class="btn btn-ghost" href="classes/05.html">Class 5 — ARR</a>
   <a class="btn btn-ghost" href="classes/08.html">Class 8 — HA</a>
   <a class="btn btn-ghost" href="classes/11.html">Class 11 — Voice</a>
+  <a class="btn btn-ghost" href="classes/14.html">Class 14 — n8n</a>
  </div>
  </section>
 </div>
@@ -797,6 +800,7 @@ def gen_redirects():
         "units/2-arr/": "/classroom/classes/05.html",
         "units/3-home-assistant/": "/classroom/classes/08.html",
         "units/4-voice/": "/classroom/classes/11.html",
+        "units/5-automation/": "/classroom/classes/14.html",
         "courses/": "/classroom/",
     }
     for src, dst in redirects.items():
@@ -831,7 +835,7 @@ def main():
         "COURSE_MAP.md", "course-map.html", "Course map", "MAP",
         "/classroom/course-map.html", "Course map",
         ("/classroom/", "Academy"), ("classes/", "Classes"),
-        "Sequence, gates, and final architecture for the 13-class pack.",
+        "Sequence, gates, and final architecture for the 14-class pack.",
     )
     gen_md_page(
         "STUDENT_WORKBOOK.md", "workbook.html", "Student workbook", "WORKBOOK",

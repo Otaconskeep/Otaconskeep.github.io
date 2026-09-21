@@ -1,10 +1,10 @@
-# Homelab Academy: ARR + Home Assistant + Local Voice
+# Homelab Academy: ARR + Home Assistant + Local Voice + n8n
 
-This is a complete, build-first course package built around the 13-video path discussed in the companion conversation. It is not a transcript collection. Each class converts the useful ideas into original instruction, adds current operational guidance, and connects the lesson to one final working homelab.
+This is a complete, build-first course package. It is not a transcript collection. Each class converts useful ideas into original instruction, adds current operational guidance, and connects the lesson to one final working homelab.
 
 ## How to use the pack
 
-1. Read the class lesson before or while watching the linked lecture.
+1. Read the class lesson.
 2. Complete the guided lab exactly once without improvising.
 3. Run the break/fix exercise so you learn how the subsystem fails.
 4. Complete the quiz without the answer key.
@@ -13,17 +13,17 @@ This is a complete, build-first course package built around the 13-video path di
 
 The course progression is:
 
-**Watch -> Understand -> Build -> Break -> Fix -> Verify**
+**Understand → Build → Break → Fix → Verify**
 
 ## Package contents
 
 - `COURSE_MAP.md` — sequence, prerequisites, deliverables, and capstone architecture.
-- `classes/01...13` — complete class lessons with labs, troubleshooting, quizzes, and gates.
+- `classes/01...14` — complete class lessons with labs, troubleshooting, quizzes, and gates (Class 14 = n8n).
 - `STUDENT_WORKBOOK.md` — reusable note and evidence pages for every class.
 - `INSTRUCTOR_ANSWER_KEY.md` — quiz answers and practical acceptance criteria.
 - `FINAL_CAPSTONE.md` — end-to-end ARR, media, Home Assistant, and local-voice exam.
 - `templates/` — inventory, port plan, IP plan, service contract, incident log, and verification matrix.
-- `references/VIDEO_LINKS.md` — all lecture links in one place.
+- `references/VIDEO_LINKS.md` — optional lecture links in one place.
 - `references/OFFICIAL_DOCUMENTATION.md` — current documentation used for corrections.
 
 ## Important boundaries

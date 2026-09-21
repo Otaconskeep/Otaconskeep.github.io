@@ -105,6 +105,10 @@ SECTION_PLAIN: dict[str, tuple[str, str]] = {
         "Your CPU has a switch for virtualization. Turn it on in BIOS/UEFI or 64-bit guests may fail.",
         "Look for VT-x / VMX (Intel) or AMD-V / SVM (AMD).",
     ),
+    "safety boundary": (
+        "These rules keep powerful tools from becoming accidents. Read them before you connect SSH or agents.",
+        "Least privilege first. Approval before mutation. No public admin UI.",
+    ),
     "2026 correction": (
         "Software screens change. The ideas stay. Prefer current official docs when a button moved.",
         "",
@@ -166,6 +170,11 @@ STEP_RULES: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"\bhost key\b|Right Ctrl", re.I), "The host key releases mouse and keyboard from the guest window back to your real desktop."),
     (re.compile(r"\bLXC\b|\bcontainer template\b", re.I), "LXC is a lightweight Linux system that shares the host kernel—fast to start, less separate than a VM."),
     (re.compile(r"\bvmbr0\b", re.I), "vmbr0 is Proxmox’s usual virtual switch. Guests plug into it to reach the network."),
+    (re.compile(r"\bn8n\b", re.I), "n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items."),
+    (re.compile(r"\bworkflow\b", re.I), "A workflow is the whole automation graph—triggers, nodes, and how data flows between them."),
+    (re.compile(r"\bwebhook\b", re.I), "A webhook is a secret URL another service can POST to. Treat it like a password."),
+    (re.compile(r"\bhuman-in-the-loop\b|\bneeds_approval\b|\bapproval\b", re.I), "Pause for a human yes/no before the automation changes anything important."),
+    (re.compile(r"\bAI [Aa]gent\b|\bKeep Agent\b", re.I), "An agent is a model plus tools. It can choose checks—but mutating tools stay behind approval."),
     (re.compile(r"\bbackup\b", re.I), "Make a safety copy first so a mistake does not erase your work."),
     (re.compile(r"\bdocker\s+compose\b", re.I), "Compose is the recipe file that starts and stops your app group together."),
     (re.compile(r"\bdocker\s+network\b|\bmedia_net\b|\bproject network\b", re.I), "A Docker network is a private chat room so containers can find each other by name."),

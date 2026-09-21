@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Class 14 — n8n homelab automation · Classroom</title>
+<meta name="description" content="n8n homelab automation">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/classes/14.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921k">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 14<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/classes/">Classes</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 14<small>unit 5 · automation</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">n8n homelab automation</h1>
+ <p class="lede">Guided lab, break/fix, quiz, and practical gate. Prefer current official docs linked in References.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+
+<div class="wrap">
+ 
+ <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>What you will learn</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>You will install n8n on your lab host, learn how workflows move <strong>items</strong> of JSON between <strong>nodes</strong>, build a safe first automation (RSS → filter → notify), and then build a small AI agent that can <strong>observe</strong> your lab—and only <strong>change</strong> things after a human approval step. You will treat credentials, SSH, and command execution as high-risk tools with explicit guardrails.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workflow</td>
+<td>One automation graph: triggers + nodes + connections</td>
+</tr>
+<tr>
+<td>Trigger</td>
+<td>What starts a run (manual, schedule, webhook, chat)</td>
+</tr>
+<tr>
+<td>Node</td>
+<td>One step that reads/transforms/sends data or calls a tool</td>
+</tr>
+<tr>
+<td>Item</td>
+<td>One JSON object flowing through the graph (often many items in parallel)</td>
+</tr>
+<tr>
+<td>Credential</td>
+<td>Stored secret/connection (API key, webhook URL, SSH login)</td>
+</tr>
+<tr>
+<td>Expression</td>
+<td>Small template that pulls fields from JSON (<code>{{ $json.title }}</code>)</td>
+</tr>
+<tr>
+<td>Pin data</td>
+<td>Freeze test output on a node so later steps can reuse it without re-calling APIs</td>
+</tr>
+<tr>
+<td>Sub-workflow</td>
+<td>A workflow called as a <strong>tool</strong> by an AI agent</td>
+</tr>
+<tr>
+<td>Structured output</td>
+<td>Force the model to return predictable JSON fields for branching</td>
+</tr>
+<tr>
+<td>Human-in-the-loop</td>
+<td>Pause for approve/deny before risky actions</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Safety boundary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These rules keep powerful tools from becoming accidents. Read them before you connect SSH or agents.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Least privilege first. Approval before mutation. No public admin UI.</div>
+</div><div class="cr-prose-block"><p>n8n can talk to email, chat, SSH, APIs, and shells. That power cuts both ways.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div></div><div class="cr-prose-block"><ul>
+<li>Prefer <strong>read-only</strong> checks first (HTTP GET, <code>docker ps</code>, status APIs).</li>
+<li>Never paste production API keys into the workbook or public Discord.</li>
+<li>Do <strong>not</strong> give an agent unrestricted root SSH on day one.</li>
+<li>Any command that <strong>creates, deletes, stops, or rewrites</strong> systems must go through <strong>approval</strong>.</li>
+<li>Keep n8n’s admin UI on LAN/VPN only (Class 10 patterns)—not open to the world.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Lesson</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching part. Read it slowly. The lab comes next so you can try the idea with your hands.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a paragraph feels dense, tap What this means under that block.</div>
+</div><div class="cr-prose-block"><h4>What n8n is</h4><p>n8n is an open-source workflow automation platform you can self-host. Visually, you connect nodes. Under the hood, each node receives JSON <strong>items</strong>, does work, and passes items forward. One RSS node that returns 13 articles hands <strong>13 items</strong> to the next node—so a “send message” node may fire 13 times unless you <strong>limit</strong>, <strong>aggregate</strong>, or <strong>batch</strong> deliberately.</p>
+<p>Compared with hosted “if this then that” SaaS tools, self-hosted n8n keeps credentials and execution inside <strong>your</strong> boundary—when you install it that way.</p>
+<pre><code class="language-text">Trigger → (optional) fetch/transform → action / notify / agent tools
+                ↑
+         credentials + JSON items
+</code></pre><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Where it sits in this Academy</h4><pre><code class="language-text">Proxmox / Docker host (Classes 1–4)
+  → n8n container
+      → Discord/Telegram (notify)
+      → HTTP checks (HA, websites)
+      → SSH / APIs (Proxmox, NAS)  [guarded]
+</code></pre>
+<p>Install n8n <strong>beside</strong> your stacks, not inside every ARR container. Give it a dedicated Compose project and volume for its database.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Core UI habits</h4><ol>
+<li><strong>Save often.</strong></li>
+<li><strong>Execute step</strong> while building; use <strong>Pin</strong> on expensive/AI nodes so you do not re-spend tokens.</li>
+<li>Inspect the connector badges: <code>1 item</code> vs <code>N items</code> explains “why Discord said hi thirteen times.”</li>
+<li>Credentials live under a separate library—reuse them; do not hard-code secrets in node fields when a credential type exists.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Data shaping nodes you will reuse</h4><table>
+<thead>
+<tr>
+<th>Node idea</th>
+<th>Why it exists</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Limit</td>
+<td>Cap how many items continue</td>
+</tr>
+<tr>
+<td>Filter / If / Switch</td>
+<td>Branch on fields</td>
+</tr>
+<tr>
+<td>Edit Fields (Set)</td>
+<td>Keep only the columns you want</td>
+</tr>
+<tr>
+<td>Split Out</td>
+<td>Turn one array field into many items</td>
+</tr>
+<tr>
+<td>Merge</td>
+<td>Combine branches (use carefully with unequal item counts)</td>
+</tr>
+<tr>
+<td>Code (optional)</td>
+<td>Last resort—prefer built-ins first</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: | Node idea | Why it exists |
+|---|---|
+| Limit | Cap how many items continue |
+| Filter / If / Switch | Branch on fields |
+| Edit Fields (Set) | Keep only t…</div>
+ 
+</div></div><div class="cr-prose-block"><h4>AI in n8n (two different powers)</h4><ol>
+<li><strong>LLM chain / summarize</strong> — transform text (summarize an article).</li>
+<li><strong>AI Agent + tools</strong> — model chooses tools (HTTP, workflow-as-tool SSH) based on a system prompt.</li>
+</ol>
+<p>Agents need: a chat/LLM credential, a clear <strong>system message</strong> (who they are / what they may do), and tools with honest descriptions. For autonomous schedules, replace chat input with an <strong>Edit Fields</strong> prompt + stable session/chat id for memory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph—triggers, nodes, and how data flows between them.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Guarded autonomy pattern (Keep Agent)</h4><pre><code class="language-text">Schedule → set prompt → Agent (observe tools only)
+  → structured JSON { ok: bool, needs_approval: bool, commands: [], message }
+  → If needs_approval → notify + wait for approve → re-enter agent with approval
+  → If not ok and no approval path → alert only
+  → Never auto-run destructive commands without approval
+</code></pre><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-prose-block"><p><strong>Prereqs:</strong> Class 2 Compose working on a Linux host/VM; Discord or Telegram you control; optional Ollama or an API key you are allowed to use.</p></div><div class="cr-lab-path"><h4>Path A — Install n8n with Compose</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Create a dedicated project directory.</strong></p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">mkdir -p ~/n8n-lab &amp;&amp; cd ~/n8n-lab
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">mkdir $HOME\n8n-lab -Force
+cd $HOME\n8n-lab
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Write a minimal Compose file</strong> (adjust ports if <code>5678</code> is taken). Prefer current official n8n image tags from docs—pin an explicit version when you find one you trust:</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">cat &gt; compose.yaml &lt;&lt;'YAML'
+name: n8n-lab
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - &quot;5678:5678&quot;
+    environment:
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://N8N-HOST:5678/
+      - GENERIC_TIMEZONE=America/Los_Angeles
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+YAML
+# Replace WEBHOOK_URL host with your lab IP/DNS after first boot.
+docker compose config
+docker compose pull
+docker compose up -d
+docker compose ps
+docker compose logs --tail=40 n8n
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">@'
+name: n8n-lab
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - &quot;5678:5678&quot;
+    environment:
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://127.0.0.1:5678/
+      - GENERIC_TIMEZONE=America/Los_Angeles
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+'@ | Set-Content -Encoding utf8 compose.yaml
+docker compose config
+docker compose up -d
+docker compose ps
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Open the UI and finish owner setup.</strong> Browser: <code>http://N8N-HOST:5678</code>. Create the owner account. Skip marketing extras. Record the URL in the workbook—<strong>do not</strong> publish port 5678 to the internet.</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">curl -sI http://127.0.0.1:5678/ | head
+</code></pre></div>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">curl.exe -sI http://127.0.0.1:5678/
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Prove persistence:</strong> <code>docker compose down &amp;&amp; docker compose up -d</code> and confirm you still log in (data volume kept).</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div>
+ </div>
+</div></div></div><div class="cr-lab-path"><h4>Path B — First workflow: RSS digest → Discord</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph—triggers, nodes, and how data flows between them.</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Create workflow</strong> → add <strong>Manual Trigger</strong> and optional <strong>Schedule</strong> (daily). Connect both into the same next node later if you want.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph—triggers, nodes, and how data flows between them.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Add RSS Read</strong> → configure one authorized feed URL you are allowed to use (example: a public security/news RSS). <strong>Execute step</strong>. Note item count on the connector.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Add RSS Read.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Add Limit</strong> between RSS and notify → set <code>maxItems</code> to <code>5</code>. Execute. Confirm <code>5 items</code> leave the node.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Add Limit.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Create a Discord webhook credential</strong> (Server Settings → Integrations → Webhooks → copy URL into n8n credential). Never commit the URL.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Add Discord → Send a Message</strong> (or webhook send). Build the text with dragged fields (title, link, date). Execute once. Expect <strong>one Discord message per item</strong>.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A webhook is a secret URL another service can POST to. Treat it like a password.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="6">
+ <div class="cr-step-num">6</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Fix the “header repeated N times” lesson:</strong> either keep per-item messages, or add an <strong>Aggregate / Summarize</strong> style step later. For this class, document why 5 messages appeared.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Fix the “header repeated N times” lesson:.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="7">
+ <div class="cr-step-num">7</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Optional branch — Execute Command</strong> on the n8n host (only if your install allows it; many hardened setups disable host exec). Safer alternative: skip host exec and use <strong>SSH</strong> to a <strong>dedicated test VM</strong>. If you do run a host command for learning, use a harmless read-only check:</p>
+<pre><code class="language-text">ping -c 3 1.1.1.1
+</code></pre>
+<p>Pin outputs. Do not chain this into production destructive actions.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="8">
+ <div class="cr-step-num">8</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Save</strong> as <code>01-rss-digest</code>. Toggle <strong>Active</strong> only after a successful manual run.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Save.</div>
+ 
+</div>
+ </div>
+</div></div></div><div class="cr-lab-path"><h4>Path C — Keep Agent (observe → approve → fix on a toy site)</h4><div class="cr-prose-block"><p>Build this on the <strong>same Docker host</strong> as a disposable demo site—not on critical Proxmox nodes until you trust your prompts.</p></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Create a toy website container</strong> you are willing to stop/start:</p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker rm -f keep-demo-web 2&gt;/dev/null || true
+docker run -d --name keep-demo-web -p 8090:80 nginx:stable
+docker exec keep-demo-web sh -c 'echo &quot;&lt;h1&gt;Keep demo OK&lt;/h1&gt;&quot; &gt; /usr/share/nginx/html/index.html'
+curl -sI http://127.0.0.1:8090/ | head
+curl -s http://127.0.0.1:8090/ | head
+</code></pre></div></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Create a toy website container.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>New workflow</strong> <code>02-keep-agent</code>:<br />
+   - Trigger: Manual + Schedule (every 15 minutes while testing; slow it down later).<br />
+   - <strong>Edit Fields</strong>: <code>prompt</code> = <code>Check whether http://HOST:8090 is up. Report status only.</code> and a fixed <code>chatId</code> string for memory.<br />
+   - <strong>AI Agent</strong> with a small/fast model you control (local Ollama or a paid API you authorize).<br />
+   - Tools:<br />
+     - <strong>HTTP Request tool</strong> named <code>website_check</code> → GET the demo URL; description: “Fetch the demo site to see if it responds.”<br />
+     - <strong>Call n8n Workflow</strong> tool pointing at a sub-workflow that only runs <strong>read-only</strong> SSH/docker commands you whitelist in the prompt (start with <code>docker ps --filter name=keep-demo-web</code>).</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>System message (write your own; example intent):</strong><br />
+   You are a lab junior admin. You may inspect. You must set <code>needs_approval=true</code> before any start/stop/rm/kill. Never stop containers named <code>n8n</code> or <code>traefik</code>. Prefer explaining evidence from tool output.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Require structured output</strong> JSON shaped like:</p>
+<pre><code class="language-json">{
+  &quot;website_up&quot;: true,
+  &quot;needs_approval&quot;: false,
+  &quot;commands_requested&quot;: [],
+  &quot;message&quot;: &quot;short status for humans&quot;
+}
+</code></pre></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Branch with If/Switch:</strong><br />
+   - If <code>needs_approval</code> → Telegram/Discord <strong>send-and-wait / approval</strong> (or manual checkpoint) → feed approval back into the agent with the same <code>chatId</code>.<br />
+   - If <code>website_up</code> is false and no approval pending → notify only.<br />
+   - If true and healthy → <strong>do not spam</strong> (silent success).</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="6">
+ <div class="cr-step-num">6</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Break the demo on purpose:</strong></p>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker stop keep-demo-web
+curl -sI --max-time 3 http://127.0.0.1:8090/ || echo EXPECTED_DOWN
+</code></pre></div>
+<p>Run the agent manually. Confirm it reports down. Approve a <strong>single</strong> <code>docker start keep-demo-web</code> if you enabled fix mode. Prove the site returns.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Break the demo on purpose:.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="7">
+ <div class="cr-step-num">7</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Failure drill:</strong> ask the agent (in a disposable copy) to “fix everything.” Confirm your prompt/approval gates refuse stopping <code>n8n</code>. Record the refusal in the workbook.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="8">
+ <div class="cr-step-num">8</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p><strong>Deactivate</strong> the schedule when you leave the lab so it does not page you overnight during learning.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this step fully, then check that it worked before the next one. Focus: Deactivate.</div>
+ 
+</div>
+ </div>
+</div></div></div></div>
+<div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><ol>
+<li>Remove Limit → watch notify fan-out → restore Limit.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="2">
+<li>Point HTTP tool at a closed port → confirm agent reports down without inventing success.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="3">
+<li>Revoke Discord/Telegram credential → confirm node errors clearly → restore.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3.</div>
+ 
+</div></div><div class="cr-prose-block"><ol start="4">
+<li>Disable approval node and attempt an auto-fix path → prove you refuse to run class gate without human-in-the-loop.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Common mistakes</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Publishing n8n to <code>0.0.0.0</code> on a public VPS without Access/VPN.</li>
+<li>Using <code>localhost</code> inside a container when you meant another service name.</li>
+<li>Letting agents choose arbitrary shell commands on day one.</li>
+<li>Forgetting item cardinality (N items → N side effects).</li>
+<li>Storing webhook URLs in git.</li>
+<li>Pinning stale data and thinking production changed.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Answer in your own words without looking first. This proves you understand, not that you can copy.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If you miss one, re-read that section and try again before the gate.</div>
+</div><div class="cr-prose-block"><ol>
+<li>What is an n8n <strong>item</strong>, and why does item count matter for Discord nodes?</li>
+<li>What is the difference between an LLM summarize node and an AI Agent with tools?</li>
+<li>Why pin data during builds that call paid models?</li>
+<li>What must be true before an agent may run <code>docker stop</code> / <code>docker rm</code> in this class?</li>
+<li>Where should n8n’s UI be reachable from in a Keep-style lab?</li>
+<li>How do you keep a healthy schedule from spamming chat every 15 minutes?</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div></div></div>
+<div class="cr-check" data-check-id="gate-14">
+ <div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical gate — pass before you continue</h3></div>
+ <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
+</div>
+ <div class="cr-check-item"><label><input type="checkbox" data-k="0"> <span>n8n UI reachable on the lab network only; owner account created; data survives recreate.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="1"> <span>Workflow `01-rss-digest` runs manually: RSS → Limit(≤5) → notify with real titles/links.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph—triggers, nodes, and how data flows between them.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="2"> <span>Student can explain why message count matched item count before Limit.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Student can explain why message count matched item count before Limit.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="3"> <span>Workflow `02-keep-agent` detects demo site down/up from tool evidence.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph—triggers, nodes, and how data flows between them.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="4"> <span>At least one mutating action is gated by human approval (or class documents that fix-mode is disabled and why).</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="5"> <span>No production ARR/HA admin credentials were pasted into chat nodes or course files.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (No production ARR/HA admin credentials were pasted into chat nodes or course files.)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="6"> <span>Schedule is off or slowed when the student is not actively testing.</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Schedule is off or slowed when the student is not actively testing.)</div>
+ 
+</div></div>
+ <div class="cr-gate">All boxes true → continue to the next class</div>
+</div>
+<div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>n8n UI labels, AI node names, and env vars change across releases. Prefer current official n8n Docker and credentials docs for exact screens. The durable skills are: item flow, credentials hygiene, least privilege, structured outputs, and human approval before mutation.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Software screens change. The ideas stay. Prefer current official docs when a button moved.</div>
+ 
+</div></div>
+ <div class="cr-pager"><a href="13.html">← Class 13</a><a href="/classroom/final-exam.html">Capstone →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921k"></script>
+</body></html>

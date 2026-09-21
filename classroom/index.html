@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Homelab Academy · Classroom</title>
-<meta name="description" content="13-class ARR + HA + voice curriculum.">
+<meta name="description" content="14-class ARR + HA + voice + n8n curriculum.">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921j">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921k">
 </head>
 <body>
 
@@ -55,7 +55,7 @@
 
 <div class="wrap">
  <section class="hero flush">
- <div class="stamp">HOMELAB ACADEMY<small>free · 13-class pack</small></div>
+ <div class="stamp">HOMELAB ACADEMY<small>free · 14-class pack</small></div>
  <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom</p>
  <h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Build. Break. Fix. Verify.</h1>
  <p class="lede">Build-first curriculum for ARR, Home Assistant, and local voice. Same Otaconskeep chrome as the rest of the Keep — structured lessons, checkpoints, and a final verification matrix.</p>
@@ -87,6 +87,7 @@ Classes 1–4   Infrastructure (Compose, networks, ops)
 Classes 5–7   ARR / Prowlarr / TRaSH / config sync
 Classes 8–10  Home Assistant + secure remote access
 Classes 11–13 Local voice → private smart speaker
+Class 14       n8n automation → guarded Keep Agent
 → FINAL CAPSTONE verification matrix</pre>
  </section>
 </div>
@@ -94,9 +95,9 @@ Classes 11–13 Local voice → private smart speaker
 <div class="wrap">
  <section>
  <p class="tag">02 // Classes</p>
- <h2>All thirteen lessons</h2>
+ <h2>All fourteen lessons</h2>
  <div class="cr-course-grid">
-<a class="cr-course-card" href="classes/01.html"><div class="num">01</div><div><h3>VMs, hypervisors, and Proxmox</h3><p>Unit 1 — Infrastructure</p><div class="meta">Class 1</div></div></a><a class="cr-course-card" href="classes/02.html"><div class="num">02</div><div><h3>Docker Compose</h3><p>Unit 1 — Infrastructure</p><div class="meta">Class 2</div></div></a><a class="cr-course-card" href="classes/03.html"><div class="num">03</div><div><h3>Docker networking</h3><p>Unit 1 — Infrastructure</p><div class="meta">Class 3</div></div></a><a class="cr-course-card" href="classes/04.html"><div class="num">04</div><div><h3>Container operations</h3><p>Unit 1 — Infrastructure</p><div class="meta">Class 4</div></div></a><a class="cr-course-card" href="classes/05.html"><div class="num">05</div><div><h3>Prowlarr and ARR flow</h3><p>Unit 2 — ARR</p><div class="meta">Class 5</div></div></a><a class="cr-course-card" href="classes/06.html"><div class="num">06</div><div><h3>TRaSH quality profiles</h3><p>Unit 2 — ARR</p><div class="meta">Class 6</div></div></a><a class="cr-course-card" href="classes/07.html"><div class="num">07</div><div><h3>Configuration automation</h3><p>Unit 2 — ARR</p><div class="meta">Class 7</div></div></a><a class="cr-course-card" href="classes/08.html"><div class="num">08</div><div><h3>Home Assistant foundations</h3><p>Unit 3 — Home Assistant</p><div class="meta">Class 8</div></div></a><a class="cr-course-card" href="classes/09.html"><div class="num">09</div><div><h3>Home Assistant automations</h3><p>Unit 3 — Home Assistant</p><div class="meta">Class 9</div></div></a><a class="cr-course-card" href="classes/10.html"><div class="num">10</div><div><h3>Secure remote access</h3><p>Unit 3 — Home Assistant</p><div class="meta">Class 10</div></div></a><a class="cr-course-card" href="classes/11.html"><div class="num">11</div><div><h3>Local voice architecture</h3><p>Unit 4 — Voice</p><div class="meta">Class 11</div></div></a><a class="cr-course-card" href="classes/12.html"><div class="num">12</div><div><h3>Whisper, Piper, Wyoming</h3><p>Unit 4 — Voice</p><div class="meta">Class 12</div></div></a><a class="cr-course-card" href="classes/13.html"><div class="num">13</div><div><h3>Private smart speaker</h3><p>Unit 4 — Voice</p><div class="meta">Class 13</div></div></a>
+<a class="cr-course-card" href="classes/01.html"><div class="num">01</div><div><h3>VMs, hypervisors, and Proxmox</h3><p>Unit 1 — Infrastructure</p><div class="meta">Class 1</div></div></a><a class="cr-course-card" href="classes/02.html"><div class="num">02</div><div><h3>Docker Compose</h3><p>Unit 1 — Infrastructure</p><div class="meta">Class 2</div></div></a><a class="cr-course-card" href="classes/03.html"><div class="num">03</div><div><h3>Docker networking</h3><p>Unit 1 — Infrastructure</p><div class="meta">Class 3</div></div></a><a class="cr-course-card" href="classes/04.html"><div class="num">04</div><div><h3>Container operations</h3><p>Unit 1 — Infrastructure</p><div class="meta">Class 4</div></div></a><a class="cr-course-card" href="classes/05.html"><div class="num">05</div><div><h3>Prowlarr and ARR flow</h3><p>Unit 2 — ARR</p><div class="meta">Class 5</div></div></a><a class="cr-course-card" href="classes/06.html"><div class="num">06</div><div><h3>TRaSH quality profiles</h3><p>Unit 2 — ARR</p><div class="meta">Class 6</div></div></a><a class="cr-course-card" href="classes/07.html"><div class="num">07</div><div><h3>Configuration automation</h3><p>Unit 2 — ARR</p><div class="meta">Class 7</div></div></a><a class="cr-course-card" href="classes/08.html"><div class="num">08</div><div><h3>Home Assistant foundations</h3><p>Unit 3 — Home Assistant</p><div class="meta">Class 8</div></div></a><a class="cr-course-card" href="classes/09.html"><div class="num">09</div><div><h3>Home Assistant automations</h3><p>Unit 3 — Home Assistant</p><div class="meta">Class 9</div></div></a><a class="cr-course-card" href="classes/10.html"><div class="num">10</div><div><h3>Secure remote access</h3><p>Unit 3 — Home Assistant</p><div class="meta">Class 10</div></div></a><a class="cr-course-card" href="classes/11.html"><div class="num">11</div><div><h3>Local voice architecture</h3><p>Unit 4 — Voice</p><div class="meta">Class 11</div></div></a><a class="cr-course-card" href="classes/12.html"><div class="num">12</div><div><h3>Whisper, Piper, Wyoming</h3><p>Unit 4 — Voice</p><div class="meta">Class 12</div></div></a><a class="cr-course-card" href="classes/13.html"><div class="num">13</div><div><h3>Private smart speaker</h3><p>Unit 4 — Voice</p><div class="meta">Class 13</div></div></a><a class="cr-course-card" href="classes/14.html"><div class="num">14</div><div><h3>n8n homelab automation</h3><p>Unit 5 — Automation</p><div class="meta">Class 14</div></div></a>
  </div>
  </section>
 </div>
@@ -121,5 +122,5 @@ Classes 11–13 Local voice → private smart speaker
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921j"></script>
+<script src="/classroom/classroom.js?v=20260921k"></script>
 </body></html>

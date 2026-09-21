@@ -21,4 +21,6 @@
 - Whisper: <https://github.com/openai/whisper>
 - Piper: <https://github.com/OHF-Voice/piper1-gpl>
 - Wyoming protocol: <https://github.com/rhasspy/wyoming>
+- n8n documentation: <https://docs.n8n.io/>
+- n8n Docker installation: <https://docs.n8n.io/hosting/installation/docker/>
 

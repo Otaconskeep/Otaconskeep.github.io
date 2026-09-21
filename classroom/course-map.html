@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921j">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921k">
 </head>
 <body>
 
@@ -57,7 +57,7 @@
  <section class="hero flush">
  <p class="tag">Course map</p>
  <h1 class="display" style="font-size:clamp(1.9rem,5vw,3rem);">Course map</h1>
- <p class="lede">Sequence, gates, and final architecture for the 13-class pack.</p>
+ <p class="lede">Sequence, gates, and final architecture for the 14-class pack.</p>
  </section>
 </div>
 <div class="wrap">
@@ -149,6 +149,12 @@
 <td>Wake-to-action-to-speech system</td>
 <td>Internet-disconnected end-to-end pass</td>
 </tr>
+<tr>
+<td>14</td>
+<td>n8n homelab automation</td>
+<td>n8n + RSS digest + guarded Keep Agent</td>
+<td>Item-flow explained; approval before mutation</td>
+</tr>
 </tbody>
 </table></div>
 <div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Final architecture</h3></div><div class="cr-help">
@@ -169,6 +175,8 @@
     H[&quot;Home Assistant&quot;] --&gt; O[&quot;Monitoring + automations&quot;]
     V[&quot;Local voice satellite&quot;] --&gt; H
     H --&gt; V
+    N[&quot;n8n&quot;] --&gt; H
+    N --&gt; Lab[&quot;SSH / HTTP checks&quot;]
 </pre></div>
 <div class="cr-box cr-box-gate"><div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical gate</h3></div><h3>Gate 1 — Infrastructure</h3>
 <p>Classes 1–4 must pass before building the media applications. The student can explain persistence, ports, networks, name resolution, logs, health, updates, and rollback.</p>
@@ -177,7 +185,9 @@
 <h3>Gate 3 — Home automation</h3>
 <p>Classes 8–10 must pass before remote access is enabled. The student has a current backup, a tested restore path, and denies unauthenticated external access.</p>
 <h3>Gate 4 — Voice</h3>
-<p>Classes 11–13 must pass one component at a time. The full voice pipeline is attempted only after microphone, wake word, STT, intent/action, TTS, and playback pass independently.</p><div class="cr-help">
+<p>Classes 11–13 must pass one component at a time. The full voice pipeline is attempted only after microphone, wake word, STT, intent/action, TTS, and playback pass independently.</p>
+<h3>Gate 5 — Workflow automation</h3>
+<p>Class 14 must pass with n8n on the lab network only. The student can explain JSON item cardinality, keep credentials out of git, and require human approval before any mutating agent action.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
@@ -209,5 +219,5 @@
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921j"></script>
+<script src="/classroom/classroom.js?v=20260921k"></script>
 </body></html>
