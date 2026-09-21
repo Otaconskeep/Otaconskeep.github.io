@@ -11,10 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921e">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CLASS 2<span class="blink"></span></span></div></div>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 2<span class="blink"></span></span>
+ </div>
+</div>
+
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -30,10 +37,12 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
@@ -43,19 +52,20 @@
  <a href="/classroom/glossary.html">Glossary</a>
  </div>
 </nav>
-<div class="wrap cr-md">
-<section class="hero flush">
- <p class="tag">Unit 1 — Infrastructure · Class 2</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">Docker Compose</h1>
- <p class="lede">From the Homelab Academy 13-class pack. No video embeds — lecture links stay in the lesson text / references.</p>
-</section>
-<article class="cr-article">
-<h1>Class 2 — Docker Compose and Persistent Applications</h1>
-<p><strong>Lecture:</strong> <a href="https://www.youtube.com/watch?v=DM65_JyGxCo" target="_blank" rel="noopener">NetworkChuck — Docker Compose</a><br />
-<strong>Time:</strong> 120 minutes<br />
-<strong>Build output:</strong> a repeatable Compose project that survives recreation</p>
-<h2>Outcomes and vocabulary</h2>
-<p>You will distinguish image, container, registry, service, volume, and bind mount; read YAML; convert <code>docker run</code> intent into Compose; manage environment values; publish ports; add healthchecks; and prove data persistence.</p>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 02<small>unit 1 · infrastructure</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Docker Compose</h1>
+ <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
+ <div class="cr-meta-grid"><div><span>Lecture</span><p><a href="https://www.youtube.com/watch?v=DM65_JyGxCo" target="_blank" rel="noopener">NetworkChuck — Docker Compose</a></p></div><div><span>Time</span><p>120 minutes</p></div><div><span>Build output</span><p>a repeatable Compose project that survives recreation</p></div></div>
+ </section>
+</div>
+
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Outcomes and vocabulary</h3><p>You will distinguish image, container, registry, service, volume, and bind mount; read YAML; convert <code>docker run</code> intent into Compose; manage environment values; publish ports; add healthchecks; and prove data persistence.</p>
 <table>
 <thead>
 <tr>
@@ -101,9 +111,8 @@
 <td>Command that reports application readiness/health</td>
 </tr>
 </tbody>
-</table>
-<h2>Lesson</h2>
-<p>A long <code>docker run</code> command records configuration only in shell history and human memory. Compose stores the desired state in a file that can be reviewed, versioned without secrets, validated, and redeployed.</p>
+</table></div>
+<div class="cr-box"><h3>Lesson</h3><p>A long <code>docker run</code> command records configuration only in shell history and human memory. Compose stores the desired state in a file that can be reviewed, versioned without secrets, validated, and redeployed.</p>
 <pre><code class="language-text">flowchart TD
     Y[&quot;compose.yaml&quot;] --&gt; C[&quot;Docker Compose&quot;]
     C --&gt; W[&quot;web service&quot;]
@@ -142,9 +151,8 @@ docker compose ps
 docker compose logs --tail=100
 docker compose down
 </code></pre>
-<p><code>config</code> validates and renders the model. <code>pull</code> downloads declared images. <code>up -d</code> reconciles running resources to the file. <code>down</code> removes project containers and networks; adding <code>-v</code> can remove volumes and is therefore not used casually.</p>
-<h2>Guided lab</h2>
-<p>Create a directory containing this safe learning project:</p>
+<p><code>config</code> validates and renders the model. <code>pull</code> downloads declared images. <code>up -d</code> reconciles running resources to the file. <code>down</code> removes project containers and networks; adding <code>-v</code> can remove volumes and is therefore not used casually.</p></div>
+<div class="cr-box cr-box-lab"><h3>Guided lab</h3><p>Create a directory containing this safe learning project:</p>
 <pre><code class="language-yaml">name: compose-lab
 services:
   web:
@@ -179,41 +187,36 @@ services:
     /movies
     /tv
 </code></pre>
-<p>Avoid separate, unrelated mounts such as <code>/downloads</code> in one container and <code>/incoming</code> in another. They can be mapped correctly, but beginners often create remote-path and hardlink problems.</p>
-<h2>Break/fix</h2>
-<p>Perform these faults one at a time:</p>
+<p>Avoid separate, unrelated mounts such as <code>/downloads</code> in one container and <code>/incoming</code> in another. They can be mapped correctly, but beginners often create remote-path and hardlink problems.</p></div>
+<div class="cr-box"><h3>Break/fix</h3><p>Perform these faults one at a time:</p>
 <ol>
 <li>Change the published host port to one already in use. Read the bind error and restore it.</li>
 <li>Introduce one indentation error. Use <code>docker compose config</code> to locate it.</li>
 <li>Remove write permission from a test writable directory. Observe the application log, inspect numeric ownership, then restore only the required access.</li>
 <li>Change an image tag, pull, recreate, verify, then roll back to the recorded prior tag.</li>
-</ol>
-<h2>Knowledge check</h2>
-<ol>
+</ol></div>
+<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
 <li>Why should persistent data not remain only in the container layer?</li>
 <li>In <code>8080:80</code>, which is the host port?</li>
 <li>What does <code>docker compose config</code> prove?</li>
 <li>Is <code>.env</code> encryption?</li>
 <li>What is the difference between an image and a container?</li>
 <li>Why can a mounted directory be visible but not writable?</li>
-</ol>
-<h2>Practical gate</h2>
-<ul>
-<li>[ ] Compose validates.</li>
-<li>[ ] The service is reachable on the documented host port.</li>
-<li>[ ] Configuration/content survives <code>down</code> and <code>up</code>.</li>
-<li>[ ] Logs and health status can be retrieved.</li>
-<li>[ ] The student can identify every mount's host and container side.</li>
-<li>[ ] No real secret is stored in a tracked course file.</li>
-</ul>
-<h2>2026 correction</h2>
-<p>Use <code>docker compose</code> (Compose v2 plugin) in current environments. Old tutorials may use the standalone <code>docker-compose</code> command or obsolete schema keys. Validate against current Docker Compose documentation.</p>
-</article>
-<div class="cr-pager"><a href="01.html">← Class 1</a><a href="03.html">Class 3 →</a></div>
+</ol></div>
+<div class="cr-check" data-check-id="gate-02">
+ <h3>Practical gate — pass before you continue</h3>
+ <label><input type="checkbox" data-k="0"> Compose validates.</label><label><input type="checkbox" data-k="1"> The service is reachable on the documented host port.</label><label><input type="checkbox" data-k="2"> Configuration/content survives `down` and `up`.</label><label><input type="checkbox" data-k="3"> Logs and health status can be retrieved.</label><label><input type="checkbox" data-k="4"> The student can identify every mount&#x27;s host and container side.</label><label><input type="checkbox" data-k="5"> No real secret is stored in a tracked course file.</label>
+ <div class="cr-gate">All boxes true → continue</div>
 </div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>
+<div class="cr-callout tip"><strong>2026 correction:</strong> <p>Use <code>docker compose</code> (Compose v2 plugin) in current environments. Old tutorials may use the standalone <code>docker-compose</code> command or obsolete schema keys. Validate against current Docker Compose documentation.</p></div>
+ <div class="cr-pager"><a href="01.html">← Class 1</a><a href="03.html">Class 3 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921e"></script>
 </body></html>

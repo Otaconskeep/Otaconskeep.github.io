@@ -11,10 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921e">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CLASS 1<span class="blink"></span></span></div></div>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 1<span class="blink"></span></span>
+ </div>
+</div>
+
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -30,10 +37,12 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
@@ -43,21 +52,21 @@
  <a href="/classroom/glossary.html">Glossary</a>
  </div>
 </nav>
-<div class="wrap cr-md">
-<section class="hero flush">
- <p class="tag">Unit 1 — Infrastructure · Class 1</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">Proxmox, VMs, and LXC</h1>
- <p class="lede">From the Homelab Academy 13-class pack. No video embeds — lecture links stay in the lesson text / references.</p>
-</section>
-<article class="cr-article">
-<h1>Class 1 — Virtualization, Proxmox, VMs, and LXC</h1>
-<p><strong>Lecture:</strong> <a href="https://www.youtube.com/watch?v=_u8qTN3cCnQ" target="_blank" rel="noopener">NetworkChuck — Proxmox / Virtual Machines</a><br />
-<strong>Time:</strong> 90–120 minutes<br />
-<strong>Build output:</strong> one Linux VM and one disposable LXC</p>
-<h2>What you will learn</h2>
-<p>You will learn how one physical computer can host multiple isolated systems, what Proxmox manages, how VMs differ from LXC system containers, how virtual storage and networking work, and why the course places Docker inside a Linux VM.</p>
-<h2>Vocabulary</h2>
-<table>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 01<small>unit 1 · infrastructure</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Proxmox, VMs, and LXC</h1>
+ <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
+ <div class="cr-meta-grid"><div><span>Lecture</span><p><a href="https://www.youtube.com/watch?v=_u8qTN3cCnQ" target="_blank" rel="noopener">NetworkChuck — Proxmox / Virtual Machines</a></p></div><div><span>Time</span><p>90–120 minutes</p></div><div><span>Build output</span><p>one Linux VM and one disposable LXC</p></div></div>
+ </section>
+</div>
+
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>What you will learn</h3><p>You will learn how one physical computer can host multiple isolated systems, what Proxmox manages, how VMs differ from LXC system containers, how virtual storage and networking work, and why the course places Docker inside a Linux VM.</p></div>
+<div class="cr-box"><h3>Vocabulary</h3><table>
 <thead>
 <tr>
 <th>Term</th>
@@ -106,9 +115,8 @@
 <td>Point-in-time guest state; not a substitute for a backup</td>
 </tr>
 </tbody>
-</table>
-<h2>Lesson</h2>
-<p>Without virtualization, a server normally runs one operating system directly on its hardware. Virtualization inserts a management layer that presents virtual CPU, memory, disk, firmware, and network devices to separate guests.</p>
+</table></div>
+<div class="cr-box"><h3>Lesson</h3><p>Without virtualization, a server normally runs one operating system directly on its hardware. Virtualization inserts a management layer that presents virtual CPU, memory, disk, firmware, and network devices to separate guests.</p>
 <pre><code class="language-text">flowchart TD
     H[&quot;Physical server&quot;] --&gt; P[&quot;Proxmox VE&quot;]
     P --&gt; V1[&quot;HA OS VM&quot;]
@@ -169,9 +177,8 @@
     B --&gt; D[&quot;VM 110&quot;]
     B --&gt; L[&quot;LXC 200&quot;]
 </code></pre>
-<p>The management workstation can be Windows, Linux, or macOS. Proxmox normally runs on a separate dedicated system and is managed at <code>https://SERVER-IP:8006</code>.</p>
-<h2>Guided lab</h2>
-<ol>
+<p>The management workstation can be Windows, Linux, or macOS. Proxmox normally runs on a separate dedicated system and is managed at <code>https://SERVER-IP:8006</code>.</p></div>
+<div class="cr-box cr-box-lab"><h3>Guided lab</h3><ol>
 <li>Confirm the target disk contains no irreplaceable data. Installing Proxmox can erase it.</li>
 <li>Enable AMD-V/SVM or Intel VT-x in firmware if disabled.</li>
 <li>Write the current Proxmox ISO to a USB drive and boot the server from it.</li>
@@ -191,47 +198,41 @@ getent hosts example.com
 <li>SSH from the workstation: <code>ssh USER@VM-IP</code>.</li>
 <li>Download a Debian LXC template and create CT 200 with 1 CPU, 1 GB RAM, and 8 GB disk.</li>
 <li>Compare <code>free -h</code>, <code>uname -a</code>, boot time, and visible device model between VM and LXC.</li>
-</ol>
-<h2>Break it, then fix it</h2>
-<p>Detach the VM's virtual NIC or attach it to the wrong bridge. Observe whether the guest still has a link, address, route, gateway reachability, and DNS. Restore the original configuration one change at a time.</p>
+</ol></div>
+<div class="cr-box"><h3>Break it, then fix it</h3><p>Detach the VM's virtual NIC or attach it to the wrong bridge. Observe whether the guest still has a link, address, route, gateway reachability, and DNS. Restore the original configuration one change at a time.</p>
 <p>Troubleshoot in order:</p>
 <pre><code class="language-text">Virtual NIC -&gt; bridge -&gt; IP address -&gt; route -&gt; gateway -&gt; internet IP -&gt; DNS -&gt; application
 </code></pre>
-<p>If <code>ping 1.1.1.1</code> works but a hostname lookup fails, routing works and DNS is the likely fault. Do not reinstall the guest.</p>
-<h2>Common mistakes</h2>
-<ul>
+<p>If <code>ping 1.1.1.1</code> works but a hostname lookup fails, routing works and DNS is the likely fault. Do not reinstall the guest.</p></div>
+<div class="cr-box"><h3>Common mistakes</h3><ul>
 <li>Installing onto the only copy of important data.</li>
 <li>Giving one guest nearly all RAM and starving the host.</li>
 <li>Treating snapshots as independent backups.</li>
 <li>Assuming LXC and Docker are the same.</li>
 <li>Using Wi-Fi as the default server uplink without understanding bridge limitations.</li>
 <li>Changing IP, bridge, firewall, and DNS simultaneously during diagnosis.</li>
-</ul>
-<h2>Knowledge check</h2>
-<ol>
+</ul></div>
+<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
 <li>What is the difference between a host and a guest?</li>
 <li>Which guest type normally has its own kernel?</li>
 <li>What does <code>vmbr0</code> behave like?</li>
 <li>Why is a successful ping to <code>1.1.1.1</code> but failed hostname lookup useful?</li>
 <li>Why does this course put Docker in a Linux VM?</li>
-</ol>
-<h2>Practical gate</h2>
-<ul>
-<li>[ ] Proxmox UI is reachable at the recorded management address.</li>
-<li>[ ] The VM receives the expected IP configuration.</li>
-<li>[ ] Gateway, internet IP, and DNS tests pass independently.</li>
-<li>[ ] SSH works from the management workstation.</li>
-<li>[ ] The LXC boots and its kernel relationship can be explained.</li>
-<li>[ ] The student can draw physical NIC -&gt; bridge -&gt; guest NIC from memory.</li>
-</ul>
-<h2>2026 correction</h2>
-<p>Use the current Proxmox documentation for exact installer screens and supported versions. The 2021 lecture remains useful for the virtualization model, but current Proxmox guidance and hardware support take precedence.</p>
-</article>
-<div class="cr-pager"><a href="/classroom/">← Academy</a><a href="02.html">Class 2 →</a></div>
+</ol></div>
+<div class="cr-check" data-check-id="gate-01">
+ <h3>Practical gate — pass before you continue</h3>
+ <label><input type="checkbox" data-k="0"> Proxmox UI is reachable at the recorded management address.</label><label><input type="checkbox" data-k="1"> The VM receives the expected IP configuration.</label><label><input type="checkbox" data-k="2"> Gateway, internet IP, and DNS tests pass independently.</label><label><input type="checkbox" data-k="3"> SSH works from the management workstation.</label><label><input type="checkbox" data-k="4"> The LXC boots and its kernel relationship can be explained.</label><label><input type="checkbox" data-k="5"> The student can draw physical NIC -&gt; bridge -&gt; guest NIC from memory.</label>
+ <div class="cr-gate">All boxes true → continue</div>
 </div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>
+<div class="cr-callout tip"><strong>2026 correction:</strong> <p>Use the current Proxmox documentation for exact installer screens and supported versions. The 2021 lecture remains useful for the virtualization model, but current Proxmox guidance and hardware support take precedence.</p></div>
+ <div class="cr-pager"><a href="/classroom/">← Academy</a><a href="02.html">Class 2 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921e"></script>
 </body></html>

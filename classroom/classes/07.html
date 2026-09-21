@@ -11,10 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921e">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CLASS 7<span class="blink"></span></span></div></div>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 7<span class="blink"></span></span>
+ </div>
+</div>
+
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -30,10 +37,12 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
@@ -43,21 +52,21 @@
  <a href="/classroom/glossary.html">Glossary</a>
  </div>
 </nav>
-<div class="wrap cr-md">
-<section class="hero flush">
- <p class="tag">Unit 2 — ARR · Class 7</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">Configuration automation</h1>
- <p class="lede">From the Homelab Academy 13-class pack. No video embeds — lecture links stay in the lesson text / references.</p>
-</section>
-<article class="cr-article">
-<h1>Class 7 — Reproducible ARR Configuration and Drift Control</h1>
-<p><strong>Lecture:</strong> <a href="https://www.youtube.com/watch?v=eDlWTze8EKo" target="_blank" rel="noopener">IBRACORP — Updated TRaSH / Notifiarr Automation</a><br />
-<strong>Time:</strong> 150 minutes<br />
-<strong>Build output:</strong> backed-up, repeatable profile sync with drift and rollback evidence</p>
-<h2>Purpose</h2>
-<p>Manual clicking can create a correct profile once. Automation aims to keep declared policy synchronized over time. That introduces new hazards: upstream changes, destructive replacement, token exposure, and configuration drift. This class teaches controlled automation rather than blind synchronization.</p>
-<h2>Vocabulary</h2>
-<table>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 07<small>unit 2 · arr</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Configuration automation</h1>
+ <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
+ <div class="cr-meta-grid"><div><span>Lecture</span><p><a href="https://www.youtube.com/watch?v=eDlWTze8EKo" target="_blank" rel="noopener">IBRACORP — Updated TRaSH / Notifiarr Automation</a></p></div><div><span>Time</span><p>150 minutes</p></div><div><span>Build output</span><p>backed-up, repeatable profile sync with drift and rollback evidence</p></div></div>
+ </section>
+</div>
+
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Purpose</h3><p>Manual clicking can create a correct profile once. Automation aims to keep declared policy synchronized over time. That introduces new hazards: upstream changes, destructive replacement, token exposure, and configuration drift. This class teaches controlled automation rather than blind synchronization.</p></div>
+<div class="cr-box"><h3>Vocabulary</h3><table>
 <thead>
 <tr>
 <th>Term</th>
@@ -98,9 +107,8 @@
 <td>Scope of systems or profiles affected by a failure</td>
 </tr>
 </tbody>
-</table>
-<h2>Control-loop model</h2>
-<pre><code class="language-text">flowchart TD
+</table></div>
+<div class="cr-box"><h3>Control-loop model</h3><pre><code class="language-text">flowchart TD
     S[&quot;Declared policy&quot;] --&gt; C[&quot;Compare&quot;]
     O[&quot;Observed ARR state&quot;] --&gt; C
     C --&gt; P[&quot;Planned change&quot;]
@@ -108,9 +116,8 @@
     A --&gt; V[&quot;Verify behavior&quot;]
     V --&gt; O
 </code></pre>
-<p>The loop is incomplete without behavior verification. A tool reporting “sync successful” proves only that its operation completed; it does not prove the resulting release rankings match household requirements.</p>
-<h2>Choose one authoritative path</h2>
-<p>Current environments may use Recyclarr, Notifiarr-supported synchronization, or another maintained method. Avoid having two tools own the same profiles and CF scores unless their responsibilities are explicitly separated. Competing writers create oscillation and confusing drift.</p>
+<p>The loop is incomplete without behavior verification. A tool reporting “sync successful” proves only that its operation completed; it does not prove the resulting release rankings match household requirements.</p></div>
+<div class="cr-box"><h3>Choose one authoritative path</h3><p>Current environments may use Recyclarr, Notifiarr-supported synchronization, or another maintained method. Avoid having two tools own the same profiles and CF scores unless their responsibilities are explicitly separated. Competing writers create oscillation and confusing drift.</p>
 <p>The authoritative record should include:</p>
 <ul>
 <li>Tool and version.</li>
@@ -121,9 +128,8 @@
 <li>Secret injection method.</li>
 <li>Last successful sync.</li>
 <li>Last verified behavior test.</li>
-</ul>
-<h2>Safe rollout pattern</h2>
-<ol>
+</ul></div>
+<div class="cr-box"><h3>Safe rollout pattern</h3><ol>
 <li>Back up application database/configuration.</li>
 <li>Export or screenshot the current profile in a secret-safe way.</li>
 <li>Pin the automation tool version.</li>
@@ -133,9 +139,8 @@
 <li>Apply to one test profile or one application.</li>
 <li>Run controlled candidate-scoring tests.</li>
 <li>Expand only after acceptance criteria pass.</li>
-</ol>
-<h2>Secrets</h2>
-<p>API URLs and API keys are credentials. Keep them outside tracked configuration when the tool supports environment or secret injection. Limit filesystem permissions. Rotate a key if it appears in logs, screenshots, shell history, or a repository.</p>
+</ol></div>
+<div class="cr-box"><h3>Secrets</h3><p>API URLs and API keys are credentials. Keep them outside tracked configuration when the tool supports environment or secret injection. Limit filesystem permissions. Rotate a key if it appears in logs, screenshots, shell history, or a repository.</p>
 <p>Example conceptual configuration—not a copy/paste guarantee:</p>
 <pre><code class="language-yaml">radarr:
   movies:
@@ -145,9 +150,8 @@
     quality_profiles:
       - name: HD Balanced
 </code></pre>
-<p>Consult the selected tool's current schema for exact syntax.</p>
-<h2>Guided lab</h2>
-<ol>
+<p>Consult the selected tool's current schema for exact syntax.</p></div>
+<div class="cr-box cr-box-lab"><h3>Guided lab</h3><ol>
 <li>Create a disposable test profile in Radarr or Sonarr.</li>
 <li>Record its initial qualities, cutoff, CF list, and scores.</li>
 <li>Configure one supported sync tool against that test profile.</li>
@@ -161,9 +165,8 @@
 <li>Apply the chosen resolution.</li>
 <li>Run the five-candidate behavior test from Class 6.</li>
 <li>Restore from backup or reverse the change to prove rollback.</li>
-</ol>
-<h2>Change classification</h2>
-<table>
+</ol></div>
+<div class="cr-box"><h3>Change classification</h3><table>
 <thead>
 <tr>
 <th>Change</th>
@@ -203,43 +206,37 @@
 <td>Read migration notes and stage separately</td>
 </tr>
 </tbody>
-</table>
-<h2>Break/fix</h2>
-<ul>
+</table></div>
+<div class="cr-box"><h3>Break/fix</h3><ul>
 <li><strong>Bad API key:</strong> confirm 401/403 class before changing networks.</li>
 <li><strong>Bad base URL:</strong> prove DNS and TCP separately.</li>
 <li><strong>Schema error:</strong> validate against the installed tool version, not a blog post.</li>
 <li><strong>Unexpected mass change:</strong> stop, preserve logs, restore database/config backup, and compare declared inputs.</li>
 <li><strong>Oscillating scores:</strong> identify competing writers and establish one owner.</li>
 <li><strong>Successful sync but wrong results:</strong> return to the behavioral scoring test.</li>
-</ul>
-<h2>Knowledge check</h2>
-<ol>
+</ul></div>
+<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
 <li>What is configuration drift?</li>
 <li>Why is a second idempotency run useful?</li>
 <li>Why is “sync succeeded” not the final acceptance test?</li>
 <li>What happens when two tools own the same scores?</li>
 <li>Which changes deserve a high-risk classification?</li>
 <li>When should an upstream guide update enter production?</li>
-</ol>
-<h2>Practical gate</h2>
-<ul>
-<li>[ ] One source of truth is named.</li>
-<li>[ ] Secrets are not embedded in tracked files.</li>
-<li>[ ] Validation/preview is reviewed before apply.</li>
-<li>[ ] A second run creates no unwanted duplicate state.</li>
-<li>[ ] Intentional drift is detected and resolved.</li>
-<li>[ ] Candidate behavior still matches Class 6 requirements.</li>
-<li>[ ] Rollback is demonstrated.</li>
-</ul>
-<h2>2026 correction</h2>
-<p>Do not assume the automation mechanism shown in an older video remains the recommended integration. Select a currently maintained sync path, use its current schema, and preserve the source-of-truth, preview, verification, and rollback controls taught here.</p>
-</article>
-<div class="cr-pager"><a href="06.html">← Class 6</a><a href="08.html">Class 8 →</a></div>
+</ol></div>
+<div class="cr-check" data-check-id="gate-07">
+ <h3>Practical gate — pass before you continue</h3>
+ <label><input type="checkbox" data-k="0"> One source of truth is named.</label><label><input type="checkbox" data-k="1"> Secrets are not embedded in tracked files.</label><label><input type="checkbox" data-k="2"> Validation/preview is reviewed before apply.</label><label><input type="checkbox" data-k="3"> A second run creates no unwanted duplicate state.</label><label><input type="checkbox" data-k="4"> Intentional drift is detected and resolved.</label><label><input type="checkbox" data-k="5"> Candidate behavior still matches Class 6 requirements.</label><label><input type="checkbox" data-k="6"> Rollback is demonstrated.</label>
+ <div class="cr-gate">All boxes true → continue</div>
 </div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>
+<div class="cr-callout tip"><strong>2026 correction:</strong> <p>Do not assume the automation mechanism shown in an older video remains the recommended integration. Select a currently maintained sync path, use its current schema, and preserve the source-of-truth, preview, verification, and rollback controls taught here.</p></div>
+ <div class="cr-pager"><a href="06.html">← Class 6</a><a href="08.html">Class 8 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921e"></script>
 </body></html>

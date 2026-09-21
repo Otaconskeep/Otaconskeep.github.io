@@ -11,10 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921e">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CLASS 11<span class="blink"></span></span></div></div>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 11<span class="blink"></span></span>
+ </div>
+</div>
+
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -30,10 +37,12 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
@@ -43,19 +52,20 @@
  <a href="/classroom/glossary.html">Glossary</a>
  </div>
 </nav>
-<div class="wrap cr-md">
-<section class="hero flush">
- <p class="tag">Unit 4 — Voice · Class 11</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">Local voice architecture</h1>
- <p class="lede">From the Homelab Academy 13-class pack. No video embeds — lecture links stay in the lesson text / references.</p>
-</section>
-<article class="cr-article">
-<h1>Class 11 — Local Voice Architecture and Fault Isolation</h1>
-<p><strong>Lecture:</strong> <a href="https://www.youtube.com/watch?v=w9BbjUowmnE" target="_blank" rel="noopener">Everything Smart Home — Local Smart Home Voice</a><br />
-<strong>Time:</strong> 120 minutes<br />
-<strong>Build output:</strong> voice-pipeline test record with one test per stage</p>
-<h2>Core principle</h2>
-<p>Never test the entire voice pipeline first. Each stage transforms an input into an output. Capture the boundary result and prove it before moving forward.</p>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 11<small>unit 4 · voice</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Local voice architecture</h1>
+ <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
+ <div class="cr-meta-grid"><div><span>Lecture</span><p><a href="https://www.youtube.com/watch?v=w9BbjUowmnE" target="_blank" rel="noopener">Everything Smart Home — Local Smart Home Voice</a></p></div><div><span>Time</span><p>120 minutes</p></div><div><span>Build output</span><p>voice-pipeline test record with one test per stage</p></div></div>
+ </section>
+</div>
+
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Core principle</h3><p>Never test the entire voice pipeline first. Each stage transforms an input into an output. Capture the boundary result and prove it before moving forward.</p>
 <pre><code class="language-text">flowchart TD
     H[&quot;Human speech&quot;] --&gt; M[&quot;Microphone&quot;]
     M --&gt; W[&quot;Wake word&quot;]
@@ -65,9 +75,8 @@
     C --&gt; A[&quot;Home Assistant action&quot;]
     A --&gt; T[&quot;TTS&quot;]
     T --&gt; P[&quot;Speaker&quot;]
-</code></pre>
-<h2>Vocabulary</h2>
-<table>
+</code></pre></div>
+<div class="cr-box"><h3>Vocabulary</h3><table>
 <thead>
 <tr>
 <th>Acronym</th>
@@ -107,9 +116,8 @@
 <td>Detection event</td>
 </tr>
 </tbody>
-</table>
-<h2>Signal chain</h2>
-<p>Microphone quality, gain, distance, echo, noise, sample format, and clipping affect everything downstream. An LLM cannot recover words that were never captured. Begin with a recorded audio sample and listen to it.</p>
+</table></div>
+<div class="cr-box"><h3>Signal chain</h3><p>Microphone quality, gain, distance, echo, noise, sample format, and clipping affect everything downstream. An LLM cannot recover words that were never captured. Begin with a recorded audio sample and listen to it.</p>
 <h3>Wake word</h3>
 <p>Wake-word detection should occur before expensive STT in a typical always-listening satellite. Tune for the environment: too sensitive causes false activations; not sensitive enough causes misses. Measure both false rejects and false accepts.</p>
 <h3>VAD and endpointing</h3>
@@ -121,9 +129,8 @@
 <h3>Action</h3>
 <p>Home Assistant must be able to perform the action from text/manual developer tools before voice is involved.</p>
 <h3>TTS and playback</h3>
-<p>TTS produces audio; the output device must play it. Test synthesis and playback separately so a muted speaker is not blamed on Piper.</p>
-<h2>Guided lab</h2>
-<p>Use the sentence: <strong>“Turn on the office test light.”</strong> Replace the entity only with a safe test device/helper.</p>
+<p>TTS produces audio; the output device must play it. Test synthesis and playback separately so a muted speaker is not blamed on Piper.</p></div>
+<div class="cr-box cr-box-lab"><h3>Guided lab</h3><p>Use the sentence: <strong>“Turn on the office test light.”</strong> Replace the entity only with a safe test device/helper.</p>
 <ol>
 <li>Record raw microphone audio. Confirm the sentence is intelligible, not clipped, and sufficiently loud.</li>
 <li>Trigger the wake word ten times at a fixed distance; record detections.</li>
@@ -136,9 +143,8 @@
 <li>Send a fixed phrase to TTS and capture whether synthesis succeeds.</li>
 <li>Play known audio through the target speaker.</li>
 <li>Run the complete pipeline only after steps 1–10 pass.</li>
-</ol>
-<h2>Acceptance criteria example</h2>
-<table>
+</ol></div>
+<div class="cr-box"><h3>Acceptance criteria example</h3><table>
 <thead>
 <tr>
 <th>Stage</th>
@@ -183,9 +189,8 @@
 <td>Action and response complete within recorded latency target</td>
 </tr>
 </tbody>
-</table>
-<h2>Symptom-to-layer diagnosis</h2>
-<table>
+</table></div>
+<div class="cr-box"><h3>Symptom-to-layer diagnosis</h3><table>
 <thead>
 <tr>
 <th>Symptom</th>
@@ -218,35 +223,29 @@
 <td>stage timestamps; do not guess</td>
 </tr>
 </tbody>
-</table>
-<h2>Break/fix</h2>
-<p>Introduce one controlled fault at a time: mute input, use the wrong STT language, rename the test entity, mute output. Predict the expected boundary failure, observe it, and restore the original state.</p>
-<h2>Knowledge check</h2>
-<ol>
+</table></div>
+<div class="cr-box"><h3>Break/fix</h3><p>Introduce one controlled fault at a time: mute input, use the wrong STT language, rename the test entity, mute output. Predict the expected boundary failure, observe it, and restore the original state.</p></div>
+<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
 <li>Why does a correct HA action not prove STT quality?</li>
 <li>What does VAD control?</li>
 <li>Which artifact proves STT behavior?</li>
 <li>Why test TTS synthesis separately from playback?</li>
 <li>What should be tested before adding an LLM conversation agent?</li>
-</ol>
-<h2>Practical gate</h2>
-<ul>
-<li>[ ] Raw microphone sample is acceptable.</li>
-<li>[ ] Wake-word hit/miss evidence is recorded.</li>
-<li>[ ] STT transcript meets criterion.</li>
-<li>[ ] Text-only HA command works.</li>
-<li>[ ] TTS and speaker pass separately.</li>
-<li>[ ] Stage timestamps identify latency.</li>
-<li>[ ] End-to-end command passes.</li>
-</ul>
-<h2>2026 correction</h2>
-<p>Home Assistant voice pipelines and supported hardware continue to evolve. Use current HA voice documentation for UI and integration steps; preserve boundary testing regardless of the selected satellite or agent.</p>
-</article>
-<div class="cr-pager"><a href="10.html">← Class 10</a><a href="12.html">Class 12 →</a></div>
+</ol></div>
+<div class="cr-check" data-check-id="gate-11">
+ <h3>Practical gate — pass before you continue</h3>
+ <label><input type="checkbox" data-k="0"> Raw microphone sample is acceptable.</label><label><input type="checkbox" data-k="1"> Wake-word hit/miss evidence is recorded.</label><label><input type="checkbox" data-k="2"> STT transcript meets criterion.</label><label><input type="checkbox" data-k="3"> Text-only HA command works.</label><label><input type="checkbox" data-k="4"> TTS and speaker pass separately.</label><label><input type="checkbox" data-k="5"> Stage timestamps identify latency.</label><label><input type="checkbox" data-k="6"> End-to-end command passes.</label>
+ <div class="cr-gate">All boxes true → continue</div>
 </div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>
+<div class="cr-callout tip"><strong>2026 correction:</strong> <p>Home Assistant voice pipelines and supported hardware continue to evolve. Use current HA voice documentation for UI and integration steps; preserve boundary testing regardless of the selected satellite or agent.</p></div>
+ <div class="cr-pager"><a href="10.html">← Class 10</a><a href="12.html">Class 12 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921e"></script>
 </body></html>

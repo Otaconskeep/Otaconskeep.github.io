@@ -11,10 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921e">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CLASS 9<span class="blink"></span></span></div></div>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 9<span class="blink"></span></span>
+ </div>
+</div>
+
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -30,10 +37,12 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
@@ -43,19 +52,20 @@
  <a href="/classroom/glossary.html">Glossary</a>
  </div>
 </nav>
-<div class="wrap cr-md">
-<section class="hero flush">
- <p class="tag">Unit 3 — Home Assistant · Class 9</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">Home Assistant automations</h1>
- <p class="lede">From the Homelab Academy 13-class pack. No video embeds — lecture links stay in the lesson text / references.</p>
-</section>
-<article class="cr-article">
-<h1>Class 9 — Home Assistant Automations as Testable Logic</h1>
-<p><strong>Lecture:</strong> <a href="https://www.youtube.com/watch?v=k02P5nghmfs" target="_blank" rel="noopener">NetworkChuck — Home Assistant</a><br />
-<strong>Time:</strong> 150 minutes<br />
-<strong>Build output:</strong> one automation with positive, negative, restart, and failure tests</p>
-<h2>Automation model</h2>
-<p>An automation has three core parts:</p>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 09<small>unit 3 · home assistant</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Home Assistant automations</h1>
+ <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
+ <div class="cr-meta-grid"><div><span>Lecture</span><p><a href="https://www.youtube.com/watch?v=k02P5nghmfs" target="_blank" rel="noopener">NetworkChuck — Home Assistant</a></p></div><div><span>Time</span><p>150 minutes</p></div><div><span>Build output</span><p>one automation with positive, negative, restart, and failure tests</p></div></div>
+ </section>
+</div>
+
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Automation model</h3><p>An automation has three core parts:</p>
 <pre><code class="language-text">WHEN trigger occurs
 IF conditions are true
 THEN perform actions
@@ -66,16 +76,13 @@ THEN perform actions
     C --&gt;|&quot;yes&quot;| A[&quot;Actions&quot;]
     C --&gt;|&quot;no&quot;| N[&quot;No action&quot;]
     A --&gt; V[&quot;Verify resulting state&quot;]
-</code></pre>
-<h2>Example requirement</h2>
-<blockquote>
+</code></pre></div>
+<div class="cr-box"><h3>Example requirement</h3><blockquote>
 <p>When the office test switch turns on after sunset, turn on the office test light at 40 percent. Do nothing during daytime. If the light is unavailable, create a persistent notification.</p>
 </blockquote>
-<p>This requirement is measurable. It identifies trigger, condition, nominal action, exception behavior, and expected state.</p>
-<h2>State versus event</h2>
-<p>A state trigger reacts when an entity changes state. An event trigger reacts to a bus event. Time, sun, template, webhook, zone, device, and other trigger families express different initiation mechanisms. Pick the type that matches the requirement rather than the one easiest to click.</p>
-<h2>Modes and concurrency</h2>
-<p>Automation modes control what happens when a new trigger occurs while a prior run is active:</p>
+<p>This requirement is measurable. It identifies trigger, condition, nominal action, exception behavior, and expected state.</p></div>
+<div class="cr-box"><h3>State versus event</h3><p>A state trigger reacts when an entity changes state. An event trigger reacts to a bus event. Time, sun, template, webhook, zone, device, and other trigger families express different initiation mechanisms. Pick the type that matches the requirement rather than the one easiest to click.</p></div>
+<div class="cr-box"><h3>Modes and concurrency</h3><p>Automation modes control what happens when a new trigger occurs while a prior run is active:</p>
 <table>
 <thead>
 <tr>
@@ -102,11 +109,9 @@ THEN perform actions
 </tr>
 </tbody>
 </table>
-<p>The right mode depends on safety and intent. A door announcement may use queued behavior; a motion-controlled timer may use restart; parallel actions can create races if they modify the same system.</p>
-<h2>Traces</h2>
-<p>Automation traces show which trigger fired, condition result, path taken, variables, and action errors. Use the trace before editing unrelated devices or reinstalling an integration.</p>
-<h2>Guided lab</h2>
-<p>Create two helpers if safe physical devices are unavailable: an input boolean as the trigger and a light helper or persistent notification as the output.</p>
+<p>The right mode depends on safety and intent. A door announcement may use queued behavior; a motion-controlled timer may use restart; parallel actions can create races if they modify the same system.</p></div>
+<div class="cr-box"><h3>Traces</h3><p>Automation traces show which trigger fired, condition result, path taken, variables, and action errors. Use the trace before editing unrelated devices or reinstalling an integration.</p></div>
+<div class="cr-box cr-box-lab"><h3>Guided lab</h3><p>Create two helpers if safe physical devices are unavailable: an input boolean as the trigger and a light helper or persistent notification as the output.</p>
 <ol>
 <li>Write the requirement and acceptance criteria first.</li>
 <li>Build a trigger from the boolean turning on.</li>
@@ -119,24 +124,21 @@ THEN perform actions
 <li>Test repeated/rapid triggers and verify mode behavior.</li>
 <li>Restart Home Assistant and repeat the positive test.</li>
 <li>Inspect trace details for all cases.</li>
-</ol>
-<h2>Monitoring the homelab</h2>
-<p>Apply the same model to infrastructure without allowing HA to hide faults:</p>
+</ol></div>
+<div class="cr-box"><h3>Monitoring the homelab</h3><p>Apply the same model to infrastructure without allowing HA to hide faults:</p>
 <ul>
 <li>Trigger: Plex or a monitored endpoint becomes unavailable for a defined duration.</li>
 <li>Condition: maintenance mode is off.</li>
 <li>Action: notify the owner and capture context.</li>
 </ul>
-<p>Auto-restarts can be added only after detecting, confirming, limiting retries, and alerting on repeated failure. Otherwise automation can erase evidence and create restart loops.</p>
-<h2>Break/fix</h2>
-<ol>
+<p>Auto-restarts can be added only after detecting, confirming, limiting retries, and alerting on repeated failure. Otherwise automation can erase evidence and create restart loops.</p></div>
+<div class="cr-box"><h3>Break/fix</h3><ol>
 <li>Change the condition so it is false. Confirm the trace stops at the condition.</li>
 <li>Point the action to a nonexistent entity. Confirm the trigger/condition pass and the action fails.</li>
 <li>Set a delay, trigger twice, and observe mode behavior.</li>
 <li>Disable the automation and confirm manual entity control still works.</li>
-</ol>
-<h2>Failure taxonomy</h2>
-<table>
+</ol></div>
+<div class="cr-box"><h3>Failure taxonomy</h3><table>
 <thead>
 <tr>
 <th>Symptom</th>
@@ -165,33 +167,28 @@ THEN perform actions
 <td>Initialization, unavailable state, or timing</td>
 </tr>
 </tbody>
-</table>
-<h2>Knowledge check</h2>
-<ol>
+</table></div>
+<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
 <li>What is the difference between a trigger and a condition?</li>
 <li>Why test a negative case?</li>
 <li>When is <code>restart</code> mode useful?</li>
 <li>What does an automation trace prove?</li>
 <li>Why should an auto-restart loop have a retry limit?</li>
-</ol>
-<h2>Practical gate</h2>
-<ul>
-<li>[ ] Requirement and acceptance criteria are written.</li>
-<li>[ ] Positive test passes.</li>
-<li>[ ] Negative test prevents the action.</li>
-<li>[ ] Repeated-trigger behavior matches the selected mode.</li>
-<li>[ ] The trace identifies each path.</li>
-<li>[ ] Restart does not break the automation.</li>
-<li>[ ] Failure behavior creates useful evidence.</li>
-</ul>
-<h2>2026 correction</h2>
-<p>Current Home Assistant uses action-oriented terminology in places where old material may say “call service.” Follow the current editor/schema while retaining trigger-condition-action logic and trace-based diagnosis.</p>
-</article>
-<div class="cr-pager"><a href="08.html">← Class 8</a><a href="10.html">Class 10 →</a></div>
+</ol></div>
+<div class="cr-check" data-check-id="gate-09">
+ <h3>Practical gate — pass before you continue</h3>
+ <label><input type="checkbox" data-k="0"> Requirement and acceptance criteria are written.</label><label><input type="checkbox" data-k="1"> Positive test passes.</label><label><input type="checkbox" data-k="2"> Negative test prevents the action.</label><label><input type="checkbox" data-k="3"> Repeated-trigger behavior matches the selected mode.</label><label><input type="checkbox" data-k="4"> The trace identifies each path.</label><label><input type="checkbox" data-k="5"> Restart does not break the automation.</label><label><input type="checkbox" data-k="6"> Failure behavior creates useful evidence.</label>
+ <div class="cr-gate">All boxes true → continue</div>
 </div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>
+<div class="cr-callout tip"><strong>2026 correction:</strong> <p>Current Home Assistant uses action-oriented terminology in places where old material may say “call service.” Follow the current editor/schema while retaining trigger-condition-action logic and trace-based diagnosis.</p></div>
+ <div class="cr-pager"><a href="08.html">← Class 8</a><a href="10.html">Class 10 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921e"></script>
 </body></html>

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Build Homelab Academy Classroom site from Homelab_Academy_13_Class_Pack."""
+"""Build Homelab Academy Classroom — pack content in Otaconskeep site chrome."""
 from __future__ import annotations
 
 import html as H
 import re
+import shutil
 from pathlib import Path
 
 import markdown
@@ -12,8 +13,9 @@ SITE = Path("/root/otaconskeep-site/classroom")
 PACK = SITE / "pack"
 CLASSES_DIR = SITE / "classes"
 GH = Path("/root/Classroom")
+CSS_V = "20260921e"
 
-NAV = '''<nav class="topnav">
+NAV = f'''<nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
@@ -28,9 +30,10 @@ NAV = '''<nav class="topnav">
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
+ </div>
+ </div>
 </nav>'''
 
 SUB = '''<nav class="cr-subnav" aria-label="Classroom">
@@ -44,11 +47,13 @@ SUB = '''<nav class="cr-subnav" aria-label="Classroom">
  </div>
 </nav>'''
 
-FOOT = '''<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>'''
+FOOT = f'''<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v={CSS_V}"></script>'''
 
 HEAD = '''<!doctype html>
 <html lang="en">
@@ -63,11 +68,19 @@ HEAD = '''<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v={cssv}">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>{bar}<span class="blink"></span></span></div></div>
-{nav}{sub}
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>{bar}<span class="blink"></span></span>
+ </div>
+</div>
+
+{nav}
+{sub}
 '''
 
 CLASS_META = [
@@ -88,10 +101,27 @@ CLASS_META = [
 
 MD = markdown.Markdown(extensions=["tables", "fenced_code", "nl2br", "sane_lists"])
 
+SECTION_KIND = {
+    "vocabulary": "vocab",
+    "end-to-end architecture": "diagram",
+    "architecture": "diagram",
+    "architecture overview": "diagram",
+    "guided lab": "lab",
+    "lab": "lab",
+    "break/fix exercises": "break",
+    "break / fix exercises": "break",
+    "troubleshooting matrix": "trouble",
+    "troubleshooting": "trouble",
+    "knowledge check": "quiz",
+    "practical gate": "gate",
+    "2026 correction": "tip",
+    "scope and legal boundary": "tip",
+    "important boundaries": "tip",
+}
 
-def md_to_html(text: str) -> str:
+
+def md_fragment(text: str) -> str:
     MD.reset()
-    # Keep mermaid readable as diagrams (no embed dependency)
     text = re.sub(
         r"```mermaid\n(.*?)```",
         lambda m: "```text\n" + m.group(1).strip() + "\n```",
@@ -99,7 +129,6 @@ def md_to_html(text: str) -> str:
         flags=re.S,
     )
     html = MD.convert(text)
-    # External links open safely
     html = re.sub(
         r'<a href="(https?://[^"]+)"',
         r'<a href="\1" target="_blank" rel="noopener"',
@@ -117,8 +146,10 @@ def wrap(title: str, desc: str, canon: str, bar: str, body: str) -> str:
             bar=H.escape(bar),
             nav=NAV,
             sub=SUB,
+            cssv=CSS_V,
         )
-        + f'<div class="wrap cr-md">{body}</div>\n{FOOT}\n</body></html>\n'
+        + body
+        + f"\n{FOOT}\n</body></html>\n"
     )
 
 
@@ -134,6 +165,118 @@ def pager(prev, next_):
     return f'<div class="cr-pager">{left}{right}</div>'
 
 
+def split_sections(md: str):
+    """Return (title, lead_md, [(h2, body_md), ...])."""
+    lines = md.splitlines()
+    title = ""
+    i = 0
+    if lines and lines[0].startswith("# "):
+        title = lines[0][2:].strip()
+        i = 1
+        while i < len(lines) and not lines[i].strip():
+            i += 1
+    lead = []
+    while i < len(lines) and not lines[i].startswith("## "):
+        lead.append(lines[i])
+        i += 1
+    sections = []
+    while i < len(lines):
+        h2 = lines[i][3:].strip()
+        i += 1
+        body = []
+        while i < len(lines) and not lines[i].startswith("## "):
+            body.append(lines[i])
+            i += 1
+        sections.append((h2, "\n".join(body).strip()))
+    return title, "\n".join(lead).strip(), sections
+
+
+def parse_meta(lead_md: str):
+    """Extract Lecture / Time / Build output from bold lead lines."""
+    lecture = time = build = ""
+    rest = []
+    for line in lead_md.splitlines():
+        s = line.strip()
+        m = re.match(r"\*\*Lecture:\*\*\s*(.+)", s, re.I)
+        if m:
+            lecture = m.group(1).strip()
+            continue
+        m = re.match(r"\*\*Time:\*\*\s*(.+)", s, re.I)
+        if m:
+            time = m.group(1).strip()
+            continue
+        m = re.match(r"\*\*Build output:\*\*\s*(.+)", s, re.I)
+        if m:
+            build = m.group(1).strip()
+            continue
+        if s:
+            rest.append(line)
+    return lecture, time, build, "\n".join(rest).strip()
+
+
+def render_gate(body_md: str, cid: str) -> str:
+    items = []
+    for line in body_md.splitlines():
+        m = re.match(r"- \[[ xX]?\]\s*(.+)", line.strip())
+        if m:
+            items.append(m.group(1).strip())
+    if not items:
+        return f'<div class="cr-box"><h3>Practical gate</h3>{md_fragment(body_md)}</div>'
+    boxes = "".join(
+        f'<label><input type="checkbox" data-k="{i}"> {H.escape(t)}</label>'
+        for i, t in enumerate(items)
+    )
+    return f'''<div class="cr-check" data-check-id="{H.escape(cid)}">
+ <h3>Practical gate — pass before you continue</h3>
+ {boxes}
+ <div class="cr-gate">All boxes true → continue</div>
+</div>'''
+
+
+def render_section(h2: str, body: str, class_id: str) -> str:
+    kind = SECTION_KIND.get(h2.lower().strip(), "box")
+    title = H.escape(h2)
+    if kind == "gate":
+        return render_gate(body, f"gate-{class_id}")
+    if kind == "diagram":
+        # Prefer pre diagrams for ASCII / flowchart text
+        inner = md_fragment(body)
+        # Promote fenced code to cr-diagram when it's architecture
+        inner = re.sub(
+            r"<pre><code[^>]*>(.*?)</code></pre>",
+            lambda m: f'<pre class="cr-diagram">{m.group(1)}</pre>',
+            inner,
+            flags=re.S,
+            count=1,
+        )
+        return f'<div class="cr-box"><h3>{title}</h3>{inner}</div>'
+    if kind == "tip":
+        return f'<div class="cr-callout tip"><strong>{title}:</strong> {md_fragment(body)}</div>'
+    if kind == "lab":
+        return f'<div class="cr-box cr-box-lab"><h3>{title}</h3>{md_fragment(body)}</div>'
+    if kind == "break":
+        return f'<div class="cr-box cr-box-break"><h3>{title}</h3>{md_fragment(body)}</div>'
+    if kind == "quiz":
+        return f'<div class="cr-box cr-box-quiz"><h3>{title}</h3>{md_fragment(body)}</div>'
+    if kind == "vocab":
+        return f'<div class="cr-box"><h3>{title}</h3>{md_fragment(body)}</div>'
+    if kind == "trouble":
+        return f'<div class="cr-box"><h3>{title}</h3>{md_fragment(body)}</div>'
+    return f'<div class="cr-box"><h3>{title}</h3>{md_fragment(body)}</div>'
+
+
+def render_doc_page(md_text: str, page_title: str, lede: str | None = None) -> str:
+    """Generic pack markdown → sectioned cr-boxes (for workbook/map/etc)."""
+    _t, lead, sections = split_sections(md_text)
+    parts = []
+    if lead:
+        parts.append(f'<div class="cr-box"><h3>Overview</h3>{md_fragment(lead)}</div>')
+    for h2, body in sections:
+        parts.append(render_section(h2, body, "doc"))
+    hero_lede = lede or ""
+    return "\n".join(parts), hero_lede
+
+
 def gen_hub():
     cards = []
     for num, _fn, title, unit, unit_name in CLASS_META:
@@ -146,34 +289,67 @@ def gen_hub():
             f"</div></a>"
         )
     body = f'''
-<section class="hero flush">
- <div class="stamp">HOMELAB ACADEMY<small>13-class pack</small></div>
- <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom · Free</p>
- <h1 class="display" style="font-size:clamp(2rem,6vw,3.4rem);">Watch → Understand → Build → Break → Fix → Verify</h1>
- <p class="lede">Complete build-first curriculum for ARR, Home Assistant, and local voice. Lectures stay off-site — this site is the lab, workbook, and verification matrix.</p>
- <div class="btn-row" style="margin-top:22px;">
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">HOMELAB ACADEMY<small>free · 13-class pack</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom</p>
+ <h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Watch is the lecture.<br>This site is the lab.</h1>
+ <p class="lede">Build-first curriculum for ARR, Home Assistant, and local voice. Same Otaconskeep chrome as the rest of the Keep — structured lessons, checkpoints, and a final verification matrix. No video embeds.</p>
+ <div class="btn-row" style="margin-top:26px;">
   <a class="btn btn-primary" href="classes/01.html">Start Class 1</a>
   <a class="btn btn-ghost" href="workbook.html">Student workbook</a>
   <a class="btn btn-ghost" href="final-exam.html">Final capstone</a>
   <a class="btn btn-ghost" href="references/">References</a>
  </div>
-</section>
-<div class="cr-callout tip"><strong>How to use:</strong> read the class → do the guided lab once → run break/fix → quiz → pass the practical gate → log evidence in the verification matrix.</div>
-<pre class="cr-diagram"><span class="hi">GATES</span>
-1–4 Infrastructure  →  5–7 ARR / quality  →  8–10 Home Assistant  →  11–13 Local voice
-→ FINAL CAPSTONE verification matrix</pre>
-<div class="cr-course-grid">
-{''.join(cards)}
+ <p class="meta" style="margin-top:22px;">WATCH → UNDERSTAND → BUILD → BREAK → FIX → VERIFY</p>
+ </section>
 </div>
-<section>
- <p class="tag">Also in the pack</p>
+
+<div class="wrap">
+ <section>
+ <p class="tag">00 // How to use</p>
+ <h2>One concept. One lab. One gate.</h2>
+ <p class="intro">Read the class, run the guided lab once, break it on purpose, fix it, then pass the practical gate. Log evidence in the verification matrix — “it seems to work” is not a grade.</p>
+ <div class="cr-callout tip"><strong>Legal / safety:</strong> use only authorized indexers and content. Do not expose ARR admin or download clients to the public internet. Never paste real API keys into screenshots.</div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">01 // Stage gates</p>
+ <h2>Pass each gate before the next unit</h2>
+ <pre class="cr-diagram"><span class="hi">COURSE FLOW</span>
+Classes 1–4   Infrastructure (Compose, networks, ops)
+Classes 5–7   ARR / Prowlarr / TRaSH / config sync
+Classes 8–10  Home Assistant + secure remote access
+Classes 11–13 Local voice → private smart speaker
+→ FINAL CAPSTONE verification matrix</pre>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">02 // Classes</p>
+ <h2>All thirteen lessons</h2>
+ <div class="cr-course-grid">
+{''.join(cards)}
+ </div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">03 // Pack extras</p>
+ <h2>Workbook, answers, templates</h2>
+ <p class="intro">The source markdown pack ships with the site so students and instructors share one curriculum.</p>
  <div class="btn-row">
   <a class="btn btn-ghost" href="course-map.html">Course map</a>
   <a class="btn btn-ghost" href="instructor.html">Instructor answer key</a>
   <a class="btn btn-ghost" href="pack/templates/">CSV templates</a>
   <a class="btn btn-ghost" href="pack/">Raw markdown pack</a>
  </div>
-</section>
+ </section>
+</div>
 '''
     write(SITE / "index.html", wrap("Homelab Academy · Classroom", "13-class ARR + HA + voice curriculum.", "/classroom/", "ACADEMY", body))
 
@@ -182,48 +358,86 @@ def gen_classes():
     CLASSES_DIR.mkdir(parents=True, exist_ok=True)
     index_lis = []
     for i, (num, fn, title, unit, unit_name) in enumerate(CLASS_META):
-        src = PACK / "classes" / fn
-        raw = src.read_text()
-        content = md_to_html(raw)
+        raw = (PACK / "classes" / fn).read_text()
+        _md_title, lead, sections = split_sections(raw)
+        lecture, time, build, lead_rest = parse_meta(lead)
+
+        meta_bits = []
+        if lecture:
+            meta_bits.append(f"<div><span>Lecture</span>{md_fragment(lecture)}</div>")
+        if time:
+            meta_bits.append(f"<div><span>Time</span><p>{H.escape(time)}</p></div>")
+        if build:
+            meta_bits.append(f"<div><span>Build output</span><p>{H.escape(build)}</p></div>")
+        meta_html = f'<div class="cr-meta-grid">{"".join(meta_bits)}</div>' if meta_bits else ""
+
+        lead_html = f'<div class="cr-box"><h3>Before you start</h3>{md_fragment(lead_rest)}</div>' if lead_rest else ""
+
+        section_html = "\n".join(render_section(h2, body, num) for h2, body in sections)
+
         prev = (f"{CLASS_META[i-1][0]}.html", f"Class {int(CLASS_META[i-1][0])}") if i else ("/classroom/", "Academy")
-        nxt = (f"{CLASS_META[i+1][0]}.html", f"Class {int(CLASS_META[i+1][0])}") if i < len(CLASS_META) - 1 else ("/classroom/final-exam.html", "Capstone")
+        nxt = (
+            (f"{CLASS_META[i+1][0]}.html", f"Class {int(CLASS_META[i+1][0])}")
+            if i < len(CLASS_META) - 1
+            else ("/classroom/final-exam.html", "Capstone")
+        )
+
         body = f'''
-<section class="hero flush">
- <p class="tag">Unit {unit} — {H.escape(unit_name)} · Class {int(num)}</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">{H.escape(title)}</h1>
- <p class="lede">From the Homelab Academy 13-class pack. No video embeds — lecture links stay in the lesson text / references.</p>
-</section>
-<article class="cr-article">
-{content}
-</article>
-{pager(prev, nxt)}
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS {int(num):02d}<small>unit {unit} · {H.escape(unit_name.lower())}</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">{H.escape(title)}</h1>
+ <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
+ {meta_html}
+ </section>
+</div>
+
+<div class="wrap">
+ {lead_html}
+ {section_html}
+ {pager(prev, nxt)}
+</div>
 '''
-        write(CLASSES_DIR / f"{num}.html", wrap(f"Class {int(num)} — {title} · Classroom", title, f"/classroom/classes/{num}.html", f"CLASS {int(num)}", body))
-        index_lis.append(f'<li><a href="{num}.html"><strong>Class {int(num)}</strong> — {H.escape(title)}</a></li>')
+        write(
+            CLASSES_DIR / f"{num}.html",
+            wrap(f"Class {int(num)} — {title} · Classroom", title, f"/classroom/classes/{num}.html", f"CLASS {int(num)}", body),
+        )
+        index_lis.append(
+            f'<li><a href="{num}.html"><strong>Class {int(num)}</strong> — {H.escape(title)}</a> <span class="meta">Unit {unit}</span></li>'
+        )
 
     body = f'''
-<section class="hero flush">
+<div class="wrap">
+ <section class="hero flush">
  <p class="tag">Classes</p>
- <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">All 13 classes</h1>
+ <h1 class="display" style="font-size:clamp(2rem,5vw,3rem);">All 13 classes</h1>
  <p class="lede">Complete in order. Pass each practical gate before advancing.</p>
-</section>
-<div class="cr-box"><ol class="cr-class-list">{''.join(index_lis)}</ol></div>
-{pager(("/classroom/", "Academy"), ("01.html", "Class 1"))}
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><ol class="cr-class-list">{"".join(index_lis)}</ol></div>
+ {pager(("/classroom/", "Academy"), ("01.html", "Class 1"))}
+</div>
 '''
     write(CLASSES_DIR / "index.html", wrap("Classes · Classroom", "All 13 Homelab Academy classes.", "/classroom/classes/", "CLASSES", body))
 
 
-def gen_md_page(md_name: str, out_name: str, title: str, bar: str, canon: str, prev, next_):
+def gen_md_page(md_name: str, out_name: str, title: str, bar: str, canon: str, tag: str, prev, next_, lede: str):
     raw = (PACK / md_name).read_text()
+    sections_html, _ = render_doc_page(raw, title)
     body = f'''
-<section class="hero flush">
- <p class="tag">Homelab Academy</p>
- <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">{H.escape(title)}</h1>
-</section>
-<article class="cr-article">
-{md_to_html(raw)}
-</article>
-{pager(prev, next_)}
+<div class="wrap">
+ <section class="hero flush">
+ <p class="tag">{H.escape(tag)}</p>
+ <h1 class="display" style="font-size:clamp(1.9rem,5vw,3rem);">{H.escape(title)}</h1>
+ <p class="lede">{H.escape(lede)}</p>
+ </section>
+</div>
+<div class="wrap">
+ {sections_html}
+ {pager(prev, next_)}
+</div>
 '''
     write(SITE / out_name, wrap(f"{title} · Classroom", title, canon, bar, body))
 
@@ -236,56 +450,64 @@ def gen_references():
     for f in sorted(ref.glob("*.md")):
         slug = f.stem.lower().replace("_", "-")
         html_name = f"{slug}.html"
+        sections_html, _ = render_doc_page(f.read_text(), f.stem)
         body = f'''
-<section class="hero flush">
+<div class="wrap">
+ <section class="hero flush">
  <p class="tag">References</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.4rem);">{H.escape(f.stem.replace("_", " ").title())}</h1>
- <p class="lede">Lecture links and official docs. Videos are not embedded on Academy pages.</p>
-</section>
-<article class="cr-article">{md_to_html(f.read_text())}</article>
-{pager(("/classroom/references/", "References"), ("/classroom/", "Academy"))}
+ <h1 class="display" style="font-size:clamp(1.7rem,4.5vw,2.6rem);">{H.escape(f.stem.replace("_", " ").title())}</h1>
+ <p class="lede">Lecture links stay as text. Videos are not embedded on Academy pages.</p>
+ </section>
+</div>
+<div class="wrap">
+ {sections_html}
+ {pager(("/classroom/references/", "References"), ("/classroom/", "Academy"))}
+</div>
 '''
         write(out / html_name, wrap(f"{f.stem} · Classroom", f.stem, f"/classroom/references/{html_name}", "REFS", body))
         links.append(f'<li><a href="{html_name}">{H.escape(f.stem.replace("_", " ").title())}</a></li>')
 
-    # templates listing
-    templates = PACK / "templates"
     trows = "".join(
         f'<li><a href="/classroom/pack/templates/{H.escape(t.name)}">{H.escape(t.name)}</a></li>'
-        for t in sorted(templates.glob("*"))
+        for t in sorted((PACK / "templates").glob("*"))
     )
     body = f'''
-<section class="hero flush">
+<div class="wrap">
+ <section class="hero flush">
  <p class="tag">References</p>
- <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">References &amp; templates</h1>
-</section>
-<div class="cr-box"><h3>Documents</h3><ul>{''.join(links)}</ul></div>
-<div class="cr-box"><h3>CSV templates</h3><ul>{trows}</ul></div>
-{pager(("/classroom/", "Academy"), ("official-documentation.html", "Official docs"))}
+ <h1 class="display" style="font-size:clamp(1.9rem,5vw,3rem);">References &amp; templates</h1>
+ <p class="lede">Official docs, lecture link list, and CSV evidence templates from the pack.</p>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Documents</h3><ul>{"".join(links)}</ul></div>
+ <div class="cr-box"><h3>CSV templates</h3><ul>{trows}</ul></div>
+ {pager(("/classroom/", "Academy"), ("official-documentation.html", "Official docs"))}
+</div>
 '''
     write(out / "index.html", wrap("References · Classroom", "Docs and templates.", "/classroom/references/", "REFS", body))
 
 
 def gen_glossary_stub():
-    # Keep a simple glossary landing pointing into classes
     body = '''
-<section class="hero flush">
+<div class="wrap">
+ <section class="hero flush">
  <p class="tag">Glossary</p>
- <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Vocabulary lives in each class</h1>
- <p class="lede">Every class in the 13-class pack has its own vocabulary table. Start with Class 1 or jump to the unit you need.</p>
- <div class="btn-row" style="margin-top:18px;">
+ <h1 class="display" style="font-size:clamp(1.9rem,5vw,3rem);">Vocabulary lives in each class</h1>
+ <p class="lede">Every pack lesson has its own vocabulary table. Jump to the unit you need.</p>
+ <div class="btn-row" style="margin-top:22px;">
   <a class="btn btn-primary" href="classes/01.html">Class 1</a>
   <a class="btn btn-ghost" href="classes/05.html">Class 5 — ARR</a>
   <a class="btn btn-ghost" href="classes/08.html">Class 8 — HA</a>
   <a class="btn btn-ghost" href="classes/11.html">Class 11 — Voice</a>
  </div>
-</section>
+ </section>
+</div>
 '''
     write(SITE / "glossary.html", wrap("Glossary · Classroom", "Per-class vocabulary.", "/classroom/glossary.html", "GLOSSARY", body))
 
 
 def gen_redirects():
-    # Old unit URLs → new structure
     redirects = {
         "start.html": "/classroom/classes/01.html",
         "path.html": "/classroom/classes/",
@@ -296,9 +518,7 @@ def gen_redirects():
         "courses/": "/classroom/",
     }
     for src, dst in redirects.items():
-        path = SITE / src
-        if src.endswith("/"):
-            path = SITE / src / "index.html"
+        path = SITE / src / "index.html" if src.endswith("/") else SITE / src
         write(
             path,
             f'<!doctype html><meta http-equiv="refresh" content="0;url={dst}">'
@@ -314,9 +534,6 @@ def sync_github():
         + readme
         + "\n\n## License\n\nMIT — Antonio G. Garcia (Otaconskeep)\n"
     )
-    # mirror pack
-    import shutil
-
     dest = GH / "pack"
     if dest.exists():
         shutil.rmtree(dest)
@@ -328,15 +545,35 @@ def main():
     assert PACK.is_dir(), PACK
     gen_hub()
     gen_classes()
-    gen_md_page("COURSE_MAP.md", "course-map.html", "Course map", "MAP", "/classroom/course-map.html", ("/classroom/", "Academy"), ("classes/", "Classes"))
-    gen_md_page("STUDENT_WORKBOOK.md", "workbook.html", "Student workbook", "WORKBOOK", "/classroom/workbook.html", ("/classroom/", "Academy"), ("final-exam.html", "Capstone"))
-    gen_md_page("FINAL_CAPSTONE.md", "final-exam.html", "Final capstone", "CAPSTONE", "/classroom/final-exam.html", ("classes/13.html", "Class 13"), ("/classroom/", "Academy"))
-    gen_md_page("INSTRUCTOR_ANSWER_KEY.md", "instructor.html", "Instructor answer key", "INSTRUCTOR", "/classroom/instructor.html", ("/classroom/", "Academy"), ("workbook.html", "Workbook"))
+    gen_md_page(
+        "COURSE_MAP.md", "course-map.html", "Course map", "MAP",
+        "/classroom/course-map.html", "Course map",
+        ("/classroom/", "Academy"), ("classes/", "Classes"),
+        "Sequence, gates, and final architecture for the 13-class pack.",
+    )
+    gen_md_page(
+        "STUDENT_WORKBOOK.md", "workbook.html", "Student workbook", "WORKBOOK",
+        "/classroom/workbook.html", "Workbook",
+        ("/classroom/", "Academy"), ("final-exam.html", "Capstone"),
+        "Reusable notes and evidence pages for every class.",
+    )
+    gen_md_page(
+        "FINAL_CAPSTONE.md", "final-exam.html", "Final capstone", "CAPSTONE",
+        "/classroom/final-exam.html", "Capstone",
+        ("classes/13.html", "Class 13"), ("/classroom/", "Academy"),
+        "End-to-end verification matrix. “It seems to work” is not evidence.",
+    )
+    gen_md_page(
+        "INSTRUCTOR_ANSWER_KEY.md", "instructor.html", "Instructor answer key", "INSTRUCTOR",
+        "/classroom/instructor.html", "Instructor",
+        ("/classroom/", "Academy"), ("workbook.html", "Workbook"),
+        "Quiz answers and practical acceptance criteria.",
+    )
     gen_references()
     gen_glossary_stub()
     gen_redirects()
     sync_github()
-    print("DONE 13 classes from pack")
+    print("DONE — pack in site chrome")
 
 
 if __name__ == "__main__":

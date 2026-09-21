@@ -11,10 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921e">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CLASS 5<span class="blink"></span></span></div></div>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 5<span class="blink"></span></span>
+ </div>
+</div>
+
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -30,10 +37,12 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
@@ -43,21 +52,21 @@
  <a href="/classroom/glossary.html">Glossary</a>
  </div>
 </nav>
-<div class="wrap cr-md">
-<section class="hero flush">
- <p class="tag">Unit 2 — ARR · Class 5</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">Prowlarr and ARR flow</h1>
- <p class="lede">From the Homelab Academy 13-class pack. No video embeds — lecture links stay in the lesson text / references.</p>
-</section>
-<article class="cr-article">
-<h1>Class 5 — Prowlarr and the ARR Request Flow</h1>
-<p><strong>Lecture:</strong> <a href="https://www.youtube.com/watch?v=nPm5pMfk1OA" target="_blank" rel="noopener">IBRACORP — Prowlarr Guide</a><br />
-<strong>Time:</strong> 150 minutes<br />
-<strong>Build output:</strong> Prowlarr connected to Sonarr and Radarr with controlled tests</p>
-<h2>Scope and legal boundary</h2>
-<p>Prowlarr manages indexer definitions and makes search results available to compatible applications. This course covers architecture, configuration control, and testing. Use only indexers and content sources you are authorized to use.</p>
-<h2>Vocabulary</h2>
-<table>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 05<small>unit 2 · arr</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Prowlarr and ARR flow</h1>
+ <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
+ <div class="cr-meta-grid"><div><span>Lecture</span><p><a href="https://www.youtube.com/watch?v=nPm5pMfk1OA" target="_blank" rel="noopener">IBRACORP — Prowlarr Guide</a></p></div><div><span>Time</span><p>150 minutes</p></div><div><span>Build output</span><p>Prowlarr connected to Sonarr and Radarr with controlled tests</p></div></div>
+ </section>
+</div>
+
+<div class="wrap">
+ 
+ <div class="cr-callout tip"><strong>Scope and legal boundary:</strong> <p>Prowlarr manages indexer definitions and makes search results available to compatible applications. This course covers architecture, configuration control, and testing. Use only indexers and content sources you are authorized to use.</p></div>
+<div class="cr-box"><h3>Vocabulary</h3><table>
 <thead>
 <tr>
 <th>Term</th>
@@ -102,9 +111,8 @@
 <td>ARR application moving/linking completed content into the library</td>
 </tr>
 </tbody>
-</table>
-<h2>End-to-end architecture</h2>
-<pre><code class="language-text">flowchart TD
+</table></div>
+<div class="cr-box"><h3>End-to-end architecture</h3><pre class="cr-diagram">flowchart TD
     U[&quot;User&quot;] --&gt; R[&quot;Seerr&quot;]
     R --&gt; A[&quot;Sonarr / Radarr&quot;]
     A --&gt; P[&quot;Prowlarr&quot;]
@@ -113,10 +121,9 @@
     D --&gt; C[&quot;Completed download&quot;]
     A --&gt; M[&quot;Import + rename&quot;]
     M --&gt; L[&quot;Plex / Jellyfin&quot;]
-</code></pre>
-<p>Prowlarr does not replace Sonarr or Radarr. Sonarr/Radarr own the monitored title, quality policy, candidate evaluation, download handoff, and completed-download import. Prowlarr centralizes indexer connectivity and synchronization.</p>
-<h2>Service contracts before clicking</h2>
-<p>Record the following for Prowlarr, Sonarr, Radarr, and each download client:</p>
+</pre>
+<p>Prowlarr does not replace Sonarr or Radarr. Sonarr/Radarr own the monitored title, quality policy, candidate evaluation, download handoff, and completed-download import. Prowlarr centralizes indexer connectivity and synchronization.</p></div>
+<div class="cr-box"><h3>Service contracts before clicking</h3><p>Record the following for Prowlarr, Sonarr, Radarr, and each download client:</p>
 <ul>
 <li>Docker service name and internal port.</li>
 <li>LAN address only if humans need it.</li>
@@ -126,21 +133,18 @@
 <li>Root folder and container path mappings.</li>
 <li>Health/test button expected result.</li>
 </ul>
-<p>Within one Compose network, prefer service DNS names such as <code>http://sonarr:8989</code>. From Prowlarr's container, <code>localhost:8989</code> points back to Prowlarr and is wrong unless both processes genuinely share a network namespace.</p>
-<h2>Applications and synchronization</h2>
-<p>Adding Sonarr/Radarr to Prowlarr creates an application relationship. The exact sync settings can vary, but the intended result is clear: indexers approved for a target application appear there with the proper categories and settings.</p>
+<p>Within one Compose network, prefer service DNS names such as <code>http://sonarr:8989</code>. From Prowlarr's container, <code>localhost:8989</code> points back to Prowlarr and is wrong unless both processes genuinely share a network namespace.</p></div>
+<div class="cr-box"><h3>Applications and synchronization</h3><p>Adding Sonarr/Radarr to Prowlarr creates an application relationship. The exact sync settings can vary, but the intended result is clear: indexers approved for a target application appear there with the proper categories and settings.</p>
 <p>Treat the connection test and the synchronization test as different requirements:</p>
 <ol>
 <li><strong>Connection:</strong> Can Prowlarr authenticate to the target API?</li>
 <li><strong>Synchronization:</strong> Does the desired indexer configuration actually appear and remain consistent?</li>
-</ol>
-<h2>Indexer tests</h2>
-<p>An indexer test can fail at several layers:</p>
+</ol></div>
+<div class="cr-box"><h3>Indexer tests</h3><p>An indexer test can fail at several layers:</p>
 <pre><code class="language-text">DNS -&gt; TCP/TLS -&gt; provider response -&gt; authentication -&gt; rate limit -&gt; categories -&gt; application policy
 </code></pre>
-<p>Do not regenerate every API key because DNS failed. Capture the exact test time, response class, and one hypothesis.</p>
-<h2>Download handoff and categories</h2>
-<p>Sonarr/Radarr normally send a selected release to the download client. Categories keep traffic separated, for example <code>tv</code> and <code>movies</code>. The client must report completed paths that the ARR container can resolve.</p>
+<p>Do not regenerate every API key because DNS failed. Capture the exact test time, response class, and one hypothesis.</p></div>
+<div class="cr-box"><h3>Download handoff and categories</h3><p>Sonarr/Radarr normally send a selected release to the download client. Categories keep traffic separated, for example <code>tv</code> and <code>movies</code>. The client must report completed paths that the ARR container can resolve.</p>
 <p>The most reliable beginner layout gives download client and importers a consistent <code>/data</code> view:</p>
 <pre><code class="language-text">Host: /srv/data                 Containers: /data
   /torrents                       /torrents
@@ -148,9 +152,8 @@
   /media/tv                       /media/tv
   /media/movies                   /media/movies
 </code></pre>
-<p>This reduces remote-path mappings and enables hardlinks when source and destination are on the same filesystem.</p>
-<h2>Hardlinks</h2>
-<p>A hardlink gives two directory entries to the same underlying file data. It avoids a second full copy while allowing the downloader to seed from one path and the media library to use another.</p>
+<p>This reduces remote-path mappings and enables hardlinks when source and destination are on the same filesystem.</p></div>
+<div class="cr-box"><h3>Hardlinks</h3><p>A hardlink gives two directory entries to the same underlying file data. It avoids a second full copy while allowing the downloader to seed from one path and the media library to use another.</p>
 <p>Conditions include:</p>
 <ul>
 <li>Same filesystem/device.</li>
@@ -158,9 +161,8 @@
 <li>Application configured to use hardlinks where appropriate.</li>
 <li>Paths presented consistently.</li>
 </ul>
-<p>On Linux, compare device and inode values with <code>stat</code>. Two paths with the same device and inode refer to the same file data.</p>
-<h2>Guided lab</h2>
-<ol>
+<p>On Linux, compare device and inode values with <code>stat</code>. Two paths with the same device and inode refer to the same file data.</p></div>
+<div class="cr-box cr-box-lab"><h3>Guided lab</h3><ol>
 <li>Back up all existing ARR configuration databases.</li>
 <li>Confirm Prowlarr, Sonarr, and Radarr share the intended Docker network.</li>
 <li>From inside Prowlarr's container, resolve and reach each application by service name.</li>
@@ -173,16 +175,14 @@
 <li>Run the application's download-client test.</li>
 <li>Perform one controlled interactive search and inspect why candidates are accepted or rejected.</li>
 <li>If permitted, submit a harmless authorized test item and trace it through the queue. Otherwise stop at the search and connection-test evidence.</li>
-</ol>
-<h2>Break/fix exercises</h2>
-<h3>Wrong hostname</h3>
+</ol></div>
+<div class="cr-box cr-box-break"><h3>Break/fix exercises</h3><h3>Wrong hostname</h3>
 <p>Change the Sonarr address in Prowlarr to <code>localhost</code>. Observe the failure, explain the container namespace, and restore <code>http://sonarr:8989</code> or the recorded service address.</p>
 <h3>Wrong category</h3>
 <p>Use a mismatched test category. Observe how completed-download handling loses the expected association, then restore it.</p>
 <h3>Wrong path vocabulary</h3>
-<p>Present the download client path under one container as <code>/downloads</code> and the importer as an unrelated <code>/incoming</code>. Diagnose the mismatch from logs; restore a shared <code>/data</code> model or a deliberately documented remote-path mapping.</p>
-<h2>Troubleshooting matrix</h2>
-<table>
+<p>Present the download client path under one container as <code>/downloads</code> and the importer as an unrelated <code>/incoming</code>. Diagnose the mismatch from logs; restore a shared <code>/data</code> model or a deliberately documented remote-path mapping.</p></div>
+<div class="cr-box"><h3>Troubleshooting matrix</h3><table>
 <thead>
 <tr>
 <th>Symptom</th>
@@ -215,34 +215,29 @@
 <td>Final path, naming, library root, scan status</td>
 </tr>
 </tbody>
-</table>
-<h2>Knowledge check</h2>
-<ol>
+</table></div>
+<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
 <li>What responsibility belongs to Prowlarr versus Sonarr/Radarr?</li>
 <li>Why are connection and synchronization separate tests?</li>
 <li>What does a download category accomplish?</li>
 <li>Why does a consistent <code>/data</code> view help?</li>
 <li>What two <code>stat</code> fields prove two paths are hardlinks to the same inode?</li>
 <li>Why is RSS sync not equivalent to a full historical search?</li>
-</ol>
-<h2>Practical gate</h2>
-<ul>
-<li>[ ] Prowlarr tests successfully against Sonarr and Radarr.</li>
-<li>[ ] An authorized indexer test passes.</li>
-<li>[ ] Application sync creates the expected definitions.</li>
-<li>[ ] Download-client tests pass with documented categories.</li>
-<li>[ ] One candidate's accept/reject reason is explained.</li>
-<li>[ ] Path mappings and permissions are documented.</li>
-<li>[ ] No API key appears in submitted evidence.</li>
-</ul>
-<h2>2026 correction</h2>
-<p>Application fields and sync behavior evolve. Follow the current Servarr/Prowlarr documentation for exact UI steps. Preserve the architecture and tests even if labels move.</p>
-</article>
-<div class="cr-pager"><a href="04.html">← Class 4</a><a href="06.html">Class 6 →</a></div>
+</ol></div>
+<div class="cr-check" data-check-id="gate-05">
+ <h3>Practical gate — pass before you continue</h3>
+ <label><input type="checkbox" data-k="0"> Prowlarr tests successfully against Sonarr and Radarr.</label><label><input type="checkbox" data-k="1"> An authorized indexer test passes.</label><label><input type="checkbox" data-k="2"> Application sync creates the expected definitions.</label><label><input type="checkbox" data-k="3"> Download-client tests pass with documented categories.</label><label><input type="checkbox" data-k="4"> One candidate&#x27;s accept/reject reason is explained.</label><label><input type="checkbox" data-k="5"> Path mappings and permissions are documented.</label><label><input type="checkbox" data-k="6"> No API key appears in submitted evidence.</label>
+ <div class="cr-gate">All boxes true → continue</div>
 </div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>
+<div class="cr-callout tip"><strong>2026 correction:</strong> <p>Application fields and sync behavior evolve. Follow the current Servarr/Prowlarr documentation for exact UI steps. Preserve the architecture and tests even if labels move.</p></div>
+ <div class="cr-pager"><a href="04.html">← Class 4</a><a href="06.html">Class 6 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921e"></script>
 </body></html>

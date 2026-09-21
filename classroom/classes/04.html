@@ -11,10 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921e">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CLASS 4<span class="blink"></span></span></div></div>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 4<span class="blink"></span></span>
+ </div>
+</div>
+
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -30,10 +37,12 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
@@ -43,21 +52,21 @@
  <a href="/classroom/glossary.html">Glossary</a>
  </div>
 </nav>
-<div class="wrap cr-md">
-<section class="hero flush">
- <p class="tag">Unit 1 — Infrastructure · Class 4</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">Container operations</h1>
- <p class="lede">From the Homelab Academy 13-class pack. No video embeds — lecture links stay in the lesson text / references.</p>
-</section>
-<article class="cr-article">
-<h1>Class 4 — Operating Containers as a System</h1>
-<p><strong>Lecture:</strong> <a href="https://www.youtube.com/watch?v=RUqGlWr5LBA" target="_blank" rel="noopener">NetworkChuck — 18 Ways I Use Docker</a><br />
-<strong>Time:</strong> 90–120 minutes<br />
-<strong>Build output:</strong> operational runbook for one containerized service</p>
-<h2>Purpose</h2>
-<p>The lecture demonstrates Docker's breadth. This class turns that inspiration into engineering discipline: selecting appropriate workloads, understanding state, observing health, updating safely, backing up configuration, and recovering from a failed change.</p>
-<h2>Workload classification</h2>
-<p>Before deploying an image, classify it:</p>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 04<small>unit 1 · infrastructure</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Container operations</h1>
+ <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
+ <div class="cr-meta-grid"><div><span>Lecture</span><p><a href="https://www.youtube.com/watch?v=RUqGlWr5LBA" target="_blank" rel="noopener">NetworkChuck — 18 Ways I Use Docker</a></p></div><div><span>Time</span><p>90–120 minutes</p></div><div><span>Build output</span><p>operational runbook for one containerized service</p></div></div>
+ </section>
+</div>
+
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Purpose</h3><p>The lecture demonstrates Docker's breadth. This class turns that inspiration into engineering discipline: selecting appropriate workloads, understanding state, observing health, updating safely, backing up configuration, and recovering from a failed change.</p></div>
+<div class="cr-box"><h3>Workload classification</h3><p>Before deploying an image, classify it:</p>
 <table>
 <thead>
 <tr>
@@ -96,9 +105,8 @@
 </tr>
 </tbody>
 </table>
-<p>Containers package processes. They do not remove systems-engineering responsibilities.</p>
-<h2>Desired state and observed state</h2>
-<p>Compose says what should run. Commands and tests show what is actually running.</p>
+<p>Containers package processes. They do not remove systems-engineering responsibilities.</p></div>
+<div class="cr-box"><h3>Desired state and observed state</h3><p>Compose says what should run. Commands and tests show what is actually running.</p>
 <pre><code class="language-text">flowchart LR
     D[&quot;Desired state&quot;] --&gt; R[&quot;Reconcile&quot;]
     R --&gt; O[&quot;Observed state&quot;]
@@ -113,20 +121,17 @@
 <li>Local HTTP/API probe.</li>
 <li>Dependency tests.</li>
 <li>User-level transaction.</li>
-</ul>
-<h2>Image trust and versioning</h2>
-<p>Record image source, tag, digest when appropriate, upstream project, release notes, and last-known-good version. <code>latest</code> is a moving pointer, not a release policy. Before updates, capture configuration backup and current version, then change one service or dependency group at a time.</p>
-<h2>Logs and resource observation</h2>
-<p>Useful commands:</p>
+</ul></div>
+<div class="cr-box"><h3>Image trust and versioning</h3><p>Record image source, tag, digest when appropriate, upstream project, release notes, and last-known-good version. <code>latest</code> is a moving pointer, not a release policy. Before updates, capture configuration backup and current version, then change one service or dependency group at a time.</p></div>
+<div class="cr-box"><h3>Logs and resource observation</h3><p>Useful commands:</p>
 <pre><code class="language-bash">docker compose ps
 docker compose logs --since=10m SERVICE
 docker inspect CONTAINER
 docker stats --no-stream
 docker system df
 </code></pre>
-<p>Do not treat all warnings as faults. Tie logs to the test time and symptom. Redact tokens, API keys, cookies, internal hostnames, and personal media names before sharing.</p>
-<h2>Guided lab — safe update and rollback</h2>
-<p>Use the Class 2 web service or another disposable service.</p>
+<p>Do not treat all warnings as faults. Tie logs to the test time and symptom. Redact tokens, API keys, cookies, internal hostnames, and personal media names before sharing.</p></div>
+<div class="cr-box"><h3>Guided lab — safe update and rollback</h3><p>Use the Class 2 web service or another disposable service.</p>
 <ol>
 <li>Record current image reference and <code>docker image inspect</code> result.</li>
 <li>Save a copy of the Compose file and persistent configuration.</li>
@@ -138,9 +143,8 @@ docker system df
 <li>Simulate failure by selecting a nonexistent tag or incompatible disposable configuration.</li>
 <li>Restore the recorded version/configuration.</li>
 <li>Prove the original test passes.</li>
-</ol>
-<h2>ARR operational contract</h2>
-<p>For every later service, record:</p>
+</ol></div>
+<div class="cr-box"><h3>ARR operational contract</h3><p>For every later service, record:</p>
 <pre><code class="language-text">purpose
 image/version
 configuration path
@@ -153,41 +157,36 @@ backup method
 update procedure
 rollback procedure
 </code></pre>
-<p>This turns a pile of containers into an operable system.</p>
-<h2>Break/fix scenarios</h2>
-<ul>
+<p>This turns a pile of containers into an operable system.</p></div>
+<div class="cr-box"><h3>Break/fix scenarios</h3><ul>
 <li><strong>Restart loop:</strong> inspect exit code and first failure, not only the last repeated line.</li>
 <li><strong>Port conflict:</strong> identify the listener with <code>ss -lntp</code> or platform equivalent; change only the intended binding.</li>
 <li><strong>Disk full:</strong> use <code>docker system df</code>, filesystem usage, logs, downloads, and database growth to identify the consumer. Do not blindly prune volumes.</li>
 <li><strong>Permission denied:</strong> inspect numeric UID/GID and mount options.</li>
 <li><strong>Dependency unavailable:</strong> test DNS, TCP, protocol, and authentication in that order.</li>
 <li><strong>Update regression:</strong> restore the last-known-good tag and matching data/config backup when required.</li>
-</ul>
-<h2>Knowledge check</h2>
-<ol>
+</ul></div>
+<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
 <li>Why is “container is Up” insufficient evidence?</li>
 <li>What is authoritative data?</li>
 <li>Why is <code>latest</code> a weak rollback record?</li>
 <li>What should be captured before an update?</li>
 <li>Why can <code>docker system prune --volumes</code> be destructive?</li>
-</ol>
-<h2>Practical gate</h2>
-<ul>
-<li>[ ] A service contract is complete.</li>
-<li>[ ] Health is verified above the container-process layer.</li>
-<li>[ ] Configuration is backed up.</li>
-<li>[ ] An update and rollback are demonstrated.</li>
-<li>[ ] The runbook identifies last-known-good version and acceptance test.</li>
-<li>[ ] Logs shared as evidence contain no secrets.</li>
-</ul>
-<h2>2026 correction</h2>
-<p>Novel container examples age quickly. Use the lecture to understand deployment possibilities, then verify maintenance status, image provenance, architecture support, licenses, and security guidance before adopting any showcased project.</p>
-</article>
-<div class="cr-pager"><a href="03.html">← Class 3</a><a href="05.html">Class 5 →</a></div>
+</ol></div>
+<div class="cr-check" data-check-id="gate-04">
+ <h3>Practical gate — pass before you continue</h3>
+ <label><input type="checkbox" data-k="0"> A service contract is complete.</label><label><input type="checkbox" data-k="1"> Health is verified above the container-process layer.</label><label><input type="checkbox" data-k="2"> Configuration is backed up.</label><label><input type="checkbox" data-k="3"> An update and rollback are demonstrated.</label><label><input type="checkbox" data-k="4"> The runbook identifies last-known-good version and acceptance test.</label><label><input type="checkbox" data-k="5"> Logs shared as evidence contain no secrets.</label>
+ <div class="cr-gate">All boxes true → continue</div>
 </div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>
+<div class="cr-callout tip"><strong>2026 correction:</strong> <p>Novel container examples age quickly. Use the lecture to understand deployment possibilities, then verify maintenance status, image provenance, architecture support, licenses, and security guidance before adopting any showcased project.</p></div>
+ <div class="cr-pager"><a href="03.html">← Class 3</a><a href="05.html">Class 5 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921e"></script>
 </body></html>

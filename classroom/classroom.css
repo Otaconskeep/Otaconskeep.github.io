@@ -282,3 +282,94 @@
 .cr-md .hero.is-free,
 .hero.flush.is-free { padding-top: inherit; }
 .hero.flush > .free-sticker { display: none !important; }
+
+/* Meta strip under class hero — matches KeepRoute/FAQ density */
+.cr-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+@media (max-width: 800px) {
+  .cr-meta-grid { grid-template-columns: 1fr; }
+}
+.cr-meta-grid > div {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 12px 14px;
+}
+.cr-meta-grid span {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+  margin-bottom: 6px;
+}
+.cr-meta-grid p,
+.cr-meta-grid > div > p { margin: 0; color: var(--cream-dim); font-size: .95rem; }
+.cr-meta-grid a { color: var(--accent-bright); }
+
+.cr-box-lab { border-color: rgba(57,230,200,.35); }
+.cr-box-break { border-color: rgba(224,168,60,.4); }
+.cr-box-quiz { border-color: rgba(141,179,217,.4); }
+
+.cr-box .cr-diagram {
+  margin: 10px 0 0;
+}
+.cr-box table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 0;
+  font-size: .92rem;
+}
+.cr-box th, .cr-box td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+.cr-box th {
+  background: rgba(255,255,255,.03);
+  color: var(--cream);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.cr-box td { color: var(--cream-dim); }
+.cr-box pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .82rem;
+  line-height: 1.45;
+  background: #0b0f14;
+  border: 1px solid var(--line-bright);
+  border-radius: 8px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  color: var(--cream);
+  margin: 10px 0 0;
+}
+.cr-box ul, .cr-box ol { margin: 8px 0 0 1.15rem; color: var(--cream-dim); }
+.cr-box li { margin: .28rem 0; }
+.cr-box p { margin: .55rem 0 0; color: var(--cream-dim); }
+.cr-box p:first-child { margin-top: 0; }
+.cr-box h4 {
+  margin: 1rem 0 .35rem;
+  font-size: 1rem;
+  color: var(--cream);
+}
+.cr-callout .cr-box { margin: 0; border: 0; background: transparent; padding: 0; }
+.cr-callout p { margin: .4rem 0 0; }
+.cr-callout p:first-child { margin-top: 0; }
+
+.cr-class-list .meta {
+  margin-left: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--cream-faint);
+}

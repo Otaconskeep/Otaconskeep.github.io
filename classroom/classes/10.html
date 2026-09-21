@@ -11,10 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921e">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CLASS 10<span class="blink"></span></span></div></div>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 10<span class="blink"></span></span>
+ </div>
+</div>
+
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -30,10 +37,12 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
@@ -43,23 +52,22 @@
  <a href="/classroom/glossary.html">Glossary</a>
  </div>
 </nav>
-<div class="wrap cr-md">
-<section class="hero flush">
- <p class="tag">Unit 3 — Home Assistant · Class 10</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">Secure remote access</h1>
- <p class="lede">From the Homelab Academy 13-class pack. No video embeds — lecture links stay in the lesson text / references.</p>
-</section>
-<article class="cr-article">
-<h1>Class 10 — Secure Remote Access Without Public Admin Panels</h1>
-<p><strong>Lecture:</strong> <a href="https://www.youtube.com/watch?v=ey4u7OUAF3c" target="_blank" rel="noopener">NetworkChuck — Cloudflare Tunnel / Remote Access</a><br />
-<strong>Time:</strong> 150 minutes<br />
-<strong>Build output:</strong> authenticated remote path or documented VPN alternative with denial tests</p>
-<h2>Security objective</h2>
-<p>Remote access must not mean publishing every admin interface to the internet. The objective is a narrow, authenticated path with encrypted transport, least privilege, logs, revocation, and a rollback plan.</p>
-<h2>Threat model</h2>
-<p>Assets include Home Assistant control, ARR API keys, download clients, media libraries, cameras, door controls, and internal topology. Threats include password reuse, token theft, software vulnerabilities, incorrect access policies, exposed origin ports, and session theft.</p>
-<h2>Architecture choices</h2>
-<h3>VPN/mesh access</h3>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 10<small>unit 3 · home assistant</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Secure remote access</h1>
+ <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
+ <div class="cr-meta-grid"><div><span>Lecture</span><p><a href="https://www.youtube.com/watch?v=ey4u7OUAF3c" target="_blank" rel="noopener">NetworkChuck — Cloudflare Tunnel / Remote Access</a></p></div><div><span>Time</span><p>150 minutes</p></div><div><span>Build output</span><p>authenticated remote path or documented VPN alternative with denial tests</p></div></div>
+ </section>
+</div>
+
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Security objective</h3><p>Remote access must not mean publishing every admin interface to the internet. The objective is a narrow, authenticated path with encrypted transport, least privilege, logs, revocation, and a rollback plan.</p></div>
+<div class="cr-box"><h3>Threat model</h3><p>Assets include Home Assistant control, ARR API keys, download clients, media libraries, cameras, door controls, and internal topology. Threats include password reuse, token theft, software vulnerabilities, incorrect access policies, exposed origin ports, and session theft.</p></div>
+<div class="cr-box"><h3>Architecture choices</h3><h3>VPN/mesh access</h3>
 <p>The remote device joins a private network and reaches services as if on an authorized internal segment. This is usually the simplest mental model for owner/admin access.</p>
 <h3>Outbound tunnel with access policy</h3>
 <p>A connector initiates an outbound tunnel to a provider. A policy layer authenticates the user before proxying to a selected internal service.</p>
@@ -69,18 +77,16 @@
     P --&gt; T[&quot;Outbound tunnel&quot;]
     T --&gt; H[&quot;Selected internal app&quot;]
 </code></pre>
-<p>The tunnel encrypts and routes traffic; it does not automatically create a good authorization policy. An accidentally public hostname can still be dangerous.</p>
-<h2>Rules for this course</h2>
-<ul>
+<p>The tunnel encrypts and routes traffic; it does not automatically create a good authorization policy. An accidentally public hostname can still be dangerous.</p></div>
+<div class="cr-box"><h3>Rules for this course</h3><ul>
 <li>Never expose qBittorrent, SABnzbd, Sonarr, Radarr, Prowlarr, Proxmox, or Docker APIs directly to the public internet.</li>
 <li>Prefer VPN access for administrative tools.</li>
 <li>If publishing Home Assistant through a supported proxy/tunnel pattern, require strong identity controls and follow HA proxy configuration guidance.</li>
 <li>Do not disable TLS validation as a permanent fix.</li>
 <li>Keep origin services LAN-bound where possible.</li>
 <li>Store tunnel credentials as secrets and rotate after exposure.</li>
-</ul>
-<h2>Cloudflare concepts</h2>
-<table>
+</ul></div>
+<div class="cr-box"><h3>Cloudflare concepts</h3><table>
 <thead>
 <tr>
 <th>Term</th>
@@ -113,9 +119,8 @@
 <td>Additional authentication factor</td>
 </tr>
 </tbody>
-</table>
-<h2>Guided lab</h2>
-<p>Choose either the VPN path or tunnel-plus-access path. Use a disposable internal web service first—not a production admin panel.</p>
+</table></div>
+<div class="cr-box cr-box-lab"><h3>Guided lab</h3><p>Choose either the VPN path or tunnel-plus-access path. Use a disposable internal web service first—not a production admin panel.</p>
 <h3>Common preparation</h3>
 <ol>
 <li>Back up the target service.</li>
@@ -141,44 +146,37 @@
 <li>Prove the client can reach the test origin.</li>
 <li>Prove it cannot reach a deliberately excluded service.</li>
 <li>Revoke the device/identity and confirm access ends.</li>
-</ol>
-<h2>Reverse proxy awareness</h2>
-<p>Home Assistant and other applications may need trusted-proxy and forwarded-header configuration. Trust only the actual proxy addresses/ranges. Overly broad trusted-proxy settings can let clients spoof source information.</p>
-<h2>Break/fix and security tests</h2>
-<ul>
+</ol></div>
+<div class="cr-box"><h3>Reverse proxy awareness</h3><p>Home Assistant and other applications may need trusted-proxy and forwarded-header configuration. Trust only the actual proxy addresses/ranges. Overly broad trusted-proxy settings can let clients spoof source information.</p></div>
+<div class="cr-box"><h3>Break/fix and security tests</h3><ul>
 <li>Remove the allow rule and confirm denial.</li>
 <li>Use an incorrect origin port and diagnose from connector logs without weakening authentication.</li>
 <li>Stop DNS resolution and distinguish hostname failure from origin failure.</li>
 <li>Revoke one session or device and measure how quickly access disappears.</li>
 <li>Confirm no unexpected router ports are open from an external perspective using an authorized method.</li>
-</ul>
-<h2>Knowledge check</h2>
-<ol>
+</ul></div>
+<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
 <li>Does an encrypted tunnel automatically enforce user authorization?</li>
 <li>Why are ARR admin panels poor candidates for public exposure?</li>
 <li>What is the origin service?</li>
 <li>What does fail closed mean in this lab?</li>
 <li>Why is a per-device identity better than sharing one reusable credential?</li>
 <li>What should happen when the connector stops?</li>
-</ol>
-<h2>Practical gate</h2>
-<ul>
-<li>[ ] One documented remote-access pattern is selected.</li>
-<li>[ ] MFA or equivalent strong identity control protects human access.</li>
-<li>[ ] Signed-out and disallowed-user tests fail.</li>
-<li>[ ] Allowed access works from an external network.</li>
-<li>[ ] Connector/device revocation is demonstrated.</li>
-<li>[ ] No direct public ARR/downloader/Proxmox port exists.</li>
-<li>[ ] Rollback removes the external path without breaking local use.</li>
-</ul>
-<h2>2026 correction</h2>
-<p>Provider dashboards, policy syntax, and product names change. Use current official Cloudflare or selected VPN documentation. The security requirements—narrow exposure, explicit identity, denial testing, revocation, and fail-closed behavior—remain the authority.</p>
-</article>
-<div class="cr-pager"><a href="09.html">← Class 9</a><a href="11.html">Class 11 →</a></div>
+</ol></div>
+<div class="cr-check" data-check-id="gate-10">
+ <h3>Practical gate — pass before you continue</h3>
+ <label><input type="checkbox" data-k="0"> One documented remote-access pattern is selected.</label><label><input type="checkbox" data-k="1"> MFA or equivalent strong identity control protects human access.</label><label><input type="checkbox" data-k="2"> Signed-out and disallowed-user tests fail.</label><label><input type="checkbox" data-k="3"> Allowed access works from an external network.</label><label><input type="checkbox" data-k="4"> Connector/device revocation is demonstrated.</label><label><input type="checkbox" data-k="5"> No direct public ARR/downloader/Proxmox port exists.</label><label><input type="checkbox" data-k="6"> Rollback removes the external path without breaking local use.</label>
+ <div class="cr-gate">All boxes true → continue</div>
 </div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>
+<div class="cr-callout tip"><strong>2026 correction:</strong> <p>Provider dashboards, policy syntax, and product names change. Use current official Cloudflare or selected VPN documentation. The security requirements—narrow exposure, explicit identity, denial testing, revocation, and fail-closed behavior—remain the authority.</p></div>
+ <div class="cr-pager"><a href="09.html">← Class 9</a><a href="11.html">Class 11 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921e"></script>
 </body></html>

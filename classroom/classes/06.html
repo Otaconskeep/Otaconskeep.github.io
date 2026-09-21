@@ -11,10 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921e">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CLASS 6<span class="blink"></span></span></div></div>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 6<span class="blink"></span></span>
+ </div>
+</div>
+
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -30,10 +37,12 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
@@ -43,21 +52,21 @@
  <a href="/classroom/glossary.html">Glossary</a>
  </div>
 </nav>
-<div class="wrap cr-md">
-<section class="hero flush">
- <p class="tag">Unit 2 — ARR · Class 6</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">TRaSH quality profiles</h1>
- <p class="lede">From the Homelab Academy 13-class pack. No video embeds — lecture links stay in the lesson text / references.</p>
-</section>
-<article class="cr-article">
-<h1>Class 6 — TRaSH Guides, Quality Profiles, and Custom Formats</h1>
-<p><strong>Lecture:</strong> <a href="https://www.youtube.com/watch?v=DCxU3Vzaz6k" target="_blank" rel="noopener">IBRACORP — TRaSH Guides + Notifiarr</a><br />
-<strong>Time:</strong> 180 minutes<br />
-<strong>Build output:</strong> documented quality policy with controlled scoring tests</p>
-<h2>Why this class matters</h2>
-<p>Installing Sonarr or Radarr is easy. Designing what they should prefer, reject, upgrade, and stop upgrading is the difficult part. TRaSH Guides supplies maintained recommendations; your profile still represents a local policy constrained by display, audio system, storage, bandwidth, and tolerance for upgrades.</p>
-<h2>Vocabulary</h2>
-<table>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 06<small>unit 2 · arr</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">TRaSH quality profiles</h1>
+ <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
+ <div class="cr-meta-grid"><div><span>Lecture</span><p><a href="https://www.youtube.com/watch?v=DCxU3Vzaz6k" target="_blank" rel="noopener">IBRACORP — TRaSH Guides + Notifiarr</a></p></div><div><span>Time</span><p>180 minutes</p></div><div><span>Build output</span><p>documented quality policy with controlled scoring tests</p></div></div>
+ </section>
+</div>
+
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Why this class matters</h3><p>Installing Sonarr or Radarr is easy. Designing what they should prefer, reject, upgrade, and stop upgrading is the difficult part. TRaSH Guides supplies maintained recommendations; your profile still represents a local policy constrained by display, audio system, storage, bandwidth, and tolerance for upgrades.</p></div>
+<div class="cr-box"><h3>Vocabulary</h3><table>
 <thead>
 <tr>
 <th>Term</th>
@@ -114,9 +123,8 @@
 <td>Dynamic-range formats with compatibility considerations</td>
 </tr>
 </tbody>
-</table>
-<h2>The decision model</h2>
-<p>Candidate selection is not one universal score. The application evaluates availability, monitored state, language, quality, Custom Formats, rejection rules, existing-file state, upgrade settings, and other constraints.</p>
+</table></div>
+<div class="cr-box"><h3>The decision model</h3><p>Candidate selection is not one universal score. The application evaluates availability, monitored state, language, quality, Custom Formats, rejection rules, existing-file state, upgrade settings, and other constraints.</p>
 <pre><code class="language-text">flowchart TD
     C[&quot;Candidate release&quot;] --&gt; E[&quot;Eligibility checks&quot;]
     E --&gt; Q[&quot;Quality/profile&quot;]
@@ -124,9 +132,8 @@
     F --&gt; U[&quot;Upgrade/cutoff logic&quot;]
     U --&gt; A[&quot;Accept or reject&quot;]
 </code></pre>
-<p>The correct question is not “What is the highest number?” It is “Does the selected result match the intended policy, and will future upgrades stop where we expect?”</p>
-<h2>Requirements before profiles</h2>
-<p>Write the policy in plain language:</p>
+<p>The correct question is not “What is the highest number?” It is “Does the selected result match the intended policy, and will future upgrades stop where we expect?”</p></div>
+<div class="cr-box"><h3>Requirements before profiles</h3><p>Write the policy in plain language:</p>
 <ul>
 <li>Target resolution: 1080p, 2160p, or separate libraries/profiles.</li>
 <li>Maximum practical file size or storage budget.</li>
@@ -141,12 +148,10 @@
 <p>Example requirement:</p>
 <blockquote>
 <p>Prefer 1080p WEB-DL or strong Blu-ray encodes, reject unwanted low-quality sources, prefer compatible surround audio, avoid DV-only releases on displays lacking DV, and stop upgrading after the target quality and score are reached.</p>
-</blockquote>
-<h2>Quality definitions versus profiles</h2>
-<p>Quality definitions bound expected sizes. Profiles decide allowed/ordered qualities and cutoff behavior. Custom Formats express characteristics that the built-in quality class does not fully capture.</p>
-<p>Changing a size limit can make releases unavailable even if their quality name is allowed. Changing a cutoff can prevent or cause future upgrades. Changing CF scores can reorder candidates and trigger replacement activity. Treat each as a controlled configuration change.</p>
-<h2>Custom Formats</h2>
-<p>A CF might recognize HDR type, audio codec, streaming service, release group, unwanted edition, or another release-name/media characteristic. A score expresses preference, not certainty. Overlapping CFs can stack, so test sample names rather than assuming one rule wins.</p>
+</blockquote></div>
+<div class="cr-box"><h3>Quality definitions versus profiles</h3><p>Quality definitions bound expected sizes. Profiles decide allowed/ordered qualities and cutoff behavior. Custom Formats express characteristics that the built-in quality class does not fully capture.</p>
+<p>Changing a size limit can make releases unavailable even if their quality name is allowed. Changing a cutoff can prevent or cause future upgrades. Changing CF scores can reorder candidates and trigger replacement activity. Treat each as a controlled configuration change.</p></div>
+<div class="cr-box"><h3>Custom Formats</h3><p>A CF might recognize HDR type, audio codec, streaming service, release group, unwanted edition, or another release-name/media characteristic. A score expresses preference, not certainty. Overlapping CFs can stack, so test sample names rather than assuming one rule wins.</p>
 <p>Design principles:</p>
 <ul>
 <li>Use negative scores or explicit rejection for truly unwanted traits.</li>
@@ -154,18 +159,16 @@
 <li>Reserve very large weights for hard policy distinctions.</li>
 <li>Document why each score exists.</li>
 <li>Avoid importing every available CF “just in case.”</li>
-</ul>
-<h2>Upgrade logic</h2>
-<p>Four questions must have explicit answers:</p>
+</ul></div>
+<div class="cr-box"><h3>Upgrade logic</h3><p>Four questions must have explicit answers:</p>
 <ol>
 <li>Are upgrades enabled?</li>
 <li>What quality cutoff applies?</li>
 <li>What minimum CF score makes a candidate eligible?</li>
 <li>What upgrade-until CF score ends score-driven replacement?</li>
 </ol>
-<p>A profile can accept a current file yet continue searching forever if upgrade targets are unreachable. It can also stop too early if cutoff or score targets are accidentally satisfied.</p>
-<h2>Guided lab</h2>
-<ol>
+<p>A profile can accept a current file yet continue searching forever if upgrade targets are unreachable. It can also stop too early if cutoff or score targets are accidentally satisfied.</p></div>
+<div class="cr-box cr-box-lab"><h3>Guided lab</h3><ol>
 <li>Export or back up Sonarr/Radarr configuration.</li>
 <li>Record current quality definitions and profiles.</li>
 <li>Select one TRaSH profile as a reference—not as an unexplained copy/paste target.</li>
@@ -181,9 +184,8 @@
    - Rejection reason, if any.<br />
    - Whether the result is preferred over the existing file.</li>
 <li>Adjust only one rule if observed ranking violates the written policy, then repeat.</li>
-</ol>
-<h2>Example scoring exercise</h2>
-<p>Use fictional candidates rather than real copyrighted content:</p>
+</ol></div>
+<div class="cr-box"><h3>Example scoring exercise</h3><p>Use fictional candidates rather than real copyrighted content:</p>
 <table>
 <thead>
 <tr>
@@ -220,49 +222,43 @@
 </tr>
 </tbody>
 </table>
-<p>If the application ranks these differently, investigate the parsed attributes and matching rules rather than editing several scores blindly.</p>
-<h2>Break/fix</h2>
-<ol>
+<p>If the application ranks these differently, investigate the parsed attributes and matching rules rather than editing several scores blindly.</p></div>
+<div class="cr-box"><h3>Break/fix</h3><ol>
 <li>Set an unrealistically high upgrade-until score. Observe why the profile never considers itself complete.</li>
 <li>Give a minor preference a score larger than a hard compatibility concern. Observe the bad ranking.</li>
 <li>Temporarily remove the incompatible-HDR rule and inspect candidate eligibility.</li>
 <li>Restore the backed-up profile and prove the original ranking returns.</li>
-</ol>
-<h2>Common mistakes</h2>
-<ul>
+</ol></div>
+<div class="cr-box"><h3>Common mistakes</h3><ul>
 <li>Mixing 1080p and 2160p goals without understanding quality ordering.</li>
 <li>Copying scores from a guide without checking hardware compatibility.</li>
 <li>Confusing minimum score with upgrade-until score.</li>
 <li>Allowing DV profiles that produce bad playback on the household display chain.</li>
 <li>Setting file-size limits that exclude every reasonable release.</li>
 <li>Changing global profiles on a live library without a sample evaluation and backup.</li>
-</ul>
-<h2>Knowledge check</h2>
-<ol>
+</ul></div>
+<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
 <li>What is the difference between a quality and a Custom Format?</li>
 <li>Why can multiple CF scores apply to one release?</li>
 <li>What does cutoff control?</li>
 <li>What is the risk of an unreachable upgrade-until score?</li>
 <li>Why should hardware compatibility be written before importing profiles?</li>
 <li>Does the highest-resolution candidate automatically represent the best local choice?</li>
-</ol>
-<h2>Practical gate</h2>
-<ul>
-<li>[ ] A plain-language quality requirement exists.</li>
-<li>[ ] Every imported CF has an owner and reason.</li>
-<li>[ ] Five controlled candidates produce expected rankings/rejections.</li>
-<li>[ ] Cutoff and score-upgrade behavior are explained.</li>
-<li>[ ] A backup and rollback path are proven.</li>
-<li>[ ] Storage and playback constraints are represented.</li>
-</ul>
-<h2>2026 correction</h2>
-<p>TRaSH recommendations and supported sync tooling change. Always use the current guide for profile identifiers and semantics, then verify behavior in the current Sonarr/Radarr release before applying changes broadly.</p>
-</article>
-<div class="cr-pager"><a href="05.html">← Class 5</a><a href="07.html">Class 7 →</a></div>
+</ol></div>
+<div class="cr-check" data-check-id="gate-06">
+ <h3>Practical gate — pass before you continue</h3>
+ <label><input type="checkbox" data-k="0"> A plain-language quality requirement exists.</label><label><input type="checkbox" data-k="1"> Every imported CF has an owner and reason.</label><label><input type="checkbox" data-k="2"> Five controlled candidates produce expected rankings/rejections.</label><label><input type="checkbox" data-k="3"> Cutoff and score-upgrade behavior are explained.</label><label><input type="checkbox" data-k="4"> A backup and rollback path are proven.</label><label><input type="checkbox" data-k="5"> Storage and playback constraints are represented.</label>
+ <div class="cr-gate">All boxes true → continue</div>
 </div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>
+<div class="cr-callout tip"><strong>2026 correction:</strong> <p>TRaSH recommendations and supported sync tooling change. Always use the current guide for profile identifiers and semantics, then verify behavior in the current Sonarr/Radarr release before applying changes broadly.</p></div>
+ <div class="cr-pager"><a href="05.html">← Class 5</a><a href="07.html">Class 7 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921e"></script>
 </body></html>

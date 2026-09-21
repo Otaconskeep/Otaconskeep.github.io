@@ -11,10 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921e">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CLASS 3<span class="blink"></span></span></div></div>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 3<span class="blink"></span></span>
+ </div>
+</div>
+
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -30,10 +37,12 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
@@ -43,21 +52,21 @@
  <a href="/classroom/glossary.html">Glossary</a>
  </div>
 </nav>
-<div class="wrap cr-md">
-<section class="hero flush">
- <p class="tag">Unit 1 — Infrastructure · Class 3</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">Docker networking</h1>
- <p class="lede">From the Homelab Academy 13-class pack. No video embeds — lecture links stay in the lesson text / references.</p>
-</section>
-<article class="cr-article">
-<h1>Class 3 — Docker Networking for the ARR Stack</h1>
-<p><strong>Lecture:</strong> <a href="https://www.youtube.com/watch?v=bKFMS5C4CG0" target="_blank" rel="noopener">NetworkChuck — Docker Networking</a><br />
-<strong>Time:</strong> 120–150 minutes<br />
-<strong>Build output:</strong> isolated application network with DNS-based calls</p>
-<h2>Outcomes</h2>
-<p>You will understand default and user-defined bridges, embedded DNS, port publishing, host networking, <code>none</code>, MACVLAN, IPVLAN, overlay networks, and why the ARR stack normally starts with a user-defined bridge.</p>
-<h2>Core model</h2>
-<p>Docker networking has two separate jobs:</p>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 03<small>unit 1 · infrastructure</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Docker networking</h1>
+ <p class="lede">Pack lesson with guided lab, break/fix, quiz, and practical gate. Prefer current official docs over any old UI in a lecture link.</p>
+ <div class="cr-meta-grid"><div><span>Lecture</span><p><a href="https://www.youtube.com/watch?v=bKFMS5C4CG0" target="_blank" rel="noopener">NetworkChuck — Docker Networking</a></p></div><div><span>Time</span><p>120–150 minutes</p></div><div><span>Build output</span><p>isolated application network with DNS-based calls</p></div></div>
+ </section>
+</div>
+
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Outcomes</h3><p>You will understand default and user-defined bridges, embedded DNS, port publishing, host networking, <code>none</code>, MACVLAN, IPVLAN, overlay networks, and why the ARR stack normally starts with a user-defined bridge.</p></div>
+<div class="cr-box"><h3>Core model</h3><p>Docker networking has two separate jobs:</p>
 <ol>
 <li>Let containers communicate with each other.</li>
 <li>Decide which services are reachable from the host or other networks.</li>
@@ -118,9 +127,8 @@
 </table>
 <p>User-defined bridges provide predictable grouping and automatic name resolution. Port publishing is still needed for LAN users to access a service, but container-to-container calls do not need a published host port when both services share the network.</p>
 <h3>Exposure and isolation</h3>
-<p>Do not publish every internal service simply because you can. A database used only by one application can remain reachable only on its Docker network. ARR web interfaces normally remain LAN-only or VPN-protected.</p>
-<h2>Guided lab</h2>
-<p>Create this project:</p>
+<p>Do not publish every internal service simply because you can. A database used only by one application can remain reachable only on its Docker network. ARR web interfaces normally remain LAN-only or VPN-protected.</p></div>
+<div class="cr-box cr-box-lab"><h3>Guided lab</h3><p>Create this project:</p>
 <pre><code class="language-yaml">name: network-lab
 services:
   responder:
@@ -148,9 +156,8 @@ docker network inspect media_net
 Sonarr -&gt; http://qbittorrent:8080
 Radarr -&gt; http://sabnzbd:8080
 </code></pre>
-<p>The exact ports depend on the application configuration. Record them in <code>templates/service_contract.csv</code>; do not guess.</p>
-<h2>Break/fix</h2>
-<ol>
+<p>The exact ports depend on the application configuration. Record them in <code>templates/service_contract.csv</code>; do not guess.</p></div>
+<div class="cr-box"><h3>Break/fix</h3><ol>
 <li>Disconnect <code>tester</code> from <code>media_net</code> with <code>docker network disconnect media_net network-lab-tester-1</code> using the actual container name from <code>docker compose ps</code>.</li>
 <li>Confirm name resolution or connectivity fails.</li>
 <li>Reconnect it and retest.</li>
@@ -159,40 +166,36 @@ Radarr -&gt; http://sabnzbd:8080
 </ol>
 <p>Troubleshooting order:</p>
 <pre><code class="language-text">running container -&gt; shared network -&gt; DNS name -&gt; destination port -&gt; listener -&gt; application auth -&gt; firewall/routing
-</code></pre>
-<h2>Common mistakes</h2>
-<ul>
+</code></pre></div>
+<div class="cr-box"><h3>Common mistakes</h3><ul>
 <li>Using host LAN IPs for all internal calls and creating unnecessary hairpin paths.</li>
 <li>Assuming <code>localhost</code> refers to the Docker host.</li>
 <li>Adding <code>network_mode: host</code> as a universal fix.</li>
 <li>Using MACVLAN before checking parent interface, switch port, Wi-Fi limitations, and host-to-container reachability.</li>
 <li>Publishing database or admin ports to every interface.</li>
 <li>Debugging authentication before proving TCP reachability.</li>
-</ul>
-<h2>Knowledge check</h2>
-<ol>
+</ul></div>
+<div class="cr-box cr-box-quiz"><h3>Knowledge check</h3><ol>
 <li>What does <code>localhost</code> mean inside Sonarr's container?</li>
 <li>Why is a user-defined bridge better than the legacy default for a Compose stack?</li>
 <li>Does container-to-container traffic require a published host port?</li>
 <li>When is overlay networking relevant?</li>
 <li>Why is host networking not a harmless troubleshooting switch?</li>
-</ol>
-<h2>Practical gate</h2>
-<ul>
-<li>[ ] Two containers communicate by service name.</li>
-<li>[ ] The student proves an unexposed service is unreachable from the LAN.</li>
-<li>[ ] Internal and external addresses are recorded separately.</li>
-<li>[ ] A deliberate network disconnect is diagnosed and repaired.</li>
-<li>[ ] No ARR/downloader admin interface is publicly exposed.</li>
-</ul>
-<h2>2026 correction</h2>
-<p>The lecture's driver survey is valuable, but a single-host ARR stack rarely needs MACVLAN, IPVLAN, or overlay networking. Start with a user-defined bridge and adopt advanced drivers only from an explicit requirement.</p>
-</article>
-<div class="cr-pager"><a href="02.html">← Class 2</a><a href="04.html">Class 4 →</a></div>
+</ol></div>
+<div class="cr-check" data-check-id="gate-03">
+ <h3>Practical gate — pass before you continue</h3>
+ <label><input type="checkbox" data-k="0"> Two containers communicate by service name.</label><label><input type="checkbox" data-k="1"> The student proves an unexposed service is unreachable from the LAN.</label><label><input type="checkbox" data-k="2"> Internal and external addresses are recorded separately.</label><label><input type="checkbox" data-k="3"> A deliberate network disconnect is diagnosed and repaired.</label><label><input type="checkbox" data-k="4"> No ARR/downloader admin interface is publicly exposed.</label>
+ <div class="cr-gate">All boxes true → continue</div>
 </div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>
+<div class="cr-callout tip"><strong>2026 correction:</strong> <p>The lecture's driver survey is valuable, but a single-host ARR stack rarely needs MACVLAN, IPVLAN, or overlay networking. Start with a user-defined bridge and adopt advanced drivers only from an explicit requirement.</p></div>
+ <div class="cr-pager"><a href="02.html">← Class 2</a><a href="04.html">Class 4 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921e"></script>
 </body></html>

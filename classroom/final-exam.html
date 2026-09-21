@@ -11,10 +11,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921e">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CAPSTONE<span class="blink"></span></span></div></div>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CAPSTONE<span class="blink"></span></span>
+ </div>
+</div>
+
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -30,10 +37,12 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
@@ -43,17 +52,17 @@
  <a href="/classroom/glossary.html">Glossary</a>
  </div>
 </nav>
-<div class="wrap cr-md">
-<section class="hero flush">
- <p class="tag">Homelab Academy</p>
- <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Final capstone</h1>
-</section>
-<article class="cr-article">
-<h1>Final Capstone — Verified Private Homelab</h1>
-<h2>Mission scenario</h2>
-<p>Build and demonstrate a homelab where an authorized user can request permitted media, trace the request through the ARR pipeline, discover the imported item in a media server, ask Home Assistant whether the media service is online, and receive a local spoken response. Core local tests must pass with WAN disconnected.</p>
-<h2>Required architecture</h2>
-<pre><code class="language-text">flowchart TD
+
+<div class="wrap">
+ <section class="hero flush">
+ <p class="tag">Capstone</p>
+ <h1 class="display" style="font-size:clamp(1.9rem,5vw,3rem);">Final capstone</h1>
+ <p class="lede">End-to-end verification matrix. “It seems to work” is not evidence.</p>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Mission scenario</h3><p>Build and demonstrate a homelab where an authorized user can request permitted media, trace the request through the ARR pipeline, discover the imported item in a media server, ask Home Assistant whether the media service is online, and receive a local spoken response. Core local tests must pass with WAN disconnected.</p></div>
+<div class="cr-box"><h3>Required architecture</h3><pre><code class="language-text">flowchart TD
     U[&quot;Authorized user&quot;] --&gt; S[&quot;Seerr request&quot;]
     S --&gt; R[&quot;Sonarr / Radarr&quot;]
     R --&gt; P[&quot;Prowlarr&quot;]
@@ -64,18 +73,16 @@
     V[&quot;Voice satellite&quot;] --&gt; H[&quot;Home Assistant&quot;]
     H --&gt; X[&quot;Media health sensor&quot;]
     H --&gt; V
-</code></pre>
-<h2>Constraints</h2>
-<ul>
+</code></pre></div>
+<div class="cr-box"><h3>Constraints</h3><ul>
 <li>Use only authorized indexers, sources, and test media.</li>
 <li>No administrative application is directly exposed to the public internet.</li>
 <li>Every stateful service has a current backup and documented restore target.</li>
 <li>Persistent paths, identities, networks, and ports are documented.</li>
 <li>One source of truth owns automated quality/profile configuration.</li>
 <li>Voice STT and TTS run locally for the offline requirement.</li>
-</ul>
-<h2>Verification matrix</h2>
-<table>
+</ul></div>
+<div class="cr-box"><h3>Verification matrix</h3><table>
 <thead>
 <tr>
 <th>ID</th>
@@ -194,9 +201,8 @@
 <td>Service returns with verified state</td>
 </tr>
 </tbody>
-</table>
-<h2>Demonstration sequence</h2>
-<ol>
+</table></div>
+<div class="cr-box"><h3>Demonstration sequence</h3><ol>
 <li>Present the architecture and inventory.</li>
 <li>Show Compose validation and running health state.</li>
 <li>Demonstrate persistent data after recreation.</li>
@@ -212,9 +218,8 @@
 <li>Restore WAN and verify normal operation.</li>
 <li>Introduce one hidden fault and diagnose it by boundary.</li>
 <li>Show backups and execute one safe restoration in a disposable target.</li>
-</ol>
-<h2>Critical failures</h2>
-<p>Any of the following prevents a pass until corrected:</p>
+</ol></div>
+<div class="cr-box"><h3>Critical failures</h3><p>Any of the following prevents a pass until corrected:</p>
 <ul>
 <li>Public unauthenticated admin interface.</li>
 <li>Secrets in submitted screenshots/configuration.</li>
@@ -223,9 +228,8 @@
 <li>Quality automation applied broadly without backup or behavioral test.</li>
 <li>Voice “local” claim without a WAN-disconnect demonstration.</li>
 <li>Destructive testing against irreplaceable data.</li>
-</ul>
-<h2>Final score</h2>
-<table>
+</ul></div>
+<div class="cr-box"><h3>Final score</h3><table>
 <thead>
 <tr>
 <th>Category</th>
@@ -267,13 +271,15 @@
 </tr>
 </tbody>
 </table>
-<p>Pass requires at least 80 points and zero unresolved critical failures.</p>
-</article>
-<div class="cr-pager"><a href="classes/13.html">← Class 13</a><a href="/classroom/">Academy →</a></div>
+<p>Pass requires at least 80 points and zero unresolved critical failures.</p></div>
+ <div class="cr-pager"><a href="classes/13.html">← Class 13</a><a href="/classroom/">Academy →</a></div>
 </div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921d"></script>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260921e"></script>
 </body></html>
