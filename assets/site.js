@@ -146,8 +146,8 @@
  function imgPath(item) {
  var folder = (item && item.folder) ? item.folder : 'keep';
  var slug = typeof item === 'string' ? item : item.slug;
- if (typeof item === 'string') return 'assets/img/keep/' + slug + '.webp';
- return 'assets/img/' + folder + '/' + slug + '.webp';
+ if (typeof item === 'string') return '/assets/img/keep/' + slug + '.webp';
+ return '/assets/img/' + folder + '/' + slug + '.webp';
  }
  function findItem(slug) {
  for (var i = 0; i < GALLERY_DATA.length; i++) if (GALLERY_DATA[i].slug === slug) return i;

@@ -155,9 +155,9 @@ Manga Colorizer is Up and Running!</code>
 
 <div class="wrap">
  <section id="install">
- <p class="tag">Install</p>
- <h2>Windows 10/11: one download, one double-click</h2>
- <p class="intro">Same pattern as Otacon Setup. Download one file from this site. Double-click it from Downloads. Do <em>not</em> type anything into Command Prompt, that is why <span class="mono">'install_ai9.bat' is not recognized</span> shows up if you only paste the filename.</p>
+ <p class="tag">Install // Dual method</p>
+ <h2>Windows 10/11: one-click or baby steps</h2>
+ <p class="intro">Method 1: download one file and double-click it from Downloads. Method 2: prerequisites + copy-paste one line + clickable error fixes. Do <em>not</em> type only the filename into Command Prompt — that is why <span class="mono">'install_ai9.bat' is not recognized</span> shows up.</p>
 
  <div class="os-card" style="margin: 18px 0 22px; max-width: 520px;">
  <a class="download-btn" href="/downloads/AI9-Setup.bat" download="AI9-Setup.bat">Download AI9 Setup</a>
@@ -186,7 +186,206 @@ Manga Colorizer is Up and Running!</code>
  </ol>
 
  <div class="warn-note"><span class="mono">winget</span> may trigger a Windows UAC prompt when installing missing Git, Python, or Firefox. The installer itself does not need to run elevated/as administrator.</div>
- <div class="info-note">Runs at <span class="mono">https://127.0.0.1:5000/</span> only (localhost). Self-signed certificate, one-time browser trust warning is expected. Other devices on your LAN cannot reach the API by default.</div>
+<div class="dual-install" id="ai9page-baby-install">
+ <p class="dual-install-lead"><strong>Two install methods.</strong> Method 1 is the Download button above (double-click). Method 2 is baby steps with prerequisites, one copy-paste line, and clickable fixes for common errors.</p>
+
+ <div class="dual-methods">
+ <div class="dual-method-card">
+ <span class="method-tag">Method 1</span>
+ <h4>One-click Setup</h4>
+ <p>Download AI9-Setup.bat → open Downloads → double-click. Do not type the filename into Command Prompt.</p>
+ </div>
+ <div class="dual-method-card">
+ <span class="method-tag">Method 2</span>
+ <h4>Baby steps (manual)</h4>
+ <p>Confirm GPU + driver, paste one CMD/PowerShell line, then load the Firefox extension (the one human click).</p>
+ </div>
+ </div>
+
+ <nav class="baby-install-nav" aria-label="AI9 baby install">
+ <a href="#ai9page-prereqs">Step 1 · Prerequisites</a>
+ <a href="#ai9page-steps">Step 2 · Install</a>
+ <a href="#ai9page-errors">If you see an error</a>
+ </nav>
+
+ <div class="baby-step-block" id="ai9page-prereqs">
+ <h4><span class="step-num">Step 1</span> Prerequisites</h4>
+ <div class="baby-prereq-table">
+ <div class="baby-prereq-head" role="row">
+ <span>Need</span><span>Required?</span><span>Quick check</span><span>Help</span>
+ </div>
+
+ <details class="baby-prereq">
+ <summary>
+ <span class="baby-prereq-name">Windows 10/11</span>
+ <span class="baby-prereq-need yes">Required</span>
+ <span class="baby-prereq-check">64-bit Windows</span>
+ <span class="baby-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="baby-prereq-body">
+ <ol class="baby-steps">
+ <li>AI9 Setup is Windows-first. You do <strong>not</strong> need WSL or Linux.</li>
+ <li>You do <strong>not</strong> need OtaconsKeep Lite installed.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="baby-prereq">
+ <summary>
+ <span class="baby-prereq-name">NVIDIA GPU + driver</span>
+ <span class="baby-prereq-need yes">Required</span>
+ <span class="baby-prereq-check">RTX 30/40/50 recommended</span>
+ <span class="baby-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="baby-prereq-body">
+ <ol class="baby-steps">
+ <li>Install a current <strong>Game Ready</strong> or <strong>Studio</strong> driver from NVIDIA.</li>
+ <li>Confirm the GPU is visible: Start → search <strong>NVIDIA Control Panel</strong>, or run in CMD:
+ <pre class="baby-code mono">nvidia-smi</pre>
+ You should see your GPU name and a driver version.</li>
+ <li>If <span class="mono">nvidia-smi</span> is not recognized, the driver is missing or not on PATH — reinstall the driver, reboot, retry.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="baby-prereq">
+ <summary>
+ <span class="baby-prereq-name">winget (App Installer)</span>
+ <span class="baby-prereq-need maybe">Usually auto</span>
+ <span class="baby-prereq-check">winget --version</span>
+ <span class="baby-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="baby-prereq-body">
+ <ol class="baby-steps">
+ <li>Setup uses winget to install Git / Python / Firefox if missing.</li>
+ <li>Check: open CMD and run <span class="mono">winget --version</span>.</li>
+ <li>If missing, install <a href="https://apps.microsoft.com/detail/9nblggh4nns1" target="_blank" rel="noopener">App Installer</a> from the Microsoft Store, then reopen CMD.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="baby-prereq">
+ <summary>
+ <span class="baby-prereq-name">Firefox (for the extension)</span>
+ <span class="baby-prereq-need yes">Required</span>
+ <span class="baby-prereq-check">Browser for reading</span>
+ <span class="baby-prereq-cta">Open baby steps</span>
+ </summary>
+ <div class="baby-prereq-body">
+ <ol class="baby-steps">
+ <li>Setup can install Firefox via winget. Or install Firefox yourself first.</li>
+ <li>After install finishes, you must manually load the temporary add-on once (Step 2 below). Windows cannot click that for you.</li>
+ </ol>
+ </div>
+ </details>
+ </div>
+ </div>
+
+ <div class="baby-step-block" id="ai9page-steps">
+ <h4><span class="step-num">Step 2</span> Copy-paste or double-click</h4>
+
+ <h4 style="margin:12px 0 8px;font-size:0.95rem;">Windows · Command Prompt (one line)</h4>
+ <ol class="baby-steps">
+ <li>Open <strong>Command Prompt</strong>.</li>
+ <li>Paste and press Enter:
+ <div class="codebox" style="margin-top:8px;">
+ <code id="ai9page-cmd-win">curl -L -o "%USERPROFILE%\Downloads\AI9-Setup.bat" "https://otaconskeep.github.io/downloads/AI9-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\AI9-Setup.bat"</code>
+ <button class="copy-btn" data-copy-target="ai9page-cmd-win">Copy</button>
+ </div>
+ </li>
+ <li>Leave the black window open until it finishes. Approve UAC if winget asks.</li>
+ </ol>
+
+ <h4 style="margin:18px 0 8px;font-size:0.95rem;">Windows · PowerShell (one line)</h4>
+ <div class="codebox">
+ <code id="ai9page-cmd-ps">irm https://otaconskeep.github.io/downloads/AI9-Setup.bat -OutFile "$env:USERPROFILE\Downloads\AI9-Setup.bat"; Start-Process "$env:USERPROFILE\Downloads\AI9-Setup.bat"</code>
+ <button class="copy-btn" data-copy-target="ai9page-cmd-ps">Copy</button>
+ </div>
+
+ <h4 style="margin:18px 0 8px;font-size:0.95rem;">From a GitHub ZIP / clone</h4>
+ <ol class="baby-steps">
+ <li>Download <a href="https://github.com/Otaconskeep/AI9/archive/refs/heads/main.zip">AI9 ZIP</a>, extract it.</li>
+ <li>Open the folder and <strong>double-click</strong> <span class="mono">install_ai9.bat</span> (do not type that name into CMD unless you <span class="mono">cd</span> there first).</li>
+ </ol>
+
+ <h4 style="margin:18px 0 8px;font-size:0.95rem;">Step 2b · Load the Firefox extension (required once)</h4>
+ <ol class="baby-steps">
+ <li>Open Firefox and go to <span class="mono">about:debugging#/runtime/this-firefox</span></li>
+ <li>Click <strong>Load Temporary Add-on…</strong></li>
+ <li>Select <span class="mono">C:\opt\manga-colorizer\extension\manifest.json</span> (default path).</li>
+ <li>After a full Firefox restart you must load it again — that is a Firefox unsigned-addon limit.</li>
+ </ol>
+ <p class="os-hint" style="margin-top:10px;">When the server is up: <span class="mono">https://127.0.0.1:5000/</span> (self-signed cert warning is normal once).</p>
+ </div>
+
+ <div class="baby-step-block" id="ai9page-errors">
+ <h4><span class="step-num">If something looks wrong</span> Click the message you see</h4>
+
+ <details class="baby-error">
+ <summary>'AI9-Setup.bat' is not recognized</summary>
+ <div class="baby-error-body">
+ <ol>
+ <li>You typed the filename into CMD without being in the Downloads folder.</li>
+ <li>Fix: use the Method 1 download button and <strong>double-click</strong> the file, or use the full one-liner above (it downloads and starts for you).</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="baby-error">
+ <summary>SmartScreen / “Windows protected your PC”</summary>
+ <div class="baby-error-body">
+ <ol>
+ <li>Click <strong>More info</strong> → <strong>Run anyway</strong>.</li>
+ <li>Unsigned batch scripts often get this the first time.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="baby-error">
+ <summary>Window flashes and closes instantly</summary>
+ <div class="baby-error-body">
+ <ol>
+ <li>Git Bash may be missing and winget failed. Install <a href="https://apps.microsoft.com/detail/9nblggh4nns1" target="_blank" rel="noopener">App Installer</a>, then rerun Setup.</li>
+ <li>Or install <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git for Windows</a> yourself, then double-click Setup again.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="baby-error">
+ <summary>nvidia-smi / CUDA / GPU test failed</summary>
+ <div class="baby-error-body">
+ <ol>
+ <li>Update the NVIDIA driver, reboot, run <span class="mono">nvidia-smi</span> again.</li>
+ <li>Rerun Setup — it is safe to run twice; it skips finished steps.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="baby-error">
+ <summary>Self-signed certificate warning in the browser</summary>
+ <div class="baby-error-body">
+ <ol>
+ <li>Expected for local <span class="mono">https://127.0.0.1:5000/</span>.</li>
+ <li>Click Advanced → proceed/accept once for this address.</li>
+ </ol>
+ </div>
+ </details>
+
+ <details class="baby-error">
+ <summary>Extension gone after Firefox restart</summary>
+ <div class="baby-error-body">
+ <ol>
+ <li>Unsigned temporary add-ons do not persist. Reload via about:debugging as in Step 2b.</li>
+ </ol>
+ </div>
+ </details>
+
+ <p class="os-hint" style="margin-top:14px;"><a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Ask in Discord</a> · <a href="https://github.com/Otaconskeep/AI9#install-the-easy-way" target="_blank" rel="noopener">GitHub install docs</a></p>
+ </div>
+</div>
+
+
+  <div class="info-note">Runs at <span class="mono">https://127.0.0.1:5000/</span> only (localhost). Self-signed certificate, one-time browser trust warning is expected. Other devices on your LAN cannot reach the API by default.</div>
 
  <details class="install-toggle" style="margin-top: 22px;">
  <summary>Optional environment variables</summary>

@@ -15,6 +15,8 @@ Public site for Otaconskeep: [Otacon](https://github.com/Otaconskeep/otacons-ai-
 
 Plain static HTML/CSS/JS. No build step, no framework, no server-side code.
 
+Install pages offer **dual methods**: one-click Setup and beginner baby steps (prerequisites, copy-paste one-liners, clickable error → fix).
+
 ```
 index.html Homepage (product cards + What is it? explainers)
 engineering/ System Engineering portal
