@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARR research shelf · Classroom</title>
+<meta name="description" content="Curated ARR research references for Unit 2.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/units/2-arr/research.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921c">
+</head>
+<body>
+<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>ARR RESEARCH<span class="blink"></span></span></div></div>
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div></div>
+</nav><nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/start.html">Start</a>
+ <a href="/classroom/path.html">Path</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ <a href="/classroom/units/1-infrastructure/">Unit 1</a>
+ <a href="/classroom/units/2-arr/">Unit 2</a>
+ <a href="/classroom/units/3-home-assistant/">Unit 3</a>
+ <a href="/classroom/units/4-voice/">Unit 4</a>
+ <a href="/classroom/final-exam.html">Final exam</a>
+ </div>
+</nav>
+<div class="wrap">
+<section class="hero flush">
+ <span class="cr-badge mid">🟡 Intermediate</span>
+ <span class="tag" style="margin-left:10px;">Unit 2 · Research</span>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);margin-top:12px;">ARR research shelf</h1>
+ <p class="lede">These are the best public references we studied while writing Unit 2. Homelab Academy lessons are <strong>original teaching</strong> — not mirrors of any one repo or post. Prefer official Servarr + TRaSH for day-to-day clicks.</p>
+</section>
+<div class="cr-box">
+ <h3>Primary (always win arguments)</h3>
+ <ul>
+  <li><a href="https://wiki.servarr.com/" target="_blank" rel="noopener">Servarr wiki</a> — Sonarr, Radarr, Prowlarr, Lidarr, Bazarr</li>
+  <li><a href="https://trash-guides.info/" target="_blank" rel="noopener">TRaSH Guides</a> — folders, hardlinks, quality, custom formats</li>
+  <li><a href="https://recyclarr.dev/" target="_blank" rel="noopener">Recyclarr</a> — reproducible TRaSH sync</li>
+ </ul>
+</div>
+<div class="cr-box">
+ <h3>Architecture &amp; compose patterns (research)</h3>
+ <ul>
+  <li><a href="https://github.com/Pharkie/ultimate-arr-stack/tree/main/docs" target="_blank" rel="noopener">Pharkie / ultimate-arr-stack docs</a> — request→watch flow, VPN-only-on-downloaders, bridge vs Gluetun addressing, access levels (LAN / DNS / tunnel)</li>
+  <li><a href="https://renzobeux.dev/blog/docker-compose-arr-stack/" target="_blank" rel="noopener">Renzo Beux — Complete *arr stack</a> — real compose walkthrough, shared path strings, media_network DNS, FlareSolverr role</li>
+  <li><a href="https://homelabstarter.com/homelab-arr-stack-guide/" target="_blank" rel="noopener">HomeLab Starter — Arr stack explained</a> — who does what, starter Compose shape, Jellyseerr + Bazarr overview</li>
+  <li><a href="https://github.com/DonMcD/ultimate-plex-stack" target="_blank" rel="noopener">DonMcD ultimate-plex-stack</a> (from the r/PleX “ultimate stack” thread) — modular extras: Seerr, Autobrr, Wizarr, Tautulli, Prefetcharr</li>
+  <li><a href="https://github.com/geekau/mediastack" target="_blank" rel="noopener">Geekau MediaStack</a> (from the r/radarr “Ultimate Starter” lineage) — env-driven full stacks, VPN profiles, multi-OS folder variables</li>
+ </ul>
+</div>
+<div class="cr-box">
+ <h3>Catalogs &amp; community threads (research)</h3>
+ <ul>
+  <li><a href="https://github.com/Ravencentric/awesome-arr" target="_blank" rel="noopener">awesome-arr</a> — living catalog of *arrs and companions</li>
+  <li><a href="https://www.reddit.com/r/PleX/comments/1arzr1y/the_ultimate_plex_software_stack_arrs_and_more/" target="_blank" rel="noopener">r/PleX ultimate software stack thread</a> — what people actually add after core</li>
+  <li><a href="https://www.reddit.com/r/radarr/comments/yj4fcw/ultimate_starter_full_dockercompose_arr_media/" target="_blank" rel="noopener">r/radarr Ultimate Starter thread</a> — beginner-oriented full compose + shared partition advice</li>
+ </ul>
+</div>
+<div class="cr-callout tip"><strong>How we used them:</strong> extract principles (pipeline, paths, VPN boundary, growth order, companion jobs). Do <em>not</em> paste foreign Compose blindly — rewrite for your PUID/PGID, paths, and threat model. Pair every old screenshot with current docs.</div>
+<pre class="cr-diagram">RESEARCH → PRINCIPLES → YOUR COMPOSE → LAB → CHECKPOINT
+(not: RESEARCH → copy YAML → pray)</pre>
+<div class="cr-pager">
+ <a href="companions.html">← Companions</a>
+ <a href="/classroom/units/3-home-assistant/">Unit 3 — Home Assistant →</a>
+</div>
+</div>
+<footer class="sitefoot"><div class="wrap">
+<span>Otaconskeep Classroom · Homelab Academy</span>
+<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
+</div></footer>
+<script src="/classroom/classroom.js?v=20260921c"></script>
+</body></html>

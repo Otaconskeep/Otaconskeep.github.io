@@ -161,7 +161,7 @@ def class_page(c):
 
 
 def unit_index(num, slug, title, blurb, classes, next_unit):
-    lis = ''.join(f'<li><a href="classes/{fn}">{H.escape(label)}</a></li>' for fn, label in classes)
+    lis = ''.join(f'<li><a href="{fn}">{H.escape(label)}</a></li>' for fn, label in classes)
     first = classes[0][0]
     body = f'''
 <section class="hero flush">
@@ -169,9 +169,9 @@ def unit_index(num, slug, title, blurb, classes, next_unit):
  <h1 class="display" style="font-size:clamp(1.9rem,5vw,2.8rem);">{H.escape(title)}</h1>
  <p class="lede">{blurb}</p>
 </section>
-<div class="cr-box"><h3>Classes in this unit</h3><ol>{lis}</ol></div>
+<div class="cr-box"><h3>Lessons in this unit</h3><ol>{lis}</ol></div>
 <div class="cr-callout tip">Pattern every class: <strong>Understand → Build → Break → Fix → Verify</strong>. Videos are lectures only — this site holds the labs and checkpoints. No videos are embedded.</div>
-<div class="cr-pager"><a href="/classroom/">← Academy</a><a href="classes/{first}">First class →</a></div>
+<div class="cr-pager"><a href="/classroom/">← Academy</a><a href="{first}">First lesson →</a></div>
 '''
     write(UNITS / slug / "index.html", wrap(f"Unit {num} — {title} · Classroom", blurb, f"/classroom/units/{slug}/", f"UNIT {num}", body))
 
@@ -360,41 +360,50 @@ CLASSES.append(dict(
 CLASSES.append(dict(
     id="5", file="05-prowlarr.html", unit="Unit 2 — ARR Media Automation", unit_slug="2-arr",
     title="What Prowlarr actually does", level="baby",
-    goal="Use Prowlarr as the indexer hub. Start with ONE indexer, sync to Sonarr, verify.",
-    lecture_note="Concept lecture: IBRACORP Prowlarr (2021). UI changed — follow current Servarr/Prowlarr docs for clicks.",
-    mean_goal="Prowlarr is the shared phone book of search sites. Sonarr/Radarr borrow it instead of each keeping a messy copy.",
-    more_goal="API keys connect apps. Sync pushes indexer config into ARR applications.",
-    words=["Prowlarr", "Indexer", "Tracker", "Usenet", "Torrent", "API", "Sync"],
+    goal="Use Prowlarr as the indexer hub for the whole ARR pipeline. Start with ONE indexer, sync to Sonarr, verify — then add Radarr the same way.",
+    lecture_note="Concept lecture: IBRACORP Prowlarr (2021). UI changed — follow current Servarr/Prowlarr docs for clicks. Pair with Unit 2 stack-map + storage lessons first.",
+    mean_goal="Prowlarr is the shared phone book of search sources. Sonarr/Radarr borrow it instead of each keeping a messy copy. You never download 'from' Prowlarr in normal flow — the *arrs search through it.",
+    more_goal="API keys connect apps. Sync pushes indexer config into ARR applications. Optional FlareSolverr/Byparr sits as an indexer proxy when a site needs a challenge solver — add only when a Test fails for that reason.",
+    words=["Prowlarr", "Indexer", "Tracker", "Usenet", "Torrent", "API", "Sync", "FlareSolverr"],
     diagram='''              PROWLARR
                  |
         INDEXER MANAGEMENT
                  |
         +--------+--------+
         v        v        v
-     SONARR   RADARR   LIDARR''',
+     SONARR   RADARR   LIDARR
+                 |
+          (search results)
+                 v
+         download clients''',
     notes='''<ol>
 <li>Add <strong>one</strong> indexer</li>
 <li>Test it</li>
-<li>Connect Sonarr (Apps)</li>
+<li>Connect Sonarr (Settings → Apps) using Docker DNS: <span class="mono">http://sonarr:8989</span></li>
 <li>Sync</li>
 <li>Verify indexer appears in Sonarr</li>
+<li>Repeat for Radarr at <span class="mono">http://radarr:7878</span></li>
 </ol>
-<p>Checkpoint equation: Prowlarr works + Sonarr works + API connection works = PASS.</p>''',
+<p>Checkpoint equation: Prowlarr works + Sonarr works + API connection works = PASS.</p>
+<p>Do <strong>not</strong> maintain separate indexer lists inside every ARR app. That is the failure mode every serious stack guide warns about.</p>''',
     lab='''<pre class="cr-code"># In compose: linuxserver/prowlarr on media_network, publish 9696
 # Open http://SERVER-IP:9696
 # Add 1 indexer → Test → Settings/Apps → Sonarr → Sync
-# Confirm indexer list in Sonarr</pre>
-''' + mean_more("One indexer keeps failures obvious.", "Do not add fifty indexers on day one."),
+# Confirm indexer list in Sonarr Settings → Indexers
+# Then add Radarr the same way</pre>
+''' + mean_more("One indexer keeps failures obvious.", "Do not add fifty indexers on day one. Community 'ultimate stacks' look huge — your first lab stays tiny."),
     breakfix='''<div class="cr-tree">
  <div class="node q">Sonarr never sees the indexer?</div>
  <div class="branch">
-  <div class="node bad">Wrong API key / Sonarr URL (use http://sonarr:8989 on Docker DNS)</div>
+  <div class="node bad">Wrong API key / Sonarr URL (use http://sonarr:8989 on Docker DNS — not a .lan name from inside containers)</div>
   <div class="node ok">Re-sync from Prowlarr Apps; confirm Test green</div>
  </div>
-</div>''',
+</div>
+<div class="cr-callout tip">Next: wire download clients + root folders in the Core stack lesson, then Seerr for requests.</div>''',
     check=["Prowlarr UI opens", "One indexer tests OK", "Sonarr connected via API", "Indexer visible in Sonarr"],
-    docs=[("Prowlarr wiki", "https://wiki.servarr.com/prowlarr"), ("TRaSH Prowlarr", "https://trash-guides.info/Prowlarr/")],
-    prev=("/classroom/units/1-infrastructure/classes/04-docker-playground.html", "Class 4"), next=("06-trash-fundamentals.html", "Class 6"),
+    docs=[("Prowlarr wiki", "https://wiki.servarr.com/prowlarr"), ("TRaSH Prowlarr", "https://trash-guides.info/Prowlarr/"),
+          ("Unit 2 research shelf", "/classroom/units/2-arr/research.html")],
+    prev=("../storage-hardlinks.html", "Storage & hardlinks"), next=("../core-stack.html", "Core stack"),
 ))
 
 # --- Class 6 ---
@@ -425,7 +434,7 @@ Movie.2160p.REMUX.DV.TrueHD.Atmos.mkv</pre>
     breakfix='''<div class="cr-callout">If your preferred pick is a REMUX but your network is weak, the profile is wrong for your house — not ‘broken ARR’.</div>''',
     check=["I graded the three fake releases for two profiles", "I can define Custom Format in plain words", "I know anime ≠ normal TV profiles"],
     docs=[("TRaSH Guides", "https://trash-guides.info/"), ("Radarr CF collection", "https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/")],
-    prev=("05-prowlarr.html", "Class 5"), next=("07-trash-automation.html", "Class 7"),
+    prev=("../requests-seerr.html", "Requests / Seerr"), next=("07-trash-automation.html", "Class 7"),
 ))
 
 # --- Class 7 ---
@@ -466,7 +475,7 @@ CLASSES.append(dict(
 </div>''',
     check=["I chose GUI or Recyclarr path deliberately", "A sync completed", "CF scores visible in ARR", "I did not hand-build dozens of CFs"],
     docs=[("Recyclarr", "https://recyclarr.dev/"), ("TRaSH sync tools notes", "https://trash-guides.info/")],
-    prev=("06-trash-fundamentals.html", "Class 6"), next=("/classroom/units/3-home-assistant/", "Unit 3"),
+    prev=("06-trash-fundamentals.html", "Class 6"), next=("../companions.html", "Companions"),
 ))
 
 # --- Class 8 ---
@@ -698,6 +707,349 @@ HOME ASSISTANT
 ))
 
 
+def stack_workbook(slug_title, level, goal, mean, more, words, diagram, notes, lab, breakfix, check, docs, prev, next_):
+    """Supplemental Unit 2 workbook pages (not numbered in the 1–13 spine)."""
+    c = dict(
+        id=slug_title[0], file=slug_title[1], unit="Unit 2 — ARR Media Automation", unit_slug="2-arr",
+        title=slug_title[2], level=level, goal=goal, lecture_note=slug_title[3],
+        mean_goal=mean, more_goal=more, words=words, diagram=diagram, notes=notes, lab=lab,
+        breakfix=breakfix, check=check, docs=docs, prev=prev, next=next_,
+    )
+    # class_page expects file under classes/ — write to unit root instead
+    words_html = ''.join(
+        f'<a href="/classroom/glossary.html#{H.escape(w.lower().replace(" ","-"))}">{H.escape(w)}</a>'
+        for w in c["words"]
+    )
+    docs_html = ''.join(f'<li><a href="{u}" target="_blank" rel="noopener">{H.escape(t)}</a></li>' for t, u in c.get("docs", []))
+    body = f'''
+<section class="hero flush">
+ <div class="row" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px;">
+  {badge(c["level"])}
+  <span class="tag" style="margin:0">Unit 2 · Stack lesson</span>
+ </div>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">{H.escape(c["title"])}</h1>
+ <p class="lede">{c["goal"]}</p>
+ <div class="cr-callout tip"><strong>Research synthesis:</strong> {c["lecture_note"]} <em>Original Academy wording</em> — not a paste of any one guide.</div>
+</section>
+{OSBAR}
+{page_block(1, "What you're going to learn", f"<p>{c['goal']}</p>{mean_more(c.get('mean_goal',''), c.get('more_goal',''))}")}
+{page_block(2, "Acronyms & vocabulary", f'<div class="cr-words">{words_html}</div><p style="margin-top:10px;color:var(--cream-dim);">Jump to the <a href="/classroom/glossary.html">full glossary</a> anytime.</p>')}
+{page_block(3, "Architecture picture", f'<pre class="cr-diagram">{c["diagram"]}</pre>')}
+{page_block(4, "Guided notes", c["notes"])}
+{page_block(5, "Windows / Linux baby-step lab", c["lab"])}
+{page_block(6, "Break → fix → verify", c["breakfix"] + checkpoint(f"stack-{c['file'].replace('.html','')}", c["check"], c["next"][0], c["next"][1]))}
+<div class="cr-refs" style="margin:18px 0;padding:16px;border:1px dashed var(--line-bright);border-radius:6px;">
+ <h3 style="font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-faint);">Docs &amp; research shelf</h3>
+ <ul style="color:var(--cream-dim);">{docs_html}</ul>
+</div>
+<div class="cr-pager">
+ <a href="{c['prev'][0]}">← {H.escape(c['prev'][1])}</a>
+ <a href="{c['next'][0]}">{H.escape(c['next'][1])} →</a>
+</div>'''
+    path = UNITS / "2-arr" / c["file"]
+    write(path, wrap(f"{c['title']} · Classroom", c["goal"][:160], f"/classroom/units/2-arr/{c['file']}", "ARR STACK", body))
+
+
+def gen_arr_stack_lessons():
+    """Original Unit 2 stack lessons synthesized from community best practice (not verbatim copies)."""
+    stack_workbook(
+        ("S1", "stack-map.html", "ARR stack map — request to watch",
+         "Synthesized from Servarr/TRaSH patterns plus community stack architectures (Pharkie, Renzo Beux, HomeLab Starter, DonMcD/Geekau-style compose stacks). Prefer official Servarr + TRaSH for clicks."),
+        "baby",
+        "Draw the full pipeline before you touch Compose: request → library manager → indexer hub → download client → shared /data → media server.",
+        "Each box has one job. Confusion happens when one app tries to do two jobs.",
+        "Seerr/Overseerr/Jellyseerr is the family front door. Sonarr/Radarr own libraries. Prowlarr owns indexers. qBittorrent/SABnzbd own downloads. Plex/Jellyfin own playback.",
+        ["Seerr", "Sonarr", "Radarr", "Prowlarr", "qBittorrent", "SABnzbd", "Plex", "Jellyfin", "Bazarr"],
+        '''REQUEST (Seerr / Overseerr / Jellyseerr)
+            |
+            v
+     SONARR (TV)     RADARR (movies)
+            \\             /
+             \\           /
+              v         v
+            PROWLARR  (indexers)
+                  |
+         +--------+--------+
+         v                 v
+   qBittorrent          SABnzbd
+   (torrents)           (Usenet)
+         \\                 /
+          \\               /
+           v             v
+            /data/.../media
+                  |
+            PLEX / JELLYFIN
+                  |
+            Bazarr (subs, optional)''',
+        '''<ul>
+<li><strong>Core path (start here):</strong> Prowlarr + Sonarr + Radarr + one download client + one media server.</li>
+<li><strong>Request layer:</strong> add Seerr (or Jellyseerr/Overseerr) so household users never need Sonarr/Radarr accounts.</li>
+<li><strong>VPN decision:</strong> many advanced stacks put only download clients (and sometimes Prowlarr) behind a VPN sidecar such as Gluetun. Keep Sonarr/Radarr/media server on the normal Docker bridge so metadata and streaming stay fast and reachable.</li>
+<li><strong>Do not day-one everything:</strong> Lidarr, Readarr, Autobrr, Kometa, Tdarr, Homarr — later. Ultimate compose files look complete; students should grow the stack.</li>
+<li><strong>Ports cheat-sheet (defaults):</strong> Seerr 5055 · Sonarr 8989 · Radarr 7878 · Prowlarr 9696 · qBit ~8080 · SAB ~8080 · Bazarr 6767 · Jellyfin 8096 · Plex 32400.</li>
+</ul>'''
+        + mean_more("Think assembly line, not one magic box.", "Community 'ultimate' stacks are menus — pick the core row first."),
+        '''<p>On paper or in notes, write your own house diagram with <em>your</em> host paths and which services you will run in week one vs later.</p>
+<pre class="cr-code"># Baby verify later (after Compose exists):
+docker compose ps
+# You should be able to name each container's job in one sentence.</pre>''',
+        '''<div class="cr-tree">
+ <div class="node q">Family asks “how do I add a movie?”</div>
+ <div class="branch">
+  <div class="node bad">Hand them Sonarr/Radarr</div>
+  <div class="node ok">Give them Seerr/Jellyseerr only</div>
+ </div>
+</div>''',
+        ["I can explain each core box in one sentence", "I listed a week-one core vs later add-ons", "I know VPN belongs on downloads first, not on Plex"],
+        [("Servarr wiki", "https://wiki.servarr.com/"),
+         ("TRaSH Guides", "https://trash-guides.info/"),
+         ("Research shelf", "/classroom/units/2-arr/research.html")],
+        ("/classroom/units/2-arr/", "Unit 2 home"),
+        ("storage-hardlinks.html", "Storage & hardlinks"),
+    )
+
+    stack_workbook(
+        ("S2", "storage-hardlinks.html", "Storage, paths & hardlinks",
+         "Consensus across TRaSH, HomeLab Starter, Renzo Beux, and ultimate-starter compose guides: one shared parent tree; same paths inside every container that must hardlink or atomic-move."),
+        "mid",
+        "Build one /data (or equivalent) tree so torrents can hardlink and Usenet can atomic-move — without double disk usage.",
+        "If downloads and the library are on different 'drives' from Docker's point of view, ARR copies instead of linking. That wastes space and time.",
+        "Mount a shared parent. Keep categories consistent. Match PUID/PGID so imports are not permission ghosts.",
+        ["Hardlink", "Atomic move", "Root folder", "PUID", "PGID", "Volume", "Bind mount"],
+        '''/data
+├── torrents/          (or downloads/torrents)
+│   ├── movies/
+│   └── tv/
+├── usenet/
+│   ├── incomplete/
+│   └── complete/
+│       ├── movies/
+│       └── tv/
+└── media/
+    ├── movies/
+    └── tv/
+
+RULE: Sonarr/Radarr + downloaders must see the SAME path strings
+      for anything they share (e.g. /data/torrents/tv).''',
+        '''<ul>
+<li><strong>Shared parent:</strong> one filesystem tree under a single root (often <span class="mono">/data</span>). Name is not magic — consistency is.</li>
+<li><strong>Hardlinks (torrents):</strong> two directory entries, one inode — seeding continues without a second full copy.</li>
+<li><strong>Atomic moves (Usenet):</strong> finished files rename/move into the library on the same filesystem.</li>
+<li><strong>Mount honesty:</strong> do not map host <span class="mono">/downloads</span>, <span class="mono">/movies</span>, <span class="mono">/tv</span> as unrelated Docker filesystems if you expect hardlinks.</li>
+<li><strong>Permissions:</strong> same PUID/PGID across LinuxServer-style containers; fix ownership on the host before blaming ARR.</li>
+<li><strong>Categories:</strong> qBit/SAB categories like <span class="mono">tv</span> / <span class="mono">movies</span> should match how ARR labels download clients.</li>
+</ul>'''
+        + mean_more("One closet for all drawers.", "Fixing paths after terabytes exist is the expensive mistake."),
+        '''<div class="cr-os-block" data-os="windows"><span class="cr-os-label win">Windows</span>
+<pre class="cr-code"># Example host tree (adjust drive letter):
+# C:\\homelab\\data\\torrents\\{movies,tv}
+# C:\\homelab\\data\\usenet\\{incomplete,complete}
+# C:\\homelab\\data\\media\\{movies,tv}
+# In Compose, mount the parent so container paths match (e.g. /data).</pre></div>
+<div class="cr-os-block" data-os="linux"><span class="cr-os-label lin">Linux</span>
+<pre class="cr-code">sudo mkdir -p /data/{torrents/{movies,tv},usenet/{incomplete,complete/{movies,tv}},media/{movies,tv}}
+# id -u / id -g  → set PUID/PGID in Compose
+# Later verify hardlink: ls -i file1 file2  (same inode)</pre></div>''',
+        '''<div class="cr-tree">
+ <div class="node q">Import works but disk usage doubles?</div>
+ <div class="branch">
+  <div class="node bad">Downloads and media are different filesystems / mounts</div>
+  <div class="node ok">Remount shared parent; confirm hardlink settings; re-test with one file</div>
+ </div>
+</div>''',
+        ["I drew my /data tree", "I know hardlink vs atomic move", "I set a plan for matching PUID/PGID", "I will not use unrelated /downloads + /movies mounts"],
+        [("TRaSH File & Folder Structure", "https://trash-guides.info/File-and-Folder-Structure/"),
+         ("TRaSH Hardlinks", "https://trash-guides.info/Hardlinks/"),
+         ("Research shelf", "/classroom/units/2-arr/research.html")],
+        ("stack-map.html", "Stack map"),
+        ("classes/05-prowlarr.html", "Class 5 — Prowlarr"),
+    )
+
+    stack_workbook(
+        ("S3", "core-stack.html", "Core stack — Sonarr, Radarr & downloaders",
+         "Synthesized from Servarr wiki, TRaSH, HomeLab Starter, Renzo Beux compose walkthroughs, and ultimate-starter / ultimate-plex stack patterns (categories, root folders, naming, FlareSolverr as optional proxy)."),
+        "mid",
+        "Wire Sonarr + Radarr to download clients on media_network, set root folders, categories, and naming — then prove one manual grab imports cleanly.",
+        "Librarians (Sonarr/Radarr) ask the phone book (Prowlarr), then tell the mail room (qBit/SAB) what to fetch, then file books on the correct shelf (/data/media).",
+        "Use Docker DNS names on the bridge. If a downloader sits behind Gluetun, Sonarr/Radarr reach it via the VPN gateway hostname/port — not a vague guess.",
+        ["Sonarr", "Radarr", "Root folder", "Category", "qBittorrent", "SABnzbd", "media_network"],
+        '''media_network
+     |
+ +---+---+--------+----------+
+ |       |        |          |
+Sonarr Radarr  Prowlarr   qBit/SAB
+ :8989  :7878   :9696      :8080
+ |       |
+ +---+---+
+     |
+ root folders → /data/media/tv|/movies
+ download client categories → tv|movies''',
+        '''<ul>
+<li><strong>Root folders:</strong> Sonarr → <span class="mono">/data/media/tv</span>; Radarr → <span class="mono">/data/media/movies</span> (paths must match mounts).</li>
+<li><strong>Download clients:</strong> add qBittorrent and/or SABnzbd; set categories <span class="mono">tv</span> / <span class="mono">movies</span> to match client folders.</li>
+<li><strong>Remote path mapping:</strong> only if host paths differ from container paths — avoid needing this by mounting consistently.</li>
+<li><strong>Naming:</strong> prefer TRaSH naming schemes once you understand them (Class 6–7) — placeholder naming is fine for first import.</li>
+<li><strong>FlareSolverr / Byparr:</strong> optional indexer proxy when Tests fail due to challenge pages — not a day-one requirement.</li>
+<li><strong>Anime:</strong> separate profile/folder path (TRaSH anime). Do not merge into normal TV blindly.</li>
+<li><strong>Growth order</strong> (from community stacks): downloader → Prowlarr → Sonarr → Radarr → media server → Bazarr → extras.</li>
+</ul>'''
+        + mean_more("Prove one import before you automate requests.", "Ultimate compose files include ten extras — ignore them until the core import is boring."),
+        '''<pre class="cr-code"># After Compose is up on media_network:
+# Sonarr → Settings → Media Management → Root Folders
+# Sonarr → Settings → Download Clients → qBittorrent (host: qbittorrent, category: tv)
+# Radarr → same with category movies
+# Manual search one TEST item you are allowed to have → wait → confirm file under /data/media/...
+# Linux hardlink check: ls -i /data/torrents/... /data/media/...</pre>''',
+        '''<div class="cr-tree">
+ <div class="node q">Downloaded but not imported?</div>
+ <div class="branch">
+  <div class="node bad">Path mismatch / permissions / wrong category / activity queue error</div>
+  <div class="node ok">Read ARR Activity + qBit/SAB history; fix paths; retry import</div>
+ </div>
+</div>''',
+        ["Root folders set", "Download client Test green", "Categories match folders", "One successful import observed"],
+        [("Sonarr wiki", "https://wiki.servarr.com/sonarr"),
+         ("Radarr wiki", "https://wiki.servarr.com/radarr"),
+         ("TRaSH Docker guide", "https://trash-guides.info/Hardlinks/How-to-setup-for/Docker/"),
+         ("Research shelf", "/classroom/units/2-arr/research.html")],
+        ("classes/05-prowlarr.html", "Class 5 — Prowlarr"),
+        ("requests-seerr.html", "Requests / Seerr"),
+    )
+
+    stack_workbook(
+        ("S4", "requests-seerr.html", "Requests — Seerr / Overseerr / Jellyseerr",
+         "Synthesized from Pharkie Seerr flow, HomeLab Starter Jellyseerr notes, and Plex/Jellyfin community stacks — family requests without handing out ARR admin."),
+        "baby",
+        "Add a request portal so users ask for media through a friendly UI; Seerr talks to Sonarr/Radarr; you keep admin.",
+        "Netflix-style 'please add this' without giving relatives the keys to the library managers.",
+        "Connect media server auth + Sonarr + Radarr. Prefer Docker DNS hostnames. Auto-approve only what you trust.",
+        ["Seerr", "Overseerr", "Jellyseerr", "API", "Plex", "Jellyfin"],
+        '''USER
+  |
+  v
+SEERR / JELLYSEERR / OVERSEERR
+  |-- auth via Plex or Jellyfin
+  |-- requests
+  +--► SONARR / RADARR
+          |
+          +--► (existing download pipeline)''',
+        '''<ul>
+<li><strong>Pick a portal:</strong> Seerr (multi-server lineage), Overseerr (Plex-leaning classic), Jellyseerr (Jellyfin-friendly). Same job: requests.</li>
+<li><strong>Connect ARR:</strong> hostname <span class="mono">radarr</span>/<span class="mono">sonarr</span>, ports 7878/8989, paste API keys, choose quality profiles deliberately.</li>
+<li><strong>Connect media server:</strong> so library status and auth make sense; set external URLs for browser links.</li>
+<li><strong>Permissions:</strong> start with manual approve; auto-approve later for trusted users only.</li>
+<li><strong>Do not expose Sonarr/Radarr/qBit to the public internet</strong> just because requests feel convenient — that is Class 10 territory (VPN/tunnel decision chart).</li>
+</ul>'''
+        + mean_more("Family uses the front desk. You keep the warehouse keys.", "Requests without quality profiles = chaos backlog."),
+        '''<pre class="cr-code"># Typical first-run:
+# 1) Open :5055 → complete wizard
+# 2) Add Radarr + Sonarr with Docker DNS names + API keys
+# 3) Sync libraries / scan
+# 4) Request ONE test title → watch it appear in Radarr/Sonarr Activity</pre>''',
+        '''<div class="cr-tree">
+ <div class="node q">Request stays stuck in Seerr?</div>
+ <div class="branch">
+  <div class="node bad">ARR API/URL wrong, profile missing, or media server auth broken</div>
+  <div class="node ok">Test ARR connection from Seerr settings; check ARR Activity</div>
+ </div>
+</div>''',
+        ["Portal UI opens", "Sonarr + Radarr connected", "One request created an ARR entry", "I did not publicly expose ARR admin UIs"],
+        [("Seerr", "https://seerr.dev/"),
+         ("Jellyseerr", "https://github.com/Fallenbagel/jellyseerr"),
+         ("Research shelf", "/classroom/units/2-arr/research.html")],
+        ("core-stack.html", "Core stack"),
+        ("classes/06-trash-fundamentals.html", "Class 6 — TRaSH"),
+    )
+
+    stack_workbook(
+        ("S5", "companions.html", "Companions — what to add after core works",
+         "Curated from awesome-arr and common ultimate-stack extras — short job descriptions only. Add tools after the core import path is proven."),
+        "mid",
+        "Know the common companion apps by job title so you can grow the stack without installing everything on day one.",
+        "Extras are power tools. Using all of them before hardlinks work is how homelabs become haunted houses.",
+        "Pick companions by pain: subs, archives, invites, metadata polish, cleanup, monitoring — not by GitHub star count.",
+        ["Bazarr", "Unpackerr", "Autobrr", "Tautulli", "Kometa", "Wizarr", "Maintainerr", "Homepage"],
+        '''AFTER CORE WORKS
+   |
+   +-- Bazarr .......... subtitles
+   +-- Unpackerr ....... extract archives for ARR
+   +-- Autobrr ......... race/filter releases (advanced)
+   +-- Tautulli ........ Plex watch stats
+   +-- Kometa .......... Plex collections/metadata
+   +-- Wizarr .......... invite links for users
+   +-- Maintainerr ..... library cleanup rules
+   +-- Homepage/Homarr . dashboard
+   +-- Exportarr ....... metrics (optional)''',
+        '''<ul>
+<li><strong>Bazarr:</strong> subtitles via Sonarr/Radarr libraries.</li>
+<li><strong>Unpackerr:</strong> extracts downloads ARR cannot import while archived.</li>
+<li><strong>Autobrr:</strong> advanced autodl/filter racing — after you understand profiles.</li>
+<li><strong>Tautulli:</strong> Plex analytics; useful before GPU-transcode drama.</li>
+<li><strong>Kometa (ex-PMM):</strong> collections/posters automation for Plex.</li>
+<li><strong>Wizarr:</strong> safe invite flows for friends/family.</li>
+<li><strong>Maintainerr / cleanup tools:</strong> delete rules so disks do not fill forever.</li>
+<li><strong>Dashboards:</strong> Homepage/Homarr/Organizr — convenience, not required for media to play.</li>
+<li><strong>Notifiarr / Recyclarr / Configarr:</strong> notifications + TRaSH sync (Classes 6–7).</li>
+</ul>
+<p>Browse <a href="https://github.com/Ravencentric/awesome-arr" target="_blank" rel="noopener">awesome-arr</a> as a catalog — then return here and add <em>one</em> companion that solves a real pain.</p>'''
+        + mean_more("Catalog ≠ shopping cart.", "One companion per week beats twelve half-configured containers."),
+        '''<p>Write a three-line plan: (1) pain, (2) companion, (3) success check. Install only that one.</p>''',
+        '''<div class="cr-callout">If core import still fails, do not install Tdarr/Kometa/Autobrr. Fix paths first.</div>''',
+        ["I listed companions by job", "I chose at most one next add-on", "I know where to research more (awesome-arr + Servarr)"],
+        [("awesome-arr", "https://github.com/Ravencentric/awesome-arr"),
+         ("Bazarr", "https://wiki.servarr.com/bazarr"),
+         ("Research shelf", "/classroom/units/2-arr/research.html")],
+        ("classes/07-trash-automation.html", "Class 7"),
+        ("research.html", "Research shelf"),
+    )
+
+    # Research shelf — attribution without copying
+    body = f'''
+<section class="hero flush">
+ {badge("mid")}
+ <span class="tag" style="margin-left:10px;">Unit 2 · Research</span>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);margin-top:12px;">ARR research shelf</h1>
+ <p class="lede">These are the best public references we studied while writing Unit 2. Homelab Academy lessons are <strong>original teaching</strong> — not mirrors of any one repo or post. Prefer official Servarr + TRaSH for day-to-day clicks.</p>
+</section>
+<div class="cr-box">
+ <h3>Primary (always win arguments)</h3>
+ <ul>
+  <li><a href="https://wiki.servarr.com/" target="_blank" rel="noopener">Servarr wiki</a> — Sonarr, Radarr, Prowlarr, Lidarr, Bazarr</li>
+  <li><a href="https://trash-guides.info/" target="_blank" rel="noopener">TRaSH Guides</a> — folders, hardlinks, quality, custom formats</li>
+  <li><a href="https://recyclarr.dev/" target="_blank" rel="noopener">Recyclarr</a> — reproducible TRaSH sync</li>
+ </ul>
+</div>
+<div class="cr-box">
+ <h3>Architecture &amp; compose patterns (research)</h3>
+ <ul>
+  <li><a href="https://github.com/Pharkie/ultimate-arr-stack/tree/main/docs" target="_blank" rel="noopener">Pharkie / ultimate-arr-stack docs</a> — request→watch flow, VPN-only-on-downloaders, bridge vs Gluetun addressing, access levels (LAN / DNS / tunnel)</li>
+  <li><a href="https://renzobeux.dev/blog/docker-compose-arr-stack/" target="_blank" rel="noopener">Renzo Beux — Complete *arr stack</a> — real compose walkthrough, shared path strings, media_network DNS, FlareSolverr role</li>
+  <li><a href="https://homelabstarter.com/homelab-arr-stack-guide/" target="_blank" rel="noopener">HomeLab Starter — Arr stack explained</a> — who does what, starter Compose shape, Jellyseerr + Bazarr overview</li>
+  <li><a href="https://github.com/DonMcD/ultimate-plex-stack" target="_blank" rel="noopener">DonMcD ultimate-plex-stack</a> (from the r/PleX “ultimate stack” thread) — modular extras: Seerr, Autobrr, Wizarr, Tautulli, Prefetcharr</li>
+  <li><a href="https://github.com/geekau/mediastack" target="_blank" rel="noopener">Geekau MediaStack</a> (from the r/radarr “Ultimate Starter” lineage) — env-driven full stacks, VPN profiles, multi-OS folder variables</li>
+ </ul>
+</div>
+<div class="cr-box">
+ <h3>Catalogs &amp; community threads (research)</h3>
+ <ul>
+  <li><a href="https://github.com/Ravencentric/awesome-arr" target="_blank" rel="noopener">awesome-arr</a> — living catalog of *arrs and companions</li>
+  <li><a href="https://www.reddit.com/r/PleX/comments/1arzr1y/the_ultimate_plex_software_stack_arrs_and_more/" target="_blank" rel="noopener">r/PleX ultimate software stack thread</a> — what people actually add after core</li>
+  <li><a href="https://www.reddit.com/r/radarr/comments/yj4fcw/ultimate_starter_full_dockercompose_arr_media/" target="_blank" rel="noopener">r/radarr Ultimate Starter thread</a> — beginner-oriented full compose + shared partition advice</li>
+ </ul>
+</div>
+<div class="cr-callout tip"><strong>How we used them:</strong> extract principles (pipeline, paths, VPN boundary, growth order, companion jobs). Do <em>not</em> paste foreign Compose blindly — rewrite for your PUID/PGID, paths, and threat model. Pair every old screenshot with current docs.</div>
+<pre class="cr-diagram">RESEARCH → PRINCIPLES → YOUR COMPOSE → LAB → CHECKPOINT
+(not: RESEARCH → copy YAML → pray)</pre>
+<div class="cr-pager">
+ <a href="companions.html">← Companions</a>
+ <a href="/classroom/units/3-home-assistant/">Unit 3 — Home Assistant →</a>
+</div>
+'''
+    write(UNITS / "2-arr" / "research.html",
+          wrap("ARR research shelf · Classroom", "Curated ARR research references for Unit 2.",
+               "/classroom/units/2-arr/research.html", "ARR RESEARCH", body))
+
+
 def gen_all_classes():
     for i, c in enumerate(CLASSES):
         write(UNITS / c["unit_slug"] / "classes" / c["file"], class_page(c))
@@ -706,25 +1058,31 @@ def gen_all_classes():
 def gen_unit_indexes():
     unit_index(1, "1-infrastructure", "Infrastructure & Docker",
                "Virtualization concepts → Compose → networking → playground mindset. Videos are lectures; labs live here.",
-               [("01-virtualization.html", "Class 1 — Virtualization"),
-                ("02-compose.html", "Class 2 — Docker Compose"),
-                ("03-networking.html", "Class 3 — Docker networking"),
-                ("04-docker-playground.html", "Class 4 — Docker playground")], None)
+               [("classes/01-virtualization.html", "Class 1 — Virtualization"),
+                ("classes/02-compose.html", "Class 2 — Docker Compose"),
+                ("classes/03-networking.html", "Class 3 — Docker networking"),
+                ("classes/04-docker-playground.html", "Class 4 — Docker playground")], None)
     unit_index(2, "2-arr", "ARR Media Automation",
-               "Prowlarr → TRaSH thinking → automated sync. Start with one indexer. Prefer current TRaSH + Recyclarr docs.",
-               [("05-prowlarr.html", "Class 5 — Prowlarr"),
-                ("06-trash-fundamentals.html", "Class 6 — TRaSH fundamentals"),
-                ("07-trash-automation.html", "Class 7 — Automating TRaSH")], None)
+               "Full ARR pipeline: stack map → storage/hardlinks → Prowlarr → core Sonarr/Radarr/downloaders → Seerr → TRaSH → Recyclarr → companions. Research shelf cites the best public guides without copying them.",
+               [("stack-map.html", "Stack map — request to watch"),
+                ("storage-hardlinks.html", "Storage, paths & hardlinks"),
+                ("classes/05-prowlarr.html", "Class 5 — Prowlarr"),
+                ("core-stack.html", "Core stack — Sonarr/Radarr/downloaders"),
+                ("requests-seerr.html", "Requests — Seerr / Overseerr / Jellyseerr"),
+                ("classes/06-trash-fundamentals.html", "Class 6 — TRaSH fundamentals"),
+                ("classes/07-trash-automation.html", "Class 7 — Automating TRaSH"),
+                ("companions.html", "Companions (after core works)"),
+                ("research.html", "Research shelf")], None)
     unit_index(3, "3-home-assistant", "Home Assistant",
                "Beginner concepts without YAML → real automations → secure remote access decision-making.",
-               [("08-ha-beginner.html", "Class 8 — HA beginners"),
-                ("09-ha-automation.html", "Class 9 — Real automation"),
-                ("10-remote-access.html", "Class 10 — Secure remote access")], None)
+               [("classes/08-ha-beginner.html", "Class 8 — HA beginners"),
+                ("classes/09-ha-automation.html", "Class 9 — Real automation"),
+                ("classes/10-remote-access.html", "Class 10 — Secure remote access")], None)
     unit_index(4, "4-voice", "Local Voice",
                "Architecture → Whisper/Piper/Wyoming → local satellite capstone with offline gate.",
-               [("11-voice-architecture.html", "Class 11 — Voice architecture"),
-                ("12-whisper-piper.html", "Class 12 — Whisper + Piper"),
-                ("13-voice-capstone.html", "Class 13 — Local smart speaker")], None)
+               [("classes/11-voice-architecture.html", "Class 11 — Voice architecture"),
+                ("classes/12-whisper-piper.html", "Class 12 — Whisper + Piper"),
+                ("classes/13-voice-capstone.html", "Class 13 — Local smart speaker")], None)
 
 
 def gen_hub():
@@ -764,7 +1122,7 @@ def gen_hub():
 <section>
  <p class="tag">Coming expansions</p>
  <h2>More lectures later</h2>
- <p class="intro">Next backlog: dedicated beginner+advanced pairs for Sonarr, Radarr, SAB, qBit, hardlinks, Recyclarr deep-dives, Plex/Jellyfin, Zigbee, ESPHome, MQTT, VLANs, UniFi, Linux Voice Assistant, and troubleshooting studios — so every module has ≥1 beginner lecture + ≥1 advanced lecture + official guide.</p>
+ <p class="intro">Unit 2 now includes an original ARR stack path (map, hardlinks, core apps, Seerr, companions) researched from Servarr/TRaSH plus community guides — see the <a href="units/2-arr/research.html">research shelf</a>. Later backlog: Plex/Jellyfin deep-dives, Zigbee, ESPHome, MQTT, VLANs, UniFi, Linux Voice Assistant studios.</p>
 </section>
 '''
     write(SITE / "index.html", wrap("Homelab Academy · Classroom", "Guided Homelab/ARR/HA/Voice curriculum with labs and checkpoints.", "/classroom/", "ACADEMY", body))
@@ -837,7 +1195,9 @@ HOME ASSISTANT
  {checks}
  <div class="cr-gate">All requirements evidenced → you finished Homelab Academy v1</div>
 </div>
-<div class="cr-pager"><a href="units/4-voice/classes/13-voice-capstone.html">← Class 13</a><a href="/classroom/">Academy home →</a></div>
+<div class="cr-pager"><a href="units/4-voice/classes/13-voice-capstone.html">← Class 13</a>
+<a href="/classroom/units/2-arr/stack-map.html">ARR stack map</a>
+<a href="/classroom/">Academy home →</a></div>
 '''
     write(SITE / "final-exam.html", wrap("Final exam · Classroom", "Homelab verification matrix.", "/classroom/final-exam.html", "FINAL EXAM", body))
 
@@ -867,7 +1227,7 @@ Older NetworkChuck / IBRACORP material is treated as concept lectures. Always pr
 ## Units
 
 1. Infrastructure & Docker (Classes 1–4)  
-2. ARR Media Automation (Classes 5–7)  
+2. ARR Media Automation (Classes 5–7 + stack lessons: map, hardlinks, core, Seerr, companions, research shelf)  
 3. Home Assistant (Classes 8–10)  
 4. Local Voice (Classes 11–13)  
 5. Final exam verification matrix  
@@ -884,6 +1244,7 @@ def main():
     gen_start_path()
     gen_unit_indexes()
     gen_all_classes()
+    gen_arr_stack_lessons()
     gen_final()
     gen_github()
     # redirect old courses path

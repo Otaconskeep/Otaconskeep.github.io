@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Requests — Seerr / Overseerr / Jellyseerr · Classroom</title>
+<meta name="description" content="Add a request portal so users ask for media through a friendly UI; Seerr talks to Sonarr/Radarr; you keep admin.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/units/2-arr/requests-seerr.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921c">
+</head>
+<body>
+<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>ARR STACK<span class="blink"></span></span></div></div>
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div></div>
+</nav><nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/start.html">Start</a>
+ <a href="/classroom/path.html">Path</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ <a href="/classroom/units/1-infrastructure/">Unit 1</a>
+ <a href="/classroom/units/2-arr/">Unit 2</a>
+ <a href="/classroom/units/3-home-assistant/">Unit 3</a>
+ <a href="/classroom/units/4-voice/">Unit 4</a>
+ <a href="/classroom/final-exam.html">Final exam</a>
+ </div>
+</nav>
+<div class="wrap">
+<section class="hero flush">
+ <div class="row" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px;">
+  <span class="cr-badge baby">🟢 Baby step</span>
+  <span class="tag" style="margin:0">Unit 2 · Stack lesson</span>
+ </div>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">Requests — Seerr / Overseerr / Jellyseerr</h1>
+ <p class="lede">Add a request portal so users ask for media through a friendly UI; Seerr talks to Sonarr/Radarr; you keep admin.</p>
+ <div class="cr-callout tip"><strong>Research synthesis:</strong> Synthesized from Pharkie Seerr flow, HomeLab Starter Jellyseerr notes, and Plex/Jellyfin community stacks — family requests without handing out ARR admin. <em>Original Academy wording</em> — not a paste of any one guide.</div>
+</section>
+<div class="cr-osbar" role="group" aria-label="Show instructions for">
+ <span>Show steps for:</span>
+ <button type="button" class="win" data-os="windows">Windows (WSL2 + Docker)</button>
+ <button type="button" class="lin" data-os="linux">Linux (Ubuntu/Debian + Docker)</button>
+ <a href="/classroom/path.html" style="margin-left:auto;font-size:.85rem;">Change path</a>
+</div>
+<div class="cr-box" id="page-1"><h3>Workbook page 1 — What you&#x27;re going to learn</h3><p>Add a request portal so users ask for media through a friendly UI; Seerr talks to Sonarr/Radarr; you keep admin.</p><div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+</div>
+<div class="cr-panel mean" hidden><strong>In plain words:</strong> Netflix-style 'please add this' without giving relatives the keys to the library managers.</div>
+<div class="cr-panel more" hidden><strong>More detail:</strong> Connect media server auth + Sonarr + Radarr. Prefer Docker DNS hostnames. Auto-approve only what you trust.</div></div>
+<div class="cr-box" id="page-2"><h3>Workbook page 2 — Acronyms &amp; vocabulary</h3><div class="cr-words"><a href="/classroom/glossary.html#seerr">Seerr</a><a href="/classroom/glossary.html#overseerr">Overseerr</a><a href="/classroom/glossary.html#jellyseerr">Jellyseerr</a><a href="/classroom/glossary.html#api">API</a><a href="/classroom/glossary.html#plex">Plex</a><a href="/classroom/glossary.html#jellyfin">Jellyfin</a></div><p style="margin-top:10px;color:var(--cream-dim);">Jump to the <a href="/classroom/glossary.html">full glossary</a> anytime.</p></div>
+<div class="cr-box" id="page-3"><h3>Workbook page 3 — Architecture picture</h3><pre class="cr-diagram">USER
+  |
+  v
+SEERR / JELLYSEERR / OVERSEERR
+  |-- auth via Plex or Jellyfin
+  |-- requests
+  +--► SONARR / RADARR
+          |
+          +--► (existing download pipeline)</pre></div>
+<div class="cr-box" id="page-4"><h3>Workbook page 4 — Guided notes</h3><ul>
+<li><strong>Pick a portal:</strong> Seerr (multi-server lineage), Overseerr (Plex-leaning classic), Jellyseerr (Jellyfin-friendly). Same job: requests.</li>
+<li><strong>Connect ARR:</strong> hostname <span class="mono">radarr</span>/<span class="mono">sonarr</span>, ports 7878/8989, paste API keys, choose quality profiles deliberately.</li>
+<li><strong>Connect media server:</strong> so library status and auth make sense; set external URLs for browser links.</li>
+<li><strong>Permissions:</strong> start with manual approve; auto-approve later for trusted users only.</li>
+<li><strong>Do not expose Sonarr/Radarr/qBit to the public internet</strong> just because requests feel convenient — that is Class 10 territory (VPN/tunnel decision chart).</li>
+</ul><div class="cr-actions">
+ <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
+ <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+</div>
+<div class="cr-panel mean" hidden><strong>In plain words:</strong> Family uses the front desk. You keep the warehouse keys.</div>
+<div class="cr-panel more" hidden><strong>More detail:</strong> Requests without quality profiles = chaos backlog.</div></div>
+<div class="cr-box" id="page-5"><h3>Workbook page 5 — Windows / Linux baby-step lab</h3><pre class="cr-code"># Typical first-run:
+# 1) Open :5055 → complete wizard
+# 2) Add Radarr + Sonarr with Docker DNS names + API keys
+# 3) Sync libraries / scan
+# 4) Request ONE test title → watch it appear in Radarr/Sonarr Activity</pre></div>
+<div class="cr-box" id="page-6"><h3>Workbook page 6 — Break → fix → verify</h3><div class="cr-tree">
+ <div class="node q">Request stays stuck in Seerr?</div>
+ <div class="branch">
+  <div class="node bad">ARR API/URL wrong, profile missing, or media server auth broken</div>
+  <div class="node ok">Test ARR connection from Seerr settings; check ARR Activity</div>
+ </div>
+</div><div class="cr-check" data-check-id="stack-requests-seerr">
+ <h3>Checkpoint — pass before you continue</h3>
+ <label><input type="checkbox" data-k="0"> Portal UI opens</label><label><input type="checkbox" data-k="1"> Sonarr + Radarr connected</label><label><input type="checkbox" data-k="2"> One request created an ARR entry</label><label><input type="checkbox" data-k="3"> I did not publicly expose ARR admin UIs</label>
+ <div class="cr-gate">All boxes true → <a href="classes/06-trash-fundamentals.html">Class 6 — TRaSH</a></div>
+</div></div>
+<div class="cr-refs" style="margin:18px 0;padding:16px;border:1px dashed var(--line-bright);border-radius:6px;">
+ <h3 style="font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-faint);">Docs &amp; research shelf</h3>
+ <ul style="color:var(--cream-dim);"><li><a href="https://seerr.dev/" target="_blank" rel="noopener">Seerr</a></li><li><a href="https://github.com/Fallenbagel/jellyseerr" target="_blank" rel="noopener">Jellyseerr</a></li><li><a href="/classroom/units/2-arr/research.html" target="_blank" rel="noopener">Research shelf</a></li></ul>
+</div>
+<div class="cr-pager">
+ <a href="core-stack.html">← Core stack</a>
+ <a href="classes/06-trash-fundamentals.html">Class 6 — TRaSH →</a>
+</div></div>
+<footer class="sitefoot"><div class="wrap">
+<span>Otaconskeep Classroom · Homelab Academy</span>
+<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
+</div></footer>
+<script src="/classroom/classroom.js?v=20260921c"></script>
+</body></html>

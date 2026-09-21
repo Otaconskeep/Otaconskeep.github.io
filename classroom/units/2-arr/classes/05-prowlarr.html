@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Class 5 — What Prowlarr actually does · Classroom</title>
-<meta name="description" content="Use Prowlarr as the indexer hub. Start with ONE indexer, sync to Sonarr, verify.">
+<meta name="description" content="Use Prowlarr as the indexer hub for the whole ARR pipeline. Start with ONE indexer, sync to Sonarr, verify — then add Radarr the same way.">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/units/2-arr/classes/05-prowlarr.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,8 +53,8 @@
   <span class="tag" style="margin:0">Unit 2 — ARR Media Automation · Class 5</span>
  </div>
  <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);">What Prowlarr actually does</h1>
- <p class="lede">Use Prowlarr as the indexer hub. Start with ONE indexer, sync to Sonarr, verify.</p>
- <div class="cr-callout tip"><strong>Lecture pairing:</strong> Concept lecture: IBRACORP Prowlarr (2021). UI changed — follow current Servarr/Prowlarr docs for clicks. <em>We do not embed the video here</em> — concepts are built into this workbook. Prefer current official docs for commands and UI.</div>
+ <p class="lede">Use Prowlarr as the indexer hub for the whole ARR pipeline. Start with ONE indexer, sync to Sonarr, verify — then add Radarr the same way.</p>
+ <div class="cr-callout tip"><strong>Lecture pairing:</strong> Concept lecture: IBRACORP Prowlarr (2021). UI changed — follow current Servarr/Prowlarr docs for clicks. Pair with Unit 2 stack-map + storage lessons first. <em>We do not embed the video here</em> — concepts are built into this workbook. Prefer current official docs for commands and UI.</div>
 </section>
 <div class="cr-osbar" role="group" aria-label="Show instructions for">
  <span>Show steps for:</span>
@@ -62,56 +62,64 @@
  <button type="button" class="lin" data-os="linux">Linux (Ubuntu/Debian + Docker)</button>
  <a href="/classroom/path.html" style="margin-left:auto;font-size:.85rem;">Change path</a>
 </div>
-<div class="cr-box" id="page-1"><h3>Workbook page 1 — What you&#x27;re going to learn</h3><p>Use Prowlarr as the indexer hub. Start with ONE indexer, sync to Sonarr, verify.</p><div class="cr-actions">
+<div class="cr-box" id="page-1"><h3>Workbook page 1 — What you&#x27;re going to learn</h3><p>Use Prowlarr as the indexer hub for the whole ARR pipeline. Start with ONE indexer, sync to Sonarr, verify — then add Radarr the same way.</p><div class="cr-actions">
  <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
 </div>
-<div class="cr-panel mean" hidden><strong>In plain words:</strong> Prowlarr is the shared phone book of search sites. Sonarr/Radarr borrow it instead of each keeping a messy copy.</div>
-<div class="cr-panel more" hidden><strong>More detail:</strong> API keys connect apps. Sync pushes indexer config into ARR applications.</div></div>
-<div class="cr-box" id="page-2"><h3>Workbook page 2 — Acronyms &amp; vocabulary</h3><div class="cr-words"><a href="/classroom/glossary.html#prowlarr">Prowlarr</a><a href="/classroom/glossary.html#indexer">Indexer</a><a href="/classroom/glossary.html#tracker">Tracker</a><a href="/classroom/glossary.html#usenet">Usenet</a><a href="/classroom/glossary.html#torrent">Torrent</a><a href="/classroom/glossary.html#api">API</a><a href="/classroom/glossary.html#sync">Sync</a></div><p style="margin-top:10px;color:var(--cream-dim);">Jump to the <a href="/classroom/glossary.html">full glossary</a> anytime.</p></div>
+<div class="cr-panel mean" hidden><strong>In plain words:</strong> Prowlarr is the shared phone book of search sources. Sonarr/Radarr borrow it instead of each keeping a messy copy. You never download 'from' Prowlarr in normal flow — the *arrs search through it.</div>
+<div class="cr-panel more" hidden><strong>More detail:</strong> API keys connect apps. Sync pushes indexer config into ARR applications. Optional FlareSolverr/Byparr sits as an indexer proxy when a site needs a challenge solver — add only when a Test fails for that reason.</div></div>
+<div class="cr-box" id="page-2"><h3>Workbook page 2 — Acronyms &amp; vocabulary</h3><div class="cr-words"><a href="/classroom/glossary.html#prowlarr">Prowlarr</a><a href="/classroom/glossary.html#indexer">Indexer</a><a href="/classroom/glossary.html#tracker">Tracker</a><a href="/classroom/glossary.html#usenet">Usenet</a><a href="/classroom/glossary.html#torrent">Torrent</a><a href="/classroom/glossary.html#api">API</a><a href="/classroom/glossary.html#sync">Sync</a><a href="/classroom/glossary.html#flaresolverr">FlareSolverr</a></div><p style="margin-top:10px;color:var(--cream-dim);">Jump to the <a href="/classroom/glossary.html">full glossary</a> anytime.</p></div>
 <div class="cr-box" id="page-3"><h3>Workbook page 3 — Architecture picture</h3><pre class="cr-diagram">              PROWLARR
                  |
         INDEXER MANAGEMENT
                  |
         +--------+--------+
         v        v        v
-     SONARR   RADARR   LIDARR</pre></div>
+     SONARR   RADARR   LIDARR
+                 |
+          (search results)
+                 v
+         download clients</pre></div>
 <div class="cr-box" id="page-4"><h3>Workbook page 4 — Guided notes (from the lecture ideas)</h3><ol>
 <li>Add <strong>one</strong> indexer</li>
 <li>Test it</li>
-<li>Connect Sonarr (Apps)</li>
+<li>Connect Sonarr (Settings → Apps) using Docker DNS: <span class="mono">http://sonarr:8989</span></li>
 <li>Sync</li>
 <li>Verify indexer appears in Sonarr</li>
+<li>Repeat for Radarr at <span class="mono">http://radarr:7878</span></li>
 </ol>
-<p>Checkpoint equation: Prowlarr works + Sonarr works + API connection works = PASS.</p></div>
+<p>Checkpoint equation: Prowlarr works + Sonarr works + API connection works = PASS.</p>
+<p>Do <strong>not</strong> maintain separate indexer lists inside every ARR app. That is the failure mode every serious stack guide warns about.</p></div>
 <div class="cr-box" id="page-5"><h3>Workbook page 5 — Windows / Linux baby-step lab</h3><pre class="cr-code"># In compose: linuxserver/prowlarr on media_network, publish 9696
 # Open http://SERVER-IP:9696
 # Add 1 indexer → Test → Settings/Apps → Sonarr → Sync
-# Confirm indexer list in Sonarr</pre>
+# Confirm indexer list in Sonarr Settings → Indexers
+# Then add Radarr the same way</pre>
 <div class="cr-actions">
  <button type="button" class="cr-btn" data-cr="mean" aria-expanded="false">What's this mean?</button>
  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
 </div>
 <div class="cr-panel mean" hidden><strong>In plain words:</strong> One indexer keeps failures obvious.</div>
-<div class="cr-panel more" hidden><strong>More detail:</strong> Do not add fifty indexers on day one.</div></div>
+<div class="cr-panel more" hidden><strong>More detail:</strong> Do not add fifty indexers on day one. Community 'ultimate stacks' look huge — your first lab stays tiny.</div></div>
 <div class="cr-box" id="page-6"><h3>Workbook page 6 — Break → fix → verify</h3><div class="cr-tree">
  <div class="node q">Sonarr never sees the indexer?</div>
  <div class="branch">
-  <div class="node bad">Wrong API key / Sonarr URL (use http://sonarr:8989 on Docker DNS)</div>
+  <div class="node bad">Wrong API key / Sonarr URL (use http://sonarr:8989 on Docker DNS — not a .lan name from inside containers)</div>
   <div class="node ok">Re-sync from Prowlarr Apps; confirm Test green</div>
  </div>
-</div><div class="cr-check" data-check-id="class-5">
+</div>
+<div class="cr-callout tip">Next: wire download clients + root folders in the Core stack lesson, then Seerr for requests.</div><div class="cr-check" data-check-id="class-5">
  <h3>Checkpoint — pass before you continue</h3>
  <label><input type="checkbox" data-k="0"> Prowlarr UI opens</label><label><input type="checkbox" data-k="1"> One indexer tests OK</label><label><input type="checkbox" data-k="2"> Sonarr connected via API</label><label><input type="checkbox" data-k="3"> Indexer visible in Sonarr</label>
- <div class="cr-gate">All boxes true → <a href="06-trash-fundamentals.html">Class 6</a></div>
+ <div class="cr-gate">All boxes true → <a href="../core-stack.html">Core stack</a></div>
 </div></div>
 <div class="cr-refs" style="margin:18px 0;padding:16px;border:1px dashed var(--line-bright);border-radius:6px;">
  <h3 style="font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-faint);">Current docs (prefer these over old UI screens)</h3>
- <ul style="color:var(--cream-dim);"><li><a href="https://wiki.servarr.com/prowlarr" target="_blank" rel="noopener">Prowlarr wiki</a></li><li><a href="https://trash-guides.info/Prowlarr/" target="_blank" rel="noopener">TRaSH Prowlarr</a></li></ul>
+ <ul style="color:var(--cream-dim);"><li><a href="https://wiki.servarr.com/prowlarr" target="_blank" rel="noopener">Prowlarr wiki</a></li><li><a href="https://trash-guides.info/Prowlarr/" target="_blank" rel="noopener">TRaSH Prowlarr</a></li><li><a href="/classroom/units/2-arr/research.html" target="_blank" rel="noopener">Unit 2 research shelf</a></li></ul>
 </div>
 <div class="cr-pager">
- <a href="/classroom/units/1-infrastructure/classes/04-docker-playground.html">← Class 4</a>
- <a href="06-trash-fundamentals.html">Class 6 →</a>
+ <a href="../storage-hardlinks.html">← Storage &amp; hardlinks</a>
+ <a href="../core-stack.html">Core stack →</a>
 </div></div>
 <footer class="sitefoot"><div class="wrap">
 <span>Otaconskeep Classroom · Homelab Academy</span>
