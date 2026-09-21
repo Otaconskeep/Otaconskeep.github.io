@@ -1,93 +1,125 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Homelab Academy · Classroom</title>
-<meta name="description" content="Guided Homelab/ARR/HA/Voice curriculum with labs and checkpoints.">
-<link rel="canonical" href="https://otaconskeep.github.io/classroom/">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921c">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Otaconskeep Classroom — Homelab Academy</title>
+  <link rel="stylesheet" href="classroom.css">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>ACADEMY<span class="blink"></span></span></div></div>
-<nav class="topnav">
- <div class="wrap">
- <a class="brand" href="/">Otaconskeep</a>
- <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
- <div class="navlinks">
- <a href="/">Home</a>
- <a href="/otacon/">Otacon</a>
- <a href="/keepdesk/">Keep Desk</a>
- <a href="/keeproute/">KeepRoute</a>
- <a href="/expansion/">Expansion</a>
- <a href="/ai9/">AI9</a>
- <a href="/classroom/" aria-current="page">Classroom</a>
- <a href="/engineering/">Engineering</a>
- <a href="/faq/">FAQ</a>
- <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
- <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
- <div class="wrap">
- <a href="/classroom/">Academy</a>
- <a href="/classroom/start.html">Start</a>
- <a href="/classroom/path.html">Path</a>
- <a href="/classroom/glossary.html">Glossary</a>
- <a href="/classroom/units/1-infrastructure/">Unit 1</a>
- <a href="/classroom/units/2-arr/">Unit 2</a>
- <a href="/classroom/units/3-home-assistant/">Unit 3</a>
- <a href="/classroom/units/4-voice/">Unit 4</a>
- <a href="/classroom/final-exam.html">Final exam</a>
- </div>
-</nav>
-<div class="wrap">
-<section class="hero flush is-free" style="position:relative;">
- <span class="free-sticker" aria-label="Free">FREE</span>
- <div class="stamp">HOMELAB ACADEMY<small>guided curriculum</small></div>
- <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom</p>
- <div class="qp-badges" style="margin:10px 0 0;">
-  <span class="qp-badge" data-kind="access">Free</span>
-  <span class="qp-badge" data-kind="maturity">Homelab Academy</span>
-  <span class="qp-badge" data-kind="runtime">13 classes</span>
- </div>
- <h1 class="display" style="font-size:clamp(2rem,6vw,3.4rem);">Watch is the lecture.<br>This site is the lab.</h1>
- <p class="qp-cost free">Free forever. Public curriculum — not a supporter product.</p>
- <p class="lede">Thirteen classes across four units. Each class is a six-page workbook: learn → vocabulary → picture → guided notes → Windows/Linux lab → break/fix/checkpoint. <strong>No videos are embedded</strong> — pair optional off-site lectures with current official docs.</p>
- <div class="btn-row" style="margin-top:22px;">
-  <a class="btn btn-primary" href="start.html">Start here</a>
-  <a class="btn btn-ghost" href="path.html">Choose path</a>
-  <a class="btn btn-ghost" href="glossary.html">Glossary</a>
-  <a class="btn btn-ghost" href="final-exam.html">Final exam</a>
- </div>
-</section>
-<pre class="cr-diagram"><span class="hi">RECOMMENDED ORDER</span>
-1 Virtualization → 2 Compose → 3 Networking → 4 Playground
-→ 5 Prowlarr → 6 TRaSH → 7 Recyclarr/sync
-→ 8 HA beginner → 9 Automation → 10 Remote access
-→ 11 Voice architecture → 12 Whisper/Piper → 13 Local speaker
-→ FINAL EXAM verification matrix</pre>
-<div class="cr-course-grid">
- <a class="cr-course-card" href="units/1-infrastructure/"><div class="num">1</div><div><h3>Infrastructure &amp; Docker</h3><p>Classes 1–4</p><div class="meta">🟢→🟡</div></div></a>
- <a class="cr-course-card" href="units/2-arr/"><div class="num">2</div><div><h3>ARR Media Automation</h3><p>Classes 5–7</p><div class="meta">🟢→🟡</div></div></a>
- <a class="cr-course-card" href="units/3-home-assistant/"><div class="num">3</div><div><h3>Home Assistant</h3><p>Classes 8–10</p><div class="meta">🟢→🔴</div></div></a>
- <a class="cr-course-card" href="units/4-voice/"><div class="num">4</div><div><h3>Local Voice</h3><p>Classes 11–13</p><div class="meta">🟢→🔴</div></div></a>
-</div>
-<div class="cr-callout tip"><strong>Important rule:</strong> older NetworkChuck/IBRACORP lectures teach concepts. Do not blindly copy every command or UI screen — always prefer current Docker, TRaSH, Servarr, and Home Assistant documentation linked in each class.</div>
-<section>
- <p class="tag">Coming expansions</p>
- <h2>More lectures later</h2>
- <p class="intro">Unit 2 now includes an original ARR stack path (map, hardlinks, core apps, Seerr, companions) researched from Servarr/TRaSH plus community guides — see the <a href="units/2-arr/research.html">research shelf</a>. Later backlog: Plex/Jellyfin deep-dives, Zigbee, ESPHome, MQTT, VLANs, UniFi, Linux Voice Assistant studios.</p>
-</section>
-</div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921c"></script>
-</body></html>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Ultimate Homelab / ARR / Home Assistant Course</p>
+    </header>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="start.html">Start Here</a>
+      <a href="path.html">Choose Your Path</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="card">
+      <h2>Welcome to Homelab Academy</h2>
+      <p>This is a <strong>self-paced technical course</strong>, not a wiki. Every lesson teaches ONE concept, shows ONE picture, gives ONE action, and verifies with checkpoints before you continue.</p>
+      
+      <p>You will build a complete media automation and smart home system from scratch:</p>
+      <ul style="margin: 20px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li>Docker infrastructure and networking</li>
+        <li>ARR stack (Prowlarr, Sonarr, Radarr) with TRaSH automation</li>
+        <li>Home Assistant automations and integrations</li>
+        <li>Fully local voice assistant (Whisper + Piper)</li>
+      </ul>
+
+      <div class="alert alert-info">
+        <strong>⚡ New student?</strong> Start with <a href="start.html">Start Here</a> to understand the course structure and recommended order.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Course Structure — 13 Classes</h2>
+      
+      <h3>📦 Unit 1: Infrastructure & Docker (Classes 1–4)</h3>
+      <div style="margin: 15px 0 30px 20px;">
+        <p style="margin: 8px 0;"><a href="units/1-infrastructure/lesson-01.html">Lesson 1.1: Virtualization & Proxmox Concepts</a> <span class="difficulty-badge difficulty-baby">BABY</span></p>
+        <p style="margin: 8px 0;"><a href="units/1-infrastructure/lesson-02.html">Lesson 1.2: Docker Compose from Zero</a> <span class="difficulty-badge difficulty-baby">BABY</span></p>
+        <p style="margin: 8px 0;"><a href="units/1-infrastructure/lesson-03.html">Lesson 1.3: Docker Networking</a> <span class="difficulty-badge difficulty-intermediate">INTERMEDIATE</span></p>
+        <p style="margin: 8px 0;"><a href="units/1-infrastructure/lesson-04.html">Lesson 1.4: Docker Playground & Disposable Containers</a> <span class="difficulty-badge difficulty-baby">BABY</span></p>
+      </div>
+
+      <h3>📥 Unit 2: ARR Media Automation (Classes 5–7)</h3>
+      <div style="margin: 15px 0 30px 20px;">
+        <p style="margin: 8px 0;"><a href="units/2-arr/lesson-05.html">Lesson 2.1: Prowlarr — Start with ONE Indexer</a> <span class="difficulty-badge difficulty-baby">BABY</span></p>
+        <p style="margin: 8px 0;"><a href="units/2-arr/lesson-06.html">Lesson 2.2: TRaSH Fundamentals — Quality Profiles & Custom Formats</a> <span class="difficulty-badge difficulty-intermediate">INTERMEDIATE</span></p>
+        <p style="margin: 8px 0;"><a href="units/2-arr/lesson-07.html">Lesson 2.3: TRaSH Automation — Notifiarr vs Recyclarr</a> <span class="difficulty-badge difficulty-advanced">ADVANCED</span></p>
+      </div>
+
+      <h3>🏠 Unit 3: Home Assistant (Classes 8–10)</h3>
+      <div style="margin: 15px 0 30px 20px;">
+        <p style="margin: 8px 0;"><a href="units/3-home-assistant/lesson-08.html">Lesson 3.1: HA Beginner — Device / Entity / Area / Integration</a> <span class="difficulty-badge difficulty-baby">BABY</span></p>
+        <p style="margin: 8px 0;"><a href="units/3-home-assistant/lesson-09.html">Lesson 3.2: Real Automation — Trigger → Condition → Action</a> <span class="difficulty-badge difficulty-intermediate">INTERMEDIATE</span></p>
+        <p style="margin: 8px 0;"><a href="units/3-home-assistant/lesson-10.html">Lesson 3.3: Secure Remote Access — VPN vs Tunnel vs Ports</a> <span class="difficulty-badge difficulty-advanced">ADVANCED</span></p>
+      </div>
+
+      <h3>🎤 Unit 4: Local Voice Assistant (Classes 11–13)</h3>
+      <div style="margin: 15px 0 30px 20px;">
+        <p style="margin: 8px 0;"><a href="units/4-voice/lesson-11.html">Lesson 4.1: Voice Architecture Overview</a> <span class="difficulty-badge difficulty-intermediate">INTERMEDIATE</span></p>
+        <p style="margin: 8px 0;"><a href="units/4-voice/lesson-12.html">Lesson 4.2: Whisper + Piper + Wyoming Pipeline</a> <span class="difficulty-badge difficulty-advanced">ADVANCED</span></p>
+        <p style="margin: 8px 0;"><a href="units/4-voice/lesson-13.html">Lesson 4.3: Local Speaker Capstone — Internet-Disconnected PASS</a> <span class="difficulty-badge difficulty-advanced">ADVANCED</span></p>
+      </div>
+
+      <h3>🎓 Final Verification</h3>
+      <div style="margin: 15px 0 30px 20px;">
+        <p style="margin: 8px 0;"><a href="final-exam.html">Final Exam — Complete System Verification Matrix</a></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>How This Course Works</h2>
+      
+      <h3>Every Lesson Follows the Same Pattern:</h3>
+      <ol style="margin: 20px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Lesson title + difficulty badge</strong></li>
+        <li><strong>What you are learning</strong> (one concept)</li>
+        <li><strong>You should already have</strong> (prerequisites)</li>
+        <li><strong>New words</strong> (linked to glossary)</li>
+        <li><strong>Architecture picture</strong> (ASCII SmartArt diagram)</li>
+        <li><strong>Lecture videos</strong> (optional concept lectures — not embedded)</li>
+        <li><strong>Steps</strong> (with Windows vs Linux callouts when needed)</li>
+        <li><strong>Checkpoint checkboxes</strong> (verify your work)</li>
+        <li><strong>Continue condition</strong> ("If all boxes checked, go to Lesson X.Y")</li>
+        <li><strong>Troubleshooting decision tree</strong></li>
+        <li><strong>Exit ticket question</strong></li>
+      </ol>
+
+      <div class="alert alert-warning">
+        <strong>⚠️ Important:</strong> Do NOT skip checkpoints. Each lesson builds on the previous one. If you cannot check all boxes, use the troubleshooting tree before continuing.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Roadmap Beyond the 13 Classes</h2>
+      <p style="color: var(--text-secondary);">After completing the core curriculum, additional courses will cover:</p>
+      <ul style="margin: 15px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Course 0:</strong> Network fundamentals (IP, DNS, DHCP, VLANs)</li>
+        <li><strong>Course 5:</strong> Advanced storage (NAS, SMB, NFS, ZFS)</li>
+        <li><strong>Course 6:</strong> Monitoring & observability (Grafana, Prometheus)</li>
+        <li><strong>Course 7:</strong> Security hardening & reverse proxies (Traefik, Nginx Proxy Manager)</li>
+      </ul>
+      <p style="color: var(--text-secondary); font-style: italic;">These courses are planned for future development.</p>
+    </div>
+
+    <div class="continue-box">
+      <p>Ready to start learning?</p>
+      <a href="start.html">BEGIN: Start Here →</a>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+      <p>Canonical site: <a href="https://otaconskeep.github.io/classroom/">https://otaconskeep.github.io/classroom/</a></p>
+    </footer>
+  </div>
+</body>
+</html>

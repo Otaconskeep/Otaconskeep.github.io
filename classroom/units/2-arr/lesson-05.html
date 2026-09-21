@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2.1: Prowlarr — Start with ONE Indexer — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 2: ARR Media Automation</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../1-infrastructure/lesson-04.html">← Previous Lesson</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Lesson 2.1: Prowlarr — Start with ONE Indexer</h2>
+      <span class="difficulty-badge difficulty-baby">BABY</span>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 What You Are Learning</h2>
+      <p><strong>One concept:</strong> How Prowlarr acts as a centralized indexer manager for all your ARR apps.</p>
+      <p>Instead of configuring indexers separately in Sonarr, Radarr, and Lidarr, add them once in Prowlarr and sync everywhere.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You Should Already Have</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Docker and Docker Compose working (Unit 1)</li>
+        <li>A custom Docker network (from Lesson 1.3)</li>
+        <li>Created <code>/data</code> folder structure on your host</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New Words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><a href="../../glossary.html#prowlarr">Prowlarr</a> — Indexer manager for ARR apps</li>
+        <li><a href="../../glossary.html#indexer">Indexer</a> — Search service for torrents or Usenet</li>
+        <li><a href="../../glossary.html#api">API Key</a> — Authentication token for service-to-service communication</li>
+        <li><strong>Sync Profile:</strong> Settings that control which ARR apps get which indexers</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ Architecture Picture</h2>
+      <div class="diagram">
+┌─────────────────────────────────────────────────────────────┐
+│              PROWLARR CENTRAL INDEXER HUB                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌────────────────────────────────────────┐                │
+│  │           Prowlarr :9696               │                │
+│  │                                        │                │
+│  │  Indexers configured once:             │                │
+│  │  • 1337x (public)                      │                │
+│  │  • NZBgeek (usenet)                    │                │
+│  │  • TorrentLeech (private)              │                │
+│  └────────────────────────────────────────┘                │
+│         ↓          ↓          ↓                             │
+│    API Sync   API Sync   API Sync                          │
+│         ↓          ↓          ↓                             │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐                   │
+│  │ Sonarr   │ │ Radarr   │ │ Lidarr   │                   │
+│  │ (TV)     │ │ (Movies) │ │ (Music)  │                   │
+│  │ :8989    │ │ :7878    │ │ :8686    │                   │
+│  └──────────┘ └──────────┘ └──────────┘                   │
+│                                                             │
+│  All three ARR apps automatically get indexers from         │
+│  Prowlarr — no manual duplicate configuration!              │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture Videos (Optional)</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>IBRACORP:</strong> <a href="https://www.youtube.com/results?search_query=ibracorp+prowlarr" target="_blank">Prowlarr Setup Guide</a></li>
+        <li><strong>TRaSH Guides:</strong> <a href="https://trash-guides.info/Prowlarr/" target="_blank">Official Prowlarr Documentation</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Lab Steps: Install Prowlarr & Sonarr</h2>
+      
+      <div class="steps">
+        <div class="step">
+          <h4>Create Data Folder Structure</h4>
+          <div class="os-tabs">
+            <div class="os-tab active" onclick="showOS('step1-windows')">🪟 Windows</div>
+            <div class="os-tab" onclick="showOS('step1-linux')">🐧 Linux</div>
+          </div>
+          
+          <div id="step1-windows" class="os-content active">
+            <p>In WSL2 Ubuntu terminal:</p>
+            <pre><code>mkdir -p ~/data/{torrents,usenet,media}/{tv,movies,music}
+mkdir -p ~/docker/arr-stack
+cd ~/docker/arr-stack</code></pre>
+          </div>
+          
+          <div id="step1-linux" class="os-content">
+            <pre><code>mkdir -p /data/{torrents,usenet,media}/{tv,movies,music}
+mkdir -p ~/docker/arr-stack
+cd ~/docker/arr-stack</code></pre>
+          </div>
+        </div>
+
+        <div class="step">
+          <h4>Create docker-compose.yml for ARR Stack</h4>
+          <pre><code>version: "3.8"
+
+networks:
+  arr-net:
+    driver: bridge
+
+services:
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ./prowlarr-config:/config
+    ports:
+      - "9696:9696"
+    networks:
+      - arr-net
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ./sonarr-config:/config
+      - /path/to/your/data:/data
+    ports:
+      - "8989:8989"
+    networks:
+      - arr-net
+    restart: unless-stopped</code></pre>
+          
+          <div class="alert alert-warning">
+            <strong>⚠️ Important:</strong> Replace <code>/path/to/your/data</code> with your actual path!<br>
+            Windows WSL2: Use full path like <code>/home/username/data</code><br>
+            Linux: Use <code>/data</code> if you created it at root, or <code>/home/username/data</code>
+          </div>
+        </div>
+
+        <div class="step">
+          <h4>Fix PUID/PGID for Your User</h4>
+          <p>Find your user ID and group ID:</p>
+          <pre><code>id</code></pre>
+          <p>Output example: <code>uid=1000(username) gid=1000(username)</code></p>
+          <p>Update the <code>PUID</code> and <code>PGID</code> values in docker-compose.yml if different from 1000.</p>
+        </div>
+
+        <div class="step">
+          <h4>Start the Stack</h4>
+          <pre><code>docker compose up -d</code></pre>
+          <p>Wait for containers to start:</p>
+          <pre><code>docker compose logs -f</code></pre>
+          <p>Press Ctrl+C when you see "Prowlarr started" and "Sonarr started".</p>
+        </div>
+
+        <div class="step">
+          <h4>Access Prowlarr Web UI</h4>
+          <p>Open browser: <code>http://localhost:9696</code> (or <code>http://SERVER-IP:9696</code>)</p>
+          <p>You'll see the Prowlarr welcome screen!</p>
+        </div>
+
+        <div class="step">
+          <h4>Add ONE Public Indexer</h4>
+          <p>In Prowlarr UI:</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Click <strong>Indexers</strong> → <strong>Add Indexer</strong></li>
+            <li>Search for "1337x" (a popular public torrent indexer)</li>
+            <li>Click it → Leave default settings → Click <strong>Test</strong></li>
+            <li>If test passes, click <strong>Save</strong></li>
+          </ol>
+          <p><strong>Congratulations!</strong> You added your first indexer.</p>
+        </div>
+
+        <div class="step">
+          <h4>Find Prowlarr's API Key</h4>
+          <p>In Prowlarr: Settings → General → Security</p>
+          <p>Copy the <strong>API Key</strong> — you'll need this for Sonarr.</p>
+        </div>
+
+        <div class="step">
+          <h4>Access Sonarr Web UI</h4>
+          <p>Open browser: <code>http://localhost:8989</code></p>
+          <p>Complete the Sonarr setup wizard (accept defaults for now).</p>
+        </div>
+
+        <div class="step">
+          <h4>Connect Sonarr to Prowlarr</h4>
+          <p>Back in <strong>Prowlarr</strong>:</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Settings → Apps → Add Application → Sonarr</li>
+            <li>Set:<br>
+              - Prowlarr Server: <code>http://localhost:9696</code><br>
+              - Sonarr Server: <code>http://sonarr:8989</code> (use service name!)<br>
+              - API Key: Get from Sonarr → Settings → General
+            </li>
+            <li>Click <strong>Test</strong> → Should show green checkmark</li>
+            <li>Click <strong>Save</strong></li>
+            <li>Click <strong>Sync App Indexers</strong></li>
+          </ol>
+        </div>
+
+        <div class="step">
+          <h4>Verify Indexers Synced to Sonarr</h4>
+          <p>In <strong>Sonarr</strong>: Settings → Indexers</p>
+          <p>You should see "1337x" listed! Prowlarr synced it automatically.</p>
+        </div>
+
+        <div class="step">
+          <h4>Test Search in Sonarr</h4>
+          <p>In Sonarr:</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Click <strong>Series</strong> → <strong>Add New</strong></li>
+            <li>Search for a popular show (e.g., "Breaking Bad")</li>
+            <li>Click the show → DO NOT add it yet</li>
+            <li>Scroll down → Click <strong>Manual Search</strong> on any episode</li>
+            <li>You should see search results from 1337x!</li>
+          </ol>
+          <p>If you see results, <strong>indexer integration works!</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 Understanding Prowlarr's Role</h2>
+      
+      <h3>Without Prowlarr (The Old Way):</h3>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Add 10 indexers in Sonarr manually</li>
+        <li>Add the SAME 10 indexers in Radarr manually</li>
+        <li>Add the SAME 10 indexers in Lidarr manually</li>
+        <li>When an indexer changes URL or goes down, update in 3 places</li>
+      </ul>
+
+      <h3>With Prowlarr (The Modern Way):</h3>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Add indexers once in Prowlarr</li>
+        <li>Connect ARR apps via API</li>
+        <li>Prowlarr syncs indexers automatically</li>
+        <li>Changes propagate instantly</li>
+      </ul>
+    </div>
+
+    <div class="checkpoint">
+      <h3>✅ Checkpoint: Verify Your Setup</h3>
+      
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-5-1">
+        <label for="check-5-1">Prowlarr web UI accessible at <code>http://localhost:9696</code></label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-5-2">
+        <label for="check-5-2">Sonarr web UI accessible at <code>http://localhost:8989</code></label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-5-3">
+        <label for="check-5-3">At least ONE indexer added to Prowlarr (e.g., 1337x)</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-5-4">
+        <label for="check-5-4">Sonarr connected to Prowlarr as an "App"</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-5-5">
+        <label for="check-5-5">Indexer synced from Prowlarr to Sonarr (visible in Sonarr → Settings → Indexers)</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-5-6">
+        <label for="check-5-6">Manual search in Sonarr returns results from the indexer</label>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>✅ If all boxes are checked, continue to TRaSH quality profiles!</p>
+      <a href="lesson-06.html">NEXT: Lesson 2.2 — TRaSH Fundamentals (Quality & Custom Formats) →</a>
+    </div>
+
+    <div class="decision-tree">
+      <h3>🔧 Troubleshooting Decision Tree</h3>
+      
+      <div class="decision-item">
+        <strong>Problem:</strong> Prowlarr or Sonarr not accessible in browser
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check containers are running: <code>docker compose ps</code><br>
+          → Check logs: <code>docker compose logs prowlarr</code><br>
+          → Verify port not in use: <code>sudo lsof -i :9696</code>
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> "Connection refused" when connecting Sonarr to Prowlarr
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Use service names, not localhost: <code>http://sonarr:8989</code> NOT <code>http://localhost:8989</code><br>
+          → Both containers must be on the same Docker network<br>
+          → Check: <code>docker network inspect arr-net</code>
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Indexer test fails in Prowlarr
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check internet connectivity from container: <code>docker exec prowlarr ping -c 3 1.1.1.1</code><br>
+          → Try a different indexer (some public indexers block certain IPs)<br>
+          → Check Prowlarr logs for specific error
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Sonarr search returns no results
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Verify indexer is enabled in Sonarr → Settings → Indexers<br>
+          → Click "Sync App Indexers" in Prowlarr again<br>
+          → Test indexer directly in Prowlarr (Search → Manual Search)
+        </p>
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Exit Ticket</h3>
+      <p><strong>Question:</strong> What is the main advantage of using Prowlarr instead of adding indexers directly to each ARR app?</p>
+      <textarea placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+
+  <script>
+    function showOS(osId) {
+      const parent = event.target.closest('.step') || event.target.closest('.lesson-section');
+      if (parent) {
+        parent.querySelectorAll('.os-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        parent.querySelectorAll('.os-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        const targetContent = parent.querySelector(`#${osId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          event.target.classList.add('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2.3: TRaSH Automation — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 2: ARR Media Automation</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="lesson-06.html">← Previous Lesson</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Lesson 2.3: TRaSH Automation — Notifiarr vs Recyclarr</h2>
+      <span class="difficulty-badge difficulty-advanced">ADVANCED</span>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 What You Are Learning</h2>
+      <p><strong>One concept:</strong> How to automate TRaSH Custom Format syncing so updates flow automatically instead of manual imports.</p>
+      <p>You'll compare two approaches: GUI-based (Notifiarr/Clonarr) vs config-based (Recyclarr YAML).</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You Should Already Have</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Radarr/Sonarr with manually imported Custom Formats (Lesson 2.2)</li>
+        <li>Understanding of Quality Profiles and CF scoring</li>
+        <li>Comfortable editing YAML files</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New Words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Recyclarr:</strong> CLI tool that syncs TRaSH CFs via YAML config</li>
+        <li><strong>Notifiarr:</strong> Web service with GUI for TRaSH CF management</li>
+        <li><strong>Clonarr:</strong> Alternative GUI tool for CF syncing</li>
+        <li><strong>Sync Schedule:</strong> Automated updates (e.g., daily cron job)</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ Architecture Picture</h2>
+      <div class="diagram">
+┌─────────────────────────────────────────────────────────────┐
+│          TRASH AUTOMATION COMPARISON                        │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  OPTION 1: Recyclarr (Config-Based)                         │
+│  ┌──────────────────────────────────────────┐              │
+│  │ recyclarr.yml (YAML config)              │              │
+│  │  sonarr:                                 │              │
+│  │    - base_url: http://sonarr:8989       │              │
+│  │      quality_profiles:                   │              │
+│  │        - name: HD-1080p                  │              │
+│  │          trash_ids: [DV, HDR, BluRay]    │              │
+│  └──────────────────────────────────────────┘              │
+│                ↓ sync command                               │
+│  ┌──────────────────────────────────────────┐              │
+│  │ Radarr/Sonarr CFs updated automatically  │              │
+│  └──────────────────────────────────────────┘              │
+│                                                             │
+│  OPTION 2: Notifiarr (GUI-Based)                           │
+│  ┌──────────────────────────────────────────┐              │
+│  │ Notifiarr Website (Click UI)             │              │
+│  │  • Add Radarr instance                   │              │
+│  │  • Select TRaSH guide to follow          │              │
+│  │  • Click "Sync Now"                      │              │
+│  └──────────────────────────────────────────┘              │
+│                ↓ API sync                                   │
+│  ┌──────────────────────────────────────────┐              │
+│  │ Radarr/Sonarr CFs updated via API        │              │
+│  └──────────────────────────────────────────┘              │
+│                                                             │
+│  Both achieve the same result!                              │
+│  Choose based on preference: config vs GUI                  │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture Videos (Optional)</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>IBRACORP:</strong> <a href="https://www.youtube.com/results?search_query=ibracorp+notifiarr" target="_blank">Notifiarr TRaSH Sync Setup</a></li>
+        <li><strong>TRaSH Guides:</strong> <a href="https://recyclarr.dev/" target="_blank">Recyclarr Documentation</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Lab Steps: Install and Configure Recyclarr</h2>
+      
+      <div class="alert alert-info">
+        <strong>💡 Why Recyclarr in this course?</strong> Recyclarr is free, self-hosted, and teaches you infrastructure-as-code. Notifiarr is excellent but requires account signup. Both are valid choices!
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <h4>Add Recyclarr to docker-compose.yml</h4>
+          <pre><code>  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:latest
+    container_name: recyclarr
+    user: "1000:1000"
+    volumes:
+      - ./recyclarr-config:/config
+    networks:
+      - arr-net
+    environment:
+      - TZ=America/New_York</code></pre>
+          <p>Run: <code>docker compose up -d</code></p>
+        </div>
+
+        <div class="step">
+          <h4>Create recyclarr.yml Config</h4>
+          <p>Create <code>./recyclarr-config/recyclarr.yml</code> with:</p>
+          <pre><code>sonarr:
+  tv:
+    base_url: http://sonarr:8989
+    api_key: YOUR_SONARR_API_KEY_HERE
+
+    quality_profiles:
+      - name: HD-1080p
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: true
+          until_quality: Bluray-1080p
+        quality_sort: top
+        qualities:
+          - name: Bluray-1080p
+          - name: WEB 1080p
+          - name: HDTV-1080p
+
+    custom_formats:
+      - trash_ids:
+          - 496f355514737f7d83bf7aa4d24f8169  # DV HDR10+
+          - e23edd2482476e595fb990b12e7c609c  # HDR
+          - ed38b889b31be83fda192888e2286d83  # BR-DISK
+        quality_profiles:
+          - name: HD-1080p
+            score: 50
+
+radarr:
+  movies:
+    base_url: http://radarr:7878
+    api_key: YOUR_RADARR_API_KEY_HERE
+
+    quality_profiles:
+      - name: HD-1080p TRaSH
+        reset_unmatched_scores:
+          enabled: true
+        upgrade:
+          allowed: true
+          until_quality: Bluray-1080p
+
+    custom_formats:
+      - trash_ids:
+          - 496f355514737f7d83bf7aa4d24f8169  # DV HDR10+
+          - e23edd2482476e595fb990b12e7c609c  # HDR
+          - ed38b889b31be83fda192888e2286d83  # BR-DISK
+        quality_profiles:
+          - name: HD-1080p TRaSH
+            score: 50</code></pre>
+          
+          <p><strong>Get API keys:</strong></p>
+          <ul style="padding-left: 20px; margin-top: 10px;">
+            <li>Sonarr: Settings → General → API Key</li>
+            <li>Radarr: Settings → General → API Key</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h4>Run Recyclarr Sync (Dry Run First)</h4>
+          <pre><code>docker exec -it recyclarr recyclarr sync --preview</code></pre>
+          <p>This shows what WOULD change without actually modifying Radarr/Sonarr.</p>
+          <p>Review the output — you should see CFs and scores that will be synced.</p>
+        </div>
+
+        <div class="step">
+          <h4>Run Actual Sync</h4>
+          <pre><code>docker exec -it recyclarr recyclarr sync</code></pre>
+          <p>Recyclarr connects to Radarr/Sonarr APIs and updates Custom Formats!</p>
+        </div>
+
+        <div class="step">
+          <h4>Verify in Radarr/Sonarr</h4>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Open Radarr → Settings → Custom Formats</li>
+            <li>You should see new CFs with [Trash] prefix</li>
+            <li>Open Settings → Profiles → Your profile</li>
+            <li>Scroll to Custom Formats — scores should match your config!</li>
+          </ol>
+        </div>
+
+        <div class="step">
+          <h4>Schedule Automatic Syncs</h4>
+          <p>Add a cron job to sync daily:</p>
+          <div class="os-tabs">
+            <div class="os-tab active" onclick="showOS('cron-linux')">🐧 Linux</div>
+            <div class="os-tab" onclick="showOS('cron-windows')">🪟 Windows</div>
+          </div>
+          
+          <div id="cron-linux" class="os-content active">
+            <pre><code>crontab -e</code></pre>
+            <p>Add this line:</p>
+            <pre><code>0 3 * * * docker exec recyclarr recyclarr sync</code></pre>
+            <p>This runs daily at 3 AM.</p>
+          </div>
+          
+          <div id="cron-windows" class="os-content">
+            <p>Use Windows Task Scheduler:</p>
+            <ol style="padding-left: 20px; margin-top: 10px;">
+              <li>Open Task Scheduler</li>
+              <li>Create Basic Task → Daily at 3 AM</li>
+              <li>Action: Start a program</li>
+              <li>Program: <code>wsl</code></li>
+              <li>Arguments: <code>docker exec recyclarr recyclarr sync</code></li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="step">
+          <h4>Update TRaSH IDs When Needed</h4>
+          <p>Get the latest TRaSH IDs from: <a href="https://recyclarr.dev/wiki/yaml/config-reference/custom-formats/#using-trash_ids" target="_blank">Recyclarr Wiki</a></p>
+          <p>Edit your <code>recyclarr.yml</code>, add/remove trash_ids, then run <code>recyclarr sync</code>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 Recyclarr vs Notifiarr Comparison</h2>
+      
+      <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <tr style="background: var(--bg-card); border-bottom: 2px solid var(--accent-teal);">
+          <th style="padding: 10px; text-align: left;">Feature</th>
+          <th style="padding: 10px; text-align: left;">Recyclarr</th>
+          <th style="padding: 10px; text-align: left;">Notifiarr</th>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;"><strong>Interface</strong></td>
+          <td style="padding: 10px;">YAML config + CLI</td>
+          <td style="padding: 10px;">Web GUI (point & click)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;"><strong>Hosting</strong></td>
+          <td style="padding: 10px;">Self-hosted Docker</td>
+          <td style="padding: 10px;">Cloud service (free tier)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;"><strong>Setup Complexity</strong></td>
+          <td style="padding: 10px;">Medium (learn YAML)</td>
+          <td style="padding: 10px;">Easy (visual setup)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;"><strong>Version Control</strong></td>
+          <td style="padding: 10px;">Yes (config is code)</td>
+          <td style="padding: 10px;">No (click-based)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;"><strong>Automation</strong></td>
+          <td style="padding: 10px;">Cron/scheduled task</td>
+          <td style="padding: 10px;">Built-in scheduling</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><strong>Best For</strong></td>
+          <td style="padding: 10px;">Power users, IaC fans</td>
+          <td style="padding: 10px;">Beginners, GUI preference</td>
+        </tr>
+      </table>
+
+      <p style="margin-top: 20px;"><strong>Bottom line:</strong> Both work great. Choose based on your workflow preference.</p>
+    </div>
+
+    <div class="checkpoint">
+      <h3>✅ Checkpoint: Verify Your Automation</h3>
+      
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-7-1">
+        <label for="check-7-1">Recyclarr container is running</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-7-2">
+        <label for="check-7-2">I created a <code>recyclarr.yml</code> config with my API keys</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-7-3">
+        <label for="check-7-3"><code>recyclarr sync --preview</code> ran without errors</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-7-4">
+        <label for="check-7-4">Actual <code>recyclarr sync</code> updated Radarr/Sonarr Custom Formats</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-7-5">
+        <label for="check-7-5">I verified new CFs and scores in Radarr/Sonarr web UI</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-7-6">
+        <label for="check-7-6">I scheduled automatic syncs (cron or Task Scheduler)</label>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>✅ Unit 2 Complete! ARR stack with TRaSH automation is running. Ready for Home Assistant?</p>
+      <a href="../3-home-assistant/lesson-08.html">NEXT: Unit 3 — Lesson 3.1: Home Assistant Beginner →</a>
+    </div>
+
+    <div class="decision-tree">
+      <h3>🔧 Troubleshooting Decision Tree</h3>
+      
+      <div class="decision-item">
+        <strong>Problem:</strong> Recyclarr "connection refused" to Sonarr/Radarr
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Use service names: <code>http://sonarr:8989</code> not <code>http://localhost:8989</code><br>
+          → Verify all containers on same network: <code>docker network inspect arr-net</code><br>
+          → Check API keys are correct (no extra spaces)
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Recyclarr "quality profile not found"
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Profile name in recyclarr.yml must EXACTLY match name in Radarr/Sonarr<br>
+          → Case-sensitive! "HD-1080p" ≠ "hd-1080p"<br>
+          → Create the profile in Radarr/Sonarr first if it doesn't exist
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> YAML parse errors
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → YAML requires consistent indentation (2 spaces, not tabs)<br>
+          → Check for missing colons or dashes<br>
+          → Validate at <a href="https://www.yamllint.com/" target="_blank">yamllint.com</a>
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Cron job not running
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check cron service: <code>systemctl status cron</code><br>
+          → Test command manually first: <code>docker exec recyclarr recyclarr sync</code><br>
+          → Check cron logs: <code>grep CRON /var/log/syslog</code>
+        </p>
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Exit Ticket</h3>
+      <p><strong>Question:</strong> What is the main advantage of using Recyclarr or Notifiarr instead of manually importing Custom Formats from TRaSH?</p>
+      <textarea placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+
+  <script>
+    function showOS(osId) {
+      const parent = event.target.closest('.step') || event.target.closest('.lesson-section');
+      if (parent) {
+        parent.querySelectorAll('.os-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        parent.querySelectorAll('.os-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        const targetContent = parent.querySelector(`#${osId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          event.target.classList.add('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

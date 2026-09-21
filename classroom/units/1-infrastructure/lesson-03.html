@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1.3: Docker Networking — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 1: Infrastructure & Docker</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="lesson-02.html">← Previous Lesson</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Lesson 1.3: Docker Networking</h2>
+      <span class="difficulty-badge difficulty-intermediate">INTERMEDIATE</span>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 What You Are Learning</h2>
+      <p><strong>One concept:</strong> How Docker containers communicate with each other and the outside world using networks.</p>
+      <p>You'll learn about bridge networks, custom networks, and why containers should NOT use the default bridge.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You Should Already Have</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Docker Compose working (from Lesson 1.2)</li>
+        <li>At least one running container you can test with</li>
+        <li>Basic understanding of <a href="../../glossary.html#ip">IP addresses</a> and <a href="../../glossary.html#port">ports</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New Words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Bridge Network — Docker's default network type that acts like a virtual switch</li>
+        <li>Service Name Resolution — Containers can talk to each other using service names instead of IP addresses</li>
+        <li>Network Isolation — Containers on different networks cannot communicate</li>
+        <li><code>network_mode</code> — Special mode where a container shares another container's network stack</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ Architecture Picture</h2>
+      <div class="diagram">
+┌─────────────────────────────────────────────────────────────┐
+│               DOCKER NETWORKING                             │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────────────────────────────────────────┐       │
+│  │         Custom Bridge: homelab-net              │       │
+│  ├─────────────────────────────────────────────────┤       │
+│  │                                                 │       │
+│  │  ┌──────────┐   ┌──────────┐   ┌──────────┐   │       │
+│  │  │ Sonarr   │   │ Radarr   │   │ Prowlarr │   │       │
+│  │  │ :8989    │   │ :7878    │   │ :9696    │   │       │
+│  │  └──────────┘   └──────────┘   └──────────┘   │       │
+│  │       ↕              ↕              ↕          │       │
+│  │  Containers can talk by service name!          │       │
+│  │  Example: http://prowlarr:9696                 │       │
+│  └─────────────────────────────────────────────────┘       │
+│                        ↕                                    │
+│           Docker Host Network Stack                         │
+│                        ↕                                    │
+│               Your LAN / Internet                           │
+│                                                             │
+│  ┌─────────────────────────────────────────────────┐       │
+│  │    Special: network_mode: service:gluetun       │       │
+│  ├─────────────────────────────────────────────────┤       │
+│  │  ┌──────────────────┐                           │       │
+│  │  │    Gluetun VPN   │  ← Main network stack     │       │
+│  │  │   (VPN tunnel)   │                           │       │
+│  │  └──────────────────┘                           │       │
+│  │          ↑                                       │       │
+│  │  ┌──────────────────┐                           │       │
+│  │  │   qBittorrent    │  ← Shares Gluetun's net   │       │
+│  │  │  (routed via VPN)│                           │       │
+│  │  └──────────────────┘                           │       │
+│  └─────────────────────────────────────────────────┘       │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture Videos (Optional)</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>NetworkChuck:</strong> <a href="https://www.youtube.com/results?search_query=networkchuck+docker+networking" target="_blank">Docker networking is CRAZY</a></li>
+        <li><strong>TechWorld with Nana:</strong> <a href="https://www.youtube.com/results?search_query=nana+docker+networking" target="_blank">Docker Networking Crash Course</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Lab Steps: Create a Custom Network</h2>
+      
+      <div class="steps">
+        <div class="step">
+          <h4>List Current Networks</h4>
+          <pre><code>docker network ls</code></pre>
+          <p>You'll see default networks: <code>bridge</code>, <code>host</code>, <code>none</code></p>
+        </div>
+
+        <div class="step">
+          <h4>Create a Custom Bridge Network</h4>
+          <pre><code>docker network create homelab-net</code></pre>
+          <p>This creates a new network that containers can join.</p>
+          <pre><code>docker network ls</code></pre>
+          <p>You should now see <code>homelab-net</code> in the list.</p>
+        </div>
+
+        <div class="step">
+          <h4>Create a Test Compose Stack with Custom Network</h4>
+          <p>Create a new directory and <code>docker-compose.yml</code>:</p>
+          <pre><code>mkdir -p ~/homelab/network-test
+cd ~/homelab/network-test</code></pre>
+          <p>File content:</p>
+          <pre><code>version: "3.8"
+
+networks:
+  homelab-net:
+    external: true
+
+services:
+  web1:
+    image: nginx:alpine
+    container_name: web1
+    networks:
+      - homelab-net
+    ports:
+      - "8091:80"
+
+  web2:
+    image: nginx:alpine
+    container_name: web2
+    networks:
+      - homelab-net
+    ports:
+      - "8092:80"</code></pre>
+        </div>
+
+        <div class="step">
+          <h4>Start the Stack</h4>
+          <pre><code>docker compose up -d</code></pre>
+          <p>Both containers are now on the <code>homelab-net</code> network.</p>
+        </div>
+
+        <div class="step">
+          <h4>Test Container-to-Container Communication</h4>
+          <p>Connect to web1 and ping web2 by service name:</p>
+          <pre><code>docker exec -it web1 ping -c 3 web2</code></pre>
+          <p>You should see successful ping replies!</p>
+          <p>Try the reverse:</p>
+          <pre><code>docker exec -it web2 ping -c 3 web1</code></pre>
+          <p><strong>This proves service name resolution works on custom networks.</strong></p>
+        </div>
+
+        <div class="step">
+          <h4>Test HTTP Communication Between Containers</h4>
+          <p>Install curl in web1 and make a request to web2:</p>
+          <pre><code>docker exec -it web1 apk add curl
+docker exec -it web1 curl http://web2:80</code></pre>
+          <p>You should see the nginx welcome HTML!</p>
+        </div>
+
+        <div class="step">
+          <h4>Inspect the Network</h4>
+          <pre><code>docker network inspect homelab-net</code></pre>
+          <p>Look for the "Containers" section — you'll see web1 and web2 with their IP addresses on this network.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 Why Custom Networks Matter</h2>
+      
+      <h3>❌ Default Bridge Problems:</h3>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Containers can only talk via IP addresses (no service name resolution)</li>
+        <li>Legacy mode, not recommended for production</li>
+        <li>Less isolation and control</li>
+      </ul>
+
+      <h3>✅ Custom Bridge Benefits:</h3>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Service name DNS:</strong> Containers resolve each other by service name</li>
+        <li><strong>Better isolation:</strong> Only containers on the same network can communicate</li>
+        <li><strong>Easy management:</strong> You can have multiple networks for different stacks</li>
+      </ul>
+
+      <h3>🔒 Network Isolation Example:</h3>
+      <p>If you create two networks (<code>arr-net</code> and <code>homeassistant-net</code>), containers on <code>arr-net</code> CANNOT talk to containers on <code>homeassistant-net</code> unless explicitly bridged.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🚀 Advanced: network_mode for VPN Routing</h2>
+      <p>When you use Gluetun (VPN container) with qBittorrent, you want qBittorrent's traffic to go through Gluetun's VPN tunnel.</p>
+      <p><strong>Solution:</strong> Use <code>network_mode: service:gluetun</code></p>
+      
+      <pre><code>version: "3.8"
+
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=your-provider
+      - VPN_TYPE=openvpn
+    ports:
+      - "8080:8080"  # qBittorrent web UI exposed via Gluetun
+
+  qbittorrent:
+    image: linuxserver/qbittorrent
+    container_name: qbittorrent
+    network_mode: service:gluetun  # ← Shares Gluetun's network!
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ./config:/config
+      - ./downloads:/downloads</code></pre>
+
+      <p><strong>Result:</strong> All qBittorrent traffic goes through Gluetun's VPN. If the VPN drops, qBittorrent has no internet.</p>
+      <p style="color: var(--text-secondary); font-style: italic;">You'll implement this in Unit 2 when setting up downloaders.</p>
+    </div>
+
+    <div class="checkpoint">
+      <h3>✅ Checkpoint: Verify Your Learning</h3>
+      
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-3-1">
+        <label for="check-3-1">I created a custom Docker network with <code>docker network create</code></label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-3-2">
+        <label for="check-3-2">I launched containers on the custom network via docker-compose.yml</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-3-3">
+        <label for="check-3-3">Containers can ping each other by service name (not just IP)</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-3-4">
+        <label for="check-3-4">I used <code>docker network inspect</code> to see connected containers</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-3-5">
+        <label for="check-3-5">I understand the difference between default bridge and custom bridge networks</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-3-6">
+        <label for="check-3-6">I know what <code>network_mode: service:NAME</code> does (shares network stack)</label>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>✅ If all boxes are checked, continue to the next lesson!</p>
+      <a href="lesson-04.html">NEXT: Lesson 1.4 — Docker Playground & Disposable Containers →</a>
+    </div>
+
+    <div class="decision-tree">
+      <h3>🔧 Troubleshooting Decision Tree</h3>
+      
+      <div class="decision-item">
+        <strong>Problem:</strong> Containers cannot ping each other by name
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Make sure both containers are on the SAME custom network<br>
+          → Service name resolution does NOT work on the default bridge<br>
+          → Check: <code>docker network inspect NETWORK-NAME</code>
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> "network not found"
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Create the network first: <code>docker network create homelab-net</code><br>
+          → If using <code>external: true</code> in compose, the network must exist before <code>docker compose up</code><br>
+          → Alternative: remove <code>external: true</code> and let Compose create it
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> "network already exists"
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → That's OK! You can reuse existing networks<br>
+          → If in docker-compose.yml, use <code>external: true</code> to reference the existing network
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> qBittorrent web UI not accessible with <code>network_mode: service:gluetun</code>
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Port mappings must go on the Gluetun service, not qBittorrent<br>
+          → Example: Gluetun has <code>ports: ["8080:8080"]</code> to expose qBittorrent's web UI<br>
+          → Access at Gluetun's IP, not qBittorrent's (qBittorrent has no separate network)
+        </p>
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Exit Ticket</h3>
+      <p><strong>Question:</strong> Why is it important to use a custom Docker network instead of the default bridge network?</p>
+      <textarea placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+
+  <script>
+    function showOS(osId) {
+      const parent = event.target.closest('.step') || event.target.closest('.lesson-section');
+      if (parent) {
+        parent.querySelectorAll('.os-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        parent.querySelectorAll('.os-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        const targetContent = parent.querySelector(`#${osId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          event.target.classList.add('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

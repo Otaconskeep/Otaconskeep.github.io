@@ -1,68 +1,180 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Choose path · Classroom</title>
-<meta name="description" content="OS fork.">
-<link rel="canonical" href="https://otaconskeep.github.io/classroom/path.html">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921c">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Choose Your Path — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="classroom.css">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>PATH<span class="blink"></span></span></div></div>
-<nav class="topnav">
- <div class="wrap">
- <a class="brand" href="/">Otaconskeep</a>
- <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
- <div class="navlinks">
- <a href="/">Home</a>
- <a href="/otacon/">Otacon</a>
- <a href="/keepdesk/">Keep Desk</a>
- <a href="/keeproute/">KeepRoute</a>
- <a href="/expansion/">Expansion</a>
- <a href="/ai9/">AI9</a>
- <a href="/classroom/" aria-current="page">Classroom</a>
- <a href="/engineering/">Engineering</a>
- <a href="/faq/">FAQ</a>
- <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
- <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
- <div class="wrap">
- <a href="/classroom/">Academy</a>
- <a href="/classroom/start.html">Start</a>
- <a href="/classroom/path.html">Path</a>
- <a href="/classroom/glossary.html">Glossary</a>
- <a href="/classroom/units/1-infrastructure/">Unit 1</a>
- <a href="/classroom/units/2-arr/">Unit 2</a>
- <a href="/classroom/units/3-home-assistant/">Unit 3</a>
- <a href="/classroom/units/4-voice/">Unit 4</a>
- <a href="/classroom/final-exam.html">Final exam</a>
- </div>
-</nav>
-<div class="wrap">
-<section class="hero flush"><span class="cr-badge baby">🟢 Baby step</span>
-<h1 class="display" style="font-size:clamp(2rem,5vw,3rem);margin-top:12px;">Choose your path</h1>
-<p class="lede">After Docker works, you rejoin the common class order.</p></section>
-<div class="cr-path-grid">
- <a class="cr-path-card win" href="units/1-infrastructure/classes/01-virtualization.html" data-set-os="windows"><h3>Windows 11</h3><p>WSL2 + Docker Desktop/Engine. Proxmox optional as concept-only.</p></a>
- <a class="cr-path-card lin" href="units/1-infrastructure/classes/01-virtualization.html" data-set-os="linux"><h3>Linux</h3><p>Ubuntu/Debian + Docker Engine. Optional Proxmox on spare hardware.</p></a>
-</div>
-<div class="cr-check" data-check-id="academy-path">
- <h3>Checkpoint — pass before you continue</h3>
- <label><input type="checkbox" data-k="0"> I selected Windows or Linux for OS tabs</label><label><input type="checkbox" data-k="1"> I know Class 1 is next</label>
- <div class="cr-gate">All boxes true → <a href="units/1-infrastructure/classes/01-virtualization.html">Class 1</a></div>
-</div>
-</div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921c"></script>
-</body></html>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Choose Your Path</p>
+    </header>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="start.html">Start Here</a>
+      <a href="path.html">Choose Your Path</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="card">
+      <h2>🛤️ Windows WSL2 or Linux?</h2>
+      <p>This course supports <strong>two paths</strong> for running Docker and your homelab services:</p>
+      <ul style="margin: 20px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Windows Path:</strong> Windows 10/11 + WSL2 (Ubuntu) + Docker Desktop</li>
+        <li><strong>Linux Path:</strong> Ubuntu/Debian bare metal or VM + Docker Engine</li>
+      </ul>
+
+      <div class="alert alert-info">
+        <strong>💡 Good news:</strong> Both paths share ~80% of the same course content. You'll only see OS-specific tabs when install steps, file paths, or permissions differ.
+      </div>
+    </div>
+
+    <div class="path-grid">
+      <div class="path-card">
+        <h2>🪟 Windows Path</h2>
+        <p><strong>Best for:</strong> Windows 10/11 desktop or laptop users who want to keep their existing OS</p>
+        
+        <div style="text-align: left; margin: 20px 0;">
+          <p><strong>You will use:</strong></p>
+          <ul style="padding-left: 20px; color: var(--text-secondary);">
+            <li>Windows Subsystem for Linux 2 (WSL2)</li>
+            <li>Ubuntu 22.04 inside WSL2</li>
+            <li>Docker Desktop for Windows</li>
+            <li>Windows file paths (<code>\\wsl$\Ubuntu\data</code>)</li>
+          </ul>
+        </div>
+
+        <div style="text-align: left; margin: 20px 0;">
+          <p><strong>Prerequisites:</strong></p>
+          <ul style="padding-left: 20px; color: var(--text-secondary);">
+            <li>Windows 10 version 2004+ or Windows 11</li>
+            <li>8GB+ RAM (16GB recommended)</li>
+            <li>Virtualization enabled in BIOS</li>
+          </ul>
+        </div>
+
+        <a href="units/1-infrastructure/lesson-01.html" class="btn">Start Windows Path →</a>
+      </div>
+
+      <div class="path-card">
+        <h2>🐧 Linux Path</h2>
+        <p><strong>Best for:</strong> Dedicated Linux server, VM, or native Linux desktop users</p>
+        
+        <div style="text-align: left; margin: 20px 0;">
+          <p><strong>You will use:</strong></p>
+          <ul style="padding-left: 20px; color: var(--text-secondary);">
+            <li>Ubuntu 22.04 / 24.04 or Debian 12</li>
+            <li>Docker Engine (installed via apt)</li>
+            <li>Standard Linux file paths (<code>/data</code>)</li>
+            <li>systemd service management</li>
+          </ul>
+        </div>
+
+        <div style="text-align: left; margin: 20px 0;">
+          <p><strong>Prerequisites:</strong></p>
+          <ul style="padding-left: 20px; color: var(--text-secondary);">
+            <li>Fresh Ubuntu/Debian install or VM</li>
+            <li>4GB+ RAM (8GB+ recommended)</li>
+            <li>SSH access if running headless</li>
+          </ul>
+        </div>
+
+        <a href="units/1-infrastructure/lesson-01.html" class="btn">Start Linux Path →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🔄 Can I Switch Paths Later?</h2>
+      <p>Yes! The concepts are identical. If you start on Windows and later move to a dedicated Linux server, you'll only need to adjust:</p>
+      <ul style="margin: 15px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li>File paths in your <code>docker-compose.yml</code> files</li>
+        <li>User/group permissions (UID/GID)</li>
+        <li>Docker installation method (Desktop vs Engine)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>📝 What About Proxmox / NAS?</h2>
+      <p>This course will <strong>note</strong> where Proxmox VMs and NAS storage fit into the architecture, but we focus on the <strong>Docker + Home Assistant core</strong> first.</p>
+      
+      <div style="margin: 20px 0; padding: 20px; background: var(--bg-dark); border-left: 3px solid var(--accent-teal);">
+        <p><strong>Advanced paths covered later:</strong></p>
+        <ul style="padding-left: 20px; color: var(--text-secondary); margin-top: 10px;">
+          <li><strong>Proxmox:</strong> Running Docker in an LXC container or VM (Unit 1 mentions concepts)</li>
+          <li><strong>NAS storage:</strong> SMB/NFS mounts for media libraries (mentioned in Unit 2)</li>
+          <li><strong>Dedicated GPU:</strong> Hardware transcoding for Plex/Jellyfin (mentioned in Unit 2)</li>
+        </ul>
+      </div>
+
+      <p>For now, pick <strong>Windows (WSL2)</strong> or <strong>Linux (bare metal/VM)</strong> and start learning Docker.</p>
+    </div>
+
+    <div class="card">
+      <h2>🎯 How OS-Specific Tabs Work in Lessons</h2>
+      <p>When you see content that differs between Windows and Linux, lessons will show tabs like this:</p>
+
+      <div style="margin: 20px 0;">
+        <div class="os-tabs">
+          <div class="os-tab active" onclick="showOS('windows-example')">🪟 Windows</div>
+          <div class="os-tab" onclick="showOS('linux-example')">🐧 Linux</div>
+        </div>
+        
+        <div id="windows-example" class="os-content active">
+          <h4>Windows WSL2 Example:</h4>
+          <pre><code># Install Docker Desktop from docker.com
+# Enable WSL2 integration in Docker Desktop settings
+wsl -l -v  # Verify Ubuntu is running WSL2</code></pre>
+          <p>File paths use <code>\\wsl$\Ubuntu\data</code> in Windows Explorer</p>
+        </div>
+        
+        <div id="linux-example" class="os-content">
+          <h4>Linux Example:</h4>
+          <pre><code># Install Docker Engine via apt
+sudo apt update
+sudo apt install docker.io docker-compose-plugin
+sudo usermod -aG docker $USER</code></pre>
+          <p>File paths use standard Linux paths like <code>/data</code></p>
+        </div>
+      </div>
+
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 20px;">
+        <em>Most of the course content (Docker concepts, ARR configuration, Home Assistant) is identical regardless of your OS.</em>
+      </p>
+    </div>
+
+    <div class="continue-box">
+      <p>Pick your path above and begin Unit 1!</p>
+      <a href="units/1-infrastructure/lesson-01.html">Start Unit 1: Infrastructure & Docker →</a>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+
+  <script>
+    function showOS(osId) {
+      // Hide all OS content
+      document.querySelectorAll('.os-content').forEach(content => {
+        content.classList.remove('active');
+      });
+      
+      // Remove active class from all tabs
+      document.querySelectorAll('.os-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Show selected OS content
+      document.getElementById(osId).classList.add('active');
+      
+      // Mark clicked tab as active
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

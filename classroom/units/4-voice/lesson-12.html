@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4.2: Whisper + Piper + Wyoming Pipeline — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 4: Local Voice Assistant</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="lesson-11.html">← Previous Lesson</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Lesson 4.2: Whisper + Piper + Wyoming Pipeline</h2>
+      <span class="difficulty-badge difficulty-advanced">ADVANCED</span>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 What You Are Learning</h2>
+      <p><strong>One concept:</strong> How to install and configure Whisper STT and Piper TTS as Wyoming services for Home Assistant.</p>
+      <p>You'll verify each layer independently before connecting the full pipeline.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You Should Already Have</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Home Assistant running (Unit 3)</li>
+        <li>Understanding of the 5-stage voice pipeline (Lesson 4.1)</li>
+        <li>Docker and docker-compose working</li>
+        <li>USB microphone and speaker (or plan to test with browser)</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New Words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Whisper model size:</strong> tiny/base/small/medium/large (accuracy vs speed trade-off)</li>
+        <li><strong>Piper voice:</strong> Different voice packs (male/female, accents)</li>
+        <li><strong>Wyoming server:</strong> Network service HA connects to</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ Architecture Picture</h2>
+      <div class="diagram">
+┌─────────────────────────────────────────────────────────────┐
+│        WHISPER + PIPER DOCKER STACK                         │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌──────────────────────────────────────┐                  │
+│  │  Home Assistant Container            │                  │
+│  │  :8123                               │                  │
+│  │  ┌────────────────┐                  │                  │
+│  │  │  HA Assist     │                  │                  │
+│  │  │  Pipeline      │                  │                  │
+│  │  └────────────────┘                  │                  │
+│  └──────────────────────────────────────┘                  │
+│            ↕                  ↕                             │
+│       Wyoming             Wyoming                           │
+│       Protocol            Protocol                          │
+│            ↕                  ↕                             │
+│  ┌──────────────┐      ┌──────────────┐                   │
+│  │   Whisper    │      │    Piper     │                   │
+│  │   (STT)      │      │    (TTS)     │                   │
+│  │  :10300      │      │   :10200     │                   │
+│  └──────────────┘      └──────────────┘                   │
+│                                                             │
+│  All three containers communicate over Docker network       │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture Videos (Optional)</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Home Assistant:</strong> <a href="https://www.youtube.com/results?search_query=home+assistant+whisper+piper" target="_blank">Official Whisper+Piper Guide</a></li>
+        <li><strong>Everything Smart Home:</strong> <a href="https://www.youtube.com/results?search_query=everything+smart+home+voice+assistant" target="_blank">Local Voice Setup</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Lab Steps: Install Whisper and Piper</h2>
+      
+      <div class="steps">
+        <div class="step">
+          <h4>Add Whisper and Piper to docker-compose.yml</h4>
+          <p>In your HA docker-compose directory, add these services:</p>
+          <pre><code>version: "3.8"
+
+services:
+  homeassistant:
+    # ... existing HA config ...
+
+  whisper:
+    image: rhasspy/wyoming-whisper:latest
+    container_name: whisper
+    environment:
+      - TZ=America/New_York
+    command: --model base --language en
+    ports:
+      - "10300:10300"
+    restart: unless-stopped
+    volumes:
+      - ./whisper-data:/data
+
+  piper:
+    image: rhasspy/wyoming-piper:latest
+    container_name: piper
+    environment:
+      - TZ=America/New_York
+    command: --voice en_US-lessac-medium
+    ports:
+      - "10200:10200"
+    restart: unless-stopped
+    volumes:
+      - ./piper-data:/data</code></pre>
+          
+          <div class="alert alert-info">
+            <strong>💡 Model choices:</strong><br>
+            Whisper: <code>tiny</code> (fastest), <code>base</code> (good balance), <code>small</code> (more accurate)<br>
+            Piper: <code>en_US-lessac-medium</code> (natural), <code>en_GB-northern_english_male</code> (British)
+          </div>
+        </div>
+
+        <div class="step">
+          <h4>Start the Services</h4>
+          <pre><code>docker compose up -d</code></pre>
+          <p>First run downloads models (may take 2-5 minutes). Watch logs:</p>
+          <pre><code>docker compose logs -f whisper
+docker compose logs -f piper</code></pre>
+          <p>Wait for "Server started" messages.</p>
+        </div>
+
+        <div class="step">
+          <h4>Verify Whisper is Running</h4>
+          <p>Check if Whisper Wyoming server responds:</p>
+          <pre><code>curl http://localhost:10300/info</code></pre>
+          <p>You should see JSON with model info!</p>
+        </div>
+
+        <div class="step">
+          <h4>Verify Piper is Running</h4>
+          <p>Check if Piper Wyoming server responds:</p>
+          <pre><code>curl http://localhost:10200/info</code></pre>
+          <p>You should see JSON with voice info!</p>
+        </div>
+
+        <div class="step">
+          <h4>Add Wyoming Integrations in Home Assistant</h4>
+          <p>In HA: Settings → Devices & Services → Add Integration</p>
+          <p><strong>Add Whisper:</strong></p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Search "Wyoming"</li>
+            <li>Host: <code>whisper</code> (service name) OR <code>SERVER-IP</code></li>
+            <li>Port: <code>10300</code></li>
+            <li>Click Submit</li>
+          </ol>
+          <p><strong>Add Piper:</strong></p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Add Integration → Wyoming again</li>
+            <li>Host: <code>piper</code> OR <code>SERVER-IP</code></li>
+            <li>Port: <code>10200</code></li>
+            <li>Click Submit</li>
+          </ol>
+        </div>
+
+        <div class="step">
+          <h4>Test TTS Independently</h4>
+          <p>In HA: Developer Tools → Services</p>
+          <p>Service: <code>tts.speak</code></p>
+          <p>Service Data:</p>
+          <pre><code>service: tts.speak
+target:
+  entity_id: tts.piper
+data:
+  message: "Hello from Piper text to speech"
+  media_player_entity_id: media_player.browser</code></pre>
+          <p>Click "Call Service" → You should hear Piper's voice!</p>
+          <p>(Note: If no speakers, HA will play in browser media player)</p>
+        </div>
+
+        <div class="step">
+          <h4>Test STT (Browser Push-to-Talk)</h4>
+          <p>Settings → Voice Assistants → Add Assistant</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Name: "Local Voice"</li>
+            <li>Conversation agent: Home Assistant</li>
+            <li>Speech-to-text: Whisper</li>
+            <li>Text-to-speech: Piper</li>
+            <li>Wake word: None (for now)</li>
+            <li>Save</li>
+          </ol>
+        </div>
+
+        <div class="step">
+          <h4>Test End-to-End (Browser Assist)</h4>
+          <p>On HA Overview page, click the microphone icon (top right)</p>
+          <p>Click and hold the button → Say "turn on the bedroom light"</p>
+          <p>Release → Whisper transcribes → HA executes → Piper responds!</p>
+          <p><strong>If this works, your voice pipeline is functional!</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 Understanding Model Choices</h2>
+      
+      <h3>Whisper Models (STT Accuracy vs Speed):</h3>
+      <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+        <tr style="background: var(--bg-card); border-bottom: 2px solid var(--accent-teal);">
+          <th style="padding: 10px; text-align: left;">Model</th>
+          <th style="padding: 10px; text-align: left;">Accuracy</th>
+          <th style="padding: 10px; text-align: left;">Speed</th>
+          <th style="padding: 10px; text-align: left;">RAM</th>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;">tiny</td>
+          <td style="padding: 10px;">🟡 OK</td>
+          <td style="padding: 10px;">🟢 Very Fast</td>
+          <td style="padding: 10px;">~1GB</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;">base</td>
+          <td style="padding: 10px;">🟢 Good</td>
+          <td style="padding: 10px;">🟢 Fast</td>
+          <td style="padding: 10px;">~1.5GB</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;">small</td>
+          <td style="padding: 10px;">🟢 Better</td>
+          <td style="padding: 10px;">🟡 Medium</td>
+          <td style="padding: 10px;">~2GB</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;">medium</td>
+          <td style="padding: 10px;">🟢 Best</td>
+          <td style="padding: 10px;">🔴 Slow</td>
+          <td style="padding: 10px;">~5GB</td>
+        </tr>
+      </table>
+      <p><strong>Recommendation:</strong> Start with <code>base</code>. Upgrade to <code>small</code> if transcription errors occur.</p>
+
+      <h3>Piper Voices:</h3>
+      <p>Browse all voices: <a href="https://rhasspy.github.io/piper-samples/" target="_blank">Piper Voice Samples</a></p>
+      <p>Popular choices:</p>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><code>en_US-lessac-medium</code> — Natural American female</li>
+        <li><code>en_US-libritts_r-medium</code> — Clear American voice</li>
+        <li><code>en_GB-northern_english_male-medium</code> — British male</li>
+      </ul>
+    </div>
+
+    <div class="checkpoint">
+      <h3>✅ Checkpoint: Verify Your Pipeline</h3>
+      
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-12-1">
+        <label for="check-12-1">Whisper container running (<code>docker ps | grep whisper</code>)</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-12-2">
+        <label for="check-12-2">Piper container running (<code>docker ps | grep piper</code>)</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-12-3">
+        <label for="check-12-3">Wyoming integrations added in HA (Settings → Integrations)</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-12-4">
+        <label for="check-12-4">I tested Piper TTS independently and heard audio</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-12-5">
+        <label for="check-12-5">I created a Voice Assistant in HA with Whisper + Piper</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-12-6">
+        <label for="check-12-6">I tested push-to-talk in HA browser and got a response</label>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>✅ Voice pipeline working! Final lesson: wake word + capstone test.</p>
+      <a href="lesson-13.html">NEXT: Lesson 4.3 — Local Speaker Capstone (Internet-Disconnected PASS) →</a>
+    </div>
+
+    <div class="decision-tree">
+      <h3>🔧 Troubleshooting Decision Tree</h3>
+      
+      <div class="decision-item">
+        <strong>Problem:</strong> Whisper container exits immediately
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check logs: <code>docker logs whisper</code><br>
+          → Model download may have failed — delete <code>./whisper-data</code> and restart<br>
+          → Try a different model: <code>--model tiny</code>
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> HA can't connect to Wyoming services
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Use service names if on same Docker network: <code>whisper</code> not <code>localhost</code><br>
+          → If HA uses <code>network_mode: host</code>, use <code>localhost:10300</code><br>
+          → Check port mappings: <code>docker ps</code>
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Push-to-talk doesn't transcribe speech
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check browser permissions for microphone access<br>
+          → Test microphone: Settings → System → Hardware<br>
+          → Check Whisper logs while speaking: <code>docker logs -f whisper</code>
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> No audio from Piper
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check HA has a media_player entity (browser, speaker, etc.)<br>
+          → Try TTS service call with explicit media_player_entity_id<br>
+          → Check Piper logs: <code>docker logs -f piper</code>
+        </p>
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Exit Ticket</h3>
+      <p><strong>Question:</strong> What is the purpose of the Wyoming Protocol in connecting Whisper/Piper to Home Assistant?</p>
+      <textarea placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+
+  <script>
+    function showOS(osId) {
+      const parent = event.target.closest('.step') || event.target.closest('.lesson-section');
+      if (parent) {
+        parent.querySelectorAll('.os-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        parent.querySelectorAll('.os-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        const targetContent = parent.querySelector(`#${osId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          event.target.classList.add('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4.3: Local Speaker Capstone — Internet-Disconnected PASS — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 4: Local Voice Assistant</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="lesson-12.html">← Previous Lesson</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Lesson 4.3: Local Speaker Capstone — Internet-Disconnected PASS</h2>
+      <span class="difficulty-badge difficulty-advanced">ADVANCED</span>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 What You Are Learning</h2>
+      <p><strong>One concept:</strong> How to enable wake word detection and verify your voice assistant works WITHOUT internet.</p>
+      <p>The capstone test: disconnect your ethernet/Wi-Fi and prove 100% local voice control works.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You Should Already Have</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Whisper + Piper working in HA (Lesson 4.2)</li>
+        <li>Push-to-talk voice commands working successfully</li>
+        <li>At least one controllable device/light in HA</li>
+        <li>USB microphone and speaker connected to HA server</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New Words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Wake Word:</strong> Trigger phrase that activates voice listening</li>
+        <li><strong>openWakeWord:</strong> Local wake word detection service</li>
+        <li><strong>Satellite Device:</strong> Microphone + speaker endpoint in a room</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ Architecture Picture</h2>
+      <div class="diagram">
+┌─────────────────────────────────────────────────────────────┐
+│         CAPSTONE: COMPLETE LOCAL VOICE                      │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌────────────────────────────────────┐                    │
+│  │  1. USB Microphone (always listen) │                    │
+│  │     Hears: "Ok Nabu..."            │                    │
+│  └────────────────────────────────────┘                    │
+│                    ↓                                        │
+│  ┌────────────────────────────────────┐                    │
+│  │  2. Wake Word Detection (local)    │                    │
+│  │     Match: "ok nabu" ✓             │                    │
+│  └────────────────────────────────────┘                    │
+│                    ↓                                        │
+│  ┌────────────────────────────────────┐                    │
+│  │  3. Whisper STT (local Docker)     │                    │
+│  │     "...turn on the bedroom light" │                    │
+│  └────────────────────────────────────┘                    │
+│                    ↓                                        │
+│  ┌────────────────────────────────────┐                    │
+│  │  4. HA Assist (local intent)       │                    │
+│  │     Execute: light.turn_on         │                    │
+│  └────────────────────────────────────┘                    │
+│                    ↓                                        │
+│  ┌────────────────────────────────────┐                    │
+│  │  5. Piper TTS (local Docker)       │                    │
+│  │     "Turned on bedroom light"      │                    │
+│  └────────────────────────────────────┘                    │
+│                    ↓                                        │
+│  ┌────────────────────────────────────┐                    │
+│  │  6. USB Speaker (audio out)        │                    │
+│  │     🔊 Voice response heard         │                    │
+│  └────────────────────────────────────┘                    │
+│                                                             │
+│  🌐 INTERNET DISCONNECTED — STILL WORKS! ✓                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture Videos (Optional)</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Dad the Engineer:</strong> <a href="https://www.youtube.com/results?search_query=dad+the+engineer+local+voice" target="_blank">DIY completely private local smart voice assistant 2026</a></li>
+        <li><strong>Everything Smart Home:</strong> <a href="https://www.youtube.com/results?search_query=everything+smart+home+voice+preview" target="_blank">Voice Preview Edition</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Lab Steps: Complete Capstone Setup</h2>
+      
+      <div class="steps">
+        <div class="step">
+          <h4>Add openWakeWord Service</h4>
+          <p>Add to your docker-compose.yml:</p>
+          <pre><code>  openwakeword:
+    image: rhasspy/wyoming-openwakeword:latest
+    container_name: openwakeword
+    environment:
+      - TZ=America/New_York
+    command: --preload-model ok_nabu
+    ports:
+      - "10400:10400"
+    restart: unless-stopped
+    volumes:
+      - ./openwakeword-data:/data</code></pre>
+          <p>Start it: <code>docker compose up -d</code></p>
+        </div>
+
+        <div class="step">
+          <h4>Add openWakeWord Integration in HA</h4>
+          <p>Settings → Devices & Services → Add Integration → Wyoming</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Host: <code>openwakeword</code></li>
+            <li>Port: <code>10400</code></li>
+            <li>Submit</li>
+          </ol>
+        </div>
+
+        <div class="step">
+          <h4>Update Voice Assistant with Wake Word</h4>
+          <p>Settings → Voice Assistants → Edit "Local Voice"</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Wake word: Select "ok_nabu"</li>
+            <li>Save</li>
+          </ol>
+        </div>
+
+        <div class="step">
+          <h4>Configure Audio Input/Output in HA</h4>
+          <p>Settings → System → Hardware</p>
+          <p>Verify:</p>
+          <ul style="padding-left: 20px; margin-top: 10px;">
+            <li>Microphone detected (USB mic)</li>
+            <li>Speaker detected (USB speaker or audio out)</li>
+          </ul>
+          <p>If not detected, check physical connections and restart HA container.</p>
+        </div>
+
+        <div class="step">
+          <h4>Test Wake Word (With Internet Still Connected)</h4>
+          <p>Stand near your microphone and say:</p>
+          <p style="font-size: 1.2rem; color: var(--accent-teal); margin: 15px 0;"><strong>"Ok Nabu, what time is it?"</strong></p>
+          <p>If wake word works, you should hear Piper respond with the current time!</p>
+          <p><strong>Check HA logs if no response:</strong></p>
+          <pre><code>docker logs homeassistant -f</code></pre>
+          <p>Look for "Wake word detected" messages.</p>
+        </div>
+
+        <div class="step">
+          <h4>Test Voice Command</h4>
+          <p>Say: <strong>"Ok Nabu, turn on the bedroom light"</strong></p>
+          <p>Verify:</p>
+          <ul style="padding-left: 20px; margin-top: 10px;">
+            <li>Light entity changes state in HA</li>
+            <li>Piper responds confirming action</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h4>🎓 CAPSTONE TEST: Disconnect Internet</h4>
+          <p><strong>This is the moment of truth!</strong></p>
+          <ol style="padding-left: 20px; margin-top: 10px; color: var(--text-secondary);">
+            <li>Physically unplug ethernet cable from your server<br>
+                OR turn off Wi-Fi if using wireless</li>
+            <li>Wait 10 seconds for network to fully disconnect</li>
+            <li>Verify no internet: Try to ping google.com from terminal (should fail)</li>
+            <li>Say: <strong>"Ok Nabu, turn off the bedroom light"</strong></li>
+            <li>Listen for Piper's response</li>
+            <li>Check if light turned off in HA dashboard</li>
+          </ol>
+          
+          <div class="alert alert-info" style="margin-top: 20px;">
+            <strong>✅ SUCCESS CRITERIA:</strong><br>
+            If the light toggled AND you heard a voice response, you have achieved 100% local voice control!<br>
+            <strong>No cloud services were used. You own this system.</strong>
+          </div>
+        </div>
+
+        <div class="step">
+          <h4>Reconnect Internet and Document Your Success</h4>
+          <p>Plug ethernet back in or re-enable Wi-Fi.</p>
+          <p>Take a screenshot of your HA dashboard showing:</p>
+          <ul style="padding-left: 20px; color: var(--text-secondary);">
+            <li>Voice Assistant configured</li>
+            <li>Whisper, Piper, openWakeWord integrations active</li>
+            <li>A light/device that responded to voice command</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 Verification Gates (A–G)</h2>
+      <p>You've passed the capstone if ALL gates are TRUE:</p>
+      
+      <div style="margin: 20px 0;">
+        <div style="padding: 15px; background: var(--bg-card); border-left: 3px solid var(--accent-teal); margin-bottom: 15px;">
+          <strong>Gate A:</strong> Whisper container running and HA connected via Wyoming
+        </div>
+        <div style="padding: 15px; background: var(--bg-card); border-left: 3px solid var(--accent-teal); margin-bottom: 15px;">
+          <strong>Gate B:</strong> Piper container running and HA connected via Wyoming
+        </div>
+        <div style="padding: 15px; background: var(--bg-card); border-left: 3px solid var(--accent-teal); margin-bottom: 15px;">
+          <strong>Gate C:</strong> openWakeWord detects "ok nabu" wake phrase
+        </div>
+        <div style="padding: 15px; background: var(--bg-card); border-left: 3px solid var(--accent-teal); margin-bottom: 15px;">
+          <strong>Gate D:</strong> USB microphone captures voice clearly
+        </div>
+        <div style="padding: 15px; background: var(--bg-card); border-left: 3px solid var(--accent-teal); margin-bottom: 15px;">
+          <strong>Gate E:</strong> HA Assist executes voice command (light turns on/off)
+        </div>
+        <div style="padding: 15px; background: var(--bg-card); border-left: 3px solid var(--accent-teal); margin-bottom: 15px;">
+          <strong>Gate F:</strong> Piper generates audio response
+        </div>
+        <div style="padding: 15px; background: var(--bg-card); border-left: 3px solid var(--success); margin-bottom: 15px;">
+          <strong>Gate G (CAPSTONE):</strong> Voice command works WITH INTERNET PHYSICALLY DISCONNECTED
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🚀 Beyond the Course</h2>
+      <p>Now that you have local voice working, explore:</p>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Multiple rooms:</strong> Deploy Raspberry Pi satellites with Linux Voice Assistant</li>
+        <li><strong>Custom wake words:</strong> Train your own wake phrase</li>
+        <li><strong>Local LLM:</strong> Integrate Ollama for complex conversational commands</li>
+        <li><strong>ESPHome voice:</strong> Build $15 ESP32 voice assistants</li>
+        <li><strong>Advanced intents:</strong> Multi-step conversations and context awareness</li>
+      </ul>
+
+      <div class="alert alert-info" style="margin-top: 20px;">
+        <strong>🎓 Congratulations!</strong> You've completed the Otaconskeep Homelab Academy!<br>
+        You now have a production-ready homelab with ARR media automation, Home Assistant, and fully local voice control.<br>
+        <a href="../../final-exam.html">→ Take the Final Exam to verify your complete system</a>
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <h3>✅ Checkpoint: Verify Capstone Completion</h3>
+      
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-13-1">
+        <label for="check-13-1">openWakeWord container running and integrated in HA</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-13-2">
+        <label for="check-13-2">Voice Assistant configured with wake word "ok_nabu"</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-13-3">
+        <label for="check-13-3">USB microphone and speaker working in HA</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-13-4">
+        <label for="check-13-4">Wake word detection triggers voice listening</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-13-5">
+        <label for="check-13-5">Voice command successfully controlled a device/light</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-13-6">
+        <label for="check-13-6">Piper voice response audible via speaker</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-13-7">
+        <label for="check-13-7"><strong>CAPSTONE GATE G:</strong> Voice command worked with internet disconnected</label>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>🎉 COURSE COMPLETE! You built it all from scratch!</p>
+      <a href="../../final-exam.html">Verify Your Complete System: Final Exam →</a>
+    </div>
+
+    <div class="decision-tree">
+      <h3>🔧 Troubleshooting Decision Tree</h3>
+      
+      <div class="decision-item">
+        <strong>Problem:</strong> Wake word never triggers
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check microphone input level in HA System → Hardware<br>
+          → Test mic with push-to-talk first (if that fails, mic isn't working)<br>
+          → Check openWakeWord logs: <code>docker logs -f openwakeword</code><br>
+          → Try louder/clearer pronunciation of "ok nabu"
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Wake word triggers but no transcription
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Whisper service may have crashed — check logs<br>
+          → Verify Voice Assistant has Whisper selected for STT<br>
+          → Speak clearly and wait 1-2 seconds after wake word before command
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Transcription correct but no action
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check entity name matches: "bedroom light" must match <code>light.bedroom_light</code><br>
+          → Assign entity to Area if using area-based commands<br>
+          → Check HA Assist conversation logs: Settings → Voice Assistants → View transcript
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> No audio response (but action executed)
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check Piper service running: <code>docker ps | grep piper</code><br>
+          → Verify speaker output device in HA Hardware settings<br>
+          → Test speaker with manual TTS service call (Developer Tools)
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Works WITH internet but NOT without
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check Voice Assistant NOT using cloud STT/TTS (must be Whisper/Piper)<br>
+          → Verify Conversation Agent is "Home Assistant" not a cloud service<br>
+          → Check no external integrations required for the device you're controlling
+        </p>
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Final Reflection</h3>
+      <p><strong>Question:</strong> What was the most challenging part of this entire course (Units 1-4), and what did you learn from overcoming it?</p>
+      <textarea placeholder="Write your reflection here..."></textarea>
+      
+      <p style="margin-top: 30px;"><strong>Share your success!</strong> Post your homelab story on r/selfhosted or the TRaSH Discord. Help the next learner!</p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+      <p style="margin-top: 10px;">🎓 <strong>Course Complete!</strong> Proceed to <a href="../../final-exam.html">Final Exam</a> for system verification.</p>
+    </footer>
+  </div>
+
+  <script>
+    function showOS(osId) {
+      const parent = event.target.closest('.step') || event.target.closest('.lesson-section');
+      if (parent) {
+        parent.querySelectorAll('.os-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        parent.querySelectorAll('.os-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        const targetContent = parent.querySelector(`#${osId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          event.target.classList.add('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

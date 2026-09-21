@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2.2: TRaSH Fundamentals — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 2: ARR Media Automation</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="lesson-05.html">← Previous Lesson</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Lesson 2.2: TRaSH Fundamentals — Quality Profiles & Custom Formats</h2>
+      <span class="difficulty-badge difficulty-intermediate">INTERMEDIATE</span>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 What You Are Learning</h2>
+      <p><strong>One concept:</strong> How TRaSH Guides Custom Formats (CFs) score releases to automatically select the best quality.</p>
+      <p>You'll learn to import CF scoring that prefers DV/HDR, avoids hardcoded subs, and rewards proper release groups.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You Should Already Have</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Prowlarr and Sonarr running (from Lesson 2.1)</li>
+        <li>At least one indexer synced and working</li>
+        <li>Radarr installed (add to your docker-compose.yml like Sonarr)</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New Words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><a href="../../glossary.html#quality-profile">Quality Profile</a> — Defines acceptable video qualities (720p, 1080p, 4K)</li>
+        <li><a href="../../glossary.html#custom-format">Custom Format (CF)</a> — TRaSH scoring system for release attributes</li>
+        <li><strong>Scoring:</strong> Positive numbers = prefer, negative numbers = avoid</li>
+        <li><strong>DV/HDR:</strong> Dolby Vision / High Dynamic Range (better colors/contrast)</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ Architecture Picture</h2>
+      <div class="diagram">
+┌─────────────────────────────────────────────────────────────┐
+│            TRaSH CUSTOM FORMAT SCORING                      │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Example: Searching for "Interstellar"                      │
+│                                                             │
+│  Release 1: Interstellar.2014.1080p.BluRay.x265-RARBG       │
+│    ✓ 1080p (+0)                                             │
+│    ✓ BluRay (+10)                                           │
+│    ✓ x265 (+5)                                              │
+│    ✗ No DV/HDR (0)                                          │
+│    ─────────────────                                        │
+│    Total Score: +15                                         │
+│                                                             │
+│  Release 2: Interstellar.2014.1080p.WEB-DL.DDP5.1.H.264    │
+│    ✓ 1080p (+0)                                             │
+│    ✓ WEB-DL (+5)                                            │
+│    ✗ H.264 (0)                                              │
+│    ✗ No DV/HDR (0)                                          │
+│    ─────────────────                                        │
+│    Total Score: +5                                          │
+│                                                             │
+│  Release 3: Interstellar.2014.1080p.UHD.BluRay.DV.HDR.x265 │
+│    ✓ 1080p (+0)                                             │
+│    ✓ UHD BluRay (+20)                                       │
+│    ✓ Dolby Vision (+50)                                     │
+│    ✓ HDR (+30)                                              │
+│    ✓ x265 (+5)                                              │
+│    ─────────────────                                        │
+│    Total Score: +105  ← WINNER! 🏆                          │
+│                                                             │
+│  Sonarr/Radarr automatically grabs Release 3!               │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture Videos (Optional)</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>IBRACORP:</strong> <a href="https://www.youtube.com/results?search_query=ibracorp+trash+guides" target="_blank">TRaSH Guides + Notifiarr Setup</a></li>
+        <li><strong>TRaSH Guides:</strong> <a href="https://trash-guides.info/" target="_blank">Official TRaSH Documentation</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Lab Steps: Import TRaSH Custom Formats Manually</h2>
+      
+      <div class="alert alert-info">
+        <strong>💡 Note:</strong> Lesson 2.3 will teach you to automate this with Recyclarr/Notifiarr. For now, learn the manual process to understand what CFs do.
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <h4>Add Radarr to Your Stack (If Not Done)</h4>
+          <p>Add to your <code>docker-compose.yml</code>:</p>
+          <pre><code>  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ./radarr-config:/config
+      - /path/to/your/data:/data
+    ports:
+      - "7878:7878"
+    networks:
+      - arr-net
+    restart: unless-stopped</code></pre>
+          <p>Run: <code>docker compose up -d</code></p>
+          <p>Connect Radarr to Prowlarr like you did with Sonarr.</p>
+        </div>
+
+        <div class="step">
+          <h4>Open TRaSH Guides Custom Formats Page</h4>
+          <p>Visit: <a href="https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/" target="_blank">TRaSH Custom Formats Collection</a></p>
+          <p>This is THE authoritative list of CFs for Radarr.</p>
+        </div>
+
+        <div class="step">
+          <h4>Choose a CF to Import (Example: DV HDR10+)</h4>
+          <p>On TRaSH site, find "DV HDR10+" CF → Click "JSON" button → Copy the JSON</p>
+        </div>
+
+        <div class="step">
+          <h4>Import CF into Radarr</h4>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Open Radarr: <code>http://localhost:7878</code></li>
+            <li>Settings → Custom Formats → Add Custom Format</li>
+            <li>Click "Import" button</li>
+            <li>Paste the JSON you copied</li>
+            <li>Click "Import"</li>
+            <li>Click "Save"</li>
+          </ol>
+          <p>You've imported your first Custom Format!</p>
+        </div>
+
+        <div class="step">
+          <h4>Import More Essential CFs</h4>
+          <p>Repeat step 4 for these CFs (from TRaSH):</p>
+          <ul style="padding-left: 20px; margin-top: 10px; color: var(--text-secondary);">
+            <li><strong>DV HDR10+</strong> (prefer Dolby Vision)</li>
+            <li><strong>HDR</strong> (prefer HDR)</li>
+            <li><strong>BluRay</strong> (prefer BluRay source)</li>
+            <li><strong>WEB-DL</strong> (allow WEB releases)</li>
+            <li><strong>LQ</strong> (avoid low quality)</li>
+            <li><strong>x265 (HD)</strong> (prefer efficient codec)</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h4>Create a Quality Profile with CF Scoring</h4>
+          <p>In Radarr: Settings → Profiles → Add Profile</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Name: "HD-1080p TRaSH"</li>
+            <li>Allowed Qualities: Check 1080p, 720p, WEB-DL, BluRay</li>
+            <li>Upgrade Until: Bluray-1080p</li>
+            <li>Scroll down to Custom Formats section</li>
+            <li>For each CF, set a score:
+              <ul style="padding-left: 20px; margin-top: 5px;">
+                <li>DV HDR10+: +50</li>
+                <li>HDR: +30</li>
+                <li>BluRay: +20</li>
+                <li>WEB-DL: +10</li>
+                <li>x265 (HD): +5</li>
+                <li>LQ: -100 (avoid!)</li>
+              </ul>
+            </li>
+            <li>Save</li>
+          </ol>
+        </div>
+
+        <div class="step">
+          <h4>Test with Fake Releases</h4>
+          <p>In Radarr: Movies → Add New → Search "Interstellar"</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Add the movie, select your "HD-1080p TRaSH" profile</li>
+            <li>Click "Manual Search" on the movie</li>
+            <li>Look at the releases — you'll see Custom Format tags!</li>
+            <li>Releases with higher scores appear first</li>
+          </ol>
+          <p><strong>DO NOT actually download yet — this is just for learning!</strong></p>
+        </div>
+
+        <div class="step">
+          <h4>Understand the Scoring</h4>
+          <p>Look at a release in the manual search results:</p>
+          <ul style="padding-left: 20px; color: var(--text-secondary);">
+            <li>Green tags = CFs that matched and added points</li>
+            <li>Total score shown next to release name</li>
+            <li>Higher score = Radarr prefers it for auto-grab</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 Understanding Quality Profiles vs Custom Formats</h2>
+      
+      <h3>Quality Profile:</h3>
+      <p>Defines WHAT qualities are acceptable (720p? 1080p? 4K?)</p>
+      <p>Example: "I want 1080p minimum, will upgrade to 4K if available"</p>
+
+      <h3>Custom Formats:</h3>
+      <p>Defines HOW TO SCORE releases within those qualities</p>
+      <p>Example: "Prefer DV/HDR over SDR, prefer BluRay over WEB-DL, avoid hardcoded subs"</p>
+
+      <h3>Together:</h3>
+      <p>Quality Profile says "grab 1080p". Custom Formats say "grab the BEST 1080p based on source, codec, and attributes".</p>
+    </div>
+
+    <div class="checkpoint">
+      <h3>✅ Checkpoint: Verify Your Learning</h3>
+      
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-6-1">
+        <label for="check-6-1">Radarr is installed and accessible at <code>http://localhost:7878</code></label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-6-2">
+        <label for="check-6-2">I imported at least 3 Custom Formats from TRaSH into Radarr</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-6-3">
+        <label for="check-6-3">I created a Quality Profile with CF scores assigned</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-6-4">
+        <label for="check-6-4">Manual search shows releases with CF tags and scores</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-6-5">
+        <label for="check-6-5">I understand the difference between Quality Profiles and Custom Formats</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-6-6">
+        <label for="check-6-6">I can explain how positive/negative scoring works</label>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>✅ Manual CF import complete! Now learn to automate it.</p>
+      <a href="lesson-07.html">NEXT: Lesson 2.3 — TRaSH Automation (Notifiarr vs Recyclarr) →</a>
+    </div>
+
+    <div class="decision-tree">
+      <h3>🔧 Troubleshooting Decision Tree</h3>
+      
+      <div class="decision-item">
+        <strong>Problem:</strong> Can't find Custom Formats in Radarr settings
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Make sure you're using Radarr v3+ (check version in System → Status)<br>
+          → Settings → Custom Formats should be visible in sidebar<br>
+          → Restart Radarr if just upgraded: <code>docker restart radarr</code>
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> JSON import fails with error
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Copy the FULL JSON from TRaSH (including outer braces)<br>
+          → Make sure no extra characters before/after JSON<br>
+          → Try manual creation if import fails (less convenient but works)
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> No CF tags showing on releases
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → CFs must be added to Quality Profile with scores<br>
+          → Release names must match CF regex (e.g., must contain "HDR" to match HDR CF)<br>
+          → Check CF conditions in the Custom Format editor
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Radarr still grabs low-quality releases
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Make sure the Quality Profile is assigned to your movies<br>
+          → Check LQ (low quality) CF has NEGATIVE score (e.g., -100)<br>
+          → Set minimum Custom Format score in profile if needed
+        </p>
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Exit Ticket</h3>
+      <p><strong>Question:</strong> Why do we assign a NEGATIVE score (e.g., -100) to the "LQ" (low quality) Custom Format?</p>
+      <textarea placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+
+  <script>
+    function showOS(osId) {
+      const parent = event.target.closest('.step') || event.target.closest('.lesson-section');
+      if (parent) {
+        parent.querySelectorAll('.os-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        parent.querySelectorAll('.os-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        const targetContent = parent.querySelector(`#${osId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          event.target.classList.add('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

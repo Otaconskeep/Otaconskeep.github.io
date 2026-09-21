@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3.1: HA Beginner — Device / Entity / Area / Integration — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 3: Home Assistant</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../2-arr/lesson-07.html">← Previous Lesson</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Lesson 3.1: HA Beginner — Device / Entity / Area / Integration</h2>
+      <span class="difficulty-badge difficulty-baby">BABY</span>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 What You Are Learning</h2>
+      <p><strong>One concept:</strong> The Home Assistant hierarchy — Devices contain Entities, Entities belong to Areas, Integrations connect everything.</p>
+      <p>Master this mental model BEFORE writing automations.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You Should Already Have</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Docker working (Unit 1)</li>
+        <li>Basic understanding of smart home devices (lights, sensors)</li>
+        <li>A computer that can run Home Assistant</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New Words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><a href="../../glossary.html#ha">Home Assistant (HA)</a> — Open-source home automation platform</li>
+        <li><strong>Device:</strong> Physical hardware (e.g., a smart light bulb)</li>
+        <li><strong>Entity:</strong> One control point on a device (e.g., light.living_room_lamp)</li>
+        <li><strong>Area:</strong> Physical location grouping (e.g., "Living Room")</li>
+        <li><strong>Integration:</strong> Software bridge to connect devices/services to HA</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ Architecture Picture</h2>
+      <div class="diagram">
+┌─────────────────────────────────────────────────────────────┐
+│          HOME ASSISTANT HIERARCHY                           │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  INTEGRATION (Software Bridge)                              │
+│  ┌───────────────────────────────────────────┐             │
+│  │  Zigbee2MQTT Integration                  │             │
+│  └───────────────────────────────────────────┘             │
+│                    ↓                                        │
+│  DEVICE (Physical Hardware)                                 │
+│  ┌───────────────────────────────────────────┐             │
+│  │  Smart Light Bulb (Manufacturer: IKEA)    │             │
+│  │  Model: TRADFRI E27 1000 lumen            │             │
+│  └───────────────────────────────────────────┘             │
+│                    ↓                                        │
+│  ENTITIES (Control Points on Device)                        │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐           │
+│  │ light.bulb │  │sensor.bulb │  │switch.bulb │           │
+│  │ (on/off    │  │_power      │  │_auto_off   │           │
+│  │  /dim)     │  │ (watts)    │  │            │           │
+│  └────────────┘  └────────────┘  └────────────┘           │
+│                    ↓                                        │
+│  AREA (Physical Location)                                   │
+│  ┌───────────────────────────────────────────┐             │
+│  │       Living Room                         │             │
+│  │  (Contains: light.bulb, sensor.temp, etc) │             │
+│  └───────────────────────────────────────────┘             │
+│                                                             │
+│  You control ENTITIES in automations, not devices!          │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture Videos (Optional)</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Smart Home Junkie:</strong> <a href="https://www.youtube.com/results?search_query=smart+home+junkie+home+assistant+beginner" target="_blank">What Is Home Assistant Ultimate Beginner Guide</a></li>
+        <li><strong>NetworkChuck:</strong> <a href="https://www.youtube.com/results?search_query=networkchuck+home+automation" target="_blank">Your home automation SUCKS</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Lab Steps: Install Home Assistant and Learn the Hierarchy</h2>
+      
+      <div class="steps">
+        <div class="step">
+          <h4>Install Home Assistant Container</h4>
+          <p>Create <code>~/docker/home-assistant/docker-compose.yml</code>:</p>
+          <pre><code>version: "3.8"
+
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - ./config:/config
+    ports:
+      - "8123:8123"
+    restart: unless-stopped
+    privileged: true
+    network_mode: host</code></pre>
+          
+          <div class="alert alert-warning">
+            <strong>⚠️ Note:</strong> <code>network_mode: host</code> is required for HA to discover local devices. This bypasses Docker network isolation.
+          </div>
+          
+          <pre><code>docker compose up -d</code></pre>
+        </div>
+
+        <div class="step">
+          <h4>Complete Setup Wizard</h4>
+          <p>Open: <code>http://localhost:8123</code> (or <code>http://SERVER-IP:8123</code>)</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Create your admin account (username + strong password)</li>
+            <li>Set location (used for weather, sunrise/sunset)</li>
+            <li>Choose system of measurement (metric/imperial)</li>
+            <li>Skip device discovery for now (we'll do it manually)</li>
+          </ol>
+        </div>
+
+        <div class="step">
+          <h4>Explore the Dashboard</h4>
+          <p>You'll see a basic dashboard. Don't worry if it's empty — we'll add devices!</p>
+          <p>Key sections to notice:</p>
+          <ul style="padding-left: 20px; color: var(--text-secondary);">
+            <li><strong>Overview:</strong> Main dashboard with entity cards</li>
+            <li><strong>Settings:</strong> Configuration and integrations</li>
+            <li><strong>Developer Tools:</strong> For testing automations</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h4>Add Your First Integration (Demo)</h4>
+          <p>Let's add the "Demo" integration to create fake devices for learning:</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Settings → Devices & Services → Add Integration</li>
+            <li>Search for "Demo"</li>
+            <li>Click "Demo" → Click "Submit"</li>
+            <li>Wait a few seconds</li>
+          </ol>
+          <p>HA will create demo lights, sensors, switches, etc!</p>
+        </div>
+
+        <div class="step">
+          <h4>Explore Devices</h4>
+          <p>Settings → Devices & Services → Demo Integration → Click "Devices"</p>
+          <p>Click on any device (e.g., "Bedroom Light")</p>
+          <p>You'll see:</p>
+          <ul style="padding-left: 20px; color: var(--text-secondary);">
+            <li><strong>Device info:</strong> Manufacturer, model, firmware</li>
+            <li><strong>Entities:</strong> List of entities this device provides</li>
+            <li><strong>Area:</strong> Which room it's assigned to</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h4>Explore Entities</h4>
+          <p>Settings → Devices & Services → Demo Integration → Click "Entities"</p>
+          <p>This shows ALL entities from Demo devices.</p>
+          <p>Click on an entity (e.g., <code>light.bed_light</code>)</p>
+          <p>You can:</p>
+          <ul style="padding-left: 20px; color: var(--text-secondary);">
+            <li>Rename it</li>
+            <li>Assign it to an Area</li>
+            <li>Hide it from the UI</li>
+            <li>See its history</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h4>Create Areas</h4>
+          <p>Settings → Areas, Labels & Zones → Areas → Add Area</p>
+          <p>Create these areas:</p>
+          <ul style="padding-left: 20px; color: var(--text-secondary);">
+            <li>Living Room</li>
+            <li>Bedroom</li>
+            <li>Kitchen</li>
+          </ul>
+          <p>You can add an icon and image for each area.</p>
+        </div>
+
+        <div class="step">
+          <h4>Assign Entities to Areas</h4>
+          <p>Go back to Settings → Devices & Services → Demo → Entities</p>
+          <p>For each entity:</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Click the entity name</li>
+            <li>Click the gear icon ⚙️</li>
+            <li>Select an Area from the dropdown</li>
+            <li>Click "Update"</li>
+          </ol>
+        </div>
+
+        <div class="step">
+          <h4>Test Entity Controls</h4>
+          <p>Return to Overview dashboard</p>
+          <p>You should now see entity cards grouped by Area!</p>
+          <p>Click a light entity → Toggle it on/off</p>
+          <p>Click a sensor entity → See current value</p>
+          <p><strong>This is entity control — the foundation of HA!</strong></p>
+        </div>
+
+        <div class="step">
+          <h4>Use Developer Tools</h4>
+          <p>Developer Tools → States</p>
+          <p>This shows the internal state of EVERY entity.</p>
+          <p>Find <code>light.bed_light</code> → See state: "on" or "off"</p>
+          <p>This is what automations read and modify!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 Understanding the HA Mental Model</h2>
+      
+      <h3>1. Integration (The Bridge):</h3>
+      <p>Software that connects HA to devices or services. Examples:</p>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Zigbee2MQTT — connects Zigbee devices</li>
+        <li>Philips Hue — connects Hue lights</li>
+        <li>MQTT — connects custom IoT sensors</li>
+        <li>Weather — gets forecast data</li>
+      </ul>
+
+      <h3>2. Device (The Hardware):</h3>
+      <p>A physical or virtual device managed by an integration.</p>
+      <p>One device can provide multiple entities.</p>
+
+      <h3>3. Entity (The Control Point):</h3>
+      <p>The actual thing you control or read in automations.</p>
+      <p>Entity ID format: <code>domain.object_id</code></p>
+      <p>Examples:</p>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><code>light.living_room_lamp</code> — controllable light</li>
+        <li><code>sensor.bedroom_temperature</code> — read-only sensor</li>
+        <li><code>switch.coffee_maker</code> — on/off switch</li>
+      </ul>
+
+      <h3>4. Area (The Location):</h3>
+      <p>Logical grouping of entities by physical room.</p>
+      <p>Used for voice commands ("turn off living room lights") and dashboards.</p>
+
+      <div class="alert alert-info">
+        <strong>💡 Key insight:</strong> In automations, you control ENTITIES, not devices. Always think in terms of entity IDs!
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <h3>✅ Checkpoint: Verify Your Understanding</h3>
+      
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-8-1">
+        <label for="check-8-1">Home Assistant web UI accessible at <code>http://localhost:8123</code></label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-8-2">
+        <label for="check-8-2">Demo integration added with devices and entities visible</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-8-3">
+        <label for="check-8-3">I created at least 2 Areas (e.g., Living Room, Bedroom)</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-8-4">
+        <label for="check-8-4">I assigned demo entities to Areas</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-8-5">
+        <label for="check-8-5">I can toggle a demo light on/off from the Overview dashboard</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-8-6">
+        <label for="check-8-6">I understand the hierarchy: Integration → Device → Entity → Area</label>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>✅ Ready to write your first automation!</p>
+      <a href="lesson-09.html">NEXT: Lesson 3.2 — Real Automation (Trigger → Condition → Action) →</a>
+    </div>
+
+    <div class="decision-tree">
+      <h3>🔧 Troubleshooting Decision Tree</h3>
+      
+      <div class="decision-item">
+        <strong>Problem:</strong> Home Assistant not accessible at :8123
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check container is running: <code>docker ps | grep homeassistant</code><br>
+          → Check logs: <code>docker logs homeassistant</code><br>
+          → First boot takes 2-3 minutes to start — wait for "Home Assistant initialized"
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Can't find Demo integration
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Search for "demo" (lowercase) in Add Integration dialog<br>
+          → Restart HA if integration list doesn't load: Settings → System → Restart<br>
+          → Check internet connectivity (HA downloads integration list)
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Entities not showing on dashboard
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check entity is not hidden: Settings → Entities → Show hidden<br>
+          → Add entities manually to dashboard: Edit Dashboard → Add Card → Entity<br>
+          → Refresh browser (Ctrl+F5)
+        </p>
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Exit Ticket</h3>
+      <p><strong>Question:</strong> In your own words, explain the difference between a Device and an Entity in Home Assistant.</p>
+      <textarea placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+
+  <script>
+    function showOS(osId) {
+      const parent = event.target.closest('.step') || event.target.closest('.lesson-section');
+      if (parent) {
+        parent.querySelectorAll('.os-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        parent.querySelectorAll('.os-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        const targetContent = parent.querySelector(`#${osId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          event.target.classList.add('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

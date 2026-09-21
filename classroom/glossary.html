@@ -1,231 +1,263 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Glossary · Classroom</title>
-<meta name="description" content="ARR, Docker, networking, Home Assistant, and voice acronyms in plain words.">
-<link rel="canonical" href="https://otaconskeep.github.io/classroom/glossary.html">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921b">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glossary — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="classroom.css">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>GLOSSARY<span class="blink"></span></span></div></div>
-<nav class="topnav">
- <div class="wrap">
- <a class="brand" href="/">Otaconskeep</a>
- <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
- <div class="navlinks">
- <a href="/">Home</a>
- <a href="/otacon/">Otacon</a>
- <a href="/keepdesk/">Keep Desk</a>
- <a href="/keeproute/">KeepRoute</a>
- <a href="/expansion/">Expansion</a>
- <a href="/ai9/">AI9</a>
- <a href="/classroom/" aria-current="page">Classroom</a>
- <a href="/engineering/">Engineering</a>
- <a href="/faq/">FAQ</a>
- <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
- <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav>
-<nav class="cr-subnav" aria-label="Classroom">
- <div class="wrap">
- <a href="/classroom/">Academy</a>
- <a href="/classroom/start.html">Start</a>
- <a href="/classroom/path.html">Path</a>
- <a href="/classroom/glossary.html">Glossary</a>
- <a href="/classroom/units/1-infrastructure/">Unit 1</a>
- <a href="/classroom/units/2-arr/">Unit 2</a>
- <a href="/classroom/units/3-home-assistant/">Unit 3</a>
- <a href="/classroom/units/4-voice/">Unit 4</a>
- <a href="/classroom/final-exam.html">Final exam</a>
- </div>
-</nav>
-<div class="wrap">
-<section class="hero flush">
- <h1 class="display" style="font-size:clamp(2rem,5vw,3rem);">What the hell does that mean?</h1>
- <p class="lede">Permanent glossary. Lessons link here. Plain words first — then the technical name.</p>
-</section>
-<div class="cr-glossary"><details id="arr"><summary>ARR — Radarr / Sonarr ecosystem</summary>
-<p class="baby">Apps that automate your media library.</p>
-<p class="tech">Radarr / Sonarr ecosystem</p>
-</details><details id="api"><summary>API — Application Programming Interface</summary>
-<p class="baby">How programs talk to each other.</p>
-<p class="tech">Application Programming Interface</p>
-</details><details id="ip"><summary>IP — Internet Protocol address</summary>
-<p class="baby">A device&#x27;s network address.</p>
-<p class="tech">Internet Protocol address</p>
-</details><details id="lan"><summary>LAN — Local Area Network</summary>
-<p class="baby">Your home network.</p>
-<p class="tech">Local Area Network</p>
-</details><details id="wan"><summary>WAN — Wide Area Network</summary>
-<p class="baby">The internet side of your router.</p>
-<p class="tech">Wide Area Network</p>
-</details><details id="dns"><summary>DNS — Domain Name System</summary>
-<p class="baby">Turns names into IP addresses.</p>
-<p class="tech">Domain Name System</p>
-</details><details id="dhcp"><summary>DHCP — Dynamic Host Configuration Protocol</summary>
-<p class="baby">Automatically gives devices IP addresses.</p>
-<p class="tech">Dynamic Host Configuration Protocol</p>
-</details><details id="vlan"><summary>VLAN — Virtual LAN</summary>
-<p class="baby">Separates devices into isolated networks.</p>
-<p class="tech">Virtual LAN</p>
-</details><details id="vpn"><summary>VPN — Virtual Private Network</summary>
-<p class="baby">Encrypted / private network connection.</p>
-<p class="tech">Virtual Private Network</p>
-</details><details id="uid"><summary>UID — User ID</summary>
-<p class="baby">Linux number representing a user.</p>
-<p class="tech">User ID</p>
-</details><details id="gid"><summary>GID — Group ID</summary>
-<p class="baby">Linux number representing a user group.</p>
-<p class="tech">Group ID</p>
-</details><details id="smb"><summary>SMB — Server Message Block</summary>
-<p class="baby">Windows-style network file sharing.</p>
-<p class="tech">Server Message Block</p>
-</details><details id="nfs"><summary>NFS — Network File System</summary>
-<p class="baby">Linux-oriented network file sharing.</p>
-<p class="tech">Network File System</p>
-</details><details id="yaml"><summary>YAML — YAML Ain&#x27;t Markup Language</summary>
-<p class="baby">Human-readable configuration format.</p>
-<p class="tech">YAML Ain&#x27;t Markup Language</p>
-</details><details id="docker"><summary>Docker — Container platform</summary>
-<p class="baby">Runs apps in isolated packages.</p>
-<p class="tech">Container platform</p>
-</details><details id="container"><summary>Container — Running Docker application</summary>
-<p class="baby">A lightweight packaged application.</p>
-<p class="tech">Running Docker application</p>
-</details><details id="image"><summary>Image — Container template</summary>
-<p class="baby">Blueprint used to create a container.</p>
-<p class="tech">Container template</p>
-</details><details id="volume"><summary>Volume — Persistent storage</summary>
-<p class="baby">Data that survives container restarts.</p>
-<p class="tech">Persistent storage</p>
-</details><details id="bind-mount"><summary>Bind mount — Host folder mounted into container</summary>
-<p class="baby">Lets Docker see one of your folders.</p>
-<p class="tech">Host folder mounted into container</p>
-</details><details id="port"><summary>Port — Network communication endpoint</summary>
-<p class="baby">The door an application listens on.</p>
-<p class="tech">Network communication endpoint</p>
-</details><details id="reverse-proxy"><summary>Reverse proxy — Gateway to internal websites</summary>
-<p class="baby">Gives internal services friendly / secure URLs.</p>
-<p class="tech">Gateway to internal websites</p>
-</details><details id="hardlink"><summary>Hardlink — Second directory entry for one file</summary>
-<p class="baby">Two names, one copy on disk — great for torrents.</p>
-<p class="tech">Second directory entry for one file</p>
-</details><details id="atomic-move"><summary>Atomic move — Same-filesystem rename/move</summary>
-<p class="baby">Usenet finish step without a slow full copy.</p>
-<p class="tech">Same-filesystem rename/move</p>
-</details><details id="indexer"><summary>Indexer — Torrent / Usenet search source</summary>
-<p class="baby">Where ARR apps look for releases.</p>
-<p class="tech">Torrent / Usenet search source</p>
-</details><details id="custom-format"><summary>Custom Format — ARR scoring rule</summary>
-<p class="baby">Grades releases so the best one wins.</p>
-<p class="tech">ARR scoring rule</p>
-</details><details id="trash"><summary>TRaSH — TRaSH Guides</summary>
-<p class="baby">Maintained playbook for ARR folder layouts and profiles.</p>
-<p class="tech">TRaSH Guides</p>
-</details><details id="recyclarr"><summary>Recyclarr — TRaSH sync tool</summary>
-<p class="baby">Pushes guide profiles into Sonarr/Radarr automatically.</p>
-<p class="tech">TRaSH sync tool</p>
-</details><details id="prowlarr"><summary>Prowlarr — Indexer manager</summary>
-<p class="baby">One place to manage search sources for ARR apps.</p>
-<p class="tech">Indexer manager</p>
-</details><details id="sonarr"><summary>Sonarr — TV automation</summary>
-<p class="baby">Finds, downloads, renames, and files TV shows.</p>
-<p class="tech">TV automation</p>
-</details><details id="radarr"><summary>Radarr — Movie automation</summary>
-<p class="baby">Finds, downloads, renames, and files movies.</p>
-<p class="tech">Movie automation</p>
-</details><details id="lidarr"><summary>Lidarr — Music automation</summary>
-<p class="baby">ARR-style automation for music.</p>
-<p class="tech">Music automation</p>
-</details><details id="bazarr"><summary>Bazarr — Subtitle automation</summary>
-<p class="baby">Grabs subtitles for your library.</p>
-<p class="tech">Subtitle automation</p>
-</details><details id="qbittorrent"><summary>qBittorrent — Torrent client</summary>
-<p class="baby">Downloads torrent files.</p>
-<p class="tech">Torrent client</p>
-</details><details id="sabnzbd"><summary>SABnzbd — Usenet client</summary>
-<p class="baby">Downloads and unpacks Usenet posts.</p>
-<p class="tech">Usenet client</p>
-</details><details id="gluetun"><summary>Gluetun — VPN container</summary>
-<p class="baby">Puts only the torrent client behind a VPN.</p>
-<p class="tech">VPN container</p>
-</details><details id="seerr"><summary>Seerr — Request UI family</summary>
-<p class="baby">Friends request movies/shows; ARR does the work.</p>
-<p class="tech">Request UI family</p>
-</details><details id="tautulli"><summary>Tautulli — Plex monitor</summary>
-<p class="baby">Shows who watched what on Plex.</p>
-<p class="tech">Plex monitor</p>
-</details><details id="stt"><summary>STT — Speech to Text</summary>
-<p class="baby">Voice → words.</p>
-<p class="tech">Speech to Text</p>
-</details><details id="tts"><summary>TTS — Text to Speech</summary>
-<p class="baby">Words → voice.</p>
-<p class="tech">Text to Speech</p>
-</details><details id="llm"><summary>LLM — Large Language Model</summary>
-<p class="baby">AI language model.</p>
-<p class="tech">Large Language Model</p>
-</details><details id="wyoming"><summary>Wyoming — Voice service protocol</summary>
-<p class="baby">Lets Home Assistant connect speech / wake-word services.</p>
-<p class="tech">Voice service protocol</p>
-</details><details id="piper"><summary>Piper — Text-to-speech engine</summary>
-<p class="baby">Gives Home Assistant a local voice.</p>
-<p class="tech">Text-to-speech engine</p>
-</details><details id="whisper"><summary>Whisper — Speech recognition model</summary>
-<p class="baby">Converts spoken audio to text.</p>
-<p class="tech">Speech recognition model</p>
-</details><details id="esphome"><summary>ESPHome — Device firmware / platform</summary>
-<p class="baby">Connects DIY devices directly to Home Assistant.</p>
-<p class="tech">Device firmware / platform</p>
-</details><details id="ha"><summary>HA — Home Assistant</summary>
-<p class="baby">Home automation platform.</p>
-<p class="tech">Home Assistant</p>
-</details><details id="mqtt"><summary>MQTT — Message Queuing Telemetry Transport</summary>
-<p class="baby">Lightweight messaging between smart devices.</p>
-<p class="tech">Message Queuing Telemetry Transport</p>
-</details><details id="zigbee"><summary>Zigbee — Low-power mesh radio</summary>
-<p class="baby">Sensors and plugs that hop messages through each other.</p>
-<p class="tech">Low-power mesh radio</p>
-</details><details id="thread"><summary>Thread — Low-power IPv6 mesh</summary>
-<p class="baby">Mesh used by many Matter devices (including some locks).</p>
-<p class="tech">Low-power IPv6 mesh</p>
-</details><details id="matter"><summary>Matter — Smart-home language</summary>
-<p class="baby">Shared way devices talk across brands.</p>
-<p class="tech">Smart-home language</p>
-</details><details id="border-router"><summary>Border router — Thread ↔ LAN bridge</summary>
-<p class="baby">Device that lets Thread gadgets join your home network.</p>
-<p class="tech">Thread ↔ LAN bridge</p>
-</details><details id="root-folder"><summary>Root folder — Library path in ARR</summary>
-<p class="baby">Where Sonarr/Radarr file finished media (e.g. /data/media/tv).</p>
-<p class="tech">Library path in ARR</p>
-</details><details id="category"><summary>Category — Download client label</summary>
-<p class="baby">Tag that sends torrents/nzbs into the right download folder (tv vs movies).</p>
-<p class="tech">Download client label</p>
-</details><details id="puid"><summary>PUID — Process user ID</summary>
-<p class="baby">Linux user number containers use when writing files.</p>
-<p class="tech">Process user ID</p>
-</details><details id="pgid"><summary>PGID — Process group ID</summary>
-<p class="baby">Linux group number containers use when writing files.</p>
-<p class="tech">Process group ID</p>
-</details><details id="flaresolverr"><summary>FlareSolverr — Challenge proxy</summary>
-<p class="baby">Optional helper so indexers behind anti-bot pages can be tested.</p>
-<p class="tech">Challenge proxy</p>
-</details><details id="assist"><summary>Assist — HA voice pipeline</summary>
-<p class="baby">Home Assistant&#x27;s built-in voice control system.</p>
-<p class="tech">HA voice pipeline</p>
-</details></div>
-<div class="cr-pager"><a href="/classroom/">← Academy</a><a href="start.html">Start here →</a></div>
-</div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921b"></script>
-</body></html>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Glossary — What the Hell Does That Mean?</p>
+    </header>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="start.html">Start Here</a>
+      <a href="path.html">Choose Your Path</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="card">
+      <h2>📖 Complete Technical Glossary</h2>
+      <p>Every technical term used in this course is defined here. When you encounter a highlighted word in a lesson, look it up!</p>
+    </div>
+
+    <div class="glossary-grid">
+      
+      <div class="glossary-term" id="api">
+        <dt>API (Application Programming Interface)</dt>
+        <dd>A way for programs to talk to each other. Sonarr's API lets other tools (like Prowlarr or Recyclarr) send requests to add shows or change settings without clicking the web UI.</dd>
+      </div>
+
+      <div class="glossary-term" id="arr">
+        <dt>ARR Stack / *arr Apps</dt>
+        <dd>The family of media automation tools: Sonarr (TV), Radarr (movies), Lidarr (music), Readarr (books), Prowlarr (indexer manager). Named for the "arr" suffix in pirate speak.</dd>
+      </div>
+
+      <div class="glossary-term" id="bind-mount">
+        <dt>Bind Mount</dt>
+        <dd>A Docker volume that maps a host filesystem path directly into a container. Example: <code>./config:/config</code> maps the host's <code>./config</code> folder to <code>/config</code> inside the container.</dd>
+      </div>
+
+      <div class="glossary-term" id="container">
+        <dt>Container</dt>
+        <dd>A running instance of a Docker image. Like a virtual machine but lighter — it shares the host kernel and starts in seconds.</dd>
+      </div>
+
+      <div class="glossary-term" id="compose">
+        <dt>Docker Compose</dt>
+        <dd>A tool for defining multi-container Docker applications in a YAML file (<code>docker-compose.yml</code>). Instead of running <code>docker run</code> 10 times, you write one file and <code>docker compose up -d</code>.</dd>
+      </div>
+
+      <div class="glossary-term" id="custom-format">
+        <dt>Custom Format (CF)</dt>
+        <dd>TRaSH Guides scoring system for release quality in Sonarr/Radarr. Examples: prefer DV/HDR, avoid hardcoded subs, require proper groups. CFs assign positive/negative scores to releases.</dd>
+      </div>
+
+      <div class="glossary-term" id="dhcp">
+        <dt>DHCP (Dynamic Host Configuration Protocol)</dt>
+        <dd>The service that automatically assigns IP addresses to devices on your LAN. Your router usually runs the DHCP server.</dd>
+      </div>
+
+      <div class="glossary-term" id="dns">
+        <dt>DNS (Domain Name System)</dt>
+        <dd>Translates domain names (google.com) into IP addresses (172.217.14.206). Your router forwards DNS requests to your ISP or a public DNS like 1.1.1.1.</dd>
+      </div>
+
+      <div class="glossary-term" id="docker">
+        <dt>Docker</dt>
+        <dd>A platform for running applications in isolated containers. Each container is a lightweight, portable package with its own filesystem and dependencies.</dd>
+      </div>
+
+      <div class="glossary-term" id="esphome">
+        <dt>ESPHome</dt>
+        <dd>A Home Assistant ecosystem tool for programming ESP32/ESP8266 microcontrollers. Also the protocol used by the new Linux Voice Assistant satellites.</dd>
+      </div>
+
+      <div class="glossary-term" id="gid">
+        <dt>GID (Group ID)</dt>
+        <dd>A Linux group identifier number. Docker containers often need <code>PGID=1000</code> to match your host user's group so file permissions work correctly.</dd>
+      </div>
+
+      <div class="glossary-term" id="hardlink">
+        <dt>Hardlink</dt>
+        <dd>A second directory entry pointing to the same file data on disk. Sonarr/Radarr use hardlinks so completed torrents can stay in the download folder for seeding while also appearing in the media library — without doubling disk usage.</dd>
+      </div>
+
+      <div class="glossary-term" id="ha">
+        <dt>Home Assistant (HA)</dt>
+        <dd>Open-source home automation platform that integrates smart devices, creates automations, and runs local voice assistants.</dd>
+      </div>
+
+      <div class="glossary-term" id="image">
+        <dt>Docker Image</dt>
+        <dd>A template/blueprint for a container. Built from a Dockerfile. You <code>docker pull</code> images from Docker Hub, then <code>docker run</code> them to create containers.</dd>
+      </div>
+
+      <div class="glossary-term" id="indexer">
+        <dt>Indexer</dt>
+        <dd>A search service for torrents or Usenet. Examples: NZBgeek (Usenet), TorrentLeech (private torrent). Prowlarr manages indexers for all your ARR apps.</dd>
+      </div>
+
+      <div class="glossary-term" id="ip">
+        <dt>IP Address</dt>
+        <dd>A numerical label for devices on a network. IPv4 example: <code>192.168.1.100</code>. Your router assigns local IPs to devices via DHCP.</dd>
+      </div>
+
+      <div class="glossary-term" id="lan">
+        <dt>LAN (Local Area Network)</dt>
+        <dd>Your home network — the devices connected to your router via ethernet or Wi-Fi. Usually uses private IP ranges like <code>192.168.x.x</code> or <code>10.x.x.x</code>.</dd>
+      </div>
+
+      <div class="glossary-term" id="llm">
+        <dt>LLM (Large Language Model)</dt>
+        <dd>AI model for understanding and generating text. In Home Assistant Assist, you can use local LLMs to interpret complex voice commands instead of simple keyword matching.</dd>
+      </div>
+
+      <div class="glossary-term" id="mqtt">
+        <dt>MQTT</dt>
+        <dd>A lightweight messaging protocol for IoT devices. Many Zigbee/Z-Wave bridges publish sensor data over MQTT, which Home Assistant subscribes to.</dd>
+      </div>
+
+      <div class="glossary-term" id="nas">
+        <dt>NAS (Network Attached Storage)</dt>
+        <dd>A dedicated storage server on your LAN. Examples: Synology, QNAP, TrueNAS. Provides SMB/NFS shares that Docker containers can mount.</dd>
+      </div>
+
+      <div class="glossary-term" id="nfs">
+        <dt>NFS (Network File System)</dt>
+        <dd>A Linux-native protocol for sharing folders over the network. Faster than SMB for Linux-to-Linux connections.</dd>
+      </div>
+
+      <div class="glossary-term" id="piper">
+        <dt>Piper</dt>
+        <dd>A fast, local text-to-speech (TTS) engine built for Home Assistant. Generates voice responses offline. Part of the Wyoming ecosystem.</dd>
+      </div>
+
+      <div class="glossary-term" id="port">
+        <dt>Port (Network)</dt>
+        <dd>A numbered endpoint on a device. Web servers listen on port 80/443, Sonarr on 8989, Radarr on 7878. Format: <code>IP:port</code> like <code>192.168.1.10:8989</code>.</dd>
+      </div>
+
+      <div class="glossary-term" id="prowlarr">
+        <dt>Prowlarr</dt>
+        <dd>An indexer manager for ARR apps. Instead of adding indexers to Sonarr, Radarr, Lidarr separately, add them once in Prowlarr and sync everywhere.</dd>
+      </div>
+
+      <div class="glossary-term" id="quality-profile">
+        <dt>Quality Profile</dt>
+        <dd>Settings in Sonarr/Radarr that define which video qualities are acceptable (480p, 720p, 1080p, 4K) and which formats to prefer (DV, HDR, etc.).</dd>
+      </div>
+
+      <div class="glossary-term" id="radarr">
+        <dt>Radarr</dt>
+        <dd>An ARR app for managing movie libraries. Searches indexers, sends downloads to qBittorrent/SAB, imports files to Plex/Jellyfin.</dd>
+      </div>
+
+      <div class="glossary-term" id="reverse-proxy">
+        <dt>Reverse Proxy</dt>
+        <dd>A server that sits in front of web services and routes traffic. Examples: Nginx Proxy Manager, Traefik. Lets you access services via <code>sonarr.yourdomain.com</code> instead of <code>192.168.1.10:8989</code>.</dd>
+      </div>
+
+      <div class="glossary-term" id="smb">
+        <dt>SMB (Samba / CIFS)</dt>
+        <dd>Windows file sharing protocol. Used by NAS devices to share folders. Mount SMB shares in Linux with <code>mount -t cifs</code>.</dd>
+      </div>
+
+      <div class="glossary-term" id="sonarr">
+        <dt>Sonarr</dt>
+        <dd>An ARR app for managing TV show libraries. Monitors RSS feeds, searches indexers for new episodes, automates downloads.</dd>
+      </div>
+
+      <div class="glossary-term" id="stt">
+        <dt>STT (Speech-to-Text)</dt>
+        <dd>Converts spoken words into written text. Whisper is a popular local STT engine for Home Assistant.</dd>
+      </div>
+
+      <div class="glossary-term" id="trash">
+        <dt>TRaSH Guides</dt>
+        <dd>Community-maintained documentation for optimal Sonarr/Radarr setup. Covers file structure, hardlinks, Custom Formats, quality profiles. The authoritative ARR playbook.</dd>
+      </div>
+
+      <div class="glossary-term" id="tts">
+        <dt>TTS (Text-to-Speech)</dt>
+        <dd>Converts written text into spoken audio. Piper is a fast local TTS engine for Home Assistant responses.</dd>
+      </div>
+
+      <div class="glossary-term" id="uid">
+        <dt>UID (User ID)</dt>
+        <dd>A Linux user identifier number. Docker containers often need <code>PUID=1000</code> to match your host user so files are readable/writable.</dd>
+      </div>
+
+      <div class="glossary-term" id="vlan">
+        <dt>VLAN (Virtual LAN)</dt>
+        <dd>A way to split one physical network into multiple logical networks. Advanced use: isolate IoT devices from your main LAN for security.</dd>
+      </div>
+
+      <div class="glossary-term" id="volume">
+        <dt>Docker Volume</dt>
+        <dd>Persistent storage for Docker containers. Named volumes (<code>sonarr-config:/config</code>) or bind mounts (<code>./data:/data</code>).</dd>
+      </div>
+
+      <div class="glossary-term" id="vpn">
+        <dt>VPN (Virtual Private Network)</dt>
+        <dd>Encrypted tunnel between your device and a remote server. For homelab: use Tailscale/ZeroTier to access services remotely. For downloads: use Gluetun to route torrent traffic through a VPN provider.</dd>
+      </div>
+
+      <div class="glossary-term" id="wan">
+        <dt>WAN (Wide Area Network)</dt>
+        <dd>The outside world / internet beyond your router. Your router's WAN port connects to your ISP modem.</dd>
+      </div>
+
+      <div class="glossary-term" id="whisper">
+        <dt>Whisper</dt>
+        <dd>OpenAI's speech-to-text model, now available for local use. Fast and accurate STT for Home Assistant voice pipelines. Part of the Wyoming ecosystem.</dd>
+      </div>
+
+      <div class="glossary-term" id="wyoming">
+        <dt>Wyoming Protocol</dt>
+        <dd>A protocol for connecting voice services (Whisper, Piper, wake words) to Home Assistant. Wyoming services can run on separate machines for heavy GPU workloads.</dd>
+      </div>
+
+      <div class="glossary-term" id="yaml">
+        <dt>YAML</dt>
+        <dd>A human-readable data format used for config files. Docker Compose, Home Assistant automations, and Recyclarr configs are all written in YAML. Indentation matters!</dd>
+      </div>
+
+      <div class="glossary-term" id="zigbee">
+        <dt>Zigbee</dt>
+        <dd>A low-power wireless protocol for smart home devices. Requires a Zigbee hub/coordinator (like Zigbee2MQTT or a USB stick) to connect devices to Home Assistant.</dd>
+      </div>
+
+      <div class="glossary-term" id="zwave">
+        <dt>Z-Wave</dt>
+        <dd>Another wireless protocol for smart home devices. More expensive than Zigbee but better range and mesh reliability in some setups.</dd>
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-top: 40px;">
+      <h2>🔍 How to Use This Glossary</h2>
+      <ul style="margin: 15px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Bookmark this page</strong> — You'll reference it constantly during lessons</li>
+        <li><strong>Use Ctrl+F</strong> to search for terms</li>
+        <li><strong>Deep links:</strong> Each term has an ID you can link to (e.g., <code>glossary.html#docker</code>)</li>
+        <li><strong>Still confused?</strong> Check official documentation or ask in the TRaSH Discord / Home Assistant forums</li>
+      </ul>
+    </div>
+
+    <div class="continue-box">
+      <p>Return to the lesson or start the course!</p>
+      <a href="index.html">Back to Home →</a>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+</body>
+</html>

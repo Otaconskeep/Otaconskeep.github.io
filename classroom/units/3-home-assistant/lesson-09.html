@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3.2: Real Automation — Trigger → Condition → Action — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 3: Home Assistant</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="lesson-08.html">← Previous Lesson</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Lesson 3.2: Real Automation — Trigger → Condition → Action</h2>
+      <span class="difficulty-badge difficulty-intermediate">INTERMEDIATE</span>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 What You Are Learning</h2>
+      <p><strong>One concept:</strong> The Trigger → Condition → Action pattern that powers all Home Assistant automations.</p>
+      <p>You'll build, test, break, and fix a real automation to master the workflow.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You Should Already Have</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Home Assistant running with Demo integration (Lesson 3.1)</li>
+        <li>Entities assigned to Areas</li>
+        <li>Understanding of entity IDs</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New Words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Trigger:</strong> WHEN something happens (event that starts automation)</li>
+        <li><strong>Condition:</strong> IF this is true (optional check before action)</li>
+        <li><strong>Action:</strong> THEN do this (what the automation executes)</li>
+        <li><strong>Trace:</strong> HA's debugging view showing automation execution path</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ Architecture Picture</h2>
+      <div class="diagram">
+┌─────────────────────────────────────────────────────────────┐
+│          AUTOMATION FLOW DIAGRAM                            │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Example: "Turn on hallway light when door opens at night" │
+│                                                             │
+│  1. TRIGGER (When this happens)                             │
+│     ┌────────────────────────────────────┐                 │
+│     │ State Change:                      │                 │
+│     │ binary_sensor.front_door           │                 │
+│     │ from: off → to: on                 │                 │
+│     └────────────────────────────────────┘                 │
+│                    ↓                                        │
+│  2. CONDITION (If this is true)                             │
+│     ┌────────────────────────────────────┐                 │
+│     │ Check: Is it after sunset?         │                 │
+│     │ sun.sun = below_horizon  → TRUE    │                 │
+│     └────────────────────────────────────┘                 │
+│                    ↓                                        │
+│  3. ACTION (Then do this)                                   │
+│     ┌────────────────────────────────────┐                 │
+│     │ Service call:                      │                 │
+│     │ light.turn_on                      │                 │
+│     │ target: light.hallway_light        │                 │
+│     └────────────────────────────────────┘                 │
+│                    ↓                                        │
+│           💡 Light turns on!                                │
+│                                                             │
+│  If condition is FALSE (daytime), automation stops.         │
+│  No action runs.                                            │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture Videos (Optional)</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Home Assistant:</strong> <a href="https://www.home-assistant.io/docs/automation/" target="_blank">Official Automation Docs</a></li>
+        <li><strong>Smart Home Junkie:</strong> <a href="https://www.youtube.com/results?search_query=smart+home+junkie+automations" target="_blank">HA Automation Guides</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Lab Steps: Build Your First Automation</h2>
+      
+      <div class="steps">
+        <div class="step">
+          <h4>Open Automation Editor</h4>
+          <p>Settings → Automations & Scenes → Create Automation → Create new automation</p>
+          <p>You'll see a blank automation template with Trigger / Condition / Action sections.</p>
+        </div>
+
+        <div class="step">
+          <h4>Name Your Automation</h4>
+          <p>Top of page: Name = "Demo: Turn on bedroom light at sunset"</p>
+        </div>
+
+        <div class="step">
+          <h4>Add a Trigger (Sun Trigger)</h4>
+          <p>Click "Add Trigger" → Search "sun" → Select "Sun"</p>
+          <p>Configure:</p>
+          <ul style="padding-left: 20px; margin-top: 10px;">
+            <li>Event: Sunset</li>
+            <li>Offset: 0 (trigger exactly at sunset)</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h4>Add an Action (Turn On Light)</h4>
+          <p>Scroll down → Click "Add Action" → Search "light" → "Turn on lights"</p>
+          <p>Choose target:</p>
+          <ul style="padding-left: 20px; margin-top: 10px;">
+            <li>Click "Choose entity"</li>
+            <li>Select <code>light.bed_light</code> (from Demo integration)</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h4>Save the Automation</h4>
+          <p>Click "Save" at top right.</p>
+          <p>Your first automation is now active!</p>
+        </div>
+
+        <div class="step">
+          <h4>Test Without Waiting for Sunset</h4>
+          <p>Click the three dots menu → "Run"</p>
+          <p>This manually triggers the automation.</p>
+          <p>Check Overview dashboard → <code>light.bed_light</code> should turn on!</p>
+        </div>
+
+        <div class="step">
+          <h4>View Automation Trace</h4>
+          <p>In the automation editor, click "Traces" (top right)</p>
+          <p>You'll see the execution path:</p>
+          <ul style="padding-left: 20px; color: var(--text-secondary);">
+            <li>Green boxes = steps that ran</li>
+            <li>Red boxes = errors (if any)</li>
+            <li>Gray boxes = conditions that blocked execution</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h4>Add a Condition (Time-Based)</h4>
+          <p>Edit your automation → Add Condition → Time</p>
+          <p>Configure:</p>
+          <ul style="padding-left: 20px; margin-top: 10px;">
+            <li>After: 18:00 (6 PM)</li>
+            <li>Before: 23:00 (11 PM)</li>
+          </ul>
+          <p>Save → Run again</p>
+          <p><strong>Result:</strong> If you run outside 6-11 PM, light won't turn on (check trace — condition will be red).</p>
+        </div>
+
+        <div class="step">
+          <h4>Build a Second Automation (State-Based)</h4>
+          <p>Create new automation: "Demo: Turn off lights when away"</p>
+          <p>Trigger: State → Entity: <code>person.demo</code> → To: "not_home"</p>
+          <p>Action: Turn off lights → Choose ALL demo lights in your bedroom area</p>
+          <p>Save and test by manually changing person state in Developer Tools.</p>
+        </div>
+
+        <div class="step">
+          <h4>Practice: Break and Fix</h4>
+          <p>Intentionally break the automation:</p>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Change light entity to a non-existent ID (e.g., <code>light.fake_light</code>)</li>
+            <li>Try to run the automation</li>
+            <li>Check trace → See the error!</li>
+            <li>Fix the entity ID → Run again → Should work</li>
+          </ol>
+          <p><strong>This is how you debug real automations!</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 Understanding Triggers, Conditions, Actions</h2>
+      
+      <h3>Triggers (Required — at least one):</h3>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>State:</strong> Entity changes state (light.bedroom from off → on)</li>
+        <li><strong>Time:</strong> Specific time or interval (every day at 7 AM)</li>
+        <li><strong>Sun:</strong> Sunrise or sunset</li>
+        <li><strong>Numeric state:</strong> Sensor crosses threshold (temp > 75°F)</li>
+        <li><strong>Event:</strong> HA system events (startup, shutdown)</li>
+      </ul>
+
+      <h3>Conditions (Optional — zero or more):</h3>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>State:</strong> Check if entity is in certain state</li>
+        <li><strong>Time:</strong> Only run during certain hours</li>
+        <li><strong>Numeric state:</strong> Check sensor value</li>
+        <li><strong>Zone:</strong> Check if person is home/away</li>
+        <li><strong>Template:</strong> Custom logic (advanced)</li>
+      </ul>
+
+      <h3>Actions (Required — at least one):</h3>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Service calls:</strong> Turn on/off lights, send notifications</li>
+        <li><strong>Delays:</strong> Wait X seconds before next action</li>
+        <li><strong>Choose:</strong> If-then branching (advanced)</li>
+        <li><strong>Repeat:</strong> Loop actions (advanced)</li>
+      </ul>
+
+      <div class="alert alert-warning">
+        <strong>⚠️ Common mistake:</strong> Forgetting that conditions are CHECKS, not triggers. If condition is false when trigger fires, automation stops.
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <h3>✅ Checkpoint: Verify Your Learning</h3>
+      
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-9-1">
+        <label for="check-9-1">I created an automation with at least one trigger and one action</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-9-2">
+        <label for="check-9-2">I manually ran the automation and it executed successfully</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-9-3">
+        <label for="check-9-3">I viewed the automation trace and saw green boxes for successful steps</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-9-4">
+        <label for="check-9-4">I added a condition that blocked execution when false</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-9-5">
+        <label for="check-9-5">I intentionally broke an automation and debugged it using traces</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-9-6">
+        <label for="check-9-6">I understand the difference between triggers and conditions</label>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>✅ Automation mastered! Now secure your HA for remote access.</p>
+      <a href="lesson-10.html">NEXT: Lesson 3.3 — Secure Remote Access (VPN vs Tunnel vs Ports) →</a>
+    </div>
+
+    <div class="decision-tree">
+      <h3>🔧 Troubleshooting Decision Tree</h3>
+      
+      <div class="decision-item">
+        <strong>Problem:</strong> Automation doesn't run when trigger fires
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check automation is enabled (toggle in automation list)<br>
+          → Check trace for red condition boxes (condition blocked it)<br>
+          → Verify entity ID in trigger matches actual entity
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> "Entity not found" error in trace
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Entity ID must match EXACTLY (case-sensitive)<br>
+          → Check entity still exists: Developer Tools → States<br>
+          → If entity was renamed, update automation
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Automation runs but nothing happens
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check action service call is correct (e.g., <code>light.turn_on</code>)<br>
+          → Verify target entity is controllable (not a sensor)<br>
+          → Look for error messages in trace action step
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Can't find entity when creating automation
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Entity might be hidden: Settings → Entities → Show disabled<br>
+          → Integration might be offline: Settings → Devices & Services<br>
+          → Try typing entity ID manually instead of clicking
+        </p>
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Exit Ticket</h3>
+      <p><strong>Question:</strong> Explain in your own words: what is the difference between a Trigger and a Condition in a Home Assistant automation?</p>
+      <textarea placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+
+  <script>
+    function showOS(osId) {
+      const parent = event.target.closest('.step') || event.target.closest('.lesson-section');
+      if (parent) {
+        parent.querySelectorAll('.os-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        parent.querySelectorAll('.os-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        const targetContent = parent.querySelector(`#${osId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          event.target.classList.add('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

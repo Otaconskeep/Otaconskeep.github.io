@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 02 — Docker Compose Will Save Your Sanity — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 1: Infrastructure & Docker</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="lesson-01.html">← Previous</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Class 02 — Docker Compose Will Save Your Sanity</h2>
+      <span class="difficulty-badge difficulty-baby">BABY</span>
+      <p style="margin-top: 15px;"><strong>Prev:</strong> <a href="lesson-01.html">Class 01</a> · <strong>Next:</strong> <a href="lesson-03.html">Class 03</a></p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>Goal / What you are learning</h2>
+      <p><strong>One concept:</strong> <a href="../../glossary.html#compose">Compose</a> is the <strong>unit of deploy</strong> — one YAML file describes services, networks, and volumes so you stop hand-typing endless <code>docker run</code> lines.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You should already have</h2>
+      <div class="checkbox-item">
+        <input type="checkbox" id="prereq-1">
+        <label for="prereq-1">Class 01 checkpoint</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="prereq-2">
+        <label for="prereq-2">Working <code>docker compose version</code></label>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><a href="../../glossary.html#compose">Compose</a></li>
+        <li><a href="../../glossary.html#stack">Service</a> (stack/service)</li>
+        <li><a href="../../glossary.html#image">Image</a></li>
+        <li><a href="../../glossary.html#volume">Volume</a></li>
+        <li><a href="../../glossary.html#yaml">YAML</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ One architecture picture</h2>
+      <div class="diagram">
+ compose.yaml
+ ┌─────────────────────────────────────────┐
+ │ services:                               │
+ │   web:   image → container "web"        │
+ │   db:    image → container "db"         │
+ │ volumes: dbdata                         │
+ │ networks: appnet   ◄── both attach      │
+ └─────────────────────────────────────────┘
+          docker compose up -d
+                    │
+                    ▼
+        durable project you can
+        up / down / pull / logs
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture video (concepts only)</h2>
+      <p>Watch: <a href="https://www.youtube.com/watch?v=DM65_JyGxCo" target="_blank">Docker Compose will BLOW your MIND!!</a> (NetworkChuck)</p>
+      <div class="alert alert-warning">
+        <strong>Note:</strong> Concepts only — prefer <a href="https://docs.docker.com/compose/" target="_blank">current Compose docs</a> for syntax (<code>compose.yaml</code>, <code>docker compose</code>).
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📋 Baby-steps by OS</h2>
+      
+      <h3>Windows (WSL2)</h3>
+      <p>Edit files inside the WSL filesystem (<code>~/homelab-academy</code>) for fewer permission surprises than <code>/mnt/c/...</code>.</p>
+
+      <h3>Linux</h3>
+      <p>Same commands in your home directory.</p>
+
+      <h3>Merge</h3>
+      <p>Use <strong>Compose V2</strong>: <code>docker compose</code> (space), not only legacy <code>docker-compose</code>.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Lab — one action</h2>
+      <p><strong>Action:</strong> Deploy a two-service stack with a named volume and tear it down cleanly.</p>
+
+      <pre><code>mkdir -p ~/homelab-academy/class02 && cd ~/homelab-academy/class02
+cat > compose.yaml <<'YAML'
+name: academy-class02
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8091:80"
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+  keep:
+    image: alpine:3.20
+    command: ["sh","-c","echo class02-ok > /data/hello.txt && sleep infinity"]
+    volumes:
+      - keepdata:/data
+volumes:
+  keepdata:
+YAML
+mkdir -p html
+echo '<h1>Homelab Academy Class 02</h1>' > html/index.html
+docker compose up -d
+curl -s http://127.0.0.1:8091 | head
+docker compose exec keep cat /data/hello.txt
+docker compose ps
+# teardown when evidenced:
+# docker compose down</code></pre>
+
+      <h3>Evidence checkboxes</h3>
+      <div class="checkpoint">
+        <div class="checkbox-item">
+          <input type="checkbox" id="check-2-1">
+          <label for="check-2-1">Browser or <code>curl</code> shows <strong>Homelab Academy Class 02</strong></label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="check-2-2">
+          <label for="check-2-2"><code>docker compose exec keep cat /data/hello.txt</code> prints <code>class02-ok</code></label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="check-2-3">
+          <label for="check-2-3"><code>docker compose ps</code> lists <code>web</code> and <code>keep</code> as running</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="check-2-4">
+          <label for="check-2-4">I understand <code>up -d</code> vs <code>down</code> (write it in notes)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>✅ All boxes true?</p>
+      <a href="lesson-03.html">NEXT: Class 03 — Docker Networking →</a>
+    </div>
+
+    <div class="decision-tree">
+      <h3>🔧 Troubleshooting decision tree</h3>
+      <pre style="background: var(--bg-card); padding: 15px; border-left: 4px solid var(--warning);">
+Port 8091 busy?
+└─ Change "8091:80" → free port
+
+Permission error mounting ./html (Windows)?
+└─ Keep project under WSL home, not /mnt/c
+
+compose file not found?
+└─ Confirm cwd and filename compose.yaml
+      </pre>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Exit ticket</h3>
+      <p><strong>Question:</strong> What problem does Compose solve that a single <code>docker run</code> does not?</p>
+      <textarea placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+</body>
+</html>

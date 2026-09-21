@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class 01 — Virtualization Mindset — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 1: Infrastructure & Docker</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../../path.html">← Choose Path</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Class 01 — Virtualization Mindset</h2>
+      <span class="difficulty-badge difficulty-baby">BABY</span>
+      <p style="margin-top: 15px;"><strong>Prev:</strong> <a href="../../path.html">Choose Path</a> · <strong>Next:</strong> <a href="lesson-02.html">Class 02</a></p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>Goal / What you are learning</h2>
+      <p><strong>One concept:</strong> a <strong>VM</strong> is a full virtual computer (own kernel); a <strong>container</strong> shares the host kernel and packages an app. Homelabs often run containers <em>inside</em> VMs/LXCs on a <a href="../../glossary.html#hypervisor">hypervisor</a> like <a href="../../glossary.html#proxmox">Proxmox</a>.</p>
+      <p>After this lesson you can: sketch where Docker sits in a typical Proxmox homelab; decide "VM vs container" for a simple workload.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You should already have</h2>
+      <div class="checkbox-item">
+        <input type="checkbox" id="prereq-1">
+        <label for="prereq-1"><a href="../../path.html">Choose Path</a> complete</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="prereq-2">
+        <label for="prereq-2">Curiosity only — <strong>you do not need Proxmox installed</strong> for the BABY lab (optional stretch)</label>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><a href="../../glossary.html#hypervisor">Hypervisor</a> — runs VMs</li>
+        <li><a href="../../glossary.html#vm">VM</a> — full guest OS</li>
+        <li><a href="../../glossary.html#container">Container</a> — app isolation, shared kernel</li>
+        <li><a href="../../glossary.html#ct">CT / LXC</a> — Proxmox Linux container</li>
+        <li><a href="../../glossary.html#proxmox">Proxmox</a> — popular homelab hypervisor</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ One architecture picture</h2>
+      <div class="diagram">
+ ┌──────────────── Proxmox / Hypervisor (bare metal) ────────────────┐
+ │  ┌──────────── VM: Ubuntu ────────────┐   ┌──── LXC (CT) ────┐   │
+ │  │  kernel (guest)                    │   │  shared-ish host │   │
+ │  │  ┌──────────────────────────────┐  │   │  lighter guest   │   │
+ │  │  │ Docker Engine                │  │   └──────────────────┘   │
+ │  │  │  ├─ sonarr                   │  │                          │
+ │  │  │  ├─ radarr                   │  │   ┌──── VM: HAOS ────┐   │
+ │  │  │  └─ prowlarr                 │  │   │ Home Assistant   │   │
+ │  │  └──────────────────────────────┘  │   └──────────────────┘   │
+ │  └────────────────────────────────────┘                          │
+ └──────────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture video (concepts only)</h2>
+      <p>Watch on YouTube: <strong>NetworkChuck — Proxmox / VMs</strong><br>
+      Search title: <code>NetworkChuck Proxmox</code></p>
+      <div class="alert alert-warning">
+        <strong>Note:</strong> Concepts only — prefer <a href="https://pve.proxmox.com/pve-docs/" target="_blank">current Proxmox docs</a> for install. UI drifts.
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📋 Baby-steps by OS</h2>
+      
+      <h3>Windows (WSL2 + Docker)</h3>
+      <p>You already run a <strong>lightweight VM</strong> (WSL2). Docker Desktop/Engine rides on that. Mental model: <em>Windows → WSL2 VM → Docker containers</em>.</p>
+
+      <h3>Linux (Ubuntu + Docker)</h3>
+      <p>Docker Engine runs on the host kernel. Optional later: put this Ubuntu <strong>inside</strong> a Proxmox VM for snapshots/isolation.</p>
+
+      <h3>Merge</h3>
+      <p>Both paths: containers are <strong>not</strong> a replacement for backups or for workloads that need a different kernel/OS.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Lab — one action</h2>
+      <p><strong>Action:</strong> Prove container ≠ VM by inspecting your Docker host kernel vs a container's view.</p>
+
+      <pre><code># On the Docker host (WSL Ubuntu or Linux)
+uname -r
+docker run --rm alpine uname -r</code></pre>
+
+      <p>Optional stretch (if you have Proxmox): screenshot the Datacenter view showing at least one VM or CT — no install required for credit.</p>
+
+      <h3>Evidence checkboxes</h3>
+      <div class="checkpoint">
+        <div class="checkbox-item">
+          <input type="checkbox" id="check-1-1">
+          <label for="check-1-1">Host <code>uname -r</code> recorded</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="check-1-2">
+          <label for="check-1-2">Container <code>uname -r</code> recorded</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="check-1-3">
+          <label for="check-1-3">I observed they match (same kernel) — expected for containers</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="check-1-4">
+          <label for="check-1-4">I can state: "If I needed Windows Server apps, I'd use a VM, not a Linux container"</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>✅ If all boxes true, continue!</p>
+      <a href="lesson-02.html">NEXT: Class 02 — Docker Compose →</a>
+    </div>
+
+    <div class="decision-tree">
+      <h3>🔧 Troubleshooting decision tree</h3>
+      <pre style="background: var(--bg-card); padding: 15px; border-left: 4px solid var(--warning);">
+docker run fails?
+├─ Choose Path incomplete → go back
+├─ Alpine pull blocked → check DNS/internet; retry
+└─ Permission denied → docker group / Desktop running
+
+uname differs wildly / unexpected arch?
+└─ You may be on a remote context (`docker context ls`); switch to default local
+      </pre>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Exit ticket</h3>
+      <p><strong>Question:</strong> Why can a Linux container not replace a Windows VM for a Windows-only app?</p>
+      <textarea placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+</body>
+</html>

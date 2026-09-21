@@ -1,73 +1,311 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Final exam · Classroom</title>
-<meta name="description" content="Homelab verification matrix.">
-<link rel="canonical" href="https://otaconskeep.github.io/classroom/final-exam.html">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921c">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final Exam — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="classroom.css">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>FINAL EXAM<span class="blink"></span></span></div></div>
-<nav class="topnav">
- <div class="wrap">
- <a class="brand" href="/">Otaconskeep</a>
- <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
- <div class="navlinks">
- <a href="/">Home</a>
- <a href="/otacon/">Otacon</a>
- <a href="/keepdesk/">Keep Desk</a>
- <a href="/keeproute/">KeepRoute</a>
- <a href="/expansion/">Expansion</a>
- <a href="/ai9/">AI9</a>
- <a href="/classroom/" aria-current="page">Classroom</a>
- <a href="/engineering/">Engineering</a>
- <a href="/faq/">FAQ</a>
- <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
- <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
- <div class="wrap">
- <a href="/classroom/">Academy</a>
- <a href="/classroom/start.html">Start</a>
- <a href="/classroom/path.html">Path</a>
- <a href="/classroom/glossary.html">Glossary</a>
- <a href="/classroom/units/1-infrastructure/">Unit 1</a>
- <a href="/classroom/units/2-arr/">Unit 2</a>
- <a href="/classroom/units/3-home-assistant/">Unit 3</a>
- <a href="/classroom/units/4-voice/">Unit 4</a>
- <a href="/classroom/final-exam.html">Final exam</a>
- </div>
-</nav>
-<div class="wrap">
-<section class="hero flush"><span class="cr-badge adv">🔴 Advanced</span>
-<h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);margin-top:12px;">Final exam — working homelab</h1>
-<p class="lede">Not a written test. A verification matrix. “It seems to work” is not a grade.</p></section>
-<pre class="cr-diagram">REQUEST MOVIE → SEERR → RADARR → PROWLARR → qBIT/SAB → /data/media → PLEX
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Final Exam — Complete System Verification</p>
+    </header>
 
-HOME ASSISTANT
-  |-- monitors infrastructure
-  |-- runs automations
-  +-- local voice → "Is Plex online?" → spoken answer</pre>
-<div class="cr-check" data-check-id="final-exam">
- <h3>Verification matrix</h3>
- <label><input type="checkbox" data-k="0"><strong>Docker persistent</strong> — Destroy/recreate container; config survives</label><label><input type="checkbox" data-k="1"><strong>ARR connectivity</strong> — API tests green</label><label><input type="checkbox" data-k="2"><strong>Hardlinks</strong> — Same inode / no duplicate storage (when using torrents)</label><label><input type="checkbox" data-k="3"><strong>Prowlarr</strong> — Indexer propagates to ARRs</label><label><input type="checkbox" data-k="4"><strong>TRaSH</strong> — Expected CFs and scores present</label><label><input type="checkbox" data-k="5"><strong>Download</strong> — Request reaches downloader</label><label><input type="checkbox" data-k="6"><strong>Import</strong> — Correct path/name under /data/media</label><label><input type="checkbox" data-k="7"><strong>Plex/Jellyfin</strong> — Media detected</label><label><input type="checkbox" data-k="8"><strong>HA</strong> — Automation works</label><label><input type="checkbox" data-k="9"><strong>STT</strong> — Known sentence transcribed</label><label><input type="checkbox" data-k="10"><strong>TTS</strong> — Known response spoken</label><label><input type="checkbox" data-k="11"><strong>Voice</strong> — End-to-end command passes</label><label><input type="checkbox" data-k="12"><strong>Local operation</strong> — Internet disconnected; core functions survive</label>
- <div class="cr-gate">All requirements evidenced → you finished Homelab Academy v1</div>
-</div>
-<div class="cr-pager"><a href="units/4-voice/classes/13-voice-capstone.html">← Class 13</a>
-<a href="/classroom/units/2-arr/stack-map.html">ARR stack map</a>
-<a href="/classroom/">Academy home →</a></div>
-</div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921c"></script>
-</body></html>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="start.html">Start Here</a>
+      <a href="path.html">Choose Your Path</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="card">
+      <h2>🎓 What Is the Final Exam?</h2>
+      <p>This is <strong>not</strong> a written test. The final exam is a <strong>complete system verification matrix</strong> that proves your homelab works end-to-end.</p>
+      
+      <p>You will execute a full workflow:</p>
+      <ol style="margin: 20px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Request media</strong> → Add a TV show in Sonarr and a movie in Radarr</li>
+        <li><strong>Verify automation</strong> → Prowlarr searches indexers, downloads start automatically</li>
+        <li><strong>Watch media</strong> → Episode/movie appears in Plex or Jellyfin</li>
+        <li><strong>Control home</strong> → Turn a light on/off via Home Assistant automation</li>
+        <li><strong>Use voice</strong> → Ask your local voice assistant to report sensor status</li>
+      </ol>
+
+      <div class="alert alert-info">
+        <strong>💡 Capstone requirement:</strong> Your voice assistant must work with your internet connection <strong>physically disconnected</strong>. This proves it's 100% local.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>✅ Verification Matrix — Check ALL Boxes</h2>
+      
+      <h3 style="margin-top: 30px;">🐳 Unit 1: Infrastructure & Docker</h3>
+      <div class="checkpoint">
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-docker-running">
+          <label for="exam-docker-running">Docker Engine is running and responding to <code>docker ps</code></label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-compose-files">
+          <label for="exam-compose-files">All services defined in <code>docker-compose.yml</code> files (not click-created containers)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-user-network">
+          <label for="exam-user-network">Custom Docker bridge network in use (not default bridge)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-data-tree">
+          <label for="exam-data-tree">Single <code>/data</code> parent tree with <code>/data/torrents</code>, <code>/data/usenet</code>, <code>/data/media</code></label>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 30px;">📥 Unit 2: ARR Media Automation</h3>
+      <div class="checkpoint">
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-prowlarr">
+          <label for="exam-prowlarr">Prowlarr connected to at least 1 working indexer</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-sonarr-radarr">
+          <label for="exam-sonarr-radarr">Sonarr and Radarr synced with Prowlarr for indexer searches</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-downloader">
+          <label for="exam-downloader">qBittorrent or SABnzbd connected and downloading to correct paths</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-quality-profiles">
+          <label for="exam-quality-profiles">TRaSH quality profiles configured in Sonarr/Radarr</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-custom-formats">
+          <label for="exam-custom-formats">At least 3 Custom Formats (CFs) imported with positive/negative scores</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-trash-automation">
+          <label for="exam-trash-automation">TRaSH automation tool configured (Notifiarr/Clonarr OR Recyclarr)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-hardlinks">
+          <label for="exam-hardlinks">Completed download hardlinked into media library (verified same inode or disk usage didn't double)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-plex">
+          <label for="exam-plex">Plex or Jellyfin serving media library, accessible at <code>http://SERVER-IP:32400</code> or <code>:8096</code></label>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 30px;">🏠 Unit 3: Home Assistant</h3>
+      <div class="checkpoint">
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-ha-running">
+          <label for="exam-ha-running">Home Assistant accessible at <code>http://SERVER-IP:8123</code></label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-ha-device">
+          <label for="exam-ha-device">At least 1 physical device or integration added (smart light, sensor, or demo integration)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-ha-automation">
+          <label for="exam-ha-automation">One working automation: Trigger → Condition → Action (tested and fired successfully)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-ha-backup">
+          <label for="exam-ha-backup">Automatic backups enabled in HA settings</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-ha-remote">
+          <label for="exam-ha-remote">Secure remote access configured (Tailscale, ZeroTier, or HA Cloud — NOT raw port forward)</label>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 30px;">🎤 Unit 4: Local Voice Assistant</h3>
+      <div class="checkpoint">
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-whisper">
+          <label for="exam-whisper">Whisper STT Wyoming service running and responding to HA</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-piper">
+          <label for="exam-piper">Piper TTS Wyoming service running and speaking responses</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-assist-pipeline">
+          <label for="exam-assist-pipeline">Home Assistant Assist pipeline configured with Whisper + Piper (no cloud STT/TTS)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-wake-word">
+          <label for="exam-wake-word">Wake word detection working (tested "ok nabu" or custom wake word)</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-voice-satellite">
+          <label for="exam-voice-satellite">Linux Voice Assistant satellite OR ESPHome device sending audio to HA</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-voice-command">
+          <label for="exam-voice-command">Successfully executed a voice command: "Turn on the living room light"</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="exam-offline-voice">
+          <label for="exam-offline-voice"><strong>CAPSTONE:</strong> Voice assistant responds correctly with internet physically disconnected (ethernet unplugged or Wi-Fi off)</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🚀 Capstone Workflow Test</h2>
+      <p>Execute this complete workflow to prove your system works end-to-end:</p>
+
+      <div class="steps">
+        <div class="step">
+          <h4>Request New Media</h4>
+          <p>Open Sonarr web UI → Add a new TV series (e.g., "The Expanse") → Monitor first episode</p>
+          <p>Open Radarr web UI → Add a new movie (e.g., "Interstellar") → Monitor</p>
+        </div>
+
+        <div class="step">
+          <h4>Verify Automation Kicks In</h4>
+          <p>Within 5 minutes, check Activity in Sonarr/Radarr → Search should show results from Prowlarr</p>
+          <p>Download should appear in qBittorrent or SABnzbd download queue</p>
+        </div>
+
+        <div class="step">
+          <h4>Wait for Import</h4>
+          <p>After download completes, Sonarr/Radarr should automatically import to <code>/data/media</code></p>
+          <p>Check file is hardlinked (still seeding in torrent client AND visible in media folder)</p>
+        </div>
+
+        <div class="step">
+          <h4>Watch in Plex/Jellyfin</h4>
+          <p>Open Plex or Jellyfin web UI</p>
+          <p>Navigate to TV Shows or Movies library → Find imported content → Start playback</p>
+          <p><strong>Success:</strong> Video plays without errors</p>
+        </div>
+
+        <div class="step">
+          <h4>Test Home Assistant Automation</h4>
+          <p>Trigger your automation manually from HA Developer Tools → Services</p>
+          <p>OR wait for real trigger (e.g., door opens at night → light turns on)</p>
+          <p><strong>Success:</strong> Action executes as expected</p>
+        </div>
+
+        <div class="step">
+          <h4>Use Voice Assistant</h4>
+          <p>Stand near your microphone/satellite device</p>
+          <p>Say: "Ok Nabu, what is the temperature in the living room?"</p>
+          <p><strong>Success:</strong> Assistant responds with correct sensor value</p>
+        </div>
+
+        <div class="step">
+          <h4>Internet-Disconnected Capstone Test</h4>
+          <p>Physically disconnect your server from the internet (unplug ethernet or disable Wi-Fi)</p>
+          <p>Retry voice command: "Ok Nabu, turn off the bedroom light"</p>
+          <p><strong>Success:</strong> Assistant responds and executes action WITHOUT internet</p>
+          <p style="color: var(--accent-teal); margin-top: 10px;"><strong>This proves your system is 100% local.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="decision-tree">
+      <h3>❌ Troubleshooting the Final Exam</h3>
+      
+      <div class="decision-item">
+        <strong>Problem:</strong> Sonarr/Radarr not finding releases
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check Prowlarr indexers are online and synced<br>
+          → Verify API keys match between Prowlarr ↔ Sonarr/Radarr<br>
+          → Test manual search in Prowlarr web UI first
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Downloads not importing to media library
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Verify <code>/data</code> paths are consistent across containers<br>
+          → Check UID/GID permissions in docker-compose.yml<br>
+          → Review Sonarr/Radarr logs for "import failed" messages
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Plex not seeing new media
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Force library scan in Plex web UI<br>
+          → Check Plex has correct path to <code>/data/media</code><br>
+          → Verify file permissions (Plex user can read files)
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Home Assistant automation not firing
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check trigger condition is actually met (test with Developer Tools)<br>
+          → Review automation trace in HA UI<br>
+          → Simplify: remove conditions temporarily to isolate problem
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Voice assistant not responding
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Test Whisper + Piper separately in HA Assist pipeline (push-to-talk mode)<br>
+          → Check Wyoming service logs (<code>docker logs whisper</code>, <code>docker logs piper</code>)<br>
+          → Verify wake word is enabled and microphone input is working<br>
+          → Test with known wake word "ok nabu" before custom words
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Voice works WITH internet but not WITHOUT
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check HA Assist pipeline uses local STT/TTS (not Google/Azure)<br>
+          → Verify Whisper/Piper containers are running locally, not cloud APIs<br>
+          → Review Home Assistant logs when internet is disconnected
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🎉 You Passed! What's Next?</h2>
+      <p>Congratulations! You've built a complete homelab with:</p>
+      <ul style="margin: 15px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li>✅ Self-healing media automation with TRaSH quality standards</li>
+        <li>✅ Home automation that works when the internet is down</li>
+        <li>✅ Fully local voice control (no cloud services)</li>
+      </ul>
+
+      <h3 style="margin-top: 30px;">Advanced Topics to Explore:</h3>
+      <ul style="margin: 15px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Reverse proxies:</strong> Access services via <code>sonarr.yourdomain.com</code> (Traefik, Nginx Proxy Manager)</li>
+        <li><strong>Monitoring:</strong> Grafana + Prometheus dashboards for system health</li>
+        <li><strong>Backups:</strong> Automated backups to cloud storage (rclone, Duplicati)</li>
+        <li><strong>Advanced networking:</strong> VLANs for IoT device isolation</li>
+        <li><strong>Custom voice:</strong> Train custom wake words, integrate local LLMs</li>
+        <li><strong>Media management:</strong> Kometa (formerly PMM) for Plex posters/collections</li>
+      </ul>
+
+      <div class="alert alert-info">
+        <strong>💡 Keep learning:</strong> Join the TRaSH Discord, Home Assistant forums, and r/selfhosted for community support and new ideas!
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Final Reflection</h3>
+      <p>What was the most challenging part of this course, and how did you solve it?</p>
+      <textarea placeholder="Write your reflection here... (optional, for your own learning log)"></textarea>
+    </div>
+
+    <div class="continue-box">
+      <p>Share your success with the community!</p>
+      <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-secondary);">Post your homelab diagram and what you learned in r/selfhosted or the TRaSH Discord.</p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+</body>
+</html>

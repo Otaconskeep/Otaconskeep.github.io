@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 3.3: Secure Remote Access — VPN vs Tunnel vs Ports — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 3: Home Assistant</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="lesson-09.html">← Previous Lesson</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Lesson 3.3: Secure Remote Access — VPN vs Tunnel vs Ports</h2>
+      <span class="difficulty-badge difficulty-advanced">ADVANCED</span>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 What You Are Learning</h2>
+      <p><strong>One concept:</strong> How to safely access Home Assistant from outside your home network without exposing it to the internet.</p>
+      <p>You'll compare three approaches: VPN (best), Cloudflare Tunnel (easy), Port Forward (dangerous).</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You Should Already Have</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Home Assistant running on your local network (Units 3.1-3.2)</li>
+        <li>Basic networking knowledge (IP addresses, ports)</li>
+        <li>Router admin access (for some methods)</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New Words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><a href="../../glossary.html#vpn">VPN (Virtual Private Network)</a> — Encrypted tunnel to your home network</li>
+        <li><strong>Tailscale/ZeroTier:</strong> Modern mesh VPN services (easier than traditional VPN)</li>
+        <li><strong>Cloudflare Tunnel:</strong> Secure proxy without port forwarding</li>
+        <li><strong>Port Forward:</strong> Opening router ports to the internet (risky!)</li>
+        <li><strong>Reverse Proxy:</strong> Server that forwards requests to internal services</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ Architecture Picture</h2>
+      <div class="diagram">
+┌─────────────────────────────────────────────────────────────┐
+│           REMOTE ACCESS METHODS COMPARISON                  │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  OPTION 1: VPN (Tailscale/ZeroTier) — RECOMMENDED          │
+│  ┌──────────────┐         VPN         ┌──────────────┐     │
+│  │ Your Phone   │◄─────encrypted──────►│  Your Home   │     │
+│  │ (anywhere)   │       tunnel         │  Network     │     │
+│  └──────────────┘                      └──────────────┘     │
+│         ↓                                     ↓              │
+│   Access HA as if you're home          No ports opened      │
+│   http://192.168.1.X:8123              on router!           │
+│                                                             │
+│  OPTION 2: Cloudflare Tunnel — EASY BUT REQUIRES DOMAIN    │
+│  ┌──────────────┐    HTTPS    ┌─────────┐  ┌──────────┐   │
+│  │ Your Phone   │────────────►│Cloudflare│─►│Your Home │   │
+│  │              │             │  Tunnel  │  │  HA      │   │
+│  └──────────────┘             └─────────┘  └──────────┘   │
+│         ↓                                                   │
+│   https://ha.yourdomain.com                No ports opened  │
+│                                                             │
+│  OPTION 3: Port Forward — ❌ NOT RECOMMENDED ❌             │
+│  ┌──────────────┐         ┌──────────────┐                │
+│  │ Your Phone   │────────►│ Your Router  │                │
+│  │              │ :8123   │ (port 8123   │                │
+│  └──────────────┘  open!  │  forwarded)  │                │
+│                            └──────────────┘                │
+│                                  ↓                          │
+│                            ┌──────────────┐                │
+│                            │ Home Asst    │                │
+│                            │ EXPOSED      │                │
+│                            │ to Internet! │                │
+│                            └──────────────┘                │
+│  ⚠️ Attackers scan all IPs for open ports!                 │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture Videos (Optional)</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>NetworkChuck:</strong> <a href="https://www.youtube.com/results?search_query=networkchuck+cloudflare+tunnel" target="_blank">EXPOSE your home network to the INTERNET (Cloudflare Tunnel)</a></li>
+        <li><strong>Home Assistant:</strong> <a href="https://www.home-assistant.io/docs/authentication/providers/" target="_blank">Official Remote Access Docs</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Lab Steps: Set Up Tailscale VPN</h2>
+      
+      <div class="alert alert-info">
+        <strong>💡 Why Tailscale?</strong> It's free for personal use, works behind NAT, no router config needed, and creates a secure mesh network. Easier than traditional VPN!
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <h4>Create Tailscale Account</h4>
+          <p>Visit: <a href="https://tailscale.com/" target="_blank">tailscale.com</a></p>
+          <p>Sign up with Google, GitHub, or email (free account).</p>
+        </div>
+
+        <div class="step">
+          <h4>Install Tailscale on Your Server</h4>
+          <div class="os-tabs">
+            <div class="os-tab active" onclick="showOS('ts-linux')">🐧 Linux</div>
+            <div class="os-tab" onclick="showOS('ts-windows')">🪟 Windows WSL2</div>
+          </div>
+          
+          <div id="ts-linux" class="os-content active">
+            <pre><code>curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up</code></pre>
+            <p>Follow the link to authenticate your device.</p>
+          </div>
+          
+          <div id="ts-windows" class="os-content">
+            <p>Option 1: Download Tailscale for Windows (recommended)</p>
+            <p>Option 2: Inside WSL2 Ubuntu:</p>
+            <pre><code>curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up</code></pre>
+          </div>
+        </div>
+
+        <div class="step">
+          <h4>Verify Tailscale IP</h4>
+          <pre><code>tailscale ip -4</code></pre>
+          <p>You'll get a <code>100.x.x.x</code> IP address. This is your Tailscale internal IP!</p>
+        </div>
+
+        <div class="step">
+          <h4>Install Tailscale on Your Phone</h4>
+          <p>Download Tailscale app from App Store (iOS) or Play Store (Android).</p>
+          <p>Sign in with the same account.</p>
+          <p>Turn on VPN.</p>
+        </div>
+
+        <div class="step">
+          <h4>Access Home Assistant via Tailscale</h4>
+          <p>On your phone's browser, go to:</p>
+          <pre><code>http://100.x.x.x:8123</code></pre>
+          <p>(Use the Tailscale IP from step 3)</p>
+          <p><strong>You're now securely connected to HA from anywhere!</strong></p>
+        </div>
+
+        <div class="step">
+          <h4>Test While Away from Home</h4>
+          <ol style="padding-left: 20px; margin-top: 10px;">
+            <li>Turn off Wi-Fi on your phone (use cellular data)</li>
+            <li>Make sure Tailscale VPN is on</li>
+            <li>Access HA at the Tailscale IP</li>
+            <li>Control a light or check a sensor</li>
+          </ol>
+          <p><strong>Success!</strong> You're accessing your home network securely.</p>
+        </div>
+
+        <div class="step">
+          <h4>Enable MagicDNS (Optional)</h4>
+          <p>In Tailscale admin console: Settings → DNS → Enable MagicDNS</p>
+          <p>Now you can access HA at: <code>http://your-server-name:8123</code></p>
+          <p>No need to remember the IP!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 Comparing Remote Access Methods</h2>
+      
+      <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <tr style="background: var(--bg-card); border-bottom: 2px solid var(--accent-teal);">
+          <th style="padding: 10px; text-align: left;">Method</th>
+          <th style="padding: 10px; text-align: left;">Security</th>
+          <th style="padding: 10px; text-align: left;">Ease</th>
+          <th style="padding: 10px; text-align: left;">Router Config</th>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;"><strong>Tailscale/ZeroTier</strong></td>
+          <td style="padding: 10px;">🟢 Excellent</td>
+          <td style="padding: 10px;">🟢 Easy</td>
+          <td style="padding: 10px;">None!</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;"><strong>Cloudflare Tunnel</strong></td>
+          <td style="padding: 10px;">🟢 Good</td>
+          <td style="padding: 10px;">🟡 Medium</td>
+          <td style="padding: 10px;">None</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;"><strong>HA Cloud (Nabu Casa)</strong></td>
+          <td style="padding: 10px;">🟢 Good</td>
+          <td style="padding: 10px;">🟢 Very Easy</td>
+          <td style="padding: 10px;">None</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;"><strong>Wireguard VPN</strong></td>
+          <td style="padding: 10px;">🟢 Excellent</td>
+          <td style="padding: 10px;">🔴 Hard</td>
+          <td style="padding: 10px;">Port forward</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><strong>Direct Port Forward</strong></td>
+          <td style="padding: 10px;">🔴 Dangerous!</td>
+          <td style="padding: 10px;">🟢 Easy</td>
+          <td style="padding: 10px;">Port forward</td>
+        </tr>
+      </table>
+
+      <div class="alert alert-danger">
+        <strong>❌ Never port forward HA directly to the internet!</strong><br>
+        Attackers scan all public IPs for port 8123. Your HA will be found and attacked within hours.
+      </div>
+
+      <h3>Recommendation:</h3>
+      <ol style="padding-left: 40px; color: var(--text-secondary); margin-top: 15px;">
+        <li><strong>Best:</strong> Tailscale (free, secure, easy)</li>
+        <li><strong>Also good:</strong> ZeroTier or HA Cloud ($6.50/month, supports HA development)</li>
+        <li><strong>Advanced:</strong> Cloudflare Tunnel (free, requires domain)</li>
+        <li><strong>DIY expert:</strong> Self-hosted Wireguard VPN</li>
+      </ol>
+    </div>
+
+    <div class="checkpoint">
+      <h3>✅ Checkpoint: Verify Your Setup</h3>
+      
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-10-1">
+        <label for="check-10-1">Tailscale (or alternative VPN) installed on my server</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-10-2">
+        <label for="check-10-2">Tailscale app installed on my phone</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-10-3">
+        <label for="check-10-3">I can access Home Assistant via Tailscale IP from my phone</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-10-4">
+        <label for="check-10-4">I tested remote access while on cellular data (not home Wi-Fi)</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-10-5">
+        <label for="check-10-5">I understand why port forwarding HA directly is dangerous</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-10-6">
+        <label for="check-10-6">I can explain the difference between VPN and port forwarding</label>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>✅ Unit 3 Complete! HA is secure and accessible from anywhere. Ready for local voice?</p>
+      <a href="../4-voice/lesson-11.html">NEXT: Unit 4 — Lesson 4.1: Voice Architecture Overview →</a>
+    </div>
+
+    <div class="decision-tree">
+      <h3>🔧 Troubleshooting Decision Tree</h3>
+      
+      <div class="decision-item">
+        <strong>Problem:</strong> Tailscale "failed to connect"
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Check internet connectivity on server<br>
+          → Restart Tailscale: <code>sudo systemctl restart tailscaled</code><br>
+          → Re-authenticate: <code>sudo tailscale up</code>
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Can't access HA on Tailscale IP
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Verify HA is running: <code>docker ps | grep homeassistant</code><br>
+          → Check correct Tailscale IP: <code>tailscale ip -4</code><br>
+          → Try local IP first to rule out HA issues: <code>http://192.168.1.X:8123</code>
+        </p>
+      </div>
+
+      <div class="decision-item">
+        <strong>Problem:</strong> Tailscale works at home but not on cellular
+        <p style="margin-top: 5px; color: var(--text-secondary);">
+          → Make sure Tailscale VPN toggle is ON on phone<br>
+          → Check phone has internet (try browsing google.com)<br>
+          → Restart Tailscale app on phone
+        </p>
+      </div>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Exit Ticket</h3>
+      <p><strong>Question:</strong> Why is using a VPN like Tailscale more secure than port forwarding Home Assistant directly to the internet?</p>
+      <textarea placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+
+  <script>
+    function showOS(osId) {
+      const parent = event.target.closest('.step') || event.target.closest('.lesson-section');
+      if (parent) {
+        parent.querySelectorAll('.os-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        parent.querySelectorAll('.os-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        const targetContent = parent.querySelector(`#${osId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          event.target.classList.add('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

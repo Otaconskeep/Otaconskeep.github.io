@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 4.1: Voice Architecture Overview — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="../../classroom.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Unit 4: Local Voice Assistant</p>
+    </header>
+
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../3-home-assistant/lesson-10.html">← Previous Lesson</a>
+      <a href="../../glossary.html">Glossary</a>
+    </nav>
+
+    <div class="card">
+      <h2>Lesson 4.1: Voice Architecture Overview</h2>
+      <span class="difficulty-badge difficulty-intermediate">INTERMEDIATE</span>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 What You Are Learning</h2>
+      <p><strong>One concept:</strong> The five-stage voice pipeline — wake word, STT, intent, TTS, speaker.</p>
+      <p>You'll understand the architecture BEFORE installing anything, so debugging makes sense.</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>✅ You Should Already Have</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li>Home Assistant running and accessible (Unit 3)</li>
+        <li>At least one working automation (to control via voice)</li>
+        <li>Understanding of Docker and services</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📖 New Words</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><a href="../../glossary.html#stt">STT (Speech-to-Text)</a> — Converts voice to text</li>
+        <li><a href="../../glossary.html#tts">TTS (Text-to-Speech)</a> — Converts text to voice</li>
+        <li><a href="../../glossary.html#whisper">Whisper</a> — OpenAI's local STT model</li>
+        <li><a href="../../glossary.html#piper">Piper</a> — Fast local TTS engine</li>
+        <li><a href="../../glossary.html#wyoming">Wyoming Protocol</a> — Bridge between HA and voice services</li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🏗️ Architecture Picture</h2>
+      <div class="diagram">
+┌─────────────────────────────────────────────────────────────┐
+│          VOICE PIPELINE (5 STAGES)                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  1. WAKE WORD DETECTION                                     │
+│     ┌────────────────────────────────────┐                 │
+│     │ Microphone listens constantly      │                 │
+│     │ Hears "Ok Nabu" → Wake up!         │                 │
+│     └────────────────────────────────────┘                 │
+│                    ↓                                        │
+│  2. SPEECH-TO-TEXT (STT)                                    │
+│     ┌────────────────────────────────────┐                 │
+│     │ Whisper (Wyoming service)          │                 │
+│     │ Audio → "turn on living room light"│                 │
+│     └────────────────────────────────────┘                 │
+│                    ↓                                        │
+│  3. INTENT RECOGNITION / CONVERSATION                       │
+│     ┌────────────────────────────────────┐                 │
+│     │ Home Assistant Assist               │                 │
+│     │ Parse: light.turn_on               │                 │
+│     │ Entity: light.living_room_light     │                 │
+│     └────────────────────────────────────┘                 │
+│                    ↓                                        │
+│  4. TEXT-TO-SPEECH (TTS)                                    │
+│     ┌────────────────────────────────────┐                 │
+│     │ Piper (Wyoming service)            │                 │
+│     │ "Turned on living room light" → 🔊│                 │
+│     └────────────────────────────────────┘                 │
+│                    ↓                                        │
+│  5. SPEAKER OUTPUT                                          │
+│     ┌────────────────────────────────────┐                 │
+│     │ Speaker plays audio response       │                 │
+│     └────────────────────────────────────┘                 │
+│                                                             │
+│  All 5 stages run 100% LOCAL (no cloud!)                   │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🎥 Lecture Videos (Optional)</h2>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Everything Smart Home:</strong> <a href="https://www.youtube.com/results?search_query=everything+smart+home+local+voice" target="_blank">Local Smart Home Voice Control</a></li>
+        <li><strong>Home Assistant:</strong> <a href="https://www.home-assistant.io/voice_control/" target="_blank">Official Voice Control Docs</a></li>
+      </ul>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🔧 Understanding Each Stage</h2>
+      
+      <h3>Stage 1: Wake Word Detection</h3>
+      <p>Microphone listens constantly for a trigger phrase (e.g., "Ok Nabu", "Hey Jarvis").</p>
+      <p><strong>Why needed:</strong> You don't want HA listening to ALL conversation, only after wake word.</p>
+      <p><strong>HA default wake words:</strong> "ok nabu" or custom trained words.</p>
+      
+      <h3>Stage 2: Speech-to-Text (Whisper)</h3>
+      <p>After wake word detected, record audio and send to Whisper.</p>
+      <p>Whisper converts speech → text: "turn on living room light"</p>
+      <p><strong>Why Whisper?</strong> Fast, accurate, runs 100% local (no cloud APIs).</p>
+
+      <h3>Stage 3: Intent Recognition (HA Assist)</h3>
+      <p>HA Assist parses the text and decides what to do.</p>
+      <p>Example: "turn on living room light" → <code>light.turn_on</code> → <code>light.living_room_light</code></p>
+      <p><strong>Options:</strong> Simple keyword matching OR local LLM for complex commands.</p>
+
+      <h3>Stage 4: Text-to-Speech (Piper)</h3>
+      <p>HA generates response text: "Turned on living room light"</p>
+      <p>Piper converts text → audio waveform.</p>
+      <p><strong>Why Piper?</strong> Fast, natural-sounding, runs 100% local.</p>
+
+      <h3>Stage 5: Speaker Output</h3>
+      <p>Audio sent to speaker (USB speaker, Raspberry Pi, ESPHome device).</p>
+      <p>You hear the response!</p>
+    </div>
+
+    <div class="lesson-section">
+      <h2>📚 Wyoming Protocol: The Glue</h2>
+      <p>Wyoming is a protocol that lets HA talk to external voice services (Whisper, Piper).</p>
+      
+      <h3>Why Wyoming?</h3>
+      <ul style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Separation of concerns:</strong> Run heavy STT/TTS on a different machine (e.g., GPU server)</li>
+        <li><strong>Standardized:</strong> Any Wyoming-compatible service works with HA</li>
+        <li><strong>Network-based:</strong> Services can run in Docker on same or remote host</li>
+      </ul>
+
+      <div class="diagram" style="font-size: 0.85rem;">
+┌─────────────────────────────────────────────────────┐
+│            WYOMING ARCHITECTURE                     │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  ┌──────────────┐     Wyoming     ┌──────────────┐ │
+│  │ Home Asst    │◄────Protocol───►│   Whisper    │ │
+│  │  (HA Assist) │     (network)   │  (STT Docker)│ │
+│  └──────────────┘                 └──────────────┘ │
+│         ↕                                           │
+│     Wyoming                                         │
+│         ↕                                           │
+│  ┌──────────────┐                                  │
+│  │    Piper     │                                  │
+│  │ (TTS Docker) │                                  │
+│  └──────────────┘                                  │
+│                                                     │
+│  All three can be on the same server or split!     │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🧪 Decision: Hardware for Voice</h2>
+      
+      <h3>Option 1: USB Microphone + Speaker on HA Server</h3>
+      <p><strong>Simplest:</strong> Plug USB mic/speaker into server running HA</p>
+      <p><strong>Pros:</strong> Easy setup, no extra hardware</p>
+      <p><strong>Cons:</strong> Only works where server is located</p>
+
+      <h3>Option 2: Raspberry Pi Satellite</h3>
+      <p><strong>Distributed:</strong> Pi with mic/speaker in each room, connects to HA over LAN</p>
+      <p><strong>Pros:</strong> Voice in every room, better microphone placement</p>
+      <p><strong>Cons:</strong> Needs Raspberry Pi + accessories</p>
+
+      <h3>Option 3: ESPHome Device (DIY)</h3>
+      <p><strong>Advanced:</strong> ESP32 + I2S microphone + speaker</p>
+      <p><strong>Pros:</strong> Cheapest (~$15), customizable</p>
+      <p><strong>Cons:</strong> Soldering, firmware flashing</p>
+
+      <div class="alert alert-info">
+        <strong>💡 For this course:</strong> We'll use Option 1 (USB mic on server) for simplicity. You can add satellites later!
+      </div>
+    </div>
+
+    <div class="lesson-section">
+      <h2>🗺️ Roadmap for Next Lessons</h2>
+      <p>Now that you understand the architecture, we'll build it step by step:</p>
+      <ol style="padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Lesson 4.2:</strong> Install Whisper + Piper Wyoming services</li>
+        <li><strong>Lesson 4.3:</strong> Configure HA Assist pipeline + test end-to-end</li>
+        <li><strong>Capstone:</strong> Prove it works with internet disconnected</li>
+      </ol>
+    </div>
+
+    <div class="checkpoint">
+      <h3>✅ Checkpoint: Verify Your Understanding</h3>
+      
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-11-1">
+        <label for="check-11-1">I can name all 5 stages of the voice pipeline</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-11-2">
+        <label for="check-11-2">I understand what Whisper does (STT)</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-11-3">
+        <label for="check-11-3">I understand what Piper does (TTS)</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-11-4">
+        <label for="check-11-4">I know Wyoming Protocol is the bridge between HA and voice services</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-11-5">
+        <label for="check-11-5">I decided which hardware option to use (USB mic vs Pi vs ESP32)</label>
+      </div>
+      <div class="checkbox-item">
+        <input type="checkbox" id="check-11-6">
+        <label for="check-11-6">I understand all 5 stages can run 100% local (no cloud)</label>
+      </div>
+    </div>
+
+    <div class="continue-box">
+      <p>✅ Architecture understood! Time to install the voice services.</p>
+      <a href="lesson-12.html">NEXT: Lesson 4.2 — Whisper + Piper + Wyoming Pipeline →</a>
+    </div>
+
+    <div class="exit-ticket">
+      <h3>📝 Exit Ticket</h3>
+      <p><strong>Question:</strong> Draw or describe the flow of data from when you say "Ok Nabu, turn on the lights" until you hear a response. Include all 5 stages.</p>
+      <textarea placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+
+  <script>
+    function showOS(osId) {
+      const parent = event.target.closest('.step') || event.target.closest('.lesson-section');
+      if (parent) {
+        parent.querySelectorAll('.os-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        parent.querySelectorAll('.os-tab').forEach(tab => {
+          tab.classList.remove('active');
+        });
+        const targetContent = parent.querySelector(`#${osId}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          event.target.classList.add('active');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

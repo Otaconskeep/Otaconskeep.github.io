@@ -1,73 +1,161 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Start here · Classroom</title>
-<meta name="description" content="Academy rules.">
-<link rel="canonical" href="https://otaconskeep.github.io/classroom/start.html">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921c">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Here — Otaconskeep Classroom</title>
+  <link rel="stylesheet" href="classroom.css">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>START<span class="blink"></span></span></div></div>
-<nav class="topnav">
- <div class="wrap">
- <a class="brand" href="/">Otaconskeep</a>
- <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
- <div class="navlinks">
- <a href="/">Home</a>
- <a href="/otacon/">Otacon</a>
- <a href="/keepdesk/">Keep Desk</a>
- <a href="/keeproute/">KeepRoute</a>
- <a href="/expansion/">Expansion</a>
- <a href="/ai9/">AI9</a>
- <a href="/classroom/" aria-current="page">Classroom</a>
- <a href="/engineering/">Engineering</a>
- <a href="/faq/">FAQ</a>
- <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep/Classroom" target="_blank" rel="noopener">GitHub</a>
- <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div></div>
-</nav><nav class="cr-subnav" aria-label="Classroom">
- <div class="wrap">
- <a href="/classroom/">Academy</a>
- <a href="/classroom/start.html">Start</a>
- <a href="/classroom/path.html">Path</a>
- <a href="/classroom/glossary.html">Glossary</a>
- <a href="/classroom/units/1-infrastructure/">Unit 1</a>
- <a href="/classroom/units/2-arr/">Unit 2</a>
- <a href="/classroom/units/3-home-assistant/">Unit 3</a>
- <a href="/classroom/units/4-voice/">Unit 4</a>
- <a href="/classroom/final-exam.html">Final exam</a>
- </div>
-</nav>
-<div class="wrap">
-<section class="hero flush"><span class="cr-badge baby">🟢 Baby step</span>
-<h1 class="display" style="font-size:clamp(2rem,5vw,3rem);margin-top:12px;">Start here</h1>
-<p class="lede">This is a self-paced technical course. The video (if you use one) is only the lecture. You pause, lab, checkpoint, then continue.</p></section>
-<div class="cr-box"><h3>Rules of the Academy</h3>
-<ul>
-<li>One concept → one picture → one action → verify → next</li>
-<li>Windows/Linux split only for install paths; concepts merge</li>
-<li>No embedded videos on these pages</li>
-<li>Prefer current official docs over old screenshots in lectures</li>
-<li>🔴 classes assume earlier checkpoints passed</li>
-</ul></div>
-<div class="cr-check" data-check-id="academy-start">
- <h3>Checkpoint — pass before you continue</h3>
- <label><input type="checkbox" data-k="0"> I understand videos are optional lectures, not copy-paste scripts</label><label><input type="checkbox" data-k="1"> I will use the glossary when a word is new</label><label><input type="checkbox" data-k="2"> I picked or will pick a Windows WSL2 or Linux Docker path</label>
- <div class="cr-gate">All boxes true → <a href="path.html">Choose path</a></div>
-</div>
-<div class="cr-pager"><a href="/classroom/">← Academy</a><a href="path.html">Path →</a></div>
-</div>
-<footer class="sitefoot"><div class="wrap">
-<span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
-</div></footer>
-<script src="/classroom/classroom.js?v=20260921c"></script>
-</body></html>
+  <div class="container">
+    <header>
+      <h1 class="site-title">⚡ Otaconskeep Classroom</h1>
+      <p class="site-subtitle">Start Here — The Right Order</p>
+    </header>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="start.html">Start Here</a>
+      <a href="path.html">Choose Your Path</a>
+      <a href="glossary.html">Glossary</a>
+      <a href="final-exam.html">Final Exam</a>
+    </nav>
+
+    <div class="card">
+      <h2>How learning works here</h2>
+      <p>Every lesson follows the same loop:</p>
+
+      <div class="diagram">
+  ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐
+  │  CONCEPT │ → │  PICTURE │ → │  ACTION  │ → │ VERIFY   │ → │ CONTINUE │
+  └──────────┘   └──────────┘   └──────────┘   └──────────┘   └──────────┘
+      </div>
+
+      <ol style="margin: 20px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>One concept</strong> — if a page teaches two ideas, it failed.</li>
+        <li><strong>One picture</strong> — ASCII / SmartArt that stands alone.</li>
+        <li><strong>One action</strong> — you change the real system.</li>
+        <li><strong>Verify</strong> — evidence checkboxes (labs) before unlock.</li>
+        <li><strong>Then continue</strong> — no skipping gates.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>Difficulty badges</h2>
+      <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+        <tr style="background: var(--bg-card); border-bottom: 2px solid var(--accent-teal);">
+          <th style="padding: 10px; text-align: left;">Badge</th>
+          <th style="padding: 10px; text-align: left;">You should feel…</th>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;"><span class="difficulty-badge difficulty-baby">BABY</span></td>
+          <td style="padding: 10px;">Guided; copy-paste OK</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+          <td style="padding: 10px;"><span class="difficulty-badge difficulty-intermediate">INTERMEDIATE</span></td>
+          <td style="padding: 10px;">You can recover with the decision tree</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><span class="difficulty-badge difficulty-advanced">ADVANCED</span></td>
+          <td style="padding: 10px;">Backups required; production-adjacent</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>OS fork (do this next)</h2>
+      <p>Homelabs start on different desks. We <strong>fork early</strong>, then <strong>merge</strong>:</p>
+      <ul style="margin: 15px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Windows path:</strong> WSL2 + Docker</li>
+        <li><strong>Linux path:</strong> Ubuntu + Docker</li>
+      </ul>
+      <p>Open <a href="path.html">Choose Your Path</a> and complete its checkpoint before Class 01.</p>
+    </div>
+
+    <div class="card">
+      <h2>Evidence culture</h2>
+      <ul style="margin: 15px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li>Checkboxes are <strong>claims</strong>. Only tick what you actually saw.</li>
+        <li>Final Exam will ask for artifacts from Units 1–4.</li>
+        <li>Screenshots live in your notes vault (Obsidian/Notion/folder) — not required in git.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Videos = lectures only</h2>
+      <p>NetworkChuck, IBRACORP, Smart Home Junkie, Everything Smart Home, Dad-the-Engineer style videos are <strong>concept lectures</strong>. Buttons move. Prefer:</p>
+      <ul style="margin: 15px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li>Current official docs</li>
+        <li>This academy's labs</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>🧪 Course Philosophy</h2>
+      
+      <h3>TRaSH First, Random YouTube Later</h3>
+      <p>This course follows <a href="https://trash-guides.info/" target="_blank">TRaSH Guides</a> as the authoritative source for ARR media automation. TRaSH Guides are maintained alongside Sonarr/Radarr and stay current. YouTube videos are useful for <em>seeing</em> concepts, but the guides are your instruction manual.</p>
+
+      <h3>Docker Compose, Not Click-Ops</h3>
+      <p>You will learn to define your stack in <code>docker-compose.yml</code> files so you can rebuild your entire homelab from code. No mystery containers created by clicking through Portainer.</p>
+
+      <h3>Understand → Build → Break → Fix → Verify</h3>
+      <p>Every lesson includes:</p>
+      <ul style="margin: 15px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>Concept:</strong> What you're learning and WHY it matters</li>
+        <li><strong>Lab:</strong> Hands-on steps to build it</li>
+        <li><strong>Checkpoints:</strong> Verify it works before continuing</li>
+        <li><strong>Troubleshooting:</strong> Decision trees for when things break</li>
+      </ul>
+
+      <div class="alert alert-warning">
+        <strong>⚠️ No Shortcuts:</strong> If you skip the Docker networking lesson and jump straight to Gluetun, you WILL get stuck. Follow the order.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🎥 About Lecture Videos</h2>
+      <p>Throughout this course, you'll see references to YouTube videos from:</p>
+      <ul style="margin: 15px 0; padding-left: 40px; color: var(--text-secondary);">
+        <li><strong>NetworkChuck</strong> — Docker, networking, VMs, home automation</li>
+        <li><strong>IBRACORP</strong> — Prowlarr, TRaSH Guides + Notifiarr</li>
+        <li><strong>Smart Home Junkie</strong> — Home Assistant beginner guides</li>
+        <li><strong>Everything Smart Home</strong> — Local voice control</li>
+      </ul>
+
+      <p><strong>Important notes on videos:</strong></p>
+      <div class="alert alert-warning">
+        <ul style="margin: 10px 0; padding-left: 20px;">
+          <li>Videos are <strong>lecture supplements</strong>, not the product. The lessons in this classroom are the lab.</li>
+          <li>Some videos were made in 2022–2024. <strong>UIs change.</strong> Always check official documentation for current steps.</li>
+          <li>Do NOT follow every video step-by-step if it conflicts with TRaSH or this course. Use videos to understand concepts, then follow the classroom labs.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📚 Key Acronyms (Full Glossary Available)</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+        <div><strong>ARR:</strong> Sonarr, Radarr, Lidarr family</div>
+        <div><strong>HA:</strong> Home Assistant</div>
+        <div><strong>STT:</strong> Speech-to-Text</div>
+        <div><strong>TTS:</strong> Text-to-Speech</div>
+        <div><strong>VPN:</strong> Virtual Private Network</div>
+        <div><strong>LAN:</strong> Local Area Network</div>
+        <div><strong>NAS:</strong> Network Attached Storage</div>
+        <div><strong>SMB:</strong> Samba file share protocol</div>
+      </div>
+      <p style="margin-top: 20px;"><a href="glossary.html">→ View complete glossary</a></p>
+    </div>
+
+    <div class="continue-box">
+      <p>Ready to choose your operating system path?</p>
+      <a href="path.html">NEXT: Choose Your Path (Windows or Linux) →</a>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Antonio G. Garcia (Otaconskeep) • MIT License</p>
+    </footer>
+  </div>
+</body>
+</html>
