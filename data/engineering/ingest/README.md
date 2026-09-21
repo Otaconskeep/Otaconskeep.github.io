@@ -1,5 +1,10 @@
-# Engineering ingest drop zone
+# Engineering ingest datasets
 
-Place sanitized CSV/JSON benchmark, CI, and soak artifacts here for future automated ingestion.
+| File | Label | Description |
+|------|-------|-------------|
+| `analysis_emotion_sensitivity.csv` | ANALYSIS | 120 equation-derived emotion samples (no private logs) |
+| `analysis_param_sweep.csv` | ANALYSIS | 80-row parametric sensitivity sweep |
+| `analysis_relationship_f5.csv` | ANALYSIS | 60 Formula 5 relationship updates |
+| `gpu_throughput_tiers.csv` | MEASURED / SIMULATED | GPU series throughput (see benchmarks.json) |
 
-Do not commit secrets, private IPs, tokens, or raw unsanitized logs.
+MOCK CSVs were removed. Do not place private IPs, tokens, or Keep chat logs here.

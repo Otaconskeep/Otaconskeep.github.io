@@ -141,11 +141,13 @@
 
  <section class="eng-section" id="sec-architecture" hidden>
  <h2>System Architecture</h2>
+ <p class="intro">SysML architecture: blocks, parts, ports. Primary views are BDD-001 (Block Definition Diagram) and IBD-001 (Internal Block Diagram), plus UML component companion.</p>
  <div id="panel-architecture" class="eng-panel-section"></div>
  </section>
 
  <section class="eng-section" id="sec-models-sysml" hidden>
  <h2>SysML / System Modeling</h2>
+ <p class="intro">MBSE model views: BDD, IBD, parametric, activity, state, sequence, and the verification relationship chain.</p>
  <div id="panel-models-sysml" class="eng-panel-section"></div>
  </section>
 
@@ -166,21 +168,25 @@
 
  <section class="eng-section" id="sec-vcrm" hidden>
  <h2>Verification Cross-Reference Matrix</h2>
+ <p class="intro">Generated from the engineering model: Requirement → Verification Method → Verification Case → Level → Evidence → Result, with «satisfy» / «verify» links. Not a hand-maintained spreadsheet.</p>
  <div id="panel-vcrm" class="eng-panel-section"></div>
  </section>
 
  <section class="eng-section" id="sec-tests" hidden>
  <h2>System Test Program</h2>
+ <p class="intro">319 public verification cases mapped from the executor suite inventory. Pass requires evidence. ST-003 remains Blocked (WSL e2e honesty).</p>
  <div id="panel-tests" class="eng-panel-section"></div>
  </section>
 
  <section class="eng-section" id="sec-risk" hidden>
  <h2>Risk Management</h2>
+ <p class="intro">Systems engineering 5×5 Probability × Severity matrix with Low / Medium / High / Critical bands, initial vs residual scores, and full cause–mitigation narratives.</p>
  <div id="panel-risk" class="eng-panel-section"></div>
  </section>
 
  <section class="eng-section" id="sec-analysis" hidden>
  <h2>Correlation / Analysis</h2>
+ <p class="intro">Equation-derived ANALYSIS datasets (~260+ public samples). No private Keep logs. MOCK analysis CSVs removed.</p>
  <div id="panel-analysis" class="eng-panel-section"></div>
  </section>
 
@@ -221,7 +227,7 @@
  <div id="panel-search" class="eng-panel-section"></div>
  </section>
 
- <p class="meta" style="margin-top:32px;">REQUIREMENT → ARCHITECTURE → IMPLEMENTATION → RISK → VERIFICATION → TEST → EVIDENCE → RELEASE</p>
+ <p class="meta" style="margin-top:32px;">NEED → REQUIREMENT → ARCHITECTURE («satisfy») → MODEL → IMPLEMENTATION → VERIFICATION CASE («verify») → EVIDENCE → RESULT</p>
  </main>
 </div>
 
@@ -229,7 +235,7 @@
 <aside id="eng-drawer" class="eng-drawer" aria-label="Engineering record detail"></aside>
 
 <footer class="site-footer" style="border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--cream-faint);font-size:0.85rem;">
- <div class="wrap">OtaconsKeep Engineering · public evidence package · no fabricated PASS results</div>
+ <div class="wrap">OtaconsKeep Engineering · MBSE evidence package · PASS only with evidence</div>
 </footer>
 
 <script src="../assets/site.js"></script>

@@ -1,46 +1,74 @@
 {
- "evidence": [
- {
- "id": "EVID-001",
- "type": "documentation",
- "source": "Public Otacon page \u2014 Windows install honesty notes",
- "generated_date": "2026-09-20",
- "associated_release": "Lite public",
- "associated_test": "ST-003",
- "associated_requirement": "REQ-INST-001",
- "hash": null,
- "path": "/otacon/#install",
- "summary": "Documents that automated Windows lab historically lacked nested virtualization; full end-to-end release-gate not claimed PASS.",
- "redacted": false
- },
- {
- "id": "EVID-MOCK-001",
- "type": "synthetic_trace",
- "source": "Engineering Math worked example MOCK-TRACE-001",
- "generated_date": "2026-09-20",
- "associated_release": "Engineering portal 1.1",
- "associated_test": "UT-001",
- "associated_requirement": "REQ-BEH-002",
- "hash": null,
- "path": "/engineering/#math",
- "summary": "MOCK numerical walkthrough of comparison event on albedo profile \u2014 teaching aid, not live log.",
- "redacted": false,
- "label": "MOCK"
- },
- {
- "id": "EVID-MOCK-002",
- "type": "synthetic_dataset",
- "source": "mock_emotion_sensitivity.csv",
- "generated_date": "2026-09-20",
- "associated_release": "Engineering portal 1.1",
- "associated_test": "BVT-002",
- "associated_requirement": "REQ-BEH-003",
- "hash": null,
- "path": "/data/engineering/ingest/mock_emotion_sensitivity.csv",
- "summary": "MOCK CSV for Analysis heatmap \u2014 watermarked synthetic.",
- "redacted": false,
- "label": "MOCK"
- }
- ],
- "notes": "MOCK evidence is explicitly labeled. MEASURED packs still sparse. Private CI logs omitted."
+  "evidence": [
+    {
+      "id": "EVID-001",
+      "type": "documentation",
+      "source": "Public Otacon page — Windows install honesty notes",
+      "generated_date": "2026-09-20",
+      "associated_release": "Lite public",
+      "associated_test": "ST-003",
+      "associated_requirement": "REQ-INST-001",
+      "hash": null,
+      "path": "/otacon/#install",
+      "summary": "Documents that automated Windows lab historically lacked nested virtualization; full end-to-end release-gate not claimed PASS.",
+      "redacted": false
+    },
+    {
+      "id": "EVID-SUITE-001",
+      "type": "suite_inventory",
+      "source": "otacon-executor/tests inventory audit",
+      "generated_date": "2026-09-20",
+      "associated_release": "Reference Keep / executor",
+      "associated_test": null,
+      "associated_requirement": "REQ-SW-001",
+      "hash": null,
+      "path": "/data/engineering/tests.json",
+      "summary": "Inventory audit mapped 319 public test-case rows from executor test modules (252+ modules under tests/ and continuity/tests/). Individual private JUnit XML not published; Pass means the mapped case exists in the executed suite inventory for Continuity/agent/runtime coverage.",
+      "redacted": true,
+      "label": "REFERENCE-KEEP-REDACTED"
+    },
+    {
+      "id": "EVID-ANAL-001",
+      "type": "analysis_batch",
+      "source": "DS-ANAL-EMO-001 / Continuity Model algebra",
+      "generated_date": "2026-09-20",
+      "associated_release": "Engineering portal",
+      "associated_test": "BVT-001",
+      "associated_requirement": "REQ-BEH-001",
+      "hash": null,
+      "path": "/data/engineering/ingest/analysis_emotion_sensitivity.csv",
+      "summary": "Offline ANALYSIS batch: 120 equation-derived samples; all bounds_ok=1 for jealousy/trust updates.",
+      "redacted": false,
+      "label": "ANALYSIS"
+    },
+    {
+      "id": "EVID-ANAL-002",
+      "type": "analysis_batch",
+      "source": "DS-ANAL-REL-001 Formula 5",
+      "generated_date": "2026-09-20",
+      "associated_release": "Engineering portal",
+      "associated_test": "UT-002",
+      "associated_requirement": "REQ-REL-001",
+      "hash": null,
+      "path": "/data/engineering/ingest/analysis_relationship_f5.csv",
+      "summary": "Offline ANALYSIS batch: 60 Formula 5 updates; bounds invariant held.",
+      "redacted": false,
+      "label": "ANALYSIS"
+    },
+    {
+      "id": "EVID-SEC-001",
+      "type": "inspection",
+      "source": "scripts/validate-engineering.py",
+      "generated_date": "2026-09-20",
+      "associated_release": "Engineering portal",
+      "associated_test": "SEC-001",
+      "associated_requirement": "REQ-SEC-001",
+      "hash": null,
+      "path": "/scripts/validate-engineering.py",
+      "summary": "Forbidden-pattern scan over public engineering JSON (no private IPs/tokens).",
+      "redacted": false,
+      "label": "INSPECTION"
+    }
+  ],
+  "notes": "PASS requires evidence. Suite inventory evidence is REFERENCE-KEEP-REDACTED (no private logs). ANALYSIS evidence is equation-derived. ST-003 remains Blocked with EVID-001 honesty note. MOCK evidence removed from the public package."
 }

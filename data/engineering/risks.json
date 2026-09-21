@@ -1,369 +1,811 @@
 {
- "risks": [
- {
- "id": "RSK-001",
- "title": "Local data loss on disk failure",
- "description": "Local-first persistence means operator disk failure can lose agent memory without external backup.",
- "scenario": "Operator\u2019s disk fails or volume is wiped. Emotional state, conversations, and dossiers on that volume are gone. Affects any Lite/Expansion user relying solely on one machine.",
- "cause": "Single-machine storage model without mandatory off-box backup.",
- "cause_chain": [
- "Local JSON/state stores",
- "No built-in cloud replica",
- "Operator may not back up"
- ],
- "consequence": "Loss of conversation and long-term memory; relationship state reset.",
- "detection": [
- "Disk SMART alerts",
- "Failed service start reading state",
- "Operator report"
- ],
- "probability": 2,
- "severity": 4,
- "initial_risk": 8,
- "mitigation": "Document local data ownership; recommend operator backups; atomic writes reduce corruption not disaster loss.",
- "mitigation_steps": {
- "prevent": [
- "Document backup guidance on Otacon/FAQ"
- ],
- "detect": [
- "Health checks for state path readability"
- ],
- "respond": [
- "Restore from operator backup"
- ],
- "recover": [
- "Re-seed defaults if empty store"
- ]
- },
- "mitigation_owner": "ARCH-012",
- "linked_requirements": [
- "REQ-SYS-001"
- ],
- "linked_tests": [],
- "residual_probability": 2,
- "residual_severity": 3,
- "residual_risk": 6,
- "residual_rationale": "Accepted residual: local-first implies operator-owned DR.",
- "owner": "Antonio G. Garcia",
- "review_date": "2026-10-20",
- "status": "Accepted"
- },
- {
- "id": "RSK-002",
- "title": "Memory corruption or inconsistent agent state",
- "description": "Persistent state files may become inconsistent after abrupt process kill.",
- "scenario": "Power loss mid-write leaves truncated JSON; agent identity or continuity load fails or partially loads.",
- "cause": "Crash mid-write / incomplete migration",
- "cause_chain": [
- "Process SIGKILL",
- "Non-atomic write path historically",
- "Partial migration"
- ],
- "consequence": "Agent identity or memory anomalies; possible fallback to defaults.",
- "detection": [
- "JSON parse errors in logs",
- "Validator / load exceptions"
- ],
- "probability": 2,
- "severity": 3,
- "initial_risk": 6,
- "mitigation": "Atomic temp-file replace patterns in continuity engines; installer repair helpers.",
- "mitigation_steps": {
- "prevent": [
- "Write temp then os.replace"
- ],
- "detect": [
- "Parse failure logging"
- ],
- "respond": [
- "Repair helper / re-init defaults"
- ],
- "recover": [
- "Restore last good backup if available"
- ]
- },
- "mitigation_owner": "ARCH-003",
- "linked_requirements": [
- "REQ-FUNC-001",
- "REQ-BEH-007"
- ],
- "linked_tests": [
- "ST-001"
- ],
- "residual_probability": 1,
- "residual_severity": 3,
- "residual_risk": 3,
- "residual_rationale": "Atomic replace reduces likelihood; residual remains for FS failures.",
- "owner": "Antonio G. Garcia",
- "review_date": "2026-10-20",
- "status": "Mitigating"
- },
- {
- "id": "RSK-003",
- "title": "GPU detection / VRAM tier mis-selection",
- "description": "Incorrect GPU detection can install an inappropriate model tier or fail chat.",
- "scenario": "WSL/GPU visibility wrong \u2192 Default Model picks wrong tier \u2192 poor latency or OOM.",
- "cause": "Driver/WSL/GPU visibility issues",
- "cause_chain": [
- "Nested virt / driver",
- "Detection script miss",
- "No override used"
- ],
- "consequence": "Poor performance or chat failure",
- "detection": [
- "Chat timeouts",
- "Wrong model tag in env",
- "Operator report"
- ],
- "probability": 3,
- "severity": 3,
- "initial_risk": 9,
- "mitigation": "Fix-Otacon-GPU.bat; OTACON_LLM_MODEL override; documented VRAM tiers.",
- "mitigation_steps": {
- "prevent": [
- "Document Fix-Otacon-GPU and override"
- ],
- "detect": [
- "Compare selected tag vs nvidia-smi"
- ],
- "respond": [
- "Re-run Fix bat / set override"
- ],
- "recover": [
- "Pull correct Ollama tag"
- ]
- },
- "mitigation_owner": "ARCH-005",
- "linked_requirements": [
- "REQ-HW-001",
- "REQ-PERF-001",
- "REQ-INST-002"
- ],
- "linked_tests": [
- "ST-002"
- ],
- "residual_probability": 2,
- "residual_severity": 2,
- "residual_risk": 4,
- "residual_rationale": "Helpers exist; exotic GPU topologies still fail sometimes.",
- "owner": "Antonio G. Garcia",
- "review_date": "2026-10-20",
- "status": "Mitigating"
- },
- {
- "id": "RSK-004",
- "title": "Accidental secret publication",
- "description": "Public docs or Engineering evidence could leak private IPs, tokens, or logs.",
- "scenario": "Internal executor config copied into public Engineering JSON.",
- "cause": "Copying internal executor config into public site",
- "cause_chain": [
- "Private IP in docs",
- "Token in evidence",
- "Unredacted logs"
- ],
- "consequence": "Security exposure",
- "detection": [
- "validate-engineering forbidden patterns",
- "manual review"
- ],
- "probability": 2,
- "severity": 5,
- "initial_risk": 10,
- "mitigation": "Sanitization policy; validator; no private infra in JSON.",
- "mitigation_steps": {
- "prevent": [
- "Forbidden-pattern CI/validator"
- ],
- "detect": [
- "SEC-001 / validate-engineering.py"
- ],
- "respond": [
- "Purge commit / rotate secrets"
- ],
- "recover": [
- "Re-issue credentials"
- ]
- },
- "mitigation_owner": "Engineering portal",
- "linked_requirements": [
- "REQ-SEC-001",
- "REQ-SEC-002"
- ],
- "linked_tests": [
- "SEC-001"
- ],
- "residual_probability": 1,
- "residual_severity": 5,
- "residual_risk": 5,
- "residual_rationale": "Severity stays high if leak occurs; likelihood reduced by automation.",
- "owner": "Antonio G. Garcia",
- "review_date": "2026-10-01",
- "status": "Monitoring"
- },
- {
- "id": "RSK-005",
- "title": "Windows WSL install path incomplete automated proof",
- "description": "Automated Windows lab historically lacked nested virt; end-to-end release gate not fully proven.",
- "scenario": "Installer regression ships because lab cannot green the full WSL reboot/resume path.",
- "cause": "Test infrastructure limitation",
- "cause_chain": [
- "VM without nested virt",
- "Hang at Windows boot after WSL enable",
- "Gate not green"
- ],
- "consequence": "Install regressions may escape automated gates",
- "detection": [
- "ST-003 Blocked",
- "Operator Discord reports"
- ],
- "probability": 3,
- "severity": 4,
- "initial_risk": 12,
- "mitigation": "Public honesty notes; nested virt lab correction planned; manual verification path.",
- "mitigation_steps": {
- "prevent": [
- "Enable nested virt in lab template",
- "Keep honesty notes until green"
- ],
- "detect": [
- "ST-003 status Blocked until pass"
- ],
- "respond": [
- "Manual hardware verification checklist"
- ],
- "recover": [
- "Publish EVID when gate passes"
- ]
- },
- "roadmap": [
- {
- "step": "Lab nested virt enabled",
- "status": "In progress / corrected config noted"
- },
- {
- "step": "Repeat download\u2192WSL\u2192reboot\u2192resume\u2192health green",
- "status": "Pending"
- },
- {
- "step": "Attach EVID pack + mark ST-003 executed",
- "status": "Pending"
- }
- ],
- "mitigation_owner": "ARCH-006",
- "linked_requirements": [
- "REQ-INST-001",
- "REQ-AVAIL-001"
- ],
- "linked_tests": [
- "ST-003"
- ],
- "residual_probability": 3,
- "residual_severity": 3,
- "residual_risk": 9,
- "residual_rationale": "Open until a green end-to-end gate exists; residual remains high.",
- "owner": "Antonio G. Garcia",
- "review_date": "2026-10-05",
- "status": "Open"
- },
- {
- "id": "RSK-006",
- "title": "Behavioral model drift between releases",
- "description": "Personality coefficients or blend rules may change without versioned behavior baseline.",
- "scenario": "Silent coefficient edit changes jealousy responses across Expansion agents.",
- "cause": "Silent coefficient edits",
- "cause_chain": [
- "No BM version bump",
- "Missing BVT gate",
- "Prompt-only changes confused with math"
- ],
- "consequence": "Unexpected agent emotional responses",
- "detection": [
- "BVT failures",
- "BM version mismatch in baselines"
- ],
- "probability": 3,
- "severity": 3,
- "initial_risk": 9,
- "mitigation": "Publish MOD/PAR/BVT IDs; track BM version; behavioral regression scenarios.",
- "mitigation_steps": {
- "prevent": [
- "BL-BEH baseline + BM version in releases"
- ],
- "detect": [
- "BVT-001/002 in CI when available"
- ],
- "respond": [
- "Revert coefficient / bump version + notes"
- ],
- "recover": [
- "Re-run behavioral scenarios"
- ]
- },
- "mitigation_owner": "MOD-EMO-001",
- "linked_requirements": [
- "REQ-BEH-001",
- "REQ-BEH-002",
- "REQ-BEH-003"
- ],
- "linked_tests": [
- "BVT-001",
- "BVT-002",
- "UT-001"
- ],
- "residual_probability": 2,
- "residual_severity": 3,
- "residual_risk": 6,
- "residual_rationale": "Versioning reduces silent drift; BVTs still Verification Pending publicly.",
- "owner": "Antonio G. Garcia",
- "review_date": "2026-10-20",
- "status": "Mitigating"
- },
- {
- "id": "RSK-007",
- "title": "Expansion optional sidecars mistaken for READY",
- "description": "Users may expect Genome/Video Studio READY on every fresh PC.",
- "scenario": "Fresh PC Expansion install; user expects Video Studio READY without Docker/GPU.",
- "cause": "Marketing/install ambiguity",
- "cause_chain": [
- "Premium expectations",
- "Sidecar optional",
- "Insufficient status UI"
- ],
- "consequence": "Support burden and perceived product failure",
- "detection": [
- "Discord tickets",
- "Expansion status page hits"
- ],
- "probability": 4,
- "severity": 2,
- "initial_risk": 8,
- "mitigation": "Expansion page honesty: optional GPU/Docker; Aria+Deck/Codec installable today.",
- "mitigation_steps": {
- "prevent": [
- "Capability status table on Expansion + explainers"
- ],
- "detect": [
- "Support tags for Genome/Studio"
- ],
- "respond": [
- "Point to optional sidecar docs"
- ],
- "recover": [
- "Guided Docker/Comfy setup"
- ]
- },
- "mitigation_owner": "Public Expansion docs",
- "linked_requirements": [
- "REQ-FUNC-006"
- ],
- "linked_tests": [],
- "residual_probability": 2,
- "residual_severity": 2,
- "residual_risk": 4,
- "residual_rationale": "Honesty reduces severity of expectation mismatch.",
- "owner": "Antonio G. Garcia",
- "review_date": "2026-10-20",
- "status": "Mitigating"
- }
- ]
+  "matrix": {
+    "axes": {
+      "probability": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "severity": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "bands": [
+      {
+        "name": "Low",
+        "min": 1,
+        "max": 4,
+        "color": "#2f6f4e"
+      },
+      {
+        "name": "Medium",
+        "min": 5,
+        "max": 9,
+        "color": "#c4a035"
+      },
+      {
+        "name": "High",
+        "min": 10,
+        "max": 15,
+        "color": "#c45c26"
+      },
+      {
+        "name": "Critical",
+        "min": 16,
+        "max": 25,
+        "color": "#a33b3b"
+      }
+    ],
+    "scoring": "initial_risk = probability × severity; residual_risk after mitigation"
+  },
+  "risks": [
+    {
+      "id": "RSK-001",
+      "title": "Local data loss on disk failure",
+      "description": "Local-first persistence means operator disk failure can lose agent memory without external backup.",
+      "scenario": "Operator’s disk fails or volume is wiped. Emotional state, conversations, and dossiers on that volume are gone. Affects any Lite/Expansion user relying solely on one machine.",
+      "cause": "Single-machine storage model without mandatory off-box backup.",
+      "cause_chain": [
+        "Local JSON/state stores",
+        "No built-in cloud replica",
+        "Operator may not back up"
+      ],
+      "consequence": "Loss of conversation and long-term memory; relationship state reset.",
+      "detection": [
+        "Disk SMART alerts",
+        "Failed service start reading state",
+        "Operator report"
+      ],
+      "probability": 2,
+      "severity": 4,
+      "initial_risk": 8,
+      "mitigation": "Document local data ownership; recommend operator backups; atomic writes reduce corruption not disaster loss.",
+      "mitigation_steps": {
+        "prevent": [
+          "Document backup guidance on Otacon/FAQ"
+        ],
+        "detect": [
+          "Health checks for state path readability"
+        ],
+        "respond": [
+          "Restore from operator backup"
+        ],
+        "recover": [
+          "Re-seed defaults if empty store"
+        ]
+      },
+      "mitigation_owner": "ARCH-012",
+      "linked_requirements": [
+        "REQ-SYS-001"
+      ],
+      "linked_tests": [],
+      "residual_probability": 2,
+      "residual_severity": 3,
+      "residual_risk": 6,
+      "residual_rationale": "Accepted residual: local-first implies operator-owned DR.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Accepted"
+    },
+    {
+      "id": "RSK-002",
+      "title": "Memory corruption or inconsistent agent state",
+      "description": "Persistent state files may become inconsistent after abrupt process kill.",
+      "scenario": "Power loss mid-write leaves truncated JSON; agent identity or continuity load fails or partially loads.",
+      "cause": "Crash mid-write / incomplete migration",
+      "cause_chain": [
+        "Process SIGKILL",
+        "Non-atomic write path historically",
+        "Partial migration"
+      ],
+      "consequence": "Agent identity or memory anomalies; possible fallback to defaults.",
+      "detection": [
+        "JSON parse errors in logs",
+        "Validator / load exceptions"
+      ],
+      "probability": 2,
+      "severity": 3,
+      "initial_risk": 6,
+      "mitigation": "Atomic temp-file replace patterns in continuity engines; installer repair helpers.",
+      "mitigation_steps": {
+        "prevent": [
+          "Write temp then os.replace"
+        ],
+        "detect": [
+          "Parse failure logging"
+        ],
+        "respond": [
+          "Repair helper / re-init defaults"
+        ],
+        "recover": [
+          "Restore last good backup if available"
+        ]
+      },
+      "mitigation_owner": "ARCH-003",
+      "linked_requirements": [
+        "REQ-FUNC-001",
+        "REQ-BEH-007"
+      ],
+      "linked_tests": [
+        "ST-001"
+      ],
+      "residual_probability": 1,
+      "residual_severity": 3,
+      "residual_risk": 3,
+      "residual_rationale": "Atomic replace reduces likelihood; residual remains for FS failures.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Mitigating"
+    },
+    {
+      "id": "RSK-003",
+      "title": "GPU detection / VRAM tier mis-selection",
+      "description": "Incorrect GPU detection can install an inappropriate model tier or fail chat.",
+      "scenario": "WSL/GPU visibility wrong → Default Model picks wrong tier → poor latency or OOM.",
+      "cause": "Driver/WSL/GPU visibility issues",
+      "cause_chain": [
+        "Nested virt / driver",
+        "Detection script miss",
+        "No override used"
+      ],
+      "consequence": "Poor performance or chat failure",
+      "detection": [
+        "Chat timeouts",
+        "Wrong model tag in env",
+        "Operator report"
+      ],
+      "probability": 3,
+      "severity": 3,
+      "initial_risk": 9,
+      "mitigation": "Fix-Otacon-GPU.bat; OTACON_LLM_MODEL override; documented VRAM tiers.",
+      "mitigation_steps": {
+        "prevent": [
+          "Document Fix-Otacon-GPU and override"
+        ],
+        "detect": [
+          "Compare selected tag vs nvidia-smi"
+        ],
+        "respond": [
+          "Re-run Fix bat / set override"
+        ],
+        "recover": [
+          "Pull correct Ollama tag"
+        ]
+      },
+      "mitigation_owner": "ARCH-005",
+      "linked_requirements": [
+        "REQ-HW-001",
+        "REQ-PERF-001",
+        "REQ-INST-002"
+      ],
+      "linked_tests": [
+        "ST-002"
+      ],
+      "residual_probability": 2,
+      "residual_severity": 2,
+      "residual_risk": 4,
+      "residual_rationale": "Helpers exist; exotic GPU topologies still fail sometimes.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Mitigating"
+    },
+    {
+      "id": "RSK-004",
+      "title": "Accidental secret publication",
+      "description": "Public docs or Engineering evidence could leak private IPs, tokens, or logs.",
+      "scenario": "Internal executor config copied into public Engineering JSON.",
+      "cause": "Copying internal executor config into public site",
+      "cause_chain": [
+        "Private IP in docs",
+        "Token in evidence",
+        "Unredacted logs"
+      ],
+      "consequence": "Security exposure",
+      "detection": [
+        "validate-engineering forbidden patterns",
+        "manual review"
+      ],
+      "probability": 2,
+      "severity": 5,
+      "initial_risk": 10,
+      "mitigation": "Sanitization policy; validator; no private infra in JSON.",
+      "mitigation_steps": {
+        "prevent": [
+          "Forbidden-pattern CI/validator"
+        ],
+        "detect": [
+          "SEC-001 / validate-engineering.py"
+        ],
+        "respond": [
+          "Purge commit / rotate secrets"
+        ],
+        "recover": [
+          "Re-issue credentials"
+        ]
+      },
+      "mitigation_owner": "Engineering portal",
+      "linked_requirements": [
+        "REQ-SEC-001",
+        "REQ-SEC-002"
+      ],
+      "linked_tests": [
+        "SEC-001"
+      ],
+      "residual_probability": 1,
+      "residual_severity": 5,
+      "residual_risk": 5,
+      "residual_rationale": "Severity stays high if leak occurs; likelihood reduced by automation.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-01",
+      "status": "Monitoring"
+    },
+    {
+      "id": "RSK-005",
+      "title": "Windows WSL install path incomplete automated proof",
+      "description": "Automated Windows lab historically lacked nested virt; end-to-end release gate not fully proven.",
+      "scenario": "Installer regression ships because lab cannot green the full WSL reboot/resume path.",
+      "cause": "Test infrastructure limitation",
+      "cause_chain": [
+        "VM without nested virt",
+        "Hang at Windows boot after WSL enable",
+        "Gate not green"
+      ],
+      "consequence": "Install regressions may escape automated gates",
+      "detection": [
+        "ST-003 Blocked",
+        "Operator Discord reports"
+      ],
+      "probability": 3,
+      "severity": 4,
+      "initial_risk": 12,
+      "mitigation": "Public honesty notes; nested virt lab correction planned; manual verification path.",
+      "mitigation_steps": {
+        "prevent": [
+          "Enable nested virt in lab template",
+          "Keep honesty notes until green"
+        ],
+        "detect": [
+          "ST-003 status Blocked until pass"
+        ],
+        "respond": [
+          "Manual hardware verification checklist"
+        ],
+        "recover": [
+          "Publish EVID when gate passes"
+        ]
+      },
+      "roadmap": [
+        {
+          "step": "Lab nested virt enabled",
+          "status": "In progress / corrected config noted"
+        },
+        {
+          "step": "Repeat download→WSL→reboot→resume→health green",
+          "status": "Pending"
+        },
+        {
+          "step": "Attach EVID pack + mark ST-003 executed",
+          "status": "Pending"
+        }
+      ],
+      "mitigation_owner": "ARCH-006",
+      "linked_requirements": [
+        "REQ-INST-001",
+        "REQ-AVAIL-001"
+      ],
+      "linked_tests": [
+        "ST-003"
+      ],
+      "residual_probability": 3,
+      "residual_severity": 3,
+      "residual_risk": 9,
+      "residual_rationale": "Open until a green end-to-end gate exists; residual remains high.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-05",
+      "status": "Open"
+    },
+    {
+      "id": "RSK-006",
+      "title": "Behavioral model drift between releases",
+      "description": "Personality coefficients or blend rules may change without versioned behavior baseline.",
+      "scenario": "Silent coefficient edit changes jealousy responses across Expansion agents.",
+      "cause": "Silent coefficient edits",
+      "cause_chain": [
+        "No BM version bump",
+        "Missing BVT gate",
+        "Prompt-only changes confused with math"
+      ],
+      "consequence": "Unexpected agent emotional responses",
+      "detection": [
+        "BVT failures",
+        "BM version mismatch in baselines"
+      ],
+      "probability": 3,
+      "severity": 3,
+      "initial_risk": 9,
+      "mitigation": "Publish MOD/PAR/BVT IDs; track BM version; behavioral regression scenarios.",
+      "mitigation_steps": {
+        "prevent": [
+          "BL-BEH baseline + BM version in releases"
+        ],
+        "detect": [
+          "BVT-001/002 in CI when available"
+        ],
+        "respond": [
+          "Revert coefficient / bump version + notes"
+        ],
+        "recover": [
+          "Re-run behavioral scenarios"
+        ]
+      },
+      "mitigation_owner": "MOD-EMO-001",
+      "linked_requirements": [
+        "REQ-BEH-001",
+        "REQ-BEH-002",
+        "REQ-BEH-003"
+      ],
+      "linked_tests": [
+        "BVT-001",
+        "BVT-002",
+        "UT-001"
+      ],
+      "residual_probability": 1,
+      "residual_severity": 3,
+      "residual_risk": 3,
+      "residual_rationale": "Versioning + BVT-001/002 Pass with ANALYSIS evidence reduces residual.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Mitigating"
+    },
+    {
+      "id": "RSK-007",
+      "title": "Expansion optional sidecars mistaken for READY",
+      "description": "Users may expect Genome/Video Studio READY on every fresh PC.",
+      "scenario": "Fresh PC Expansion install; user expects Video Studio READY without Docker/GPU.",
+      "cause": "Marketing/install ambiguity",
+      "cause_chain": [
+        "Premium expectations",
+        "Sidecar optional",
+        "Insufficient status UI"
+      ],
+      "consequence": "Support burden and perceived product failure",
+      "detection": [
+        "Discord tickets",
+        "Expansion status page hits"
+      ],
+      "probability": 4,
+      "severity": 2,
+      "initial_risk": 8,
+      "mitigation": "Expansion page honesty: optional GPU/Docker; Aria+Deck/Codec installable today.",
+      "mitigation_steps": {
+        "prevent": [
+          "Capability status table on Expansion + explainers"
+        ],
+        "detect": [
+          "Support tags for Genome/Studio"
+        ],
+        "respond": [
+          "Point to optional sidecar docs"
+        ],
+        "recover": [
+          "Guided Docker/Comfy setup"
+        ]
+      },
+      "mitigation_owner": "Public Expansion docs",
+      "linked_requirements": [
+        "REQ-FUNC-006"
+      ],
+      "linked_tests": [],
+      "residual_probability": 2,
+      "residual_severity": 2,
+      "residual_risk": 4,
+      "residual_rationale": "Honesty reduces severity of expectation mismatch.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Mitigating"
+    },
+    {
+      "id": "RSK-008",
+      "title": "Continuity state desync across Codec surfaces",
+      "description": "Codec UI and runtime emotion vector may diverge if persistence write fails after reply.",
+      "scenario": "Reply rendered with updated affect; crash before flush → next turn loads stale E.",
+      "cause": "Non-transactional UI/runtime boundary",
+      "cause_chain": [
+        "Reply path",
+        "Async persist",
+        "Crash window"
+      ],
+      "consequence": "Inconsistent emotional continuity across turns",
+      "detection": [
+        "State hash mismatch logs",
+        "BVT bounds failures"
+      ],
+      "probability": 2,
+      "severity": 3,
+      "initial_risk": 6,
+      "mitigation": "Atomic persist before ack; suite coverage on memory/emotion flush paths.",
+      "mitigation_steps": {
+        "prevent": [
+          "Flush-before-ack on critical paths"
+        ],
+        "detect": [
+          "Hash/version checks"
+        ],
+        "respond": [
+          "Reload last-good state"
+        ],
+        "recover": [
+          "Re-seed defaults if corrupt"
+        ]
+      },
+      "mitigation_owner": "ARCH-007",
+      "linked_requirements": [
+        "REQ-BEH-001",
+        "REQ-FUNC-001"
+      ],
+      "linked_tests": [
+        "BVT-001",
+        "ST-001"
+      ],
+      "residual_probability": 1,
+      "residual_severity": 3,
+      "residual_risk": 3,
+      "residual_rationale": "Atomic patterns + suite Pass reduce likelihood.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Mitigating"
+    },
+    {
+      "id": "RSK-009",
+      "title": "Provider outage breaks routed capability",
+      "description": "External provider downtime can fail chat when not on local Ollama path.",
+      "scenario": "Operator uses cloud provider; outage → empty completions.",
+      "cause": "External dependency",
+      "cause_chain": [
+        "Provider down",
+        "No failover",
+        "Operator impact"
+      ],
+      "consequence": "Chat unavailable until failover",
+      "detection": [
+        "Router errors",
+        "Health checks"
+      ],
+      "probability": 3,
+      "severity": 3,
+      "initial_risk": 9,
+      "mitigation": "Local Ollama Default Model path; router failover design.",
+      "mitigation_steps": {
+        "prevent": [
+          "Prefer local Default Model"
+        ],
+        "detect": [
+          "Endpoint health"
+        ],
+        "respond": [
+          "Failover to Ollama"
+        ],
+        "recover": [
+          "Retry / notify operator"
+        ]
+      },
+      "mitigation_owner": "ARCH-004",
+      "linked_requirements": [
+        "REQ-FUNC-002",
+        "REQ-INT-001"
+      ],
+      "linked_tests": [
+        "IT-001",
+        "IT-002"
+      ],
+      "residual_probability": 2,
+      "residual_severity": 2,
+      "residual_risk": 4,
+      "residual_rationale": "Local path reduces severity of cloud outage.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Mitigating"
+    },
+    {
+      "id": "RSK-010",
+      "title": "Relationship graph corruption",
+      "description": "Agent-agent Formula 5 store corruption resets bonds.",
+      "scenario": "Partial write to relationship JSON → bonds reset to defaults.",
+      "cause": "Crash mid-write",
+      "cause_chain": [
+        "Non-atomic write",
+        "Parse fail",
+        "Default reseeding"
+      ],
+      "consequence": "Loss of agent relationship history",
+      "detection": [
+        "Parse errors",
+        "UT-002 failures"
+      ],
+      "probability": 2,
+      "severity": 3,
+      "initial_risk": 6,
+      "mitigation": "Atomic replace; Formula 5 ANALYSIS batch; suite relationship tests.",
+      "mitigation_steps": {
+        "prevent": [
+          "Atomic writes"
+        ],
+        "detect": [
+          "JSON parse + UT-002"
+        ],
+        "respond": [
+          "Restore backup"
+        ],
+        "recover": [
+          "Re-init defaults"
+        ]
+      },
+      "mitigation_owner": "ARCH-008",
+      "linked_requirements": [
+        "REQ-REL-001"
+      ],
+      "linked_tests": [
+        "UT-002"
+      ],
+      "residual_probability": 1,
+      "residual_severity": 3,
+      "residual_risk": 3,
+      "residual_rationale": "Atomic writes + analysis evidence.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Mitigating"
+    },
+    {
+      "id": "RSK-011",
+      "title": "Evidence package drift vs model",
+      "description": "VCRM rows may reference stale verification cases if tests rename.",
+      "scenario": "Module rename orphans verifiedBy links.",
+      "cause": "Manual matrix maintenance",
+      "cause_chain": [
+        "Rename",
+        "No regen",
+        "Stale VCRM"
+      ],
+      "consequence": "False verification coverage",
+      "detection": [
+        "validate-engineering xref",
+        "SEC-001"
+      ],
+      "probability": 2,
+      "severity": 2,
+      "initial_risk": 4,
+      "mitigation": "Generate VCRM from model links; validator xrefs.",
+      "mitigation_steps": {
+        "prevent": [
+          "Model-generated VCRM"
+        ],
+        "detect": [
+          "xref validator"
+        ],
+        "respond": [
+          "Regenerate package"
+        ],
+        "recover": [
+          "Re-link IDs"
+        ]
+      },
+      "mitigation_owner": "Engineering portal",
+      "linked_requirements": [
+        "REQ-DATA-001"
+      ],
+      "linked_tests": [
+        "SEC-001"
+      ],
+      "residual_probability": 1,
+      "residual_severity": 2,
+      "residual_risk": 2,
+      "residual_rationale": "Generated view + validator.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Monitoring"
+    },
+    {
+      "id": "RSK-012",
+      "title": "GPU OOM on oversized Default Model tag",
+      "description": "Wrong tier still possible under exotic WSL GPU visibility.",
+      "scenario": "14b pulled on 6GB card → OOM.",
+      "cause": "Detection miss",
+      "cause_chain": [
+        "VRAM misread",
+        "Large tag",
+        "OOM"
+      ],
+      "consequence": "Chat failure",
+      "detection": [
+        "Ollama errors",
+        "ST-002"
+      ],
+      "probability": 2,
+      "severity": 3,
+      "initial_risk": 6,
+      "mitigation": "Tier table + Fix-Otacon-GPU + override.",
+      "mitigation_steps": {
+        "prevent": [
+          "Tier thresholds"
+        ],
+        "detect": [
+          "OOM logs"
+        ],
+        "respond": [
+          "Override smaller tag"
+        ],
+        "recover": [
+          "Repull"
+        ]
+      },
+      "mitigation_owner": "ARCH-005",
+      "linked_requirements": [
+        "REQ-HW-001",
+        "REQ-PERF-001"
+      ],
+      "linked_tests": [
+        "ST-002"
+      ],
+      "residual_probability": 2,
+      "residual_severity": 2,
+      "residual_risk": 4,
+      "residual_rationale": "Helpers reduce but exotic topologies remain.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Mitigating"
+    },
+    {
+      "id": "RSK-013",
+      "title": "Personality coefficient silent edit",
+      "description": "Unversioned coefficient change alters jealousy response.",
+      "scenario": "Engineer edits sc without BM bump.",
+      "cause": "Process gap",
+      "cause_chain": [
+        "Edit",
+        "No BVT gate",
+        "User-visible mood shift"
+      ],
+      "consequence": "Behavioral surprise",
+      "detection": [
+        "BVT-002",
+        "BM version check"
+      ],
+      "probability": 3,
+      "severity": 2,
+      "initial_risk": 6,
+      "mitigation": "BM versioning + BVT Pass evidence.",
+      "mitigation_steps": {
+        "prevent": [
+          "BM version bump policy"
+        ],
+        "detect": [
+          "BVT-001/002"
+        ],
+        "respond": [
+          "Revert / note"
+        ],
+        "recover": [
+          "Re-run ANALYSIS"
+        ]
+      },
+      "mitigation_owner": "MOD-EMO-001",
+      "linked_requirements": [
+        "REQ-BEH-002",
+        "REQ-BEH-003"
+      ],
+      "linked_tests": [
+        "BVT-002",
+        "UT-001"
+      ],
+      "residual_probability": 2,
+      "residual_severity": 2,
+      "residual_risk": 4,
+      "residual_rationale": "Versioning + Pass BVTs.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Mitigating"
+    },
+    {
+      "id": "RSK-014",
+      "title": "Tool action unintended side effect",
+      "description": "Agent tool call may mutate external systems beyond operator intent.",
+      "scenario": "Misparsed intent triggers destructive tool.",
+      "cause": "Tool authority gap",
+      "cause_chain": [
+        "Ambiguous prompt",
+        "Tool enabled",
+        "Side effect"
+      ],
+      "consequence": "Operational damage / support incident",
+      "detection": [
+        "REX authorize gate",
+        "Action logs"
+      ],
+      "probability": 2,
+      "severity": 4,
+      "initial_risk": 8,
+      "mitigation": "REX authorize → execute; suite action-loop coverage.",
+      "mitigation_steps": {
+        "prevent": [
+          "Authorize gate"
+        ],
+        "detect": [
+          "Action audit log"
+        ],
+        "respond": [
+          "Halt tools"
+        ],
+        "recover": [
+          "Manual rollback"
+        ]
+      },
+      "mitigation_owner": "ARCH-009",
+      "linked_requirements": [
+        "REQ-FUNC-001"
+      ],
+      "linked_tests": [],
+      "residual_probability": 1,
+      "residual_severity": 4,
+      "residual_risk": 4,
+      "residual_rationale": "Authorize gate reduces likelihood; severity remains if bypassed.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Mitigating"
+    },
+    {
+      "id": "RSK-015",
+      "title": "Public Engineering overclaim",
+      "description": "Portal text could imply Verified without evidence.",
+      "scenario": "Marketing copy says PASS; VCRM still pending.",
+      "cause": "Process/comms gap",
+      "cause_chain": [
+        "Copy drift",
+        "No evidence gate"
+      ],
+      "consequence": "Trust erosion",
+      "detection": [
+        "Validator PASS-without-evidence rule",
+        "SEC-001"
+      ],
+      "probability": 2,
+      "severity": 3,
+      "initial_risk": 6,
+      "mitigation": "PASS requires evidence; honesty labels; generated VCRM.",
+      "mitigation_steps": {
+        "prevent": [
+          "Validator rule"
+        ],
+        "detect": [
+          "SEC-001"
+        ],
+        "respond": [
+          "Correct copy"
+        ],
+        "recover": [
+          "Attach evidence or downgrade status"
+        ]
+      },
+      "mitigation_owner": "Engineering portal",
+      "linked_requirements": [
+        "REQ-DATA-001",
+        "REQ-SEC-001"
+      ],
+      "linked_tests": [
+        "SEC-001"
+      ],
+      "residual_probability": 1,
+      "residual_severity": 3,
+      "residual_risk": 3,
+      "residual_rationale": "Automated gate on PASS.",
+      "owner": "Antonio G. Garcia",
+      "review_date": "2026-10-20",
+      "status": "Monitoring"
+    }
+  ]
 }

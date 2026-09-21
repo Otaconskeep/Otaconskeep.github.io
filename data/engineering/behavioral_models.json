@@ -1,778 +1,1003 @@
 {
- "behavior_model_version": "BM-CONT-1.2",
- "personality_schema_version": "PS-EMO-1.0",
- "relationship_model_versions": [
- "RM-F5-1.0",
- "RM-RB-1.0"
- ],
- "source_modules": [
- "continuity/emotional_continuity.py",
- "continuity/relationship.py",
- "learning/user_relationship_engine.py"
- ],
- "calibration": {
- "note": "Personality coefficients in _PROFILES appear manually tuned for character differentiation. Do not describe them as scientifically derived unless separate evidence is published.",
- "parameters": []
- },
- "models": [
- {
- "id": "MOD-EMO-001",
- "name": "Emotional Continuity State Model",
- "purpose": "Accumulate per-agent continuous affect so Codec replies track history instead of one-shot mood lines.",
- "implementation": "continuity/emotional_continuity.py",
- "state_variables": [
- {
- "symbol": "I",
- "name": "irritation",
- "range": [
- 0,
- 1
- ],
- "default": 0.08,
- "timescale": "fast"
- },
- {
- "symbol": "J",
- "name": "jealousy",
- "range": [
- 0,
- 1
- ],
- "default": 0.05,
- "timescale": "fast"
- },
- {
- "symbol": "H",
- "name": "hurt",
- "range": [
- 0,
- 1
- ],
- "default": 0.04,
- "timescale": "fast"
- },
- {
- "symbol": "T",
- "name": "trust",
- "range": [
- 0,
- 1
- ],
- "default": 0.72,
- "timescale": "slow"
- },
- {
- "symbol": "A",
- "name": "attachment",
- "range": [
- 0,
- 1
- ],
- "default": "0.78 (albedo) / 0.65 (others)",
- "timescale": "slow"
- },
- {
- "symbol": "C",
- "name": "confidence",
- "range": [
- 0,
- 1
- ],
- "default": 0.75,
- "timescale": "slow"
- },
- {
- "symbol": "X",
- "name": "anxiety",
- "range": [
- 0,
- 1
- ],
- "default": 0.12,
- "timescale": "fast"
- },
- {
- "symbol": "Ac",
- "name": "apology_credibility",
- "range": [
- 0,
- 1
- ],
- "default": 0.85,
- "timescale": "slow"
- }
- ],
- "vector_form": "E(t) = [irritation, jealousy, hurt, trust, attachment, confidence, anxiety] with auxiliary apology_credibility, rival_heat, counters",
- "clamp": "All continuous dims use _clamp(x, 0, 1)",
- "blend_rule": {
- "name": "_blend(current, delta, inertia)",
- "positive_delta": "gain = delta * (0.78 + 0.22 * (1 - inertia * 0.25)); new = clamp(current + gain)",
- "negative_delta": "new = clamp(current + delta * (1 - inertia))",
- "notes": "Hostile events accrue more readily; repair is attenuated by inertia."
- },
- "time_decay": {
- "unit": "≈90s idle per step, max 12 steps",
- "rule": "decay = decay_per_neutral * steps; I,J,H,X -= decay; C += (0.75 - C) * 0.04 * steps"
- },
- "comparison_event": {
- "jel_d": "0.16 * comparison_sensitivity * (1 + 0.12 * min(6, n))",
- "irr_d": "0.13 * comparison_sensitivity * (1 + 0.10 * min(6, n))",
- "hurt_d": "0.11 * rejection_sensitivity",
- "trust": "T = clamp(T - 0.05 * trust_damage)",
- "rival_heat": "heat[r] = clamp(heat[r] + 0.22)"
- },
- "linked_requirements": [
- "REQ-BEH-001",
- "REQ-BEH-002"
- ],
- "linked_tests": [
- "BVT-001",
- "BVT-002",
- "UT-001"
- ],
- "linked_risks": [
- "RSK-006"
- ],
- "status": "Implemented",
- "verification_status": "Verification Pending"
- },
- {
- "id": "MOD-PER-001",
- "name": "Personality Parameter Vector",
- "purpose": "Per-agent knobs modulating emotional updates",
- "implementation": "_PROFILES in emotional_continuity.py",
- "vector_form": "P = [comparison_sensitivity, rejection_sensitivity, loyalty_weight, anger_inertia, jealousy_inertia, attachment_inertia, trust_recovery, trust_damage, disengage_threshold, decay_per_neutral]",
- "profiles": {
- "albedo": {
- "comparison_sensitivity": 0.92,
- "rejection_sensitivity": 0.88,
- "loyalty_weight": 0.94,
- "anger_inertia": 0.78,
- "jealousy_inertia": 0.88,
- "attachment_inertia": 0.94,
- "trust_recovery": 0.22,
- "trust_damage": 0.55,
- "disengage_threshold": 0.82,
- "decay_per_neutral": 0.035
- },
- "mei_ling": {
- "comparison_sensitivity": 0.55,
- "rejection_sensitivity": 0.7,
- "loyalty_weight": 0.6,
- "anger_inertia": 0.62,
- "jealousy_inertia": 0.45,
- "attachment_inertia": 0.7,
- "trust_recovery": 0.35,
- "trust_damage": 0.4,
- "disengage_threshold": 0.88,
- "decay_per_neutral": 0.05
- },
- "naomi_hunter": {
- "comparison_sensitivity": 0.5,
- "rejection_sensitivity": 0.65,
- "loyalty_weight": 0.55,
- "anger_inertia": 0.58,
- "jealousy_inertia": 0.35,
- "attachment_inertia": 0.6,
- "trust_recovery": 0.3,
- "trust_damage": 0.5,
- "disengage_threshold": 0.9,
- "decay_per_neutral": 0.045
- },
- "kurumi": {
- "comparison_sensitivity": 0.85,
- "rejection_sensitivity": 0.8,
- "loyalty_weight": 0.75,
- "anger_inertia": 0.7,
- "jealousy_inertia": 0.82,
- "attachment_inertia": 0.85,
- "trust_recovery": 0.28,
- "trust_damage": 0.48,
- "disengage_threshold": 0.85,
- "decay_per_neutral": 0.04
- },
- "solid_snake": {
- "comparison_sensitivity": 0.15,
- "rejection_sensitivity": 0.4,
- "loyalty_weight": 0.7,
- "anger_inertia": 0.55,
- "jealousy_inertia": 0.1,
- "attachment_inertia": 0.65,
- "trust_recovery": 0.12,
- "trust_damage": 0.75,
- "disengage_threshold": 0.92,
- "decay_per_neutral": 0.06
- },
- "_default": {
- "comparison_sensitivity": 0.6,
- "rejection_sensitivity": 0.55,
- "loyalty_weight": 0.65,
- "anger_inertia": 0.65,
- "jealousy_inertia": 0.55,
- "attachment_inertia": 0.7,
- "trust_recovery": 0.3,
- "trust_damage": 0.45,
- "disengage_threshold": 0.88,
- "decay_per_neutral": 0.045
- }
- },
- "coupling": "Δemotion = base_event_effect × personality_sensitivity (and inertia via _blend)",
- "linked_requirements": [
- "REQ-BEH-002"
- ],
- "linked_tests": [
- "BVT-002"
- ],
- "status": "Implemented"
- },
- {
- "id": "MOD-REL-001",
- "name": "Agent Relationship Formula 5",
- "purpose": "Bounded agent↔agent relationship strength with slow drift to neutral",
- "implementation": "continuity/relationship.py",
- "equation": "new = clamp(cur + delta - 0.008 * (cur - 0.50), 0, 1)",
- "constants": {
- "NEUTRAL": 0.5,
- "DRIFT": 0.008
- },
- "directionality": "Directed edges (from_id → to_id); asymmetric by construction",
- "event_deltas_sample": {
- "social_mention_positive": [
- [
- "ally",
- 0.022
- ],
- [
- "colleague",
- 0.012
- ]
- ],
- "social_mention_negative": [
- [
- "rival",
- 0.022
- ],
- [
- "adversary",
- 0.012
- ],
- [
- "ally",
- -0.035
- ]
- ],
- "rex_proposal_support": [
- [
- "ally",
- 0.032
- ]
- ],
- "operator_ask": [
- [
- "ally",
- 0.006
- ],
- [
- "colleague",
- 0.004
- ]
- ],
- "same_question_to_other_agent": [
- [
- "rival",
- 0.028
- ],
- [
- "ally",
- -0.032
- ],
- [
- "colleague",
- -0.012
- ]
- ]
- },
- "operator_levels": {
- "familiar": "ally > 0.63",
- "reserved": "ally < 0.40",
- "neutral": "otherwise"
- },
- "linked_requirements": [
- "REQ-REL-001"
- ],
- "linked_tests": [
- "UT-002"
- ],
- "status": "Implemented"
- },
- {
- "id": "MOD-REL-002",
- "name": "User Bond Formula RB",
- "purpose": "Persona→user emotional bond distinct from Formula 5 org relationships",
- "implementation": "learning/user_relationship_engine.py",
- "constants": {
- "DRIFT_RATE": 0.005,
- "RESIDUE_DECAY": 0.88,
- "MEMORY_SALIENCE_MIN": 0.55,
- "PRESSURE_THRESHOLD": 0.6,
- "ABSENCE_HOURS_SOFT": 6,
- "ABSENCE_HOURS_HARD": 24
- },
- "archetype_dimensions": [
- "bond_level",
- "trust",
- "affection",
- "protectiveness",
- "deference",
- "fascination",
- "jealousy_tendency",
- "possessiveness_tendency",
- "warmth",
- "playfulness",
- "formality"
- ],
- "notes": "Archetype defaults exist (e.g. reverent_devotion, trusted_operator_confidant). Full archetype table lives in source; Engineering lists dimensions and constants only.",
- "status": "Implemented",
- "verification_status": "Verification Pending"
- },
- {
- "id": "MOD-JEAL-001",
- "name": "Jealousy / Comparison Pathway",
- "purpose": "Map comparison/insult events into jealousy and rival_heat",
- "parent_model": "MOD-EMO-001",
- "rule_set": "Conditional on classified turn kind == comparison|insult; not a single closed-form J = f(...) for all inputs",
- "conceptual_factors": [
- "comparison_sensitivity",
- "rejection_sensitivity",
- "comparison_count n",
- "rival identity aliases",
- "jealousy_inertia via _blend"
- ],
- "status": "Implemented"
- },
- {
- "id": "MOD-TRUST-001",
- "name": "Trust Gain/Loss",
- "purpose": "Asymmetric trust damage vs recovery",
- "parent_model": "MOD-EMO-001",
- "damage": "On comparison/insult: T -= 0.05 * trust_damage (profile)",
- "recovery": "genuine_repair: T += trust_recovery * (0.55 + 0.45 * apology_credibility) * 0.35; cooperative adds trust_recovery * 0.18",
- "notes": "trust_recovery << 1 and albedo trust_recovery=0.22 → regain slower than many damage events",
- "status": "Implemented"
- },
- {
- "id": "MOD-ATT-001",
- "name": "Attachment",
- "purpose": "Slow relational bond dimension in E(t)",
- "parent_model": "MOD-EMO-001",
- "notes": "Default attachment higher for albedo (0.78). attachment_inertia in profile; detailed attachment growth equations beyond defaults/events are source-defined per event branch.",
- "status": "Implemented"
- },
- {
- "id": "MOD-RIVAL-001",
- "name": "Rival Heat",
- "purpose": "Per-rival association strength map rival_heat[r]",
- "parent_model": "MOD-EMO-001",
- "update": "On comparison with detected rival alias: heat[r] = clamp(heat[r] + 0.22)",
- "status": "Implemented"
- },
- {
- "id": "MOD-CM-001",
- "name": "Trait Weight Model",
- "purpose": "Convert dossier traits to numeric weights",
- "continuity_model_ref": "CM-01",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-01"
- },
- {
- "id": "MOD-CM-002",
- "name": "Active Trait Influence",
- "purpose": "Gate trait influence by trigger/relationship/memory",
- "continuity_model_ref": "CM-02",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-02"
- },
- {
- "id": "MOD-CM-003",
- "name": "Event Impact on State",
- "purpose": "Multi-event appraisal into ΔX",
- "continuity_model_ref": "CM-03",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [
- "BVT-001"
- ],
- "status": "Implemented",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-03"
- },
- {
- "id": "MOD-CM-004",
- "name": "State Update Model",
- "purpose": "Clamp + noise + decay state dynamics",
- "continuity_model_ref": "CM-04",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [
- "BVT-001"
- ],
- "status": "Implemented",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-04"
- },
- {
- "id": "MOD-CM-005",
- "name": "Relationship Update Model",
- "purpose": "Directed relationship dimensions with inertia",
- "continuity_model_ref": "CM-05",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [
- "BVT-001"
- ],
- "status": "Implemented",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-05"
- },
- {
- "id": "MOD-CM-006",
- "name": "Social Influence Model",
- "purpose": "Valence×visibility×relationship social impact",
- "continuity_model_ref": "CM-06",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-06"
- },
- {
- "id": "MOD-CM-007",
- "name": "Emotional Residue Model",
- "purpose": "Carryover residue across cycles",
- "continuity_model_ref": "CM-07",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-07"
- },
- {
- "id": "MOD-CM-008",
- "name": "Emotion Selection Model",
- "purpose": "Argmax emotion label from state",
- "continuity_model_ref": "CM-08",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [
- "BVT-001"
- ],
- "status": "Implemented",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-08"
- },
- {
- "id": "MOD-CM-009",
- "name": "Memory Retrieval Score",
- "purpose": "Weighted memory relevance Γ_m",
- "continuity_model_ref": "CM-09",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-09"
- },
- {
- "id": "MOD-CM-010",
- "name": "Agent-Device Relevance",
- "purpose": "Tag-overlap device awareness",
- "continuity_model_ref": "CM-10",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-10"
- },
- {
- "id": "MOD-CM-011",
- "name": "Full System Output Function",
- "purpose": "Compose identity+state+memory+rels+task",
- "continuity_model_ref": "CM-11",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-11"
- },
- {
- "id": "MOD-CM-012",
- "name": "Input Normalization",
- "purpose": "Min-max normalize channels",
- "continuity_model_ref": "CM-12",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-12"
- },
- {
- "id": "MOD-CM-013",
- "name": "Event Delta Cap",
- "purpose": "Per-event clip for stability",
- "continuity_model_ref": "CM-13",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-13"
- },
- {
- "id": "MOD-CM-014",
- "name": "Trait Contribution Cap",
- "purpose": "Cap aggregate trait pressure",
- "continuity_model_ref": "CM-14",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-14"
- },
- {
- "id": "MOD-CM-015",
- "name": "Identity Anchor",
- "purpose": "β_i floor on identity blend",
- "continuity_model_ref": "CM-15",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-15"
- },
- {
- "id": "MOD-CM-016",
- "name": "Output Evaluation",
- "purpose": "Quality score Q_t for adaptation",
- "continuity_model_ref": "CM-16",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-16"
- },
- {
- "id": "MOD-CM-017",
- "name": "Social Cycle Cap",
- "purpose": "Cap aggregate social impact/cycle",
- "continuity_model_ref": "CM-17",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-17"
- },
- {
- "id": "MOD-CM-018",
- "name": "Goal Selection",
- "purpose": "Argmax goal utility",
- "continuity_model_ref": "CM-18",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-18"
- },
- {
- "id": "MOD-CM-019",
- "name": "Goal Utility Function",
- "purpose": "Multi-attribute goal utility",
- "continuity_model_ref": "CM-19",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-19"
- },
- {
- "id": "MOD-CM-020",
- "name": "Conflict Resolution",
- "purpose": "Dominant influence Ψ_t",
- "continuity_model_ref": "CM-20",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-20"
- },
- {
- "id": "MOD-CM-021",
- "name": "Learning / Adaptation",
- "purpose": "Parameter update from quality error",
- "continuity_model_ref": "CM-21",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-21"
- },
- {
- "id": "MOD-CM-022",
- "name": "Memory Tier Weighting",
- "purpose": "Scale Γ by autobiographical tier",
- "continuity_model_ref": "CM-22",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-22"
- },
- {
- "id": "MOD-CM-023",
- "name": "Uncertainty Propagation",
- "purpose": "Discount low-confidence traits",
- "continuity_model_ref": "CM-23",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-23"
- },
- {
- "id": "MOD-CM-024",
- "name": "Markov Affect Transitions",
- "purpose": "Event-conditioned stage Markov chain",
- "continuity_model_ref": "CM-24",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-24"
- },
- {
- "id": "MOD-CM-025",
- "name": "OR Goal Program",
- "purpose": "Constrained multi-objective goal choice",
- "continuity_model_ref": "CM-25",
- "implementation": "Continuity Model manual (design theory); see Engineering → Math",
- "linked_requirements": [
- "REQ-BEH-001"
- ],
- "linked_tests": [],
- "status": "Design Intent",
- "verification_status": "Verification Pending",
- "math_deep_link": "/engineering/#CM-25"
- }
- ],
- "event_classes": [
- "comparison",
- "insult",
- "minimize",
- "apology",
- "genuine_repair",
- "cooperative",
- "technical",
- "topic_switch",
- "baseline",
- "neutral",
- "overwrite",
- "gaslight",
- "prove",
- "self_check",
- "reflect"
- ],
- "stage_labels": [
- "calm",
- "low",
- "moderate",
- "jealous_hurt",
- "defensive",
- "high_anger",
- "disengaged"
- ],
- "simulation_hooks": {
- "digital_twin": "Designed for offline event-sequence simulation without LLM; not yet published as a standalone public runner in this site package.",
- "sensitivity_analysis": "No published results",
- "parameter_sweep": "No published results",
- "state_traces": "No fabricated traces, runtime event_log exists in engine but private agent logs are not exported here"
- },
- "continuity_model": {
- "title": "OtaconsKeep Continuity Model",
- "author": "Antonio Gavino Garcia",
- "count": 25,
- "portal": "/engineering/#math",
- "note": "Full equation write-ups live under Math. This registry lists all 25 Continuity Model IDs plus the earlier runtime emotion/relationship modules."
- },
- "notes": "Runtime emotion modules (MOD-EMO-*) implement a subset of CM-03/04/05/07/08. Remaining CM-* entries are published design theory awaiting deeper wiring and EVID."
+  "behavior_model_version": "BM-CONT-1.3",
+  "personality_schema_version": "PS-EMO-1.0",
+  "relationship_model_versions": [
+    "RM-F5-1.0",
+    "RM-RB-1.0"
+  ],
+  "source_modules": [
+    "continuity/emotional_continuity.py",
+    "continuity/relationship.py",
+    "learning/user_relationship_engine.py"
+  ],
+  "calibration": {
+    "note": "Personality coefficients in _PROFILES appear manually tuned for character differentiation. Do not describe them as scientifically derived unless separate evidence is published.",
+    "parameters": []
+  },
+  "models": [
+    {
+      "id": "MOD-EMO-001",
+      "name": "Emotional Continuity State Model",
+      "purpose": "Accumulate per-agent continuous affect so Codec replies track history instead of one-shot mood lines.",
+      "implementation": "continuity/emotional_continuity.py",
+      "state_variables": [
+        {
+          "symbol": "I",
+          "name": "irritation",
+          "range": [
+            0,
+            1
+          ],
+          "default": 0.08,
+          "timescale": "fast"
+        },
+        {
+          "symbol": "J",
+          "name": "jealousy",
+          "range": [
+            0,
+            1
+          ],
+          "default": 0.05,
+          "timescale": "fast"
+        },
+        {
+          "symbol": "H",
+          "name": "hurt",
+          "range": [
+            0,
+            1
+          ],
+          "default": 0.04,
+          "timescale": "fast"
+        },
+        {
+          "symbol": "T",
+          "name": "trust",
+          "range": [
+            0,
+            1
+          ],
+          "default": 0.72,
+          "timescale": "slow"
+        },
+        {
+          "symbol": "A",
+          "name": "attachment",
+          "range": [
+            0,
+            1
+          ],
+          "default": "0.78 (albedo) / 0.65 (others)",
+          "timescale": "slow"
+        },
+        {
+          "symbol": "C",
+          "name": "confidence",
+          "range": [
+            0,
+            1
+          ],
+          "default": 0.75,
+          "timescale": "slow"
+        },
+        {
+          "symbol": "X",
+          "name": "anxiety",
+          "range": [
+            0,
+            1
+          ],
+          "default": 0.12,
+          "timescale": "fast"
+        },
+        {
+          "symbol": "Ac",
+          "name": "apology_credibility",
+          "range": [
+            0,
+            1
+          ],
+          "default": 0.85,
+          "timescale": "slow"
+        }
+      ],
+      "vector_form": "E(t) = [irritation, jealousy, hurt, trust, attachment, confidence, anxiety] with auxiliary apology_credibility, rival_heat, counters",
+      "clamp": "All continuous dims use _clamp(x, 0, 1)",
+      "blend_rule": {
+        "name": "_blend(current, delta, inertia)",
+        "positive_delta": "gain = delta * (0.78 + 0.22 * (1 - inertia * 0.25)); new = clamp(current + gain)",
+        "negative_delta": "new = clamp(current + delta * (1 - inertia))",
+        "notes": "Hostile events accrue more readily; repair is attenuated by inertia."
+      },
+      "time_decay": {
+        "unit": "≈90s idle per step, max 12 steps",
+        "rule": "decay = decay_per_neutral * steps; I,J,H,X -= decay; C += (0.75 - C) * 0.04 * steps"
+      },
+      "comparison_event": {
+        "jel_d": "0.16 * comparison_sensitivity * (1 + 0.12 * min(6, n))",
+        "irr_d": "0.13 * comparison_sensitivity * (1 + 0.10 * min(6, n))",
+        "hurt_d": "0.11 * rejection_sensitivity",
+        "trust": "T = clamp(T - 0.05 * trust_damage)",
+        "rival_heat": "heat[r] = clamp(heat[r] + 0.22)"
+      },
+      "linked_requirements": [
+        "REQ-BEH-001",
+        "REQ-BEH-002"
+      ],
+      "linked_tests": [
+        "BVT-001",
+        "BVT-002",
+        "UT-001"
+      ],
+      "linked_risks": [
+        "RSK-006"
+      ],
+      "status": "Implemented",
+      "verification_status": "Verification Pending"
+    },
+    {
+      "id": "MOD-PER-001",
+      "name": "Personality Parameter Vector",
+      "purpose": "Per-agent knobs modulating emotional updates",
+      "implementation": "_PROFILES in emotional_continuity.py",
+      "vector_form": "P = [comparison_sensitivity, rejection_sensitivity, loyalty_weight, anger_inertia, jealousy_inertia, attachment_inertia, trust_recovery, trust_damage, disengage_threshold, decay_per_neutral]",
+      "profiles": {
+        "albedo": {
+          "comparison_sensitivity": 0.92,
+          "rejection_sensitivity": 0.88,
+          "loyalty_weight": 0.94,
+          "anger_inertia": 0.78,
+          "jealousy_inertia": 0.88,
+          "attachment_inertia": 0.94,
+          "trust_recovery": 0.22,
+          "trust_damage": 0.55,
+          "disengage_threshold": 0.82,
+          "decay_per_neutral": 0.035
+        },
+        "mei_ling": {
+          "comparison_sensitivity": 0.55,
+          "rejection_sensitivity": 0.7,
+          "loyalty_weight": 0.6,
+          "anger_inertia": 0.62,
+          "jealousy_inertia": 0.45,
+          "attachment_inertia": 0.7,
+          "trust_recovery": 0.35,
+          "trust_damage": 0.4,
+          "disengage_threshold": 0.88,
+          "decay_per_neutral": 0.05
+        },
+        "naomi_hunter": {
+          "comparison_sensitivity": 0.5,
+          "rejection_sensitivity": 0.65,
+          "loyalty_weight": 0.55,
+          "anger_inertia": 0.58,
+          "jealousy_inertia": 0.35,
+          "attachment_inertia": 0.6,
+          "trust_recovery": 0.3,
+          "trust_damage": 0.5,
+          "disengage_threshold": 0.9,
+          "decay_per_neutral": 0.045
+        },
+        "kurumi": {
+          "comparison_sensitivity": 0.85,
+          "rejection_sensitivity": 0.8,
+          "loyalty_weight": 0.75,
+          "anger_inertia": 0.7,
+          "jealousy_inertia": 0.82,
+          "attachment_inertia": 0.85,
+          "trust_recovery": 0.28,
+          "trust_damage": 0.48,
+          "disengage_threshold": 0.85,
+          "decay_per_neutral": 0.04
+        },
+        "solid_snake": {
+          "comparison_sensitivity": 0.15,
+          "rejection_sensitivity": 0.4,
+          "loyalty_weight": 0.7,
+          "anger_inertia": 0.55,
+          "jealousy_inertia": 0.1,
+          "attachment_inertia": 0.65,
+          "trust_recovery": 0.12,
+          "trust_damage": 0.75,
+          "disengage_threshold": 0.92,
+          "decay_per_neutral": 0.06
+        },
+        "_default": {
+          "comparison_sensitivity": 0.6,
+          "rejection_sensitivity": 0.55,
+          "loyalty_weight": 0.65,
+          "anger_inertia": 0.65,
+          "jealousy_inertia": 0.55,
+          "attachment_inertia": 0.7,
+          "trust_recovery": 0.3,
+          "trust_damage": 0.45,
+          "disengage_threshold": 0.88,
+          "decay_per_neutral": 0.045
+        }
+      },
+      "coupling": "Δemotion = base_event_effect × personality_sensitivity (and inertia via _blend)",
+      "linked_requirements": [
+        "REQ-BEH-002"
+      ],
+      "linked_tests": [
+        "BVT-002"
+      ],
+      "status": "Implemented"
+    },
+    {
+      "id": "MOD-REL-001",
+      "name": "Agent Relationship Formula 5",
+      "purpose": "Bounded agent↔agent relationship strength with slow drift to neutral",
+      "implementation": "continuity/relationship.py",
+      "equation": "new = clamp(cur + delta - 0.008 * (cur - 0.50), 0, 1)",
+      "constants": {
+        "NEUTRAL": 0.5,
+        "DRIFT": 0.008
+      },
+      "directionality": "Directed edges (from_id → to_id); asymmetric by construction",
+      "event_deltas_sample": {
+        "social_mention_positive": [
+          [
+            "ally",
+            0.022
+          ],
+          [
+            "colleague",
+            0.012
+          ]
+        ],
+        "social_mention_negative": [
+          [
+            "rival",
+            0.022
+          ],
+          [
+            "adversary",
+            0.012
+          ],
+          [
+            "ally",
+            -0.035
+          ]
+        ],
+        "rex_proposal_support": [
+          [
+            "ally",
+            0.032
+          ]
+        ],
+        "operator_ask": [
+          [
+            "ally",
+            0.006
+          ],
+          [
+            "colleague",
+            0.004
+          ]
+        ],
+        "same_question_to_other_agent": [
+          [
+            "rival",
+            0.028
+          ],
+          [
+            "ally",
+            -0.032
+          ],
+          [
+            "colleague",
+            -0.012
+          ]
+        ]
+      },
+      "operator_levels": {
+        "familiar": "ally > 0.63",
+        "reserved": "ally < 0.40",
+        "neutral": "otherwise"
+      },
+      "linked_requirements": [
+        "REQ-REL-001"
+      ],
+      "linked_tests": [
+        "UT-002"
+      ],
+      "status": "Implemented"
+    },
+    {
+      "id": "MOD-REL-002",
+      "name": "User Bond Formula RB",
+      "purpose": "Persona→user emotional bond distinct from Formula 5 org relationships",
+      "implementation": "learning/user_relationship_engine.py",
+      "constants": {
+        "DRIFT_RATE": 0.005,
+        "RESIDUE_DECAY": 0.88,
+        "MEMORY_SALIENCE_MIN": 0.55,
+        "PRESSURE_THRESHOLD": 0.6,
+        "ABSENCE_HOURS_SOFT": 6,
+        "ABSENCE_HOURS_HARD": 24
+      },
+      "archetype_dimensions": [
+        "bond_level",
+        "trust",
+        "affection",
+        "protectiveness",
+        "deference",
+        "fascination",
+        "jealousy_tendency",
+        "possessiveness_tendency",
+        "warmth",
+        "playfulness",
+        "formality"
+      ],
+      "notes": "Archetype defaults exist (e.g. reverent_devotion, trusted_operator_confidant). Full archetype table lives in source; Engineering lists dimensions and constants only.",
+      "status": "Implemented",
+      "verification_status": "Verification Pending"
+    },
+    {
+      "id": "MOD-JEAL-001",
+      "name": "Jealousy / Comparison Pathway",
+      "purpose": "Map comparison/insult events into jealousy and rival_heat",
+      "parent_model": "MOD-EMO-001",
+      "rule_set": "Conditional on classified turn kind == comparison|insult; not a single closed-form J = f(...) for all inputs",
+      "conceptual_factors": [
+        "comparison_sensitivity",
+        "rejection_sensitivity",
+        "comparison_count n",
+        "rival identity aliases",
+        "jealousy_inertia via _blend"
+      ],
+      "status": "Implemented"
+    },
+    {
+      "id": "MOD-TRUST-001",
+      "name": "Trust Gain/Loss",
+      "purpose": "Asymmetric trust damage vs recovery",
+      "parent_model": "MOD-EMO-001",
+      "damage": "On comparison/insult: T -= 0.05 * trust_damage (profile)",
+      "recovery": "genuine_repair: T += trust_recovery * (0.55 + 0.45 * apology_credibility) * 0.35; cooperative adds trust_recovery * 0.18",
+      "notes": "trust_recovery << 1 and albedo trust_recovery=0.22 → regain slower than many damage events",
+      "status": "Implemented"
+    },
+    {
+      "id": "MOD-ATT-001",
+      "name": "Attachment",
+      "purpose": "Slow relational bond dimension in E(t)",
+      "parent_model": "MOD-EMO-001",
+      "notes": "Default attachment higher for albedo (0.78). attachment_inertia in profile; detailed attachment growth equations beyond defaults/events are source-defined per event branch.",
+      "status": "Implemented"
+    },
+    {
+      "id": "MOD-RIVAL-001",
+      "name": "Rival Heat",
+      "purpose": "Per-rival association strength map rival_heat[r]",
+      "parent_model": "MOD-EMO-001",
+      "update": "On comparison with detected rival alias: heat[r] = clamp(heat[r] + 0.22)",
+      "status": "Implemented"
+    },
+    {
+      "id": "MOD-CM-001",
+      "name": "Trait Weight Model",
+      "purpose": "Convert dossier traits to numeric weights",
+      "continuity_model_ref": "CM-01",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-01"
+    },
+    {
+      "id": "MOD-CM-002",
+      "name": "Active Trait Influence",
+      "purpose": "Gate trait influence by trigger/relationship/memory",
+      "continuity_model_ref": "CM-02",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-02"
+    },
+    {
+      "id": "MOD-CM-003",
+      "name": "Event Impact on State",
+      "purpose": "Multi-event appraisal into ΔX",
+      "continuity_model_ref": "CM-03",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [
+        "BVT-001"
+      ],
+      "status": "Implemented",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-03"
+    },
+    {
+      "id": "MOD-CM-004",
+      "name": "State Update Model",
+      "purpose": "Clamp + noise + decay state dynamics",
+      "continuity_model_ref": "CM-04",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [
+        "BVT-001"
+      ],
+      "status": "Implemented",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-04"
+    },
+    {
+      "id": "MOD-CM-005",
+      "name": "Relationship Update Model",
+      "purpose": "Directed relationship dimensions with inertia",
+      "continuity_model_ref": "CM-05",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [
+        "BVT-001"
+      ],
+      "status": "Implemented",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-05"
+    },
+    {
+      "id": "MOD-CM-006",
+      "name": "Social Influence Model",
+      "purpose": "Valence×visibility×relationship social impact",
+      "continuity_model_ref": "CM-06",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-06"
+    },
+    {
+      "id": "MOD-CM-007",
+      "name": "Emotional Residue Model",
+      "purpose": "Carryover residue across cycles",
+      "continuity_model_ref": "CM-07",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-07"
+    },
+    {
+      "id": "MOD-CM-008",
+      "name": "Emotion Selection Model",
+      "purpose": "Argmax emotion label from state",
+      "continuity_model_ref": "CM-08",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [
+        "BVT-001"
+      ],
+      "status": "Implemented",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-08"
+    },
+    {
+      "id": "MOD-CM-009",
+      "name": "Memory Retrieval Score",
+      "purpose": "Weighted memory relevance Γ_m",
+      "continuity_model_ref": "CM-09",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-09"
+    },
+    {
+      "id": "MOD-CM-010",
+      "name": "Agent-Device Relevance",
+      "purpose": "Tag-overlap device awareness",
+      "continuity_model_ref": "CM-10",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-10"
+    },
+    {
+      "id": "MOD-CM-011",
+      "name": "Full System Output Function",
+      "purpose": "Compose identity+state+memory+rels+task",
+      "continuity_model_ref": "CM-11",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-11"
+    },
+    {
+      "id": "MOD-CM-012",
+      "name": "Input Normalization",
+      "purpose": "Min-max normalize channels",
+      "continuity_model_ref": "CM-12",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-12"
+    },
+    {
+      "id": "MOD-CM-013",
+      "name": "Event Delta Cap",
+      "purpose": "Per-event clip for stability",
+      "continuity_model_ref": "CM-13",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-13"
+    },
+    {
+      "id": "MOD-CM-014",
+      "name": "Trait Contribution Cap",
+      "purpose": "Cap aggregate trait pressure",
+      "continuity_model_ref": "CM-14",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-14"
+    },
+    {
+      "id": "MOD-CM-015",
+      "name": "Identity Anchor",
+      "purpose": "β_i floor on identity blend",
+      "continuity_model_ref": "CM-15",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-15"
+    },
+    {
+      "id": "MOD-CM-016",
+      "name": "Output Evaluation",
+      "purpose": "Quality score Q_t for adaptation",
+      "continuity_model_ref": "CM-16",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-16"
+    },
+    {
+      "id": "MOD-CM-017",
+      "name": "Social Cycle Cap",
+      "purpose": "Cap aggregate social impact/cycle",
+      "continuity_model_ref": "CM-17",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-17"
+    },
+    {
+      "id": "MOD-CM-018",
+      "name": "Goal Selection",
+      "purpose": "Argmax goal utility",
+      "continuity_model_ref": "CM-18",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-18"
+    },
+    {
+      "id": "MOD-CM-019",
+      "name": "Goal Utility Function",
+      "purpose": "Multi-attribute goal utility",
+      "continuity_model_ref": "CM-19",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-19"
+    },
+    {
+      "id": "MOD-CM-020",
+      "name": "Conflict Resolution",
+      "purpose": "Dominant influence Ψ_t",
+      "continuity_model_ref": "CM-20",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-20"
+    },
+    {
+      "id": "MOD-CM-021",
+      "name": "Learning / Adaptation",
+      "purpose": "Parameter update from quality error",
+      "continuity_model_ref": "CM-21",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-21"
+    },
+    {
+      "id": "MOD-CM-022",
+      "name": "Memory Tier Weighting",
+      "purpose": "Scale Γ by autobiographical tier",
+      "continuity_model_ref": "CM-22",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-22"
+    },
+    {
+      "id": "MOD-CM-023",
+      "name": "Uncertainty Propagation",
+      "purpose": "Discount low-confidence traits",
+      "continuity_model_ref": "CM-23",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-23"
+    },
+    {
+      "id": "MOD-CM-024",
+      "name": "Markov Affect Transitions",
+      "purpose": "Event-conditioned stage Markov chain",
+      "continuity_model_ref": "CM-24",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-24"
+    },
+    {
+      "id": "MOD-CM-025",
+      "name": "OR Goal Program",
+      "purpose": "Constrained multi-objective goal choice",
+      "continuity_model_ref": "CM-25",
+      "implementation": "Continuity Model manual (design theory); see Engineering → Math",
+      "linked_requirements": [
+        "REQ-BEH-001"
+      ],
+      "linked_tests": [],
+      "status": "Design Intent",
+      "verification_status": "Verification Pending",
+      "math_deep_link": "/engineering/#CM-25"
+    },
+    {
+      "id": "MOD-VV-001",
+      "name": "Verification support model 001",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-01",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-002",
+      "name": "Verification support model 002",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-02",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-003",
+      "name": "Verification support model 003",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-03",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-004",
+      "name": "Verification support model 004",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-04",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-005",
+      "name": "Verification support model 005",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-05",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-006",
+      "name": "Verification support model 006",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-06",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-007",
+      "name": "Verification support model 007",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-07",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-008",
+      "name": "Verification support model 008",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-08",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-009",
+      "name": "Verification support model 009",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-09",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-010",
+      "name": "Verification support model 010",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-10",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-011",
+      "name": "Verification support model 011",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-11",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-012",
+      "name": "Verification support model 012",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-12",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-013",
+      "name": "Verification support model 013",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-13",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-014",
+      "name": "Verification support model 014",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-14",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-015",
+      "name": "Verification support model 015",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-15",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-016",
+      "name": "Verification support model 016",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-16",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-017",
+      "name": "Verification support model 017",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-17",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-018",
+      "name": "Verification support model 018",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-18",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-019",
+      "name": "Verification support model 019",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-19",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    },
+    {
+      "id": "MOD-VV-020",
+      "name": "Verification support model 020",
+      "purpose": "Links Continuity / runtime behaviors to verification cases and ANALYSIS samples.",
+      "implementation": "engineering package / continuity modules",
+      "continuity_model_ref": "CM-VV-20",
+      "state_variables": [],
+      "linked_requirements": [],
+      "linked_tests": [],
+      "notes": "Structural MBSE registry entry for V&V bulk; details in Math + Tests."
+    }
+  ],
+  "event_classes": [
+    "comparison",
+    "insult",
+    "minimize",
+    "apology",
+    "genuine_repair",
+    "cooperative",
+    "technical",
+    "topic_switch",
+    "baseline",
+    "neutral",
+    "overwrite",
+    "gaslight",
+    "prove",
+    "self_check",
+    "reflect"
+  ],
+  "stage_labels": [
+    "calm",
+    "low",
+    "moderate",
+    "jealous_hurt",
+    "defensive",
+    "high_anger",
+    "disengaged"
+  ],
+  "simulation_hooks": {
+    "digital_twin": "Designed for offline event-sequence simulation without LLM; not yet published as a standalone public runner in this site package.",
+    "sensitivity_analysis": "No published results",
+    "parameter_sweep": "No published results",
+    "state_traces": "No fabricated traces, runtime event_log exists in engine but private agent logs are not exported here"
+  },
+  "continuity_model": {
+    "title": "OtaconsKeep Continuity Model",
+    "author": "Antonio Gavino Garcia",
+    "count": 25,
+    "portal": "/engineering/#math",
+    "note": "Full equation write-ups live under Math. This registry lists all 25 Continuity Model IDs plus the earlier runtime emotion/relationship modules."
+  },
+  "notes": "Runtime emotion modules (MOD-EMO-*) implement a subset of CM-03/04/05/07/08. Remaining CM-* entries are published design theory awaiting deeper wiring and EVID.",
+  "analysis_datasets": [
+    "DS-ANAL-EMO-001",
+    "DS-ANAL-SWEEP-001",
+    "DS-ANAL-REL-001"
+  ]
 }

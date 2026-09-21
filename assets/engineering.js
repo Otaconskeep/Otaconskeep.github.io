@@ -47,8 +47,8 @@
  function toneForStatus(st) {
  var s = String(st || '').toLowerCase();
  if (/verified|pass|closed|released|qualified|ok/.test(s)) return 'ok';
+ if (/fail|open|danger|critical/.test(s)) return 'bad';
  if (/pending|draft|design|mitigating|monitoring|development|blocked|implemented/.test(s)) return 'warn';
- if (/fail|open|danger|high/.test(s)) return 'bad';
  return 'muted';
  }
 
@@ -58,8 +58,41 @@
  }
 
  function idBtn(id) {
- if (!id) return ', ';
+ if (!id) return '-';
  return '<button type="button" class="eng-id" data-eng-id="' + escapeHtml(id) + '">' + escapeHtml(id) + '</button>';
+ }
+
+ function badgeLabel(label) {
+ var l = String(label || '');
+ var cls = 'eng-badge-mock';
+ if (/MEASURED/i.test(l)) cls = 'eng-badge-measured';
+ else if (/ANALYSIS|INSPECTION/i.test(l)) cls = 'eng-badge-analysis';
+ else if (/REFERENCE|MIXED/i.test(l)) cls = 'eng-badge-ref';
+ return '<span class="' + cls + '">' + escapeHtml(l) + '</span>';
+ }
+
+ function orderedKeys(rec, type) {
+ var pref = {
+ requirement: ['id', 'title', 'text', 'level', 'category', 'priority', 'satisfied_by', 'allocated_to',
+ 'verified_by', 'verification_method', 'verification_approach', 'verification_level', 'verified',
+ 'verification_planned', 'verification_executed', 'evidence', 'result', 'risk', 'risk_level',
+ 'risk_rationale', 'verification_rationale', 'status'],
+ test: ['id', 'title', 'class', 'verification_method', 'verification_level', 'requirements', 'result',
+ 'evidence', 'procedure', 'expected_result', 'actual_result', 'execution_date', 'source_module', 'source_function'],
+ risk: ['id', 'title', 'scenario', 'probability', 'severity', 'initial_risk', 'residual_probability',
+ 'residual_severity', 'residual_risk', 'residual_rationale', 'status', 'mitigation', 'linked_requirements', 'linked_tests'],
+ architecture: ['id', 'name', 'kind', 'sysml_stereotype', 'ports', 'parts', 'description', 'linked_requirements', 'status']
+ };
+ var keys = pref[type] || Object.keys(rec || {});
+ var seen = {};
+ var out = [];
+ keys.forEach(function (k) {
+ if (Object.prototype.hasOwnProperty.call(rec, k)) { out.push(k); seen[k] = true; }
+ });
+ Object.keys(rec || {}).forEach(function (k) {
+ if (!seen[k] && k !== 'mermaid') out.push(k);
+ });
+ return out;
  }
 
  function empty(msg) {
@@ -702,26 +735,35 @@
  var a = state.data.analysis;
  if (!a) { root.innerHTML = empty('No dataset available'); return; }
  var html = '<p class="intro">' + escapeHtml(a.honesty) + '</p>';
- html += '<div class="eng-callout-amber">Status: ' + escapeHtml(a.status) + ', MOCK datasets are watermarked. Do not cite as production performance.</div>';
+ html += '<div class="eng-callout-ok">Status: ' + escapeHtml(a.status) +
+ ' · sample_total ≈ ' + escapeHtml(String(a.sample_total || '-')) +
+ '. ANALYSIS = equation-derived public samples (no private Keep logs).</div>';
  html += '<h3>Datasets</h3><ul style="color:var(--cream-dim)">';
  (a.datasets || []).forEach(function (d) {
- html += '<li><span class="eng-badge-mock">' + escapeHtml(d.label) + '</span> ' + idBtn(d.id) +
- ', ' + escapeHtml(d.title) + ' · <a href="' + escapeHtml(d.path) + '">CSV</a><br>' + escapeHtml(d.description) + '</li>';
+ html += '<li>' + badgeLabel(d.label) + ' ' + idBtn(d.id) +
+ ' · ' + escapeHtml(d.title) +
+ (d.n != null ? ' <span class="mono">(n=' + escapeHtml(String(d.n)) + ')</span>' : '') +
+ ' · <a href="' + escapeHtml(d.path) + '">CSV</a><br>' + escapeHtml(d.description) + '</li>';
  });
  html += '</ul>';
  (a.correlations || []).forEach(function (c) {
- html += '<h3><span class="eng-badge-mock">' + escapeHtml(c.label) + '</span> ' + escapeHtml(c.title) + '</h3>';
+ html += '<h3>' + badgeLabel(c.label) + ' ' + escapeHtml(c.title) + '</h3>';
  html += renderHeatmap(c);
  html += '<p class="intro">' + escapeHtml(c.note || '') + '</p>';
  });
  if (a.sensitivity) {
  var s = a.sensitivity;
- html += '<h3><span class="eng-badge-mock">' + escapeHtml(s.label) + '</span> ' + escapeHtml(s.title) + '</h3>';
- html += '<p class="intro">Baseline ΔJ ≈ ' + escapeHtml(String(s.baseline_delta_j)) + '</p><ul style="color:var(--cream-dim)">';
+ html += '<h3>' + badgeLabel(s.label) + ' ' + escapeHtml(s.title) + '</h3>';
+ html += '<p class="intro">Baseline ΔJ ≈ ' + escapeHtml(String(s.baseline_delta_j)) + '</p>';
+ html += '<div class="eng-tornado">';
  (s.bars || []).forEach(function (b) {
- html += '<li>' + escapeHtml(b.param) + ': low ' + b.low + ' / high ' + b.high + '</li>';
+ var lo = Number(b.low), hi = Number(b.high), base = Number(s.baseline_delta_j) || 1;
+ var span = Math.max(Math.abs(hi - base), Math.abs(lo - base), 0.001);
+ html += '<div class="eng-tornado-row"><span class="lab">' + escapeHtml(b.param) + '</span>' +
+ '<span class="bar"><i style="left:50%;width:' + Math.min(48, 48 * Math.abs(hi - lo) / (2 * span)).toFixed(1) +
+ '%"></i></span><span class="nums">' + lo + ' → ' + hi + '</span></div>';
  });
- html += '</ul><p class="intro">' + escapeHtml(s.note || '') + '</p>';
+ html += '</div><p class="intro">' + escapeHtml(s.note || '') + '</p>';
  }
  root.innerHTML = html;
  }
@@ -788,17 +830,22 @@
  }
 
  function renderArch(root) {
- var els = state.data.architecture.elements || [];
+ var arch = state.data.architecture;
+ var els = arch.elements || [];
  root.innerHTML =
- '<p class="intro">Architecture baseline ' + escapeHtml(state.data.architecture.baseline_id) +
- ', status ' + escapeHtml(state.data.architecture.baseline_status) + '.</p>' +
- '<div class="eng-table-wrap"><table class="eng-table" aria-label="Architecture elements"><thead><tr><th>ID</th><th>Name</th><th>Kind</th><th>Status</th><th>Requirements</th></tr></thead><tbody>' +
+ '<p class="intro">Architecture baseline <strong class="mono">' + escapeHtml(arch.baseline_id) +
+ '</strong> · ' + escapeHtml(arch.baseline_status) + '. Elements are SysML <span class="mono">«block»</span> classifiers. ' +
+ escapeHtml(arch.mbse_note || '') + '</p>' +
+ '<div class="eng-table-wrap"><table class="eng-table" aria-label="Architecture elements"><thead><tr>' +
+ '<th>ID</th><th>Name</th><th>«block»</th><th>Parts</th><th>Ports</th><th>Status</th><th>Requirements</th></tr></thead><tbody>' +
  els.map(function (e) {
- return '<tr><td>' + idBtn(e.id) + '</td><td>' + escapeHtml(e.name) + '</td><td>' + escapeHtml(e.kind) +
+ return '<tr><td>' + idBtn(e.id) + '</td><td>' + escapeHtml(e.name) + '</td><td>' +
+ escapeHtml(e.sysml_stereotype || 'block') + '</td><td>' + ((e.parts || []).map(idBtn).join(' ') || '-') +
+ '</td><td class="mono">' + escapeHtml((e.ports || []).join(', ') || '-') +
  '</td><td>' + statusHtml(e.status) + '</td><td>' + (e.linked_requirements || []).map(idBtn).join(' ') + '</td></tr>';
  }).join('') + '</tbody></table></div>' +
  '<div id="eng-diagrams-arch"></div>';
- renderDiagrams($('#eng-diagrams-arch'), ['CTX-001', 'BDD-001', 'IBD-001']);
+ renderDiagrams($('#eng-diagrams-arch'), ['CTX-001', 'BDD-001', 'IBD-001', 'UML-COMP-001']);
  }
 
  function renderDiagrams(root, ids) {
@@ -806,12 +853,12 @@
  var diagrams = state.data.diagrams.diagrams || [];
  var list = ids ? diagrams.filter(function (d) { return ids.indexOf(d.id) >= 0; }) : diagrams;
  root.innerHTML = list.map(function (d) {
- return '<div class="eng-diagram" data-diagram="' + escapeHtml(d.id) + '">' +
+ return '<div class="eng-diagram eng-diagram-' + escapeHtml(d.type || '') + '" data-diagram="' + escapeHtml(d.id) + '">' +
  '<div class="eng-diagram-toolbar"><strong class="mono" style="flex:1;color:var(--cream-dim);font-size:0.8rem;">' +
- idBtn(d.id) + ' · ' + escapeHtml(d.title) + '</strong>' +
+ idBtn(d.id) + ' · ' + escapeHtml(d.notation || d.type || '') + ' · ' + escapeHtml(d.title) + '</strong>' +
  '<button type="button" data-fs="' + escapeHtml(d.id) + '">Fullscreen</button></div>' +
  '<pre class="mermaid">' + escapeHtml(d.mermaid) + '</pre>' +
- '<p class="eng-diagram-caption">' + escapeHtml(d.title) + ' · type ' + escapeHtml(d.type) + '</p></div>';
+ '<p class="eng-diagram-caption">' + escapeHtml(d.notes || d.title) + '</p></div>';
  }).join('');
  runMermaid(root);
  }
@@ -824,8 +871,15 @@
  }
 
  function renderSysML(root) {
- root.innerHTML = '<p class="intro">SysML-style views derived from real subsystems. Steps shown only where implementation exists.</p><div id="eng-sysml-diagrams"></div>';
- renderDiagrams($('#eng-sysml-diagrams'), ['BDD-001', 'IBD-001', 'PAR-001', 'SEQ-001', 'SEQ-002', 'ACT-001', 'ACT-002', 'ACT-003', 'STM-001', 'STM-002']);
+ root.innerHTML =
+ '<p class="intro">SysML / UML model views. <strong>BDD</strong> = Block Definition Diagram (blocks, parts, values, ports). ' +
+ '<strong>IBD</strong> = Internal Block Diagram (part usages, ports, connectors, item flows). UML sequence/component views included where useful. ' +
+ 'MBSE-001 shows the Need → Requirement → «satisfy» → «verify» → Evidence chain.</p>' +
+ '<div id="eng-sysml-diagrams"></div>';
+ renderDiagrams($('#eng-sysml-diagrams'), [
+ 'BDD-001', 'IBD-001', 'UML-COMP-001', 'MBSE-001', 'PAR-001',
+ 'SEQ-001', 'SEQ-002', 'ACT-001', 'ACT-002', 'ACT-003', 'STM-001', 'STM-002', 'CTX-001'
+ ]);
  }
 
  function renderInterfaces(root) {
@@ -841,22 +895,26 @@
  function renderTraceability(root) {
  var reqs = state.data.requirements.requirements || [];
  root.innerHTML =
- '<p class="intro">Requirements Traceability Matrix, structural links only; Verified status requires evidence.</p>' +
+ '<p class="intro">MBSE chain: Need → Requirement → Architecture («satisfy») → Implementation → Verification Case («verify») → Evidence → Result. Verified requires evidence.</p>' +
  '<div class="eng-toolbar"><button type="button" class="eng-export" data-export="rtm">Export CSV</button>' +
  '<button type="button" class="eng-export" data-export="rtm-json">Export JSON</button></div>' +
  '<div class="eng-table-wrap"><table class="eng-table" id="eng-rtm" aria-label="Requirements traceability matrix"><thead><tr>' +
- '<th>Requirement ID</th><th>Requirement</th><th>Architecture</th><th>Implementation</th><th>Method</th><th>Test</th><th>Evidence</th><th>Status</th></tr></thead><tbody>' +
+ '<th>Requirement</th><th>Title</th><th>Satisfied by</th><th>Allocated to</th><th>Method</th><th>Verified by</th><th>Evidence</th><th>Result</th></tr></thead><tbody>' +
  reqs.map(function (r) {
- var tests = r.linked_tests || [];
- var evid = [];
- tests.forEach(function (tid) {
+ var evid = r.evidence || [];
+ if (!evid.length) {
+ (r.verified_by || r.linked_tests || []).forEach(function (tid) {
  var t = state.index[tid] && state.index[tid].record;
  if (t && t.evidence) evid = evid.concat(t.evidence);
  });
+ }
  return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.title) + '</td><td>' +
- (r.linked_architecture || []).map(idBtn).join(' ') + '</td><td>' + idBtn(r.allocated_subsystem) +
- '</td><td>' + escapeHtml(r.verification_method) + '</td><td>' + tests.map(idBtn).join(' ') +
- '</td><td>' + (evid.length ? evid.map(idBtn).join(' ') : ', ') + '</td><td>' + statusHtml(r.status) + '</td></tr>';
+ (r.satisfied_by || r.linked_architecture || []).map(idBtn).join(' ') + '</td><td>' +
+ idBtn(r.allocated_to || r.allocated_subsystem) +
+ '</td><td>' + escapeHtml(r.verification_method) + '</td><td>' +
+ (r.verified_by || r.linked_tests || []).map(idBtn).join(' ') +
+ '</td><td>' + (evid.length ? evid.map(idBtn).join(' ') : '-') + '</td><td>' +
+ statusHtml(r.result || r.status) + '</td></tr>';
  }).join('') + '</tbody></table></div>' +
  '<h3 style="margin:18px 0 8px;font-size:1rem;">Traceability graph</h3>' +
  '<div class="eng-toolbar"><label class="mono" style="font-size:0.75rem;color:var(--cream-faint);">Select ID </label>' +
@@ -873,18 +931,29 @@
  var id = sel.value;
  var r = state.index[id] && state.index[id].record;
  if (!r) { out.textContent = 'No data'; return; }
- var lines = ['<span class="node">' + escapeHtml(id) + '</span>'];
- (r.linked_architecture || []).forEach(function (a) { lines.push('↓'); lines.push('<span class="node">' + escapeHtml(a) + '</span>'); });
- if (r.allocated_subsystem) { lines.push('↓'); lines.push('<span class="node">' + escapeHtml(r.allocated_subsystem) + '</span> <span style="color:var(--cream-faint)">(component)</span>'); }
- (r.linked_risks || []).forEach(function (a) { lines.push('↓'); lines.push('<span class="node">' + escapeHtml(a) + '</span> <span style="color:var(--cream-faint)">(risk)</span>'); });
- (r.linked_tests || []).forEach(function (a) {
- lines.push('↓');
+ var lines = ['<span class="node">' + escapeHtml(id) + '</span> <span style="color:var(--cream-faint)">(«requirement»)</span>'];
+ (r.satisfied_by || r.linked_architecture || []).forEach(function (a) {
+ lines.push('↓ «satisfy»');
+ lines.push('<span class="node">' + escapeHtml(a) + '</span> <span style="color:var(--cream-faint)">(«block»)</span>');
+ });
+ if (r.allocated_to || r.allocated_subsystem) {
+ lines.push('↓ allocatedTo');
+ lines.push('<span class="node">' + escapeHtml(r.allocated_to || r.allocated_subsystem) + '</span>');
+ }
+ (r.verified_by || r.linked_tests || []).forEach(function (a) {
+ lines.push('↓ «verify»');
  lines.push('<span class="node">' + escapeHtml(a) + '</span>');
  var t = state.index[a] && state.index[a].record;
  if (t) {
- lines.push('↓');
+ lines.push('↓ method / level');
+ lines.push(escapeHtml(t.verification_method || r.verification_method || '-') + ' · ' +
+ escapeHtml(t.verification_level || r.verification_level || '-'));
+ lines.push('↓ result');
  lines.push(statusHtml(t.result));
- (t.evidence || []).forEach(function (e) { lines.push('↓'); lines.push('<span class="node">' + escapeHtml(e) + '</span>'); });
+ (t.evidence || []).forEach(function (e) {
+ lines.push('↓ evidence');
+ lines.push('<span class="node">' + escapeHtml(e) + '</span>');
+ });
  }
  });
  out.innerHTML = lines.join('<br>');
@@ -892,27 +961,37 @@
 
  function renderVCRM(root) {
  var reqs = state.data.requirements.requirements || [];
+ var chain = state.data.requirements.mbse_chain ||
+ 'Need → Requirement → Architecture → Mathematical Model → Implementation → Verification Case → Evidence → Result';
  root.innerHTML =
- '<p class="intro">Verification Cross-Reference Matrix with <strong>Planned</strong> vs <strong>Executed</strong> columns. Pending does not mean PASS. ST-003 Blocked + EVID-001 is the honesty pattern.</p>' +
+ '<p class="intro">The <strong>Verification Cross-Reference Matrix (VCRM)</strong> is a generated view of relationships already stored in the engineering model. ' +
+ 'It shows how every requirement is proven: verification method (TAID: Test / Analysis / Inspection / Demonstration), verification case, level, evidence, release, and result. ' +
+ 'Relationships: «satisfy» (design element), «verify» (verification case). Model chain: <span class="mono">' + escapeHtml(chain) + '</span>. ' +
+ 'ST-003 remains Blocked with EVID-001 (honesty).</p>' +
  '<div class="eng-toolbar"><button type="button" class="eng-export" data-export="vcrm">Export CSV</button></div>' +
  '<div class="eng-table-wrap"><table class="eng-table" aria-label="VCRM"><thead><tr>' +
- '<th>Requirement</th><th>Method</th><th>Test</th><th>Planned</th><th>Executed</th><th>Evidence</th><th>Result</th><th>Status</th></tr></thead><tbody>' +
+ '<th>Requirement</th><th>Verification Method</th><th>Verification Case</th><th>Level</th>' +
+ '<th>Satisfied by</th><th>Evidence</th><th>Result</th><th>Status</th></tr></thead><tbody>' +
  reqs.map(function (r) {
- var tests = r.linked_tests || [];
- if (!tests.length) {
+ var cases = r.verified_by || r.linked_tests || [];
+ if (!cases.length) {
  return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.verification_method) +
- '</td><td>-</td><td>' + escapeHtml(r.verification_planned || '-') +
- '</td><td>' + escapeHtml(r.verification_executed || '-') +
+ '</td><td>-</td><td>' + escapeHtml(r.verification_level || '-') +
+ '</td><td>' + ((r.satisfied_by || []).map(idBtn).join(' ') || '-') +
  '</td><td>-</td><td>' + statusHtml('Verification Pending') +
  '</td><td>' + statusHtml(r.status) + '</td></tr>';
  }
- return tests.map(function (tid) {
+ return cases.map(function (tid) {
  var t = state.index[tid] && state.index[tid].record || {};
- return '<tr><td>' + idBtn(r.id) + '</td><td>' + escapeHtml(r.verification_method) + '</td><td>' +
- idBtn(tid) + '</td><td>' + escapeHtml(r.verification_planned || t.procedure || '-') +
- '</td><td>' + escapeHtml(r.verification_executed || t.execution_date || '-') +
- '</td><td>' + ((t.evidence || []).map(idBtn).join(' ') || '-') + '</td><td>' + statusHtml(t.result) +
- '</td><td>' + statusHtml(t.result) + '</td></tr>';
+ var evid = (t.evidence && t.evidence.length) ? t.evidence : (r.evidence || []);
+ return '<tr><td>' + idBtn(r.id) + '</td><td>' +
+ escapeHtml(t.verification_method || r.verification_method) + '</td><td>' +
+ idBtn(tid) + '</td><td>' +
+ escapeHtml(t.verification_level || r.verification_level || '-') + '</td><td>' +
+ ((r.satisfied_by || r.linked_architecture || []).map(idBtn).join(' ') || idBtn(r.allocated_to) || '-') +
+ '</td><td>' + (evid.length ? evid.map(idBtn).join(' ') : '-') +
+ '</td><td>' + statusHtml(t.result || r.result) +
+ '</td><td>' + statusHtml(r.status) + '</td></tr>';
  }).join('');
  }).join('') + '</tbody></table></div>';
  }
@@ -945,46 +1024,90 @@
 
  function renderTests(root) {
  var tests = (state.data.tests.tests || []).filter(function (t) { return matchFilters(t.id + ' ' + t.title, t); });
+ var sum = state.data.tests.suite_summary || {};
  var rex = state.data.tests.rex_metrics || {};
  root.innerHTML =
  '<p class="intro">' + escapeHtml(state.data.tests.inventory_note || '') + '</p>' +
- '<div class="eng-empty">REX metrics: ' + escapeHtml(rex.status || 'No data') + ', ' + escapeHtml(rex.note || '') + '</div>' +
+ '<div class="eng-suite-strip">' +
+ '<div><span class="k">Total</span><span class="v">' + escapeHtml(String(sum.total || tests.length)) + '</span></div>' +
+ '<div><span class="k">Pass</span><span class="v ok">' + escapeHtml(String(sum.pass != null ? sum.pass : '-')) + '</span></div>' +
+ '<div><span class="k">Blocked</span><span class="v warn">' + escapeHtml(String(sum.blocked != null ? sum.blocked : '-')) + '</span></div>' +
+ '<div><span class="k">Fail</span><span class="v bad">' + escapeHtml(String(sum.fail != null ? sum.fail : 0)) + '</span></div>' +
+ '<div><span class="k">Modules audited</span><span class="v">' + escapeHtml(String(sum.executor_modules_audited || '-')) + '</span></div>' +
+ '</div>' +
+ '<p class="intro">REX metrics: ' + escapeHtml(rex.status || 'No data') + ' — ' + escapeHtml(rex.note || '') + '</p>' +
  '<div class="eng-table-wrap" style="margin-top:12px;"><table class="eng-table" aria-label="Test register"><thead><tr>' +
- '<th>ID</th><th>Title</th><th>Class</th><th>Requirements</th><th>Result</th><th>Evidence</th></tr></thead><tbody>' +
+ '<th>ID</th><th>Title</th><th>Class</th><th>Method</th><th>Level</th><th>Requirements</th><th>Result</th><th>Evidence</th></tr></thead><tbody>' +
  tests.map(function (t) {
  return '<tr><td>' + idBtn(t.id) + '</td><td>' + escapeHtml(t.title) + '</td><td>' + escapeHtml(t.class) +
+ '</td><td>' + escapeHtml(t.verification_method || '-') + '</td><td>' + escapeHtml(t.verification_level || '-') +
  '</td><td>' + (t.requirements || []).map(idBtn).join(' ') + '</td><td>' + statusHtml(t.result) +
  '</td><td>' + ((t.evidence || []).map(idBtn).join(' ') || '-') + '</td></tr>';
  }).join('') + '</tbody></table></div>';
  }
 
+ function riskBand(score) {
+ var bands = (state.data.risks.matrix && state.data.risks.matrix.bands) || [
+ { name: 'Low', min: 1, max: 4, color: '#2f6f4e' },
+ { name: 'Medium', min: 5, max: 9, color: '#c4a035' },
+ { name: 'High', min: 10, max: 15, color: '#c45c26' },
+ { name: 'Critical', min: 16, max: 25, color: '#a33b3b' }
+ ];
+ for (var i = 0; i < bands.length; i++) {
+ if (score >= bands[i].min && score <= bands[i].max) return bands[i];
+ }
+ return bands[0];
+ }
+
  function renderRisks(root) {
  var risks = state.data.risks.risks || [];
- var matrix = '';
+ var matrixMeta = state.data.risks.matrix || {};
  var cells = {};
  risks.forEach(function (r) {
  var p = r.probability || 0, s = r.severity || 0;
  var k = p + ',' + s;
- (cells[k] = cells[k] || []).push(r.id);
+ (cells[k] = cells[k] || []).push(r);
  });
- matrix += '<div class="hdr"></div>';
+ var matrix = '<div class="eng-risk-matrix-wrap"><div class="eng-risk-axis-y">Probability →</div>' +
+ '<div class="eng-risk-matrix" role="grid" aria-label="SE risk matrix P×S">';
+ matrix += '<div class="hdr corner"></div>';
  for (var sev = 1; sev <= 5; sev++) matrix += '<div class="hdr">S' + sev + '</div>';
  for (var p = 5; p >= 1; p--) {
  matrix += '<div class="hdr">P' + p + '</div>';
  for (var s = 1; s <= 5; s++) {
- var ids = cells[p + ',' + s] || [];
- matrix += '<button type="button" class="cell' + (ids.length ? ' has' : '') + '" data-risk-cell="' +
- escapeHtml(ids.join(',')) + '" title="' + escapeHtml(ids.join(', ') || 'empty') + '">' +
- (ids.length || '') + '</button>';
+ var score = p * s;
+ var band = riskBand(score);
+ var items = cells[p + ',' + s] || [];
+ var ids = items.map(function (r) { return r.id; });
+ matrix += '<button type="button" class="cell' + (items.length ? ' has' : '') +
+ '" style="background:' + band.color + (items.length ? 'ee' : '55') +
+ '" data-risk-cell="' + escapeHtml(ids.join(',')) +
+ '" title="' + escapeHtml((ids.join(', ') || 'empty') + ' · score ' + score + ' (' + band.name + ')') + '">' +
+ (items.length ? '<span class="n">' + items.length + '</span><span class="ids">' +
+ ids.map(function (id) { return id.replace('RSK-', ''); }).join(' ') + '</span>' : '') +
+ '</button>';
  }
  }
+ matrix += '</div><div class="eng-risk-axis-x">Severity →</div></div>';
+ var legend = '<div class="eng-risk-legend">' +
+ (matrixMeta.bands || []).map(function (b) {
+ return '<span><i style="background:' + escapeHtml(b.color) + '"></i>' +
+ escapeHtml(b.name) + ' (' + b.min + '–' + b.max + ')</span>';
+ }).join('') + '</div>';
  var cards = risks.map(function (r) {
  var steps = r.mitigation_steps || {};
  var road = (r.roadmap || []).map(function (x) {
- return '<li>' + escapeHtml(x.step) + ', <em>' + escapeHtml(x.status) + '</em></li>';
+ return '<li>' + escapeHtml(x.step) + ' — <em>' + escapeHtml(x.status) + '</em></li>';
  }).join('');
+ var ib = riskBand(r.initial_risk || 0);
+ var rb = riskBand(r.residual_risk || 0);
  return '<article class="eng-risk-card">' +
  '<h3>' + idBtn(r.id) + ' ' + escapeHtml(r.title) + ' ' + statusHtml(r.status) + '</h3>' +
+ '<div class="eng-risk-scores">' +
+ '<span class="score" style="border-color:' + ib.color + '">Initial P' + r.probability + '×S' + r.severity +
+ '=' + r.initial_risk + ' <em>' + escapeHtml(ib.name) + '</em></span>' +
+ '<span class="score" style="border-color:' + rb.color + '">Residual P' + r.residual_probability +
+ '×S' + r.residual_severity + '=' + r.residual_risk + ' <em>' + escapeHtml(rb.name) + '</em></span></div>' +
  '<p><strong>Scenario:</strong> ' + escapeHtml(r.scenario || r.description) + '</p>' +
  '<p><strong>Cause chain:</strong> ' + escapeHtml((r.cause_chain || [r.cause]).join(' → ')) + '</p>' +
  '<p><strong>Detection:</strong> ' + escapeHtml((r.detection || []).join('; ') || '-') + '</p>' +
@@ -993,16 +1116,16 @@
  '<li>Detect: ' + escapeHtml((steps.detect || []).join('; ') || '-') + '</li>' +
  '<li>Respond: ' + escapeHtml((steps.respond || []).join('; ') || '-') + '</li>' +
  '<li>Recover: ' + escapeHtml((steps.recover || []).join('; ') || '-') + '</li></ul>' +
- '<p><strong>Residual:</strong> P' + r.residual_probability + '×S' + r.residual_severity +
- '=' + r.residual_risk + ', ' + escapeHtml(r.residual_rationale || '') + '</p>' +
+ '<p><strong>Residual rationale:</strong> ' + escapeHtml(r.residual_rationale || '') + '</p>' +
  '<p><strong>Owner / review:</strong> ' + escapeHtml(r.owner || '-') + ' / ' + escapeHtml(r.review_date || '-') + '</p>' +
  (road ? '<p><strong>Roadmap</strong></p><ul style="color:var(--cream-dim);font-size:0.88rem">' + road + '</ul>' : '') +
  '<p>Links: ' + (r.linked_requirements || []).map(idBtn).join(' ') + ' ' +
  (r.linked_tests || []).map(idBtn).join(' ') + '</p></article>';
  }).join('');
  root.innerHTML =
- '<p class="intro">Probability × severity matrix (1-5). Open a risk ID for full narrative. RSK-005 remains Open at residual 9 until WSL gate is green.</p>' +
- '<div class="eng-risk-matrix" role="grid" aria-label="Risk matrix">' + matrix + '</div>' +
+ '<p class="intro">Systems engineering 5×5 risk matrix (Probability × Severity). Cell color = score band. ' +
+ 'Click a cell to open the first risk ID. RSK-005 remains Open (residual High) until the WSL e2e gate is green.</p>' +
+ legend + matrix +
  '<div class="eng-toolbar" style="margin-top:14px;"><button type="button" class="eng-export" data-export="risks">Export CSV</button></div>' +
  cards;
  }
@@ -1037,7 +1160,7 @@
  renderEmotionTables(bm) +
  renderPersonalityCompare(bm) +
  '<h3 style="margin:18px 0 8px;font-size:1rem;">State traces</h3>' +
- '<p class="intro">Live traces are not exported. Teaching MOCK traces live under <a href="#math">Math</a>.</p>';
+ '<p class="intro">Live Keep traces are not exported. Public ANALYSIS samples: <a href="#analysis">Analysis</a>. Equation write-ups: <a href="#math">Math</a>.</p>';
  }
 
  function renderModels(root) {
@@ -1213,7 +1336,26 @@
 
   function exportCsv(kind) {
     var rows = [];
-    if (kind === 'rtm' || kind === 'vcrm') {
+    if (kind === 'vcrm') {
+      rows.push(['Requirement', 'Verification Method', 'Verification Case', 'Level', 'Satisfied by', 'Evidence', 'Result', 'Status']);
+      (state.data.requirements.requirements || []).forEach(function (r) {
+        var cases = r.verified_by || r.linked_tests || ['-'];
+        cases.forEach(function (tid) {
+          var t = state.index[tid] && state.index[tid].record || {};
+          rows.push([
+            r.id,
+            t.verification_method || r.verification_method,
+            tid,
+            t.verification_level || r.verification_level,
+            (r.satisfied_by || []).join(' '),
+            ((t.evidence || r.evidence || []).join(' ')),
+            t.result || r.result,
+            r.status
+          ]);
+        });
+      });
+    } else if (kind === 'rtm') {
+      rows.push(['Level', 'ID', 'Title', 'Text', 'Category', 'Priority', 'Method', 'Approach', 'Verified', 'Planned', 'Executed', 'Risk', 'Risk level', 'Risk rationale', 'Verification rationale', 'Status']);
       (state.data.requirements.requirements || []).forEach(function (r) {
         rows.push([
           r.level, r.id, r.title, r.text, r.category, r.priority,
@@ -1223,6 +1365,7 @@
         ]);
       });
     } else if (kind === 'risks') {
+      rows.push(['ID', 'Title', 'P', 'S', 'Initial', 'Residual', 'Status', 'Mitigation']);
       (state.data.risks.risks || []).forEach(function (r) {
         rows.push([r.id, r.title, r.probability, r.severity, r.initial_risk, r.residual_risk, r.status, r.mitigation]);
       });

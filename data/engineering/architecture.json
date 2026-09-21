@@ -1,125 +1,258 @@
 {
- "baseline_id": "BL-ARCH-0001",
- "baseline_status": "Draft",
- "elements": [
- {
- "id": "ARCH-001",
- "name": "OtaconsKeep Core Runtime",
- "kind": "subsystem",
- "description": "Local-first agent platform runtime (Otacon Core / Lite).",
- "allocation": "software",
- "linked_requirements": ["REQ-SYS-001", "REQ-SEC-001"],
- "status": "Implemented"
- },
- {
- "id": "ARCH-002",
- "name": "Agent Runtime",
- "kind": "subsystem",
- "description": "Persistent agent identity, conversation, and prompt assembly.",
- "allocation": "software",
- "linked_requirements": ["REQ-FUNC-001"],
- "status": "Implemented"
- },
- {
- "id": "ARCH-003",
- "name": "Memory",
- "kind": "subsystem",
- "description": "Per-agent conversation history and long-term memory persistence.",
- "allocation": "software",
- "linked_requirements": ["REQ-FUNC-001"],
- "status": "Implemented"
- },
- {
- "id": "ARCH-004",
- "name": "Model / Capability Router",
- "kind": "subsystem",
- "description": "Provider-neutral routing for LLM/TTS/STT capabilities (OmniRoute / KeepRoute related).",
- "allocation": "software",
- "linked_requirements": ["REQ-FUNC-002"],
- "status": "Implemented"
- },
- {
- "id": "ARCH-005",
- "name": "Model Runtime (Ollama path)",
- "kind": "subsystem",
- "description": "Local Ollama Default Model installation and VRAM-tier selection.",
- "allocation": "software",
- "linked_requirements": ["REQ-HW-001", "REQ-PERF-001", "REQ-INT-001"],
- "status": "Implemented"
- },
- {
- "id": "ARCH-006",
- "name": "Installer / Updater",
- "kind": "subsystem",
- "description": "OtaconsKeep-Setup.bat and related repair helpers; WSL enable/resume path.",
- "allocation": "software",
- "linked_requirements": ["REQ-INST-001", "REQ-AVAIL-001"],
- "status": "Implemented"
- },
- {
- "id": "ARCH-007",
- "name": "Emotional Continuity Engine",
- "kind": "subsystem",
- "description": "Bounded emotional state vector with personality profiles and inertia blending (continuity/emotional_continuity.py).",
- "allocation": "software",
- "linked_requirements": ["REQ-BEH-001", "REQ-BEH-002"],
- "status": "Implemented",
- "scope_note": "Expansion / Reference Keep depth, not claimed as Lite-only default surface."
- },
- {
- "id": "ARCH-008",
- "name": "Relationship Engines",
- "kind": "subsystem",
- "description": "Formula 5 agent-agent relationships and Formula RB user-bond engine.",
- "allocation": "software",
- "linked_requirements": ["REQ-REL-001"],
- "status": "Implemented",
- "scope_note": "Reference Keep / executor; Expansion markets mood/relationship engine."
- },
- {
- "id": "ARCH-009",
- "name": "REX Control Plane",
- "kind": "subsystem",
- "description": "Detect → Propose → Review/Authorize → Execute → Verify → Close → Learn lifecycle for operational proposals.",
- "allocation": "software",
- "linked_requirements": [],
- "status": "Implemented",
- "scope_note": "Documented in executor CHANGELOG / REX design; public Lite does not claim full REX War Room as default."
- },
- {
- "id": "ARCH-010",
- "name": "Web UI / Surfaces",
- "kind": "subsystem",
- "description": "Command Center, Codec, product pages, and related operator surfaces.",
- "allocation": "software",
- "linked_requirements": ["REQ-FUNC-001"],
- "status": "Implemented"
- },
- {
- "id": "ARCH-011",
- "name": "Tool Layer",
- "kind": "subsystem",
- "description": "Agent tools and action execution paths.",
- "allocation": "software",
- "linked_requirements": [],
- "status": "Implemented"
- },
- {
- "id": "ARCH-012",
- "name": "Persistence",
- "kind": "subsystem",
- "description": "Local JSON/state stores and service data directories.",
- "allocation": "software",
- "linked_requirements": ["REQ-SYS-001"],
- "status": "Implemented"
- }
- ],
- "logical_views": [
- "System Context",
- "Logical Architecture",
- "Physical / Deployment",
- "AI / Model Architecture",
- "Agent Architecture",
- "Automation Architecture"
- ]
+  "baseline_id": "BL-ARCH-0002",
+  "baseline_status": "Baselined",
+  "elements": [
+    {
+      "id": "ARCH-001",
+      "name": "OtaconsKeep Core Runtime",
+      "kind": "subsystem",
+      "description": "Local-first agent platform runtime (Otacon Core / Lite).",
+      "allocation": "software",
+      "linked_requirements": [
+        "REQ-SYS-001",
+        "REQ-SEC-001"
+      ],
+      "status": "Implemented",
+      "sysml_stereotype": "block",
+      "ports": [
+        "p_http",
+        "p_ctrl"
+      ],
+      "parts": [
+        "ARCH-002",
+        "ARCH-004",
+        "ARCH-010",
+        "ARCH-012",
+        "ARCH-006",
+        "ARCH-009"
+      ],
+      "value_properties": []
+    },
+    {
+      "id": "ARCH-002",
+      "name": "Agent Runtime",
+      "kind": "subsystem",
+      "description": "Persistent agent identity, conversation, and prompt assembly.",
+      "allocation": "software",
+      "linked_requirements": [
+        "REQ-FUNC-001"
+      ],
+      "status": "Implemented",
+      "sysml_stereotype": "block",
+      "ports": [
+        "p_msg",
+        "p_ctx"
+      ],
+      "parts": [
+        "ARCH-003",
+        "ARCH-007",
+        "ARCH-008",
+        "ARCH-011"
+      ],
+      "value_properties": []
+    },
+    {
+      "id": "ARCH-003",
+      "name": "Memory",
+      "kind": "subsystem",
+      "description": "Per-agent conversation history and long-term memory persistence.",
+      "allocation": "software",
+      "linked_requirements": [
+        "REQ-FUNC-001"
+      ],
+      "status": "Implemented",
+      "sysml_stereotype": "block",
+      "ports": [
+        "p_store"
+      ],
+      "parts": [],
+      "value_properties": []
+    },
+    {
+      "id": "ARCH-004",
+      "name": "Model / Capability Router",
+      "kind": "subsystem",
+      "description": "Provider-neutral routing for LLM/TTS/STT capabilities (OmniRoute / KeepRoute related).",
+      "allocation": "software",
+      "linked_requirements": [
+        "REQ-FUNC-002"
+      ],
+      "status": "Implemented",
+      "sysml_stereotype": "block",
+      "ports": [
+        "p_req",
+        "p_inf"
+      ],
+      "parts": [
+        "ARCH-005"
+      ],
+      "value_properties": []
+    },
+    {
+      "id": "ARCH-005",
+      "name": "Model Runtime (Ollama path)",
+      "kind": "subsystem",
+      "description": "Local Ollama Default Model installation and VRAM-tier selection.",
+      "allocation": "software",
+      "linked_requirements": [
+        "REQ-HW-001",
+        "REQ-PERF-001",
+        "REQ-INT-001"
+      ],
+      "status": "Implemented",
+      "sysml_stereotype": "block",
+      "ports": [
+        "p_ollama"
+      ],
+      "parts": [],
+      "value_properties": []
+    },
+    {
+      "id": "ARCH-006",
+      "name": "Installer / Updater",
+      "kind": "subsystem",
+      "description": "OtaconsKeep-Setup.bat and related repair helpers; WSL enable/resume path.",
+      "allocation": "software",
+      "linked_requirements": [
+        "REQ-INST-001",
+        "REQ-AVAIL-001"
+      ],
+      "status": "Implemented",
+      "sysml_stereotype": "block",
+      "ports": [],
+      "parts": [],
+      "value_properties": []
+    },
+    {
+      "id": "ARCH-007",
+      "name": "Emotional Continuity Engine",
+      "kind": "subsystem",
+      "description": "Bounded emotional state vector with personality profiles and inertia blending (continuity/emotional_continuity.py).",
+      "allocation": "software",
+      "linked_requirements": [
+        "REQ-BEH-001",
+        "REQ-BEH-002"
+      ],
+      "status": "Implemented",
+      "scope_note": "Expansion / Reference Keep depth, not claimed as Lite-only default surface.",
+      "sysml_stereotype": "block",
+      "ports": [
+        "p_obs"
+      ],
+      "parts": [],
+      "value_properties": []
+    },
+    {
+      "id": "ARCH-008",
+      "name": "Relationship Engines",
+      "kind": "subsystem",
+      "description": "Formula 5 agent-agent relationships and Formula RB user-bond engine.",
+      "allocation": "software",
+      "linked_requirements": [
+        "REQ-REL-001"
+      ],
+      "status": "Implemented",
+      "scope_note": "Reference Keep / executor; Expansion markets mood/relationship engine.",
+      "sysml_stereotype": "block",
+      "ports": [
+        "p_rel"
+      ],
+      "parts": [],
+      "value_properties": []
+    },
+    {
+      "id": "ARCH-009",
+      "name": "REX Control Plane",
+      "kind": "subsystem",
+      "description": "Detect → Propose → Review/Authorize → Execute → Verify → Close → Learn lifecycle for operational proposals.",
+      "allocation": "software",
+      "linked_requirements": [],
+      "status": "Implemented",
+      "scope_note": "Documented in executor CHANGELOG / REX design; public Lite does not claim full REX War Room as default.",
+      "sysml_stereotype": "block",
+      "ports": [],
+      "parts": [],
+      "value_properties": []
+    },
+    {
+      "id": "ARCH-010",
+      "name": "Web UI / Surfaces",
+      "kind": "subsystem",
+      "description": "Command Center, Codec, product pages, and related operator surfaces.",
+      "allocation": "software",
+      "linked_requirements": [
+        "REQ-FUNC-001"
+      ],
+      "status": "Implemented",
+      "sysml_stereotype": "block",
+      "ports": [
+        "p_http"
+      ],
+      "parts": [],
+      "value_properties": []
+    },
+    {
+      "id": "ARCH-011",
+      "name": "Tool Layer",
+      "kind": "subsystem",
+      "description": "Agent tools and action execution paths.",
+      "allocation": "software",
+      "linked_requirements": [],
+      "status": "Implemented",
+      "sysml_stereotype": "block",
+      "ports": [
+        "p_tool"
+      ],
+      "parts": [],
+      "value_properties": []
+    },
+    {
+      "id": "ARCH-012",
+      "name": "Persistence",
+      "kind": "subsystem",
+      "description": "Local JSON/state stores and service data directories.",
+      "allocation": "software",
+      "linked_requirements": [
+        "REQ-SYS-001"
+      ],
+      "status": "Implemented",
+      "sysml_stereotype": "block",
+      "ports": [
+        "p_fs"
+      ],
+      "parts": [],
+      "value_properties": []
+    }
+  ],
+  "logical_views": [
+    "System Context",
+    "Logical Architecture",
+    "Physical / Deployment",
+    "AI / Model Architecture",
+    "Agent Architecture",
+    "Automation Architecture"
+  ],
+  "mbse_note": "Architecture elements are SysML «block» classifiers. BDD-001 / IBD-001 are the primary structural views. UML-COMP-001 is the companion UML component view. Satisfy relationships are stored on requirements (linked_architecture / allocated_subsystem) and rendered into the VCRM.",
+  "views": [
+    {
+      "id": "BDD-001",
+      "kind": "bdd",
+      "title": "Block Definition Diagram"
+    },
+    {
+      "id": "IBD-001",
+      "kind": "ibd",
+      "title": "Internal Block Diagram"
+    },
+    {
+      "id": "UML-COMP-001",
+      "kind": "uml",
+      "title": "UML Component Diagram"
+    },
+    {
+      "id": "CTX-001",
+      "kind": "context",
+      "title": "Context"
+    }
+  ]
 }
