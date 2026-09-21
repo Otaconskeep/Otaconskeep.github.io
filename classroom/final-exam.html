@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Final exam · Classroom</title>
-<meta name="description" content="Homelab verification matrix.">
+<title>Final capstone · Classroom</title>
+<meta name="description" content="Final capstone">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/final-exam.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921c">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260921d">
 </head>
 <body>
-<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>FINAL EXAM<span class="blink"></span></span></div></div>
+<div class="filebar"><div class="wrap"><span>CLASSROOM // HOMELAB ACADEMY</span><span>CAPSTONE<span class="blink"></span></span></div></div>
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -36,38 +36,244 @@
 </nav><nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
- <a href="/classroom/start.html">Start</a>
- <a href="/classroom/path.html">Path</a>
+ <a href="/classroom/classes/">Classes</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
  <a href="/classroom/glossary.html">Glossary</a>
- <a href="/classroom/units/1-infrastructure/">Unit 1</a>
- <a href="/classroom/units/2-arr/">Unit 2</a>
- <a href="/classroom/units/3-home-assistant/">Unit 3</a>
- <a href="/classroom/units/4-voice/">Unit 4</a>
- <a href="/classroom/final-exam.html">Final exam</a>
  </div>
 </nav>
-<div class="wrap">
-<section class="hero flush"><span class="cr-badge adv">🔴 Advanced</span>
-<h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);margin-top:12px;">Final exam — working homelab</h1>
-<p class="lede">Not a written test. A verification matrix. “It seems to work” is not a grade.</p></section>
-<pre class="cr-diagram">REQUEST MOVIE → SEERR → RADARR → PROWLARR → qBIT/SAB → /data/media → PLEX
-
-HOME ASSISTANT
-  |-- monitors infrastructure
-  |-- runs automations
-  +-- local voice → "Is Plex online?" → spoken answer</pre>
-<div class="cr-check" data-check-id="final-exam">
- <h3>Verification matrix</h3>
- <label><input type="checkbox" data-k="0"><strong>Docker persistent</strong> — Destroy/recreate container; config survives</label><label><input type="checkbox" data-k="1"><strong>ARR connectivity</strong> — API tests green</label><label><input type="checkbox" data-k="2"><strong>Hardlinks</strong> — Same inode / no duplicate storage (when using torrents)</label><label><input type="checkbox" data-k="3"><strong>Prowlarr</strong> — Indexer propagates to ARRs</label><label><input type="checkbox" data-k="4"><strong>TRaSH</strong> — Expected CFs and scores present</label><label><input type="checkbox" data-k="5"><strong>Download</strong> — Request reaches downloader</label><label><input type="checkbox" data-k="6"><strong>Import</strong> — Correct path/name under /data/media</label><label><input type="checkbox" data-k="7"><strong>Plex/Jellyfin</strong> — Media detected</label><label><input type="checkbox" data-k="8"><strong>HA</strong> — Automation works</label><label><input type="checkbox" data-k="9"><strong>STT</strong> — Known sentence transcribed</label><label><input type="checkbox" data-k="10"><strong>TTS</strong> — Known response spoken</label><label><input type="checkbox" data-k="11"><strong>Voice</strong> — End-to-end command passes</label><label><input type="checkbox" data-k="12"><strong>Local operation</strong> — Internet disconnected; core functions survive</label>
- <div class="cr-gate">All requirements evidenced → you finished Homelab Academy v1</div>
-</div>
-<div class="cr-pager"><a href="units/4-voice/classes/13-voice-capstone.html">← Class 13</a>
-<a href="/classroom/units/2-arr/stack-map.html">ARR stack map</a>
-<a href="/classroom/">Academy home →</a></div>
+<div class="wrap cr-md">
+<section class="hero flush">
+ <p class="tag">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Final capstone</h1>
+</section>
+<article class="cr-article">
+<h1>Final Capstone — Verified Private Homelab</h1>
+<h2>Mission scenario</h2>
+<p>Build and demonstrate a homelab where an authorized user can request permitted media, trace the request through the ARR pipeline, discover the imported item in a media server, ask Home Assistant whether the media service is online, and receive a local spoken response. Core local tests must pass with WAN disconnected.</p>
+<h2>Required architecture</h2>
+<pre><code class="language-text">flowchart TD
+    U[&quot;Authorized user&quot;] --&gt; S[&quot;Seerr request&quot;]
+    S --&gt; R[&quot;Sonarr / Radarr&quot;]
+    R --&gt; P[&quot;Prowlarr&quot;]
+    R --&gt; D[&quot;Download client&quot;]
+    D --&gt; F[&quot;Shared /data filesystem&quot;]
+    R --&gt; F
+    F --&gt; M[&quot;Plex / Jellyfin&quot;]
+    V[&quot;Voice satellite&quot;] --&gt; H[&quot;Home Assistant&quot;]
+    H --&gt; X[&quot;Media health sensor&quot;]
+    H --&gt; V
+</code></pre>
+<h2>Constraints</h2>
+<ul>
+<li>Use only authorized indexers, sources, and test media.</li>
+<li>No administrative application is directly exposed to the public internet.</li>
+<li>Every stateful service has a current backup and documented restore target.</li>
+<li>Persistent paths, identities, networks, and ports are documented.</li>
+<li>One source of truth owns automated quality/profile configuration.</li>
+<li>Voice STT and TTS run locally for the offline requirement.</li>
+</ul>
+<h2>Verification matrix</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+<th>Verification</th>
+<th>Pass condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CAP-01</td>
+<td>Docker data persists</td>
+<td>Recreate one stateful test container</td>
+<td>Configuration/data remain intact</td>
+</tr>
+<tr>
+<td>CAP-02</td>
+<td>Service discovery works</td>
+<td>Resolve/call services by container DNS</td>
+<td>Expected responses received</td>
+</tr>
+<tr>
+<td>CAP-03</td>
+<td>ARR API links work</td>
+<td>Run application tests</td>
+<td>All intended links pass</td>
+</tr>
+<tr>
+<td>CAP-04</td>
+<td>Prowlarr sync works</td>
+<td>Trigger sync and inspect targets</td>
+<td>Expected definitions/categories appear</td>
+</tr>
+<tr>
+<td>CAP-05</td>
+<td>Quality policy works</td>
+<td>Score five controlled candidates</td>
+<td>Rankings/rejections match written policy</td>
+</tr>
+<tr>
+<td>CAP-06</td>
+<td>Download handoff works</td>
+<td>Submit authorized controlled test</td>
+<td>Correct client/category receives job</td>
+</tr>
+<tr>
+<td>CAP-07</td>
+<td>Import works</td>
+<td>Complete controlled test</td>
+<td>Correct root/naming and no path error</td>
+</tr>
+<tr>
+<td>CAP-08</td>
+<td>Hardlink policy works</td>
+<td>Compare device/inode where applicable</td>
+<td>Same data inode or documented exception</td>
+</tr>
+<tr>
+<td>CAP-09</td>
+<td>Media discovery works</td>
+<td>Scan library</td>
+<td>One correct item appears</td>
+</tr>
+<tr>
+<td>CAP-10</td>
+<td>HA health entity works</td>
+<td>Stop/start test service</td>
+<td>State changes within requirement</td>
+</tr>
+<tr>
+<td>CAP-11</td>
+<td>HA automation works</td>
+<td>Run positive/negative cases</td>
+<td>Correct action only under allowed case</td>
+</tr>
+<tr>
+<td>CAP-12</td>
+<td>Remote access is controlled</td>
+<td>Allowed and denied tests</td>
+<td>Allowed passes; denied fails</td>
+</tr>
+<tr>
+<td>CAP-13</td>
+<td>STT works</td>
+<td>Known sentence trials</td>
+<td>Action/target words correct per threshold</td>
+</tr>
+<tr>
+<td>CAP-14</td>
+<td>TTS works</td>
+<td>Fixed phrase trials</td>
+<td>Complete intelligible audio</td>
+</tr>
+<tr>
+<td>CAP-15</td>
+<td>Voice E2E works</td>
+<td>Ten wake-command trials</td>
+<td>Meets reliability/latency requirement</td>
+</tr>
+<tr>
+<td>CAP-16</td>
+<td>Local mode works</td>
+<td>Disconnect WAN and repeat local tests</td>
+<td>Defined core path remains functional</td>
+</tr>
+<tr>
+<td>CAP-17</td>
+<td>Recovery works</td>
+<td>Restart one voice and one media service</td>
+<td>Automatic/manual recovery meets runbook</td>
+</tr>
+<tr>
+<td>CAP-18</td>
+<td>Restore path works</td>
+<td>Restore disposable config/VM</td>
+<td>Service returns with verified state</td>
+</tr>
+</tbody>
+</table>
+<h2>Demonstration sequence</h2>
+<ol>
+<li>Present the architecture and inventory.</li>
+<li>Show Compose validation and running health state.</li>
+<li>Demonstrate persistent data after recreation.</li>
+<li>Show Prowlarr application sync and one controlled candidate evaluation.</li>
+<li>Trace an authorized test transaction from request to media discovery.</li>
+<li>Prove path/hardlink behavior or explain the documented filesystem exception.</li>
+<li>Trigger the Home Assistant media-health automation in positive and negative cases.</li>
+<li>Demonstrate allowed and denied remote-access cases.</li>
+<li>Run the voice component checks.</li>
+<li>Issue: “Is the media server online?” and capture local spoken response.</li>
+<li>Disconnect WAN while maintaining LAN.</li>
+<li>Repeat the defined Home Assistant and voice command.</li>
+<li>Restore WAN and verify normal operation.</li>
+<li>Introduce one hidden fault and diagnose it by boundary.</li>
+<li>Show backups and execute one safe restoration in a disposable target.</li>
+</ol>
+<h2>Critical failures</h2>
+<p>Any of the following prevents a pass until corrected:</p>
+<ul>
+<li>Public unauthenticated admin interface.</li>
+<li>Secrets in submitted screenshots/configuration.</li>
+<li>No recovery copy for stateful configuration.</li>
+<li>Inability to distinguish path mapping from permission failure.</li>
+<li>Quality automation applied broadly without backup or behavioral test.</li>
+<li>Voice “local” claim without a WAN-disconnect demonstration.</li>
+<li>Destructive testing against irreplaceable data.</li>
+</ul>
+<h2>Final score</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th style="text-align: right;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Architecture and requirements</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr>
+<td>Container/ARR implementation</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr>
+<td>Home Assistant implementation</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr>
+<td>Local voice implementation</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr>
+<td>Verification evidence</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr>
+<td>Fault isolation</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr>
+<td>Security and recovery</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>100</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Pass requires at least 80 points and zero unresolved critical failures.</p>
+</article>
+<div class="cr-pager"><a href="classes/13.html">← Class 13</a><a href="/classroom/">Academy →</a></div>
 </div>
 <footer class="sitefoot"><div class="wrap">
 <span>Otaconskeep Classroom · Homelab Academy</span>
-<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/glossary.html">Glossary</a></span>
+<span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
 </div></footer>
-<script src="/classroom/classroom.js?v=20260921c"></script>
+<script src="/classroom/classroom.js?v=20260921d"></script>
 </body></html>
