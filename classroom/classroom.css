@@ -432,7 +432,38 @@
 }
 .cr-step-body { min-width: 0; }
 .cr-step-text { margin: 0; color: var(--cream); line-height: 1.55; }
-.cr-step-text p { margin: 0; color: inherit; }
+.cr-step-text p { margin: 0 0 .65rem; color: inherit; }
+.cr-step-text p:last-child { margin-bottom: 0; }
+.cr-step-text ul, .cr-step-text ol {
+  margin: .4rem 0 .7rem 1.15rem;
+  color: var(--cream-dim);
+}
+.cr-step-text li { margin: .28rem 0; }
+.cr-step-text pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .8rem;
+  line-height: 1.45;
+  background: #0b0f14;
+  border: 1px solid var(--line-bright);
+  border-radius: 6px;
+  padding: 10px 12px;
+  overflow-x: auto;
+  margin: .55rem 0;
+}
+.cr-step-text code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .86em;
+}
+.cr-step-text strong { color: var(--cream); }
+.cr-step-do {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--cr-lin);
+  margin-bottom: 6px;
+}
 
 .cr-check-item {
   margin-bottom: 12px;

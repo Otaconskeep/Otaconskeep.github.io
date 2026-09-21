@@ -24,7 +24,7 @@ SITE = Path("/root/otaconskeep-site/classroom")
 PACK = SITE / "pack"
 CLASSES_DIR = SITE / "classes"
 GH = Path("/root/Classroom")
-CSS_V = "20260921h"
+CSS_V = "20260921i"
 
 NAV = f'''<nav class="topnav">
  <div class="wrap">
@@ -322,18 +322,11 @@ def render_lab_section(h2: str, body: str) -> str:
         ]
         for sub, text in blocks:
             steps = extract_numbered_steps(text) or []
-            # Also accept short lists (<3) inside a named path
-            if not steps:
-                steps = []
-                for line in text.splitlines():
-                    m = re.match(r"^(\d+)\.\s+(.+)$", line.strip())
-                    if m:
-                        steps.append(m.group(2).strip())
             if sub and steps:
                 # preamble inside subsection before numbers
                 pre = []
                 for line in text.splitlines():
-                    if re.match(r"^\d+\.\s+", line.strip()):
+                    if re.match(r"^\d+\.\s+", line):
                         break
                     pre.append(line)
                 preamble = "\n".join(pre).strip()
@@ -368,7 +361,7 @@ def render_lab_section(h2: str, body: str) -> str:
     if steps:
         pre = []
         for line in body.splitlines():
-            if re.match(r"^\d+\.\s+", line.strip()):
+            if re.match(r"^\d+\.\s+", line):
                 break
             pre.append(line)
         preamble = "\n".join(pre).strip()

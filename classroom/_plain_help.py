@@ -209,7 +209,11 @@ def plain_for_step(text: str) -> str:
     for pat, mean in STEP_RULES:
         if pat.search(text):
             return mean
-    # Generic fallback — still helpful, never says "6th grade"
+    # Prefer the bold step title when present
+    m = re.match(r"\*\*([^*]+)\*\*", text.strip())
+    if m:
+        title = m.group(1).strip().rstrip(".")
+        return f"Do this step fully, then check that it worked before the next one. Focus: {title}."
     clean = re.sub(r"`[^`]+`", "that command", text)
     clean = re.sub(r"\s+", " ", clean).strip()
     if len(clean) > 140:
@@ -232,15 +236,30 @@ def plain_for_paragraph(text: str) -> str:
     return f"Big idea: {first}"
 
 
-def extract_numbered_steps(md: str) -> list[str] | None:
-    """Return numbered steps if the body is primarily an ordered list."""
-    steps = []
-    for line in md.splitlines():
-        m = re.match(r"^(\d+)\.\s+(.+)$", line.strip())
-        if m:
-            steps.append(m.group(2).strip())
-    # Prefer step cards when we have a real lab list
-    if len(steps) >= 3:
+def extract_numbered_steps(md: str, *, min_steps: int = 1) -> list[str] | None:
+    """Return numbered steps, including continuation lines under each item."""
+    lines = md.splitlines()
+    steps: list[str] = []
+    i = 0
+    while i < len(lines):
+        m = re.match(r"^(\d+)\.\s+(.*)$", lines[i])
+        if not m:
+            i += 1
+            continue
+        chunk = [m.group(2)]
+        i += 1
+        while i < len(lines):
+            line = lines[i]
+            if re.match(r"^\d+\.\s+", line):
+                break
+            if re.match(r"^#{1,3}\s+", line):
+                break
+            chunk.append(line)
+            i += 1
+        text = "\n".join(chunk).strip()
+        if text:
+            steps.append(text)
+    if len(steps) >= min_steps:
         return steps
     return None
 
