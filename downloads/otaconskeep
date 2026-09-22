@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# otaconskeep — Keep operator ceremony + dual entry (web OR cmd)
+# otaconskeep — Keep operator ceremony → KeepRoute Auto REPL
 # Portable: no hardcoded LAN IPs. Discovers Otacon / OmniRoute / KeepRoute / Missions.
 # Designed & Engineered by Antonio G. Garcia // Otaconskeep
 set -euo pipefail
@@ -12,7 +12,10 @@ BG=$'\033[48;5;16m'
 NO_ANIM="${OTACONSKEEP_NO_ANIM:-0}"
 OPEN_WEB="${OTACONSKEEP_OPEN_WEB:-0}"
 SKIP_CONNECT="${OTACONSKEEP_SKIP_CONNECT:-0}"
+NO_REPL="${OTACONSKEEP_NO_REPL:-0}"
 CHAT_PORT="${OTACON_CHAT_PORT:-5757}"
+MC_URL_OVERRIDE="${MISSION_CONTROLLER_URL:-}"
+CONNECT="${OTACONSKEEP_CONNECT:-/opt/otacon/omniroute/connect-everything.sh}"
 
 type_line() {
   local s="$1" delay="${2:-0.013}"
@@ -74,12 +77,10 @@ http_ok() {
   curl -fsS --connect-timeout 1 --max-time 2 -o /dev/null "$url" 2>/dev/null
 }
 
-# Resolve display host: prefer LAN when reachable services are bound beyond loopback.
 LAN_IP="$(detect_lan_ip)"
 LOOP="127.0.0.1"
 
 pick_host_port() {
-  # args: port path_for_health
   local port="$1" path="${2:-/}"
   local h
   for h in "$LOOP" ${LAN_IP:+"$LAN_IP"}; do
@@ -89,7 +90,6 @@ pick_host_port() {
       return 0
     fi
   done
-  # Prefer LAN for printed URLs when we have one (user may start services next)
   if [[ -n "$LAN_IP" ]]; then
     printf '%s' "$LAN_IP"
   else
@@ -106,6 +106,7 @@ OTACON_URL="http://${OTACON_HOST}:${CHAT_PORT}"
 OMNI_URL="http://${OMNI_HOST}:20128"
 KEEP_URL="http://${KEEP_HOST}:20129"
 MISS_URL="http://${MISS_HOST}:20130"
+MC_URL="${MC_URL_OVERRIDE:-http://${LOOP}:20130}"
 
 OTACON_UP=0; OMNI_UP=0; KEEP_UP=0; MISS_UP=0
 http_ok "$OTACON_URL" && OTACON_UP=1 || true
@@ -113,14 +114,114 @@ http_ok "$OMNI_URL" && OMNI_UP=1 || true
 http_ok "$KEEP_URL" && KEEP_UP=1 || true
 http_ok "$MISS_URL" && MISS_UP=1 || true
 
-discover_urls() {
-  printf '%s\n' "$OTACON_URL" "$OMNI_URL" "$KEEP_URL" "$MISS_URL"
+status_dot() {
+  if [[ "$1" == "1" ]]; then printf '%sonline%s' "$G" "$N"
+  else printf '%soffline%s' "$D" "$N"; fi
 }
 
-# Quiet subcommands skip cinema
+run_keeproute_auto() {
+  local objective="$1"
+  [[ -n "$objective" ]] || return 0
+  python3 - "$MC_URL" "$objective" <<'PY'
+import json, sys, urllib.error, urllib.request
+
+mc, objective = sys.argv[1].rstrip("/"), sys.argv[2]
+payload = json.dumps({
+    "objective": objective,
+    "archive_evidence": False,
+    "allow_paid": True,
+}).encode()
+req = urllib.request.Request(
+    f"{mc}/v1/missions/execute",
+    data=payload,
+    method="POST",
+    headers={"Content-Type": "application/json"},
+)
+try:
+    with urllib.request.urlopen(req, timeout=300) as resp:
+        data = json.loads(resp.read().decode("utf-8", errors="replace"))
+except urllib.error.HTTPError as e:
+    raw = e.read().decode("utf-8", errors="replace")
+    try:
+        data = json.loads(raw)
+    except Exception:
+        data = {"ok": False, "error": raw or str(e)}
+except Exception as e:
+    data = {"ok": False, "error": str(e)}
+
+dec = data.get("decision") or {}
+route = dec.get("selected_route") or {}
+provider = data.get("actual_provider_reached") or route.get("provider") or "?"
+model = data.get("actual_model") or route.get("model") or "?"
+klass = dec.get("classification") or "?"
+paid = data.get("paid_or_local") or "?"
+reply = (data.get("reply") or "").rstrip()
+err = data.get("error")
+
+print(f"  → Auto picked: {provider}  ·  {model}")
+print(f"  → class={klass}  ·  {paid}")
+if err and not reply:
+    print(f"  ✖ {err}")
+elif reply:
+    print()
+    for line in reply.splitlines() or [reply]:
+        print(f"  {line}")
+    print()
+    if err:
+        print(f"  ! note: {err}")
+else:
+    print("  (no reply)")
+    if err:
+        print(f"  ✖ {err}")
+sys.exit(0 if data.get("ok") else 1)
+PY
+}
+
+keeproute_repl() {
+  printf '  %sKeepRoute Auto%s is live — type a mission; Keep picks Claude / Codex / Cursor / Grok / Local.\n' "$C$B" "$N"
+  printf '  %sCommands%s:  exit | quit | web | urls | doctor\n\n' "$D" "$N"
+  local line
+  while true; do
+    if ! read -r -e -p $'  \033[38;5;46m\033[1mkeep>\033[0m ' line; then
+      printf '\n'
+      break
+    fi
+    line="${line#"${line%%[![:space:]]*}"}"
+    line="${line%"${line##*[![:space:]]}"}"
+    [[ -z "$line" ]] && continue
+    case "$line" in
+      exit|quit|q|:q)
+        printf '  %slink closed%s\n' "$D" "$N"
+        break
+        ;;
+      web)
+        printf '  KeepRoute UI → %s\n' "$KEEP_URL"
+        if command -v xdg-open >/dev/null 2>&1; then xdg-open "$KEEP_URL" >/dev/null 2>&1 || true; fi
+        continue
+        ;;
+      urls)
+        printf '  %s\n  %s\n  %s\n  %s\n' "$OTACON_URL" "$OMNI_URL" "$KEEP_URL" "$MISS_URL"
+        continue
+        ;;
+      doctor)
+        if command -v otacon >/dev/null 2>&1; then otacon doctor || true
+        elif [[ -x "${HOME}/.local/bin/otacon" ]]; then "${HOME}/.local/bin/otacon" doctor || true
+        else printf '  otacon doctor not installed\n'; fi
+        continue
+        ;;
+    esac
+    printf '\n'
+    set +e
+    run_keeproute_auto "$line"
+    set -e
+    printf '\n'
+  done
+}
+
+# Quiet subcommands that skip cinema
 case "${1:-}" in
   urls)
-    discover_urls
+    printf '%s\n' "$OTACON_URL" "$OMNI_URL" "$KEEP_URL" "$MISS_URL"
     exit 0
     ;;
   doctor)
@@ -130,18 +231,20 @@ case "${1:-}" in
     ;;
   -h|--help|help)
     cat <<HELP
-Usage: otaconskeep [web|urls|doctor|help]
+Usage: otaconskeep [web|urls|doctor|help|"mission text…"]
 
-  (no args)  cinema + discover local Keep surfaces (web AND cmd)
-  web        cinema then open the best local web UI
-  urls       print discovered URLs only
-  doctor     run otacon doctor
+  (no args)     cinema → KeepRoute Auto REPL (picks the helper for you)
+  "mission…"    cinema → run one Auto mission → exit
+  web           cinema → open KeepRoute UI
+  urls          print discovered URLs only
+  doctor        run otacon doctor
 
 Env:
-  OTACONSKEEP_NO_ANIM=1     skip typewriter/spinners
-  OTACONSKEEP_OPEN_WEB=1    auto-open browser after grant
+  OTACONSKEEP_NO_ANIM=1       skip typewriter/spinners
+  OTACONSKEEP_NO_REPL=1       ceremony only (do not enter Auto REPL)
+  OTACONSKEEP_OPEN_WEB=1      also open KeepRoute UI after grant
   OTACONSKEEP_SKIP_CONNECT=1  never run OmniRoute connect-everything
-  OTACON_CHAT_PORT=5757     Otacon Core port
+  OTACON_CHAT_PORT=5757       Otacon Core port
 HELP
     exit 0
     ;;
@@ -177,8 +280,6 @@ spin_hack "hacking into the mainframe..." 24
 spin_hack "overriding security protocols..." 16
 spin_hack "syncing keep neural lattice..." 14
 
-# Optional: ops-host OmniRoute connect (only if present)
-CONNECT="${OTACONSKEEP_CONNECT:-/opt/otacon/omniroute/connect-everything.sh}"
 CONNECT_RC=0
 if [[ "$SKIP_CONNECT" != "1" && -x "$CONNECT" ]]; then
   LOG="$(mktemp)"
@@ -200,7 +301,6 @@ if [[ "$SKIP_CONNECT" != "1" && -x "$CONNECT" ]]; then
     tail -n 12 "$LOG" 2>/dev/null || true
   fi
   rm -f "$LOG"
-  # refresh probes after connect
   http_ok "$OMNI_URL" && OMNI_UP=1 || true
   http_ok "$KEEP_URL" && KEEP_UP=1 || true
   http_ok "$MISS_URL" && MISS_UP=1 || true
@@ -220,47 +320,50 @@ cat <<'OK'
 OK
 printf '%s\n' "$N"
 
-status_dot() {
-  if [[ "$1" == "1" ]]; then printf '%sonline%s' "$G" "$N"
-  else printf '%soffline%s' "$D" "$N"; fi
-}
-
-printf '  %sYou'\''re in.%s  Use the %sweb%s or the %scmd%s — same Keep.\n\n' "$W$B" "$N" "$C" "$N" "$Y" "$N"
+printf '  %sYou'\''re in.%s  KeepRoute Auto will pick the helper — you just type the mission.\n\n' "$W$B" "$N"
 
 printf '  %sWEB%s\n' "$C$B" "$N"
 printf '  Otacon Core  → %s  (%s)\n' "$OTACON_URL" "$(status_dot "$OTACON_UP")"
-if [[ "$OMNI_UP" == "1" || -x "$CONNECT" ]]; then
-  printf '  OmniRoute    → %s  (%s)\n' "$OMNI_URL" "$(status_dot "$OMNI_UP")"
-fi
-if [[ "$KEEP_UP" == "1" || -x "$CONNECT" ]]; then
-  printf '  KeepRoute    → %s  (%s)\n' "$KEEP_URL" "$(status_dot "$KEEP_UP")"
-fi
-if [[ "$MISS_UP" == "1" || -x "$CONNECT" ]]; then
-  printf '  Missions     → %s  (%s)\n' "$MISS_URL" "$(status_dot "$MISS_UP")"
-fi
+printf '  OmniRoute    → %s  (%s)\n' "$OMNI_URL" "$(status_dot "$OMNI_UP")"
+printf '  KeepRoute    → %s  (%s)\n' "$KEEP_URL" "$(status_dot "$KEEP_UP")"
+printf '  Missions     → %s  (%s)\n' "$MISS_URL" "$(status_dot "$MISS_UP")"
 
-printf '\n  %sCMD%s\n' "$Y$B" "$N"
-if command -v codex >/dev/null 2>&1; then
-  printf '  Type %s%scodex%s to begin the operator CLI.\n' "$Y" "$B" "$N"
-else
-  printf '  Type %s%scodex%s when installed — or use %s%stotacon doctor%s for health.\n' "$Y" "$B" "$N" "$Y" "$B" "$N"
-fi
-if command -v otacon >/dev/null 2>&1; then
-  printf '  Doctor       → %sotacon doctor%s\n' "$B" "$N"
-elif [[ -x "${HOME}/.local/bin/otacon" ]]; then
-  printf '  Doctor       → %s~/.local/bin/otacon doctor%s\n' "$B" "$N"
-fi
-printf '  Re-run this  → %sotaconskeep%s\n' "$B" "$N"
-printf '  Skip cinema  → %sOTACONSKEEP_NO_ANIM=1 otaconskeep%s\n\n' "$D" "$N"
+printf '\n  %sLearning%s     KeepRoute + CLI prompts/responses feed layered intelligence\n\n' "$C" "$N"
 
-printf '  %sLearning%s     prompts/responses from KeepRoute + CLI feed layered intelligence\n\n' "$C" "$N"
-
-# Optional: open web after cinema when requested
+# Optional browser
 if [[ "${1:-}" == "web" || "${1:-}" == "open" || "$OPEN_WEB" == "1" ]]; then
-  target="${2:-$OTACON_URL}"
-  [[ "$KEEP_UP" == "1" && -z "${2:-}" ]] && target="$KEEP_URL"
+  target="$KEEP_URL"
+  [[ "$KEEP_UP" != "1" && "$OMNI_UP" == "1" ]] && target="$OMNI_URL"
+  [[ "$KEEP_UP" != "1" && "$OMNI_UP" != "1" ]] && target="$OTACON_URL"
   printf '  Opening %s\n' "$target"
   if command -v xdg-open >/dev/null 2>&1; then xdg-open "$target" >/dev/null 2>&1 || true
   elif command -v wslview >/dev/null 2>&1; then wslview "$target" >/dev/null 2>&1 || true
   else printf '  Open manually: %s\n' "$target"; fi
+  [[ "${1:-}" == "web" || "${1:-}" == "open" ]] && exit 0
 fi
+
+# One-shot mission: otaconskeep "fix the disks"
+if [[ $# -gt 0 && "${1:-}" != "web" && "${1:-}" != "open" && "${1:-}" != "" ]]; then
+  printf '  %sKeepRoute Auto%s — one shot\n\n' "$C$B" "$N"
+  set +e
+  run_keeproute_auto "$*"
+  set -e
+  exit 0
+fi
+
+# Default: drop into Auto REPL (this is the point of otaconskeep)
+if [[ "$NO_REPL" == "1" ]]; then
+  printf '  %sTip%s: re-run without OTACONSKEEP_NO_REPL to enter KeepRoute Auto.\n\n' "$D" "$N"
+  exit 0
+fi
+
+if [[ "$MISS_UP" != "1" ]] && ! http_ok "${MC_URL}/"; then
+  # MC returns 404 on / but that still means up for http_ok if we used / — probe execute host
+  if ! curl -fsS --connect-timeout 1 --max-time 2 -o /dev/null "${MC_URL}/v1/missions" 2>/dev/null; then
+    printf '  %sMission Controller offline%s — start it, or open KeepRoute UI: %s\n' "$R" "$N" "$KEEP_URL"
+    printf '  Fallback: type %scodex%s (via OmniRoute) or %sotaconskeep web%s\n\n' "$Y" "$N" "$Y" "$N"
+    exit 1
+  fi
+fi
+
+keeproute_repl

@@ -1,8 +1,9 @@
 @echo off
 REM ============================================================
 REM  otaconskeep.cmd  — Keep cinema for Windows CMD
-REM  Dual entry: WEB (browser) or CMD (WSL otaconskeep / otacon)
-REM  No hardcoded LAN IPs — uses localhost + optional detection.
+REM  After ACCESS GRANTED: KeepRoute Auto via WSL (picks the provider)
+REM  OR open KeepRoute / Otacon web — same Keep, two doors.
+REM  No hardcoded LAN IPs — uses localhost.
 REM ============================================================
 setlocal EnableExtensions EnableDelayedExpansion
 title Otaconskeep
@@ -48,37 +49,51 @@ echo           ***  ACCESS GRANTED  ***
 echo              welcome to the mainframe
 echo      ==================================================
 echo.
-echo   You're in.  Use the WEB or the CMD — same Keep.
+echo   You're in.  KeepRoute Auto picks Claude / Codex / Cursor / Grok / Local.
 echo.
 echo   WEB
+echo   KeepRoute    -^> %KEEP_URL%
 echo   Otacon Core  -^> %OTACON_URL%
-echo   OmniRoute    -^> %OMNI_URL%   (if installed)
-echo   KeepRoute    -^> %KEEP_URL%   (if installed)
-echo   Missions     -^> %MISS_URL%   (if installed)
+echo   OmniRoute    -^> %OMNI_URL%
+echo   Missions     -^> %MISS_URL%
 echo.
-echo   CMD
-echo   Full cinema in Linux/WSL :  wsl -e otaconskeep
-echo   Health check             :  wsl -e otacon doctor
-echo   Re-run this window       :  otaconskeep
-echo.
-echo   Tip: Otacon Core and KeepRoute share one Keep — pick web UI or terminal.
+echo   CMD  (KeepRoute Auto REPL — type missions at keep^>)
+echo   wsl -e otaconskeep
+echo   One-shot mission:
+echo   wsl -e otaconskeep "check disk space on the keep"
 echo.
 
 if /I "%~1"=="web" goto OPEN_WEB
 if /I "%~1"=="open" goto OPEN_WEB
 if /I "%OTACONSKEEP_OPEN_WEB%"=="1" goto OPEN_WEB
-goto ASK
 
-:ASK
-echo   Open Otacon Core in your browser now? [Y/N]
-set /p "ANS=   > "
+REM If user passed a mission on the Windows side, forward into WSL Auto
+if not "%~1"=="" goto WSL_ONESHOT
+
+REM Default: drop into KeepRoute Auto in WSL (same as Linux otaconskeep)
+where wsl >nul 2>&1
+if errorlevel 1 goto NO_WSL
+echo   Dropping into KeepRoute Auto via WSL...
+echo.
+wsl -e otaconskeep
+goto END
+
+:WSL_ONESHOT
+where wsl >nul 2>&1
+if errorlevel 1 goto NO_WSL
+wsl -e otaconskeep %*
+goto END
+
+:NO_WSL
+echo   WSL not found — open KeepRoute in the browser instead?
+set /p "ANS=   [Y/N] > "
 if /I "%ANS%"=="Y" goto OPEN_WEB
 if /I "%ANS%"=="YES" goto OPEN_WEB
 goto END
 
 :OPEN_WEB
-start "" "%OTACON_URL%"
-echo   Opened %OTACON_URL%
+start "" "%KEEP_URL%"
+echo   Opened %KEEP_URL%
 goto END
 
 :END

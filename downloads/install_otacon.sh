@@ -2416,7 +2416,7 @@ if [[ -n "$OTACONSKEEP_SRC" ]]; then
   if [[ -w /usr/local/bin ]] || [[ "$(id -u)" == "0" ]]; then
     install -m 0755 "$HOME/.local/bin/otaconskeep" /usr/local/bin/otaconskeep 2>/dev/null || true
   fi
-  ok "Keep cinema CLI: otaconskeep  (web UI + cmd — same Keep)"
+  ok "Keep cinema CLI: otaconskeep  (ACCESS GRANTED → KeepRoute Auto REPL)"
 else
   warn "otaconskeep CLI not found next to installer — skip cinema helper (Core still works)"
 fi
@@ -2524,12 +2524,13 @@ fi
 printf 'Hardware profile : %s\n' "$HOME/.config/otacon/bootstrap-hardware.env"
 printf 'Doctor           : ~/.local/bin/otacon doctor\n'
 if command -v otaconskeep >/dev/null 2>&1 || [[ -x "$HOME/.local/bin/otaconskeep" ]]; then
-  printf 'Keep entry       : otaconskeep   (cinema + WEB or CMD — URLs auto-detected)\n'
-  printf 'Open web from CLI: otaconskeep web\n'
+  printf 'Keep entry       : otaconskeep   (cinema → KeepRoute Auto at keep>)\n'
+  printf 'One-shot mission : otaconskeep "your mission here"\n'
+  printf 'Open KeepRoute UI: otaconskeep web\n'
 fi
 printf '\n\033[1;36mSame Keep, two doors:\033[0m\n'
-printf '  WEB  → open %s in a browser\n' "$LOCAL_URL"
-printf '  CMD  → run otaconskeep   then use codex / otacon doctor\n'
+printf '  WEB  → open %s (or KeepRoute) in a browser\n' "$LOCAL_URL"
+printf '  CMD  → run otaconskeep  → KeepRoute Auto picks the provider for you\n'
 
 if [[ -n "$DEB_PATH" ]]; then
   printf 'Native .deb      : %s\n' "$DEB_PATH"
