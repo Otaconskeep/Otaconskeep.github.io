@@ -83,6 +83,7 @@ LOOP="127.0.0.1"
 pick_host_port() {
   local port="$1" path="${2:-/}"
   local h
+  # Prefer loopback: Keep services bind 127.0.0.1. Only advertise LAN when it actually answers.
   for h in "$LOOP" ${LAN_IP:+"$LAN_IP"}; do
     [[ -n "$h" ]] || continue
     if http_ok "http://${h}:${port}${path}"; then
@@ -90,11 +91,8 @@ pick_host_port() {
       return 0
     fi
   done
-  if [[ -n "$LAN_IP" ]]; then
-    printf '%s' "$LAN_IP"
-  else
-    printf '%s' "$LOOP"
-  fi
+  # Offline display: never invent a LAN URL for a loopback-only service.
+  printf '%s' "$LOOP"
 }
 
 # OmniRoute host port: KeepRoute compose publishes 20127→20128; older installs used 20128 on the host.
@@ -527,7 +525,8 @@ if [[ "$SKIP_CONNECT" != "1" && -x "$CONNECT" ]]; then
     tail -n 12 "$LOG" 2>/dev/null || true
   fi
   rm -f "$LOG"
-  http_ok "$OMNI_URL" && OMNI_UP=1 || true
+  OMNI_URL="$(resolve_omni_url)"
+  { http_ok "$OMNI_URL" || http_ok "${OMNI_URL}/dashboard"; } && OMNI_UP=1 || true
   http_ok "$KEEP_URL" && KEEP_UP=1 || true
   http_ok "$MISS_HEALTH_URL" && MISS_UP=1 || true
   http_ok "$OTACON_URL" && OTACON_UP=1 || true
