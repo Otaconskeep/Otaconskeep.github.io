@@ -101,6 +101,11 @@
  {
  date: '2026-09-16',
  tag: 'RC1',
+ {
+ title: 'Otacon v1.1 — Keep-parity Aria behavior',
+ body: 'Public roster ships work-first delivery, anti-greeting scrub, and layered learning. Soft-update with OtaconsKeep-Setup.bat. GitHub: otacons-ai-ecosystem releases/tag/v1.1.',
+ date: '2026-09-22'
+},
  title: 'Keep Expansion RC1 frozen for qualification',
  body: 'Protected artifact path under test. Backup/purge and Windows UAT still block a public 1.0 GO, early access stays foundation + Discord priority.'
  },
