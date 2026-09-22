@@ -1,0 +1,266 @@
+#!/usr/bin/env bash
+# otaconskeep — Keep operator ceremony + dual entry (web OR cmd)
+# Portable: no hardcoded LAN IPs. Discovers Otacon / OmniRoute / KeepRoute / Missions.
+# Designed & Engineered by Antonio G. Garcia // Otaconskeep
+set -euo pipefail
+
+G=$'\033[38;5;46m'; B=$'\033[1m'; D=$'\033[2m'
+C=$'\033[38;5;51m'; Y=$'\033[38;5;226m'; R=$'\033[38;5;196m'
+M=$'\033[38;5;201m'; W=$'\033[97m'; N=$'\033[0m'
+BG=$'\033[48;5;16m'
+
+NO_ANIM="${OTACONSKEEP_NO_ANIM:-0}"
+OPEN_WEB="${OTACONSKEEP_OPEN_WEB:-0}"
+SKIP_CONNECT="${OTACONSKEEP_SKIP_CONNECT:-0}"
+CHAT_PORT="${OTACON_CHAT_PORT:-5757}"
+
+type_line() {
+  local s="$1" delay="${2:-0.013}"
+  if [[ "$NO_ANIM" == "1" ]]; then
+    printf '%s\n' "$s"
+    return
+  fi
+  local i
+  for ((i = 0; i < ${#s}; i++)); do
+    printf '%s' "${s:i:1}"
+    sleep "$delay"
+  done
+  printf '\n'
+}
+
+spin_hack() {
+  local msg="$1" steps="${2:-18}"
+  if [[ "$NO_ANIM" == "1" ]]; then
+    printf '  ✓  %s\n' "$msg"
+    return
+  fi
+  local frames=('⣾' '⣽' '⣻' '⢿' '⡿' '⣟' '⣯' '⣷') i=0 n=0
+  while (( n < steps )); do
+    printf '\r  %s%s%s  %s%s' "$G" "${frames[i++ % 8]}" "$N" "$D" "$msg"
+    sleep 0.07
+    ((n++)) || true
+  done
+  printf '\r  %s%s✓%s  %s%s%s\n' "$G" "$B" "$N" "$W" "$msg" "$N"
+}
+
+detect_lan_ip() {
+  local ip=""
+  if command -v ip >/dev/null 2>&1; then
+    ip="$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src"){print $(i+1); exit}}' || true)"
+  fi
+  if [[ -z "$ip" ]] && command -v hostname >/dev/null 2>&1; then
+    ip="$(hostname -I 2>/dev/null | awk '{print $1}' || true)"
+  fi
+  if [[ -z "$ip" ]]; then
+    ip="$(python3 - <<'PY' 2>/dev/null || true
+import socket
+s=socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+try:
+    s.connect(("1.1.1.1", 80))
+    print(s.getsockname()[0])
+except Exception:
+    pass
+finally:
+    s.close()
+PY
+)"
+  fi
+  printf '%s' "${ip:-}"
+}
+
+http_ok() {
+  local url="$1"
+  command -v curl >/dev/null 2>&1 || return 1
+  curl -fsS --connect-timeout 1 --max-time 2 -o /dev/null "$url" 2>/dev/null
+}
+
+# Resolve display host: prefer LAN when reachable services are bound beyond loopback.
+LAN_IP="$(detect_lan_ip)"
+LOOP="127.0.0.1"
+
+pick_host_port() {
+  # args: port path_for_health
+  local port="$1" path="${2:-/}"
+  local h
+  for h in "$LOOP" ${LAN_IP:+"$LAN_IP"}; do
+    [[ -n "$h" ]] || continue
+    if http_ok "http://${h}:${port}${path}"; then
+      printf '%s' "$h"
+      return 0
+    fi
+  done
+  # Prefer LAN for printed URLs when we have one (user may start services next)
+  if [[ -n "$LAN_IP" ]]; then
+    printf '%s' "$LAN_IP"
+  else
+    printf '%s' "$LOOP"
+  fi
+}
+
+OTACON_HOST="$(pick_host_port "$CHAT_PORT" "/")"
+OMNI_HOST="$(pick_host_port 20128 "/")"
+KEEP_HOST="$(pick_host_port 20129 "/")"
+MISS_HOST="$(pick_host_port 20130 "/")"
+
+OTACON_URL="http://${OTACON_HOST}:${CHAT_PORT}"
+OMNI_URL="http://${OMNI_HOST}:20128"
+KEEP_URL="http://${KEEP_HOST}:20129"
+MISS_URL="http://${MISS_HOST}:20130"
+
+OTACON_UP=0; OMNI_UP=0; KEEP_UP=0; MISS_UP=0
+http_ok "$OTACON_URL" && OTACON_UP=1 || true
+http_ok "$OMNI_URL" && OMNI_UP=1 || true
+http_ok "$KEEP_URL" && KEEP_UP=1 || true
+http_ok "$MISS_URL" && MISS_UP=1 || true
+
+discover_urls() {
+  printf '%s\n' "$OTACON_URL" "$OMNI_URL" "$KEEP_URL" "$MISS_URL"
+}
+
+# Quiet subcommands skip cinema
+case "${1:-}" in
+  urls)
+    discover_urls
+    exit 0
+    ;;
+  doctor)
+    if command -v otacon >/dev/null 2>&1; then exec otacon doctor
+    elif [[ -x "${HOME}/.local/bin/otacon" ]]; then exec "${HOME}/.local/bin/otacon" doctor
+    else printf 'otacon doctor not installed yet\n'; exit 1; fi
+    ;;
+  -h|--help|help)
+    cat <<HELP
+Usage: otaconskeep [web|urls|doctor|help]
+
+  (no args)  cinema + discover local Keep surfaces (web AND cmd)
+  web        cinema then open the best local web UI
+  urls       print discovered URLs only
+  doctor     run otacon doctor
+
+Env:
+  OTACONSKEEP_NO_ANIM=1     skip typewriter/spinners
+  OTACONSKEEP_OPEN_WEB=1    auto-open browser after grant
+  OTACONSKEEP_SKIP_CONNECT=1  never run OmniRoute connect-everything
+  OTACON_CHAT_PORT=5757     Otacon Core port
+HELP
+    exit 0
+    ;;
+esac
+
+# --- cinema ---
+clear 2>/dev/null || printf '\n\n'
+printf '%s%s' "$BG" "$G$B"
+cat <<'ART'
+
+     ████████╗██╗  ██╗███████╗    ██╗  ██╗███████╗███████╗██████╗
+     ╚══██╔══╝██║  ██║██╔════╝    ██║ ██╔╝██╔════╝██╔════╝██╔══██╗
+        ██║   ███████║█████╗      █████╔╝ █████╗  █████╗  ██████╔╝
+        ██║   ██╔══██║██╔══╝      ██╔═██╗ ██╔══╝  ██╔══╝  ██╔═══╝
+        ██║   ██║  ██║███████╗    ██║  ██╗███████╗███████╗██║
+        ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝
+ART
+printf '%s' "$N$M$B"
+cat <<'ART'
+              ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+              █  O T A C O N S K E E P  ·  ONLINE  █
+              ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+ART
+printf '%s\n' "$N"
+
+printf '  %s%s' "$G" "$D"
+type_line "> dialing secure satellite uplink..." 0.012
+type_line "> cracking perimeter ICE..." 0.012
+type_line "> injecting rootkit into mainframe..." 0.012
+printf '%s\n' "$N"
+
+spin_hack "hacking into the mainframe..." 24
+spin_hack "overriding security protocols..." 16
+spin_hack "syncing keep neural lattice..." 14
+
+# Optional: ops-host OmniRoute connect (only if present)
+CONNECT="${OTACONSKEEP_CONNECT:-/opt/otacon/omniroute/connect-everything.sh}"
+CONNECT_RC=0
+if [[ "$SKIP_CONNECT" != "1" && -x "$CONNECT" ]]; then
+  LOG="$(mktemp)"
+  set +e
+  OMNIROUTE_QUIET=1 bash "$CONNECT" >"$LOG" 2>&1
+  CONNECT_RC=$?
+  set -e
+  KEY=""
+  if [[ -f /opt/otacon/omniroute/.env ]]; then
+    KEY="$(grep OMNIROUTE_API_KEY /opt/otacon/omniroute/.env 2>/dev/null | cut -d= -f2- || true)"
+  fi
+  if [[ -n "$KEY" ]]; then
+    printf '%s\n' "$KEY" > /run/omniroute-api-key 2>/dev/null || true
+    chmod 600 /run/omniroute-api-key 2>/dev/null || true
+    export OMNIROUTE_API_KEY="$KEY"
+  fi
+  if (( CONNECT_RC != 0 )); then
+    printf '\n  %s%s✖ uplink sync failed (continuing with local discovery)%s\n' "$R" "$B" "$N"
+    tail -n 12 "$LOG" 2>/dev/null || true
+  fi
+  rm -f "$LOG"
+  # refresh probes after connect
+  http_ok "$OMNI_URL" && OMNI_UP=1 || true
+  http_ok "$KEEP_URL" && KEEP_UP=1 || true
+  http_ok "$MISS_URL" && MISS_UP=1 || true
+  http_ok "$OTACON_URL" && OTACON_UP=1 || true
+fi
+
+spin_hack "ACCESS GRANTED" 8
+
+printf '\n%s%s' "$G" "$B"
+cat <<'OK'
+     ╔══════════════════════════════════════════════════════╗
+     ║                                                      ║
+     ║          ★★★  ACCESS GRANTED  ★★★                    ║
+     ║             welcome to the mainframe                 ║
+     ║                                                      ║
+     ╚══════════════════════════════════════════════════════╝
+OK
+printf '%s\n' "$N"
+
+status_dot() {
+  if [[ "$1" == "1" ]]; then printf '%sonline%s' "$G" "$N"
+  else printf '%soffline%s' "$D" "$N"; fi
+}
+
+printf '  %sYou'\''re in.%s  Use the %sweb%s or the %scmd%s — same Keep.\n\n' "$W$B" "$N" "$C" "$N" "$Y" "$N"
+
+printf '  %sWEB%s\n' "$C$B" "$N"
+printf '  Otacon Core  → %s  (%s)\n' "$OTACON_URL" "$(status_dot "$OTACON_UP")"
+if [[ "$OMNI_UP" == "1" || -x "$CONNECT" ]]; then
+  printf '  OmniRoute    → %s  (%s)\n' "$OMNI_URL" "$(status_dot "$OMNI_UP")"
+fi
+if [[ "$KEEP_UP" == "1" || -x "$CONNECT" ]]; then
+  printf '  KeepRoute    → %s  (%s)\n' "$KEEP_URL" "$(status_dot "$KEEP_UP")"
+fi
+if [[ "$MISS_UP" == "1" || -x "$CONNECT" ]]; then
+  printf '  Missions     → %s  (%s)\n' "$MISS_URL" "$(status_dot "$MISS_UP")"
+fi
+
+printf '\n  %sCMD%s\n' "$Y$B" "$N"
+if command -v codex >/dev/null 2>&1; then
+  printf '  Type %s%scodex%s to begin the operator CLI.\n' "$Y" "$B" "$N"
+else
+  printf '  Type %s%scodex%s when installed — or use %s%stotacon doctor%s for health.\n' "$Y" "$B" "$N" "$Y" "$B" "$N"
+fi
+if command -v otacon >/dev/null 2>&1; then
+  printf '  Doctor       → %sotacon doctor%s\n' "$B" "$N"
+elif [[ -x "${HOME}/.local/bin/otacon" ]]; then
+  printf '  Doctor       → %s~/.local/bin/otacon doctor%s\n' "$B" "$N"
+fi
+printf '  Re-run this  → %sotaconskeep%s\n' "$B" "$N"
+printf '  Skip cinema  → %sOTACONSKEEP_NO_ANIM=1 otaconskeep%s\n\n' "$D" "$N"
+
+printf '  %sLearning%s     prompts/responses from KeepRoute + CLI feed layered intelligence\n\n' "$C" "$N"
+
+# Optional: open web after cinema when requested
+if [[ "${1:-}" == "web" || "${1:-}" == "open" || "$OPEN_WEB" == "1" ]]; then
+  target="${2:-$OTACON_URL}"
+  [[ "$KEEP_UP" == "1" && -z "${2:-}" ]] && target="$KEEP_URL"
+  printf '  Opening %s\n' "$target"
+  if command -v xdg-open >/dev/null 2>&1; then xdg-open "$target" >/dev/null 2>&1 || true
+  elif command -v wslview >/dev/null 2>&1; then wslview "$target" >/dev/null 2>&1 || true
+  else printf '  Open manually: %s\n' "$target"; fi
+fi

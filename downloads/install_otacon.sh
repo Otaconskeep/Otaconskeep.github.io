@@ -2375,7 +2375,7 @@ if [[ "$VOICE_TRAINER_OK" == "1" ]] && [[ -x "${VENV_DIR}/bin/python" ]] && [[ -
   fi
 fi
 
-# Install otacon CLI helper (doctor)
+# Install otacon CLI helper (doctor) + otaconskeep dual-entry cinema (web OR cmd)
 mkdir -p "$HOME/.local/bin"
 cat > "$HOME/.local/bin/otacon" <<CLIEOF
 #!/usr/bin/env bash
@@ -2390,6 +2390,36 @@ esac
 CLIEOF
 chmod +x "$HOME/.local/bin/otacon"
 ok "CLI helper: ~/.local/bin/otacon doctor"
+
+# Prefer shipping copy next to this installer; fall back to Pages raw; else skip.
+OTACONSKEEP_SRC=""
+for cand in \
+  "$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd)/otaconskeep" \
+  "${INSTALL_DIR}/downloads/otaconskeep" \
+  "/tmp/otaconskeep-installer-cache"; do
+  if [[ -n "$cand" && -f "$cand" ]]; then
+    OTACONSKEEP_SRC="$cand"
+    break
+  fi
+done
+if [[ -z "$OTACONSKEEP_SRC" ]]; then
+  if curl -fsSL --connect-timeout 5 --max-time 20 \
+    "https://otaconskeep.github.io/downloads/otaconskeep" \
+    -o "$HOME/.local/bin/otaconskeep.download" 2>/dev/null; then
+    OTACONSKEEP_SRC="$HOME/.local/bin/otaconskeep.download"
+  fi
+fi
+if [[ -n "$OTACONSKEEP_SRC" ]]; then
+  install -m 0755 "$OTACONSKEEP_SRC" "$HOME/.local/bin/otaconskeep"
+  rm -f "$HOME/.local/bin/otaconskeep.download" 2>/dev/null || true
+  # System-wide when we can (ops hosts / root finalize)
+  if [[ -w /usr/local/bin ]] || [[ "$(id -u)" == "0" ]]; then
+    install -m 0755 "$HOME/.local/bin/otaconskeep" /usr/local/bin/otaconskeep 2>/dev/null || true
+  fi
+  ok "Keep cinema CLI: otaconskeep  (web UI + cmd — same Keep)"
+else
+  warn "otaconskeep CLI not found next to installer — skip cinema helper (Core still works)"
+fi
 
 # ------------------------------------------------------------------------------
 # Final summary — READY / DEGRADED / FAILED
@@ -2493,6 +2523,13 @@ else
 fi
 printf 'Hardware profile : %s\n' "$HOME/.config/otacon/bootstrap-hardware.env"
 printf 'Doctor           : ~/.local/bin/otacon doctor\n'
+if command -v otaconskeep >/dev/null 2>&1 || [[ -x "$HOME/.local/bin/otaconskeep" ]]; then
+  printf 'Keep entry       : otaconskeep   (cinema + WEB or CMD — URLs auto-detected)\n'
+  printf 'Open web from CLI: otaconskeep web\n'
+fi
+printf '\n\033[1;36mSame Keep, two doors:\033[0m\n'
+printf '  WEB  → open %s in a browser\n' "$LOCAL_URL"
+printf '  CMD  → run otaconskeep   then use codex / otacon doctor\n'
 
 if [[ -n "$DEB_PATH" ]]; then
   printf 'Native .deb      : %s\n' "$DEB_PATH"

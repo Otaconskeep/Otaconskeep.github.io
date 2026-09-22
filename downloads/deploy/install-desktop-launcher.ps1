@@ -164,6 +164,54 @@ $iconLine
     $created += $urlShortcut
 } catch {}
 
+# Dual-entry CMD cinema: same Keep, terminal door (auto-detected localhost URLs).
+$cmdCinema = Join-Path $KeepDir "otaconskeep.cmd"
+$cmdSrcCandidates = @(
+    (Join-Path $PSScriptRoot "..\otaconskeep.cmd"),
+    (Join-Path $KeepDir "installer\otaconskeep.cmd"),
+    (Join-Path $KeepDir "otaconskeep.cmd")
+)
+foreach ($src in $cmdSrcCandidates) {
+    if ($src -and (Test-Path -LiteralPath $src)) {
+        try {
+            Copy-Item -LiteralPath $src -Destination $cmdCinema -Force
+            break
+        } catch {}
+    }
+}
+if (Test-Path -LiteralPath $cmdCinema) {
+    $cmdLnkName = "$safeName CMD.lnk"
+    if ($desktop) {
+        $deskCmd = Join-Path $desktop $cmdLnkName
+        if (New-OtaconShortcut -ShortcutPath $deskCmd -Target $cmdCinema -WorkingDirectory $KeepDir `
+                -Icon $iconPath -Description "Otaconskeep CMD cinema — web or terminal, same Keep") {
+            $created += $deskCmd
+            Write-Host "  Desktop CMD cinema: $deskCmd"
+        }
+    }
+    $startCmd = Join-Path $startMenu $cmdLnkName
+    if (New-OtaconShortcut -ShortcutPath $startCmd -Target $cmdCinema -WorkingDirectory $KeepDir `
+            -Icon $iconPath -Description "Otaconskeep CMD cinema — web or terminal, same Keep") {
+        $created += $startCmd
+        Write-Host "  Start Menu CMD cinema: $startCmd"
+    }
+    # User-local PATH shim so typing otaconskeep in CMD works
+    $shimDir = Join-Path $KeepDir "bin"
+    New-Item -ItemType Directory -Force -Path $shimDir | Out-Null
+    Copy-Item -LiteralPath $cmdCinema -Destination (Join-Path $shimDir "otaconskeep.cmd") -Force
+    $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+    if ($userPath -and ($userPath -notlike "*$shimDir*")) {
+        try {
+            [Environment]::SetEnvironmentVariable("Path", ($userPath.TrimEnd(';') + ";" + $shimDir), "User")
+            Write-Host "  PATH += $shimDir (new terminals can run otaconskeep)"
+        } catch {}
+    } elseif (-not $userPath) {
+        try {
+            [Environment]::SetEnvironmentVariable("Path", $shimDir, "User")
+        } catch {}
+    }
+}
+
 Write-Output ("DESKTOP_LAUNCHER_OK count={0} url={1} icon={2}" -f $created.Count, $Url, (Test-Path -LiteralPath $iconPath))
 if ($created.Count -lt 1) { exit 1 }
 exit 0

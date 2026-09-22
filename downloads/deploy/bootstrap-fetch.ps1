@@ -93,6 +93,8 @@ $full = @(
     "Fix-Otacon-GPU.bat",
     "install_otacon.sh",
     "install_otacon_expansion.sh",
+    "otaconskeep",
+    "otaconskeep.cmd",
     "release.json",
     "deploy/installer-revision.txt",
     "deploy/windows-setup-assistant.ps1",
@@ -114,6 +116,8 @@ $full = @(
 $deployOnly = @(
     "install_otacon.sh",
     "install_otacon_expansion.sh",
+    "otaconskeep",
+    "otaconskeep.cmd",
     "release.json",
     "deploy/installer-revision.txt",
     "deploy/windows-setup-assistant.ps1",
@@ -310,7 +314,7 @@ if ($relResult.Ok) {
                 if (-not $p) { continue }
                 if ($p -eq "deploy/bootstrap-fetch.ps1") { continue } # refreshed by launcher, not self
                 if ($Manifest -eq "deploy") {
-                    if ($p -like "deploy/*" -or $p -eq "install_otacon.sh" -or $p -eq "install_otacon_expansion.sh" -or $p -eq "OtaconExpansion-Setup.bat" -or $p -eq "release.json" -or $p -eq "deploy/installer-revision.txt") {
+                    if ($p -like "deploy/*" -or $p -eq "install_otacon.sh" -or $p -eq "install_otacon_expansion.sh" -or $p -eq "otaconskeep" -or $p -eq "otaconskeep.cmd" -or $p -eq "OtaconExpansion-Setup.bat" -or $p -eq "release.json" -or $p -eq "deploy/installer-revision.txt") {
                         $fromRelease += $p
                     }
                 } else {
