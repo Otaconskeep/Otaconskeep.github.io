@@ -2417,6 +2417,57 @@ if [[ -n "$OTACONSKEEP_SRC" ]]; then
     install -m 0755 "$HOME/.local/bin/otaconskeep" /usr/local/bin/otaconskeep 2>/dev/null || true
   fi
   ok "Keep cinema CLI: otaconskeep  (ACCESS GRANTED → KeepRoute Auto REPL)"
+
+  # WSL: also put otaconskeep.cmd on the Windows user PATH so CMD can type otaconskeep
+  if grep -qiE 'microsoft|wsl' /proc/version 2>/dev/null; then
+    OTACONSKEEP_CMD_SRC=""
+    for cand in \
+      "$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd)/otaconskeep.cmd" \
+      "${INSTALL_DIR}/downloads/otaconskeep.cmd" \
+      "$HOME/.local/share/otaconskeep.cmd"; do
+      if [[ -n "$cand" && -f "$cand" ]]; then
+        OTACONSKEEP_CMD_SRC="$cand"
+        break
+      fi
+    done
+    if [[ -z "$OTACONSKEEP_CMD_SRC" ]]; then
+      if curl -fsSL --connect-timeout 5 --max-time 20 \
+        "https://otaconskeep.github.io/downloads/otaconskeep.cmd" \
+        -o "$HOME/.local/share/otaconskeep.cmd" 2>/dev/null; then
+        OTACONSKEEP_CMD_SRC="$HOME/.local/share/otaconskeep.cmd"
+      fi
+    fi
+    if [[ -n "$OTACONSKEEP_CMD_SRC" ]] && command -v powershell.exe >/dev/null 2>&1; then
+      WIN_CMD_SRC=$(wslpath -w "$OTACONSKEEP_CMD_SRC" 2>/dev/null || true)
+      PATH_PS1=""
+      for cand in \
+        "$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd)/deploy/install-otaconskeep-path.ps1" \
+        "${INSTALL_DIR}/downloads/deploy/install-otaconskeep-path.ps1"; do
+        if [[ -n "$cand" && -f "$cand" ]]; then
+          PATH_PS1=$(wslpath -w "$cand" 2>/dev/null || true)
+          break
+        fi
+      done
+      if [[ -n "$PATH_PS1" && -n "$WIN_CMD_SRC" ]]; then
+        if powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$PATH_PS1" \
+            -CmdSource "$WIN_CMD_SRC" >/tmp/otaconskeep-win-path.log 2>&1; then
+          ok "Windows CMD PATH: otaconskeep  (open a NEW Command Prompt)"
+        else
+          warn "Windows CMD PATH shim failed — run Install-Otaconskeep-CMD.bat from downloads"
+          warn "  $(head -c 200 /tmp/otaconskeep-win-path.log 2>/dev/null || true)"
+        fi
+      elif [[ -n "$WIN_CMD_SRC" ]]; then
+        # Inline fallback when path script is not cached yet
+        if powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \
+            "\$Keep=Join-Path \$env:LOCALAPPDATA 'OtaconsKeep'; \$shim=Join-Path \$Keep 'bin'; New-Item -ItemType Directory -Force -Path \$shim|Out-Null; Copy-Item -LiteralPath '$WIN_CMD_SRC' -Destination (Join-Path \$shim 'otaconskeep.cmd') -Force; \$p=[Environment]::GetEnvironmentVariable('Path','User'); if(-not \$p){\$p=''}; if(\$p -notlike ('*' + \$shim + '*')){[Environment]::SetEnvironmentVariable('Path',(\$p.TrimEnd(';')+';'+\$shim),'User')}; Write-Host OTACONSKEEP_PATH_OK" \
+            >/tmp/otaconskeep-win-path.log 2>&1; then
+          ok "Windows CMD PATH: otaconskeep  (open a NEW Command Prompt)"
+        else
+          warn "Windows CMD PATH shim failed — run Install-Otaconskeep-CMD.bat from downloads"
+        fi
+      fi
+    fi
+  fi
 else
   warn "otaconskeep CLI not found next to installer — skip cinema helper (Core still works)"
 fi

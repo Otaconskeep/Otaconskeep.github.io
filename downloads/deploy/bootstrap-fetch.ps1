@@ -95,6 +95,7 @@ $full = @(
     "install_otacon_expansion.sh",
     "otaconskeep",
     "otaconskeep.cmd",
+    "Install-Otaconskeep-CMD.bat",
     "release.json",
     "deploy/installer-revision.txt",
     "deploy/windows-setup-assistant.ps1",
@@ -106,6 +107,7 @@ $full = @(
     "deploy/find-ubuntu.ps1",
     "deploy/install-wake-task.ps1",
     "deploy/install-desktop-launcher.ps1",
+    "deploy/install-otaconskeep-path.ps1",
     "deploy/otacon-launcher.ico",
     "deploy/wake-otacon.ps1",
     "deploy/keep-ubuntu-awake.ps1",
@@ -118,6 +120,7 @@ $deployOnly = @(
     "install_otacon_expansion.sh",
     "otaconskeep",
     "otaconskeep.cmd",
+    "Install-Otaconskeep-CMD.bat",
     "release.json",
     "deploy/installer-revision.txt",
     "deploy/windows-setup-assistant.ps1",
@@ -129,6 +132,7 @@ $deployOnly = @(
     "deploy/find-ubuntu.ps1",
     "deploy/install-wake-task.ps1",
     "deploy/install-desktop-launcher.ps1",
+    "deploy/install-otaconskeep-path.ps1",
     "deploy/otacon-launcher.ico",
     "deploy/wake-otacon.ps1",
     "deploy/keep-ubuntu-awake.ps1",
@@ -314,7 +318,7 @@ if ($relResult.Ok) {
                 if (-not $p) { continue }
                 if ($p -eq "deploy/bootstrap-fetch.ps1") { continue } # refreshed by launcher, not self
                 if ($Manifest -eq "deploy") {
-                    if ($p -like "deploy/*" -or $p -eq "install_otacon.sh" -or $p -eq "install_otacon_expansion.sh" -or $p -eq "otaconskeep" -or $p -eq "otaconskeep.cmd" -or $p -eq "OtaconExpansion-Setup.bat" -or $p -eq "release.json" -or $p -eq "deploy/installer-revision.txt") {
+                    if ($p -like "deploy/*" -or $p -eq "install_otacon.sh" -or $p -eq "install_otacon_expansion.sh" -or $p -eq "otaconskeep" -or $p -eq "otaconskeep.cmd" -or $p -eq "Install-Otaconskeep-CMD.bat" -or $p -eq "OtaconExpansion-Setup.bat" -or $p -eq "release.json" -or $p -eq "deploy/installer-revision.txt") {
                         $fromRelease += $p
                     }
                 } else {

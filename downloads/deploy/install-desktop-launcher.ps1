@@ -196,19 +196,29 @@ if (Test-Path -LiteralPath $cmdCinema) {
         Write-Host "  Start Menu CMD cinema: $startCmd"
     }
     # User-local PATH shim so typing otaconskeep in CMD works
-    $shimDir = Join-Path $KeepDir "bin"
-    New-Item -ItemType Directory -Force -Path $shimDir | Out-Null
-    Copy-Item -LiteralPath $cmdCinema -Destination (Join-Path $shimDir "otaconskeep.cmd") -Force
-    $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
-    if ($userPath -and ($userPath -notlike "*$shimDir*")) {
+    $pathPs1 = Join-Path $PSScriptRoot "install-otaconskeep-path.ps1"
+    if (Test-Path -LiteralPath $pathPs1) {
         try {
-            [Environment]::SetEnvironmentVariable("Path", ($userPath.TrimEnd(';') + ";" + $shimDir), "User")
-            Write-Host "  PATH += $shimDir (new terminals can run otaconskeep)"
-        } catch {}
-    } elseif (-not $userPath) {
-        try {
-            [Environment]::SetEnvironmentVariable("Path", $shimDir, "User")
-        } catch {}
+            & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $pathPs1 `
+                -KeepDir $KeepDir -CmdSource $cmdCinema 2>&1 | ForEach-Object { Write-Host $_ }
+        } catch {
+            Write-Host "  PATH shim warn: $($_.Exception.Message)"
+        }
+    } else {
+        $shimDir = Join-Path $KeepDir "bin"
+        New-Item -ItemType Directory -Force -Path $shimDir | Out-Null
+        Copy-Item -LiteralPath $cmdCinema -Destination (Join-Path $shimDir "otaconskeep.cmd") -Force
+        $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+        if ($userPath -and ($userPath -notlike "*$shimDir*")) {
+            try {
+                [Environment]::SetEnvironmentVariable("Path", ($userPath.TrimEnd(';') + ";" + $shimDir), "User")
+                Write-Host "  PATH += $shimDir (new terminals can run otaconskeep)"
+            } catch {}
+        } elseif (-not $userPath) {
+            try {
+                [Environment]::SetEnvironmentVariable("Path", $shimDir, "User")
+            } catch {}
+        }
     }
 }
 
