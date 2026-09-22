@@ -1,10 +1,25 @@
 # Class 15 — IPv4 addresses, masks, and gateways
 
+**Learning objective:** Given a host, the learner can read IPv4 address, mask, and gateway; explain network vs host bits; contrast classful charts with classless `/24` math; and decide same-LAN vs via-gateway delivery.
+**Bloom level:** Understand / Apply
 **Build output:** find your host’s IPv4, mask, and gateway; explain network vs host bits with the “255 / 0” reading hack; map an address to its historic class (A–E) and default mask; calculate usable addresses on a simple `/24`; prove same-LAN vs via-gateway reachability; prove loopback with `ping 127.0.0.1`
+**Mastery unlock:** ≥80% retrieval target when scored + completed Feynman teach-back + independent practice + all practical gate boxes + workbook evidence.
 
-## What you will learn
+## Learning objective
 
-You will understand what an IPv4 address is for, how to read it on Windows and Linux, what the subnet mask and default gateway do, how DHCP usually hands out addresses at home, and how a device decides “same street / hand it over” versus “call the router.” You will see why IPv4’s roughly **4.3 billion** addresses felt endless in 1983 and why classful allocation (A/B/C plus reserved D/E and loopback) burned through that pool too fast. You will practice a beginner subnet-reading hack that covers most home and small-lab `/24` networks, contrast **classful** defaults with **classless** masks you actually use, and prove loopback with ping—then you will prove it with commands, not vibes.
+Given a host, the learner can read IPv4 address, mask, and gateway; explain network vs host bits; contrast classful charts with classless `/24` math; and decide same-LAN vs via-gateway delivery.
+
+## Why this matters
+
+Every ‘why can’t these containers/hosts talk?’ ticket eventually becomes addressing. If you cannot read IP/mask/gateway, Docker and ARR networking stay superstition.
+
+## Prior-knowledge check
+
+Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+
+1. What does an IP address identify?
+2. What is a default gateway for?
+3. What is 127.0.0.1 used for?
 
 ## Vocabulary
 
@@ -27,7 +42,11 @@ You will understand what an IPv4 address is for, how to read it on Windows and L
 | Multicast (Class D) | One-to-many delivery addresses (`224`–`239`); not for ordinary host assignment |
 | Ping | ICMP echo request/reply—“are you reachable?”—everyday reachability check |
 
-## Lesson
+## Instruction
+
+### Originally: What you will learn
+
+You will understand what an IPv4 address is for, how to read it on Windows and Linux, what the subnet mask and default gateway do, how DHCP usually hands out addresses at home, and how a device decides “same street / hand it over” versus “call the router.” You will see why IPv4’s roughly **4.3 billion** addresses felt endless in 1983 and why classful allocation (A/B/C plus reserved D/E and loopback) burned through that pool too fast. You will practice a beginner subnet-reading hack that covers most home and small-lab `/24` networks, contrast **classful** defaults with **classless** masks you actually use, and prove loopback with ping—then you will prove it with commands, not vibes.
 
 ### What an IP address is for
 
@@ -217,6 +236,64 @@ If `127.0.0.1` fails, fix the local OS/network stack before blaming Netflix or y
 
 Addresses like `192.168.x.x`, `10.x.x.x`, and many `172.16–31.x.x` are **private**. Your router translates when you browse the public Internet. Your “what’s my IP” website shows a **public** address on the WAN side—not the `192.168` on your laptop. Both matter; do not confuse them when debugging port forwards or tunnels (Class 10). Private space plus NAT is one of the **operational bandaids** that stretched IPv4 after classful giveaways and Internet growth; IPv6 is the long-term enlargement of the address space.
 
+## Worked example
+
+**I do** — study the reasoning, not just the final answer.
+
+**Bad explanation:** “They’re on Wi-Fi so they can talk.”
+
+**Better:** Compare address and mask; compute network ID; if same network → local delivery; else → send to gateway. Separate loopback and reserved ranges from LAN addresses.
+
+## Guided practice
+
+**We do** — hints allowed. Check your reasoning against Instruction.
+
+Given two example IPs + `/24` mask, decide same-LAN vs needs-gateway together.
+
+## Independent practice
+
+**You do** — close the hints. Solve before opening the lab.
+
+On your lab host, record IP, mask, gateway. Compute usable hosts for your `/24` (or explain your real mask). Explain loopback in one sentence.
+
+## Feynman teach-back
+
+Required. Do not skip.
+
+### Explain
+Describe **IPv4 addresses, masks, gateways, and why classful charts are history — not how modern LANs work** in your own words. No copying the lesson verbatim.
+
+### Simplify
+Explain the same idea to a 12-year-old. If you use a technical word, define it.
+
+### Example
+Analogy: street address + ZIP (network) vs apartment number (host), and the post office (gateway) for other ZIPs.
+
+### Weak spot
+What part was hard to explain? That is where your understanding is thin.
+
+### Retry
+Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
+
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+
+
+## Retrieval check
+
+Active recall — write answers without rereading first. Target ≥80% before the gate.
+
+1. In plain words, why does a device need an IP address?
+2. What three fields should you record with every IPv4 interface?
+3. What does a `255` in a mask octet tell you? What does a `0` tell you?
+4. When does a host use its default gateway?
+5. On `192.168.1.0/24`, what are the network and broadcast addresses?
+6. Why is “256 usable hosts” the wrong answer for that `/24`?
+7. Who usually assigns addresses automatically at home?
+8. About how many IPv4 addresses exist in total, and why that is not the same as “available for hosts”?
+9. Give the first-octet ranges and default masks for Classes A, B, and C. What are D and E for?
+10. Why is `127` missing between Class A and Class B? What command proves loopback?
+11. What is the difference between a classful network and a classless network? Give one example with `10.x`.
+
 ## Guided lab
 
 Use the machine you actually lab on. Replace example IPs with yours.
@@ -324,7 +401,9 @@ ping -c 2 127.0.0.2
 
 4. **Workbook:** “Loopback succeeded / failed. I would / would not assign a `127.x` address to a NAS.” Circle Class D and E on the chart and write “not for unicast hosts.”
 
-## Break/fix
+## Break / fix
+
+### Break/fix
 
 1. **Disconnect Wi-Fi / unplug Ethernet** → `ipconfig` / `ip addr` loses address or shows disconnected → restore → address returns (DHCP) or static returns.
 
@@ -336,7 +415,7 @@ ping -c 2 127.0.0.2
 
 5. **Loopback vs LAN:** with Wi-Fi off, confirm `ping 127.0.0.1` still works while `ping 1.1.1.1` fails—local stack vs Internet path.
 
-## Common mistakes
+## Feedback / common mistakes
 
 - Mixing up **private LAN IP** with **public WAN IP**.
 - Calling every dotted number “the IP” and ignoring mask/gateway.
@@ -348,21 +427,9 @@ ping -c 2 127.0.0.2
 - Putting a **Class D/E** or **`127.x`** address on a lab host “because the chart had free numbers.”
 - Confusing “4.3 billion total IPv4 values” with “4.3 billion free for my devices.”
 
-## Knowledge check
+## Practical mastery gate
 
-1. In plain words, why does a device need an IP address?
-2. What three fields should you record with every IPv4 interface?
-3. What does a `255` in a mask octet tell you? What does a `0` tell you?
-4. When does a host use its default gateway?
-5. On `192.168.1.0/24`, what are the network and broadcast addresses?
-6. Why is “256 usable hosts” the wrong answer for that `/24`?
-7. Who usually assigns addresses automatically at home?
-8. About how many IPv4 addresses exist in total, and why that is not the same as “available for hosts”?
-9. Give the first-octet ranges and default masks for Classes A, B, and C. What are D and E for?
-10. Why is `127` missing between Class A and Class B? What command proves loopback?
-11. What is the difference between a classful network and a classless network? Give one example with `10.x`.
-
-## Practical gate
+All boxes must be true before the next class unlocks. If you fail: feedback → targeted review → new practice → reassess.
 
 - [ ] Student can show IPv4, mask, and gateway from CLI or phone UI and read them aloud correctly.
 - [ ] Student marks network vs host portions using the 255/0 hack for their real LAN.
@@ -373,6 +440,25 @@ ping -c 2 127.0.0.2
 - [ ] Student demonstrates `ping 127.0.0.1` and explains why `127.0.0.0/8` is not LAN address space.
 - [ ] Student names Class D (multicast) and Class E (reserved) as non-assignable for ordinary hosts.
 - [ ] No home street address, no real public IP doxxing, and no secrets in shared screenshots.
+- [ ] Prior-knowledge check answered
+- [ ] Feynman teach-back completed (Explain, Simplify, Example, Weak spot, Retry)
+- [ ] Independent practice completed
+- [ ] Retrieval check attempted (target ≥80% when scored)
+- [ ] Evidence recorded in workbook / verification matrix
+
+## Reflection
+
+Which addressing misconception did you personally hold, and what calculation corrected it?
+
+Also answer:
+
+1. What did I learn?
+2. What did I struggle with?
+3. How does this connect to earlier classes?
+
+## Spiral hook
+
+Use this whenever Class 3 Docker networks, Class 5 ARR URLs, Class 10 remote access, or Class 12 Wyoming hosts misbehave. Addressing is a permanent spiral skill.
 
 ## 2026 correction
 

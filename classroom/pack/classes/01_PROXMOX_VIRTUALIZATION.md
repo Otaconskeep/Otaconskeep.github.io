@@ -1,10 +1,25 @@
 # Class 1 — Virtual machines, hypervisors, and Proxmox
 
+**Learning objective:** Given a host and a guest requirement, the learner can choose Type 1 vs Type 2 virtualization, create a working Linux guest (VirtualBox or Proxmox), and prove networking, DNS, and SSH with recorded evidence.
+**Bloom level:** Apply
 **Build output:** understand Type 1 vs Type 2; run either a laptop VM (VirtualBox) or a dedicated Proxmox host with one Linux VM and one disposable LXC
+**Mastery unlock:** ≥80% retrieval target when scored + completed Feynman teach-back + independent practice + all practical gate boxes + workbook evidence.
 
-## What you will learn
+## Learning objective
 
-You will understand what a virtual machine really is (a full computer living inside another computer), why hypervisors exist, the difference between Type 2 (app-on-your-OS) and Type 1 (OS replaced by the hypervisor), and how to stand up a safe practice box without risking your daily desktop. You will also learn how VMs differ from LXC, how storage and networking attach to guests, and why this Academy puts Docker inside a Linux VM later.
+Given a host and a guest requirement, the learner can choose Type 1 vs Type 2 virtualization, create a working Linux guest (VirtualBox or Proxmox), and prove networking, DNS, and SSH with recorded evidence.
+
+## Why this matters
+
+Without a safe practice machine, every later Docker, ARR, Home Assistant, and voice experiment risks your daily desktop. Virtualization is the sandboxed foundation the rest of the Academy builds on.
+
+## Prior-knowledge check
+
+Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+
+1. What is the difference between an operating system and an application?
+2. What does CPU, RAM, and disk do for a computer?
+3. Have you ever installed software that broke something on your main PC? What did you wish you had?
 
 ## Vocabulary
 
@@ -26,7 +41,11 @@ You will understand what a virtual machine really is (a full computer living ins
 | Clone | Full copy of a guest for experiments or backup-like recovery |
 | `vmbr0` | Common name of Proxmox’s primary Linux bridge |
 
-## Lesson
+## Instruction
+
+### Originally: What you will learn
+
+You will understand what a virtual machine really is (a full computer living inside another computer), why hypervisors exist, the difference between Type 2 (app-on-your-OS) and Type 1 (OS replaced by the hypervisor), and how to stand up a safe practice box without risking your daily desktop. You will also learn how VMs differ from LXC, how storage and networking attach to guests, and why this Academy puts Docker inside a Linux VM later.
 
 ### What a virtual machine is
 
@@ -173,6 +192,72 @@ Manage Proxmox from a second device at `https://SERVER-IP:8006`. The management 
 ### Isolation vs convenience (both paths)
 
 The guest is valuable because it is a sandboxed world. Every convenience feature—bridged LAN, shared clipboard, shared folders, USB passthrough—makes the sandbox thinner. For learning and break/fix work, start strict. Open doors on purpose, one at a time, and write down what you changed.
+
+## Worked example
+
+**I do** — study the reasoning, not just the final answer.
+
+**Bad approach:** Install experimental servers directly on your daily Windows/macOS desktop “to save time.”
+
+**Better approach:** Create a disposable guest (Type 2 VirtualBox now, or Type 1 Proxmox on spare hardware), take a snapshot before risky changes, and prove SSH + DNS inside the guest before installing anything else.
+
+**Why better:** Failure stays inside the guest. Snapshots give rollback. The host OS you use for school/work stays untouched.
+
+## Guided practice
+
+**We do** — hints allowed. Check your reasoning against Instruction.
+
+With instructor/notes open, complete **one** of these (hints allowed):
+
+1. Name whether VirtualBox on a laptop is Type 1 or Type 2 — and why.
+2. List three pieces of evidence that prove a guest is useful for later Docker work (not “it boots”).
+3. Sketch: Hardware → hypervisor → guest → network path to your LAN.
+
+## Independent practice
+
+**You do** — close the hints. Solve before opening the lab.
+
+Without looking at the lesson, write:
+
+1. Type 1 vs Type 2 in two sentences each.
+2. When you would pick bridged networking vs NAT for a lab guest.
+3. The exact evidence you will capture for the practical gate (commands or UI checks).
+
+## Feynman teach-back
+
+Required. Do not skip.
+
+### Explain
+Describe **what a virtual machine is, and why hypervisors exist** in your own words. No copying the lesson verbatim.
+
+### Simplify
+Explain the same idea to a 12-year-old. If you use a technical word, define it.
+
+### Example
+Explain a VM using an everyday analogy (for example: a playhouse in your backyard vs remodeling your only house).
+
+### Weak spot
+What part was hard to explain? That is where your understanding is thin.
+
+### Retry
+Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
+
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+
+
+## Retrieval check
+
+Active recall — write answers without rereading first. Target ≥80% before the gate.
+
+1. In plain words, what is a virtual machine?
+2. What is the difference between a host and a guest?
+3. How does a Type 2 hypervisor differ from a Type 1 hypervisor?
+4. Which guest type normally has its own kernel: VM or LXC?
+5. What does `vmbr0` behave like on Proxmox?
+6. Why is a successful ping to `1.1.1.1` but failed hostname lookup useful?
+7. Why does this course put Docker in a Linux VM instead of nesting it in LXC on day one?
+8. Name one benefit and one risk of bridged networking versus NAT.
+9. What problem do snapshots solve that “just reinstall” is too slow for?
 
 ## Guided lab
 
@@ -641,7 +726,9 @@ curl -kI https://PROXMOX-IP:8006
 ```
 :::
 
-## Break it, then fix it
+## Break / fix
+
+### Break it, then fix it
 
 ### Network break
 
@@ -690,7 +777,7 @@ getent hosts example.com
 
 Create a visible file, roll back, prove it vanished (Path B `qm rollback` or Path A `VBoxManage snapshot … restore` from the lab above). Do not continue until `ls` shows the file is gone.
 
-## Common mistakes
+## Feedback / common mistakes
 
 - Installing a Type 1 hypervisor onto the only copy of important data.
 - Giving one guest nearly all RAM and starving the host (or your browser).
@@ -701,19 +788,9 @@ Create a visible file, roll back, prove it vanished (Path B `qm rollback` or Pat
 - Changing IP, bridge, firewall, and DNS simultaneously during diagnosis.
 - Skipping firmware virtualization and blaming the ISO when 64-bit guests fail.
 
-## Knowledge check
+## Practical mastery gate
 
-1. In plain words, what is a virtual machine?
-2. What is the difference between a host and a guest?
-3. How does a Type 2 hypervisor differ from a Type 1 hypervisor?
-4. Which guest type normally has its own kernel: VM or LXC?
-5. What does `vmbr0` behave like on Proxmox?
-6. Why is a successful ping to `1.1.1.1` but failed hostname lookup useful?
-7. Why does this course put Docker in a Linux VM instead of nesting it in LXC on day one?
-8. Name one benefit and one risk of bridged networking versus NAT.
-9. What problem do snapshots solve that “just reinstall” is too slow for?
-
-## Practical gate
+All boxes must be true before the next class unlocks. If you fail: feedback → targeted review → new practice → reassess.
 
 - [ ] You can explain Type 1 vs Type 2 without reading notes.
 - [ ] Firmware virtualization (VT-x or AMD-V) is enabled on the machine you use for guests.
@@ -723,6 +800,25 @@ Create a visible file, roll back, prove it vanished (Path B `qm rollback` or Pat
 - [ ] Gateway, internet IP, and DNS tests pass independently on the guest (or you documented the exact failing layer).
 - [ ] If on Proxmox: UI reachable at the recorded address, SSH to the VM works, and you can explain physical NIC → bridge → guest NIC.
 - [ ] If on VirtualBox only: workbook includes a dated plan for moving to Proxmox before Class 2 labs that need it.
+- [ ] Prior-knowledge check answered
+- [ ] Feynman teach-back completed (Explain, Simplify, Example, Weak spot, Retry)
+- [ ] Independent practice completed
+- [ ] Retrieval check attempted (target ≥80% when scored)
+- [ ] Evidence recorded in workbook / verification matrix
+
+## Reflection
+
+Which virtualization path did you choose (VirtualBox vs Proxmox), what almost went wrong, and how does isolation protect later labs?
+
+Also answer:
+
+1. What did I learn?
+2. What did I struggle with?
+3. How does this connect to earlier classes?
+
+## Spiral hook
+
+You will reuse guests and snapshots in Class 2 (Docker inside a Linux VM), Class 3 (networks), Class 4 (ops), and every service class afterward. When voice or ARR “randomly breaks,” ask: did I change the guest, the bridge, or only the container?
 
 ## 2026 correction
 

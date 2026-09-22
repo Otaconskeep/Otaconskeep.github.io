@@ -97,3 +97,21 @@ Any of the following prevents a pass until corrected:
 
 Pass requires at least 80 points and zero unresolved critical failures.
 
+## Final Feynman explanation (required)
+
+Explain the **entire course system** as if teaching a smart beginner:
+
+1. **Explain:** How does a request become playable media, how does Home Assistant know service health, and how does local voice answer — in your own words?
+2. **Simplify:** Explain the same story to a 12-year-old. Define every jargon word.
+3. **Example:** Give one real incident from your lab and which module’s idea fixed it.
+4. **Weak spot:** Which module still feels fuzzy?
+5. **Retry:** Restudy that module’s spiral hook, then rewrite a clearer system explanation.
+
+## Course reflection (required)
+
+1. What can you do now that you could not do at the start? (Use course outcomes language.)
+2. Which mastery gate was hardest, and why?
+3. Which earlier skill returned later via spiral review?
+4. What will you remediate next week?
+5. What evidence artifact are you most proud of?
+

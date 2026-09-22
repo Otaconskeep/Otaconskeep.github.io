@@ -141,10 +141,75 @@ SECTION_PLAIN: dict[str, tuple[str, str]] = {
         "Passwords and API keys are secret. Do not put them in public notes, screenshots, or git commits.",
         "If a secret leaks, rotate it (make a new one and retire the old one).",
     ),
+    "learning objective": (
+        "This is the finish line for the class — a task you should be able to do, not a vague 'understand.'",
+        "If you cannot restate it as something you can perform, you are not ready for the gate.",
+    ),
+    "why this matters": (
+        "This gives you a reason to care before the theory. Context first, then details.",
+        "",
+    ),
+    "prior-knowledge check": (
+        "Warm up your brain. Wrong answers are useful — they show what to review.",
+        "Do not skip ahead. Activation makes the lesson stick.",
+    ),
+    "instruction": (
+        "This is the teaching core. One major concept (or a tight group). Read carefully.",
+        "Use What this means under dense blocks.",
+    ),
+    "worked example": (
+        "I do: watch the bad → better reasoning. Steal the thinking, not just the answer.",
+        "",
+    ),
+    "guided practice": (
+        "We do: try with hints. Compare your reasoning to the lesson.",
+        "",
+    ),
+    "independent practice": (
+        "You do: close the hints. Struggle is part of learning.",
+        "",
+    ),
+    "feynman teach-back": (
+        "If you cannot explain it simply, you do not own it yet. This section is required for mastery.",
+        "Weak spots are gold — restudy that part and rewrite.",
+    ),
+    "retrieval check": (
+        "Write from memory first. Retrieval beats rereading.",
+        "Target about 80% before the practical gate.",
+    ),
+    "feedback / common mistakes": (
+        "These are the traps other students fall into. Check yourself against the list.",
+        "",
+    ),
+    "practical mastery gate": (
+        "Pass only with evidence. Feynman + practice + checkboxes unlock the next class.",
+        "If you fail: feedback → review → new practice → reassess.",
+    ),
+    "reflection": (
+        "Name what you learned, where you struggled, and how it connects backward and forward.",
+        "",
+    ),
+    "spiral hook": (
+        "This skill will return later. Knowing the hook helps you notice it when it does.",
+        "",
+    ),
+    "break / fix": (
+        "Break one thing on purpose, watch the failure, then repair it.",
+        "Change only one variable at a time.",
+    )
 }
 
 
 KIND_PLAIN = {
+    "feynman": ("Explain it simply. If you cannot, restudy and retry.", "Required for unlock."),
+    "objective": ("This is what done looks like for the class.", ""),
+    "why": ("Care first, then theory.", ""),
+    "prior": ("Activate old knowledge before new.", ""),
+    "learn": ("Core teaching. One concept at a time.", ""),
+    "example": ("Study the reasoning in the worked example.", ""),
+    "practice": ("Hints first, then no hints.", ""),
+    "reflect": ("Metacognition: learn, struggle, connect.", ""),
+    "spiral": ("This idea comes back later on purpose.", ""),
     "lab": ("Do the steps in order. Keep proof of each success.", "Stop on failure; do not invent extra steps yet."),
     "break": ("Break one piece, watch the failure, then repair it. That is how you learn diagnosis.", ""),
     "quiz": ("Answer from memory first. Then check yourself.", ""),
@@ -324,6 +389,15 @@ def kind_class(kind: str) -> str:
         "trouble": "cr-box cr-box-trouble",
         "tip": "cr-callout tip",
         "gate": "cr-check",
+        "feynman": "cr-box cr-box-feynman",
+        "objective": "cr-box cr-box-objective",
+        "why": "cr-box cr-box-why",
+        "prior": "cr-box cr-box-prior",
+        "learn": "cr-box cr-box-learn",
+        "example": "cr-box cr-box-example",
+        "practice": "cr-box cr-box-practice",
+        "reflect": "cr-box cr-box-reflect",
+        "spiral": "cr-box cr-box-spiral",
         "box": "cr-box",
     }.get(kind, "cr-box")
 
@@ -338,6 +412,15 @@ def kind_badge(kind: str) -> str:
         "trouble": ("fix", "Fix chart"),
         "tip": ("tip", "Tip"),
         "gate": ("gate", "Pass gate"),
+        "feynman": ("feynman", "Teach it back"),
+        "objective": ("goal", "Objective"),
+        "why": ("why", "Why it matters"),
+        "prior": ("prior", "Prior check"),
+        "learn": ("learn", "Instruction"),
+        "example": ("example", "I do"),
+        "practice": ("practice", "Practice"),
+        "reflect": ("reflect", "Reflect"),
+        "spiral": ("spiral", "Spiral"),
         "box": ("learn", "Learn"),
     }
     cls, label = labels.get(kind, ("learn", "Learn"))

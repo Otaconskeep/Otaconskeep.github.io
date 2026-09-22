@@ -106,6 +106,50 @@
     });
   }
 
+
+  var FEYN_KEY = 'otaconskeep-classroom-feynman';
+
+  function loadFeynman() {
+    try { return JSON.parse(localStorage.getItem(FEYN_KEY) || '{}'); } catch (e) { return {}; }
+  }
+  function saveFeynman(map) {
+    try { localStorage.setItem(FEYN_KEY, JSON.stringify(map)); } catch (e) {}
+  }
+
+  function initFeynman() {
+    var map = loadFeynman();
+    document.querySelectorAll('textarea[data-feynman-id]').forEach(function (ta) {
+      var id = ta.getAttribute('data-feynman-id');
+      var field = ta.getAttribute('data-feynman-field');
+      if (!id || !field) return;
+      if (map[id] && map[id][field]) ta.value = map[id][field];
+      ta.addEventListener('input', function () {
+        map[id] = map[id] || {};
+        map[id][field] = ta.value;
+        saveFeynman(map);
+        refreshFeynmanGate(id, map);
+      });
+      refreshFeynmanGate(id, map);
+    });
+  }
+
+  function refreshFeynmanGate(id, map) {
+    var fields = ['explain', 'simplify', 'example', 'weak', 'retry'];
+    var done = fields.every(function (f) {
+      return map[id] && String(map[id][f] || '').trim().length >= 12;
+    });
+    document.querySelectorAll('.cr-box-feynman').forEach(function (box) {
+      box.classList.toggle('ready', done);
+    });
+    var note = document.querySelector('.cr-feynman-note');
+    if (note) {
+      note.textContent = done
+        ? 'Feynman teach-back complete in this browser. Finish the practical gate checkboxes next.'
+        : 'Answers save in this browser (localStorage). Completing all five fields is part of the mastery unlock.';
+    }
+  }
+
   applyOS(getOS());
   initCheckpoints();
+  initFeynman();
 })();

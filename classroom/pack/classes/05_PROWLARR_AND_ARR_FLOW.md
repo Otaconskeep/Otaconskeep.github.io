@@ -1,12 +1,27 @@
 # Class 5 — Prowlarr and the ARR Request Flow
 
-**Lecture:** [IBRACORP — Prowlarr Guide](https://www.youtube.com/watch?v=nPm5pMfk1OA)  
-**Time:** 150 minutes  
+**Lecture (optional):** [IBRACORP — Prowlarr Guide](https://www.youtube.com/watch?v=nPm5pMfk1OA)
+**Time:** 150 minutes
+**Learning objective:** Given authorized indexer credentials and Compose networking, the learner can connect Prowlarr to Sonarr/Radarr, prove sync/tests, and trace a request through search → download client → import boundaries.
+**Bloom level:** Apply / Analyze
 **Build output:** Prowlarr connected to Sonarr and Radarr with controlled tests
+**Mastery unlock:** ≥80% retrieval target when scored + completed Feynman teach-back + independent practice + all practical gate boxes + workbook evidence.
 
-## Scope and legal boundary
+## Learning objective
 
-Prowlarr manages indexer definitions and makes search results available to compatible applications. This course covers architecture, configuration control, and testing. Use only indexers and content sources you are authorized to use.
+Given authorized indexer credentials and Compose networking, the learner can connect Prowlarr to Sonarr/Radarr, prove sync/tests, and trace a request through search → download client → import boundaries.
+
+## Why this matters
+
+Clicking through UIs without service contracts produces mystery failures. Prowlarr is the contract hub: if sync and tests are wrong, every later quality and automation class sits on sand.
+
+## Prior-knowledge check
+
+Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+
+1. Which Docker network will ARR apps use to reach each other?
+2. What evidence proves two apps are connected (not just ‘installed’)?
+3. What is the legal boundary for indexers and content in this course?
 
 ## Vocabulary
 
@@ -22,7 +37,13 @@ Prowlarr manages indexer definitions and makes search results available to compa
 | Automatic search | Application selecting candidates under policy |
 | Import | ARR application moving/linking completed content into the library |
 
-## End-to-end architecture
+## Instruction
+
+### Scope and legal boundary
+
+Prowlarr manages indexer definitions and makes search results available to compatible applications. This course covers architecture, configuration control, and testing. Use only indexers and content sources you are authorized to use.
+
+### End-to-end architecture
 
 ```mermaid
 flowchart TD
@@ -38,7 +59,7 @@ flowchart TD
 
 Prowlarr does not replace Sonarr or Radarr. Sonarr/Radarr own the monitored title, quality policy, candidate evaluation, download handoff, and completed-download import. Prowlarr centralizes indexer connectivity and synchronization.
 
-## Service contracts before clicking
+### Service contracts before clicking
 
 Record the following for Prowlarr, Sonarr, Radarr, and each download client:
 
@@ -52,7 +73,7 @@ Record the following for Prowlarr, Sonarr, Radarr, and each download client:
 
 Within one Compose network, prefer service DNS names such as `http://sonarr:8989`. From Prowlarr's container, `localhost:8989` points back to Prowlarr and is wrong unless both processes genuinely share a network namespace.
 
-## Applications and synchronization
+### Applications and synchronization
 
 Adding Sonarr/Radarr to Prowlarr creates an application relationship. The exact sync settings can vary, but the intended result is clear: indexers approved for a target application appear there with the proper categories and settings.
 
@@ -61,7 +82,7 @@ Treat the connection test and the synchronization test as different requirements
 1. **Connection:** Can Prowlarr authenticate to the target API?
 2. **Synchronization:** Does the desired indexer configuration actually appear and remain consistent?
 
-## Indexer tests
+### Indexer tests
 
 An indexer test can fail at several layers:
 
@@ -71,7 +92,7 @@ DNS -> TCP/TLS -> provider response -> authentication -> rate limit -> categorie
 
 Do not regenerate every API key because DNS failed. Capture the exact test time, response class, and one hypothesis.
 
-## Download handoff and categories
+### Download handoff and categories
 
 Sonarr/Radarr normally send a selected release to the download client. Categories keep traffic separated, for example `tv` and `movies`. The client must report completed paths that the ARR container can resolve.
 
@@ -87,7 +108,7 @@ Host: /srv/data                 Containers: /data
 
 This reduces remote-path mappings and enables hardlinks when source and destination are on the same filesystem.
 
-## Hardlinks
+### Hardlinks
 
 A hardlink gives two directory entries to the same underlying file data. It avoids a second full copy while allowing the downloader to seed from one path and the media library to use another.
 
@@ -99,6 +120,59 @@ Conditions include:
 - Paths presented consistently.
 
 On Linux, compare device and inode values with `stat`. Two paths with the same device and inode refer to the same file data.
+
+## Worked example
+
+**I do** — study the reasoning, not just the final answer.
+
+**Bad:** Point Sonarr at Prowlarr using `localhost` from inside another container; skip indexer tests.
+
+**Better:** Use the Compose DNS name + correct port, complete application sync, run indexer/app tests, and record pass/fail in the workbook before adding download clients.
+
+## Guided practice
+
+**We do** — hints allowed. Check your reasoning against Instruction.
+
+Fill a service-contract row (URL, API key handling, network name, test button result) for Prowlarr→Sonarr with assistance.
+
+## Independent practice
+
+**You do** — close the hints. Solve before opening the lab.
+
+Trace one fictional request end-to-end on paper: Seerr/user → Sonarr → Prowlarr → indexer → download client → import path. Mark where hardlinks and categories matter.
+
+## Feynman teach-back
+
+Required. Do not skip.
+
+### Explain
+Describe **what Prowlarr does in the ARR flow and how service contracts prevent ‘it just works’ lies** in your own words. No copying the lesson verbatim.
+
+### Simplify
+Explain the same idea to a 12-year-old. If you use a technical word, define it.
+
+### Example
+Analogy: a switchboard operator who must know each extension — not yelling names down a hallway.
+
+### Weak spot
+What part was hard to explain? That is where your understanding is thin.
+
+### Retry
+Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
+
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+
+
+## Retrieval check
+
+Active recall — write answers without rereading first. Target ≥80% before the gate.
+
+1. What responsibility belongs to Prowlarr versus Sonarr/Radarr?
+2. Why are connection and synchronization separate tests?
+3. What does a download category accomplish?
+4. Why does a consistent `/data` view help?
+5. What two `stat` fields prove two paths are hardlinks to the same inode?
+6. Why is RSS sync not equivalent to a full historical search?
 
 ## Guided lab
 
@@ -219,7 +293,9 @@ stat -c 'device=%d inode=%i path=%n' /data/torrents/example.mkv /data/media/tv/e
 Hardlinks across bind mounts are a Linux filesystem concern. Run the `stat` check inside the Linux VM/host that holds `/data`. On Windows-only Docker Desktop this class’s hardlink gate may be deferred until Path B storage is Linux.
 :::
 
-## Break/fix exercises
+## Break / fix
+
+### Break/fix exercises
 
 ### Wrong hostname
 
@@ -241,7 +317,7 @@ Mismatch download category vs Sonarr category; observe import confusion; restore
 
 Point client completed path at `/downloads` while Sonarr expects `/data/...`. Read logs for path errors; restore shared `/data` model or document remote path mapping deliberately.
 
-## Troubleshooting matrix
+## Feedback / common mistakes
 
 | Symptom | First checks |
 |---|---|
@@ -252,16 +328,9 @@ Point client completed path at `/downloads` while Sonarr expects `/data/...`. Re
 | Import copies instead of hardlinks | Filesystem device, mappings, hardlink setting, permissions |
 | Media server misses item | Final path, naming, library root, scan status |
 
-## Knowledge check
+## Practical mastery gate
 
-1. What responsibility belongs to Prowlarr versus Sonarr/Radarr?
-2. Why are connection and synchronization separate tests?
-3. What does a download category accomplish?
-4. Why does a consistent `/data` view help?
-5. What two `stat` fields prove two paths are hardlinks to the same inode?
-6. Why is RSS sync not equivalent to a full historical search?
-
-## Practical gate
+All boxes must be true before the next class unlocks. If you fail: feedback → targeted review → new practice → reassess.
 
 - [ ] Prowlarr tests successfully against Sonarr and Radarr.
 - [ ] An authorized indexer test passes.
@@ -270,8 +339,26 @@ Point client completed path at `/downloads` while Sonarr expects `/data/...`. Re
 - [ ] One candidate's accept/reject reason is explained.
 - [ ] Path mappings and permissions are documented.
 - [ ] No API key appears in submitted evidence.
+- [ ] Prior-knowledge check answered
+- [ ] Feynman teach-back completed (Explain, Simplify, Example, Weak spot, Retry)
+- [ ] Independent practice completed
+- [ ] Retrieval check attempted (target ≥80% when scored)
+- [ ] Evidence recorded in workbook / verification matrix
+
+## Reflection
+
+Which hop is hardest to prove, and what test button or log line is your evidence?
+
+Also answer:
+
+1. What did I learn?
+2. What did I struggle with?
+3. How does this connect to earlier classes?
+
+## Spiral hook
+
+Class 6 scores what Prowlarr finds; Class 7 automates those profiles; later troubleshooting always returns to ‘which hop failed?’
 
 ## 2026 correction
 
 Application fields and sync behavior evolve. Follow the current Servarr/Prowlarr documentation for exact UI steps. Preserve the architecture and tests even if labels move.
-

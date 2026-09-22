@@ -20,11 +20,11 @@ from _plain_help import (
     plain_for_step,
 )
 
-SITE = Path("/root/otaconskeep-site/classroom")
+SITE = Path("/root/Otaconskeep.github.io/classroom")
 PACK = SITE / "pack"
 CLASSES_DIR = SITE / "classes"
 GH = Path("/root/Classroom")
-CSS_V = "20260921o"
+CSS_V = "20260922a"
 
 OSBAR = '''<div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>
@@ -57,6 +57,8 @@ SUB = '''<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
  <a href="/classroom/workbook.html">Workbook</a>
  <a href="/classroom/final-exam.html">Capstone</a>
  <a href="/classroom/references/">References</a>
@@ -122,20 +124,38 @@ MD = markdown.Markdown(extensions=["tables", "fenced_code", "nl2br", "sane_lists
 
 SECTION_KIND = {
     "vocabulary": "vocab",
+    "learning objective": "objective",
+    "why this matters": "why",
+    "prior-knowledge check": "prior",
+    "instruction": "learn",
+    "worked example": "example",
+    "guided practice": "practice",
+    "independent practice": "practice",
+    "feynman teach-back": "feynman",
+    "retrieval check": "quiz",
+    "knowledge check": "quiz",
     "end-to-end architecture": "diagram",
     "architecture": "diagram",
     "architecture overview": "diagram",
     "guided lab": "lab",
     "lab": "lab",
+    "break/fix": "break",
+    "break / fix": "break",
     "break/fix exercises": "break",
     "break / fix exercises": "break",
+    "break it, then fix it": "break",
+    "feedback / common mistakes": "trouble",
+    "common mistakes": "trouble",
     "troubleshooting matrix": "trouble",
     "troubleshooting": "trouble",
-    "knowledge check": "quiz",
+    "practical mastery gate": "gate",
     "practical gate": "gate",
+    "reflection": "reflect",
+    "spiral hook": "spiral",
     "2026 correction": "tip",
     "scope and legal boundary": "tip",
     "important boundaries": "tip",
+    "safety boundary": "tip",
 }
 
 
@@ -309,10 +329,10 @@ def render_gate(body_md: str, cid: str) -> str:
         for i, t in enumerate(items)
     )
     return f'''<div class="cr-check" data-check-id="{H.escape(cid)}">
- <div class="cr-box-head">{kind_badge("gate")}<h3>Practical gate — pass before you continue</h3></div>
+ <div class="cr-box-head">{kind_badge("gate")}<h3>Practical mastery gate — pass before you continue</h3></div>
  {help_widget(mean, more)}
  {boxes}
- <div class="cr-gate">All boxes true → continue to the next class</div>
+ <div class="cr-gate">Mastery unlock: all boxes true + Feynman complete → continue to the next class</div>
 </div>'''
 
 
@@ -491,30 +511,86 @@ def render_prose_with_help(body: str, kind: str, title: str) -> str:
     )
 
 
+
+def render_feynman(body_md: str, class_id: str) -> str:
+    """Interactive Feynman teach-back with persistent textareas."""
+    mean, more = plain_for_section("feynman teach-back", "feynman")
+    fields = [
+        ("explain", "Explain", "Describe today's concept in your own words."),
+        ("simplify", "Simplify", "Explain it to a 12-year-old. Define any jargon."),
+        ("example", "Example", "Give your own real-world analogy or example."),
+        ("weak", "Weak spot", "What part could you not explain clearly?"),
+        ("retry", "Retry", "Restudy that section and rewrite a clearer explanation."),
+    ]
+    cards = []
+    for key, label, hint in fields:
+        cards.append(
+            f'<div class="cr-feynman-field">'
+            f'<label for="fy-{H.escape(class_id)}-{key}"><strong>{label}</strong> — {H.escape(hint)}</label>'
+            f'<textarea id="fy-{H.escape(class_id)}-{key}" data-feynman-id="{H.escape(class_id)}" '
+            f'data-feynman-field="{key}" rows="4" placeholder="Write here…"></textarea>'
+            f"</div>"
+        )
+    prose = md_fragment(body_md) if body_md.strip() else ""
+    return (
+        f'<div class="cr-box cr-box-feynman" id="feynman">'
+        f'<div class="cr-box-head">{kind_badge("feynman")}<h3>Feynman teach-back — required</h3></div>'
+        f"{help_widget(mean, more)}"
+        f'<div class="cr-prose-block">{prose}</div>'
+        f'<div class="cr-feynman-form" data-feynman-form="{H.escape(class_id)}">'
+        f'{"".join(cards)}'
+        f'<p class="cr-feynman-note">Answers save in this browser (localStorage). '
+        f"Completing all five fields is part of the mastery unlock.</p>"
+        f"</div></div>"
+    )
+
+
 def render_section(h2: str, body: str, class_id: str) -> str:
     kind = SECTION_KIND.get(h2.lower().strip(), "box")
     # Fuzzy kind from title words
     low = h2.lower()
     if kind == "box":
-        if "lab" in low:
+        if "feynman" in low or "teach-back" in low or "teach it back" in low:
+            kind = "feynman"
+        elif "lab" in low:
             kind = "lab"
-        elif "break" in low or "fix" in low and "exercise" in low:
+        elif "break" in low or ("fix" in low and "exercise" in low):
             kind = "break"
         elif "vocab" in low or "outcome" in low:
             kind = "vocab"
         elif "architect" in low or "diagram" in low or "flow" in low:
             kind = "diagram"
-        elif "trouble" in low or "matrix" in low:
+        elif "trouble" in low or "matrix" in low or "mistakes" in low or "feedback" in low:
             kind = "trouble"
-        elif "knowledge" in low or "quiz" in low or "check" in low:
+        elif "retrieval" in low or "knowledge" in low or "quiz" in low:
             kind = "quiz"
-        elif "gate" in low:
+        elif "gate" in low or "mastery" in low:
             kind = "gate"
-        elif "correction" in low or "scope" in low or "legal" in low:
+        elif "prior" in low:
+            kind = "prior"
+        elif "reflect" in low:
+            kind = "reflect"
+        elif "spiral" in low:
+            kind = "spiral"
+        elif "worked example" in low:
+            kind = "example"
+        elif "practice" in low:
+            kind = "practice"
+        elif "why this" in low:
+            kind = "why"
+        elif "objective" in low:
+            kind = "objective"
+        elif "instruction" in low:
+            kind = "learn"
+        elif "correction" in low or "scope" in low or "legal" in low or "safety" in low:
             kind = "tip"
+
+    if kind == "feynman":
+        return render_feynman(body, class_id)
 
     if kind == "gate":
         return render_gate(body, f"gate-{class_id}")
+
 
     if kind == "lab":
         return render_lab_section(h2, body)
@@ -579,24 +655,30 @@ def gen_hub():
  <section class="hero flush">
  <div class="stamp">HOMELAB ACADEMY<small>free · 15-class pack</small></div>
  <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom</p>
- <h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Build. Break. Fix. Verify.</h1>
- <p class="lede">Build-first curriculum for ARR, Home Assistant, and local voice. Same Otaconskeep chrome as the rest of the Keep — structured lessons, checkpoints, and a final verification matrix.</p>
+ <h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Learn. Practice. Explain. Master.</h1>
+ <p class="lede">A learning system for ARR, Home Assistant, and local voice — Backward Design, Bloom progression, mandatory Feynman teach-backs, mastery gates, and spiral review. Not a pile of videos and quizzes.</p>
  <div class="btn-row" style="margin-top:26px;">
   <a class="btn btn-primary" href="classes/01.html">Start Class 1</a>
   <a class="btn btn-ghost" href="workbook.html">Student workbook</a>
   <a class="btn btn-ghost" href="final-exam.html">Final capstone</a>
   <a class="btn btn-ghost" href="references/">References</a>
  </div>
- <p class="meta" style="margin-top:22px;">UNDERSTAND → BUILD → BREAK → FIX → VERIFY</p>
+ <p class="meta" style="margin-top:22px;">LEARN → SEE → PRACTICE → EXPLAIN → APPLY → TEST → CORRECT → REVISIT → MASTER</p>
  </section>
 </div>
 
 <div class="wrap">
  <section>
  <p class="tag">00 // How to use</p>
- <h2>One concept. One lab. One gate.</h2>
- <p class="intro">Read the class, run the guided lab once, break it on purpose, fix it, then pass the practical gate. Log evidence in the verification matrix — “it seems to work” is not a grade.</p>
+ <h2>Every class is a learning cycle</h2>
+ <p class="intro">Objective → why it matters → prior check → instruction → worked example → guided practice → independent practice → <strong>Feynman teach-back</strong> → retrieval check → lab → break/fix → mastery gate → reflection → spiral hook. Unlock the next class only when the gate is truly met.</p>
  <div class="cr-callout tip"><strong>Legal / safety:</strong> use only authorized indexers and content. Do not expose ARR admin or download clients to the public internet. Never paste real API keys into screenshots.</div>
+ <div class="btn-row" style="margin-top:18px;">
+  <a class="btn btn-ghost" href="methodology.html">Methodology</a>
+  <a class="btn btn-ghost" href="syllabus.html">Syllabus</a>
+  <a class="btn btn-ghost" href="outcomes.html">Outcomes</a>
+  <a class="btn btn-ghost" href="prereq.html">Prerequisite assessment</a>
+ </div>
  </section>
 </div>
 
@@ -666,7 +748,7 @@ def gen_classes():
  <div class="stamp">CLASS {int(num):02d}<small>unit {unit} · {H.escape(unit_name.lower())}</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
  <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">{H.escape(title)}</h1>
- <p class="lede">Guided lab, break/fix, quiz, and practical gate. Prefer current official docs linked in References.</p>
+ <p class="lede">Full learning cycle with mandatory Feynman teach-back, retrieval practice, lab, and mastery gate. Prefer current official docs in References.</p>
  {OSBAR}
  </section>
 </div>
@@ -689,7 +771,7 @@ def gen_classes():
 <div class="wrap">
  <section class="hero flush">
  <p class="tag">Classes</p>
- <h1 class="display" style="font-size:clamp(2rem,5vw,3rem);">All 13 classes</h1>
+ <h1 class="display" style="font-size:clamp(2rem,5vw,3rem);">All 15 classes</h1>
  <p class="lede">Complete in order. Pass each practical gate before advancing.</p>
  </section>
 </div>
@@ -698,7 +780,7 @@ def gen_classes():
  {pager(("/classroom/", "Academy"), ("01.html", "Class 1"))}
 </div>
 '''
-    write(CLASSES_DIR / "index.html", wrap("Classes · Classroom", "All 13 Homelab Academy classes.", "/classroom/classes/", "CLASSES", body))
+    write(CLASSES_DIR / "index.html", wrap("Classes · Classroom", "All 15 Homelab Academy classes.", "/classroom/classes/", "CLASSES", body))
 
 
 def gen_md_page(md_name: str, out_name: str, title: str, bar: str, canon: str, tag: str, prev, next_, lede: str):
@@ -817,12 +899,10 @@ def gen_redirects():
 
 def sync_github():
     readme = (PACK / "README.md").read_text()
-    (GH / "README.md").write_text(
+    (GH / "README.md").write_text(readme if readme.lstrip().startswith("#") else (
         "# Otaconskeep Classroom — Homelab Academy\n\n"
-        "**Site:** https://otaconskeep.github.io/classroom/\n\n"
-        + readme
-        + "\n\n## License\n\nMIT — Antonio G. Garcia (Otaconskeep)\n"
-    )
+        "**Site:** https://otaconskeep.github.io/classroom/\n\n" + readme
+    ))
     dest = GH / "pack"
     if dest.exists():
         shutil.rmtree(dest)
@@ -857,6 +937,36 @@ def main():
         "/classroom/instructor.html", "Instructor",
         ("/classroom/", "Academy"), ("workbook.html", "Workbook"),
         "Quiz answers and practical acceptance criteria.",
+    )
+    gen_md_page(
+        "METHODOLOGY.md", "methodology.html", "Learning methodology", "METHOD",
+        "/classroom/methodology.html", "Methodology",
+        ("/classroom/", "Academy"), ("syllabus.html", "Syllabus"),
+        "Backward Design, Bloom, Feynman, mastery gates, and spiral review.",
+    )
+    gen_md_page(
+        "COURSE_OVERVIEW.md", "overview.html", "Course overview", "OVERVIEW",
+        "/classroom/overview.html", "Overview",
+        ("/classroom/", "Academy"), ("syllabus.html", "Syllabus"),
+        "What the Academy teaches and why it is built as a learning system.",
+    )
+    gen_md_page(
+        "SYLLABUS.md", "syllabus.html", "Syllabus", "SYLLABUS",
+        "/classroom/syllabus.html", "Syllabus",
+        ("overview.html", "Overview"), ("outcomes.html", "Outcomes"),
+        "Expectations, mastery rules, policies, tools, and suggested schedule.",
+    )
+    gen_md_page(
+        "LEARNING_OUTCOMES.md", "outcomes.html", "Learning outcomes", "OUTCOMES",
+        "/classroom/outcomes.html", "Outcomes",
+        ("syllabus.html", "Syllabus"), ("prereq.html", "Prereq"),
+        "What you should be able to do when the course is finished.",
+    )
+    gen_md_page(
+        "PREREQUISITE_ASSESSMENT.md", "prereq.html", "Prerequisite assessment", "PREREQ",
+        "/classroom/prereq.html", "Prereq",
+        ("outcomes.html", "Outcomes"), ("classes/01.html", "Class 1"),
+        "Diagnose what you already know before Class 1.",
     )
     gen_references()
     gen_glossary_stub()

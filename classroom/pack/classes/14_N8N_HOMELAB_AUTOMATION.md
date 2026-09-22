@@ -1,10 +1,25 @@
 # Class 14 — n8n automation for the homelab
 
+**Learning objective:** Given a lab-only Docker network, the learner can run n8n, build an RSS digest workflow explaining item cardinality, and require human approval before any mutating Keep Agent / SSH action.
+**Bloom level:** Apply / Evaluate
 **Build output:** n8n in Docker; RSS digest workflow; guarded Keep Agent; optional n8n→SSH→AI-CLI bridge with a resumable session
+**Mastery unlock:** ≥80% retrieval target when scored + completed Feynman teach-back + independent practice + all practical gate boxes + workbook evidence.
 
-## What you will learn
+## Learning objective
 
-You will install n8n on your lab host, learn how workflows move **items** of JSON between **nodes**, build a safe first automation (RSS → filter → notify), and then build a small AI agent that can **observe** your lab—and only **change** things after a human approval step. You will also learn a second pattern: use n8n as an **orchestrator** that SSHes into a Linux box and runs a headless **AI CLI** (Claude Code, Gemini CLI, or similar) so the heavy context and skills stay on the terminal tool while n8n handles triggers, chat front-ends, and session IDs. You will treat credentials, SSH, and command execution as high-risk tools with explicit guardrails.
+Given a lab-only Docker network, the learner can run n8n, build an RSS digest workflow explaining item cardinality, and require human approval before any mutating Keep Agent / SSH action.
+
+## Why this matters
+
+Automation without approval gates turns small mistakes into fast, wide damage — especially when agents can run commands.
+
+## Prior-knowledge check
+
+Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+
+1. What is a workflow node?
+2. Why might one RSS item become five messages?
+3. What must never be committed to git?
 
 ## Vocabulary
 
@@ -25,7 +40,13 @@ You will install n8n on your lab host, learn how workflows move **items** of JSO
 | Session ID | Stable ID so a later command can **resume** the same AI conversation |
 | Orchestrator pattern | n8n triggers/routes/notifies; the AI CLI owns deep context, skills, and multi-step tools |
 
-## Safety boundary
+## Instruction
+
+### Originally: What you will learn
+
+You will install n8n on your lab host, learn how workflows move **items** of JSON between **nodes**, build a safe first automation (RSS → filter → notify), and then build a small AI agent that can **observe** your lab—and only **change** things after a human approval step. You will also learn a second pattern: use n8n as an **orchestrator** that SSHes into a Linux box and runs a headless **AI CLI** (Claude Code, Gemini CLI, or similar) so the heavy context and skills stay on the terminal tool while n8n handles triggers, chat front-ends, and session IDs. You will treat credentials, SSH, and command execution as high-risk tools with explicit guardrails.
+
+### Safety boundary
 
 n8n can talk to email, chat, SSH, APIs, and shells. That power cuts both ways.
 
@@ -36,8 +57,6 @@ n8n can talk to email, chat, SSH, APIs, and shells. That power cuts both ways.
 - Keep n8n’s admin UI on LAN/VPN only (Class 10 patterns)—not open to the world.
 - AI CLI “dangerous” / YOLO flags that skip confirmations are **lab-only** and still need your approval gate in n8n before mutate.
 - Put the AI CLI on a **jump host** you control; do not SSH as root into every production box from n8n on day one.
-
-## Lesson
 
 ### What n8n is
 
@@ -157,6 +176,62 @@ AI CLI = deep context, skills, parallel sub-agents on the jump host
 ```
 
 You can still call an in-n8n AI Agent that *decides* to invoke the SSH→CLI tool. Do not abandon Class 14 Path C guardrails when the CLI is powerful.
+
+## Worked example
+
+**I do** — study the reasoning, not just the final answer.
+
+**Bad:** Webhook → agent → shell mutate production with no approval.
+
+**Better:** Digest/notify first; any mutate path requires explicit human approval; credentials stay out of git; explain JSON item cardinality before scaling.
+
+## Guided practice
+
+**We do** — hints allowed. Check your reasoning against Instruction.
+
+Trace item count through a sample RSS → split → notify path with assistance.
+
+## Independent practice
+
+**You do** — close the hints. Solve before opening the lab.
+
+Draw your approval boundary on paper: which nodes may run unattended vs which need a human. Implement that boundary.
+
+## Feynman teach-back
+
+Required. Do not skip.
+
+### Explain
+Describe **why n8n automations need cardinality awareness and approval gates** in your own words. No copying the lesson verbatim.
+
+### Simplify
+Explain the same idea to a 12-year-old. If you use a technical word, define it.
+
+### Example
+Analogy: a mail merge that accidentally sends 500 letters — vs a draft folder that waits for your stamp.
+
+### Weak spot
+What part was hard to explain? That is where your understanding is thin.
+
+### Retry
+Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
+
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+
+
+## Retrieval check
+
+Active recall — write answers without rereading first. Target ≥80% before the gate.
+
+1. What is an n8n **item**, and why does item count matter for Discord nodes?
+2. What is the difference between an LLM summarize node and an AI Agent with tools?
+3. Why pin data during builds that call paid models?
+4. What must be true before an agent may run `docker stop` / `docker rm` in this class?
+5. Where should n8n’s UI be reachable from in a Keep-style lab?
+6. How do you keep a healthy schedule from spamming chat every 15 minutes?
+7. In the orchestrator pattern, what does n8n own vs what the AI CLI owns?
+8. Why generate a session UUID before the first headless AI CLI call?
+9. What should you test before `claude -p "..."` if SSH `hostname` works but the CLI fails?
 
 ## Guided lab
 
@@ -410,7 +485,9 @@ cd ~/keep-cli-context && claude -p "List the files in this directory in three bu
 
 12. **Save** `03-ai-cli-bridge`. Leave **Inactive** unless you are watching it.
 
-## Break/fix
+## Break / fix
+
+### Break/fix
 
 1. Remove Limit → watch notify fan-out → restore Limit.
 
@@ -424,7 +501,7 @@ cd ~/keep-cli-context && claude -p "List the files in this directory in three bu
 
 6. **Session break:** resume with a **wrong** session id → confirm the CLI does not invent prior context → retry with the correct id.
 
-## Common mistakes
+## Feedback / common mistakes
 
 - Publishing n8n to `0.0.0.0` on a public VPS without Access/VPN.
 - Using `localhost` inside a container when you meant another service name.
@@ -436,19 +513,9 @@ cd ~/keep-cli-context && claude -p "List the files in this directory in three bu
 - Putting AI CLI on root@everything instead of a scoped jump user.
 - Resuming sessions without persisting the UUID across chat messages.
 
-## Knowledge check
+## Practical mastery gate
 
-1. What is an n8n **item**, and why does item count matter for Discord nodes?
-2. What is the difference between an LLM summarize node and an AI Agent with tools?
-3. Why pin data during builds that call paid models?
-4. What must be true before an agent may run `docker stop` / `docker rm` in this class?
-5. Where should n8n’s UI be reachable from in a Keep-style lab?
-6. How do you keep a healthy schedule from spamming chat every 15 minutes?
-7. In the orchestrator pattern, what does n8n own vs what the AI CLI owns?
-8. Why generate a session UUID before the first headless AI CLI call?
-9. What should you test before `claude -p "..."` if SSH `hostname` works but the CLI fails?
-
-## Practical gate
+All boxes must be true before the next class unlocks. If you fail: feedback → targeted review → new practice → reassess.
 
 - [ ] n8n UI reachable on the lab network only; owner account created; data survives recreate.
 - [ ] Workflow `01-rss-digest` runs manually: RSS → Limit(≤5) → notify with real titles/links.
@@ -458,6 +525,25 @@ cd ~/keep-cli-context && claude -p "List the files in this directory in three bu
 - [ ] No production ARR/HA admin credentials were pasted into chat nodes or course files.
 - [ ] Schedule is off or slowed when the student is not actively testing.
 - [ ] **Optional Path D:** `03-ai-cli-bridge` shows hostname + CLI version + one headless answer + one **resumed** follow-up with the same session id (or workbook documents “deferred” with reason).
+- [ ] Prior-knowledge check answered
+- [ ] Feynman teach-back completed (Explain, Simplify, Example, Weak spot, Retry)
+- [ ] Independent practice completed
+- [ ] Retrieval check attempted (target ≥80% when scored)
+- [ ] Evidence recorded in workbook / verification matrix
+
+## Reflection
+
+Where could your workflow mutate something accidentally, and what gate stops it?
+
+Also answer:
+
+1. What did I learn?
+2. What did I struggle with?
+3. How does this connect to earlier classes?
+
+## Spiral hook
+
+Capstone expects guarded automation evidence. Infrastructure classes (2–4) and security (10) are prerequisites for doing this safely.
 
 ## 2026 correction
 

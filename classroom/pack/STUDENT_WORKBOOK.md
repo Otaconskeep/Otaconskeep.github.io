@@ -1,22 +1,35 @@
 # Student Workbook
 
-Duplicate the page below for each class. Evidence should be reproducible and secrets must be redacted.
+Duplicate this page for each class. Evidence must be reproducible. Secrets must be redacted.
+
+Learning system: **Orient → Learn → Practice → Feynman → Apply → Assess → Reflect**
 
 ## Class record
 
 **Class number/title:**  
 **Date:**  
 **Student:**  
+**Bloom level (from lesson):**  
 **Environment/version:**  
 **Last-known-good backup:**  
 
-### 1. Learning targets in my own words
+### 0. Prior-knowledge check
 
-1.  
-2.  
-3.  
+| # | Question | My answer before the lesson |
+|---|---|---|
+| 1 | | |
+| 2 | | |
+| 3 | | |
+| 4 | | |
+| 5 | | |
 
-### 2. Vocabulary
+### 1. Learning objective in my own words
+
+Rewrite the lesson objective as a task you can perform:
+
+### 2. Why this matters (my reason)
+
+### 3. Vocabulary
 
 | Term | My explanation | Concrete example |
 |---|---|---|
@@ -24,11 +37,51 @@ Duplicate the page below for each class. Evidence should be reproducible and sec
 | | | |
 | | | |
 
-### 3. Architecture
+### 4. Architecture / notes
 
-Draw the systems, boundaries, protocols, ports, identities, and authoritative data. Mark the exact boundary being tested.
+Draw systems, boundaries, protocols, ports, identities, and authoritative data. Mark the boundary being tested.
 
-### 4. Pre-lab inventory
+### 5. Worked example — what I noticed
+
+**Bad → better insight:**  
+
+### 6. Guided practice (We do)
+
+| Prompt | My attempt | Check against lesson |
+|---|---|---|
+| | | |
+
+### 7. Independent practice (You do)
+
+| Prompt | My solution | Evidence |
+|---|---|---|
+| | | |
+
+### 8. Feynman teach-back (required)
+
+**Explain** (own words):  
+
+**Simplify** (to a 12-year-old):  
+
+**Example / analogy:**  
+
+**Weak spot** (what I could not explain):  
+
+**Retry** (clearer rewrite after restudy):  
+
+### 9. Retrieval check answers
+
+1.  
+2.  
+3.  
+4.  
+5.  
+6.  
+7.  
+
+**Self-score:** ___ / ___ (target ≥80%)
+
+### 10. Pre-lab inventory
 
 | Item | Value | Verified how? |
 |---|---|---|
@@ -42,7 +95,7 @@ Draw the systems, boundaries, protocols, ports, identities, and authoritative da
 | Data path | | |
 | Backup location | | |
 
-### 5. Guided lab evidence
+### 11. Guided lab evidence
 
 | Step | Expected | Actual | Evidence reference | Pass/fail |
 |---:|---|---|---|---|
@@ -52,7 +105,7 @@ Draw the systems, boundaries, protocols, ports, identities, and authoritative da
 | 4 | | | | |
 | 5 | | | | |
 
-### 6. Break/fix record
+### 12. Break/fix record
 
 **Injected fault:**  
 **Observed symptom:**  
@@ -64,29 +117,29 @@ Draw the systems, boundaries, protocols, ports, identities, and authoritative da
 **Repair:**  
 **Regression test:**  
 
-### 7. Quiz answers
-
-1.  
-2.  
-3.  
-4.  
-5.  
-6.  
-
-### 8. Practical gate
+### 13. Practical mastery gate
 
 | Gate item | Evidence | Status |
 |---|---|---|
-| | | |
-| | | |
-| | | |
+| Prior-knowledge answered | | |
+| Feynman complete | | |
+| Independent practice done | | |
+| Retrieval ≥80% (when scored) | | |
+| Lab evidence logged | | |
+| (class-specific boxes) | | |
 
-### 9. Reflection
+### 14. Reflection
 
-**One concept I can now explain:**  
-**One failure I can now isolate:**  
+**What I learned:**  
+**What I struggled with:**  
+**How this connects to earlier classes (spiral):**  
 **One unresolved risk:**  
 **One runbook improvement:**  
+
+### 15. Unlock decision
+
+- [ ] I met the mastery unlock rule for this class  
+- [ ] Next class is unlocked  
 
 ---
 
@@ -114,4 +167,3 @@ Draw the systems, boundaries, protocols, ports, identities, and authoritative da
 | C | | | | | | | |
 | D | | | | | | | |
 | E | | | | | | | |
-

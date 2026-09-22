@@ -1,10 +1,17 @@
 # Class 11 — Local Voice Architecture and Fault Isolation
 
-**Lecture:** [Everything Smart Home — Local Smart Home Voice](https://www.youtube.com/watch?v=w9BbjUowmnE)  
-**Time:** 120 minutes  
+**Lecture (optional):** [Everything Smart Home — Local Smart Home Voice](https://www.youtube.com/watch?v=w9BbjUowmnE)
+**Time:** 120 minutes
+**Learning objective:** Given a voice request, the learner can draw the local Assist pipeline stages, instrument one test per stage, and isolate faults to mic, wake, STT, intent/action, TTS, or playback.
+**Bloom level:** Analyze
 **Build output:** voice-pipeline test record with one test per stage
+**Mastery unlock:** ≥80% retrieval target when scored + completed Feynman teach-back + independent practice + all practical gate boxes + workbook evidence.
 
-## Core principle
+## Learning objective
+
+Given a voice request, the learner can draw the local Assist pipeline stages, instrument one test per stage, and isolate faults to mic, wake, STT, intent/action, TTS, or playback.
+
+## Why this matters
 
 Never test the entire voice pipeline first. Each stage transforms an input into an output. Capture the boundary result and prove it before moving forward.
 
@@ -20,6 +27,14 @@ flowchart TD
     T --> P["Speaker"]
 ```
 
+## Prior-knowledge check
+
+Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+
+1. What does STT mean? TTS?
+2. Why test stages independently before the full pipeline?
+3. Which HA entities will voice actions target (from Class 8–9)?
+
 ## Vocabulary
 
 | Acronym | Meaning | Boundary output |
@@ -31,7 +46,9 @@ flowchart TD
 | TTS | Text to Speech | Audio waveform/stream |
 | Wake word | Local keyword detector | Detection event |
 
-## Signal chain
+## Instruction
+
+### Signal chain
 
 Microphone quality, gain, distance, echo, noise, sample format, and clipping affect everything downstream. An LLM cannot recover words that were never captured. Begin with a recorded audio sample and listen to it.
 
@@ -58,6 +75,79 @@ Home Assistant must be able to perform the action from text/manual developer too
 ### TTS and playback
 
 TTS produces audio; the output device must play it. Test synthesis and playback separately so a muted speaker is not blamed on Piper.
+
+### Acceptance criteria example
+
+```text
+Wake detect ≥ 8/10 at 1m
+False wakes ≤ 1/10
+STT exact match ≥ 4/5 fixed phrases
+Assist maps to correct intent 5/5 when given perfect text
+TTS intelligible 5/5
+E2E success ≥ 7/10 from seating position
+```
+
+### Symptom-to-layer diagnosis
+
+| Symptom | Check layer first |
+|---|---|
+| Never wakes | Mic / wake model |
+| Wakes but silence | VAD / transport |
+| Wrong words | STT / noise / model |
+| Right words, wrong action | Assist / expose entities |
+| Action ok, no voice back | TTS / speaker |
+
+## Worked example
+
+**I do** — study the reasoning, not just the final answer.
+
+**Bad debug:** “Voice is broken” → reinstall everything.
+
+**Better:** Stage table — mic level OK? wake fired? STT text correct? intent matched? action ran? TTS audio generated? speaker played? Fix the first failing stage only.
+
+## Guided practice
+
+**We do** — hints allowed. Check your reasoning against Instruction.
+
+Fill the stage table for a sample phrase with assistance.
+
+## Independent practice
+
+**You do** — close the hints. Solve before opening the lab.
+
+Create your pipeline test record template with one pass/fail line per stage. Run it once on a known sentence.
+
+## Feynman teach-back
+
+Required. Do not skip.
+
+### Explain
+Describe **the local voice signal chain and fault isolation** in your own words. No copying the lesson verbatim.
+
+### Simplify
+Explain the same idea to a 12-year-old. If you use a technical word, define it.
+
+### Example
+Analogy: a relay race — you must know which runner dropped the baton.
+
+### Weak spot
+What part was hard to explain? That is where your understanding is thin.
+
+### Retry
+Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
+
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+
+
+## Retrieval check
+
+Active recall — write answers without rereading first. Target ≥80% before the gate.
+
+1. Why does a correct HA action not prove STT quality?
+2. What does VAD control?
+3. Which artifact proves STT behavior?
+4. Why test TTS synthesis separately from playback?
+5. What should be tested before adding an LLM conversation agent?
 
 ## Guided lab
 
@@ -106,40 +196,21 @@ aplay /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null || ffplay -autoexit -n
 
 10. **Full pipeline** only after 1–9 pass. Time wake→action latency; log failures by layer.
 
-## Acceptance criteria example
+## Break / fix
 
-```text
-Wake detect ≥ 8/10 at 1m
-False wakes ≤ 1/10
-STT exact match ≥ 4/5 fixed phrases
-Assist maps to correct intent 5/5 when given perfect text
-TTS intelligible 5/5
-E2E success ≥ 7/10 from seating position
-```
-
-## Symptom-to-layer diagnosis
-
-| Symptom | Check layer first |
-|---|---|
-| Never wakes | Mic / wake model |
-| Wakes but silence | VAD / transport |
-| Wrong words | STT / noise / model |
-| Right words, wrong action | Assist / expose entities |
-| Action ok, no voice back | TTS / speaker |
-
-## Break/fix
+### Break/fix
 
 Mute mic; confirm wake fails. Unmute. Play TTS with speaker unplugged; confirm synthesis may succeed while playback fails—record both.
 
-## Knowledge check
+## Feedback / common mistakes
 
-1. Why does a correct HA action not prove STT quality?
-2. What does VAD control?
-3. Which artifact proves STT behavior?
-4. Why test TTS synthesis separately from playback?
-5. What should be tested before adding an LLM conversation agent?
+- Skipping evidence and calling it done.
+- Changing multiple variables before retesting.
+- Moving on without completing Feynman teach-back.
 
-## Practical gate
+## Practical mastery gate
+
+All boxes must be true before the next class unlocks. If you fail: feedback → targeted review → new practice → reassess.
 
 - [ ] Raw microphone sample is acceptable.
 - [ ] Wake-word hit/miss evidence is recorded.
@@ -148,8 +219,26 @@ Mute mic; confirm wake fails. Unmute. Play TTS with speaker unplugged; confirm s
 - [ ] TTS and speaker pass separately.
 - [ ] Stage timestamps identify latency.
 - [ ] End-to-end command passes.
+- [ ] Prior-knowledge check answered
+- [ ] Feynman teach-back completed (Explain, Simplify, Example, Weak spot, Retry)
+- [ ] Independent practice completed
+- [ ] Retrieval check attempted (target ≥80% when scored)
+- [ ] Evidence recorded in workbook / verification matrix
+
+## Reflection
+
+Which stage is hardest to observe, and what log or UI proves it?
+
+Also answer:
+
+1. What did I learn?
+2. What did I struggle with?
+3. How does this connect to earlier classes?
+
+## Spiral hook
+
+Classes 12–13 implement STT/TTS and the full speaker. Every failure report should cite a Class 11 stage name.
 
 ## 2026 correction
 
 Home Assistant voice pipelines and supported hardware continue to evolve. Use current HA voice documentation for UI and integration steps; preserve boundary testing regardless of the selected satellite or agent.
-

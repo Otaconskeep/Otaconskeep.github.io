@@ -1,14 +1,35 @@
 # Class 13 — Completely Local Smart Speaker Capstone
 
-**Lecture:** [Completely Private Local Smart Voice Assistant](https://www.youtube.com/watch?v=2qr6-89BTAQ)  
-**Time:** 240 minutes  
+**Lecture (optional):** [Completely Private Local Smart Voice Assistant](https://www.youtube.com/watch?v=2qr6-89BTAQ)
+**Time:** 240 minutes
+**Learning objective:** Given working STT/TTS providers, the learner can integrate wake → action → spoken response and prove an internet-disconnected end-to-end pass with staged gates.
+**Bloom level:** Create / Evaluate
 **Build output:** wake-to-action-to-spoken-response system that passes with internet disconnected
+**Mastery unlock:** ≥80% retrieval target when scored + completed Feynman teach-back + independent practice + all practical gate boxes + workbook evidence.
 
-## Mission
+## Learning objective
+
+Given working STT/TTS providers, the learner can integrate wake → action → spoken response and prove an internet-disconnected end-to-end pass with staged gates.
+
+## Why this matters
 
 Integrate a voice satellite, wake-word engine, VAD/audio transport, Whisper, Home Assistant Assist, local intent or conversation processing, Piper, and speaker playback. The final privacy requirement is demonstrated behavior under WAN disconnection—not a marketing label.
 
-## System boundary
+## Prior-knowledge check
+
+Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+
+1. Which Class 11 stage tests already pass?
+2. What HA action will you trigger by voice?
+3. How will you prove the WAN is down during the test?
+
+## Vocabulary
+
+_Add terms as you encounter them in Instruction._
+
+## Instruction
+
+### System boundary
 
 ```mermaid
 flowchart TD
@@ -22,7 +43,7 @@ flowchart TD
 
 Optional local LLM conversation belongs behind a routing decision. Deterministic home-control commands should not require an open-ended model unless the design explicitly accepts the latency and failure modes.
 
-## Satellite responsibilities
+### Satellite responsibilities
 
 Depending on hardware/software, the satellite may handle microphone capture, wake word, VAD, audio streaming, playback, LED state, and local buttons. Record where each responsibility executes; otherwise failures are impossible to localize.
 
@@ -38,7 +59,7 @@ Example responsibility map:
 | TTS | Local server |
 | Playback | Satellite |
 
-## Progressive integration gates
+### Progressive integration gates
 
 Do not skip gates:
 
@@ -74,7 +95,68 @@ Speak wake word and command. Capture timestamps at wake, end-of-speech, transcri
 
 Disconnect WAN access while preserving the LAN. Repeat the full command and a second informational command that is defined as local. Verify DNS or cloud dependencies do not silently block the pipeline.
 
-## Guided lab — private smart speaker build
+### Local LLM routing
+
+If you add an LLM, whitelist only low-risk intents. Lights/locks/garage need deterministic intents—not open-ended chat.
+
+### Reliability and recovery
+
+Document restart order: network → HA → Wyoming STT/TTS → satellite. Keep a known-good backup of HA and satellite config.
+
+## Worked example
+
+**I do** — study the reasoning, not just the final answer.
+
+**Bad acceptance:** “It worked once while Wi-Fi was up.”
+
+**Better:** Progressive gates — wake only → STT → intent/action → TTS → full path — then repeat with internet disconnected and record the pass.
+
+## Guided practice
+
+**We do** — hints allowed. Check your reasoning against Instruction.
+
+Execute the progressive integration gates in order with the checklist open.
+
+## Independent practice
+
+**You do** — close the hints. Solve before opening the lab.
+
+Run the disconnected exam. Document exact evidence (photos/logs redacted) for pass or the first failing stage.
+
+## Feynman teach-back
+
+Required. Do not skip.
+
+### Explain
+Describe **what ‘completely local smart speaker’ actually requires** in your own words. No copying the lesson verbatim.
+
+### Simplify
+Explain the same idea to a 12-year-old. If you use a technical word, define it.
+
+### Example
+Analogy: a flashlight that still works when the power grid is down — vs one that needs a cloud app to turn on.
+
+### Weak spot
+What part was hard to explain? That is where your understanding is thin.
+
+### Retry
+Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
+
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+
+
+## Retrieval check
+
+Active recall — write answers without rereading first. Target ≥80% before the gate.
+
+1. What proves the system is local?
+2. Why preserve LAN connectivity during the WAN-disconnect test?
+3. Which commands should bypass an open-ended LLM?
+4. Why record function location in the responsibility map?
+5. What timestamps isolate latency?
+6. Why limit the entities exposed to voice control?
+
+## Guided lab
 
 Complete gates **in order**. Do not skip to end-to-end.
 
@@ -146,31 +228,24 @@ ping -c 1 HA-IP && echo LAN_HA_OK
 
 12. **Responsibility map:** write which box does wake/STT/intent/TTS/playback and where logs live.
 
-## Local LLM routing
+## Break / fix
 
-If you add an LLM, whitelist only low-risk intents. Lights/locks/garage need deterministic intents—not open-ended chat.
-
-## Reliability and recovery
-
-Document restart order: network → HA → Wyoming STT/TTS → satellite. Keep a known-good backup of HA and satellite config.
-
-## Break/fix exam
+### Break/fix exam
 
 1. Unplug speaker — note which gate fails.  
 2. Stop STT container — note failure layer.  
 3. Block HA from satellite — Assist must fail closed.  
 4. Restore each fault before the next.
 
-## Knowledge check
+## Feedback / common mistakes
 
-1. What proves the system is local?
-2. Why preserve LAN connectivity during the WAN-disconnect test?
-3. Which commands should bypass an open-ended LLM?
-4. Why record function location in the responsibility map?
-5. What timestamps isolate latency?
-6. Why limit the entities exposed to voice control?
+- Skipping evidence and calling it done.
+- Changing multiple variables before retesting.
+- Moving on without completing Feynman teach-back.
 
-## Practical gate
+## Practical mastery gate
+
+All boxes must be true before the next class unlocks. If you fail: feedback → targeted review → new practice → reassess.
 
 - [ ] Gates A–F pass independently.
 - [ ] Ten end-to-end trials are recorded.
@@ -179,8 +254,26 @@ Document restart order: network → HA → Wyoming STT/TTS → satellite. Keep a
 - [ ] WAN-disconnected command and spoken response pass.
 - [ ] Recovery from one service restart is proven.
 - [ ] Voice permissions expose only necessary entities.
+- [ ] Prior-knowledge check answered
+- [ ] Feynman teach-back completed (Explain, Simplify, Example, Weak spot, Retry)
+- [ ] Independent practice completed
+- [ ] Retrieval check attempted (target ≥80% when scored)
+- [ ] Evidence recorded in workbook / verification matrix
+
+## Reflection
+
+Did the disconnected test change your architecture confidence? What remains fragile?
+
+Also answer:
+
+1. What did I learn?
+2. What did I struggle with?
+3. How does this connect to earlier classes?
+
+## Spiral hook
+
+Capstone will ask for this evidence again. n8n (14) must not sneak cloud dependencies into the voice path without labeling them.
 
 ## 2026 correction
 
 Use the lecture as a system-integration example. Hardware support, satellites, add-ons, repositories, and Home Assistant pipeline screens change. Current official documentation and the staged acceptance tests in this class govern the build.
-

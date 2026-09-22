@@ -1,10 +1,29 @@
 # Class 2 — Docker Compose and Persistent Applications
 
-**Lecture:** [NetworkChuck — Docker Compose](https://www.youtube.com/watch?v=DM65_JyGxCo)  
-**Time:** 120 minutes  
+**Lecture (optional):** [NetworkChuck — Docker Compose](https://www.youtube.com/watch?v=DM65_JyGxCo)
+**Time:** 120 minutes
+**Learning objective:** Given a multi-step `docker run` intent, the learner can write a Compose file with services, ports, environment, and persistent mounts, then recreate the stack without data loss.
+**Bloom level:** Apply / Create
 **Build output:** a repeatable Compose project that survives recreation
+**Mastery unlock:** ≥80% retrieval target when scored + completed Feynman teach-back + independent practice + all practical gate boxes + workbook evidence.
 
-## Outcomes and vocabulary
+## Learning objective
+
+Given a multi-step `docker run` intent, the learner can write a Compose file with services, ports, environment, and persistent mounts, then recreate the stack without data loss.
+
+## Why this matters
+
+Shell history is not a system design. If your stack only exists as remembered commands, you cannot rebuild after failure — and every later ARR/HA/voice service will be fragile.
+
+## Prior-knowledge check
+
+Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+
+1. What is a container image versus a running container?
+2. Where should application data live if the container is deleted?
+3. Why might publishing a host port be both useful and dangerous?
+
+## Vocabulary
 
 You will distinguish image, container, registry, service, volume, and bind mount; read YAML; convert `docker run` intent into Compose; manage environment values; publish ports; add healthchecks; and prove data persistence.
 
@@ -20,7 +39,7 @@ You will distinguish image, container, registry, service, volume, and bind mount
 | Port publish | Mapping from host port to container port |
 | Healthcheck | Command that reports application readiness/health |
 
-## Lesson
+## Instruction
 
 A long `docker run` command records configuration only in shell history and human memory. Compose stores the desired state in a file that can be reviewed, versioned without secrets, validated, and redeployed.
 
@@ -82,6 +101,59 @@ docker compose down
 ```
 
 `config` validates and renders the model. `pull` downloads declared images. `up -d` reconciles running resources to the file. `down` removes project containers and networks; adding `-v` can remove volumes and is therefore not used casually.
+
+## Worked example
+
+**I do** — study the reasoning, not just the final answer.
+
+**Bad Compose intent:** No volumes; data lives in the container filesystem; recreate = wipe.
+
+**Better:** Bind-mount or named volume for `/config` (or app data path), pin an image tag you can roll back, declare ports and env in YAML, and prove `docker compose down` + `up` keeps the data.
+
+## Guided practice
+
+**We do** — hints allowed. Check your reasoning against Instruction.
+
+Convert one documented `docker run` (from the lesson) into Compose YAML with assistance. Check: service name, image, ports, env, volume, restart policy.
+
+## Independent practice
+
+**You do** — close the hints. Solve before opening the lab.
+
+Without hints, add a second service to the same Compose project that shares a network name and a documented volume path. Prove both survive recreate.
+
+## Feynman teach-back
+
+Required. Do not skip.
+
+### Explain
+Describe **why Docker Compose beats a long `docker run` for real systems** in your own words. No copying the lesson verbatim.
+
+### Simplify
+Explain the same idea to a 12-year-old. If you use a technical word, define it.
+
+### Example
+Analogy: a recipe card (Compose) vs remembering a cooking performance (run commands).
+
+### Weak spot
+What part was hard to explain? That is where your understanding is thin.
+
+### Retry
+Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
+
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+
+
+## Retrieval check
+
+Active recall — write answers without rereading first. Target ≥80% before the gate.
+
+1. Why should persistent data not remain only in the container layer?
+2. In `8080:80`, which is the host port?
+3. What does `docker compose config` prove?
+4. Is `.env` encryption?
+5. What is the difference between an image and a container?
+6. Why can a mounted directory be visible but not writable?
 
 ## Guided lab
 
@@ -279,7 +351,9 @@ Later classes use one shared data tree so downloaders and importers see the same
 
 Avoid unrelated mounts such as `/downloads` in one container and `/incoming` in another unless you fully understand remote paths and hardlinks.
 
-## Break/fix
+## Break / fix
+
+### Break/fix
 
 Perform these faults **one at a time**. Restore before the next fault.
 
@@ -316,16 +390,15 @@ chmod 755 writable
 
 4. **Image tag change + rollback.** Record current tag `nginx:stable`, change to another explicit tag, `pull` + `up -d`, verify, then restore `nginx:stable` and prove the page still loads.
 
-## Knowledge check
+## Feedback / common mistakes
 
-1. Why should persistent data not remain only in the container layer?
-2. In `8080:80`, which is the host port?
-3. What does `docker compose config` prove?
-4. Is `.env` encryption?
-5. What is the difference between an image and a container?
-6. Why can a mounted directory be visible but not writable?
+- Skipping evidence and calling it done.
+- Changing multiple variables before retesting.
+- Moving on without completing Feynman teach-back.
 
-## Practical gate
+## Practical mastery gate
+
+All boxes must be true before the next class unlocks. If you fail: feedback → targeted review → new practice → reassess.
 
 - [ ] Compose validates.
 - [ ] The service is reachable on the documented host port.
@@ -333,8 +406,26 @@ chmod 755 writable
 - [ ] Logs and health status can be retrieved.
 - [ ] The student can identify every mount's host and container side.
 - [ ] No real secret is stored in a tracked course file.
+- [ ] Prior-knowledge check answered
+- [ ] Feynman teach-back completed (Explain, Simplify, Example, Weak spot, Retry)
+- [ ] Independent practice completed
+- [ ] Retrieval check attempted (target ≥80% when scored)
+- [ ] Evidence recorded in workbook / verification matrix
+
+## Reflection
+
+Where did persistence almost fail, and what evidence proves recreate is safe?
+
+Also answer:
+
+1. What did I learn?
+2. What did I struggle with?
+3. How does this connect to earlier classes?
+
+## Spiral hook
+
+Every later class assumes Compose + persistence. Class 3 adds networks; Class 4 adds update/rollback; Classes 5–14 drop more services into the same operational model.
 
 ## 2026 correction
 
 Use `docker compose` (Compose v2 plugin) in current environments. Old tutorials may use the standalone `docker-compose` command or obsolete schema keys. Validate against current Docker Compose documentation.
-

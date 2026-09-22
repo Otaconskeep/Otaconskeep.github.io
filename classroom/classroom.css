@@ -563,3 +563,41 @@ html:not([data-classroom-os]) .cr-os-block { display:block; }
   text-transform: uppercase;
   color: var(--cream-faint);
 }
+
+/* Learning-system sections */
+.cr-box-feynman {
+  border:1px solid rgba(224,168,60,.55);
+  background:rgba(224,168,60,.07);
+}
+.cr-box-objective { border-left:4px solid var(--signal); }
+.cr-box-why { border-left:4px solid var(--accent-bright); }
+.cr-box-prior { border-left:4px solid var(--warn); }
+.cr-box-learn { border-left:4px solid var(--cream-dim); }
+.cr-box-example { border-left:4px solid #8db3d9; }
+.cr-box-practice { border-left:4px solid var(--signal-dim); }
+.cr-box-reflect { border-left:4px solid #c9a0dc; }
+.cr-box-spiral { border-left:4px solid #39e6c8; }
+.cr-chip-feynman { background:rgba(224,168,60,.2); color:#f0c674; }
+.cr-chip-goal { background:rgba(67,217,138,.15); color:var(--signal); }
+.cr-chip-why { background:rgba(57,230,200,.12); color:var(--accent-bright); }
+.cr-chip-prior { background:rgba(224,168,60,.12); color:var(--warn); }
+.cr-chip-example { background:rgba(141,179,217,.15); color:#8db3d9; }
+.cr-chip-practice { background:rgba(67,217,138,.1); color:var(--signal); }
+.cr-chip-reflect { background:rgba(201,160,220,.15); color:#c9a0dc; }
+.cr-chip-spiral { background:rgba(57,230,200,.12); color:#39e6c8; }
+.cr-feynman-form { margin-top:14px; display:grid; gap:14px; }
+.cr-feynman-field label {
+  display:block; margin-bottom:6px; color:var(--cream); font-size:.95rem;
+}
+.cr-feynman-field textarea {
+  width:100%; box-sizing:border-box; min-height:96px; resize:vertical;
+  background:var(--surface); color:var(--cream); border:1px solid var(--line-bright);
+  border-radius:6px; padding:10px 12px; font:inherit; line-height:1.5;
+}
+.cr-feynman-field textarea:focus {
+  outline:2px solid rgba(224,168,60,.55); border-color:rgba(224,168,60,.7);
+}
+.cr-feynman-note {
+  margin:4px 0 0; color:var(--cream-dim); font-size:.88rem;
+  font-family:'JetBrains Mono',monospace;
+}

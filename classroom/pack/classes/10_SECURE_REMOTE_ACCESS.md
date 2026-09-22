@@ -1,18 +1,39 @@
 # Class 10 — Secure Remote Access Without Public Admin Panels
 
-**Lecture:** [NetworkChuck — Cloudflare Tunnel / Remote Access](https://www.youtube.com/watch?v=ey4u7OUAF3c)  
-**Time:** 150 minutes  
+**Lecture (optional):** [NetworkChuck — Cloudflare Tunnel / Remote Access](https://www.youtube.com/watch?v=ey4u7OUAF3c)
+**Time:** 150 minutes
+**Learning objective:** Given a threat model for admin UIs, the learner can choose VPN vs tunnel vs dangerous port-forward patterns, implement an authenticated remote path (or document VPN-only), and prove unauthorized denial plus rollback.
+**Bloom level:** Evaluate / Apply
 **Build output:** authenticated remote path or documented VPN alternative with denial tests
+**Mastery unlock:** ≥80% retrieval target when scored + completed Feynman teach-back + independent practice + all practical gate boxes + workbook evidence.
 
-## Security objective
+## Learning objective
+
+Given a threat model for admin UIs, the learner can choose VPN vs tunnel vs dangerous port-forward patterns, implement an authenticated remote path (or document VPN-only), and prove unauthorized denial plus rollback.
+
+## Why this matters
 
 Remote access must not mean publishing every admin interface to the internet. The objective is a narrow, authenticated path with encrypted transport, least privilege, logs, revocation, and a rollback plan.
 
-## Threat model
+## Prior-knowledge check
+
+Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+
+1. What is authentication vs authorization?
+2. Why is a raw port-forward of an admin UI risky?
+3. What does ‘deny by default’ mean?
+
+## Vocabulary
+
+_Add terms as you encounter them in Instruction._
+
+## Instruction
+
+### Threat model
 
 Assets include Home Assistant control, ARR API keys, download clients, media libraries, cameras, door controls, and internal topology. Threats include password reuse, token theft, software vulnerabilities, incorrect access policies, exposed origin ports, and session theft.
 
-## Architecture choices
+### Architecture choices
 
 ### VPN/mesh access
 
@@ -32,7 +53,7 @@ flowchart LR
 
 The tunnel encrypts and routes traffic; it does not automatically create a good authorization policy. An accidentally public hostname can still be dangerous.
 
-## Rules for this course
+### Rules for this course
 
 - Never expose qBittorrent, SABnzbd, Sonarr, Radarr, Prowlarr, Proxmox, or Docker APIs directly to the public internet.
 - Prefer VPN access for administrative tools.
@@ -41,7 +62,7 @@ The tunnel encrypts and routes traffic; it does not automatically create a good 
 - Keep origin services LAN-bound where possible.
 - Store tunnel credentials as secrets and rotate after exposure.
 
-## Cloudflare concepts
+### Cloudflare concepts
 
 | Term | Meaning |
 |---|---|
@@ -51,6 +72,63 @@ The tunnel encrypts and routes traffic; it does not automatically create a good 
 | Access policy | Identity/attribute rules that allow or deny requests |
 | Service token | Machine-to-machine credential where supported |
 | MFA | Additional authentication factor |
+
+### Reverse proxy awareness
+
+If you terminate TLS on a proxy, record host headers and whether HA `trusted_proxies` (or equivalent) is required—follow current HA docs.
+
+## Worked example
+
+**I do** — study the reasoning, not just the final answer.
+
+**Bad:** Forward port 8123/8989 to the world because “I’ll use a strong password.”
+
+**Better:** Prefer VPN or an authenticated tunnel pattern approved by the lesson; never expose download clients; prove an unauthorized client is denied; keep a rollback.
+
+## Guided practice
+
+**We do** — hints allowed. Check your reasoning against Instruction.
+
+Compare VPN vs tunnel vs reverse-proxy using the lesson’s decision table with notes open.
+
+## Independent practice
+
+**You do** — close the hints. Solve before opening the lab.
+
+Write your threat model in five bullets and the denial test you will run. Execute the denial test and record evidence.
+
+## Feynman teach-back
+
+Required. Do not skip.
+
+### Explain
+Describe **why homelab admin panels must not be casually published to the internet** in your own words. No copying the lesson verbatim.
+
+### Simplify
+Explain the same idea to a 12-year-old. If you use a technical word, define it.
+
+### Example
+Analogy: leaving your house keys in the front lawn vs a locked door with a known visitor process.
+
+### Weak spot
+What part was hard to explain? That is where your understanding is thin.
+
+### Retry
+Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
+
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+
+
+## Retrieval check
+
+Active recall — write answers without rereading first. Target ≥80% before the gate.
+
+1. Does an encrypted tunnel automatically enforce user authorization?
+2. Why are ARR admin panels poor candidates for public exposure?
+3. What is the origin service?
+4. What does fail closed mean in this lab?
+5. Why is a per-device identity better than sharing one reusable credential?
+6. What should happen when the connector stops?
 
 ## Guided lab
 
@@ -149,11 +227,9 @@ curl.exe -sI http://HA-IP:8123/
 
 5. Revoke device/identity; confirm access ends; remove test grants you no longer need.
 
-## Reverse proxy awareness
+## Break / fix
 
-If you terminate TLS on a proxy, record host headers and whether HA `trusted_proxies` (or equivalent) is required—follow current HA docs.
-
-## Break/fix and security tests
+### Break/fix and security tests
 
 1. Stop connector / disconnect VPN → external fail, LAN ok.
 
@@ -161,16 +237,15 @@ If you terminate TLS on a proxy, record host headers and whether HA `trusted_pro
 
 3. Attempt access with a second account that should be denied.
 
-## Knowledge check
+## Feedback / common mistakes
 
-1. Does an encrypted tunnel automatically enforce user authorization?
-2. Why are ARR admin panels poor candidates for public exposure?
-3. What is the origin service?
-4. What does fail closed mean in this lab?
-5. Why is a per-device identity better than sharing one reusable credential?
-6. What should happen when the connector stops?
+- Skipping evidence and calling it done.
+- Changing multiple variables before retesting.
+- Moving on without completing Feynman teach-back.
 
-## Practical gate
+## Practical mastery gate
+
+All boxes must be true before the next class unlocks. If you fail: feedback → targeted review → new practice → reassess.
 
 - [ ] One documented remote-access pattern is selected.
 - [ ] MFA or equivalent strong identity control protects human access.
@@ -179,8 +254,26 @@ If you terminate TLS on a proxy, record host headers and whether HA `trusted_pro
 - [ ] Connector/device revocation is demonstrated.
 - [ ] No direct public ARR/downloader/Proxmox port exists.
 - [ ] Rollback removes the external path without breaking local use.
+- [ ] Prior-knowledge check answered
+- [ ] Feynman teach-back completed (Explain, Simplify, Example, Weak spot, Retry)
+- [ ] Independent practice completed
+- [ ] Retrieval check attempted (target ≥80% when scored)
+- [ ] Evidence recorded in workbook / verification matrix
+
+## Reflection
+
+What remote path did you choose, what did you explicitly refuse to expose, and what denial evidence do you have?
+
+Also answer:
+
+1. What did I learn?
+2. What did I struggle with?
+3. How does this connect to earlier classes?
+
+## Spiral hook
+
+Voice satellites and n8n webhooks inherit this boundary. If Class 10 is weak, later ‘convenience’ features become attack surface.
 
 ## 2026 correction
 
 Provider dashboards, policy syntax, and product names change. Use current official Cloudflare or selected VPN documentation. The security requirements—narrow exposure, explicit identity, denial testing, revocation, and fail-closed behavior—remain the authority.
-

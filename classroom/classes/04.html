@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260921o">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922a">
 </head>
 <body>
 
@@ -46,6 +46,8 @@
  <div class="wrap">
  <a href="/classroom/">Academy</a>
  <a href="/classroom/classes/">Classes</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
  <a href="/classroom/workbook.html">Workbook</a>
  <a href="/classroom/final-exam.html">Capstone</a>
  <a href="/classroom/references/">References</a>
@@ -58,7 +60,7 @@
  <div class="stamp">CLASS 04<small>unit 1 · infrastructure</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
  <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Container operations</h1>
- <p class="lede">Guided lab, break/fix, quiz, and practical gate. Prefer current official docs linked in References.</p>
+ <p class="lede">Full learning cycle with mandatory Feynman teach-back, retrieval practice, lab, and mastery gate. Prefer current official docs in References.</p>
  <div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>
  <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
@@ -68,13 +70,30 @@
 </div>
 
 <div class="wrap">
- 
- <div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Purpose</h3></div><div class="cr-help">
+ <div class="cr-box"><h3>Before you start</h3><p><strong>Learning objective:</strong> Given a running Compose service, the learner can inspect health and logs, perform a controlled image update, and roll back to a known-good state with evidence.<br />
+<strong>Bloom level:</strong> Apply / Evaluate<br />
+<strong>Mastery unlock:</strong> ≥80% retrieval target when scored + completed Feynman teach-back + independent practice + all practical gate boxes + workbook evidence.</p></div>
+ <div class="cr-box cr-box-objective"><div class="cr-box-head"><span class="cr-chip cr-chip-goal">Objective</span><h3>Learning objective</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the finish line for the class — a task you should be able to do, not a vague &#x27;understand.&#x27;</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If you cannot restate it as something you can perform, you are not ready for the gate.</div>
+</div><div class="cr-prose-block"><p>Given a running Compose service, the learner can inspect health and logs, perform a controlled image update, and roll back to a known-good state with evidence.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-why"><div class="cr-box-head"><span class="cr-chip cr-chip-why">Why it matters</span><h3>Why this matters</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This gives you a reason to care before the theory. Context first, then details.</div>
  
 </div><div class="cr-prose-block"><p>The lecture demonstrates Docker's breadth. This class turns that inspiration into engineering discipline: selecting appropriate workloads, understanding state, observing health, updating safely, backing up configuration, and recovering from a failed change.</p><div class="cr-help">
  <div class="cr-actions">
@@ -84,21 +103,56 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Workload classification</h3></div><div class="cr-help">
+<div class="cr-box cr-box-prior"><div class="cr-box-head"><span class="cr-chip cr-chip-prior">Prior check</span><h3>Prior-knowledge check</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Warm up your brain. Wrong answers are useful — they show what to review.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Do not skip ahead. Activation makes the lesson stick.</div>
+</div><div class="cr-prose-block"><p>Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Answer briefly before reading Instruction.</div>
  
-</div><div class="cr-prose-block"><p>Before deploying an image, classify it:</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><ol>
+<li>What is the difference between desired state and observed state?</li>
+<li>Where do container logs go by default?</li>
+<li>Why is <code>:latest</code> risky for a service you care about?</li>
+</ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Before deploying an image, classify it:</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
  
-</div></div><div class="cr-prose-block"><table>
+</div></div></div>
+<div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><p><em>Add terms as you encounter them in Instruction.</em></p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: _Add terms as you encounter them in Instruction._</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><h4>Workload classification</h4><p>Before deploying an image, classify it:</p>
+<table>
 <thead>
 <tr>
 <th>Question</th>
@@ -135,41 +189,21 @@
 <td>Prevents “container running” from being mistaken for service working</td>
 </tr>
 </tbody>
-</table><div class="cr-help">
+</table>
+<p>Containers package processes. They do not remove systems-engineering responsibilities.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
-</div></div><div class="cr-prose-block"><p>Containers package processes. They do not remove systems-engineering responsibilities.</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Containers package processes.</div>
- 
-</div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Desired state and observed state</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Compose says what should run. Commands and tests show what is actually running.</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Compose says what should run.</div>
- 
-</div></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
-flowchart LR<br />
-    D["Desired state"] --&gt; R["Reconcile"]<br />
-    R --&gt; O["Observed state"]<br />
-    O --&gt; T["Test"]<br />
-    T --&gt;|"fail"| D</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
+</div></div><div class="cr-prose-block"><h4>Desired state and observed state</h4><p>Compose says what should run. Commands and tests show what is actually running.</p>
+<pre><code class="language-text">flowchart LR
+    D[&quot;Desired state&quot;] --&gt; R[&quot;Reconcile&quot;]
+    R --&gt; O[&quot;Observed state&quot;]
+    O --&gt; T[&quot;Test&quot;]
+    T --&gt;|&quot;fail&quot;| D
+</code></pre>
 <p>A container can be “Up” while the application is deadlocked, unable to reach its database, or serving an error page. Use layered signals:</p>
 <ul>
 <li>Docker state and restart count.</li>
@@ -178,15 +212,64 @@ flowchart LR<br />
 <li>Local HTTP/API probe.</li>
 <li>Dependency tests.</li>
 <li>User-level transaction.</li>
-</ul></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Image trust and versioning</h3></div><div class="cr-help">
+</ul><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
  
-</div><div class="cr-prose-block"><p>Record image source, tag, digest when appropriate, upstream project, release notes, and last-known-good version. <code>latest</code> is a moving pointer, not a release policy. Before updates, capture configuration backup and current version, then change one service or dependency group at a time.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Image trust and versioning</h4><p>Record image source, tag, digest when appropriate, upstream project, release notes, and last-known-good version. <code>latest</code> is a moving pointer, not a release policy. Before updates, capture configuration backup and current version, then change one service or dependency group at a time.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Logs and resource observation</h4><p>Useful commands:</p>
+<pre><code class="language-bash">docker compose ps
+docker compose logs --since=10m SERVICE
+docker inspect CONTAINER
+docker stats --no-stream
+docker system df
+</code></pre>
+<p>Do not treat all warnings as faults. Tie logs to the test time and symptom. Redact tokens, API keys, cookies, internal hostnames, and personal media names before sharing.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>ARR operational contract</h4><p>For every later service, record the same fields. This turns containers into an operable system.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: For every later service, record the same fields.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-example"><div class="cr-box-head"><span class="cr-chip cr-chip-example">I do</span><h3>Worked example</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> I do: watch the bad → better reasoning. Steal the thinking, not just the answer.</div>
+ 
+</div><div class="cr-prose-block"><p><strong>I do</strong> — study the reasoning, not just the final answer.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **I do** — study the reasoning, not just the final answer.</div>
+ 
+</div></div><div class="cr-prose-block"><p><strong>Bad ops:</strong> <code>docker compose pull &amp;&amp; up -d</code> on Friday night with no backup and no pin.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><p><strong>Better:</strong> Record current image digest/tag → backup config volume → change one variable → observe health/logs → keep a rollback tag ready.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -194,28 +277,100 @@ flowchart LR<br />
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Logs and resource observation</h3></div><div class="cr-help">
+<div class="cr-box cr-box-practice"><div class="cr-box-head"><span class="cr-chip cr-chip-practice">Practice</span><h3>Guided practice</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> We do: try with hints. Compare your reasoning to the lesson.</div>
  
-</div><div class="cr-prose-block"><p>Useful commands:</p><div class="cr-help">
+</div><div class="cr-prose-block"><p><strong>We do</strong> — hints allowed. Check your reasoning against Instruction.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Useful commands:</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **We do** — hints allowed.</div>
  
-</div></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
-docker compose ps<br />
-docker compose logs --since=10m SERVICE<br />
-docker inspect CONTAINER<br />
-docker stats --no-stream<br />
-docker system df</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
-<p>Do not treat all warnings as faults. Tie logs to the test time and symptom. Redact tokens, API keys, cookies, internal hostnames, and personal media names before sharing.</p></div></div>
-<div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab — safe update and rollback</h3></div><div class="cr-help">
+</div></div><div class="cr-prose-block"><p>Walk the update checklist in the lab with notes open. Mark which step produces rollback evidence.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Walk the update checklist in the lab with notes open.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-practice"><div class="cr-box-head"><span class="cr-chip cr-chip-practice">Practice</span><h3>Independent practice</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You do: close the hints. Struggle is part of learning.</div>
+ 
+</div><div class="cr-prose-block"><p><strong>You do</strong> — close the hints. Solve before opening the lab.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **You do** — close the hints.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Write a one-page runbook for <em>one</em> service: health check, log command, update steps, rollback steps, and when not to update.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-feynman" id="feynman"><div class="cr-box-head"><span class="cr-chip cr-chip-feynman">Teach it back</span><h3>Feynman teach-back — required</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If you cannot explain it simply, you do not own it yet. This section is required for mastery.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Weak spots are gold — restudy that part and rewrite.</div>
+</div><div class="cr-prose-block"><p>Required. Do not skip.</p>
+<h3>Explain</h3>
+<p>Describe <strong>how to update a containerized service without gambling the whole lab</strong> in your own words. No copying the lesson verbatim.</p>
+<h3>Simplify</h3>
+<p>Explain the same idea to a 12-year-old. If you use a technical word, define it.</p>
+<h3>Example</h3>
+<p>Analogy: changing a tire with the spare already checked, versus swapping parts until the car starts.</p>
+<h3>Weak spot</h3>
+<p>What part was hard to explain? That is where your understanding is thin.</p>
+<h3>Retry</h3>
+<p>Return to that part of <strong>Instruction</strong>, restudy it, then rewrite a clearer explanation below.</p>
+<blockquote>
+<p>Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.</p>
+</blockquote></div><div class="cr-feynman-form" data-feynman-form="04"><div class="cr-feynman-field"><label for="fy-04-explain"><strong>Explain</strong> — Describe today&#x27;s concept in your own words.</label><textarea id="fy-04-explain" data-feynman-id="04" data-feynman-field="explain" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-04-simplify"><strong>Simplify</strong> — Explain it to a 12-year-old. Define any jargon.</label><textarea id="fy-04-simplify" data-feynman-id="04" data-feynman-field="simplify" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-04-example"><strong>Example</strong> — Give your own real-world analogy or example.</label><textarea id="fy-04-example" data-feynman-id="04" data-feynman-field="example" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-04-weak"><strong>Weak spot</strong> — What part could you not explain clearly?</label><textarea id="fy-04-weak" data-feynman-id="04" data-feynman-field="weak" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-04-retry"><strong>Retry</strong> — Restudy that section and rewrite a clearer explanation.</label><textarea id="fy-04-retry" data-feynman-id="04" data-feynman-field="retry" rows="4" placeholder="Write here…"></textarea></div><p class="cr-feynman-note">Answers save in this browser (localStorage). Completing all five fields is part of the mastery unlock.</p></div></div>
+<div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Retrieval check</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Write from memory first. Retrieval beats rereading.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Target about 80% before the practical gate.</div>
+</div><div class="cr-prose-block"><p>Active recall — write answers without rereading first. Target ≥80% before the gate.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Active recall — write answers without rereading first.</div>
+ 
+</div></div><div class="cr-prose-block"><ol>
+<li>Why is “container is Up” insufficient evidence?</li>
+<li>What is authoritative data?</li>
+<li>Why is <code>latest</code> a weak rollback record?</li>
+<li>What should be captured before an update?</li>
+<li>Why can <code>docker system prune --volumes</code> be destructive?</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
@@ -365,38 +520,26 @@ rollback procedure: restore compose.yaml.bak -&gt; pull -&gt; up -d -&gt; test
 </div>
  </div>
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>ARR operational contract</h3></div><div class="cr-help">
+<div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break / fix</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>For every later service, record the same fields. This turns containers into an operable system.</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: For every later service, record the same fields.</div>
- 
-</div></div></div>
-<div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix scenarios</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Break one piece, watch the failure, then repair it. That is how you learn diagnosis.</div>
- 
-</div><div class="cr-prose-block"><p>Run with commands; change only one variable at a time.</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run with commands; change only one variable at a time.</div>
- 
-</div></div><div class="cr-prose-block"><ul>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Break one thing on purpose, watch the failure, then repair it.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one variable at a time.</div>
+</div><div class="cr-break-card"><h4>Break/fix scenarios</h4><p>Run with commands; change only one variable at a time.</p>
+<ul>
 <li><strong>Restart loop:</strong> <code>docker compose ps</code> + <code>docker inspect --format '{{.State.ExitCode}} {{.State.Error}}' CID</code> + first error in <code>logs</code>.</li>
 <li><strong>Port conflict:</strong></li>
+</ul>
+<div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">netstat -ano | findstr :8080
+</code></pre></div>
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">ss -lntp | grep 8080 || sudo lsof -i :8080
+</code></pre></div>
+<ul>
+<li><strong>Disk pressure:</strong> <code>docker system df</code> and host <code>df -h</code> / PowerShell <code>Get-PSDrive</code>. Do <strong>not</strong> run <code>docker system prune --volumes</code> casually.</li>
+<li><strong>Permission denied:</strong> inspect mount UID/GID and mode.</li>
+<li><strong>Update regression:</strong> restore last-known-good tag from step 1.</li>
 </ul><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -404,47 +547,28 @@ rollback procedure: restore compose.yaml.bak -&gt; pull -&gt; up -d -&gt; test
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
  
-</div></div><div class="cr-prose-block"><p>:::windows</p><div class="cr-help">
+</div></div></div>
+<div class="cr-box cr-box-trouble"><div class="cr-box-head"><span class="cr-chip cr-chip-fix">Fix chart</span><h3>Feedback / common mistakes</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: :::windows</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These are the traps other students fall into. Check yourself against the list.</div>
  
-</div></div><div class="cr-prose-block cr-prose-code"><p>```powershell<br />
-netstat -ano | findstr :8080</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
-:::</p>
-<p>:::linux</p></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
-ss -lntp | grep 8080 || sudo lsof -i :8080</p></div><div class="cr-prose-block cr-prose-code"><p>```<br />
-:::</p>
-<ul>
-<li><strong>Disk pressure:</strong> <code>docker system df</code> and host <code>df -h</code> / PowerShell <code>Get-PSDrive</code>. Do <strong>not</strong> run <code>docker system prune --volumes</code> casually.</li>
-<li><strong>Permission denied:</strong> inspect mount UID/GID and mode.</li>
-<li><strong>Update regression:</strong> restore last-known-good tag from step 1.</li>
-</ul></div></div>
-<div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Knowledge check</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Answer in your own words without looking first. This proves you understand, not that you can copy.</div>
- <div class="cr-panel more" hidden><strong>More detail:</strong> If you miss one, re-read that section and try again before the gate.</div>
-</div><div class="cr-prose-block"><ol>
-<li>Why is “container is Up” insufficient evidence?</li>
-<li>What is authoritative data?</li>
-<li>Why is <code>latest</code> a weak rollback record?</li>
-<li>What should be captured before an update?</li>
-<li>Why can <code>docker system prune --volumes</code> be destructive?</li>
-</ol><div class="cr-help">
+</div><div class="cr-prose-block"><ul>
+<li>Skipping evidence and calling it done.</li>
+<li>Changing multiple variables before retesting.</li>
+<li>Moving on without completing Feynman teach-back.</li>
+</ul><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Skipping evidence and calling it done.</div>
  
 </div></div></div>
 <div class="cr-check" data-check-id="gate-04">
- <div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical gate — pass before you continue</h3></div>
+ <div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical mastery gate — pass before you continue</h3></div>
  <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -495,9 +619,92 @@ ss -lntp | grep 8080 || sudo lsof -i :8080</p></div><div class="cr-prose-block c
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Logs shared as evidence contain no secrets.)</div>
  
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="6"> <span>Prior-knowledge check answered</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Prior-knowledge check answered)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="7"> <span>Feynman teach-back completed (Explain, Simplify, Example, Weak spot, Retry)</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Feynman teach-back completed (Explain, Simplify, Example, Weak spot, Retry))</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="8"> <span>Independent practice completed</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Independent practice completed)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="9"> <span>Retrieval check attempted (target ≥80% when scored)</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Retrieval check attempted (target ≥80% when scored))</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="10"> <span>Evidence recorded in workbook / verification matrix</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Evidence recorded in workbook / verification matrix)</div>
+ 
 </div></div>
- <div class="cr-gate">All boxes true → continue to the next class</div>
+ <div class="cr-gate">Mastery unlock: all boxes true + Feynman complete → continue to the next class</div>
 </div>
+<div class="cr-box cr-box-reflect"><div class="cr-box-head"><span class="cr-chip cr-chip-reflect">Reflect</span><h3>Reflection</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Name what you learned, where you struggled, and how it connects backward and forward.</div>
+ 
+</div><div class="cr-prose-block"><p>What would you refuse to update without a backup, and what evidence proves your rollback works?</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Also answer:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Also answer:</div>
+ 
+</div></div><div class="cr-prose-block"><ol>
+<li>What did I learn?</li>
+<li>What did I struggle with?</li>
+<li>How does this connect to earlier classes?</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-spiral"><div class="cr-box-head"><span class="cr-chip cr-chip-spiral">Spiral</span><h3>Spiral hook</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This skill will return later. Knowing the hook helps you notice it when it does.</div>
+ 
+</div><div class="cr-prose-block"><p>You will use this runbook mindset for ARR profile changes (6–7), HA backups (8), remote access changes (10), voice model swaps (12), and n8n workflow edits (14).</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
+ 
+</div></div></div>
 <div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>2026 correction</strong></div><p>Novel container examples age quickly. Use the lecture to understand deployment possibilities, then verify maintenance status, image provenance, architecture support, licenses, and security guidance before adopting any showcased project.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -515,5 +722,5 @@ ss -lntp | grep 8080 || sudo lsof -i :8080</p></div><div class="cr-prose-block c
  <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
  </div>
 </footer>
-<script src="/classroom/classroom.js?v=20260921o"></script>
+<script src="/classroom/classroom.js?v=20260922a"></script>
 </body></html>
