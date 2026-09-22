@@ -6,7 +6,7 @@ This course is a **learning system**, not a pile of readings, labs, and exams.
 
 **Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review**
 
-The Feynman Technique is a **required** section in every class — not an optional study tip.
+The Feynman Technique is a **required** section in every lesson — not an optional study tip.
 
 ## Whole-course architecture
 
@@ -41,13 +41,13 @@ We start with: **What should the student be capable of doing when this course is
 
 Working backward produces the modules:
 
-| Module | Classes | Capability unlocked |
+| Module | Topics | Capability unlocked |
 |---|---|---|
-| 1 — Infrastructure | 1–4, 15 | Virtualize, compose, network, operate, and address hosts |
-| 2 — ARR media | 5–7 | Request → search → download → import with quality policy |
-| 3 — Home Assistant | 8–10 | Entities, automations, and secure remote access |
-| 4 — Local voice | 11–13 | Stage-by-stage local STT/TTS to private speaker |
-| 5 — Workflow automation | 14 | n8n digests and approval-gated agent actions |
+| 1 — Infrastructure | virtualization, compose, networking, ops, IPv4 | Virtualize, compose, network, operate, and address hosts |
+| 2 — ARR media | prowlarr flow, TRaSH profiles, config automation | Request → search → download → import with quality policy |
+| 3 — Home Assistant | foundations, automations, secure remote | Entities, automations, and secure remote access |
+| 4 — Local voice | architecture, Whisper/Piper, private speaker | Stage-by-stage local STT/TTS to private speaker |
+| 5 — Workflow automation | n8n guarded automation | n8n digests and approval-gated agent actions |
 | Capstone | Final | End-to-end verification matrix |
 
 ## Module learning cycle
@@ -56,33 +56,36 @@ Every module (and every class) follows:
 
 **Orient → Recall → Learn → Demonstrate → Guided Practice → Independent Practice → Feynman → Apply → Assess → Feedback → Reflect**
 
-## Lesson template (required sections)
+## Module organization (how topics are filed)
 
-Every class markdown and HTML page uses this order:
+The curriculum is **module-first** under `pack/modules/`. Each topic is split into separate activities:
+
+| Activity | File | Chain role |
+|---|---|---|
+| Reading | `reading.md` | Learn (instruction, vocab, worked example) |
+| Lesson | `lesson.md` | Orient / prior check / guided practice / **Feynman** / reflect |
+| Lab | `lab.md` | Practice (guided lab + break/fix + lab gate) |
+| Homework | `homework.md` | Apply independently with evidence |
+| Quiz | `quiz.md` | Test / retrieval (≥80% target) |
+
+Each module also has `project.md`, `module-quiz.md`, `exam.md`, and `remediation.md`.
+
+## Lesson template (required inside every topic lesson)
 
 1. **Learning objective** — measurable Bloom verb (not “understand”)
-2. **Why this matters** — reason to care before theory
-3. **Prior-knowledge check** — 2–5 activation questions
-4. **Vocabulary** — terms linked to the objective
-5. **Instruction** — one major concept (or tightly related group)
-6. **Worked example** — I do (bad → better with reasoning)
-7. **Guided practice** — We do (hints allowed)
-8. **Independent practice** — You do (hints removed)
-9. **Feynman teach-back** — mandatory Explain / Simplify / Example / Weak spot / Retry
-10. **Retrieval check** — 3–7 active-recall questions
-11. **Guided lab** — realistic build with OS-specific commands
-12. **Break / fix** — failure modes and recovery
-13. **Common mistakes / feedback** — targeted correction
-14. **Practical mastery gate** — checklist; unlock next class only when complete
-15. **Reflection** — learn / struggle / connect
-16. **Spiral hook** — where this concept returns later
-17. **Current correction** — docs/tooling that change over time
+2. **Why this matters**
+3. **Prior-knowledge check**
+4. **Learn** — complete the topic Reading
+5. **Guided practice** — We do
+6. **Feynman teach-back** — mandatory Explain / Simplify / Example / Weak spot / Retry
+7. **Reflection** + **Spiral hook**
+8. Then complete separate **Lab → Homework → Quiz**
 
 Pattern inside practice: **I do → We do → You do**.
 
 ## Feynman checkpoint (mandatory)
 
-Every class includes **Teach it back**:
+Every lesson includes **Teach it back**:
 
 | Step | Prompt |
 |---|---|

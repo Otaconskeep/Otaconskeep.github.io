@@ -59,7 +59,7 @@
  <section class="hero flush">
  <p class="tag">Methodology</p>
  <h1 class="display" style="font-size:clamp(1.9rem,5vw,3rem);">Learning methodology</h1>
- <p class="lede">Backward Design, Bloom, Feynman, modules with reading/lab/homework/quiz.</p>
+ <p class="lede">Module-first: reading, lesson/Feynman, lab, homework, quiz.</p>
  </section>
 </div>
 <div class="wrap">
@@ -78,12 +78,12 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review**</div>
  
-</div></div><div class="cr-prose-block"><p>The Feynman Technique is a <strong>required</strong> section in every class — not an optional study tip.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><p>The Feynman Technique is a <strong>required</strong> section in every lesson — not an optional study tip.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The Feynman Technique is a **required** section in every class — not an optional study tip.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The Feynman Technique is a **required** section in every lesson — not an optional study tip.</div>
  
 </div></div></div>
 <div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Whole-course architecture</h3></div><div class="cr-help">
@@ -207,34 +207,34 @@
 <thead>
 <tr>
 <th>Module</th>
-<th>Classes</th>
+<th>Topics</th>
 <th>Capability unlocked</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>1 — Infrastructure</td>
-<td>1–4, 15</td>
+<td>virtualization, compose, networking, ops, IPv4</td>
 <td>Virtualize, compose, network, operate, and address hosts</td>
 </tr>
 <tr>
 <td>2 — ARR media</td>
-<td>5–7</td>
+<td>prowlarr flow, TRaSH profiles, config automation</td>
 <td>Request → search → download → import with quality policy</td>
 </tr>
 <tr>
 <td>3 — Home Assistant</td>
-<td>8–10</td>
+<td>foundations, automations, secure remote</td>
 <td>Entities, automations, and secure remote access</td>
 </tr>
 <tr>
 <td>4 — Local voice</td>
-<td>11–13</td>
+<td>architecture, Whisper/Piper, private speaker</td>
 <td>Stage-by-stage local STT/TTS to private speaker</td>
 </tr>
 <tr>
 <td>5 — Workflow automation</td>
-<td>14</td>
+<td>n8n guarded automation</td>
 <td>n8n digests and approval-gated agent actions</td>
 </tr>
 <tr>
@@ -273,38 +273,86 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **Orient → Recall → Learn → Demonstrate → Guided Practice → Independent Practice → Feynman → Apply → Assess → Feedback → Reflect**</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Lesson template (required sections)</h3></div><div class="cr-help">
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Module organization (how topics are filed)</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>The curriculum is <strong>module-first</strong> under <code>pack/modules/</code>. Each topic is split into separate activities:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The curriculum is **module-first** under this setting.</div>
+ 
+</div></div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>File</th>
+<th>Chain role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reading</td>
+<td><code>reading.md</code></td>
+<td>Learn (instruction, vocab, worked example)</td>
+</tr>
+<tr>
+<td>Lesson</td>
+<td><code>lesson.md</code></td>
+<td>Orient / prior check / guided practice / <strong>Feynman</strong> / reflect</td>
+</tr>
+<tr>
+<td>Lab</td>
+<td><code>lab.md</code></td>
+<td>Practice (guided lab + break/fix + lab gate)</td>
+</tr>
+<tr>
+<td>Homework</td>
+<td><code>homework.md</code></td>
+<td>Apply independently with evidence</td>
+</tr>
+<tr>
+<td>Quiz</td>
+<td><code>quiz.md</code></td>
+<td>Test / retrieval (≥80% target)</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Each module also has <code>project.md</code>, <code>module-quiz.md</code>, <code>exam.md</code>, and <code>remediation.md</code>.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Each module also has this setting, this setting, this setting, and this setting.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Lesson template (required inside every topic lesson)</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching part. Read it slowly. The lab comes next so you can try the idea with your hands.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a paragraph feels dense, tap What this means under that block.</div>
-</div><div class="cr-prose-block"><p>Every class markdown and HTML page uses this order:</p><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Every class markdown and HTML page uses this order:</div>
- 
-</div></div><div class="cr-prose-block"><ol>
+</div><div class="cr-prose-block"><ol>
 <li><strong>Learning objective</strong> — measurable Bloom verb (not “understand”)</li>
-<li><strong>Why this matters</strong> — reason to care before theory</li>
-<li><strong>Prior-knowledge check</strong> — 2–5 activation questions</li>
-<li><strong>Vocabulary</strong> — terms linked to the objective</li>
-<li><strong>Instruction</strong> — one major concept (or tightly related group)</li>
-<li><strong>Worked example</strong> — I do (bad → better with reasoning)</li>
-<li><strong>Guided practice</strong> — We do (hints allowed)</li>
-<li><strong>Independent practice</strong> — You do (hints removed)</li>
+<li><strong>Why this matters</strong></li>
+<li><strong>Prior-knowledge check</strong></li>
+<li><strong>Learn</strong> — complete the topic Reading</li>
+<li><strong>Guided practice</strong> — We do</li>
 <li><strong>Feynman teach-back</strong> — mandatory Explain / Simplify / Example / Weak spot / Retry</li>
-<li><strong>Retrieval check</strong> — 3–7 active-recall questions</li>
-<li><strong>Guided lab</strong> — realistic build with OS-specific commands</li>
-<li><strong>Break / fix</strong> — failure modes and recovery</li>
-<li><strong>Common mistakes / feedback</strong> — targeted correction</li>
-<li><strong>Practical mastery gate</strong> — checklist; unlock next class only when complete</li>
-<li><strong>Reflection</strong> — learn / struggle / connect</li>
-<li><strong>Spiral hook</strong> — where this concept returns later</li>
-<li><strong>Current correction</strong> — docs/tooling that change over time</li>
+<li><strong>Reflection</strong> + <strong>Spiral hook</strong></li>
+<li>Then complete separate <strong>Lab → Homework → Quiz</strong></li>
 </ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -327,7 +375,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> If you cannot explain it simply, you do not own it yet. This section is required for mastery.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> Weak spots are gold — restudy that part and rewrite.</div>
-</div><div class="cr-prose-block"><p>Every class includes <strong>Teach it back</strong>:</p>
+</div><div class="cr-prose-block"><p>Every lesson includes <strong>Teach it back</strong>:</p>
 <table>
 <thead>
 <tr>
