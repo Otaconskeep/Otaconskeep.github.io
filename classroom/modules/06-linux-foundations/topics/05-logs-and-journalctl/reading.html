@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05-logs-and-journalctl — Reading · Classroom</title>
+<meta name="description" content="05-logs-and-journalctl — Reading">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/06-linux-foundations/topics/05-logs-and-journalctl/reading.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M6 READING<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M6 READING<small>reading</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 05-logs-and-journalctl — Reading</h1>
+ <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ 
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Linux Foundations<br />
+<strong>Activity type:</strong> Reading (Learn)<br />
+<strong>Objective:</strong> Explain the relationship between applications, systemd units, systemd-journald, and journalctl.</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>journal</td>
+<td>The structured event store managed by systemd-journald.</td>
+</tr>
+<tr>
+<td>systemd-journald</td>
+<td>The system service that receives, enriches, stores, and forwards journal records.</td>
+</tr>
+<tr>
+<td>journalctl</td>
+<td>The command-line tool used to query and display records from the systemd journal.</td>
+</tr>
+<tr>
+<td>unit</td>
+<td>A systemd-managed object, such as a service, socket, mount, timer, or target, that may be associated with journal records.</td>
+</tr>
+<tr>
+<td>boot ID</td>
+<td>A unique identifier assigned to one system boot, allowing journal records to be grouped by boot.</td>
+</tr>
+<tr>
+<td>priority</td>
+<td>The syslog severity associated with a record, ranging numerically from 0 for emergency through 7 for debug.</td>
+</tr>
+<tr>
+<td>field match</td>
+<td>A journal query that selects records whose structured metadata contains a particular field and value.</td>
+</tr>
+<tr>
+<td>cursor</td>
+<td>An opaque identifier that marks a specific location in the journal and can be used to resume reading.</td>
+</tr>
+<tr>
+<td>volatile journal</td>
+<td>Journal data kept under runtime storage and normally lost when the system reboots.</td>
+</tr>
+<tr>
+<td>persistent journal</td>
+<td>Journal data stored on persistent local storage so that records can remain available across boots.</td>
+</tr>
+<tr>
+<td>vacuum</td>
+<td>A journal maintenance operation that removes archived journal data according to a size, age, or file-count limit.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div><div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>Linux troubleshooting depends on evidence, and the system journal is one of the most important evidence sources on a systemd-based host. systemd-journald receives records from several sources, including service standard output and standard error, native journal clients, kernel messages, and compatible logging interfaces. It stores more than a line of text: a record can also contain timestamps, process identifiers, user identifiers, executable paths, systemd unit names, boot identifiers, transport information, and priority. journalctl is the query tool for this structured data.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Linux troubleshooting depends on evidence, and the system journal is one of the most important evidence sources on a systemd-based host.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Running journalctl without filters may produce far more information than needed. A good investigation narrows scope deliberately. Start with the relevant boot by using -b. Restrict the source with -u followed by a unit name. Restrict time with --since and --until. Restrict severity with -p. For example, -p warning includes warning and all more severe priorities, not only records labeled warning. The standard numeric priority order is 0 emergency, 1 alert, 2 critical, 3 error, 4 warning, 5 notice, 6 informational, and 7 debug. Lower numbers represent greater severity.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Running journalctl without filters may produce far more information than needed.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Time context matters. A failure seen today may belong to the current boot, while a startup failure from yesterday may be stored under an earlier boot. journalctl --list-boots shows known boots when the required data exists. The current boot can be selected with -b 0 or simply -b. Previous boots can commonly be addressed with negative offsets such as -b -1, but previous records will not be available if the host only keeps a volatile journal or if retention has removed them.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Time context matters.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Output format should match the task. Human-readable formats such as short-iso make chronological review convenient. Verbose output exposes all fields associated with each selected record. JSON output is useful for scripts because each record is represented as structured data rather than an ambiguous display line. Exported records can contain hostnames, usernames, process arguments, internal addresses, authentication events, application data, or secrets accidentally written by software. Treat exported files as sensitive evidence and use restrictive permissions.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD.</div>
+ 
+</div></div><div class="cr-prose-block"><p>The journal is not automatically proof of root cause. A warning near a failure may be unrelated, an application may omit useful details, and clocks can be inaccurate. Correlate timestamps, units, process identifiers, boot IDs, and surrounding events. Begin with a narrow hypothesis, broaden the time window if necessary, and record the exact query used. Avoid jumping directly to destructive maintenance operations. Reading, filtering, and exporting evidence should come before retention changes or journal cleanup.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The journal is not automatically proof of root cause.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Access differs among distributions. An unprivileged user may see only records associated with that user, while administrative access may expose the system journal. An empty result can therefore mean that no records matched, that old records were not retained, or that the current account cannot read them. Distinguish these possibilities before concluding that a service produced no logs.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Access differs among distributions.</div>
+ 
+</div></div></div><div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>flow</h3>
+<p>The kernel, services, applications, and compatible logging interfaces emit events.<br />
+systemd-journald receives events and adds structured metadata.<br />
+Journal records are stored in volatile or persistent storage according to host configuration.<br />
+journalctl reads journal files and applies boot, unit, time, priority, and field filters.<br />
+Administrators inspect terminal output or export selected records into protected evidence files.</p>
+<h3>key_components</h3>
+<h3>component</h3>
+<p>Event producers</p>
+<h3>role</h3>
+<p>Kernel and user-space processes that emit messages.</p>
+<h3>component</h3>
+<p>systemd-journald</p>
+<h3>role</h3>
+<p>Collects records, attaches metadata, manages storage, and may forward events.</p>
+<h3>component</h3>
+<p>Journal storage</p>
+<h3>role</h3>
+<p>Maintains indexed binary journal records subject to access and retention policy.</p>
+<h3>component</h3>
+<p>journalctl</p>
+<h3>role</h3>
+<p>Queries records and renders them in human-readable or machine-readable formats.</p>
+<h3>component</h3>
+<p>Lab evidence directory</p>
+<h3>role</h3>
+<p>Stores only the learner's exported, read-only observations under /opt/lab-classroom/class20/.</p>
+<h3>query_model</h3>
+<p>A useful query combines a time or boot boundary with one or more source and severity selectors. The result should then be inspected in a format appropriate to either human review or machine processing.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Read the local journalctl manual with: man journalctl</li>
+<li>Read the local systemd-journald manual with: man systemd-journald</li>
+<li>Read the local journald configuration manual with: man journald.conf</li>
+<li>Review the local systemd journal fields reference with: man systemd.journal-fields</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Read the local journalctl manual with: man journalctl
+- Read the local systemd-journald manual with: man systemd-journald
+- Read the local journald configu…</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>journalctl(1), local system manual page</li>
+<li>systemd-journald.service(8), local system manual page</li>
+<li>journald.conf(5), local system manual page</li>
+<li>systemd.journal-fields(7), local system manual page</li>
+<li>systemd journalctl documentation: https://www.freedesktop.org/software/systemd/man/latest/journalctl.html</li>
+<li>systemd-journald documentation: https://www.freedesktop.org/software/systemd/man/latest/systemd-journald.service.html</li>
+<li>Journal field documentation: https://www.freedesktop.org/software/systemd/man/latest/systemd.journal-fields.html</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - journalctl(1), local system manual page
+- systemd-journald.service(8), local system manual page
+- journald.conf(5), local system manual page
+- systemd.jour…</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="/classroom/modules/06-linux-foundations/">← Module hub</a><a href="lesson.html">Lesson →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

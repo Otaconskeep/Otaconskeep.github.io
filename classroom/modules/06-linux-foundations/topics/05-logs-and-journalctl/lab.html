@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05-logs-and-journalctl — Lab · Classroom</title>
+<meta name="description" content="05-logs-and-journalctl — Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/06-linux-foundations/topics/05-logs-and-journalctl/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M6 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M6 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 05-logs-and-journalctl — Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Linux Foundations<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain the relationship between applications, systemd units, systemd-journald, and journalctl.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Basic Linux command-line navigation</li>
+<li>Familiarity with services and systemd units</li>
+<li>A Linux host or virtual machine using systemd and systemd-journald</li>
+<li>Permission to read at least the current user's journal entries</li>
+<li>An existing writable directory at /opt/lab-classroom/class20/</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>name</h4><p>Build a Read-Only Journal Evidence Set</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Build a Read-Only Journal Evidence Set</div>
+ 
+</div></div><div class="cr-lab-path"><h4>constraints</h4><p>Run all commands from a single shell session.<br />
+Do not change journal configuration, restart services, rotate journals, or remove journal data.<br />
+All files created or changed by this lab must remain under /opt/lab-classroom/class20/.<br />
+The journal commands in this lab are read-only; shell redirection creates only the specified evidence files.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run all commands from a single shell session.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Confirm that the classroom directory already exists, is the expected path, and is writable. Stop if any check fails.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Confirm that the classroom directory already exists, is the expected path, and is writable.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cd /opt/lab-classroom/class20/ &amp;&amp; test "$(pwd -P)" = "/opt/lab-classroom/class20" &amp;&amp; test -w . &amp;&amp; printf 'Lab directory verified: %s\n' "$(pwd -P)"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class20/ &amp;&amp; test &quot;$(pwd -P)&quot; = &quot;/opt/lab-classroom/class20&quot; &amp;&amp; test -w .</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Set a restrictive file-creation mask for this shell so exported logs are not broadly readable.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Set a restrictive file-creation mask for this shell so exported logs are not broadly readable.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>umask 077</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: umask 077</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Record the boots known to the local journal.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Record the boots known to the local journal.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>journalctl --list-boots --no-pager &gt; /opt/lab-classroom/class20/boots.txt</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: journalctl --list-boots --no-pager &gt; /opt/lab-classroom/class20/boots.txt</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Export the latest 100 records from the current boot in an ISO-like timestamp format.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>journalctl -b -n 100 --no-pager -o short-iso &gt; /opt/lab-classroom/class20/recent-current-boot.log</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Export warning-and-higher-priority records from the current boot. An empty file is a valid result when no accessible records match.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Export warning-and-higher-priority records from the current boot.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>journalctl -b -p warning --no-pager -o short-iso &gt; /opt/lab-classroom/class20/warnings-current-boot.log</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Export records associated with the journal service during the current boot.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Export records associated with the journal service during the current boot.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>journalctl -b -u systemd-journald.service --no-pager -o short-iso &gt; /opt/lab-classroom/class20/journald-unit.log</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Export up to 20 recent accessible records as newline-delimited JSON for structured inspection.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Export up to 20 recent accessible records as newline-delimited JSON for structured inspection.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>journalctl -b -n 20 --no-pager -o json &gt; /opt/lab-classroom/class20/recent.jsonl</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: journalctl -b -n 20 --no-pager -o json &gt; /opt/lab-classroom/class20/recent.jsonl</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>8</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 8</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Use Python to count the PRIORITY values present in the JSON export. Malformed or inaccessible input causes the command to fail instead of silently inventing data.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Use Python to count the PRIORITY values present in the JSON export.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 - &lt;&lt;'PY' &gt; /opt/lab-classroom/class20/priority-summary.txt<br />
+import collections<br />
+import json<br />
+from pathlib import Path<br />
+source = Path('/opt/lab-classroom/class20/recent.jsonl')<br />
+counts = collections.Counter()<br />
+records = 0<br />
+with source.open('r', encoding='utf-8') as handle:<br />
+    for line_number, line in enumerate(handle, 1):<br />
+        if not line.strip():<br />
+            continue<br />
+        record = json.loads(line)<br />
+        records += 1<br />
+        counts[str(record.get('PRIORITY', 'missing'))] += 1<br />
+print(f'records={records}')<br />
+for priority in sorted(counts):<br />
+    print(f'priority_{priority}={counts[priority]}')<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 - &lt;&lt;&#x27;PY&#x27; &gt; /opt/lab-classroom/class20/priority-summary.txt
+import collections
+import json
+from pathlib import Path
+source = Path(&#x27;/opt/lab-classroom/…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>9</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 9</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Capture the journal's reported disk usage as contextual information without changing retention.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Capture the journal&#x27;s reported disk usage as contextual information without changing retention.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>journalctl --disk-usage &gt; /opt/lab-classroom/class20/journal-disk-usage.txt</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: journalctl --disk-usage &gt; /opt/lab-classroom/class20/journal-disk-usage.txt</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>10</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 10</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Record file names, sizes, and permissions for the evidence set.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Record file names, sizes, and permissions for the evidence set.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>find /opt/lab-classroom/class20/ -maxdepth 1 -type f -printf '%f\t%s bytes\t%m\n' | sort &gt; /opt/lab-classroom/class20/evidence-manifest.txt</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: find /opt/lab-classroom/class20/ -maxdepth 1 -type f -printf &#x27;%f\t%s bytes\t%m\n&#x27; | sort &gt; /opt/lab-classroom/class20/evidence-manifest.txt</div>
+ 
+</div></div><div class="cr-lab-path"><h4>analysis_questions</h4><p>How many boots are visible to the current account?<br />
+Which timestamps bound the current-boot sample?<br />
+Are any warning-or-higher records visible, and which units or processes produced them?<br />
+Which structured fields appear in the JSON records but not in the short-iso display?<br />
+Does the journald unit query return records, and could access restrictions explain an empty result?<br />
+Do the manifest permissions prevent access by group and other users?</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>boots.txt contains the boot entries visible to the current account; the number of entries depends on retention and access.</li>
+<li>recent-current-boot.log contains no more than 100 accessible records from the current boot.</li>
+<li>warnings-current-boot.log contains only accessible current-boot records at warning priority or more severe, or it is empty when no records match.</li>
+<li>journald-unit.log contains accessible records associated with systemd-journald.service, or it is empty if no matching records are retained or visible.</li>
+<li>recent.jsonl contains at most 20 JSON objects, one journal record per nonempty line.</li>
+<li>priority-summary.txt reports the number of parsed records and counts only priorities actually found in recent.jsonl.</li>
+<li>journal-disk-usage.txt contains the usage reported by journalctl without changing journal retention.</li>
+<li>evidence-manifest.txt lists the evidence files created by the lab.</li>
+<li>Files created after the restrictive umask should not grant permissions to group or other users.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run: test -s /opt/lab-classroom/class20/boots.txt &amp;&amp; echo 'Boot listing captured'; if this fails, inspect access and journal availability.</li>
+<li>[ ] Run: test -f /opt/lab-classroom/class20/recent-current-boot.log &amp;&amp; echo 'Current-boot export exists'.</li>
+<li>[ ] Run: test -f /opt/lab-classroom/class20/warnings-current-boot.log &amp;&amp; echo 'Priority-filtered export exists'; zero length is permitted.</li>
+<li>[ ] Run: python3 -c "import json, pathlib; [json.loads(line) for line in pathlib.Path('/opt/lab-classroom/class20/recent.jsonl').read_text(encoding='utf-8').splitlines() if line.strip()]; print('JSON records valid')".</li>
+<li>[ ] Run: cat /opt/lab-classroom/class20/priority-summary.txt and confirm that the records value equals the number of nonempty lines in recent.jsonl.</li>
+<li>[ ] Run: test "$(awk -F= '/^records=/{print $2}' /opt/lab-classroom/class20/priority-summary.txt)" = "$(grep -cve '^[[:space:]]*$' /opt/lab-classroom/class20/recent.jsonl)" &amp;&amp; echo 'Record counts agree'.</li>
+<li>[ ] Run: find /opt/lab-classroom/class20/ -maxdepth 1 -type f -perm /077 -print and confirm that it prints no lab evidence files.</li>
+<li>[ ] Run: journalctl -b -n 1 --no-pager -o verbose and identify fields such as the boot ID, priority, transport, process identity, or unit when those fields are present.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The initial directory verification fails.</td>
+<td>The classroom directory is absent, resolves to another path, or is not writable by the learner.</td>
+<td>Stop the lab and have the lab administrator provision /opt/lab-classroom/class20/ with appropriate ownership. Do not redirect output to an alternate system path.</td>
+</tr>
+<tr>
+<td>journalctl reports that no journal files were found.</td>
+<td>The host does not use systemd-journald, journal storage is unavailable, or the environment exposes no journal to the learner.</td>
+<td>Confirm that the machine is systemd-based and run systemctl status systemd-journald as a read-only check. Use a compatible lab VM if the host does not provide the journal.</td>
+</tr>
+<tr>
+<td>Only a small number of records are visible.</td>
+<td>The account has limited permissions, the host has a quiet current boot, or retention is limited.</td>
+<td>Treat the visible subset as the authorized dataset. Ask an administrator to confirm access policy rather than weakening file permissions.</td>
+</tr>
+<tr>
+<td>boots.txt lists only the current boot.</td>
+<td>The journal may be volatile, older records may have been removed by retention policy, or previous boot data may not be accessible.</td>
+<td>Document the limitation. Do not change storage or retention settings as part of this lab.</td>
+</tr>
+<tr>
+<td>warnings-current-boot.log is empty.</td>
+<td>No accessible current-boot records match warning or a more severe priority.</td>
+<td>Verify that the unfiltered current-boot export contains records. An empty filtered result is valid and must not be treated as a command failure by itself.</td>
+</tr>
+<tr>
+<td>The journald unit export is empty.</td>
+<td>No matching records are retained, the local unit name differs, or the learner cannot access system-level records.</td>
+<td>Run systemctl status systemd-journald as a read-only check and inspect accessible unit names with systemctl list-units --type=service --no-pager.</td>
+</tr>
+<tr>
+<td>Python raises a JSON parsing error.</td>
+<td>recent.jsonl is incomplete, was edited, or was not generated with JSON output.</td>
+<td>Regenerate only recent.jsonl with the documented journalctl command, then rerun the parser.</td>
+</tr>
+<tr>
+<td>Evidence files are readable by group or other users.</td>
+<td>The restrictive umask was not set in the same shell before the files were created, or existing files retained broader modes.</td>
+<td>Remove the affected evidence files using the scoped rollback procedure, set umask 077 in the active shell, and regenerate the files.</td>
+</tr>
+<tr>
+<td>A query returns many unrelated messages.</td>
+<td>The query lacks a boot, time, unit, priority, or field boundary.</td>
+<td>Add the narrowest appropriate selector and confirm each selector independently before combining them.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>Journal records may expose usernames, hostnames, network addresses, process arguments, authentication activity, application data, and operational details.<br />
+Use the least privilege required to inspect relevant records.<br />
+Do not broaden journal or evidence-file permissions merely to avoid an access-control error.<br />
+Keep exported evidence inside /opt/lab-classroom/class20/ and use a restrictive umask.<br />
+Review evidence before sharing it and redact sensitive values only in a separate copy so the original observation remains intact.<br />
+An exported record is a snapshot, not a trusted authorization decision or conclusive proof of causality.<br />
+Do not perform journal rotation, vacuuming, retention changes, or service restarts during evidence collection.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A snapshot is a restore point. Take one before a risky change so you can roll back fast.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>access_note</h4><p>Distribution policy determines which journal records an unprivileged user can read. Administrative access may reveal substantially more sensitive data, so it should be used only when required and authorized.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Distribution policy determines which journal records an unprivileged user can read.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>integrity_note</h4><p>Record the exact query, boot scope, and collection time when preserving evidence. Avoid editing the original exports.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Record the exact query, boot scope, and collection time when preserving evidence.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>scope</h4><p>Rollback removes only evidence files created by this lesson and does not alter the system journal.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Rollback removes only evidence files created by this lesson and does not alter the system journal.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>commands</h4><p>find /opt/lab-classroom/class20/ -maxdepth 1 -type f ( -name 'boots.txt' -o -name 'recent-current-boot.log' -o -name 'warnings-current-boot.log' -o -name 'journald-unit.log' -o -name 'recent.jsonl' -o -name 'priority-summary.txt' -o -name 'journal-disk-usage.txt' -o -name 'evidence-manifest.txt' ) -delete<br />
+find /opt/lab-classroom/class20/ -maxdepth 1 -type f -printf '%f\n' | sort</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>success_condition</h4><p>None of the eight lesson-created evidence file names remain, and no files outside /opt/lab-classroom/class20/ were changed.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: None of the eight lesson-created evidence file names remain, and no files outside /opt/lab-classroom/class20/ were changed.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

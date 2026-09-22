@@ -227,8 +227,13 @@ def patch(path: Path) -> None:
         '<p class="lede">Guided lab, break/fix, quiz, and practical gate. Prefer current official docs linked in References.</p>',
         '<p class="lede">Full learning cycle with mandatory Feynman teach-back, retrieval practice, lab, and mastery gate. Prefer current official docs in References.</p>',
     )
-    text = text.replace("All 13 classes", "All 15 classes")
-    text = text.replace("All 13 Homelab Academy classes.", "All 15 Homelab Academy classes.")
+    text = text.replace("All 13 classes", "All {nclasses} classes")
+    text = text.replace("All 13 Homelab Academy classes.", "All {nclasses} Homelab Academy classes.")
+    # Never leave a hard-coded 15-class claim in the generator source
+    text = text.replace("All 15 classes", "All {nclasses} classes")
+    text = text.replace("All 15 Homelab Academy classes.", "All {nclasses} Homelab Academy classes.")
+    text = text.replace("15-class pack", "{nclasses}-class pack")
+    text = text.replace("free · 15-class pack", "free · {nclasses}-class pack")
 
     old_sub = '''SUB = \'\'\'<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">

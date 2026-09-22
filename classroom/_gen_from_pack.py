@@ -20,7 +20,7 @@ from _plain_help import (
     plain_for_step,
 )
 
-SITE = Path("/root/Otaconskeep.github.io/classroom")
+SITE = Path("/root/otaconskeep-site/classroom")
 PACK = SITE / "pack"
 CLASSES_DIR = SITE / "classes"
 GH = Path("/root/Classroom")
@@ -101,6 +101,44 @@ HEAD = '''<!doctype html>
 {nav}
 {sub}
 '''
+
+
+def load_dynamic_class_extensions():
+    """Merge automation class_index.json + pack/classes beyond hard-coded CLASS_META."""
+    import json, re
+    global CLASS_META
+    idx_path = SITE / 'automation' / 'class_index.json'
+    dynamic = []
+    # Discover class markdown not already in CLASS_META
+    known = {t[0] for t in CLASS_META}
+    classes_dir = PACK / 'classes'
+    if classes_dir.is_dir():
+        for p in sorted(classes_dir.glob('*.md')):
+            m = re.match(r'^(\d{2})_([A-Z0-9_]+)\.md$', p.name)
+            if not m:
+                continue
+            num = m.group(1)
+            if num in known:
+                continue
+            raw = p.read_text(encoding='utf-8', errors='replace')
+            tm = re.search(r'^#\s+Class\s+(\d+)\s+[—\-]\s+(.+)$', raw, re.M)
+            title = tm.group(2).strip() if tm else p.stem
+            # unit guess from automation roadmap modules via class_index
+            unit, unit_name = '6', 'Linux'
+            dynamic.append((num, p.name, title, unit, unit_name))
+            known.add(num)
+    if dynamic:
+        CLASS_META = list(CLASS_META) + dynamic
+    # stash redirects
+    redirects = {}
+    if idx_path.is_file():
+        data = json.loads(idx_path.read_text(encoding='utf-8'))
+        for cid, meta in (data.get('classes') or {}).items():
+            if meta.get('redirect'):
+                redirects[f'{int(cid):02d}'] = meta['redirect']
+    load_dynamic_class_extensions._redirects = redirects
+
+
 
 CLASS_META = [
     ("01", "01_PROXMOX_VIRTUALIZATION.md", "VMs, hypervisors, and Proxmox", "1", "Infrastructure"),
@@ -648,6 +686,36 @@ MODULE_DIRS = [
     ("05-workflow-automation", "05", "Workflow Automation (n8n)", "1 topic / Gate 5"),
 ]
 
+
+def discover_extra_modules():
+    """Append pack/modules/* not already listed in MODULE_DIRS (automation-generated)."""
+    global MODULE_DIRS
+    known = {t[0] for t in MODULE_DIRS}
+    root = PACK / "modules"
+    if not root.is_dir():
+        return
+    extra = []
+    for d in sorted(root.iterdir()):
+        if not d.is_dir() or d.name in known:
+            continue
+        m = re.match(r"^(\d{2})-(.+)$", d.name)
+        if not m:
+            continue
+        num = m.group(1)
+        title = m.group(2).replace("-", " ").title()
+        mod_md = d / "MODULE.md"
+        if mod_md.is_file():
+            head = mod_md.read_text(encoding="utf-8", errors="replace").splitlines()[:5]
+            for line in head:
+                if line.startswith("# "):
+                    title = re.sub(r"^#\s+Module\s+\d+\s+[—\-]\s+", "", line).strip() or title
+                    break
+        topics = list((d / "topics").glob("*")) if (d / "topics").is_dir() else []
+        meta = f"{len(topics)} topics / automation"
+        extra.append((d.name, num, title, meta))
+    if extra:
+        MODULE_DIRS = list(MODULE_DIRS) + extra
+
 ACTIVITY_KIND = {
     "reading": "learn",
     "lesson": "feynman",
@@ -796,8 +864,11 @@ def gen_modules():
             ("exam", "Module exam", "Practical mastery verification for the module outcome."),
             ("remediation", "Remediation", "Feedback -> targeted review -> reassess."),
         ]:
+            src = mdir / f"{act}.md"
+            if not src.is_file():
+                continue
             gen_activity_page(
-                mdir / f"{act}.md",
+                src,
                 out / f"{act}.html",
                 f"{title} — {label}",
                 f"M{int(num)} {label.upper()}",
@@ -879,6 +950,8 @@ def class_to_module_redirects():
         "14": "05-workflow-automation/topics/01-n8n-automation/lesson.html",
         "15": "01-infrastructure/topics/05-ipv4/lesson.html",
     }
+    extra = getattr(load_dynamic_class_extensions, '_redirects', {})
+    mapping.update(extra)
     CLASSES_DIR.mkdir(parents=True, exist_ok=True)
     for num, dest in mapping.items():
         dst = f"/classroom/modules/{dest}"
@@ -895,6 +968,10 @@ def class_to_module_redirects():
         '<script>location.replace("/classroom/modules/")</script>',
     )
 
+def _class_count() -> int:
+    return len(CLASS_META)
+
+
 def gen_hub():
     cards = []
     for num, _fn, title, unit, unit_name in CLASS_META:
@@ -906,10 +983,11 @@ def gen_hub():
             f'<div class="meta">Class {int(num)}</div>'
             f"</div></a>"
         )
+    nclasses = _class_count()
     body = f'''
 <div class="wrap">
  <section class="hero flush">
- <div class="stamp">HOMELAB ACADEMY<small>free · 15-class pack</small></div>
+ <div class="stamp">HOMELAB ACADEMY<small>free · {nclasses}-class pack</small></div>
  <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom</p>
  <h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Learn. Practice. Explain. Master.</h1>
  <p class="lede">A learning system for ARR, Home Assistant, and local voice — Backward Design, Bloom progression, mandatory Feynman teach-backs, mastery gates, and spiral review. Not a pile of videos and quizzes.</p>
@@ -982,7 +1060,7 @@ Class 15       IPv4 addressing → mask, gateway, usable hosts
  </section>
 </div>
 '''
-    write(SITE / "index.html", wrap("Homelab Academy · Classroom", "15-class ARR + HA + voice + n8n + IP curriculum.", "/classroom/", "ACADEMY", body))
+    write(SITE / "index.html", wrap("Homelab Academy · Classroom", f"{_class_count()}-class ARR + HA + voice + n8n + IP + Linux foundations curriculum.", "/classroom/", "ACADEMY", body))
 
 
 def gen_classes():
@@ -1032,7 +1110,7 @@ def gen_classes():
 <div class="wrap">
  <section class="hero flush">
  <p class="tag">Classes</p>
- <h1 class="display" style="font-size:clamp(2rem,5vw,3rem);">All 15 classes</h1>
+ <h1 class="display" style="font-size:clamp(2rem,5vw,3rem);">All {_class_count()} classes</h1>
  <p class="lede">Complete in order. Pass each practical gate before advancing.</p>
  </section>
 </div>
@@ -1041,7 +1119,7 @@ def gen_classes():
  {pager(("/classroom/", "Academy"), ("01.html", "Class 1"))}
 </div>
 '''
-    write(CLASSES_DIR / "index.html", wrap("Classes · Classroom", "All 15 Homelab Academy classes.", "/classroom/classes/", "CLASSES", body))
+    write(CLASSES_DIR / "index.html", wrap("Classes · Classroom", f"All {_class_count()} Homelab Academy classes.", "/classroom/classes/", "CLASSES", body))
 
 
 def gen_md_page(md_name: str, out_name: str, title: str, bar: str, canon: str, tag: str, prev, next_, lede: str):
@@ -1173,6 +1251,8 @@ def sync_github():
 
 def main():
     assert PACK.is_dir(), PACK
+    load_dynamic_class_extensions()
+    discover_extra_modules()
     gen_hub()
     gen_modules()
     gen_classes()

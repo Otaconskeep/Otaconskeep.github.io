@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 6 — Linux Foundations · Classroom</title>
+<meta name="description" content="Linux Foundations">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/06-linux-foundations/">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>MODULE 6<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">MODULE 06<small>6 topics / automation</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Linux Foundations</h1>
+ <p class="lede">Learn / Practice / Test / Reflect inside every topic. Module project, quiz, exam, and remediation close the gate.</p>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Design chain:</strong> Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review<br />
+<strong>Feynman teach-back is required in every lesson.</strong><br />
+<strong>Last reviewed:</strong> 2026-09-22</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Backward design — module outcome</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These words are tools. Learn what each tool is for.</div>
+ 
+</div><div class="cr-prose-block"><p>Student can navigate a Linux lab tree safely, compose shell pipelines for investigation, apply least-privilege users/groups/permissions, manage processes with signals and user systemd units, extract evidence with journalctl, and harden SSH with keys using console break-glass — all verified under disposable <code>/opt/lab-classroom/</code> paths.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Student can navigate a Linux lab tree safely, compose shell pipelines for investigation, apply least-privilege users/groups/permissions, manage processes wit…</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Bloom arc</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Remember/Understand (paths, streams) → Apply (permissions, pipelines, journalctl) → Analyze/Evaluate (sshd hardening order, process signals)</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Remember/Understand (paths, streams) → Apply (permissions, pipelines, journalctl) → Analyze/Evaluate (sshd hardening order, process signals)</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Module learning cycle</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Orient → Recall → Learn (reading) → Demonstrate → Guided practice → Independent practice → <strong>Feynman</strong> → Lab → Quiz → Feedback → Module project → Module quiz → Exam → Reflect</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Orient → Recall → Learn (reading) → Demonstrate → Guided practice → Independent practice → **Feynman** → Lab → Quiz → Feedback → Module project → Module quiz…</div>
+ 
+</div></div></div><div class="cr-box cr-box-gate"><div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical gate</h3></div><p>Do <strong>not</strong> unlock Module 07 until:<br />
+- All six topic labs verified with evidence<br />
+- All six Feynman teach-backs completed<br />
+- Module project accepted<br />
+- Module quiz ≥80%<br />
+- Practical exam pass per rubric</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
+</div></div>
+ <div class="cr-box"><h3>Topics — activity paths</h3><div class="cr-box"><h3>01-linux-filesystem-and-navigation</h3><ol class="cr-class-list"><li><a href="/classroom/modules/06-linux-foundations/topics/01-linux-filesystem-and-navigation/reading.html"><strong>Reading</strong></a> — Learn</li><li><a href="/classroom/modules/06-linux-foundations/topics/01-linux-filesystem-and-navigation/lesson.html"><strong>Lesson</strong></a> — Feynman required</li><li><a href="/classroom/modules/06-linux-foundations/topics/01-linux-filesystem-and-navigation/lab.html"><strong>Lab</strong></a> — Practice</li><li><a href="/classroom/modules/06-linux-foundations/topics/01-linux-filesystem-and-navigation/homework.html"><strong>Homework</strong></a> — Apply</li><li><a href="/classroom/modules/06-linux-foundations/topics/01-linux-filesystem-and-navigation/quiz.html"><strong>Quiz</strong></a> — Test</li></ol></div><div class="cr-box"><h3>02-shell-pipes-and-redirection</h3><ol class="cr-class-list"><li><a href="/classroom/modules/06-linux-foundations/topics/02-shell-pipes-and-redirection/reading.html"><strong>Reading</strong></a> — Learn</li><li><a href="/classroom/modules/06-linux-foundations/topics/02-shell-pipes-and-redirection/lesson.html"><strong>Lesson</strong></a> — Feynman required</li><li><a href="/classroom/modules/06-linux-foundations/topics/02-shell-pipes-and-redirection/lab.html"><strong>Lab</strong></a> — Practice</li><li><a href="/classroom/modules/06-linux-foundations/topics/02-shell-pipes-and-redirection/homework.html"><strong>Homework</strong></a> — Apply</li><li><a href="/classroom/modules/06-linux-foundations/topics/02-shell-pipes-and-redirection/quiz.html"><strong>Quiz</strong></a> — Test</li></ol></div><div class="cr-box"><h3>03-users-groups-permissions-and-least-privilege</h3><ol class="cr-class-list"><li><a href="/classroom/modules/06-linux-foundations/topics/03-users-groups-permissions-and-least-privilege/reading.html"><strong>Reading</strong></a> — Learn</li><li><a href="/classroom/modules/06-linux-foundations/topics/03-users-groups-permissions-and-least-privilege/lesson.html"><strong>Lesson</strong></a> — Feynman required</li><li><a href="/classroom/modules/06-linux-foundations/topics/03-users-groups-permissions-and-least-privilege/lab.html"><strong>Lab</strong></a> — Practice</li><li><a href="/classroom/modules/06-linux-foundations/topics/03-users-groups-permissions-and-least-privilege/homework.html"><strong>Homework</strong></a> — Apply</li><li><a href="/classroom/modules/06-linux-foundations/topics/03-users-groups-permissions-and-least-privilege/quiz.html"><strong>Quiz</strong></a> — Test</li></ol></div><div class="cr-box"><h3>04-processes-signals-and-systemd</h3><ol class="cr-class-list"><li><a href="/classroom/modules/06-linux-foundations/topics/04-processes-signals-and-systemd/reading.html"><strong>Reading</strong></a> — Learn</li><li><a href="/classroom/modules/06-linux-foundations/topics/04-processes-signals-and-systemd/lesson.html"><strong>Lesson</strong></a> — Feynman required</li><li><a href="/classroom/modules/06-linux-foundations/topics/04-processes-signals-and-systemd/lab.html"><strong>Lab</strong></a> — Practice</li><li><a href="/classroom/modules/06-linux-foundations/topics/04-processes-signals-and-systemd/homework.html"><strong>Homework</strong></a> — Apply</li><li><a href="/classroom/modules/06-linux-foundations/topics/04-processes-signals-and-systemd/quiz.html"><strong>Quiz</strong></a> — Test</li></ol></div><div class="cr-box"><h3>05-logs-and-journalctl</h3><ol class="cr-class-list"><li><a href="/classroom/modules/06-linux-foundations/topics/05-logs-and-journalctl/reading.html"><strong>Reading</strong></a> — Learn</li><li><a href="/classroom/modules/06-linux-foundations/topics/05-logs-and-journalctl/lesson.html"><strong>Lesson</strong></a> — Feynman required</li><li><a href="/classroom/modules/06-linux-foundations/topics/05-logs-and-journalctl/lab.html"><strong>Lab</strong></a> — Practice</li><li><a href="/classroom/modules/06-linux-foundations/topics/05-logs-and-journalctl/homework.html"><strong>Homework</strong></a> — Apply</li><li><a href="/classroom/modules/06-linux-foundations/topics/05-logs-and-journalctl/quiz.html"><strong>Quiz</strong></a> — Test</li></ol></div><div class="cr-box"><h3>06-ssh-keys-and-safe-hardening</h3><ol class="cr-class-list"><li><a href="/classroom/modules/06-linux-foundations/topics/06-ssh-keys-and-safe-hardening/reading.html"><strong>Reading</strong></a> — Learn</li><li><a href="/classroom/modules/06-linux-foundations/topics/06-ssh-keys-and-safe-hardening/lesson.html"><strong>Lesson</strong></a> — Feynman required</li><li><a href="/classroom/modules/06-linux-foundations/topics/06-ssh-keys-and-safe-hardening/lab.html"><strong>Lab</strong></a> — Practice</li><li><a href="/classroom/modules/06-linux-foundations/topics/06-ssh-keys-and-safe-hardening/homework.html"><strong>Homework</strong></a> — Apply</li><li><a href="/classroom/modules/06-linux-foundations/topics/06-ssh-keys-and-safe-hardening/quiz.html"><strong>Quiz</strong></a> — Test</li></ol></div></div>
+ <div class="cr-box"><h3>Module assessments</h3>
+ <ol class="cr-class-list">
+  <li><a href="project.html"><strong>Project</strong></a> — integrated Apply/Create</li>
+  <li><a href="module-quiz.html"><strong>Module quiz</strong></a> — retention</li>
+  <li><a href="exam.html"><strong>Exam</strong></a> — mastery</li>
+  <li><a href="remediation.html"><strong>Remediation</strong></a> — re-teach weak areas</li>
+ </ol></div>
+ <div class="cr-pager"><a href="/classroom/modules/">← All modules</a><a href="project.html">Project →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

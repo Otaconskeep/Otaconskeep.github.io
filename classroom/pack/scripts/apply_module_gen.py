@@ -313,8 +313,8 @@ def main():
 {''.join(cards)}
  </div>""",
             """ <p class="tag">02 // Modules</p>
- <h2>Five modules with readings, labs, homework, quizzes</h2>
- <p class="intro">Each topic is split into Reading (Learn), Lesson with <strong>required Feynman</strong>, Lab (Practice), Homework (Apply), and Quiz (Test). Modules close with project, module quiz, exam, and remediation.</p>
+ <h2>Module curriculum with readings, labs, homework, quizzes</h2>
+ <p class="intro">Each topic is split into Reading (Learn), Lesson with <strong>required Feynman</strong>, Lab (Practice), Homework (Apply), and Quiz (Test). Modules close with project, module quiz, exam, and remediation. Class count is generated from the pack.</p>
  <div class="btn-row" style="margin-top:18px;">
   <a class="btn btn-primary" href="modules/">Open modules</a>
   <a class="btn btn-ghost" href="modules/01-infrastructure/topics/01-virtualization/">Topic 1.1 path</a>

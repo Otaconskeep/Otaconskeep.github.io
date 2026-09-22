@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02-shell-pipes-and-redirection — Reading · Classroom</title>
+<meta name="description" content="02-shell-pipes-and-redirection — Reading">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/06-linux-foundations/topics/02-shell-pipes-and-redirection/reading.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M6 READING<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M6 READING<small>reading</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 02-shell-pipes-and-redirection — Reading</h1>
+ <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ 
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Linux Foundations<br />
+<strong>Activity type:</strong> Reading (Learn)<br />
+<strong>Objective:</strong> Identify file descriptors 0, 1, and 2 as standard input, standard output, and standard error</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>standard input</td>
+<td>File descriptor 0, commonly abbreviated stdin. It is the default stream from which a command reads input.</td>
+</tr>
+<tr>
+<td>standard output</td>
+<td>File descriptor 1, commonly abbreviated stdout. It is the default stream used for normal command results.</td>
+</tr>
+<tr>
+<td>standard error</td>
+<td>File descriptor 2, commonly abbreviated stderr. It is the default stream used for diagnostics and error messages.</td>
+</tr>
+<tr>
+<td>pipe</td>
+<td>A shell connection written as</td>
+</tr>
+<tr>
+<td>redirection</td>
+<td>A shell operation that changes where a command reads input or sends output.</td>
+</tr>
+<tr>
+<td>truncate</td>
+<td>To reduce an existing file to zero length before writing new content. The &gt; operator normally has this effect.</td>
+</tr>
+<tr>
+<td>append</td>
+<td>To write new data after the existing contents of a file. The &gt;&gt; operator performs output redirection in append mode.</td>
+</tr>
+<tr>
+<td>file descriptor</td>
+<td>A small integer used by a process to refer to an open input or output resource.</td>
+</tr>
+<tr>
+<td>tee</td>
+<td>A command that copies standard input to standard output and to one or more files.</td>
+</tr>
+<tr>
+<td>pipefail</td>
+<td>A Bash option that makes a pipeline return a failure status when a command in the pipeline fails, rather than considering only the final command.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div><div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>A shell command normally begins with three open data streams. Standard input is file descriptor 0, standard output is file descriptor 1, and standard error is file descriptor 2. When a terminal launches a command, all three are generally connected to that terminal. This is why typed input reaches an interactive program and why both ordinary output and errors appear on the screen.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A shell command normally begins with three open data streams.</div>
+ 
+</div></div><div class="cr-prose-block"><p>A pipeline changes that arrangement. In command_a | command_b, the shell connects command_a's standard output to command_b's standard input. The commands usually run concurrently, and the kernel buffers data between them. The pipe carries stdout only; stderr from command_a still goes to its existing destination unless it is redirected separately. Pipelines are best understood as data-flow graphs rather than as temporary files. Each stage should perform one clear transformation, such as selecting records, sorting them, counting duplicates, or formatting output.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A pipeline changes that arrangement.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Output redirection with &gt; replaces a destination file's previous contents. For example, printf 'new\n' &gt; file sends stdout into file and truncates an existing file first. Appending with &gt;&gt; preserves the old contents and writes at the end. Input redirection with &lt; makes a file become a command's stdin. Thus wc -l &lt; file prints only a count, while wc -l file commonly includes the filename because the file was supplied as an argument rather than through stdin.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Output redirection with &gt; replaces a destination file&#x27;s previous contents.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Standard error is independent from standard output. The expression 2&gt; errors.log redirects descriptor 2 while leaving descriptor 1 unchanged. The expression &gt; combined.log 2&gt;&amp;1 first redirects stdout to combined.log and then makes stderr point to the same destination currently used by stdout. Redirections are processed from left to right. Reversing the order to 2&gt;&amp;1 &gt; combined.log first copies the original stdout destination to stderr and only afterward moves stdout to the file; as a result, stderr may remain on the terminal. The compact Bash form &amp;&gt; file also combines both streams, but the longer &gt; file 2&gt;&amp;1 form exposes the descriptor logic and is more portable across commonly encountered shells.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div><div class="cr-prose-block"><p>The tee command is useful when data must be preserved while continuing through a pipeline. In producer | tee saved.txt | consumer, tee writes a copy to saved.txt and passes the same data to consumer through stdout. Without an option, tee replaces the file; tee -a appends. Remember that redirection is performed by the shell before the command starts. This explains why elevating only a command does not automatically elevate the shell operation that opens a protected redirection target.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The tee command is useful when data must be preserved while continuing through a pipeline.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Exit status is another important distinction. By default, Bash reports a pipeline's status as the status of its final command. An earlier command can fail while a later command exits successfully. In Bash, set -o pipefail changes the pipeline status so that a failure in an earlier stage is not silently hidden. Scripts should also quote variable expansions, use explicit paths, validate output, and avoid assuming that an empty result means success. Before using &gt;, confirm the destination because truncation occurs before the command produces output. For interactive protection, Bash's set -o noclobber can prevent ordinary &gt; redirection from replacing an existing regular file, although scripts must not assume users have enabled it.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Exit status is another important distinction.</div>
+ 
+</div></div></div><div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>stream_model</h3>
+<p>Keyboard or input file -&gt; file descriptor 0 -&gt; command<br />
+Command normal results -&gt; file descriptor 1 -&gt; terminal, file, or next pipeline stage<br />
+Command diagnostics -&gt; file descriptor 2 -&gt; terminal or explicitly selected destination</p>
+<h3>pipeline_model</h3>
+<p>producer stdout -&gt; pipe buffer -&gt; consumer stdin</p>
+<h3>lab_scope</h3>
+<p>/opt/lab-classroom/class17/</p>
+<h3>key_rule</h3>
+<p>A pipe transports stdout by default; stderr remains separate unless the command or shell explicitly redirects it.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Bash Reference Manual, Redirections: https://www.gnu.org/software/bash/manual/html_node/Redirections.html</li>
+<li>Bash Reference Manual, Pipelines: https://www.gnu.org/software/bash/manual/html_node/Pipelines.html</li>
+<li>Linux man-pages project, pipe(7): https://man7.org/linux/man-pages/man7/pipe.7.html</li>
+<li>GNU Coreutils manual, tee invocation: https://www.gnu.org/software/coreutils/manual/html_node/tee-invocation.html</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Bash Reference Manual, Redirections: https://www.gnu.org/software/bash/manual/html_node/Redirections.html
+- Bash Reference Manual, Pipelines: https://www.g…</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>GNU Bash Manual, Pipelines: https://www.gnu.org/software/bash/manual/html_node/Pipelines.html</li>
+<li>GNU Bash Manual, Redirections: https://www.gnu.org/software/bash/manual/html_node/Redirections.html</li>
+<li>GNU Bash Manual, The Set Builtin: https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html</li>
+<li>GNU Coreutils Manual, tee: https://www.gnu.org/software/coreutils/manual/html_node/tee-invocation.html</li>
+<li>GNU Coreutils Manual, wc: https://www.gnu.org/software/coreutils/manual/html_node/wc-invocation.html</li>
+<li>GNU Coreutils Manual, sort: https://www.gnu.org/software/coreutils/manual/html_node/sort-invocation.html</li>
+<li>GNU Coreutils Manual, uniq: https://www.gnu.org/software/coreutils/manual/html_node/uniq-invocation.html</li>
+<li>Linux man-pages project, pipe(7): https://man7.org/linux/man-pages/man7/pipe.7.html</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - GNU Bash Manual, Pipelines: https://www.gnu.org/software/bash/manual/html_node/Pipelines.html
+- GNU Bash Manual, Redirections: https://www.gnu.org/software…</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="/classroom/modules/06-linux-foundations/">← Module hub</a><a href="lesson.html">Lesson →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

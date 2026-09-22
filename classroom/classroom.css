@@ -601,3 +601,36 @@ html:not([data-classroom-os]) .cr-os-block { display:block; }
   margin:4px 0 0; color:var(--cream-dim); font-size:.88rem;
   font-family:'JetBrains Mono',monospace;
 }
+
+/* Mobile containment: wide tables/code scroll inside cards, not the page */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.wrap {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: clip;
+}
+.cr-box,
+.cr-prose-block,
+.cr-md .cr-article {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.cr-box table,
+.cr-prose-block table,
+.cr-md .cr-article table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+.cr-box pre,
+.cr-prose-block pre,
+.cr-md .cr-article pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
