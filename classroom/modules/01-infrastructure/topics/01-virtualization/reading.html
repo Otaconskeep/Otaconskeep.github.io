@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01-virtualization — Reading · Classroom</title>
+<meta name="description" content="01-virtualization — Reading">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/01-infrastructure/topics/01-virtualization/reading.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M1 READING<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M1 READING<small>reading</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 01-virtualization — Reading</h1>
+ <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ 
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 1 — Infrastructure &amp; Addressing<br />
+<strong>Topic:</strong> 01 — Virtual machines &amp; Proxmox<br />
+<strong>Activity type:</strong> Reading / reference (Learn)<br />
+<strong>Bloom focus:</strong> Apply<br />
+<strong>Links to outcome:</strong> Given a host and a guest requirement, the learner can choose Type 1 vs Type 2 virtualization, create a working Linux guest (VirtualBox or Proxmox), and prove networking, DNS, and SSH with recorded evidence.</p></div><div class="cr-box cr-box-why"><div class="cr-box-head"><span class="cr-chip cr-chip-why">Why it matters</span><h3>Why this matters</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This gives you a reason to care before the theory. Context first, then details.</div>
+ 
+</div><div class="cr-prose-block"><p>Without a safe practice machine, every later Docker, ARR, Home Assistant, and voice experiment risks your daily desktop. Virtualization is the sandboxed foundation the rest of the Academy builds on.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host</td>
+<td>The real machine (or OS) that owns the hardware</td>
+</tr>
+<tr>
+<td>Guest</td>
+<td>A VM or container that thinks it is “the” computer</td>
+</tr>
+<tr>
+<td>Hypervisor</td>
+<td>Software that creates fake hardware and schedules guests</td>
+</tr>
+<tr>
+<td>Type 2 hypervisor</td>
+<td>App installed on Windows/macOS/Linux (example: VirtualBox)</td>
+</tr>
+<tr>
+<td>Type 1 hypervisor</td>
+<td>Installed on bare metal; the hypervisor <em>is</em> the host OS (example: Proxmox VE)</td>
+</tr>
+<tr>
+<td>KVM/QEMU</td>
+<td>Linux virtualization stack used under Proxmox VMs</td>
+</tr>
+<tr>
+<td>LXC</td>
+<td>Linux system container that shares the host kernel</td>
+</tr>
+<tr>
+<td>ISO</td>
+<td>Install-disc image used to install an operating system</td>
+</tr>
+<tr>
+<td>vCPU</td>
+<td>CPU time presented to a guest (scheduled, not always exclusive)</td>
+</tr>
+<tr>
+<td>Bridge</td>
+<td>Virtual switch connecting guests to each other and/or the LAN</td>
+</tr>
+<tr>
+<td>NAT (guest network)</td>
+<td>Guest shares the host’s internet path; often not a full peer on your LAN</td>
+</tr>
+<tr>
+<td>Bridged (guest network)</td>
+<td>Guest gets an address on the real LAN like another PC</td>
+</tr>
+<tr>
+<td>Snapshot</td>
+<td>Freeze-frame of a guest you can restore later</td>
+</tr>
+<tr>
+<td>Clone</td>
+<td>Full copy of a guest for experiments or backup-like recovery</td>
+</tr>
+<tr>
+<td><code>vmbr0</code></td>
+<td>Common name of Proxmox’s primary Linux bridge</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>Originally: What you will learn</h4><p>You will understand what a virtual machine really is (a full computer living inside another computer), why hypervisors exist, the difference between Type 2 (app-on-your-OS) and Type 1 (OS replaced by the hypervisor), and how to stand up a safe practice box without risking your daily desktop. You will also learn how VMs differ from LXC, how storage and networking attach to guests, and why this Academy puts Docker inside a Linux VM later.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A hypervisor creates and runs virtual machines. Type 2 sits on your OS; Type 1 sits on the hardware.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>What a virtual machine is</h4><p>Open your laptop. Inside the case sit real parts: CPU, RAM, storage, network chip. An operating system (Windows, macOS, or Linux) sits on top and turns those parts into something you can use.</p>
+<p>A <strong>virtual machine</strong> is another complete computer that lives <em>inside</em> that setup. It gets virtual CPU, virtual RAM, a virtual disk, and a virtual network card. The guest OS boots, paints a desktop, and runs programs. From the guest’s point of view, it is the only computer in the room. From your point of view, it is software sharing your real hardware.</p>
+<p>You do not need a second physical PC just to try Linux, practice networking, or break configuration on purpose. You carve out a slice of what you already own.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Open your laptop.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Why you want one</h4><p>Three reasons show up again and again in real labs:</p>
+<ol>
+<li><strong>Safe practice.</strong> Mess up the guest. Delete it. Rebuild it. Your daily host OS stays untouched.</li>
+<li><strong>Learn other operating systems.</strong> Run Ubuntu, Debian, a server trial, or a second Windows install without repartitioning your only disk.</li>
+<li><strong>Isolation when you experiment.</strong> Labs, scrapers, new stacks, and “what if I change this?” work are safer inside a guest—especially if you keep sharing features (clipboard, folders, bridged LAN) turned down until you need them.</li>
+</ol>
+<p>Virtualization is not a toy idea. It is how cloud providers and most serious IT shops pack many systems onto fewer machines. Learning it once pays off for the rest of this Academy.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Hypervisors: Type 2 vs Type 1</h4><p>The <strong>hypervisor</strong> is the piece that performs the “computer inside a computer” trick.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type 2</th>
+<th>Type 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where it lives</td>
+<td>App on your existing OS</td>
+<td>Installed on the hardware itself</td>
+</tr>
+<tr>
+<td>Everyday example</td>
+<td>VirtualBox on a Windows laptop</td>
+<td>Proxmox VE on a spare PC</td>
+</tr>
+<tr>
+<td>Who owns the hardware</td>
+<td>Your host OS shares RAM/CPU with the hypervisor</td>
+<td>Hypervisor owns the hardware and feeds guests</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Learning on the machine you already use</td>
+<td>Always-on labs, more guests, more RAM for VMs</td>
+</tr>
+<tr>
+<td>Tradeoff</td>
+<td>Easy and free; host OS still eats resources</td>
+<td>Requires dedicating (or wiping) a machine; more power</td>
+</tr>
+</tbody>
+</table>
+<p>Both types create guests. Type 2 asks the host OS for resources. Type 1 sits closer to the metal and usually gives you more room for bigger labs.</p>
+<p>This class supports <strong>both paths</strong>. The Academy’s default for later classes is a <strong>dedicated Proxmox host</strong> (Type 1). If you only have one laptop today, start with <strong>VirtualBox</strong> (Type 2), finish the gate with a working guest, then move Proxmox onto spare hardware when you can.</p>
+<pre><code class="language-text">Type 2 (laptop path)
+  Hardware → Windows/macOS/Linux → VirtualBox → Guest OS
+
+Type 1 (Academy default)
+  Hardware → Proxmox VE → VM / LXC guests
+</code></pre><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Firmware: turn on hardware virtualization</h4><p>Modern guests expect 64-bit virtualization support in the CPU. In firmware (BIOS/UEFI) look for <strong>Intel VT-x / VMX</strong> or <strong>AMD-V / SVM</strong> and set it to <strong>Enabled</strong>. Keys vary by vendor (<code>Del</code>, <code>F2</code>, <code>F10</code>, <code>F12</code>). Change only that setting, save, and reboot. Without it, many 64-bit guests will refuse to start or run poorly.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the BIOS/UEFI switch that lets your CPU run virtual machines well. Turn it on, save, reboot.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Path A — Type 2 on your daily computer (VirtualBox)</h4><p>Use this when you do not yet have a spare PC.</p>
+<ol>
+<li>Download the guest <strong>ISO</strong> you want (Ubuntu Desktop/Server is a solid first choice). Start the download early; ISOs are large.</li>
+<li>Install <strong>VirtualBox</strong> for your host OS from the official site. Accept defaults.</li>
+<li>Install the matching <strong>Extension Pack</strong> if you need USB passthrough and related extras.</li>
+<li>Create a new VM: name it, choose Linux + a 64-bit Debian/Ubuntu-class type, give it modest RAM (often 2 GB to start on a 8–16 GB host), create a dynamically allocated virtual disk (20 GB+), and assign more than one vCPU only if your host has cores to spare—stay under about half your physical cores.</li>
+<li>Attach the ISO as the virtual optical drive and start the VM.</li>
+<li>Install the guest OS. Guided partitioning of the <em>virtual</em> disk is safe for your host disk; you are formatting the fake drive, not your Windows/macOS partition.</li>
+<li>Learn the <strong>host key</strong> (often Right Ctrl on Windows/Linux) so you can release the mouse/keyboard back to the host.</li>
+</ol>
+<p><strong>Power features worth using on day one</strong></p>
+<ul>
+<li><strong>Pause</strong> — freeze the guest like pausing a game; resumes where you left off.</li>
+<li><strong>Save state</strong> — close the guest and reopen later with apps still open.</li>
+<li><strong>Snapshot</strong> — take a restore point before a risky change; roll back if it breaks.</li>
+<li><strong>Clone</strong> — duplicate a known-good machine before you thrash a copy.</li>
+</ul>
+<p><strong>Network modes (keep this mental model)</strong></p>
+<ul>
+<li><strong>NAT</strong> — guest reaches the internet through the host; it is usually <em>not</em> a full peer on your home LAN. Good default for isolation.</li>
+<li><strong>Bridged</strong> — guest appears on the LAN with its own address. Convenient for SSH from other devices; less isolation.</li>
+</ul>
+<p>Clipboard sharing, drag-and-drop, and shared folders are convenient and weaken isolation. Leave them off until you understand the tradeoff.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Path B — Type 1 on spare hardware (Proxmox VE)</h4><p>Use this when you have an old laptop/desktop (or a small server) you can dedicate. This is the path later Academy classes assume.</p>
+<p>Proxmox replaces the previous OS on that machine. Back up anything you care about first. Prefer a <strong>wired Ethernet</strong> uplink for the host; bridging Wi-Fi is a common pain point.</p>
+<p>High-level install flow:</p>
+<ol>
+<li>Download the current Proxmox VE ISO and write it to USB (on Windows, imaging tools often need <strong>DD mode</strong>, not a naive ISO copy).</li>
+<li>Boot the target machine from USB (set boot order in firmware if needed).</li>
+<li>Install Proxmox: accept the license, choose the target disk, set locale, set a strong <code>root</code> password, set hostname and management IP/gateway/DNS.</li>
+<li>Remove the USB, reboot, and open <code>https://SERVER-IP:8006</code> from another computer. Trust the self-signed certificate warning for a local lab, or replace the cert later.</li>
+<li>Ignore the “no subscription” nag if you are on the free/no-subscription path; the hypervisor still works.</li>
+<li>Upload guest ISOs to storage that allows <strong>ISO image</strong> content.</li>
+<li>Create a VM, attach the ISO, install Linux, enable SSH.</li>
+<li>Optionally create an LXC from a template to feel the speed difference.</li>
+</ol>
+<p><strong>Single-disk storage note:</strong> fresh installs sometimes leave usable space split oddly between <code>local</code> and <code>local-lvm</code>. Before you fill the host with disks, confirm which storage accepts <strong>disk images</strong> and that you have the capacity you expect. Official Proxmox docs cover resizing; do that housecleaning <em>before</em> you depend on the box.</p>
+<pre><code class="language-text">flowchart TD
+    H[&quot;Physical server&quot;] --&gt; P[&quot;Proxmox VE&quot;]
+    P --&gt; V1[&quot;Linux Docker VM&quot;]
+    P --&gt; V2[&quot;Optional second VM&quot;]
+    P --&gt; C1[&quot;Test LXC&quot;]
+</code></pre><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>VM vs LXC vs Docker</h4><p>A <strong>VM</strong> has its own kernel. An <strong>LXC</strong> shares the Proxmox host kernel. That one fact drives most tradeoffs:</p>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th style="text-align: right;">VM</th>
+<th style="text-align: right;">LXC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Own kernel</td>
+<td style="text-align: right;">Yes</td>
+<td style="text-align: right;">No</td>
+</tr>
+<tr>
+<td>Windows guest</td>
+<td style="text-align: right;">Yes</td>
+<td style="text-align: right;">No</td>
+</tr>
+<tr>
+<td>Stronger boundary</td>
+<td style="text-align: right;">Yes</td>
+<td style="text-align: right;">No</td>
+</tr>
+<tr>
+<td>Lower overhead</td>
+<td style="text-align: right;">No</td>
+<td style="text-align: right;">Yes</td>
+</tr>
+<tr>
+<td>Full OS flexibility</td>
+<td style="text-align: right;">Yes</td>
+<td style="text-align: right;">Limited to compatible Linux userspace</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Docker</strong> is an application-container platform. It is not a synonym for VM or LXC. The beginner architecture for this Academy is:</p>
+<pre><code class="language-text">Proxmox → Debian/Ubuntu VM → Docker Engine → applications
+</code></pre>
+<p>That avoids nesting Docker inside LXC (and the storage/device headaches that follow) before you understand each layer.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Resource allocation</h4><p>vCPUs are scheduled. Four vCPUs does not mean four cores locked forever. <strong>RAM is less forgiving:</strong> the host plus every running guest need real memory. Leave headroom for the hypervisor, disk cache, backups, and spikes. On a laptop Type 2 setup, watch Task Manager / Activity Monitor / <code>htop</code> with your normal apps open before you gift the guest huge RAM.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A hypervisor creates and runs virtual machines. Type 2 sits on your OS; Type 1 sits on the hardware.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Storage</h4><p>Capacity and <strong>content type</strong> are separate. A storage target may allow ISOs, VM disks, container filesystems, backups, or only some of those. Free space on the wrong content type still blocks “Create disk.” Dynamically allocated virtual disks grow as used; fixed disks reserve space up front (sometimes faster, always hungrier).</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Capacity and **content type** are separate.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Networking on Proxmox</h4><p><code>vmbr0</code> behaves like a virtual Ethernet switch. Guest NICs attach to the bridge; the bridge attaches to a physical NIC; frames can reach the LAN.</p>
+<pre><code class="language-text">flowchart TD
+    S[&quot;Physical switch / router&quot;] --&gt; N[&quot;Host NIC&quot;]
+    N --&gt; B[&quot;vmbr0&quot;]
+    B --&gt; A[&quot;VM 100&quot;]
+    B --&gt; D[&quot;VM 110&quot;]
+    B --&gt; L[&quot;LXC 200&quot;]
+</code></pre>
+<p>Manage Proxmox from a second device at <code>https://SERVER-IP:8006</code>. The management workstation can be Windows, Linux, or macOS.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Isolation vs convenience (both paths)</h4><p>The guest is valuable because it is a sandboxed world. Every convenience feature—bridged LAN, shared clipboard, shared folders, USB passthrough—makes the sandbox thinner. For learning and break/fix work, start strict. Open doors on purpose, one at a time, and write down what you changed.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ 
+</div></div></div><div class="cr-box cr-box-example"><div class="cr-box-head"><span class="cr-chip cr-chip-example">I do</span><h3>Worked example (study this)</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> I do: watch the bad → better reasoning. Steal the thinking, not just the answer.</div>
+ 
+</div><div class="cr-prose-block"><p><strong>I do</strong> — study the reasoning, not just the final answer.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **I do** — study the reasoning, not just the final answer.</div>
+ 
+</div></div><div class="cr-prose-block"><p><strong>Bad approach:</strong> Install experimental servers directly on your daily Windows/macOS desktop “to save time.”</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **Bad approach:** Install experimental servers directly on your daily Windows/macOS desktop “to save time.”</div>
+ 
+</div></div><div class="cr-prose-block"><p><strong>Better approach:</strong> Create a disposable guest (Type 2 VirtualBox now, or Type 1 Proxmox on spare hardware), take a snapshot before risky changes, and prove SSH + DNS inside the guest before installing anything else.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ 
+</div></div><div class="cr-prose-block"><p><strong>Why better:</strong> Failure stays inside the guest. Snapshots give rollback. The host OS you use for school/work stays untouched.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **Why better:** Failure stays inside the guest.</div>
+ 
+</div></div></div><div class="cr-callout tip"><div class="cr-box-head"><span class="cr-chip cr-chip-tip">Tip</span><strong>Current correction</strong></div><p>Use current official VirtualBox and Proxmox documentation for installer screens, Extension Pack pairing, and supported versions. Video walkthroughs age; the model (host/guest, Type 1 vs Type 2, snapshot discipline, NAT vs bridge) stays. Prefer current ISOs and release notes over any year-stamped screenshot.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this before you rush. It keeps you safe or up to date.</div>
+ 
+</div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Next</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
+<li>Open the <strong>Lesson</strong> for prior-knowledge check, guided practice, and <strong>required Feynman teach-back</strong>.</li>
+<li>Then complete <strong>Lab</strong>, <strong>Homework</strong>, and <strong>Quiz</strong> for this topic.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="/classroom/modules/01-infrastructure/">← Module hub</a><a href="lesson.html">Lesson →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

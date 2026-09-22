@@ -2,52 +2,51 @@
 
 **Site:** https://otaconskeep.github.io/classroom/
 
-# Homelab Academy: ARR + Home Assistant + Local Voice + n8n
+# Homelab Academy: module learning system
 
-This is a complete, build-first course package. It is not a transcript collection. Each class converts useful ideas into original instruction, adds current operational guidance, and connects the lesson to one final working homelab.
+This is a **module-based learning system**, not a pile of readings, videos, quizzes, and exams.
 
-## How to use the pack
+**Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review  
 
-1. Read the class lesson.
-2. Complete the guided lab exactly once without improvising.
-3. Run the break/fix exercise so you learn how the subsystem fails.
-4. Complete the quiz without the answer key.
-5. Pass the practical gate before moving to the next class.
-6. Record evidence in `templates/verification_matrix.csv`.
+**Feynman teach-back is required in every lesson.**
 
-The course progression is:
+## Start here
 
-**Understand → Build → Break → Fix → Verify**
+1. [`pack/METHODOLOGY.md`](pack/METHODOLOGY.md) — how the system works  
+2. [`pack/LEARNING_OUTCOMES.md`](pack/LEARNING_OUTCOMES.md) — what you can do at the end  
+3. [`pack/PREREQUISITE_ASSESSMENT.md`](pack/PREREQUISITE_ASSESSMENT.md)  
+4. [`pack/modules/README.md`](pack/modules/README.md) — **authoritative module index**  
+5. Open Module 1 → Topic 1 → Reading → Lesson (Feynman) → Lab → Homework → Quiz  
+
+## Module shape
+
+```
+Module
+├── MODULE.md            outcome, Bloom arc, mastery gate, spiral
+├── topics/Txx-name/
+│   ├── reading.md       Learn
+│   ├── lesson.md        Orient + Feynman (required) + reflect
+│   ├── lab.md           Practice
+│   ├── homework.md      Apply
+│   └── quiz.md          Test
+├── project.md           integrated skill
+├── module-quiz.md       retention
+├── exam.md              mastery
+└── remediation.md       re-teach weak areas
+```
 
 ## Package contents
 
-- `COURSE_MAP.md` — sequence, prerequisites, deliverables, and capstone architecture.
-- `classes/01...15` — complete class lessons with labs, troubleshooting, quizzes, and gates (Class 14 = n8n; Class 15 = IPv4 addressing).
-- `STUDENT_WORKBOOK.md` — reusable note and evidence pages for every class.
-- `INSTRUCTOR_ANSWER_KEY.md` — quiz answers and practical acceptance criteria.
-- `FINAL_CAPSTONE.md` — end-to-end ARR, media, Home Assistant, and local-voice exam.
-- `templates/` — inventory, port plan, IP plan, service contract, incident log, and verification matrix.
-- `references/VIDEO_LINKS.md` — optional lecture links in one place.
-- `references/OFFICIAL_DOCUMENTATION.md` — current documentation used for corrections.
+- `pack/modules/` — **primary curriculum**
+- `pack/classes/` — combined reference exports of each topic (legacy-compatible)
+- Course docs: overview, syllabus, outcomes, methodology, prereq, map
+- Workbook, instructor key, capstone, templates, references
 
-## Important boundaries
+## Boundaries
 
-- Use media automation only with content, indexers, and download sources you are legally authorized to use.
-- Do not expose ARR applications or download clients directly to the public internet.
-- Back up configuration and databases before migrations or mass profile changes.
-- Commands are examples. Replace sample paths, users, IPs, and secrets with values from your own design records.
-- Never paste real passwords, API keys, or tunnel tokens into screenshots, assignments, or public repositories.
-
-## Recommended lab target
-
-- One Proxmox server or one Linux host capable of running Docker.
-- A separate workstation with a browser and SSH client.
-- 16 GB RAM minimum for the combined learning lab; 32 GB is more comfortable.
-- Wired Ethernet for servers.
-- A test media library and a test Home Assistant entity.
-- Optional microphone and speaker for Classes 11–13.
-
-
+- Authorized indexers/content only  
+- Do not expose ARR/download admin to the public internet  
+- Never paste real secrets into public repos or screenshots  
 
 ## License
 

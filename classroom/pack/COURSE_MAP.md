@@ -1,107 +1,89 @@
-# Course Map
+# Course Map — Module Curriculum
 
-Methodology: **Backward Design → Bloom → Learn/Practice/Test/Reflect → Mastery → Spiral**.  
-Feynman teach-back is required in every class. See `METHODOLOGY.md`.
+**Authoritative structure:** [`modules/`](modules/README.md)  
+**Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review  
+**Feynman teach-back is required in every lesson** (not optional).
 
-## Modules (units)
+## Backward design — course outcome
 
-| Module | Classes | Stage gate |
+Student can design, build, operate, troubleshoot, and verify a private homelab (Dockerized services, authorized ARR automation, Home Assistant, local voice, guarded n8n) with evidence in a verification matrix.
+
+## Modules
+
+| Module | Outcome (capability) | Topics | Stage gate |
+|---|---|---|---|
+| [1 — Infrastructure & Addressing](modules/01-infrastructure/MODULE.md) | Virtualize, Compose, network, operate, read IPv4 | 5 | Gate 1 |
+| [2 — ARR Media Automation](modules/02-arr-media/MODULE.md) | Prowlarr flow, quality policy, config automation | 3 | Gate 2 |
+| [3 — Home Assistant & Secure Access](modules/03-home-assistant/MODULE.md) | Entities, testable automations, remote denial | 3 | Gate 3 |
+| [4 — Local Voice](modules/04-local-voice/MODULE.md) | Stage diagnosis, STT/TTS, disconnected speaker | 3 | Gate 4 |
+| [5 — Workflow Automation](modules/05-workflow-automation/MODULE.md) | n8n digests + approval before mutation | 1 | Gate 5 |
+| [Capstone](FINAL_CAPSTONE.md) | Full-system verification + final Feynman | — | Course |
+
+## How each topic is organized
+
+Every topic is a mini learning system with **separate activities**:
+
+| Activity | Folder file | Purpose in the chain |
 |---|---|---|
-| 1 — Infrastructure & addressing | 1–4, 15 | Gate 1 |
-| 2 — ARR media automation | 5–7 | Gate 2 |
-| 3 — Home Assistant & remote access | 8–10 | Gate 3 |
-| 4 — Local voice | 11–13 | Gate 4 |
-| 5 — Workflow automation | 14 | Gate 5 |
-| Capstone | Final exam | Course complete |
+| Reading | `reading.md` | Learn (instruction, vocab, worked example) |
+| Lesson | `lesson.md` | Orient, prior check, guided practice, **Feynman**, reflect |
+| Lab | `lab.md` | Practice (guided lab + break/fix + lab gate) |
+| Homework | `homework.md` | Apply independently |
+| Quiz | `quiz.md` | Test / retrieval (≥80% target) |
 
-## Class map
+## How each module is organized
 
-| Class | Subject | Learning focus (Bloom) | Build output | Pass evidence |
-|---|---|---|---|---|
-| 1 | Proxmox, VMs, and LXC | Apply | Linux VM plus test LXC / VirtualBox path | VM networking, DNS, SSH, LXC comparison + Feynman |
-| 2 | Docker Compose | Apply / Create | Persistent two-service Compose project | Recreate without data loss + Feynman |
-| 3 | Docker networking | Analyze | Isolated `media_net` with DNS-based calls | Name resolution and isolation tests + Feynman |
-| 4 | Container operations | Apply / Evaluate | Maintainable service lifecycle | Health, logs, update, rollback + Feynman |
-| 5 | Prowlarr and service contracts | Apply / Analyze | Prowlarr connected to Sonarr/Radarr | Application sync and test results + Feynman |
-| 6 | TRaSH quality design | Evaluate / Create | Quality profiles and Custom Formats | Scored sample releases and cutoff behavior + Feynman |
-| 7 | Configuration automation | Apply / Evaluate | Reproducible profile sync and drift report | Backup, dry run, apply, rollback + Feynman |
-| 8 | Home Assistant foundations | Apply | HA instance with entity, dashboard, backup | Restart and restore evidence + Feynman |
-| 9 | Home Assistant automations | Analyze / Create | Trigger-condition-action automation | Positive and negative test cases + Feynman |
-| 10 | Secure remote access | Evaluate / Apply | Authenticated remote path or VPN | Unauthorized denial and rollback + Feynman |
-| 11 | Local voice architecture | Analyze | Instrumented Assist pipeline | Stage-by-stage trace + Feynman |
-| 12 | Whisper, Piper, and Wyoming | Apply / Evaluate | Local STT and TTS services | Known-sentence and known-response tests + Feynman |
-| 13 | Private smart speaker | Create / Evaluate | Wake-to-action-to-speech system | Internet-disconnected end-to-end pass + Feynman |
-| 14 | n8n homelab automation | Apply / Evaluate | n8n + RSS digest + guarded Keep Agent | Item-flow explained; approval before mutation + Feynman |
-| 15 | IPv4 addresses and gateways | Understand / Apply | Read IP/mask/gateway; classful vs classless | Same-LAN vs gateway; reserved + loopback + Feynman |
+| Activity | File | Purpose |
+|---|---|---|
+| Module hub | `MODULE.md` | Outcome, Bloom arc, topic index, mastery unlock |
+| Project | `project.md` | Integrated Apply/Create across topics |
+| Module quiz | `module-quiz.md` | Cross-topic retention |
+| Exam | `exam.md` | Module mastery verification |
+| Remediation | `remediation.md` | Feedback → review → reassess |
 
-## Every class section order
+## Topic index
 
-1. Learning objective  
-2. Why this matters  
-3. Prior-knowledge check  
-4. Vocabulary  
-5. Instruction  
-6. Worked example (I do)  
-7. Guided practice (We do)  
-8. Independent practice (You do)  
-9. **Feynman teach-back** (mandatory)  
-10. Retrieval check  
-11. Guided lab  
-12. Break / fix  
-13. Feedback / common mistakes  
-14. Practical mastery gate  
-15. Reflection  
-16. Spiral hook  
-17. Current correction (when needed)
+### Module 1 — Infrastructure & Addressing
+1. Virtualization & Proxmox  
+2. Docker Compose & persistence  
+3. Docker networking  
+4. Container operations  
+5. IPv4 addresses & gateways  
 
-## Final architecture
+### Module 2 — ARR Media Automation
+1. Prowlarr & ARR request flow  
+2. TRaSH quality profiles  
+3. Configuration automation  
 
-```mermaid
-flowchart TD
-    U["User request"] --> S["Seerr"]
-    S --> A["Sonarr / Radarr"]
-    A --> P["Prowlarr"]
-    A --> D["qBittorrent / SABnzbd"]
-    D --> M["Shared /data paths"]
-    A --> M
-    M --> X["Plex / Jellyfin"]
-    H["Home Assistant"] --> O["Monitoring + automations"]
-    V["Local voice satellite"] --> H
-    H --> V
-    N["n8n"] --> H
-    N --> Lab["SSH / HTTP checks"]
-```
+### Module 3 — Home Assistant & Secure Access
+1. Home Assistant foundations  
+2. Home Assistant automations  
+3. Secure remote access  
 
-## Stage gates
+### Module 4 — Local Voice
+1. Local voice architecture  
+2. Whisper, Piper & Wyoming  
+3. Private smart speaker  
 
-### Gate 1 — Infrastructure
+### Module 5 — Workflow Automation
+1. n8n homelab automation  
 
-Classes 1–4 must pass before building the media applications. Class 15 may be taken early alongside 1–3. The student explains persistence, ports, networks, name resolution, logs, health, updates, rollback, and basic IPv4 delivery.
+## Mastery unlock rules
 
-### Gate 2 — Media automation
+**Topic unlock:** reading + Feynman + quiz target + lab gate + homework evidence  
 
-Classes 5–7 must pass. The student traces request → search → download → import and shows a tested quality policy under automation.
+**Module unlock:** all topics complete + project + module quiz + exam  
 
-### Gate 3 — Home automation
+**Next module:** previous module mastery gate true — not “clicked Next”
 
-Classes 8–10 must pass. Backup/restore proven; unauthenticated external admin access denied.
+## Spiral review
 
-### Gate 4 — Voice
+- Module 1 Compose/networks/ops/IP return in every later deploy and outage.
+- Module 2 quality policy returns when automation drifts.
+- Module 3 entity names return as voice actions; remote boundary constrains Module 5.
+- Module 4 stage names are the permanent voice fault language.
+- Capstone spirals all modules into one verification matrix.
 
-Classes 11–13 pass stage-by-stage, then disconnected end-to-end.
+## Legacy class files
 
-### Gate 5 — Workflow automation
-
-Class 14 passes with lab-only networking, cardinality explained, and approval before mutation.
-
-## Spiral examples
-
-- Compose (2) returns in every later deploy.
-- Docker DNS (3) returns in ARR, HA, voice, n8n.
-- Quality policy (6) returns when automation (7) drifts.
-- Entity naming (8) returns in automations (9) and voice actions (11–13).
-- Addressing (15) returns on every “hosts can’t talk” incident.
-
-## Evidence rule
-
-“It seems to work” is not evidence. Acceptable evidence is an observed result tied to a requirement: command output, API test, application test button, log excerpt, screenshot with secrets removed, file metadata, or a repeatable test record — plus a completed Feynman teach-back.
+`classes/01…15` remain as combined reference exports. **Teach and navigate from `modules/`.** Website class URLs redirect into the matching module topic lesson.
