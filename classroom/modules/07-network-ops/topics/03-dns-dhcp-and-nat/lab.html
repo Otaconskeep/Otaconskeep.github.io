@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03-dns-dhcp-and-nat — Lab · Classroom</title>
+<meta name="description" content="03-dns-dhcp-and-nat — Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/07-network-ops/topics/03-dns-dhcp-and-nat/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M7 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M7 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 03-dns-dhcp-and-nat — Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Network Operations<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Describe the separate responsibilities of DNS, DHCP, and NAT</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Basic familiarity with IPv4 addresses, subnet masks, default gateways, and private address space</li>
+<li>Ability to run shell commands and Python 3</li>
+<li>Permission to create and remove files under /opt/lab-classroom/class24/</li>
+<li>Completion of introductory LAN, routing, and transport-protocol lessons</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>name</h4><p>Model DNS records, DHCP leases, and NAT state</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>constraints</h4><p>Run the commands exactly as shown.<br />
+Do not redirect output to a path outside /opt/lab-classroom/class24/.<br />
+The exercise is a deterministic simulator, not a production service deployment.<br />
+The documentation-only addresses 198.51.100.0/24 and 203.0.113.0/24 are used to avoid implying that arbitrary public systems should be contacted.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run the commands exactly as shown.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Create the isolated classroom directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the isolated classroom directory.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>mkdir -p /opt/lab-classroom/class24/</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: mkdir -p /opt/lab-classroom/class24/</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Create a Python simulator for DNS lookup, DHCP allocation, and port-based source translation.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> DHCP is how most home devices get an IP automatically from the router.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 -c 'from pathlib import Path; p=Path("/opt/lab-classroom/class24/simulator.py"); p.write_text("""import ipaddress\nimport json\nfrom pathlib import Path\n\nBASE = Path(\"/opt/lab-classroom/class24\")\nNETWORK = ipaddress.ip_network(\"192.168.24.0/24\")\nPOOL = [str(ip) for ip in list(NETWORK.hosts()) if 100 &lt;= int(str(ip).split(\".\")[-1]) &lt;= 105]\nDNS_RECORDS = {\n    \"nas.lab.home.arpa\": {\"type\": \"A\", \"value\": \"192.168.24.10\", \"ttl\": 300},\n    \"dashboard.lab.home.arpa\": {\"type\": \"A\", \"value\": \"192.168.24.20\", \"ttl\": 300}\n}\nCLIENTS = [\"client-a\", \"client-b\", \"client-a\"]\n\ndef allocate_leases(clients):\n    leases = {}\n    available = iter(POOL)\n    events = []\n    for client in clients:\n        if client not in leases:\n            leases[client] = next(available)\n            events.append({\"client\": client, \"event\": \"new-lease\", \"address\": leases[client]})\n        else:\n            events.append({\"client\": client, \"event\": \"existing-lease\", \"address\": leases[client]})\n    return leases, events\n\ndef build_nat_table():\n    flows = [\n        {\"protocol\": \"tcp\", \"inside_ip\": \"192.168.24.100\", \"inside_port\": 51000, \"destination_ip\": \"203.0.113.10\", \"destination_port\": 443},\n        {\"protocol\": \"udp\", \"inside_ip\": \"192.168.24.101\", \"inside_port\": 53000, \"destination_ip\": \"203.0.113.53\", \"destination_port\": 53}\n    ]\n    for offset, flow in enumerate(flows):\n        flow[\"outside_ip\"] = \"198.51.100.24\"\n        flow[\"outside_port\"] = 40000 + offset\n    return flows\n\nleases, lease_events = allocate_leases(CLIENTS)\nresult = {\n    \"network\": str(NETWORK),\n    \"gateway\": \"192.168.24.1\",\n    \"dns_server\": \"192.168.24.2\",\n    \"dns_query\": {\"name\": \"nas.lab.home.arpa\", \"answer\": DNS_RECORDS[\"nas.lab.home.arpa\"]},\n    \"leases\": leases,\n    \"lease_events\": lease_events,\n    \"nat_table\": build_nat_table()\n}\n(BASE / \"results.json\").write_text(json.dumps(result, indent=2) + \"\n\", encoding=\"utf-8\")\nprint(json.dumps(result, indent=2))\n""", encoding="utf-8")'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 -c &#x27;from pathlib import Path; p=Path(&quot;/opt/lab-classroom/class24/simulator.py&quot;); p.write_text(&quot;&quot;&quot;import ipaddress\nimport json\nfrom pathlib import P…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Run the simulator. Its only generated state is results.json inside the classroom directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run the simulator.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 /opt/lab-classroom/class24/simulator.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 /opt/lab-classroom/class24/simulator.py</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Perform deterministic assertions against the generated state.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Perform deterministic assertions against the generated state.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 -c 'import json, pathlib; d=json.loads(pathlib.Path("/opt/lab-classroom/class24/results.json").read_text()); assert d["dns_query"]["answer"]["value"] == "192.168.24.10"; assert d["leases"]["client-a"] == "192.168.24.100"; assert d["leases"]["client-b"] == "192.168.24.101"; assert d["lease_events"][2]["event"] == "existing-lease"; assert len({x["outside_port"] for x in d["nat_table"]}) == 2; print("class24 verification passed")'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 -c &#x27;import json, pathlib; d=json.loads(pathlib.Path(&quot;/opt/lab-classroom/class24/results.json&quot;).read_text()); assert d[&quot;dns_query&quot;][&quot;answer&quot;][&quot;value&quot;]…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Inspect the saved result and identify which fields belong to DNS, DHCP, and NAT.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 -m json.tool /opt/lab-classroom/class24/results.json</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 -m json.tool /opt/lab-classroom/class24/results.json</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The simulator reports the client network as 192.168.24.0/24.</li>
+<li>The DNS query for nas.lab.home.arpa returns an A record containing 192.168.24.10 with a TTL of 300.</li>
+<li>client-a receives 192.168.24.100 and client-b receives 192.168.24.101.</li>
+<li>The second request from client-a is labeled existing-lease and retains 192.168.24.100.</li>
+<li>Two NAT entries share the simulated external address 198.51.100.24 but use different translated ports.</li>
+<li>The assertion command prints class24 verification passed.</li>
+<li>The only created files are simulator.py and results.json under /opt/lab-classroom/class24/.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run <code>python3 /opt/lab-classroom/class24/simulator.py</code> again and confirm that the output is unchanged, demonstrating deterministic allocation.</li>
+<li>[ ] Run <code>python3 -m json.tool /opt/lab-classroom/class24/results.json</code> and confirm that the file contains dns_query, leases, lease_events, and nat_table sections.</li>
+<li>[ ] Run <code>python3 -c 'import json, pathlib; d=json.loads(pathlib.Path("/opt/lab-classroom/class24/results.json").read_text()); print(d["dns_query"]["answer"])'</code> and confirm that the value is 192.168.24.10.</li>
+<li>[ ] Run <code>python3 -c 'import json, pathlib; d=json.loads(pathlib.Path("/opt/lab-classroom/class24/results.json").read_text()); print(d["leases"])'</code> and confirm that the two distinct clients have distinct addresses.</li>
+<li>[ ] Run <code>python3 -c 'import json, pathlib; d=json.loads(pathlib.Path("/opt/lab-classroom/class24/results.json").read_text()); print([(x["inside_ip"], x["inside_port"], x["outside_ip"], x["outside_port"]) for x in d["nat_table"]])'</code> and confirm that each internal flow has a unique external port.</li>
+<li>[ ] Run <code>python3 -c 'from pathlib import Path; print(sorted(p.name for p in Path("/opt/lab-classroom/class24").iterdir()))'</code> and confirm that the lab directory contains simulator.py and results.json.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The command reports that /opt/lab-classroom/class24/ cannot be created.</td>
+<td>The current account does not have permission to create directories under /opt.</td>
+<td>Use an account with permission to create the required classroom directory, or have an administrator pre-create /opt/lab-classroom/class24/ and assign it to the lab user. Do not move the exercise to another path because the lesson scope requires this directory.</td>
+</tr>
+<tr>
+<td>Running the simulator reports that python3 is not found.</td>
+<td>Python 3 is not installed or is not available through the current command search path.</td>
+<td>Install a supported Python 3 release using the operating system's normal package-management process outside this lab, then rerun the simulator.</td>
+</tr>
+<tr>
+<td>The verification reports a JSON decoding error.</td>
+<td>results.json is incomplete, was manually edited, or the simulator did not finish writing it.</td>
+<td>Rerun <code>python3 /opt/lab-classroom/class24/simulator.py</code> to regenerate the result, then repeat the verification.</td>
+</tr>
+<tr>
+<td>A client receives an unexpected simulated address.</td>
+<td>The pool, client order, or allocation logic in simulator.py was changed.</td>
+<td>Restore the original pool range of 192.168.24.100 through 192.168.24.105 and the client order client-a, client-b, client-a, then rerun the simulator.</td>
+</tr>
+<tr>
+<td>Two NAT entries show the same translated port.</td>
+<td>The translated-port assignment was modified so the offset is no longer applied.</td>
+<td>Restore the expression that assigns 40000 plus the flow offset, regenerate results.json, and rerun the assertions.</td>
+</tr>
+<tr>
+<td>A real client has an address but cannot resolve names.</td>
+<td>DHCP may have supplied an incorrect resolver address, the resolver may be unreachable, or the requested DNS record may not exist.</td>
+<td>Inspect the client's assigned DNS server, test reachability to that address, query that resolver directly, and compare the response with the authoritative zone data.</td>
+</tr>
+<tr>
+<td>A real client can resolve names but cannot reach the resolved service.</td>
+<td>DNS is functioning, but routing, packet policy, NAT state, the destination service, or return routing may be failing.</td>
+<td>Record the returned address, test the route and gateway separately, confirm the destination service is listening, and inspect translation state at the actual address boundary.</td>
+</tr>
+<tr>
+<td>A published internal service works by internal address but not by its external name from the same LAN.</td>
+<td>The design may require hairpin translation or an internal DNS answer that points directly to the internal address.</td>
+<td>Choose and document either a supported hairpin design or split-horizon DNS. Verify that internal and external clients receive the intended path.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Treat DHCP as a trusted infrastructure service. An unauthorized DHCP server can supply a hostile gateway or resolver and redirect client traffic.<br />
+Use network segmentation and infrastructure access controls to limit which interfaces or segments may originate server-side DHCP responses.<br />
+Protect DNS administration because altered records can redirect users even when IP routing remains healthy.<br />
+Restrict recursive DNS service to intended clients to reduce abuse and unintended resource consumption.<br />
+Use DNSSEC validation where appropriate to authenticate signed DNS data, while recognizing that it does not encrypt ordinary DNS queries.<br />
+Do not treat NAT as a complete security boundary. Translation and access policy are different functions.<br />
+Publish only required services, authenticate them, maintain updates, and retain useful logs.<br />
+Avoid overlapping private subnets across interconnected homelabs or remote-access networks because overlap creates ambiguous routing and translation requirements.<br />
+Document static assignments, DHCP reservations, exclusions, DNS records, and published translations to prevent accidental collisions.<br />
+The lab uses documentation-only external address ranges and does not send network traffic.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>scope</h4><p>Remove only the class directory created for this lesson.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Remove only the class directory created for this lesson.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>command</h4><p>python3 -c 'from pathlib import Path; import shutil; p=Path("/opt/lab-classroom/class24"); shutil.rmtree(p) if p.exists() else None'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 -c &#x27;from pathlib import Path; import shutil; p=Path(&quot;/opt/lab-classroom/class24&quot;); shutil.rmtree(p) if p.exists() else None&#x27;</div>
+ 
+</div></div><div class="cr-prose-block"><h4>verification</h4><p>Run <code>python3 -c 'from pathlib import Path; print(not Path("/opt/lab-classroom/class24").exists())'</code> and confirm that it prints True.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run this setting and confirm that it prints True.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>impact</h4><p>The simulator, generated results, and any homework files saved under the class directory are deleted. No host network state requires restoration because the lab does not modify it.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The simulator, generated results, and any homework files saved under the class directory are deleted.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03-dns-dhcp-and-nat — Reading · Classroom</title>
+<meta name="description" content="03-dns-dhcp-and-nat — Reading">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/07-network-ops/topics/03-dns-dhcp-and-nat/reading.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M7 READING<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M7 READING<small>reading</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 03-dns-dhcp-and-nat — Reading</h1>
+ <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ 
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Network Operations<br />
+<strong>Activity type:</strong> Reading (Learn)<br />
+<strong>Objective:</strong> Describe the separate responsibilities of DNS, DHCP, and NAT</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DNS</td>
+<td>The Domain Name System, a distributed naming system that maps names to records such as IPv4 addresses, IPv6 addresses, mail exchangers, aliases, and service metadata.</td>
+</tr>
+<tr>
+<td>Recursive resolver</td>
+<td>A DNS service that performs or coordinates lookups on behalf of clients and normally caches the resulting answers.</td>
+</tr>
+<tr>
+<td>Authoritative server</td>
+<td>A DNS server that publishes definitive records for a DNS zone rather than merely returning cached recursive results.</td>
+</tr>
+<tr>
+<td>TTL</td>
+<td>Time to live; the duration for which a DNS answer may normally remain cached before it should be refreshed.</td>
+</tr>
+<tr>
+<td>DHCP</td>
+<td>The Dynamic Host Configuration Protocol, which supplies clients with network parameters such as an address, subnet prefix, gateway, DNS servers, and lease duration.</td>
+</tr>
+<tr>
+<td>Lease</td>
+<td>A time-bounded assignment of an IP address and related configuration to a DHCP client.</td>
+</tr>
+<tr>
+<td>Reservation</td>
+<td>A DHCP policy that consistently associates a known client identifier with a designated address.</td>
+</tr>
+<tr>
+<td>DORA</td>
+<td>A common mnemonic for DHCP Discover, Offer, Request, and Acknowledgment.</td>
+</tr>
+<tr>
+<td>NAT</td>
+<td>Network Address Translation, which rewrites address information as traffic passes between address realms.</td>
+</tr>
+<tr>
+<td>PAT</td>
+<td>Port Address Translation, a many-to-one NAT technique that distinguishes concurrent flows by translated transport ports.</td>
+</tr>
+<tr>
+<td>Translation table</td>
+<td>State that associates an internal flow with its translated external address and port.</td>
+</tr>
+<tr>
+<td>Hairpin NAT</td>
+<td>A translation path that allows an internal client to reach an internally hosted service through an address normally presented as external.</td>
+</tr>
+<tr>
+<td>Split-horizon DNS</td>
+<td>A design in which different clients receive different DNS answers for the same name, often based on whether they are inside or outside a network.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div><div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>DNS, DHCP, and NAT solve different problems even though a small home router may present them as one feature set. DHCP gives a client the information needed to participate on an IP network. A new client initially lacks a usable address and commonly begins with a broadcast DHCP Discover. A server responds with an Offer, the client sends a Request identifying the selected offer, and the server completes the exchange with an Acknowledgment. The resulting lease can include an address, prefix, default gateway, DNS server addresses, lease duration, and other options. A reservation is not the same thing as manually configuring an address: it remains server-managed but consistently maps a known client identifier to an intended address.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
+ 
+</div></div><div class="cr-prose-block"><p>DNS answers naming questions. A client usually asks a recursive resolver for a record such as the A record for an IPv4 address or the AAAA record for an IPv6 address. If the answer is not cached, the resolver follows referrals through the DNS hierarchy until it reaches an authoritative source or another valid conclusion. Caching reduces delay and query volume, but it also means record changes are not instant. TTL values influence how long compliant caches may reuse an answer. A failed name lookup does not automatically mean that routing is broken; testing connectivity by address and then testing name resolution helps separate the two failure domains. Likewise, receiving a DNS server through DHCP does not prove that the DNS server is reachable or that it has the required records.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div><div class="cr-prose-block"><p>NAT rewrites packet addressing at a boundary. In a common IPv4 homelab, many private clients share one upstream address. Port Address Translation tracks combinations of protocol, source address, source port, destination address, and destination port, then assigns translated source ports so return traffic can be associated with the correct internal conversation. This state is normally created by outbound traffic and expires when it becomes idle or the protocol state ends. Inbound publishing requires an intentional static mapping or equivalent policy because an unsolicited packet has no existing translation entry that identifies an internal destination.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
+ 
+</div></div><div class="cr-prose-block"><p>The normal dependency chain is: DHCP supplies an address, route, and resolver; DNS converts a service name into an address; routing sends packets toward the destination; and NAT may rewrite the flow at an address boundary. These services can also be deployed independently. Static clients do not require DHCP, direct address access does not require DNS, and globally routed networks may not require NAT. Troubleshooting should therefore test each layer independently rather than treating internet access as a single feature. Confirm the client configuration, test the local gateway, query the intended resolver, inspect the returned record, verify the route, and then inspect translation state where NAT is actually present. Finally, NAT must not be treated as a complete security control. Address rewriting can incidentally prevent some unsolicited traffic when no mapping exists, but access policy, service authentication, patching, segmentation, and logging remain separate responsibilities.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
+ 
+</div></div></div><div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>logical_flow</h3>
+<p>Client requests network configuration from the DHCP service.<br />
+DHCP supplies an address from 192.168.24.100 through 192.168.24.105, a /24 prefix, gateway 192.168.24.1, and DNS server 192.168.24.2.<br />
+Client asks the DNS service to resolve names in the lab.home.arpa zone.<br />
+The simulated gateway creates a source translation entry when a client initiates an external flow.<br />
+Return traffic is associated with the originating client by the translation tuple.</p>
+<h3>components</h3>
+<h3>client_segment</h3>
+<p>192.168.24.0/24</p>
+<h3>gateway</h3>
+<p>192.168.24.1</p>
+<h3>dns_service</h3>
+<p>192.168.24.2</p>
+<h3>dhcp_pool</h3>
+<p>192.168.24.100-192.168.24.105</p>
+<h3>simulated_external_address</h3>
+<p>198.51.100.24</p>
+<h3>lab_storage</h3>
+<p>/opt/lab-classroom/class24/</p>
+<h3>scope_note</h3>
+<p>All services in this lab are modeled in files and Python data structures. The host network configuration is not changed, no packets are transmitted, and every persistent mutation remains under /opt/lab-classroom/class24/.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Review IPv4 subnetting, including network, broadcast, usable host, and default gateway addresses.</li>
+<li>Review the roles of UDP and TCP ports in identifying application conversations.</li>
+<li>Review RFC 1918 private IPv4 address ranges.</li>
+<li>Read the overview sections of RFC 1034 and RFC 1035 for DNS concepts.</li>
+<li>Read the DHCP message-flow overview in RFC 2131.</li>
+<li>Read the traditional NAT terminology in RFC 3022.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>RFC 1034, Domain Names—Concepts and Facilities: https://www.rfc-editor.org/rfc/rfc1034</li>
+<li>RFC 1035, Domain Names—Implementation and Specification: https://www.rfc-editor.org/rfc/rfc1035</li>
+<li>RFC 2131, Dynamic Host Configuration Protocol: https://www.rfc-editor.org/rfc/rfc2131</li>
+<li>RFC 2132, DHCP Options and BOOTP Vendor Extensions: https://www.rfc-editor.org/rfc/rfc2132</li>
+<li>RFC 3022, Traditional IP Network Address Translator: https://www.rfc-editor.org/rfc/rfc3022</li>
+<li>RFC 1918, Address Allocation for Private Internets: https://www.rfc-editor.org/rfc/rfc1918</li>
+<li>RFC 5737, IPv4 Address Blocks Reserved for Documentation: https://www.rfc-editor.org/rfc/rfc5737</li>
+<li>RFC 8375, Special-Use Domain home.arpa: https://www.rfc-editor.org/rfc/rfc8375</li>
+<li>IANA Domain Name System Parameters: https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml</li>
+<li>IANA BOOTP and DHCP Parameters: https://www.iana.org/assignments/bootp-dhcp-parameters/bootp-dhcp-parameters.xhtml</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="/classroom/modules/07-network-ops/">← Module hub</a><a href="lesson.html">Lesson →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

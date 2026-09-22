@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05-network-troubleshooting-tools-and-methodology — Reading · Classroom</title>
+<meta name="description" content="05-network-troubleshooting-tools-and-methodology — Reading">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/07-network-ops/topics/05-network-troubleshooting-tools-and-methodology/reading.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M7 READING<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M7 READING<small>reading</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 05-network-troubleshooting-tools-and-methodology — Reading</h1>
+ <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ 
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Network Operations<br />
+<strong>Activity type:</strong> Reading (Learn)<br />
+<strong>Objective:</strong> Apply a layered troubleshooting workflow from local state through application response</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>symptom</td>
+<td>An observed failure or unexpected behavior, such as a timeout, refused connection, or incorrect response.</td>
+</tr>
+<tr>
+<td>hypothesis</td>
+<td>A specific, testable explanation for a symptom.</td>
+</tr>
+<tr>
+<td>loopback</td>
+<td>A host-local network interface and address range used to communicate with services on the same system.</td>
+</tr>
+<tr>
+<td>socket</td>
+<td>An operating-system endpoint identified by protocol, local address, and local port, with optional remote endpoint information.</td>
+</tr>
+<tr>
+<td>listener</td>
+<td>A process waiting for incoming transport connections on a particular address and port.</td>
+</tr>
+<tr>
+<td>route</td>
+<td>A rule used by the operating system to choose an outgoing interface, next hop, and source address for a destination.</td>
+</tr>
+<tr>
+<td>resolver</td>
+<td>The software path that converts names into addresses using sources such as local host records or DNS.</td>
+</tr>
+<tr>
+<td>connection refused</td>
+<td>A transport-level response commonly indicating that the destination host was reached but no service accepted the connection on that address and port.</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>A failure in which the expected response did not arrive before a configured deadline; it does not by itself identify where packets were lost.</td>
+</tr>
+<tr>
+<td>bind address</td>
+<td>The local address on which a service accepts traffic, such as 127.0.0.1 for host-local access or a non-loopback address for access through an external interface.</td>
+</tr>
+<tr>
+<td>application-layer response</td>
+<td>A protocol-specific result, such as an HTTP status line and response body, proving more than basic port reachability.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div><div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>Effective network troubleshooting is a process of reducing uncertainty, not a process of trying random fixes. Begin by recording the exact symptom, the source host, the intended destination, the protocol, the port, the time, and what success should look like. A statement such as “the network is down” is too broad. A statement such as “an HTTP request from this host to 127.0.0.1 port 18081 is refused immediately” is testable.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Work through the path in layers. First confirm local interface state and addressing with <code>ip address</code>. Next ask the kernel how it would reach the destination with <code>ip route get DESTINATION</code>; this is usually more useful than merely reading the entire route table because it reveals the selected interface and source address. If a hostname is involved, test resolution separately with <code>getent ahosts NAME</code>. This follows the host's configured name-service path and helps distinguish name lookup from packet delivery. A name resolving successfully does not prove that an application is available, and a successful ping does not prove that a TCP port is open.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div><div class="cr-prose-block"><p>At the transport layer, identify whether a service is actually listening with <code>ss -lntp</code>. Address scope matters: a process bound only to 127.0.0.1 can be reached locally but not through a different host interface. A process may also be healthy on one port while the client is configured for another. An immediate “connection refused” is evidence that the destination stack was reached and rejected the connection or had no matching listener. A timeout is less specific; possible causes include packet loss, an incorrect route, an unavailable destination, or silent policy filtering. Preserve that distinction instead of treating every failure as the same condition.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Finally, test the application protocol. <code>curl -v</code> exposes address selection, connection attempts, request headers, response headers, and application status. A completed TCP connection followed by an HTTP 404 is not a basic connectivity failure: the network path and web service worked, but the requested resource was absent. Likewise, an HTTP 500 indicates that the request reached the application even though the application failed internally. Use bounded tests such as <code>--connect-timeout</code> and <code>--max-time</code> so a diagnostic command cannot wait indefinitely.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-prose-block"><p>A disciplined cycle is: observe, scope, hypothesize, test one variable, compare the result with the prediction, and record the conclusion. Prefer read-only inspection before changing anything. Do not restart unrelated services or alter host networking merely because a client failed. Changes can erase evidence and create a second problem. In this lab, the deliberately wrong port produces a transport failure, while the correct port produces an HTTP success. The contrast demonstrates how listener inspection and client output can locate a fault without changing system-wide network configuration.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div></div><div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>diagnostic_path</h3>
+<p>Client command constructs an HTTP request<br />
+A literal loopback address avoids external name-service dependencies during the primary test<br />
+The kernel performs a route lookup and selects the loopback interface<br />
+TCP attempts to connect to the selected destination port<br />
+A Python process listens only on 127.0.0.1:18080<br />
+The HTTP server reads health.txt from /opt/lab-classroom/class26/site/<br />
+Server output is redirected to /opt/lab-classroom/class26/server.log</p>
+<h3>fault_model</h3>
+<p>Port 18081 is intentionally unused, while port 18080 is the known-good listener. Comparing the two requests isolates a destination-port mismatch.</p>
+<h3>scope_boundary</h3>
+<p>All persistent files and directory metadata created or modified by the lab are confined to /opt/lab-classroom/class26/. No host network configuration is changed.</p>
+<h3>evidence_flow</h3>
+<p>ip address establishes local interface state; ip route get establishes path selection; getent establishes name-resolution behavior; ss establishes listener state; curl establishes transport and HTTP behavior; the server log confirms that the application received the successful request.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Linux ip-address manual: https://man7.org/linux/man-pages/man8/ip-address.8.html</li>
+<li>Linux ip-route manual: https://man7.org/linux/man-pages/man8/ip-route.8.html</li>
+<li>Linux ss manual: https://man7.org/linux/man-pages/man8/ss.8.html</li>
+<li>curl command-line documentation: https://curl.se/docs/manpage.html</li>
+<li>RFC 1122, Requirements for Internet Hosts — Communication Layers: https://www.rfc-editor.org/rfc/rfc1122</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Linux ip-address manual: https://man7.org/linux/man-pages/man8/ip-address.8.html
+- Linux ip-route manual: https://man7.org/linux/man-pages/man8/ip-route.8.…</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Linux ip-address manual: https://man7.org/linux/man-pages/man8/ip-address.8.html</li>
+<li>Linux ip-route manual: https://man7.org/linux/man-pages/man8/ip-route.8.html</li>
+<li>Linux ss manual: https://man7.org/linux/man-pages/man8/ss.8.html</li>
+<li>curl manual: https://curl.se/docs/manpage.html</li>
+<li>GNU C Library host-name lookup documentation: https://www.gnu.org/software/libc/manual/html_node/Host-Names.html</li>
+<li>Python http.server documentation: https://docs.python.org/3/library/http.server.html</li>
+<li>RFC 1122, Requirements for Internet Hosts — Communication Layers: https://www.rfc-editor.org/rfc/rfc1122</li>
+<li>RFC 9293, Transmission Control Protocol: https://www.rfc-editor.org/rfc/rfc9293</li>
+<li>RFC 9110, HTTP Semantics: https://www.rfc-editor.org/rfc/rfc9110</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Linux ip-address manual: https://man7.org/linux/man-pages/man8/ip-address.8.html
+- Linux ip-route manual: https://man7.org/linux/man-pages/man8/ip-route.8.…</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="/classroom/modules/07-network-ops/">← Module hub</a><a href="lesson.html">Lesson →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

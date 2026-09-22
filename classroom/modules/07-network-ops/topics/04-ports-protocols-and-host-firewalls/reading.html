@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04-ports-protocols-and-host-firewalls — Reading · Classroom</title>
+<meta name="description" content="04-ports-protocols-and-host-firewalls — Reading">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/07-network-ops/topics/04-ports-protocols-and-host-firewalls/reading.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M7 READING<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M7 READING<small>reading</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 04-ports-protocols-and-host-firewalls — Reading</h1>
+ <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ 
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Network Operations<br />
+<strong>Activity type:</strong> Reading (Learn)<br />
+<strong>Objective:</strong> Distinguish an IP address, a transport protocol, and a port number</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>port</td>
+<td>A 16-bit transport-layer number used to identify an application endpoint. TCP and UDP each have their own port-number space.</td>
+</tr>
+<tr>
+<td>socket</td>
+<td>An operating-system communication endpoint commonly identified by an address, transport protocol, and port.</td>
+</tr>
+<tr>
+<td>listening socket</td>
+<td>A socket waiting for inbound traffic. A listener must exist before a TCP connection can be accepted or a UDP datagram can be received.</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>A connection-oriented transport protocol that provides ordered delivery, retransmission, flow control, and connection state.</td>
+</tr>
+<tr>
+<td>UDP</td>
+<td>A datagram-oriented transport protocol that does not establish a connection or guarantee delivery, ordering, or retransmission.</td>
+</tr>
+<tr>
+<td>ingress</td>
+<td>Traffic entering a host through a network path from the perspective of that host.</td>
+</tr>
+<tr>
+<td>egress</td>
+<td>Traffic leaving a host through a network path from the perspective of that host.</td>
+</tr>
+<tr>
+<td>loopback</td>
+<td>A local-only network path used for communication within the same host. IPv4 loopback commonly uses addresses in 127.0.0.0/8.</td>
+</tr>
+<tr>
+<td>stateful firewall</td>
+<td>A firewall that tracks connection state and can treat packets belonging to established traffic differently from unrelated new traffic.</td>
+</tr>
+<tr>
+<td>default policy</td>
+<td>The action taken when no explicit rule matches, commonly default deny for inbound traffic and a deliberately selected policy for outbound traffic.</td>
+</tr>
+<tr>
+<td>least privilege</td>
+<td>Allowing only the protocols, ports, sources, destinations, and directions required for a defined service.</td>
+</tr>
+<tr>
+<td>attack surface</td>
+<td>The set of reachable services and interfaces that could be probed, misconfigured, or exploited.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div><div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>A network service is not identified by a port number alone. A complete endpoint includes an address, a transport protocol, and a port. TCP port 443 and UDP port 443 are separate endpoints because TCP and UDP maintain separate port spaces. The address also matters: a process bound to 127.0.0.1 is reachable only through the local loopback path, while a process bound to an address assigned to a physical or virtual network interface may be reachable from other systems. A wildcard bind can cover multiple local interfaces and therefore creates a larger exposure than a loopback-only bind.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-prose-block"><p>TCP is connection-oriented. Before application data is exchanged, endpoints establish a connection, and the operating system tracks its state. TCP provides ordered delivery and retransmits missing data, but those features do not make the application secure; confidentiality and authentication require higher-layer protections. UDP sends independent datagrams without a connection handshake. It has lower protocol overhead but does not guarantee that a datagram arrives, arrives once, or arrives in order. A stateful host firewall may still track a temporary flow for UDP even though UDP itself has no connection state.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: TCP is connection-oriented.</div>
+ 
+</div></div><div class="cr-prose-block"><p>A host firewall evaluates traffic at the individual machine. Its policy can consider direction, interface, source and destination addresses, protocol, ports, and observed connection state. Rules are commonly processed according to an implementation-defined order, so policy authors must understand precedence rather than merely collecting allow and deny statements. A useful baseline is to permit established return traffic, narrowly allow required new inbound services, and use an intentional default action for everything else. Outbound filtering may also be appropriate for servers, appliances, and tightly controlled environments.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A host firewall evaluates traffic at the individual machine.</div>
+ 
+</div></div><div class="cr-prose-block"><p>A firewall allowance does not create a service. If TCP port 18080 is allowed but no process is listening, a client still cannot use the service. Conversely, a listening service is not proof that remote clients can reach it: the service may be bound only to loopback, blocked by a host policy, blocked elsewhere in the path, or hidden behind routing and address-translation boundaries. Troubleshooting should therefore separate four questions: is the application running, where is it bound, does local communication work, and does policy permit the intended path?</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Rules should describe a service requirement rather than a vague desire to make an application work. For example, allowing new TCP traffic to one administration port from a dedicated management subnet is narrower than allowing every protocol and port from every address. Record the reason, owner, source scope, destination port, and expected lifetime of an exception. Test administrative access before and after any real firewall change, preferably with an independent recovery path. This class does not alter the real host firewall. Instead, it creates loopback listeners and evaluates sample packet descriptions against a deterministic policy model stored entirely under the classroom directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>scope</h3>
+<p>One Linux host using only loopback network traffic and files under /opt/lab-classroom/class25/.</p>
+<h3>components</h3>
+<p>A TCP or UDP client implemented with the Python standard library<br />
+A loopback-only TCP or UDP listener implemented with the Python standard library<br />
+A JSON policy containing ordered rules and direction-specific defaults<br />
+A policy evaluator that compares synthetic packet descriptions with the ordered rules</p>
+<h3>traffic_flow</h3>
+<p>The listener binds specifically to 127.0.0.1 and an unprivileged port.<br />
+The client sends a message to the matching protocol and port.<br />
+The listener returns an acknowledgment and exits after one exchange.<br />
+Separately, the evaluator reads synthetic packet metadata rather than intercepting real traffic.<br />
+The evaluator selects the first matching rule or the default for the packet direction.</p>
+<h3>trust_boundaries</h3>
+<p>Loopback traffic remains on the local host.<br />
+A service bound to an external interface would cross into a less-trusted network boundary.<br />
+The policy simulator is educational and does not enforce operating-system traffic.</p>
+<h3>policy_model</h3>
+<p>Established inbound traffic is accepted first. New loopback TCP traffic to port 18080 and new loopback UDP traffic to port 15353 are accepted. Other ingress traffic is dropped by default, while egress traffic is accepted by default.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Review the TCP/IP model, especially the network and transport layers.</li>
+<li>Read the Python socket module overview: https://docs.python.org/3/library/socket.html</li>
+<li>Read the IANA service name and port number registry overview: https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml</li>
+<li>Review IPv4 loopback addressing and the special role of 127.0.0.0/8.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>IANA Service Name and Transport Protocol Port Number Registry: https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml</li>
+<li>Python socket library documentation: https://docs.python.org/3/library/socket.html</li>
+<li>RFC 9293, Transmission Control Protocol: https://www.rfc-editor.org/rfc/rfc9293</li>
+<li>RFC 768, User Datagram Protocol: https://www.rfc-editor.org/rfc/rfc768</li>
+<li>RFC 1122, Requirements for Internet Hosts: https://www.rfc-editor.org/rfc/rfc1122</li>
+<li>RFC 6890, Special-Purpose IP Address Registries: https://www.rfc-editor.org/rfc/rfc6890</li>
+<li>NIST SP 800-41 Revision 1, Guidelines on Firewalls and Firewall Policy: https://csrc.nist.gov/pubs/sp/800/41/r1/final</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="/classroom/modules/07-network-ops/">← Module hub</a><a href="lesson.html">Lesson →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>
