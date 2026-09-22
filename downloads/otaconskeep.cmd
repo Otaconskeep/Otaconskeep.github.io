@@ -49,7 +49,7 @@ echo           ***  ACCESS GRANTED  ***
 echo              welcome to the mainframe
 echo      ==================================================
 echo.
-echo   You're in.  KeepRoute Auto picks Claude / Codex / Cursor / Grok / Local.
+echo   You're in.  Keep Auto uses YOUR installed Ollama/Otacon model (qwen tier from setup). Full Claude/Codex/Cursor/Grok routing when Missions is up.
 echo.
 echo   WEB
 echo   KeepRoute    -^> %KEEP_URL%
