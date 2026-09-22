@@ -13,7 +13,15 @@ color 0A
 set "CHAT_PORT=5757"
 if defined OTACON_CHAT_PORT set "CHAT_PORT=%OTACON_CHAT_PORT%"
 set "OTACON_URL=http://127.0.0.1:%CHAT_PORT%"
-set "OMNI_URL=http://127.0.0.1:20128"
+REM KeepRoute compose publishes OmniRoute on host 20127 (container 20128).
+set "OMNI_URL=http://127.0.0.1:20127"
+if defined OMNIROUTE_HOST set "OMNI_URL=%OMNIROUTE_HOST%"
+echo %OMNI_URL%| findstr /I /C:"http://" /C:"https://" >nul
+if errorlevel 1 (
+  echo %OMNI_URL%| findstr /C:":" >nul
+  if errorlevel 1 set "OMNI_URL=http://%OMNI_URL%:20127"
+  if not errorlevel 1 if /I not "%OMNI_URL:~0,4%"=="http" set "OMNI_URL=http://%OMNI_URL%"
+)
 set "KEEP_URL=http://127.0.0.1:20129"
 set "MISS_URL=http://127.0.0.1:20130"
 

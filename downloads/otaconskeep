@@ -97,13 +97,39 @@ pick_host_port() {
   fi
 }
 
+# OmniRoute host port: KeepRoute compose publishes 20127→20128; older installs used 20128 on the host.
+# Honor OMNIROUTE_HOST when set (full URL or host[:port]).
+resolve_omni_url() {
+  local raw="${OMNIROUTE_HOST:-}" host port path h p
+  if [[ -n "$raw" ]]; then
+    raw="${raw%/}"
+    case "$raw" in
+      http://*|https://*) printf '%s' "$raw"; return 0 ;;
+      *:*) printf 'http://%s' "$raw"; return 0 ;;
+      *) printf 'http://%s:20127' "$raw"; return 0 ;;
+    esac
+  fi
+  for p in 20127 20128; do
+    for path in "/" "/dashboard"; do
+      for h in "$LOOP" ${LAN_IP:+"$LAN_IP"}; do
+        [[ -n "$h" ]] || continue
+        if http_ok "http://${h}:${p}${path}"; then
+          printf 'http://%s:%s' "$h" "$p"
+          return 0
+        fi
+      done
+    done
+  done
+  # Display default matches KeepRoute docker-compose.omniroute.yml host mapping
+  printf 'http://%s:20127' "$LOOP"
+}
+
 OTACON_HOST="$(pick_host_port "$CHAT_PORT" "/")"
-OMNI_HOST="$(pick_host_port 20128 "/")"
 KEEP_HOST="$(pick_host_port 20129 "/")"
 MISS_HOST="$(pick_host_port 20130 "/health")"
 
 OTACON_URL="http://${OTACON_HOST}:${CHAT_PORT}"
-OMNI_URL="http://${OMNI_HOST}:20128"
+OMNI_URL="$(resolve_omni_url)"
 KEEP_URL="http://${KEEP_HOST}:20129"
 MISS_URL="http://${MISS_HOST}:20130"
 # Mission Controller has no route at bare "/" (404 Not Found) -- only
@@ -115,7 +141,7 @@ MC_URL="${MC_URL_OVERRIDE:-http://${LOOP}:20130}"
 
 OTACON_UP=0; OMNI_UP=0; KEEP_UP=0; MISS_UP=0
 http_ok "$OTACON_URL" && OTACON_UP=1 || true
-http_ok "$OMNI_URL" && OMNI_UP=1 || true
+{ http_ok "$OMNI_URL" || http_ok "${OMNI_URL}/dashboard"; } && OMNI_UP=1 || true
 http_ok "$KEEP_URL" && KEEP_UP=1 || true
 http_ok "$MISS_HEALTH_URL" && MISS_UP=1 || true
 
