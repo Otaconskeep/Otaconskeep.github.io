@@ -324,8 +324,8 @@
 <div class="wrap">
  <section id="rex-learning">
  <p class="tag">Project REX · latest advancement</p>
- <h2>KeepRoute / OmniRoute can feed REX research &mdash; on the full Keep</h2>
- <p class="intro">Traced end-to-end on the operator Keep (not marketing theory): every KeepRoute / OmniRoute exchange can record into a <strong>shared learning pool</strong>. A world-model rebuild turns those records into risks, domain insights, and proposal sources. Project REX&rsquo;s governance loop treats <span class="mono">world_model:*</span> as a first-class proposal source &mdash; same board pipeline as other REX work. That is <strong>aiding and driving</strong> R&amp;D: routing outcomes become durable signal, not a disposable log line.</p>
+ <h2>KeepRoute / OmniRoute feed REX research &mdash; Keep and Premium</h2>
+ <p class="intro">Traced end-to-end on the operator Keep, then clean-room productized into <strong>Otacon Expansion Premium (v1.3.2+)</strong>: every KeepRoute / OmniRoute exchange can record into a <strong>shared learning pool</strong>. A world-model rebuild turns those records into risks, domain insights, and proposal sources. Project REX treats <span class="mono">world_model:*</span> as a first-class proposal source &mdash; same board pipeline as other REX work. That is <strong>aiding and driving</strong> R&amp;D: routing outcomes become durable signal, not a disposable log line.</p>
  <div class="kr-improve" style="margin-top:18px;">
  <article>
  <h3>Driving + aiding</h3>
@@ -333,7 +333,7 @@
  </article>
  <article>
  <h3>Global pool, not a local silo</h3>
- <p>The learning store and world model are <strong>one shared pool per Keep install</strong>, tagged by domain (for example <span class="mono">keeproute</span>). Tags filter; they do not wall off memory. Agents and REX draw from the same pool whether the exchange came from Claude, Codex, Cursor, Grok, or local Ollama through KeepRoute.</p>
+ <p>The learning store and world model are <strong>one shared pool per install</strong> (Keep or Expansion), tagged by domain (for example <span class="mono">keeproute</span>). Tags filter; they do not wall off memory. Agents and REX draw from the same pool whether the exchange came from Claude, Codex, Cursor, Grok, or local Ollama through KeepRoute.</p>
  </article>
  <article>
  <h3>Gets smarter with traffic</h3>
@@ -341,7 +341,7 @@
  </article>
  <article>
  <h3>What public installers ship today</h3>
- <p><strong>KeepRoute 1.0 public</strong> = mission orchestration on OmniRoute (checkpoints, recovery, handoff). <strong>Otacon Expansion / Premium</strong> ships a REX <em>job-board</em> substrate for agent work stages. The KeepRoute &rarr; shared learning &rarr; world-model &rarr; REX autonomy chain above is verified on the <strong>operator Keep</strong>; it is <strong>not</strong> in the public Expansion soft-update package yet (no public <span class="mono">world_model</span> / <span class="mono">record_resolution</span> modules). We publish the architecture now so the roadmap stays honest.</p>
+ <p><strong>KeepRoute 1.0 public</strong> = mission orchestration on OmniRoute, plus an optional fail-open POST into Expansion when <span class="mono">OTACON_EXPANSION_URL</span> (or vault <span class="mono">expansion_url</span>) is set. <strong>Otacon Expansion Premium v1.3.2+</strong> ships <span class="mono">route_learning</span>, <span class="mono">world_model</span>, and REX autonomy that consumes <span class="mono">world_model:*</span> proposals &mdash; the same loop as the operator Keep, clean-room for public installs.</p>
  </article>
  </div>
  <div class="tablewrap" style="margin-top:22px;">
@@ -349,10 +349,10 @@
  <thead><tr><th>Capability</th><th>Operator Keep (live)</th><th>Public KeepRoute 1.0</th><th>Public Expansion / Premium</th></tr></thead>
  <tbody>
  <tr><td>OmniRoute routing + KeepRoute missions</td><td>Yes</td><td>Yes</td><td>Pairs via KeepRoute install</td></tr>
- <tr><td>Exchange &rarr; shared learning records</td><td>Yes (global pool)</td><td>Not in public pack</td><td>Chat learning only (agent claims)</td></tr>
- <tr><td>World model rebuild (risks / insights)</td><td>Yes</td><td>No</td><td>No</td></tr>
- <tr><td>REX consumes <span class="mono">world_model:*</span> proposals</td><td>Yes</td><td>No</td><td>REX board stages only</td></tr>
- <tr><td>Scope</td><td>Global per Keep</td><td>Mission-local UI</td><td>Per-install Expansion data</td></tr>
+ <tr><td>Exchange &rarr; shared learning records</td><td>Yes (global pool)</td><td>Optional POST into Expansion</td><td>Yes &mdash; <span class="mono">route_learning</span> (v1.3.2+)</td></tr>
+ <tr><td>World model rebuild (risks / insights)</td><td>Yes</td><td>Via Expansion when wired</td><td>Yes &mdash; <span class="mono">world_model</span></td></tr>
+ <tr><td>REX consumes <span class="mono">world_model:*</span> proposals</td><td>Yes</td><td>Via Expansion when wired</td><td>Yes &mdash; autonomy detect tick</td></tr>
+ <tr><td>Scope</td><td>Global per Keep</td><td>Mission UI + optional Expansion feed</td><td>Global per Expansion install</td></tr>
  </tbody>
  </table>
  </div>
@@ -565,8 +565,8 @@
 <div class="wrap">
  <section id="rex-learning">
  <p class="tag">Project REX · latest advancement</p>
- <h2>KeepRoute / OmniRoute can feed REX research &mdash; on the full Keep</h2>
- <p class="intro">Traced end-to-end on the operator Keep (not marketing theory): every KeepRoute / OmniRoute exchange can record into a <strong>shared learning pool</strong>. A world-model rebuild turns those records into risks, domain insights, and proposal sources. Project REX&rsquo;s governance loop treats <span class="mono">world_model:*</span> as a first-class proposal source &mdash; same board pipeline as other REX work. That is <strong>aiding and driving</strong> R&amp;D: routing outcomes become durable signal, not a disposable log line.</p>
+ <h2>KeepRoute / OmniRoute feed REX research &mdash; Keep and Premium</h2>
+ <p class="intro">Traced end-to-end on the operator Keep, then clean-room productized into <strong>Otacon Expansion Premium (v1.3.2+)</strong>: every KeepRoute / OmniRoute exchange can record into a <strong>shared learning pool</strong>. A world-model rebuild turns those records into risks, domain insights, and proposal sources. Project REX treats <span class="mono">world_model:*</span> as a first-class proposal source &mdash; same board pipeline as other REX work. That is <strong>aiding and driving</strong> R&amp;D: routing outcomes become durable signal, not a disposable log line.</p>
  <div class="kr-improve" style="margin-top:18px;">
  <article>
  <h3>Driving + aiding</h3>
@@ -574,7 +574,7 @@
  </article>
  <article>
  <h3>Global pool, not a local silo</h3>
- <p>The learning store and world model are <strong>one shared pool per Keep install</strong>, tagged by domain (for example <span class="mono">keeproute</span>). Tags filter; they do not wall off memory. Agents and REX draw from the same pool whether the exchange came from Claude, Codex, Cursor, Grok, or local Ollama through KeepRoute.</p>
+ <p>The learning store and world model are <strong>one shared pool per install</strong> (Keep or Expansion), tagged by domain (for example <span class="mono">keeproute</span>). Tags filter; they do not wall off memory. Agents and REX draw from the same pool whether the exchange came from Claude, Codex, Cursor, Grok, or local Ollama through KeepRoute.</p>
  </article>
  <article>
  <h3>Gets smarter with traffic</h3>
@@ -582,7 +582,7 @@
  </article>
  <article>
  <h3>What public installers ship today</h3>
- <p><strong>KeepRoute 1.0 public</strong> = mission orchestration on OmniRoute (checkpoints, recovery, handoff). <strong>Otacon Expansion / Premium</strong> ships a REX <em>job-board</em> substrate for agent work stages. The KeepRoute &rarr; shared learning &rarr; world-model &rarr; REX autonomy chain above is verified on the <strong>operator Keep</strong>; it is <strong>not</strong> in the public Expansion soft-update package yet (no public <span class="mono">world_model</span> / <span class="mono">record_resolution</span> modules). We publish the architecture now so the roadmap stays honest.</p>
+ <p><strong>KeepRoute 1.0 public</strong> = mission orchestration on OmniRoute, plus an optional fail-open POST into Expansion when <span class="mono">OTACON_EXPANSION_URL</span> (or vault <span class="mono">expansion_url</span>) is set. <strong>Otacon Expansion Premium v1.3.2+</strong> ships <span class="mono">route_learning</span>, <span class="mono">world_model</span>, and REX autonomy that consumes <span class="mono">world_model:*</span> proposals &mdash; the same loop as the operator Keep, clean-room for public installs.</p>
  </article>
  </div>
  <div class="tablewrap" style="margin-top:22px;">
@@ -590,10 +590,10 @@
  <thead><tr><th>Capability</th><th>Operator Keep (live)</th><th>Public KeepRoute 1.0</th><th>Public Expansion / Premium</th></tr></thead>
  <tbody>
  <tr><td>OmniRoute routing + KeepRoute missions</td><td>Yes</td><td>Yes</td><td>Pairs via KeepRoute install</td></tr>
- <tr><td>Exchange &rarr; shared learning records</td><td>Yes (global pool)</td><td>Not in public pack</td><td>Chat learning only (agent claims)</td></tr>
- <tr><td>World model rebuild (risks / insights)</td><td>Yes</td><td>No</td><td>No</td></tr>
- <tr><td>REX consumes <span class="mono">world_model:*</span> proposals</td><td>Yes</td><td>No</td><td>REX board stages only</td></tr>
- <tr><td>Scope</td><td>Global per Keep</td><td>Mission-local UI</td><td>Per-install Expansion data</td></tr>
+ <tr><td>Exchange &rarr; shared learning records</td><td>Yes (global pool)</td><td>Optional POST into Expansion</td><td>Yes &mdash; <span class="mono">route_learning</span> (v1.3.2+)</td></tr>
+ <tr><td>World model rebuild (risks / insights)</td><td>Yes</td><td>Via Expansion when wired</td><td>Yes &mdash; <span class="mono">world_model</span></td></tr>
+ <tr><td>REX consumes <span class="mono">world_model:*</span> proposals</td><td>Yes</td><td>Via Expansion when wired</td><td>Yes &mdash; autonomy detect tick</td></tr>
+ <tr><td>Scope</td><td>Global per Keep</td><td>Mission UI + optional Expansion feed</td><td>Global per Expansion install</td></tr>
  </tbody>
  </table>
  </div>
