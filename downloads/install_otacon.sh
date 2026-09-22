@@ -2412,11 +2412,22 @@ fi
 if [[ -n "$OTACONSKEEP_SRC" ]]; then
   install -m 0755 "$OTACONSKEEP_SRC" "$HOME/.local/bin/otaconskeep"
   rm -f "$HOME/.local/bin/otaconskeep.download" 2>/dev/null || true
-  # System-wide when we can (ops hosts / root finalize)
+  # Expose on non-login PATH: Windows CMD uses `wsl -e ...` which skips ~/.profile,
+  # so /usr/local/bin must have the launcher (copy or symlink).
   if [[ -w /usr/local/bin ]] || [[ "$(id -u)" == "0" ]]; then
-    install -m 0755 "$HOME/.local/bin/otaconskeep" /usr/local/bin/otaconskeep 2>/dev/null || true
+    ln -sfn "$HOME/.local/bin/otaconskeep" /usr/local/bin/otaconskeep 2>/dev/null \
+      || install -m 0755 "$HOME/.local/bin/otaconskeep" /usr/local/bin/otaconskeep 2>/dev/null \
+      || true
+  elif command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
+    sudo ln -sfn "$HOME/.local/bin/otaconskeep" /usr/local/bin/otaconskeep 2>/dev/null \
+      || sudo install -m 0755 "$HOME/.local/bin/otaconskeep" /usr/local/bin/otaconskeep 2>/dev/null \
+      || true
   fi
-  ok "Keep cinema CLI: otaconskeep  (ACCESS GRANTED → KeepRoute Auto REPL)"
+  if [[ -x /usr/local/bin/otaconskeep ]]; then
+    ok "Keep cinema CLI: otaconskeep  (~/.local/bin + /usr/local/bin)"
+  else
+    ok "Keep cinema CLI: otaconskeep  (~/.local/bin; Windows CMD uses bash -lc)"
+  fi
 
   # WSL: also put otaconskeep.cmd on the Windows user PATH so CMD can type otaconskeep
   if grep -qiE 'microsoft|wsl' /proc/version 2>/dev/null; then

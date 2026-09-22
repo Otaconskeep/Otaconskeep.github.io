@@ -4,6 +4,7 @@ REM  otaconskeep.cmd  — Keep cinema for Windows CMD
 REM  After ACCESS GRANTED: KeepRoute Auto via WSL (picks the provider)
 REM  OR open KeepRoute / Otacon web — same Keep, two doors.
 REM  No hardcoded LAN IPs — uses localhost.
+REM  IMPORTANT: this file MUST use CRLF line endings (CMD requirement).
 REM ============================================================
 setlocal EnableExtensions EnableDelayedExpansion
 title Otaconskeep
@@ -58,9 +59,9 @@ echo   OmniRoute    -^> %OMNI_URL%
 echo   Missions     -^> %MISS_URL%
 echo.
 echo   CMD  (KeepRoute Auto REPL — type missions at keep^>)
-echo   wsl -e otaconskeep
+echo   wsl -e bash -lc otaconskeep
 echo   One-shot mission:
-echo   wsl -e otaconskeep "check disk space on the keep"
+echo   wsl -e bash -lc "otaconskeep \"check disk space on the keep\""
 echo.
 
 if /I "%~1"=="web" goto OPEN_WEB
@@ -70,18 +71,19 @@ if /I "%OTACONSKEEP_OPEN_WEB%"=="1" goto OPEN_WEB
 REM If user passed a mission on the Windows side, forward into WSL Auto
 if not "%~1"=="" goto WSL_ONESHOT
 
-REM Default: drop into KeepRoute Auto in WSL (same as Linux otaconskeep)
+REM Default: login shell so ~/.local/bin is on PATH (wsl -e alone is non-login)
 where wsl >nul 2>&1
 if errorlevel 1 goto NO_WSL
 echo   Dropping into KeepRoute Auto via WSL...
 echo.
-wsl -e otaconskeep
+wsl -e bash -lc "otaconskeep"
 goto END
 
 :WSL_ONESHOT
 where wsl >nul 2>&1
 if errorlevel 1 goto NO_WSL
-wsl -e otaconskeep %*
+REM bash -lc so ~/.local/bin/otaconskeep is found without needing /usr/local/bin
+wsl -e bash -lc "otaconskeep %*"
 goto END
 
 :NO_WSL

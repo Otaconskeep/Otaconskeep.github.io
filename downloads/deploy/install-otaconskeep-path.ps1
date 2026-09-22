@@ -1,6 +1,9 @@
 # Put otaconskeep.cmd on the Windows user PATH so CMD can run: otaconskeep
 # Idempotent. Safe to re-run. Does not need admin.
 #
+# Always writes CRLF (CMD breaks on Unix LF). Prefers a fresh Pages download
+# over stale local copies that may still have LF line endings.
+#
 # Usage:
 #   powershell -NoProfile -ExecutionPolicy Bypass -File deploy\install-otaconskeep-path.ps1
 #   powershell -NoProfile -ExecutionPolicy Bypass -File deploy\install-otaconskeep-path.ps1 -CmdSource C:\path\otaconskeep.cmd
@@ -13,6 +16,26 @@ param(
 
 $ErrorActionPreference = "Continue"
 
+function Write-OtaconskeepCmdCrlf {
+    param(
+        [Parameter(Mandatory = $true)][string]$From,
+        [Parameter(Mandatory = $true)][string]$To
+    )
+    $bytes = [System.IO.File]::ReadAllBytes($From)
+    $offset = 0
+    if ($bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF) {
+        $offset = 3
+    }
+    $text = [System.Text.Encoding]::UTF8.GetString($bytes, $offset, $bytes.Length - $offset)
+    $text = $text -replace "`r`n", "`n" -replace "`r", "`n"
+    if (-not $text.EndsWith("`n")) { $text += "`n" }
+    $text = $text -replace "`n", "`r`n"
+    $enc = New-Object System.Text.UTF8Encoding $false
+    $dir = Split-Path -Parent $To
+    if ($dir) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
+    [System.IO.File]::WriteAllText($To, $text, $enc)
+}
+
 if (-not $KeepDir) {
     $KeepDir = Join-Path $env:LOCALAPPDATA "OtaconsKeep"
 }
@@ -20,26 +43,19 @@ $shimDir = Join-Path $KeepDir "bin"
 New-Item -ItemType Directory -Force -Path $shimDir | Out-Null
 
 $dest = Join-Path $shimDir "otaconskeep.cmd"
-
-$candidates = @()
-if ($CmdSource) { $candidates += $CmdSource }
-$candidates += @(
-    (Join-Path $PSScriptRoot "..\otaconskeep.cmd"),
-    (Join-Path $KeepDir "otaconskeep.cmd"),
-    (Join-Path $KeepDir "installer\otaconskeep.cmd"),
-    (Join-Path $KeepDir "installer\downloads\otaconskeep.cmd")
-)
+$tmp = Join-Path $env:TEMP "otaconskeep.cmd.download"
 
 $src = $null
-foreach ($c in $candidates) {
-    if ($c -and (Test-Path -LiteralPath $c)) {
-        $src = $c
-        break
-    }
+$srcLabel = ""
+
+# 1) Explicit source wins (still CRLF-normalized below)
+if ($CmdSource -and (Test-Path -LiteralPath $CmdSource)) {
+    $src = $CmdSource
+    $srcLabel = "CmdSource"
 }
 
+# 2) Prefer fresh Pages download so LF/stale KeepDir copies cannot stick forever
 if (-not $src) {
-    $tmp = Join-Path $env:TEMP "otaconskeep.cmd"
     $urls = @(
         "https://otaconskeep.github.io/downloads/otaconskeep.cmd",
         "https://www.otaconskeep.com/downloads/otaconskeep.cmd"
@@ -49,6 +65,7 @@ if (-not $src) {
             Invoke-WebRequest -Uri $u -OutFile $tmp -UseBasicParsing -TimeoutSec 30
             if ((Test-Path -LiteralPath $tmp) -and ((Get-Item -LiteralPath $tmp).Length -gt 200)) {
                 $src = $tmp
+                $srcLabel = $u
                 Write-Host "  Downloaded otaconskeep.cmd from $u"
                 break
             }
@@ -58,13 +75,35 @@ if (-not $src) {
     }
 }
 
+# 3) Local fallbacks (installer cache / Keep tree)
+if (-not $src) {
+    $candidates = @(
+        (Join-Path $PSScriptRoot "..\otaconskeep.cmd"),
+        (Join-Path $KeepDir "installer\downloads\otaconskeep.cmd"),
+        (Join-Path $KeepDir "installer\otaconskeep.cmd"),
+        (Join-Path $KeepDir "otaconskeep.cmd")
+    )
+    foreach ($c in $candidates) {
+        if ($c -and (Test-Path -LiteralPath $c)) {
+            $src = $c
+            $srcLabel = $c
+            break
+        }
+    }
+}
+
 if (-not $src) {
     Write-Host "FAILED: could not find or download otaconskeep.cmd"
     exit 1
 }
 
-Copy-Item -LiteralPath $src -Destination $dest -Force
-Write-Host "  Installed: $dest"
+Write-OtaconskeepCmdCrlf -From $src -To $dest
+# Also refresh KeepDir copy so desktop shortcuts stay CRLF-safe
+try {
+    Write-OtaconskeepCmdCrlf -From $src -To (Join-Path $KeepDir "otaconskeep.cmd")
+} catch {}
+
+Write-Host "  Installed: $dest (CRLF, from $srcLabel)"
 
 $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
 if (-not $userPath) { $userPath = "" }
@@ -85,12 +124,10 @@ if (-not $already) {
     Write-Host "  User PATH already includes $shimDir"
 }
 
-# Current process (this PowerShell only)
 if ($env:Path -notlike "*$shimDir*") {
     $env:Path = "$shimDir;$env:Path"
 }
 
-# Tell Explorer / new shells about the PATH change (best-effort)
 try {
     Add-Type -Namespace Otaconskeep -Name Native -MemberDefinition @"
 [DllImport("user32.dll", SetLastError=true, CharSet=CharSet.Auto)]
