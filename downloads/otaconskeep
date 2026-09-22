@@ -100,19 +100,24 @@ pick_host_port() {
 OTACON_HOST="$(pick_host_port "$CHAT_PORT" "/")"
 OMNI_HOST="$(pick_host_port 20128 "/")"
 KEEP_HOST="$(pick_host_port 20129 "/")"
-MISS_HOST="$(pick_host_port 20130 "/")"
+MISS_HOST="$(pick_host_port 20130 "/health")"
 
 OTACON_URL="http://${OTACON_HOST}:${CHAT_PORT}"
 OMNI_URL="http://${OMNI_HOST}:20128"
 KEEP_URL="http://${KEEP_HOST}:20129"
 MISS_URL="http://${MISS_HOST}:20130"
+# Mission Controller has no route at bare "/" (404 Not Found) -- only
+# /health and the /v1/* API. Checking "/" always reported this service
+# offline even when it was genuinely up and ready; check its real health
+# endpoint instead.
+MISS_HEALTH_URL="http://${MISS_HOST}:20130/health"
 MC_URL="${MC_URL_OVERRIDE:-http://${LOOP}:20130}"
 
 OTACON_UP=0; OMNI_UP=0; KEEP_UP=0; MISS_UP=0
 http_ok "$OTACON_URL" && OTACON_UP=1 || true
 http_ok "$OMNI_URL" && OMNI_UP=1 || true
 http_ok "$KEEP_URL" && KEEP_UP=1 || true
-http_ok "$MISS_URL" && MISS_UP=1 || true
+http_ok "$MISS_HEALTH_URL" && MISS_UP=1 || true
 
 status_dot() {
   if [[ "$1" == "1" ]]; then printf '%sonline%s' "$G" "$N"
@@ -498,7 +503,7 @@ if [[ "$SKIP_CONNECT" != "1" && -x "$CONNECT" ]]; then
   rm -f "$LOG"
   http_ok "$OMNI_URL" && OMNI_UP=1 || true
   http_ok "$KEEP_URL" && KEEP_UP=1 || true
-  http_ok "$MISS_URL" && MISS_UP=1 || true
+  http_ok "$MISS_HEALTH_URL" && MISS_UP=1 || true
   http_ok "$OTACON_URL" && OTACON_UP=1 || true
 fi
 
