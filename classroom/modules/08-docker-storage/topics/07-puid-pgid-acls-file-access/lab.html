@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07-puid-pgid-acls-file-access — Lab · Classroom</title>
+<meta name="description" content="07-puid-pgid-acls-file-access — Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/08-docker-storage/topics/07-puid-pgid-acls-file-access/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M8 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M8 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 07-puid-pgid-acls-file-access — Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 8 — Docker, Storage &amp; Permissions<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Objective:</strong> Explain numeric UID/GID identity across host and containers; distinguish mode bits from ACLs; diagnose bind-mount access failures; test access using an explicit container user; and design least-privilege ownership without using world-writable shortcuts.</p></div><div class="cr-box cr-box-practice"><div class="cr-box-head"><span class="cr-chip cr-chip-practice">Practice</span><h3>Guided practice</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> We do: try with hints. Compare your reasoning to the lesson.</div>
+ 
+</div><div class="cr-prose-block"><h4>Prove Allowed and Denied Writes</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Prove Allowed and Denied Writes)</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Safety and prerequisites</h4><ul>
+<li>Authorized Docker host with <code>busybox:1.36.1</code> cached from earlier labs or approved for pull.</li>
+<li>Uses only <code>/opt/lab-classroom/class33/</code>.</li>
+<li>Does not create users, recursively change ownership, or use <code>777</code>.</li>
+</ul>
+<pre><code class="language-bash">LAB=/opt/lab-classroom/class33
+sudo install -d -o &quot;$(id -u)&quot; -g &quot;$(id -g)&quot; -m 0750 &quot;$LAB/shared&quot;
+printf 'host-created\n' &gt; &quot;$LAB/shared/host.txt&quot;
+chmod 0640 &quot;$LAB/shared/host.txt&quot;
+id | tee &quot;$LAB/host-identity.txt&quot;
+ls -ldn &quot;$LAB&quot; &quot;$LAB/shared&quot; | tee &quot;$LAB/numeric-directories.txt&quot;
+ls -ln &quot;$LAB/shared/host.txt&quot; | tee &quot;$LAB/numeric-file.txt&quot;
+docker run --rm \
+  --user &quot;$(id -u):$(id -g)&quot; \
+  -v &quot;$LAB/shared&quot;:/data \
+  busybox:1.36.1 sh -c 'id; printf &quot;matching-id-write\n&quot; &gt; /data/matching.txt; cat /data/host.txt'
+if docker run --rm \
+  --user 65534:65534 \
+  -v &quot;$LAB/shared&quot;:/data \
+  busybox:1.36.1 sh -c 'printf &quot;unexpected\n&quot; &gt; /data/denied.txt'; then
+  echo 'FAIL: unrelated identity unexpectedly wrote'
+  exit 1
+else
+  echo 'PASS: unrelated identity denied as expected'
+fi
+ls -ln &quot;$LAB/shared&quot; | tee &quot;$LAB/after-tests.txt&quot;
+</code></pre>
+<p>Optional ACL observation, without broadening access:</p>
+<pre><code class="language-bash">if command -v getfacl &gt;/dev/null 2&gt;&amp;1; then getfacl -p &quot;$LAB/shared&quot; | tee &quot;$LAB/shared.acl.txt&quot;; else echo 'SKIP: getfacl unavailable'; fi
+</code></pre><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Verification checkpoints</h4><pre><code class="language-bash">test -f &quot;$LAB/shared/matching.txt&quot; &amp;&amp; echo 'PASS: matching numeric identity wrote'
+test ! -e &quot;$LAB/shared/denied.txt&quot; &amp;&amp; echo 'PASS: denied write left no file'
+test &quot;$(stat -c %a &quot;$LAB/shared&quot;)&quot; = 750 &amp;&amp; echo 'PASS: directory not world-writable'
+stat -c 'uid=%u gid=%g mode=%a path=%n' &quot;$LAB/shared&quot; &quot;$LAB/shared/matching.txt&quot;
+</code></pre><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: ```bash
+test -f &quot;$LAB/shared/matching.txt&quot; &amp;&amp; echo &#x27;PASS: matching numeric identity wrote&#x27;
+test !</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Prefer non-root container processes and the smallest required access.</li>
+<li>Avoid recursive <code>chown</code> on large or shared datasets without an inventory and rollback plan.</li>
+<li>Do not use world-writable permissions as a diagnostic shortcut.</li>
+<li>Treat Docker socket access as host administration regardless of file ownership lesson goals.</li>
+<li>Back up ACLs with <code>getfacl -R</code> before approved ACL changes and restore with <code>setfacl --restore</code> when appropriate.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Lab rollback removes only files created inside the verified class directory:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Lab rollback removes only files created inside the verified class directory:</div>
+ 
+</div></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
+LAB=/opt/lab-classroom/class33<br />
+test -d "$LAB/shared" &amp;&amp; test "$LAB" = /opt/lab-classroom/class33 &amp;&amp; rm -f -- "$LAB/shared/matching.txt" "$LAB/shared/denied.txt" "$LAB/shared/host.txt"<br />
+rmdir -- "$LAB/shared" 2&gt;/dev/null || true</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box cr-box-trouble"><div class="cr-box-head"><span class="cr-chip cr-chip-fix">Fix chart</span><h3>Troubleshooting</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is your first-aid chart. Match the problem, then try the checks in order.</div>
+ 
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Safe response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Correct-looking username still denied</td>
+<td>Numeric UID/GID mismatch</td>
+<td>Compare <code>id</code> and <code>ls -ln</code>; trust numbers</td>
+</tr>
+<tr>
+<td>File mode allows group, process denied</td>
+<td>Process lacks group or ACL mask restricts</td>
+<td>Inspect supplementary groups and <code>getfacl</code></td>
+</tr>
+<tr>
+<td>Directory listing works but file open fails</td>
+<td>File-specific mode/ACL or read-only mount</td>
+<td>Inspect the exact file and mount, not just parent</td>
+</tr>
+<tr>
+<td>Works as root only</td>
+<td>Root bypass/capability masks underlying design</td>
+<td>Restore non-root execution and correct ownership/access narrowly</td>
+</tr>
+<tr>
+<td>New files differ from old files</td>
+<td>umask, default ACL, or application creation behavior</td>
+<td>Inspect defaults and one newly created file</td>
+</tr>
+<tr>
+<td>NAS path behaves differently</td>
+<td>NFS/CIFS identity mapping or server-side ACL</td>
+<td>Inspect mount options and server policy before host chmod/chown</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is your first-aid chart. Match the problem, then try the checks in order.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

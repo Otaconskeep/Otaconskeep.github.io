@@ -65,8 +65,52 @@
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Docker, Storage &amp; Permissions</p>
-<p>Complete after all topics in this module. Automation will enrich this project as the module matures.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Requirements</h3></div><div class="cr-help">
+ <div class="cr-box"><h3>Overview</h3><p>Source: authored MODULE_08_COMPLETION.md (published as written).</p>
+<h1>Module 8 Completion — Docker, Storage &amp; Permissions</h1></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Module Purpose</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Move learners from installing Docker Engine to operating containers with controlled images, bounded resources, durable data, understood Linux storage, reliable mounts, and intentional file permissions.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Move learners from installing Docker Engine to operating containers with controlled images, bounded resources, durable data, understood Linux storage, reliab…</div>
+ 
+</div></div></div><div class="cr-box cr-box-objective"><div class="cr-box-head"><span class="cr-chip cr-chip-goal">Objective</span><h3>Module Objectives</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is what done looks like for the class.</div>
+ 
+</div><div class="cr-prose-block"><p>By the end of Classes 27–33, learners can:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: By the end of Classes 27–33, learners can:</div>
+ 
+</div></div><div class="cr-prose-block"><ol>
+<li>Trace a request from the Docker CLI through the daemon and runtime.</li>
+<li>distinguish image tags from immutable digests and record provenance evidence.</li>
+<li>Control container lifecycle, signals, restart behavior, CPU, memory, and PID limits.</li>
+<li>Select named volumes or bind mounts based on ownership, portability, backup, and security needs.</li>
+<li>Explain the disk → partition → filesystem → mount hierarchy without experimenting on a physical disk.</li>
+<li>Stage and validate an <code>fstab</code> entry using UUIDs without altering boot configuration.</li>
+<li>Diagnose container file-access failures using UID, GID, mode bits, ACLs, and mount properties.</li>
+<li>Back up, verify, restore, and roll back the state created in the module labs.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required Reading</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -74,15 +118,287 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
 </div><div class="cr-prose-block"><ul>
-<li>Demonstrate the module outcome with evidence</li>
-<li>Keep secrets out of screenshots</li>
+<li>Docker images: https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/</li>
+<li>Docker image digests: https://docs.docker.com/dhi/core-concepts/digests/</li>
+<li>Docker resource constraints: https://docs.docker.com/engine/containers/resource_constraints/</li>
+<li>Docker storage overview: https://docs.docker.com/engine/storage/</li>
+<li>Docker volumes: https://docs.docker.com/engine/storage/volumes/</li>
+<li>Docker bind mounts: https://docs.docker.com/engine/storage/bind-mounts/</li>
+<li>Linux <code>lsblk</code>: https://man7.org/linux/man-pages/man8/lsblk.8.html</li>
+<li>Linux <code>findmnt</code>: https://man7.org/linux/man-pages/man8/findmnt.8.html</li>
+<li>Linux <code>fstab</code>: https://man7.org/linux/man-pages/man5/fstab.5.html</li>
+<li>Linux ACLs: https://man7.org/linux/man-pages/man5/acl.5.html</li>
 </ul><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Demonstrate the module outcome with evidence
-- Keep secrets out of screenshots</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Docker images: https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/
+- Docker image digests: https://docs.docker.com/dhi/core-co…</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Homework / Lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the hands-on part. Follow the numbered steps and keep notes of what you saw.</div>
+ 
+</div><div class="cr-prose-block"><p>Create an operator evidence folder containing:</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create an operator evidence folder containing:</div>
+ 
+</div></div><div class="cr-prose-block"><ul>
+<li>An image inventory with tag, image ID, labels, and digest when available.</li>
+<li>A container inspection showing explicit memory and PID limits.</li>
+<li>A named-volume backup archive and a verified restore.</li>
+<li>A read-only block-device and mount inventory.</li>
+<li>A staged <code>fstab</code> entry that passes available syntax verification.</li>
+<li>A numeric UID/GID permission test with expected success and expected denial.</li>
+<li>A one-page rollback plan covering every state-changing exercise.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Do not include secrets, registry tokens, private image names, public IP addresses, or host-specific personal paths.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Do not include secrets, registry tokens, private image names, public IP addresses, or host-specific personal paths.</div>
+ 
+</div></div></div><div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Module Quiz</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Answer from memory first. Then check yourself.</div>
+ 
+</div><div class="cr-prose-block"><p>Target: 10/12 correct. Missed objectives route to remediation before a second attempt.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Target: 10/12 correct.</div>
+ 
+</div></div><div class="cr-prose-block"><ol>
+<li>Why is a Docker tag insufficient as immutable provenance evidence?</li>
+<li>What does an image digest identify?</li>
+<li>Why should containers receive explicit resource limits in a shared homelab?</li>
+<li>What is the operational difference between <code>docker stop</code> and <code>docker kill</code> with its default signal?</li>
+<li>When is a named volume normally preferable to a bind mount?</li>
+<li>What additional host exposure does a bind mount create?</li>
+<li>Put these in order: mount, disk, filesystem, partition.</li>
+<li>Why is filesystem free space not the same as physical-disk health?</li>
+<li>Why are UUID-based <code>fstab</code> entries often safer than <code>/dev/sdX</code> names?</li>
+<li>What should be done before running <code>mount -a</code> against production <code>fstab</code> changes?</li>
+<li>Why can a container process receive <code>Permission denied</code> even when the path exists?</li>
+<li>What problem can a default ACL solve?</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A session id lets you resume the same AI conversation later—like continuing a chat instead of starting over.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Answer Key</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
+<li>Tags are mutable references and can be reassigned to different manifests.</li>
+<li>A digest identifies content through a cryptographic hash of the referenced manifest.</li>
+<li>Limits prevent one workload from exhausting memory, CPU scheduling, or process capacity needed by others.</li>
+<li><code>stop</code> requests graceful termination and later forces termination; default <code>kill</code> sends immediate <code>SIGKILL</code>.</li>
+<li>When Docker-managed, portable persistent storage is desired without coupling to a specific host path.</li>
+<li>The container can access the selected host path, subject to mount mode and kernel enforcement; a bad path or broad mount increases host-data risk.</li>
+<li>Disk → partition → filesystem → mount.</li>
+<li>Free space describes filesystem allocation; disk health concerns the underlying device and its error/failure signals.</li>
+<li>UUIDs identify the intended filesystem more consistently when kernel device names change.</li>
+<li>Back up the current file, stage the edit, validate syntax and targets, and plan recovery for a boot or mount failure.</li>
+<li>The process UID/GID, mode bits, ACL, mount flags, or security policy may not permit the requested operation.</li>
+<li>It automatically grants defined permissions to new children created inside a directory.</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Module Project</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>Durable Container Storage Blueprint</h4><p>Design a small self-hosted service with one stateless container and one persistent data location. Deliver:</p>
+<ol>
+<li>An image provenance record containing registry, repository, tag, digest policy, and update policy.</li>
+<li>A Compose-style service design with explicit memory and PID limits.</li>
+<li>A decision record choosing a named volume or bind mount.</li>
+<li>A backup and restore procedure with a verification hash.</li>
+<li>A host storage map from device to filesystem to mountpoint.</li>
+<li>A staged UUID-based mount entry if host-managed storage is used.</li>
+<li>A numeric UID/GID and ACL plan.</li>
+<li>Security boundaries, monitoring signals, failure modes, and rollback steps.</li>
+</ol>
+<p>The project may use a disposable VM or remain a reviewed design. Do not expose a new service publicly as part of the assessment.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A session id lets you resume the same AI conversation later—like continuing a chat instead of starting over.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Module Exam</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>Part A — Concepts (30 points)</h4><ul>
+<li>Explain tag versus digest and the provenance consequence. (10)</li>
+<li>Explain writable layer versus persistent mount. (10)</li>
+<li>Explain UID/GID evaluation for a bind-mounted path. (10)</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Explain tag versus digest and the provenance consequence.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Part B — Diagnosis (30 points)</h4><p>Given a container that restarts, exceeds memory, and cannot write to <code>/config</code>, identify evidence commands, likely causes, and a safe repair sequence.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Given a container that restarts, exceeds memory, and cannot write to this setting, identify evidence commands, likely causes, and a safe repair sequence.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Part C — Practical evidence (40 points)</h4><ul>
+<li>Image inspection and recorded identity: 8</li>
+<li>Bounded container configuration: 8</li>
+<li>Volume backup and verified restore: 8</li>
+<li>Staged mount validation: 8</li>
+<li>Permission and rollback evidence: 8</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Passing Criteria and Rubric</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Pass: at least 80/100 overall.</li>
+<li>Safety gate: no credit for a practical step that targets an unverified physical disk, edits live <code>fstab</code> without staging, exposes the Docker socket, or uses a broad destructive deletion.</li>
+<li>Mastery: at least 80%, completed project evidence, successful Feynman explanation, and all rollback questions answered.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Pass: at least 80/100 overall.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Remediation</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Missed skill</th>
+<th>Return to</th>
+<th>Required retry evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Image identity/provenance</td>
+<td>Class 28</td>
+<td>Explain tag vs digest using one inspected image</td>
+</tr>
+<tr>
+<td>Lifecycle/resources</td>
+<td>Class 29</td>
+<td>Interpret one bounded container inspection</td>
+</tr>
+<tr>
+<td>Persistent storage</td>
+<td>Class 30</td>
+<td>Restore and hash-check one named-volume backup</td>
+</tr>
+<tr>
+<td>Disk/filesystem model</td>
+<td>Class 31</td>
+<td>Label a disk/partition/filesystem/mount diagram</td>
+</tr>
+<tr>
+<td>Mount persistence</td>
+<td>Class 32</td>
+<td>Validate a staged UUID entry without editing <code>/etc/fstab</code></td>
+</tr>
+<tr>
+<td>Permissions</td>
+<td>Class 33</td>
+<td>Predict and verify one allowed and one denied write</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div></div><div class="cr-prose-block"><p>After remediation, retake only the affected quiz objectives, then repeat the integrated explanation below.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: After remediation, retake only the affected quiz objectives, then repeat the integrated explanation below.</div>
+ 
+</div></div></div><div class="cr-box cr-box-feynman" id="feynman"><div class="cr-box-head"><span class="cr-chip cr-chip-feynman">Teach it back</span><h3>Feynman teach-back — required</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If you cannot explain it simply, you do not own it yet. This section is required for mastery.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Weak spots are gold — restudy that part and rewrite.</div>
+</div><div class="cr-prose-block"><p>Explain to a new homelab operator how an approved image becomes a bounded container whose data survives replacement on a known filesystem and remains writable only to the intended numeric identity. Use plain language and include one failure and rollback example.</p></div><div class="cr-feynman-form" data-feynman-form="project"><div class="cr-feynman-field"><label for="fy-project-explain"><strong>Explain</strong> — Describe today&#x27;s concept in your own words.</label><textarea id="fy-project-explain" data-feynman-id="project" data-feynman-field="explain" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-project-simplify"><strong>Simplify</strong> — Explain it to a 12-year-old. Define any jargon.</label><textarea id="fy-project-simplify" data-feynman-id="project" data-feynman-field="simplify" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-project-example"><strong>Example</strong> — Give your own real-world analogy or example.</label><textarea id="fy-project-example" data-feynman-id="project" data-feynman-field="example" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-project-weak"><strong>Weak spot</strong> — What part could you not explain clearly?</label><textarea id="fy-project-weak" data-feynman-id="project" data-feynman-field="weak" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-project-retry"><strong>Retry</strong> — Restudy that section and rewrite a clearer explanation.</label><textarea id="fy-project-retry" data-feynman-id="project" data-feynman-field="retry" rows="4" placeholder="Write here…"></textarea></div><p class="cr-feynman-note">Answers save in this browser (localStorage). Completing all five fields is part of the mastery unlock.</p></div></div><div class="cr-box cr-box-reflect"><div class="cr-box-head"><span class="cr-chip cr-chip-reflect">Reflect</span><h3>Course Reflection</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Name what you learned, where you struggled, and how it connects backward and forward.</div>
+ 
+</div><div class="cr-prose-block"><ol>
+<li>Which hidden dependency—image identity, resources, storage, mounts, or permissions—was easiest to overlook?</li>
+<li>Which verification step would have prevented a failure you have previously experienced?</li>
+<li>What will you standardize in future Compose files?</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
  
 </div></div></div>
  <div class="cr-pager"><a href="/classroom/modules/08-docker-storage/">← Module hub</a><a href="/classroom/modules/">All modules →</a></div>
