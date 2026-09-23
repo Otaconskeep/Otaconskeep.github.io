@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://otaconskeep.github.io/news/">
+<link rel="alternate" type="application/rss+xml" title="News in AI" href="https://otaconskeep.github.io/news/feed.xml">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News in AI · Otaconskeep</title>
+<meta name="description" content="News in AI for people running it at home. Self-hosting, local models, videos, Reddit, and social. Updated from the Keep.">
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css?v=20260920i">
+<style>
+.news-list { display:grid; gap:14px; margin: 8px 0 36px; }
+.news-card {
+  border:1px solid var(--line); background:var(--surface);
+  padding:18px 18px 8px;
+}
+.news-kicker {
+  margin:0 0 6px; color:var(--accent-bright);
+  font-family:'JetBrains Mono', ui-monospace, monospace;
+  font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+}
+.news-card h2 { font-size:1.25rem; line-height:1.3; }
+.news-card h2 a { color:var(--cream); text-decoration:none; }
+.news-card h2 a:hover { color:var(--accent-bright); }
+.news-card p { color:var(--cream-dim); }
+</style>
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>FILE // NEWS-IN-AI</span>
+ <span>HOME CURRENT · SEPTEMBER 23, 2026</span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/news/" aria-current="page">News</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div></div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <p class="eyebrow">Home Current · September 23, 2026</p>
+ <h1 class="display" style="font-size: clamp(2.4rem, 6vw, 4.4rem);">News in AI</h1>
+ <p class="lede">For people running it at home. Self-hosting, local models, videos, Reddit, and social. The Keep refreshes this edition, and doom headlines stay out.</p>
+ <div class="btn-row" style="margin-top: 22px;">
+ <a class="btn btn-primary" href="https://otaconskeep.github.io/news/feed.xml">Subscribe with RSS</a>
+ <a class="btn btn-ghost" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Join Discord</a>
+ <a class="btn btn-ghost" href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ </div>
+ </section>
+ <div class="news-list">
+<article class="news-card"><p class="news-kicker">Social · Sigmoid #localllama</p><h2><a href="https://www.urbanmind.net/display/f7dd981d-8561627a-e5ef71e68fd67eee" target="_blank" rel="noopener">เปิด speculative decoding ใน LM Studio ให้ local LLM เร็วขึ้น 26% โดย Nokka (นก-กา)</a></h2><p>19...</p></article>
+<article class="news-card"><p class="news-kicker">Social · Sigmoid #localllama</p><h2><a href="https://www.urbanmind.net/display/f7dd981d-7ec373a8-c155c465fffddc01" target="_blank" rel="noopener">Five Ollama Settings You Should Tune Before Running Local Models Seriously By Nokka</a></h2><p>...</p></article>
+<article class="news-card"><p class="news-kicker">Article · Open WebUI</p><h2><a href="https://github.com/open-webui/open-webui/releases/tag/v0.11.4" target="_blank" rel="noopener">v0.11.4</a></h2><p>Added 📉 Far smaller slim image. A slim build now comes down at around 175 MB, near enough 89% smaller than the last release, the local models, the packages around them and the tools that installed them all gone from it; what that changes about the way an instance behaves is set o</p></article>
+<article class="news-card"><p class="news-kicker">Article · ComfyUI</p><h2><a href="https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.37.1" target="_blank" rel="noopener">v0.37.1</a></h2><p>ComfyUI v0.37.1</p></article>
+<article class="news-card"><p class="news-kicker">Reddit · r/LocalLLaMA</p><h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wo7mr6/mimov3_is_getting_a_new_architecture_the_core_of/" target="_blank" rel="noopener">MiMo-V3 is getting a new architecture. The core of it, HySparse2, is out today.</a></h2></article>
+<article class="news-card"><p class="news-kicker">Reddit · r/LocalLLaMA</p><h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wnxhji/pirate_face_pirate_bay_for_llms/" target="_blank" rel="noopener">Pirate Face - pirate bay for LLMs</a></h2></article>
+<article class="news-card"><p class="news-kicker">Video · Techno Tim</p><h2><a href="https://www.youtube.com/watch?v=K2IGHj7KQoM" target="_blank" rel="noopener">Are Local Models Finally Good Enough?</a></h2><p>I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video </p></article>
+<article class="news-card"><p class="news-kicker">Video · Techno Tim</p><h2><a href="https://www.youtube.com/watch?v=8NFV6duMKQA" target="_blank" rel="noopener">What Is an NPU Actually Good For?</a></h2><p>What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se</p></article>
+<article class="news-card"><p class="news-kicker">Article · Hugging Face</p><h2><a href="https://huggingface.co/blog/transformers-llama-cpp-quants" target="_blank" rel="noopener">Transformers now runs llama.cpp quants</a></h2></article>
+<article class="news-card"><p class="news-kicker">Article · selfh.st</p><h2><a href="https://selfh.st/weekly/2026-09-18/" target="_blank" rel="noopener">Self-Host Weekly (18 September 2026)</a></h2><p>Two apps, a dev, and a pizza place</p></article>
+<article class="news-card"><p class="news-kicker">Video · Matt Wolfe</p><h2><a href="https://www.youtube.com/shorts/nsA_HeY3idE" target="_blank" rel="noopener">AI Companies Need to Stop Doing This</a></h2><p>PSA to all the AI companies: Please stop announcing features like they’re live when they’re still rolling out “over the coming weeks.” This happened for like 4 different demos in my recent AI news roundup video... Is it so hard to just make an announcement when I can actually use</p></article>
+<article class="news-card"><p class="news-kicker">Video · Matt Wolfe</p><h2><a href="https://www.youtube.com/watch?v=Kof2VcHTjrk" target="_blank" rel="noopener">AI News: The AI Slowdown: What You Need to Know</a></h2><p>Here&#x27;s the AI News you probably missed from this week. Discover More: 🛠️ Explore AI Tools &amp; News:</p></article>
+ </div>
+</div>
+<script src="../assets/site.js"></script>
+</body>
+</html>
