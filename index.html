@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Otaconskeep: Build Your Own Keep</title>
-<meta name="description" content="Otaconskeep builds local-first AI systems: Otacon, Keep Desk, KeepRoute, Expansion, and AI9. Designed and engineered by Antonio G. Garcia.">
+<meta name="description" content="OtaconsKeep is a local AI ecosystem you can own, build, learn from, and extend. Agents, KeepRoute, Keep Desk, Expansion, Classroom, and Engineering.">
 <link rel="alternate" type="application/rss+xml" title="News in AI" href="https://otaconskeep.github.io/news/feed.xml">
 <link rel="canonical" href="https://otaconskeep.github.io/">
 <meta name="robots" content="index,follow">
@@ -12,8 +12,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=20260920i">
-<link rel="stylesheet" href="assets/product-explainers.css?v=20260920i">
+<link rel="stylesheet" href="assets/style.css?v=20260923a">
+<style>
+.eco-grid, .diff-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px; }
+.path-grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px; }
+@media (max-width: 860px) {
+ .eco-grid, .diff-grid, .path-grid { grid-template-columns: 1fr; }
+}
+.eco-card, .diff-card, .path-card {
+ border:1px solid var(--line); background:var(--surface); padding:16px 16px 14px;
+}
+.eco-card h3, .diff-card h3, .path-card strong { display:block; margin: 6px 0; }
+.eco-kicker {
+ margin:0; color:var(--accent-bright);
+ font-family:'JetBrains Mono', ui-monospace, monospace;
+ font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+}
+.eco-card p, .diff-card p, .path-card span { color:var(--cream-dim); }
+.path-card { color:var(--cream); text-decoration:none; display:block; }
+.path-card:hover { border-color: var(--accent); }
+.eng-count {
+ font-family:'Bricolage Grotesque', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem);
+ line-height:1; margin:0 0 8px;
+}
+</style>
 </head>
 <body>
 
@@ -30,171 +52,51 @@
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/" aria-current="page">Home</a>
- <a href="/otacon/">Otacon</a>
- <a href="/keepdesk/">Keep Desk</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
  <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- <a href="/classroom/">Classroom</a>
+ </div>
+ </div>
+ <a href="/classroom/">Learn</a>
  <a href="/engineering/">Engineering</a>
- <a href="/news/">News</a>
- <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
- <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ <a href="/install/" class="discord">Get Otacon</a>
  </div></div>
 </nav>
+
 <div class="wrap">
  <section class="hero flush">
  <p class="eyebrow">Field Dossier // Public Index</p>
  <h1 class="display">Build your own Keep.</h1>
- <p class="lede">OtaconsKeep Lite is a local-first AI ecosystem for running persistent AI agents on hardware you control. Give agents identities, memories, voices, rooms, and capabilities, then connect them to local models, media, automation, compute nodes, and the rest of your homelab.</p>
+ <p class="lede">Local AI agents that remember, speak, use tools, work together, and run on hardware you control.</p>
  <p class="lede" style="font-weight: 600; color: var(--cream); margin-top: 10px;">Your agents. Your hardware. Your data. Your Keep.</p>
- <p class="meta" style="margin-top: 26px; letter-spacing: 0.1em;">AGENTS // MEMORY // VOICE // ROOMS // LOCAL AI<br>MEDIA // AUTOMATION // GPU NODES // HOMELAB</p>
  <div class="btn-row" style="margin-top: 26px;">
- <a class="btn btn-primary btn-install" href="#install-otacon">Install OtaconsKeep Lite</a>
- <a class="btn btn-ghost" href="#watch">Watch Demo</a>
- <a class="btn btn-ghost" href="/news/">News in AI</a>
- <a class="btn btn-ghost" href="#products">Explore the ecosystem</a>
+ <a class="btn btn-primary" href="#ecosystem">Explore OtaconsKeep</a>
+ <a class="btn btn-ghost" href="/install/#install-otacon">Get Otacon Lite — Free</a>
  </div>
  <p class="meta" style="margin-top: 18px;">CREATED BY: <strong>Antonio G. Garcia</strong> · Built for the Keep.</p>
  </section>
 </div>
 
-<div class="wrap quickpick-wrap" id="products">
- <p class="tag" style="margin: 8px 0 12px;">Explore the ecosystem</p>
- <div class="quickpick-grid">
-
-<article class="quickpick is-free" data-product-id="lite" style="--qp-accent: var(--signal);">
- <span class="free-sticker" aria-label="Free">FREE</span>
- <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 8v6M24 34v6M8 24h6M34 24h6" stroke="currentColor" stroke-width="2"/></svg>
- <div class="qp-badges">
- <span class="qp-badge" data-kind="access">Free</span>
- <span class="qp-badge" data-kind="access">Open Source</span>
- <span class="qp-badge" data-kind="runtime">Local</span>
- </div>
- <h3>OtaconsKeep Lite</h3>
- <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
- <p>Run your own persistent AI agents on your computer, with memory, tools, voice, automation, and a local web interface. Lite is the complete free public foundation of OtaconsKeep.</p>
- <p class="qp-support">No license key. No artificial usage cap. Your available AI capabilities depend on your hardware and the models you choose to run.</p>
- <div class="qp-actions">
- <a class="btn btn-primary" href="#install-otacon">Install Lite</a>
- <a class="btn btn-ghost" href="https://youtu.be/OitYjPlbTng" target="_blank" rel="noopener">Watch install video</a>
- <button type="button" class="btn btn-ghost btn-what" data-explainer="lite">What is it?</button>
- </div>
- </article>
-
- 
-<article class="quickpick is-free" data-product-id="keeproute" style="--qp-accent: var(--accent-bright);">
- <span class="free-sticker" aria-label="Free">FREE</span>
- <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="36" cy="36" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 12h8c6 0 6 12 0 12h-4c-6 0-6 12 0 12h12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 36h4" stroke="currentColor" stroke-width="2"/></svg>
- <div class="qp-badges">
- <span class="qp-badge" data-kind="access">Free</span>
- <span class="qp-badge" data-kind="maturity">Stable</span>
- <span class="qp-badge" data-kind="maturity">1.0</span>
- <span class="qp-badge" data-kind="runtime">Local</span>
- </div>
- <h3>KeepRoute</h3>
- <p class="qp-cost free">Free forever. Public install — not a supporter product.</p>
- <p>Keep AI work moving when models hit limits, fail, or need to be switched. KeepRoute preserves mission state and lets work continue across compatible AI models instead of forcing you to start over.</p>
- <p class="qp-support">Built on OmniRoute with OtaconsKeep mission state, checkpoints, recovery, and handoff behavior.</p>
- <div class="qp-actions">
- <a class="btn btn-primary" href="/keeproute/">Open KeepRoute 1.0</a>
- <button type="button" class="btn btn-ghost btn-what" data-explainer="keeproute">What is it?</button>
- </div>
- </article>
-
-<article class="quickpick is-free" data-product-id="classroom" style="--qp-accent: var(--keep-ref);">
- <span class="free-sticker" aria-label="Free">FREE</span>
- <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="8" width="28" height="32" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16h16M16 22h16M16 28h10" stroke="currentColor" stroke-width="2"/><circle cx="34" cy="34" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M34 31v6M31 34h6" stroke="currentColor" stroke-width="1.6"/></svg>
- <div class="qp-badges">
- <span class="qp-badge" data-kind="access">Free</span>
- <span class="qp-badge" data-kind="maturity">Homelab Academy</span>
- <span class="qp-badge" data-kind="runtime">15 classes</span>
- </div>
- <h3>Classroom</h3>
- <p class="qp-cost free">Free forever. Public curriculum — not a supporter product.</p>
- <p>15 classes: infrastructure, ARR, Home Assistant, voice, n8n, and IP addressing. Labs, checkpoints, and a final verification matrix.</p>
- <div class="qp-actions">
- <a class="btn btn-primary" href="/classroom/">Open Academy</a>
- <a class="btn btn-ghost" href="/classroom/classes/01.html">Class 1</a>
- </div>
-</article>
-
-
- 
-<article class="quickpick is-donation" data-product-id="expansion" style="--qp-accent: var(--premium);">
- <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
- <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="34" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="36" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="38" cy="34" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="38" cy="20" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 16v16M24 12l14 8M24 12L10 34M24 36l14-2" stroke="currentColor" stroke-width="1.5" opacity=".7"/></svg>
- <div class="qp-badges">
- <span class="qp-badge" data-kind="access">Licensed · Available now</span>
- <span class="qp-badge" data-kind="runtime">Requires Lite</span>
- </div>
- <h3>OtaconsKeep Premium / Expansion</h3>
- <p class="qp-cost paid">One-time donation required · $1</p>
- <p>Licensed multi-agent layer on OtaconsKeep Lite: five-agent roster, Deck/Codec, Aria with capability-parity acceptance (<strong>v1.3.1</strong>). Installer available today for members. Some GPU/creative sidecars remain optional.</p>
- <p class="qp-support">Requires OtaconsKeep Lite first. Genome Voice Trainer and Video Studio need GPU / Docker (or portable Comfy) and are not READY on every fresh PC.</p>
- <div class="qp-actions">
- <a class="btn btn-ghost" href="/expansion/" style="border-color: var(--premium); color: var(--premium-bright);">Expansion status</a>
- <a class="btn btn-ghost" href="/premium/" style="border-color: var(--premium); color: var(--premium-bright);">Member HQ</a>
- <button type="button" class="btn btn-ghost btn-what" data-explainer="expansion">What is it?</button>
- </div>
- </article>
-
- 
-<article class="quickpick is-donation" data-product-id="keepdesk" style="--qp-accent: var(--signal);">
- <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
- <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="12" width="36" height="22" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M14 34v6M34 34v6M10 40h28" stroke="currentColor" stroke-width="2"/><path d="M12 18h10M12 23h16M12 28h8" stroke="currentColor" stroke-width="1.8"/></svg>
- <div class="qp-badges">
- <span class="qp-badge" data-kind="access">Supporter</span>
- <span class="qp-badge" data-kind="access">Buy Me a Coffee</span>
- <span class="qp-badge" data-kind="runtime">Local</span>
- </div>
- <h3>Keep Desk</h3>
- <p class="qp-cost paid">One-time donation required · $1</p>
- <p>A visual AI command center for running named local AI teammates from one shared workstation. Talk to agents, assign work, watch activity, and manage local AI workflows from a cinematic desktop interface.</p>
- <p class="qp-support">Built around local models and the OtaconsKeep ecosystem, with supporter access to the install vault.</p>
- <div class="qp-actions">
- <a class="btn btn-primary" href="/keepdesk/">Enter Keep Desk</a>
- <a class="btn btn-ghost" href="/keepdesk/#demo">Watch the Deck</a>
- <a class="btn btn-ghost" href="/keepdesk/#vault">Unlock Install Vault</a>
- <button type="button" class="btn btn-ghost btn-what" data-explainer="keepdesk">What is it?</button>
- </div>
- </article>
-
- 
-<article class="quickpick is-free" data-product-id="ai9" style="--qp-accent: var(--keep-ref);">
- <span class="free-sticker" aria-label="Free">FREE</span>
- <svg class="qp-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="22" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M28 18h12v20H18" fill="none" stroke="currentColor" stroke-width="2" opacity=".55"/><path d="M10 20h10M10 26h14M10 32h8" stroke="currentColor" stroke-width="2"/><circle cx="36" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
- <div class="qp-badges">
- <span class="qp-badge" data-kind="runtime">Local GPU</span>
- <span class="qp-badge" data-kind="runtime">Browser Extension</span>
- </div>
- <h3>AI9 Colorizer</h3>
- <p class="qp-labs-tag">Labs · family-adjacent</p>
- <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
- <p>Automatically colorize black-and-white manga images in Firefox using a GPU on your own computer. The browser sends the image to your local AI9 service, your GPU processes it, and the colorized result is returned to the page.</p>
- <p class="qp-support">OtaconsKeep family-adjacent. Covered under AI9. Does not require Lite Core.</p>
- <div class="qp-actions">
- <a class="btn btn-primary" href="#install-ai9">Install AI9</a>
- <a class="btn btn-ghost" href="https://youtu.be/aUiwMACSPBk" target="_blank" rel="noopener">Watch AI9 video</a>
- <button type="button" class="btn btn-ghost btn-what" data-explainer="ai9">What is it?</button>
- </div>
- </article>
-
- 
-
- </div>
+<div class="wrap">
+ <section id="watch">
+ <p class="tag">Show me</p>
+ <h2>This is OtaconsKeep</h2>
+ <p class="intro">Agents, Codec, KeepRoute, the desk, voice, and the engineering behind it. Watch the machine before you install it.</p>
+ </section>
 </div>
-
-
-
-<section class="hero-video" id="watch" aria-label="Otaconskeep video">
+<section class="hero-video" aria-label="Otaconskeep video">
  <div class="wrap">
  <div class="hero-video-frame hero-video-frame--compact">
  <iframe
  src="https://www.youtube-nocookie.com/embed/vYXsi4ZRStw"
- title="Otaconskeep"
+ title="This is OtaconsKeep"
  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
  allowfullscreen
  loading="lazy"
@@ -203,38 +105,91 @@
  </div>
 </section>
 
-<aside class="proof-strip" id="proof-strip" aria-label="Engineering proof status">
- <div class="wrap proof-strip-inner">
- <span class="proof-kicker">Engineering evidence</span>
- <span class="proof-chip" id="proof-reqs">… reqs</span>
- <span class="proof-chip" id="proof-verified">… verified</span>
- <span class="proof-chip" id="proof-risks">… risks open</span>
- <a class="proof-link" href="/engineering/">Open Engineering →</a>
- </div>
-</aside>
-
-
-
+<div class="wrap">
+ <section id="what-is-a-keep">
+ <p class="tag">What is a Keep?</p>
+ <h2>One private system, not one chatbot</h2>
+ <p class="intro">A Keep is agents, tools, and services on hardware you control. KeepRoute keeps the work alive when a model changes. You already own the machine it runs on.</p>
+ <div class="treebox" aria-label="The Keep architecture diagram"> YOUR KEEP
+ │
+ ┌─────────────┴─────────────┐
+ │ │
+ <strong>AI AGENTS</strong> <strong>SERVICES</strong>
+ │ │
+ ┌───────┼───────┐ ┌────────┼────────┐
+ │ │ │ │ │ │
+ Agent A Agent B Agent C Media Home Search
+ │ │ │ │ │ │
+ Memory Memory Memory Plex HA SearXNG
+ Voice Voice Voice *arr
+ Room Room Room
+ │ │ │
+ └───────┴───────┘
+ │
+ <strong>CAPABILITY ROUTER</strong>
+ │
+ ┌────────┼──────────┐
+ │ │ │
+ Local GPU Remote
+ Models Workers Nodes</div>
+ <p class="diagram-caption">Agent names above are illustrative: this is the architecture shape, not a specific deployment.</p>
+ </section>
+</div>
 
 <div class="wrap">
- <section id="today">
- <p class="tag">00 // Right Now</p>
- <h2>OtaconsKeep Lite today</h2>
- <p class="intro">Before the bigger picture: here's exactly what installing Otacon gives you the moment it finishes, no roadmap items included.</p>
+ <section id="ecosystem">
+ <p class="tag">The ecosystem</p>
+ <h2>Build, learn, prove, and follow</h2>
+ <div class="eco-grid">
+ <article class="eco-card">
+ <p class="eco-kicker">Foundation · Free</p>
+ <h3>Otacon Lite</h3>
+ <p>Build persistent local AI agents.</p>
+ <a href="/otacon/">Learn more →</a>
+ </article>
+ <article class="eco-card">
+ <p class="eco-kicker">Orchestration · Free</p>
+ <h3>KeepRoute</h3>
+ <p>Keep AI missions alive across models.</p>
+ <a href="/keeproute/">Learn more →</a>
+ </article>
+ <article class="eco-card">
+ <p class="eco-kicker">Command · Supporter</p>
+ <h3>Keep Desk</h3>
+ <p>Computer-using AI teammates on hardware you own.</p>
+ <a href="/keepdesk/">Learn more →</a>
+ </article>
+ <article class="eco-card">
+ <p class="eco-kicker">Agents · Supporter</p>
+ <h3>Expansion</h3>
+ <p>Five-agent hierarchy, culture learning, REX, and deeper Keep capabilities.</p>
+ <a href="/expansion/">Learn more →</a>
+ </article>
+ <article class="eco-card">
+ <p class="eco-kicker">Labs · Free</p>
+ <h3>AI9</h3>
+ <p>GPU manga colorization.</p>
+ <a href="/ai9/">Learn more →</a>
+ </article>
+ <article class="eco-card">
+ <p class="eco-kicker">Learn · Free</p>
+ <h3>Classroom</h3>
+ <p>Homelab Academy: the infrastructure under the Keep.</p>
+ <a href="/classroom/">Enter Classroom →</a>
+ </article>
+ </div>
+ </section>
+</div>
 
- <div class="today-panel">
- <p class="kicker">✓ Available the moment install finishes</p>
- <ul class="today-list">
- <li><span class="ok">✓</span> Install Otacon locally on your own machine, one command, and it starts itself from then on</li>
- <li><span class="ok">✓</span> Comes with Default Model (Ollama + VRAM-sized chat) and Genome Voice Trainer</li>
- <li><span class="ok">✓</span> Opens a local Command Center (Homelab-style deck) with Codec chat for Aria</li>
- <li><span class="ok">✓</span> Create and manage persistent agents</li>
- <li><span class="ok">✓</span> Maintain separate conversation history and long-term memory per agent</li>
- <li><span class="ok">✓</span> Configure agent identities and voice profiles</li>
- <li><span class="ok">✓</span> Automatic hardware detection picks a local model tier for your GPU</li>
- <li><span class="ok">✓</span> Provider-neutral capability routing: swap LLM/TTS/STT backends without touching agent identity</li>
- </ul>
- <div class="info-note" style="margin-top: 22px;">One Otacon install is the full normal path: Core + chat model + voice trainer. Speech-to-text and image/video generation still need their own providers when you want those (see the <a href="/otacon/#status">status table</a>).</div>
+<div class="wrap">
+ <section>
+ <p class="tag">What makes it different</p>
+ <h2>Local, persistent, modular, verified</h2>
+ <div class="diff-grid">
+ <article class="diff-card"><p class="eco-kicker">Local first</p><h3>Your hardware</h3><p>Run it on machines you control. Your data stays in the Keep.</p></article>
+ <article class="diff-card"><p class="eco-kicker">Persistent</p><h3>Identity that stays</h3><p>Agents keep identity, history, and state instead of starting over every chat.</p></article>
+ <article class="diff-card"><p class="eco-kicker">Modular</p><h3>Swap the model</h3><p>Models, GPUs, and services can change without rebuilding the agents.</p></article>
+ <article class="diff-card"><p class="eco-kicker">Verified</p><h3>Evidence, not a demo reel</h3><p>Requirements, architecture, implementation, testing, and the record of what is still unproven. <a href="/engineering/">Open Engineering →</a></p></article>
  </div>
  </section>
 </div>
@@ -385,824 +340,59 @@
  </section>
 </div>
 
-<div class="wrap">
- <section id="the-keep">
- <p class="tag">01 // The Keep</p>
- <h2>More than a chatbot</h2>
- <p class="intro">A Keep is a private AI environment built around you. Instead of one generic assistant, Otacon is designed around persistent agents with their own identities, conversations, memories, voices, and capabilities: agents that can live in their own rooms and interact with services running across your own machines. Start with a local AI assistant. Grow it into a system that coordinates models, GPUs, media services, smart-home systems, search, voice, and automation.</p>
 
- <div class="treebox" aria-label="The Keep architecture diagram"> YOUR KEEP
- │
- ┌─────────────┴─────────────┐
- │ │
- <strong>AI AGENTS</strong> <strong>SERVICES</strong>
- │ │
- ┌───────┼───────┐ ┌────────┼────────┐
- │ │ │ │ │ │
- Agent A Agent B Agent C Media Home Search
- │ │ │ │ │ │
- Memory Memory Memory Plex HA SearXNG
- Voice Voice Voice *arr
- Room Room Room
- │ │ │
- └───────┴───────┘
- │
- <strong>CAPABILITY ROUTER</strong>
- │
- ┌────────┼──────────┐
- │ │ │
- Local GPU Remote
- Models Workers Nodes</div>
- <p class="diagram-caption">Agent names above are illustrative: this is the architecture shape, not a specific deployment.</p>
- </section>
-</div>
 
 <div class="wrap">
  <section>
- <p class="tag">02 // Proof</p>
- <div class="reference-block">
- <h2 class="display">Not a concept. A working reference environment.</h2>
- <p class="lede2">The public project is derived from Antonio G. Garcia's working self-hosted environment, where AI agents coexist with local models, dedicated GPUs, voice systems, media automation, containers, search, smart-home infrastructure, and automated operations.</p>
- <span class="reference-tag">Reference Keep: not all components are included in OtaconsKeep Lite</span>
- <ul>
- <li>Persistent character/agent rooms with independent identity, memory, and voice</li>
- <li>Local LLM inference with hardware-aware model selection</li>
- <li>Dedicated GPU compute and remote worker nodes</li>
- <li>Image and video generation pipelines</li>
- <li>Voice synthesis and voice satellites</li>
- <li>Containerized services with health monitoring and automated recovery</li>
- <li>Media automation (download/library automation, Plex/Jellyfin, request systems)</li>
- <li>Search/research services</li>
- <li>Home Assistant and physical-device integrations</li>
- <li>Discord and external messaging interfaces</li>
- <li>Resource arbitration and GPU reclamation across machines</li>
- </ul>
- <p style="margin-top: 26px; font-weight: 700; color: var(--cream); font-size: 1.05rem;">OtaconsKeep Lite installs the foundation. The Keep Blueprint shows what that foundation can become.</p>
+ <p class="tag">Learn</p>
+ <h2>Don’t just install it. Learn it.</h2>
+ <p class="intro">Homelab Academy teaches the infrastructure underneath the Keep: Linux, Docker, networking, ARR, Home Assistant, voice, automation, and more. 33 classes, labs, homework, and mastery gates.</p>
+ <div class="btn-row">
+ <a class="btn btn-primary" href="/classroom/">Enter Classroom</a>
  </div>
  </section>
 </div>
 
 <div class="wrap">
- <section id="path">
- <p class="tag">03 // Growth Path</p>
- <h2>Where the foundation leads</h2>
- <div class="progression">
- <div class="step core">Install Otacon</div>
- <div class="arrow-down">↓</div>
- <div class="step core">Local AI</div>
- <div class="arrow-down">↓</div>
- <div class="step core">Persistent Agents</div>
- <div class="arrow-down">↓</div>
- <div class="step core">Memory + Voices</div>
- <div class="arrow-down">↓</div>
- <div class="step core">AI9 Manga Colorizer</div>
- <div class="arrow-down">↓</div>
- <div class="step core">KeepRoute</div>
- <div class="arrow-down">↓</div>
- <div class="step desk">Keep Desk <span class="step-note">local command deck</span></div>
- <div class="arrow-down">↓</div>
- <div class="step premium">Otacon Expansion</div>
- <div class="arrow-down">↓</div>
- <div class="step keep">Agent Rooms</div>
- <div class="arrow-down">↓</div>
- <div class="step keep">Tools + Capabilities</div>
- <div class="arrow-down">↓</div>
- <div class="step keep">Media + Automation</div>
- <div class="arrow-down">↓</div>
- <div class="step keep">GPU / Remote Nodes</div>
- <div class="arrow-down">↓</div>
- <div class="step keep">Your Own Keep</div>
- </div>
- <p class="progression-caption">OtaconsKeep Lite installs the foundation. KeepRoute keeps long AI missions alive. Keep Desk is the local command deck. Expansion deepens the multi-agent layer. AI9 is a family-adjacent lab project (no Lite required). The Keep Blueprint shows how far the foundation can grow.</p>
- <div class="legend" style="justify-content: center; margin-top: 18px; margin-bottom: 0;">
- <span><span class="dot available"></span> Lite / KeepRoute, today</span>
- <span><span class="dot desk"></span> Keep Desk, licensed</span>
- <span><span class="dot premium"></span> Expansion, licensed · installer today</span>
- <span><span class="dot keep-ref"></span> Keep Blueprint direction</span>
- </div>
- <div class="btn-row" style="justify-content: center; margin-top: 18px;">
- <a class="btn btn-ghost" href="/ai9/">AI9</a>
- <a class="btn btn-ghost" href="/keeproute/">KeepRoute</a>
- <a class="btn btn-ghost" href="/keepdesk/">Keep Desk</a>
+ <section id="engineering-home">
+ <p class="tag">Engineered, not just demoed</p>
+ <h2 class="eng-count">328+</h2>
+ <p class="intro">Public verification cases, from requirements through architecture, traceability, V&amp;V, risk, benchmarks, and evidence. Pass requires a record. What is still blocked stays marked blocked.</p>
+ <p class="meta" id="proof-strip">
+ <span id="proof-reqs">… reqs</span> ·
+ <span id="proof-verified">… verified</span> ·
+ <span id="proof-risks">… risks open</span>
+ </p>
+ <div class="btn-row">
+ <a class="btn btn-primary" href="/engineering/">Open Engineering Portal</a>
  </div>
  </section>
 </div>
 
 <div class="wrap">
  <section>
- <p class="tag premium">03b // Otacon Expansion</p>
- <div class="stamp premium">Otacon Expansion<small>premium · installable</small></div>
- <h2 style="margin-top: 18px;">Five agents. Real hierarchy. A Keep of your own.</h2>
- <p class="intro"><strong>Premium / Expansion</strong> — available to licensed members; installer available today; some GPU/creative sidecars remain optional or in development. Five-agent roster, Command Deck / Codec, <a href="/expansion/#culture-learning">Culture Learning</a>, and a <a href="/expansion/#rex-business">standing REX business cycle</a> after Lite + Expansion Setup. Genome and Video Studio need GPU / Docker (or portable Comfy) and are not READY on every fresh PC. <a href="/expansion/">Read the honest status &amp; install path</a>.</p>
-
- <div class="agentgrid">
- <div class="agentcard" style="--agent-accent:#43d98a">
- <img src="assets/img/expansion/aria.webp" alt="Aria, Command Coordinator">
- <div class="agentbody"><h4>Aria</h4><p class="agentrole">Coordinator</p><p class="agentroom">Dashboard + Codec</p></div>
- </div>
- <div class="agentcard" style="--agent-accent:#a888e0">
- <img src="assets/img/expansion/vector.webp" alt="Vector, Systems and Infrastructure">
- <div class="agentbody"><h4>Vector</h4><p class="agentrole">Systems</p><p class="agentroom">War Room</p></div>
- </div>
- <div class="agentcard" style="--agent-accent:#39e6c8">
- <img src="assets/img/expansion/ledger.webp" alt="Ledger, Data and Continuity">
- <div class="agentbody"><h4>Ledger</h4><p class="agentrole">Continuity</p><p class="agentroom">Intel Board</p></div>
- </div>
- <div class="agentcard" style="--agent-accent:#8db3d9">
- <img src="assets/img/expansion/muse.webp" alt="Muse, Creative and Media Curation">
- <div class="agentbody"><h4>Muse</h4><p class="agentrole">Creative</p><p class="agentroom">Video Studio</p></div>
- </div>
- <div class="agentcard" style="--agent-accent:#e0a83c">
- <img src="assets/img/expansion/sentry.webp" alt="Sentry, Security and Operations">
- <div class="agentbody"><h4>Sentry</h4><p class="agentrole">Security</p><p class="agentroom">Home Automation</p></div>
- </div>
- </div>
-
- <p class="intro" style="margin-top: 26px; margin-bottom: 10px;">Agents move &mdash; Aria's motion pack, hand-produced as the reference set every default agent's generator matches:</p>
- <div class="motiongrid">
- <div class="motioncard"><video controls preload="metadata" src="assets/video/expansion/aria-talking.mp4"></video><div class="mc-label"><span class="mc-name">Talking</span><span class="mc-key">talking</span></div></div>
- <div class="motioncard"><video controls preload="metadata" src="assets/video/expansion/aria-happy.mp4"></video><div class="mc-label"><span class="mc-name">Happy</span><span class="mc-key">affect.happy</span></div></div>
- <div class="motioncard"><video controls preload="metadata" src="assets/video/expansion/aria-rage.mp4"></video><div class="mc-label"><span class="mc-name">Rage</span><span class="mc-key">affect.rage</span></div></div>
- <div class="motioncard"><video controls preload="metadata" src="assets/video/expansion/aria-sad-masked.mp4"></video><div class="mc-label"><span class="mc-name">Hiding Sad</span><span class="mc-key">affect.sad_masked</span></div></div>
- </div>
-
- <div class="btn-row" style="margin-top: 22px;">
- <a class="btn btn-primary" href="/downloads/OtaconExpansion-Setup.bat" download style="background: var(--premium); border-color: var(--premium); color: #150f24;">Download Expansion Setup</a>
- <a class="btn btn-ghost" href="/expansion/" style="border-color: var(--premium); color: var(--premium-bright);">Expansion status &amp; install &rarr;</a>
- <a class="btn btn-ghost" href="/premium/" style="border-color: var(--premium); color: var(--premium-bright);">Member HQ / license</a>
+ <p class="tag">Choose your path</p>
+ <h2>Which part is for you?</h2>
+ <div class="path-grid">
+ <a class="path-card" href="/install/#install-otacon"><strong>I want my own local AI</strong><span>Otacon Lite, free.</span></a>
+ <a class="path-card" href="/keeproute/"><strong>I want AI jobs to survive provider failures</strong><span>KeepRoute.</span></a>
+ <a class="path-card" href="/keepdesk/"><strong>I want local computer-using agents</strong><span>Keep Desk.</span></a>
+ <a class="path-card" href="/expansion/"><strong>I want a multi-agent Keep</strong><span>Expansion.</span></a>
+ <a class="path-card" href="/classroom/"><strong>I want to learn homelabbing</strong><span>Classroom.</span></a>
+ <a class="path-card" href="/ai9/"><strong>I want manga colorization</strong><span>AI9.</span></a>
+ <a class="path-card" href="/engineering/"><strong>I want to see how this was engineered</strong><span>Engineering.</span></a>
+ <a class="path-card" href="/news/"><strong>I want to follow the work</strong><span>News in AI.</span></a>
  </div>
  </section>
 </div>
 
 <div class="wrap">
  <section>
- <p class="tag">04 // How to Get It</p>
- <h2>Ways in</h2>
- <div class="tablewrap">
- <table>
- <thead><tr><th>Tier</th><th>What it is</th><th>Status</th><th>Price</th></tr></thead>
- <tbody>
- <tr><td><strong>OtaconsKeep Lite</strong></td><td>Free · open source · self-hosted · never costs anything</td><td>Install today</td><td>Free</td></tr>
- <tr><td><strong>KeepRoute</strong></td><td>Mission-state routing on OmniRoute · REX learning feed documented (Keep-depth) · public install on the KeepRoute page</td><td>1.0 stable · install today</td><td>Free</td></tr>
- <tr><td><strong>Classroom</strong></td><td>Homelab Academy · 15 guided classes · ARR + HA + voice + n8n + IP · labs &amp; checkpoints</td><td>Public curriculum · <a href="/classroom/">open now</a></td><td>Free</td></tr>
- <tr><td><strong>AI9</strong></td><td>Local GPU manga colorizer · family-adjacent lab project</td><td>Install today · no Lite required</td><td>Free</td></tr>
- <tr><td><strong>Premium / Expansion</strong></td><td>Licensed · Available now · requires Lite · GPU/creative sidecars optional</td><td>Licensed members · <a href="/expansion/">honest fresh-PC notes</a></td><td>One-time donation · $1</td></tr>
- <tr><td><strong>Keep Desk</strong></td><td>Local command deck · supporter install vault</td><td>Licensed members (same seat as Premium)</td><td>One-time donation · $1</td></tr>
- <tr><td><strong>Keep Blueprint</strong></td><td>The broader ecosystem architecture demonstrated by the real Keep</td><td>Reference only</td><td>Not offered publicly</td></tr>
- <tr><td><strong>Otaconskeep Services</strong></td><td>Architecture · deployment · support</td><td>Available now</td><td>Contact for scope/pricing</td></tr>
- </tbody>
- </table>
- </div>
- <div class="btn-row" style="margin-top: 20px;">
- <a class="btn btn-ghost" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">💬 Ask in Discord</a>
- </div>
- </section>
-</div>
-
-<div class="wrap">
- <section id="install">
- <p class="tag">Install</p>
- <h2>Install the OtaconsKeep family</h2>
- <p class="intro"><strong>OtaconsKeep Lite</strong> is the free foundation (Default Model + Voice Trainer). <strong>KeepRoute</strong> and <strong>AI9</strong> are also free with public install steps. <strong>Keep Desk</strong> and <strong>Premium / Expansion</strong> are the $1 licensed / supporter paths.</p>
-
- <div class="install-stack">
-
- <div class="install-panel is-free" id="install-otacon">
- <span class="free-sticker" aria-label="Free">FREE</span>
- <div class="install-panel-head">
- <h3 class="install-panel-title">Install OtaconsKeep Lite</h3>
- <span class="one-click-badge">Guided Windows installer</span>
- </div>
- <div class="install-pill-row" aria-label="Lite trust signals">
- <span class="install-pill ok">Free</span>
- <span class="install-pill ok">Open source</span>
- <span class="install-pill ok">Runs locally</span>
- <span class="install-pill ok">No account</span>
- <span class="install-pill ok">No license key</span>
- </div>
- <p class="install-panel-lead">Persistent AI agents, memory, a local Ollama chat model, Genome Voice Trainer, and the OtaconsKeep Command Center — on your hardware.</p>
-
- <div class="os-grid">
- <div class="os-card">
- <p class="os-label">★ Recommended · Windows</p>
- <p class="os-hint" style="margin-bottom:10px;">Download one file. OtaconsKeep handles WSL, dependencies, Ollama, the default model, Voice Trainer, service setup, and health checks.</p>
- <a class="download-btn" href="/downloads/OtaconsKeep-Setup.bat" download="OtaconsKeep-Setup.bat">Download OtaconsKeep Setup</a>
-
- <div class="install-path-strip" aria-label="Install steps">
- <strong>1. Download</strong><span class="path-arrow">→</span>
- <strong>2. Double-click</strong><span class="path-arrow">→</span>
- <strong>3. Approve Windows</strong><span class="path-arrow">→</span>
- <strong>4. OTACON IS READY</strong>
- </div>
- <p class="install-time-note">Typical first setup: <strong>~10–30 minutes</strong> depending on your PC and internet. Windows may require <strong>one restart</strong> while enabling WSL — Setup resumes afterward.</p>
-
- <div class="install-secondary-links">
- <a href="https://youtu.be/OitYjPlbTng" target="_blank" rel="noopener">Watch install video</a>
- <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">View source</a>
- <a href="/faq/#uninstall">How to uninstall</a>
- </div>
-
- <div class="install-demo-video" aria-label="Otaconskeep Lite install video" style="margin-top:12px;">
- <div class="install-demo-video-frame">
- <iframe
- src="https://www.youtube-nocookie.com/embed/OitYjPlbTng"
- title="Install Your Own Self Hosted AI With One Installer OtaconsKeep Lite"
- allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
- allowfullscreen
- loading="lazy"
- referrerpolicy="strict-origin-when-cross-origin"></iframe>
- </div>
- </div>
-
- <div class="setup-handles">
- <h4>What Setup handles</h4>
- <ul>
- <li><span class="ok">✓</span> Enables / configures WSL2 when needed</li>
- <li><span class="ok">✓</span> Installs OtaconsKeep Core</li>
- <li><span class="ok">✓</span> Detects your hardware</li>
- <li><span class="ok">✓</span> Installs Ollama</li>
- <li><span class="ok">✓</span> Chooses a chat model based on available VRAM</li>
- <li><span class="ok">✓</span> Installs Genome Voice Trainer when supported</li>
- <li><span class="ok">✓</span> Runs installation health checks</li>
- <li><span class="ok">✓</span> Registers Otacon as a background service</li>
- <li><span class="ok">✓</span> Configures automatic startup after Windows login</li>
- </ul>
- </div>
-
- <div class="install-needs">
- <h4>What you need</h4>
- <ul>
- <li><strong>Windows</strong> 10 or 11 (WSL2 support — Setup enables it if needed)</li>
- <li><strong>GPU:</strong> optional — CPU-only works</li>
- <li><strong>NVIDIA GPU:</strong> automatically detected when present</li>
- <li><strong>Internet:</strong> required for initial setup / model download</li>
- <li><strong>AI model:</strong> automatically sized for your hardware</li>
- <li><strong>Disk:</strong> leave ~10+ GB free for a comfortable first install</li>
- </ul>
- </div>
-
- <div class="install-success">
- <p class="success-kicker">You’re finished when you see</p>
- <h4>✓ OTACON IS READY</h4>
- <p>Then open <a href="http://localhost:5757" target="_blank" rel="noopener"><strong>http://localhost:5757</strong></a> to enter your Keep. Bookmark it — that address is local to this PC.</p>
- </div>
-
- <details class="install-help-block">
- <summary>Having trouble? First-install help</summary>
- <div class="install-help-inner">
- <h5>Normal things you may see</h5>
- <details class="baby-error"><summary>Windows protected your PC / SmartScreen</summary>
- <div class="baby-error-body"><ol><li>Click <strong>More info</strong> → <strong>Run anyway</strong>.</li><li>Expected for a new unsigned Setup file.</li></ol></div></details>
- <details class="baby-error"><summary>Administrator / “allow this app” (UAC)</summary>
- <div class="baby-error-body"><ol><li>Click <strong>Yes</strong>. Setup needs permission for WSL and services.</li><li>A second Setup window may open — that is expected.</li></ol></div></details>
- <details class="baby-error"><summary>Windows asks you to restart</summary>
- <div class="baby-error-body"><ol><li>Normal while enabling WSL. Save work and restart.</li><li>After reboot, Setup should show <strong>WELCOME BACK</strong>, or double-click the same <span class="mono">OtaconsKeep-Setup.bat</span> again.</li></ol></div></details>
- <details class="baby-error"><summary>Ubuntu asks for a username / password</summary>
- <div class="baby-error-body"><ol><li>Windows is creating OtaconsKeep’s local WSL Linux environment.</li><li>Choose any username and a password you will remember (needed later for <span class="mono">sudo</span>).</li></ol></div></details>
- <details class="baby-error"><summary>“Updates are underway, please keep your computer on”</summary>
- <div class="baby-error-body"><ol><li>Windows is finishing Linux/WSL features — not an Otacon crash.</li><li>Can take 15–45+ minutes. Drive activity usually means it is still working.</li></ol></div></details>
- <details class="baby-error"><summary>Setup stays on one step for several minutes</summary>
- <div class="baby-error-body"><ol><li>Dependencies and AI models can be large. Leave the window open.</li></ol></div></details>
- <details class="baby-error"><summary>Black terminal window with progress text</summary>
- <div class="baby-error-body"><ol><li>That is Setup working. Do not close it until <strong>OTACON IS READY</strong>.</li></ol></div></details>
-
- <h5>Something actually went wrong?</h5>
- <details class="baby-error"><summary>SETUP NEEDS HELP</summary>
- <div class="baby-error-body"><ol><li>Recovery mode — not a silent crash. Press <strong>R</strong> to retry, <strong>O</strong> for logs, or <strong>X</strong> to exit.</li></ol></div></details>
- <details class="baby-error"><summary>localhost:5757 blank / broken</summary>
- <div class="baby-error-body"><ol><li>Wait until Setup says <strong>OTACON IS READY</strong>, then open or refresh the address.</li></ol></div></details>
- <details class="baby-error"><summary>Installer file damaged / wrong encoding</summary>
- <div class="baby-error-body"><ol><li>Delete the bad .bat.</li><li>Re-download with the button above (or the GitHub ZIP fallback below) — not browser Save As on a raw GitHub file.</li></ol></div></details>
- <details class="baby-error"><summary>'curl' is not recognized (manual path)</summary>
- <div class="baby-error-body"><ol><li>Use the download button above instead, or try the PowerShell option under Manual → Windows.</li></ol></div></details>
- <p class="os-hint" style="margin-top:12px;"><a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Ask in Discord</a></p>
- </div>
- </details>
-
- <details class="install-help-block">
- <summary>Advanced · download notes, ZIP, Linux command</summary>
- <div class="install-help-inner">
- <p style="margin-top:12px;"><strong>Recommended:</strong> use the download button above. It provides the Windows-formatted installer exactly as tested.</p>
- <p>Prefer reviewing the code first? <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">View source</a>.</p>
- <p>If the browser blocks the download, use the <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem/archive/refs/heads/main.zip">GitHub ZIP</a>, extract it, then run <span class="mono">OtaconsKeep-Setup.bat</span> from the folder. Do not Save As on a single raw <span class="mono">.bat</span> from GitHub.</p>
- <p style="margin-top:10px;"><strong>Already on Linux?</strong> Use the Manual column → Ubuntu / Debian, or paste:</p>
- <div class="codebox">
- <code id="otacon-cmd">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
- <button class="copy-btn" data-copy-target="otacon-cmd">Copy</button>
- </div>
- <p class="os-hint" style="margin-top:8px;">Lighter install (skip chat model / voice trainer): put <span class="mono">OTACON_INSTALL_DEFAULT_MODEL=0</span> and/or <span class="mono">OTACON_INSTALL_VOICE_TRAINER=0</span> on the <span class="mono">bash</span> side of the pipe.</p>
- </div>
- </details>
- </div>
-
- <div class="os-card os-card-manual">
- <span class="manual-col-tag">Method 2</span>
- <p class="os-label">Manual install — step by step</p>
- <p class="os-hint">Baby steps. No Linux knowledge required. Pick your computer first — then only those steps appear.</p>
-
- <p style="margin:12px 0 6px;font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--cream-dim);font-weight:700;">What are you using?</p>
- <div class="os-chooser" role="tablist" aria-label="Choose your OS" data-os-chooser>
- <button type="button" class="os-chooser-btn is-active" data-os-target="win" role="tab" aria-selected="true">Windows 10 / 11<span class="os-choice-sub">Recommended for most people</span></button>
- <button type="button" class="os-chooser-btn" data-os-target="linux" role="tab" aria-selected="false">Ubuntu / Debian<span class="os-choice-sub">Linux install</span></button>
- <button type="button" class="os-chooser-btn" data-os-target="wsl" role="tab" aria-selected="false">Advanced · WSL by hand<span class="os-choice-sub">Only if Guided Setup won’t run</span></button>
- </div>
-
- <!-- WINDOWS PATH -->
- <div class="os-path is-active" id="lite-path-win" data-os-path="win">
- <div class="manual-steps" data-manual-accordion>
- <details class="manual-step" open>
- <summary><span class="manual-step-num">1</span> Check your computer</summary>
- <div class="manual-step-body">
- <ul>
- <li>✓ Windows 10 or Windows 11</li>
- <li>✓ About 10+ GB free disk space</li>
- <li>✓ Internet connection</li>
- <li>✓ Permission to install software (Admin / Yes when Windows asks)</li>
- </ul>
- <p><strong>You do not need</strong> to install Python, Git, Ubuntu, Ollama, or WSL yourself. Setup handles that.</p>
- <button type="button" class="manual-next">Next · Step 2 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">2</span> Open Command Prompt</summary>
- <div class="manual-step-body">
- <ol class="step-actions">
- <li>Press the <strong>Windows key</strong>.</li>
- <li>Type <strong>cmd</strong>.</li>
- <li>Click <strong>Command Prompt</strong>.</li>
- </ol>
- <p>You should see a black window. That is correct.</p>
- <button type="button" class="manual-next">Next · Step 3 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">3</span> Copy and paste</summary>
- <div class="manual-step-body">
- <div class="codebox">
- <code id="lite-cmd-win">curl -L -o "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat" "https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat"</code>
- <button class="copy-btn" data-copy-target="lite-cmd-win">Copy</button>
- </div>
- <ol class="step-actions">
- <li>Click the black Command Prompt window.</li>
- <li>Right-click once to paste (or Ctrl+V).</li>
- <li>Press <strong>Enter</strong>.</li>
- </ol>
- <details class="baby-error" style="margin-top:10px;"><summary>CMD command didn’t work? Try PowerShell ▾</summary>
- <div class="baby-error-body">
- <div class="codebox">
- <code id="lite-cmd-ps">irm https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat -OutFile "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"; Start-Process "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"</code>
- <button class="copy-btn" data-copy-target="lite-cmd-ps">Copy</button>
- </div>
- </div></details>
- <button type="button" class="manual-next">Next · Step 4 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">4</span> Approve Windows</summary>
- <div class="manual-step-body">
- <p>If Windows says <strong>Windows protected your PC</strong>:</p>
- <p>Choose <strong>More info → Run anyway</strong>.</p>
- <p style="margin-top:8px;">If Windows asks <strong>Do you want to allow this app to make changes?</strong></p>
- <p>Click <strong>Yes</strong>.</p>
- <button type="button" class="manual-next">Next · Step 5 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">5</span> Let Setup run</summary>
- <div class="manual-step-body">
- <ul>
- <li>Leave the Setup window open.</li>
- <li>First installation can take <strong>15–45 minutes</strong>.</li>
- <li>Some steps may appear to stop moving while Windows installs components or downloads AI models — that can be normal.</li>
- <li>Your PC may restart once. Restart normally. After Windows starts again, Setup should continue. If it doesn’t, double-click <span class="mono">OtaconsKeep-Setup.bat</span> again.</li>
- </ul>
- <button type="button" class="manual-next">Next · Step 6 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">6</span> You’re done</summary>
- <div class="manual-step-body">
- <div class="install-success" style="margin-top:0;">
- <p class="success-kicker">Finish line</p>
- <h4>✓ OTACON IS READY</h4>
- <p>When you see this message, installation is complete.</p>
- </div>
- <p style="margin-top:12px;"><a class="download-btn" href="http://localhost:5757" target="_blank" rel="noopener">Open OtaconsKeep</a></p>
- <p class="os-hint" style="margin-top:10px;">Bookmark <span class="mono">http://localhost:5757</span> — this is your local OtaconsKeep.</p>
- </div>
- </details>
- </div>
- </div>
-
- <!-- LINUX PATH -->
- <div class="os-path" id="lite-path-linux" data-os-path="linux">
- <div class="manual-steps" data-manual-accordion>
- <details class="manual-step" open>
- <summary><span class="manual-step-num">1</span> Check your computer</summary>
- <div class="manual-step-body">
- <ul>
- <li>✓ Ubuntu or Debian (desktop or server)</li>
- <li>✓ ~10+ GB free · internet</li>
- <li>✓ Your user can use <span class="mono">sudo</span> (password when asked)</li>
- </ul>
- <button type="button" class="manual-next">Next · Step 2 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">2</span> Open a terminal</summary>
- <div class="manual-step-body">
- <p>Press Super/Windows key, type <strong>terminal</strong>, press Enter. Or use your existing SSH session.</p>
- <button type="button" class="manual-next">Next · Step 3 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">3</span> Copy and paste</summary>
- <div class="manual-step-body">
- <div class="codebox">
- <code id="lite-cmd-linux-baby">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
- <button class="copy-btn" data-copy-target="lite-cmd-linux-baby">Copy</button>
- </div>
- <ol class="step-actions">
- <li>Click the terminal window.</li>
- <li>Paste (right-click, or Ctrl+Shift+V).</li>
- <li>Press Enter.</li>
- <li>When asked for your password, type it (nothing appears) and press Enter.</li>
- </ol>
- <button type="button" class="manual-next">Next · Step 4 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">4</span> Wait, then open Otacon</summary>
- <div class="manual-step-body">
- <p>First run often takes <strong>10–30 minutes</strong>. When it prints <span class="mono">http://127.0.0.1:5757</span>, open that address.</p>
- <div class="install-success" style="margin-top:10px;">
- <p class="success-kicker">Finish line</p>
- <h4>✓ Install finished</h4>
- <p><a href="http://127.0.0.1:5757" target="_blank" rel="noopener"><strong>Open http://127.0.0.1:5757</strong></a></p>
- </div>
- </div>
- </details>
- </div>
- </div>
-
- <!-- ADVANCED WSL PATH -->
- <div class="os-path" id="lite-path-wsl" data-os-path="wsl">
- <div class="manual-steps" data-manual-accordion>
- <details class="manual-step" open>
- <summary><span class="manual-step-num">1</span> Only if Guided Setup won’t run</summary>
- <div class="manual-step-body">
- <p>Most Windows users should use the <strong>Download</strong> button on the left. Use this path only when you need to set up WSL yourself.</p>
- <button type="button" class="manual-next">Next · Step 2 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">2</span> Install Ubuntu (WSL)</summary>
- <div class="manual-step-body">
- <p>Open <strong>PowerShell as Administrator</strong>, then run:</p>
- <pre class="baby-code mono">wsl --install -d Ubuntu</pre>
- <p>Restart if Windows asks. Open <strong>Ubuntu</strong> from the Start menu and create a username/password you’ll remember.</p>
- <button type="button" class="manual-next">Next · Step 3 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">3</span> Run the Linux installer inside Ubuntu</summary>
- <div class="manual-step-body">
- <div class="codebox">
- <code id="lite-cmd-wsl">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
- <button class="copy-btn" data-copy-target="lite-cmd-wsl">Copy</button>
- </div>
- <p>When finished, open <a href="http://127.0.0.1:5757" target="_blank" rel="noopener">http://127.0.0.1:5757</a>.</p>
- </div>
- </details>
- </div>
- </div>
-
- <details class="install-help-block" style="margin-top:12px;">
- <summary>Need help? Click the message you see</summary>
- <div class="install-help-inner">
- <h5>Normal</h5>
- <details class="baby-error"><summary>Windows protected your PC</summary>
- <div class="baby-error-body"><ol><li>More info → Run anyway.</li></ol></div></details>
- <details class="baby-error"><summary>Restart / WELCOME BACK</summary>
- <div class="baby-error-body"><ol><li>Expected. Restart, then continue Setup.</li></ol></div></details>
- <details class="baby-error"><summary>Ubuntu username / password</summary>
- <div class="baby-error-body"><ol><li>Windows creating the local Linux environment. Remember the password.</li></ol></div></details>
- <h5>Actually stuck</h5>
- <details class="baby-error"><summary>'curl' is not recognized</summary>
- <div class="baby-error-body"><ol><li>Use the left Download button, or PowerShell under Windows Step 3.</li></ol></div></details>
- <details class="baby-error"><summary>SETUP NEEDS HELP</summary>
- <div class="baby-error-body"><ol><li>Press R to retry, O for logs.</li></ol></div></details>
- <details class="baby-error"><summary>sudo / Permission denied</summary>
- <div class="baby-error-body"><ol><li>Use your Ubuntu password (invisible while typing).</li></ol></div></details>
- <details class="baby-error"><summary>localhost doesn’t load after READY</summary>
- <div class="baby-error-body"><ol><li>Refresh, or ask in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>.</li></ol></div></details>
- </div>
- </details>
- </div>
- </div>
-</div>
-
-
- <div class="install-panel is-free" id="install-ai9">
- <span class="free-sticker" aria-label="Free">FREE</span>
- <div class="install-panel-head">
- <h3 class="install-panel-title">Install AI9 Manga Colorizer</h3>
- <span class="one-click-badge">One-click or manual</span>
- </div>
- <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
- <p class="install-panel-lead">Local GPU manga colorization + Firefox reading extension. Covered under AI9 (OtaconsKeep family-adjacent). Does <strong>not</strong> require Lite Core. Same pattern as Otacon Setup: download one file from this site, double-click it. No Command Prompt. No ZIP required.</p>
- <div class="os-grid">
- <div class="os-card">
- <p class="os-label">One-click · Windows</p>
- <div class="install-cta-row">
- <a class="download-btn" href="/downloads/AI9-Setup.bat" download="AI9-Setup.bat">Download AI9 Setup</a>
- <div class="install-demo-video install-demo-video--inline" aria-label="AI9 Manga Colorizer demo video">
- <div class="install-demo-video-frame">
- <iframe
- src="https://www.youtube-nocookie.com/embed/aUiwMACSPBk"
- title="AI9 Manga Colorizer demo"
- allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
- allowfullscreen
- loading="lazy"
- referrerpolicy="strict-origin-when-cross-origin"></iframe>
- </div>
- </div>
- </div>
- <p class="os-hint">Saves as <span class="mono">AI9-Setup.bat</span>. Open your Downloads folder and <strong>double-click</strong> it. Approve the Windows prompt if asked. It installs Git Bash if needed, detects your NVIDIA GPU, and finishes the rest. Do <em>not</em> type the filename into Command Prompt.</p>
- <details style="margin-top: 4px;">
- <summary style="cursor:pointer; color: var(--cream-dim); font-size: 0.88rem;">Advanced / already cloned the repo?</summary>
- <p class="os-hint" style="margin-top: 8px;">From the extracted AI9 folder, double-click <span class="mono">install_ai9.bat</span>, or in Git Bash run <span class="mono">./install_ai9.sh</span>. Same installer.</p>
- <p class="os-hint" style="margin-top: 6px;"><a href="https://github.com/Otaconskeep/AI9/archive/refs/heads/main.zip">Download GitHub ZIP</a> if you prefer a full checkout first.</p>
- </details>
- </div>
- <div class="os-card os-card-manual">
- <span class="manual-col-tag">Manual path</span>
- <p class="os-label">Manual · click each step</p>
- <p class="os-hint">Prefer copy-paste? Open Step 1, then Next for Step 2, and so on. Needs an NVIDIA GPU.</p>
- <div class="manual-steps" data-manual-accordion>
- <details class="manual-step" open>
- <summary><span class="manual-step-num">1</span> Prerequisites</summary>
- <div class="manual-step-body">
- <ul>
- <li>Windows 10/11 · no WSL · Lite not required.</li>
- <li>NVIDIA GPU + current driver. Check: <span class="mono">nvidia-smi</span> in CMD.</li>
- <li>winget helps install Git/Python/Firefox — install <a href="https://apps.microsoft.com/detail/9nblggh4nns1" target="_blank" rel="noopener">App Installer</a> if missing.</li>
- </ul>
- <button type="button" class="manual-next">Next · Step 2 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">2</span> One CMD line</summary>
- <div class="manual-step-body">
- <p>Open Command Prompt, paste, Enter:</p>
- <div class="codebox">
- <code id="ai9-cmd-win">curl -L -o "%USERPROFILE%\Downloads\AI9-Setup.bat" "https://otaconskeep.github.io/downloads/AI9-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\AI9-Setup.bat"</code>
- <button class="copy-btn" data-copy-target="ai9-cmd-win">Copy</button>
- </div>
- <p>Or PowerShell:</p>
- <div class="codebox">
- <code id="ai9-cmd-ps">irm https://otaconskeep.github.io/downloads/AI9-Setup.bat -OutFile "$env:USERPROFILE\Downloads\AI9-Setup.bat"; Start-Process "$env:USERPROFILE\Downloads\AI9-Setup.bat"</code>
- <button class="copy-btn" data-copy-target="ai9-cmd-ps">Copy</button>
- </div>
- <button type="button" class="manual-next">Next · Step 3 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">3</span> Load Firefox extension</summary>
- <div class="manual-step-body">
- <ol>
- <li>Firefox → <span class="mono">about:debugging#/runtime/this-firefox</span></li>
- <li><strong>Load Temporary Add-on…</strong></li>
- <li>Pick <span class="mono">C:\opt\manga-colorizer\extension\manifest.json</span></li>
- <li>Reload after a full Firefox restart (unsigned add-on limit).</li>
- </ol>
- <p>Server: <span class="mono">https://127.0.0.1:5000/</span> (self-signed warning is normal).</p>
- <button type="button" class="manual-next">Next · Step 4 →</button>
- </div>
- </details>
- <details class="manual-step">
- <summary><span class="manual-step-num">4</span> If you see an error</summary>
- <div class="manual-step-body">
- <details class="baby-error"><summary>'AI9-Setup.bat' is not recognized</summary>
- <div class="baby-error-body"><ol><li>Don’t type only the filename. Use the left download (double-click) or Step 2’s full line.</li></ol></div></details>
- <details class="baby-error"><summary>SmartScreen</summary>
- <div class="baby-error-body"><ol><li>More info → Run anyway.</li></ol></div></details>
- <details class="baby-error"><summary>Window flashes and closes</summary>
- <div class="baby-error-body"><ol><li>Install App Installer / Git, then rerun Setup.</li></ol></div></details>
- <details class="baby-error"><summary>GPU / nvidia-smi failed</summary>
- <div class="baby-error-body"><ol><li>Update NVIDIA driver, reboot, rerun Setup.</li></ol></div></details>
- <details class="baby-error"><summary>Extension gone after restart</summary>
- <div class="baby-error-body"><ol><li>Reload via about:debugging (Step 3).</li></ol></div></details>
- </div>
- </details>
- </div>
- </div>
- </div>
- </div>
-
- <div class="install-panel is-free" id="install-keeproute">
- <span class="free-sticker" aria-label="Free">FREE</span>
- <div class="install-panel-head">
- <h3 class="install-panel-title">Install KeepRoute</h3>
- <span class="one-click-badge">Free · 1.0 stable</span>
- </div>
- <p class="qp-cost free">Free forever. Public install steps — not a supporter vault.</p>
- <p class="install-panel-lead">Mission-state orchestration on top of OmniRoute: checkpoints, recovery, and cross-agent continuation when a model hits a limit. Does not replace Lite; pairs with it. No Buy Me a Coffee seat required.</p>
- <div class="os-grid">
- <div class="os-card">
- <p class="os-label">Get KeepRoute</p>
- <a class="download-btn" href="/keeproute/#install">Open KeepRoute install</a>
- <p class="os-hint">UI package + OmniRoute compose path, provider keys, and smoke checks live on the KeepRoute page.</p>
- </div>
- <div class="os-card">
- <p class="os-label">Why OmniRoute</p>
- <p class="os-hint">Why we built on OmniRoute instead of Jev or a cloud-only decision router &mdash; <a href="/keeproute/#why-omniroute">read the comparison</a>.</p>
- </div>
- </div>
- </div>
-
- <div class="install-panel is-donation" id="install-keepdesk">
- <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
- <div class="install-panel-head">
- <h3 class="install-panel-title">Install Keep Desk</h3>
- <span class="one-click-badge">Supporter vault</span>
- </div>
- <p class="qp-cost paid">One-time donation required · $1</p>
- <p class="install-panel-lead">Local computer-using AI teammates on a workstation you own: named agents, LIVE browser, jobs, and Why dossiers. Install vault unlocks after a $1 Buy Me a Coffee donation (Premium seats included).</p>
- <div class="os-grid">
- <div class="os-card">
- <p class="os-label">Enter Keep Desk</p>
- <a class="download-btn" href="/keepdesk/#vault">Unlock install vault</a>
- <p class="os-hint">Demo, honest limits, and the supporter gate are on the Keep Desk page.</p>
- </div>
- <div class="os-card">
- <p class="os-label">Already Premium?</p>
- <p class="os-hint">Your Member HQ seat unlocks Keep Desk too. One license, both vaults &mdash; <a href="/premium/">open Member HQ</a>.</p>
- </div>
- </div>
- </div>
-
- <div class="install-panel is-donation" id="install-premium" style="border-color: var(--premium-dim);">
- <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
- <div class="install-panel-head">
- <h3 class="install-panel-title" style="color: var(--premium-bright);">OtaconsKeep Expansion / Premium</h3>
- <span class="one-click-badge" style="color: var(--premium-bright); border-color: var(--premium-dim);">Licensed · Available now</span>
- </div>
- <p class="qp-cost paid">One-time donation required · $1</p>
- <p class="install-panel-lead"><strong>Premium / Expansion</strong> — available to licensed members; installer available today; some GPU/creative sidecars remain optional or in development. Five-agent roster, relationship engine, <strong>Culture Learning</strong> (Aria advances → teaches the crew), Command Deck / Codec. Requires Lite first.</p>
- <div class="os-grid">
- <div class="os-card">
- <p class="os-label">Get access</p>
- <a class="download-btn" href="/premium/" style="background: var(--premium); color: #150f24;">Member HQ / license</a>
- <p class="os-hint">Support on Buy Me a Coffee or ask in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>. Antonio issues the seat, then unlock Member HQ.</p>
- </div>
- <div class="os-card">
- <p class="os-label">Read first</p>
- <p class="os-hint">Honest fresh-PC notes, what is READY vs optional &mdash; <a href="/expansion/">full Expansion status</a>. Setup bat: <a href="/downloads/OtaconExpansion-Setup.bat" download>Download Expansion Setup</a>.</p>
- </div>
- </div>
- </div>
-
- </div>
- </section>
-</div>
-
-<div class="wrap">
- <section id="projects">
- <p class="tag">05 // Products &amp; Labs</p>
- <h2>What else is under the roof</h2>
- <p class="intro"><strong>OtaconsKeep Lite</strong> is the foundation. KeepRoute, Keep Desk, and Expansion build on that story. <strong>AI9</strong> is a family-adjacent lab project (manga colorizer on your GPU) — cool, free, and independent of Lite.</p>
-
- <div class="treebox" style="margin-bottom: 28px;">OTACONSKEEP
- │
- ├── <strong>OTACON / LITE</strong>: agents · memory · identity ·
- │ │ orchestration · Default Model (chat) ·
- │ │ Voice Trainer (Genome Piper)
- │ │
- ├── <strong>KEEPROUTE</strong>: mission state · checkpoints ·
- │ │ recovery · OmniRoute data plane
- │ │
- ├── <strong>KEEP DESK</strong>: command deck · LIVE browser ·
- │ │ named teammates · Why dossiers
- │ │
- ├── <strong>EXPANSION / PREMIUM</strong>: five-agent roster ·
- │ │ Deck / Codec · optional Genome + Video Studio
- │ │
- └── <strong>AI9 MANGA COLORIZER</strong>: local GPU
- manga colorization · Firefox extension
- (family-adjacent · no Lite Core required)</div>
-
- <figure class="shot-card project-demo" style="margin-bottom: 28px;">
- <img src="assets/img/ai9-manga-colorizer-demo.gif" width="960" height="561" alt="AI9 Manga Colorizer demo: a black-and-white manga page running through local GPU colorization to the finished colored result.">
- <figcaption>AI9 Manga Colorizer // B&amp;W in → color out // LOCAL GPU // SELF-HOSTED · <a href="https://youtu.be/aUiwMACSPBk" target="_blank" rel="noopener">Watch video</a></figcaption>
- </figure>
-
- <div class="projects">
-
- <article class="project-card is-free">
- <span class="free-sticker" aria-label="Free">FREE</span>
- <span class="kicker">Foundation · Agent Platform</span>
- <h3>Otacon<span>AI Ecosystem</span></h3>
- <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
- <p style="color: var(--cream-dim); margin: 0;">Persistent AI agents with identity, memory, voice, and local orchestration. Normal Lite install includes Default Model (Ollama chat) and Genome Voice Trainer. Expansion, KeepRoute, and Keep Desk build on that foundation. See <a href="#today">what you get today</a> and the <a href="#path">foundation path</a>.</p>
- <ul>
- <li>One-click Windows + curl Linux install</li>
- <li>Default Model + Voice Trainer in the normal path</li>
- <li>Pairs with KeepRoute, Keep Desk, and Expansion</li>
- </ul>
-
+ <p class="tag">The person behind it</p>
+ <h2>Built by Antonio G. Garcia</h2>
+ <p class="intro">Engineer. Homelab builder. AI tinkerer. Three years building the computer he wanted since childhood.</p>
  <div class="btn-row">
- <a class="btn btn-primary btn-install" href="#install-otacon">Install Lite</a>
- <a class="btn btn-ghost" href="/otacon/">Otacon guide</a>
- </div>
- <div class="btn-row">
- <a class="btn btn-ghost" href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">Otacon on GitHub</a>
- <a class="btn btn-ghost" href="https://github.com/Otaconskeep/otacon-voice-trainer" target="_blank" rel="noopener">Voice Trainer on GitHub</a>
- <a class="btn btn-ghost" href="/keeproute/">KeepRoute</a>
- <a class="btn btn-ghost" href="/keepdesk/">Keep Desk</a>
- </div>
- <div class="btn-row">
- <a class="btn btn-ghost" href="/expansion/">Expansion</a>
- <a class="btn btn-ghost" href="/engineering/">Engineering</a>
- <a class="btn btn-ghost" href="https://youtu.be/OitYjPlbTng" target="_blank" rel="noopener">Install video</a>
- <a class="btn btn-ghost" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
- </div>
- </article>
-
- <article class="project-card is-free">
- <span class="free-sticker" aria-label="Free">FREE</span>
- <span class="kicker">Product · Mission Orchestration</span>
- <h3>KeepRoute<span>1.0 · OmniRoute</span></h3>
- <p class="qp-cost free">Free forever. Public install — not a supporter product.</p>
- <ul>
- <li>Checkpoints, recovery, cross-agent continuation</li>
- <li>Local-first policy for trivial work</li>
- <li>Why OmniRoute over Jev &mdash; documented on the KeepRoute page</li>
- </ul>
- <div class="btn-row">
- <a class="btn btn-primary btn-install" href="/keeproute/#install">Install KeepRoute</a>
- </div>
- <div class="btn-row">
- <a class="btn btn-ghost" href="/keeproute/">KeepRoute 1.0</a>
- <a class="btn btn-ghost" href="/keeproute/#why-omniroute">Why OmniRoute</a>
- <a class="btn btn-ghost" href="https://github.com/Otaconskeep/KeepRoute" target="_blank" rel="noopener">GitHub</a>
- </div>
- </article>
-
- <article class="project-card is-donation">
- <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
- <span class="kicker">Product · Command Deck</span>
- <h3>Keep Desk<span>Local teammates</span></h3>
- <p class="qp-cost paid">One-time donation required · $1</p>
- <p style="color: var(--cream-dim); margin: 0;">Local computer-using AI teammates on a workstation you own: Command Deck UI, LIVE browser, jobs, and Why dossiers. Supporter install vault (Premium seats unlock it too).</p>
- <div class="btn-row">
- <a class="btn btn-primary btn-install" href="/keepdesk/">Enter Keep Desk</a>
- </div>
- <div class="btn-row">
- <a class="btn btn-ghost" href="/keepdesk/#demo">Watch the Deck</a>
- <a class="btn btn-ghost" href="/keepdesk/#vault">Unlock vault</a>
- <a class="btn btn-ghost" href="/premium/">Member HQ</a>
- </div>
- </article>
-
- <article class="project-card is-donation">
- <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
- <span class="kicker">Product · Premium Layer</span>
- <h3>Expansion<span>Licensed</span></h3>
- <p class="qp-cost paid">One-time donation required · $1</p>
- <p style="color: var(--cream-dim); margin: 0;">Five-agent roster, Deck / Codec, relationship engine, Culture Learning, optional Genome + Video Studio. Requires Core; GPU sidecars need hardware. Honest status before you buy a seat.</p>
- <div class="btn-row">
- <a class="btn btn-primary btn-install" href="/expansion/">Expansion status</a>
- </div>
- <div class="btn-row">
- <a class="btn btn-ghost" href="/premium/">Member HQ</a>
- <a class="btn btn-ghost" href="#install-premium">Install path</a>
- <a class="btn btn-ghost" href="/downloads/OtaconExpansion-Setup.bat" download>Expansion Setup</a>
- </div>
- </article>
-
- <article class="project-card is-free">
- <span class="free-sticker" aria-label="Free">FREE</span>
- <span class="kicker">Labs · Manga Colorizer</span>
- <h3>AI9<span>Manga Colorizer</span></h3>
- <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
- <p style="color: var(--cream-dim); margin: 0;"><strong style="color: var(--cream);">AI9 is the manga colorizer.</strong> Local GPU pipeline for Firefox: detect your NVIDIA card, pick the right CUDA/PyTorch build, colorize manga pages on-device. No cloud API in the loop. Family-adjacent; does <strong>not</strong> require Lite Core. The GIF above is a real capture from that pipeline.</p>
- <ul>
- <li>RTX 30 / 40 / 50-series (Blackwell) support</li>
- <li>Automatic GPU detection &amp; PyTorch/CUDA wheel selection</li>
- <li>Local-only processing, content-hash caching</li>
- </ul>
-
- <div class="btn-row">
- <a class="btn btn-primary btn-install" href="#install-ai9">Install AI9 Manga Colorizer</a>
- </div>
- <div class="btn-row">
- <a class="btn btn-ghost" href="https://github.com/Otaconskeep/AI9" target="_blank" rel="noopener">View on GitHub</a>
- <a class="btn btn-ghost" href="/ai9/">See full demo &amp; install</a>
- <a class="btn btn-ghost" href="https://youtu.be/aUiwMACSPBk" target="_blank" rel="noopener">Watch video</a>
- </div>
- </article>
-
+ <a class="btn btn-ghost" href="/about/">Read the story →</a>
  </div>
  </section>
 </div>
@@ -1210,12 +400,11 @@
 <footer>
  <div class="wrap">
  <span>Otaconskeep · Designed &amp; Engineered by Antonio G. Garcia. Built for the Keep.</span>
- <span><a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">github.com/Otaconskeep</a> · <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a></span>
+ <span><a href="/news/">News</a> · <a href="/faq/">FAQ</a> · <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a> · <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a></span>
  </div>
 </footer>
 
 <script src="assets/site.js"></script>
-<script src="assets/product-explainers.js?v=20260920c"></script>
 <script>
 (function () {
  function set(id, text) {
@@ -1235,8 +424,8 @@
  set('proof-risks', open + ' risks open');
  }).catch(function () {
  set('proof-reqs', 'see Engineering');
- set('proof-verified', '0 verified');
- set('proof-risks', 'risks → Engineering');
+ set('proof-verified', 'see Engineering');
+ set('proof-risks', 'see Engineering');
  });
 })();
 </script>

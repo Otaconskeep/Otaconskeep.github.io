@@ -112,6 +112,24 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; overflow-wrap: break-word; }
 .navlinks a:hover, .navlinks a[aria-current="page"] { color: var(--accent-bright); }
 .navlinks a.discord { color: var(--accent); border: 1px solid var(--accent-dim); padding: 6px 12px; border-radius: 4px; }
 .navlinks a.discord:hover { background: rgba(57, 230, 200, 0.12); color: var(--accent-bright); }
+.navdrop { position: relative; }
+.navdrop-menu {
+ display: none;
+ position: absolute;
+ top: calc(100% + 10px);
+ left: 0;
+ min-width: 190px;
+ padding: 8px 0;
+ background: var(--bg-elevated);
+ border: 1px solid var(--line);
+ box-shadow: var(--shadow);
+ z-index: 30;
+ flex-direction: column;
+ gap: 2px;
+}
+.navdrop:hover .navdrop-menu,
+.navdrop:focus-within .navdrop-menu { display: flex; }
+.navdrop-menu a { padding: 8px 14px; letter-spacing: 0.06em; }
 .navtoggle { display: none; }
 
 @media (max-width: 700px) {
@@ -129,6 +147,15 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; overflow-wrap: break-word; }
  display: none;
  }
  .navlinks.open { display: flex; }
+ .navdrop-menu {
+  position: static;
+  display: flex;
+  min-width: 0;
+  padding: 4px 0 4px 12px;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+ }
  .navtoggle {
  display: inline-flex;
  background: transparent;

@@ -2,25 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="canonical" href="https://otaconskeep.github.io/otacon/">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Otacon AI Ecosystem: Otaconskeep</title>
-<meta name="description" content="Otacon: a local-first AI ecosystem for persistent agents on hardware you control. What's available today, the architecture, and how it connects to the broader Keep.">
+<title>Get Otacon · Install · Otaconskeep</title>
+<meta name="description" content="Install OtaconsKeep Lite, KeepRoute, AI9, Keep Desk, and Expansion. Commands, Windows, Linux, and WSL live here.">
+<link rel="canonical" href="https://otaconskeep.github.io/install/">
+<meta name="robots" content="index,follow">
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css?v=20260923a">
 </head>
 <body>
-
 <div class="filebar">
  <div class="wrap">
- <span>FILE // OTACON-AI-ECOSYSTEM</span>
- <span>TIER // OTACON CORE</span>
+ <span>FILE // INSTALL</span>
+ <span>GET OTACON</span>
  </div>
 </div>
-
 <nav class="topnav">
  <div class="wrap">
  <a class="brand" href="/">Otaconskeep</a>
@@ -29,7 +28,7 @@
  <a href="/">Home</a>
  <a href="/#ecosystem">Platform</a>
  <div class="navdrop">
- <a href="/#ecosystem" aria-current="page">Products</a>
+ <a href="/#ecosystem">Products</a>
  <div class="navdrop-menu">
  <a href="/otacon/">Otacon Lite</a>
  <a href="/keeproute/">KeepRoute</a>
@@ -41,68 +40,28 @@
  <a href="/classroom/">Learn</a>
  <a href="/engineering/">Engineering</a>
  <a href="/about/">About</a>
- <a href="/install/" class="discord">Get Otacon</a>
+ <a href="/install/" class="discord" aria-current="page">Get Otacon</a>
  </div></div>
 </nav>
-
 <div class="wrap">
  <section class="hero flush">
- <div class="stamp">Otacon Core<small>free · full source</small></div>
- <p class="eyebrow" style="margin-top: 18px;">Project 01 // Agent Platform</p>
- <h1 class="display" style="font-size: clamp(2.6rem, 7vw, 4.5rem);">Otacon AI Ecosystem</h1>
- <p class="lede">The foundation of a Keep: persistent AI agents with their own identity, memory, and voice, routed through a provider-neutral core you run on your own hardware. See <a href="/#the-keep">what a Keep is</a> for where this is headed.</p>
- <div class="btn-row" style="margin-top: 26px;">
- <a class="btn btn-primary btn-install" href="#install">Install Otacon</a>
- <a class="btn btn-ghost" href="/#install-ai9">Install AI9 Manga Colorizer</a>
- <a class="btn btn-ghost" href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">View on GitHub</a>
- </div>
+ <p class="eyebrow">Install manual</p>
+ <h1 class="display" style="font-size: clamp(2.2rem, 5vw, 3.6rem);">Get Otacon</h1>
+ <p class="lede">The commands, Windows setup, Linux, WSL, and recovery steps live here. The homepage is the map. This page is the install.</p>
  </section>
 </div>
-
-<div class="wrap">
- <section id="today">
- <p class="tag">Right Now</p>
- <h2>Otacon Core today</h2>
- <p class="intro">Exactly what installing Otacon gives you the moment it finishes. No roadmap items included.</p>
-
- <div class="today-panel">
- <p class="kicker">✓ Available the moment install finishes</p>
- <ul class="today-list">
- <li><span class="ok">✓</span> Install Otacon locally on your own machine, one command, and it starts itself from then on</li>
- <li><span class="ok">✓</span> Default Model included: Ollama + a chat model sized to your GPU VRAM</li>
- <li><span class="ok">✓</span> Genome Voice Trainer included for custom Piper agent voices</li>
- <li><span class="ok">✓</span> Opens a local Command Center (Homelab-style deck) with Codec chat for Aria</li>
- <li><span class="ok">✓</span> Create and manage persistent agents</li>
- <li><span class="ok">✓</span> Maintain separate conversation history and long-term memory per agent</li>
- <li><span class="ok">✓</span> Configure agent identities and voice profiles</li>
- <li><span class="ok">✓</span> Provider-neutral capability routing: swap LLM/TTS/STT backends without touching agent identity</li>
- </ul>
- <div class="info-note" style="margin-top: 22px;">Normal Otacon install = Core + Default Model + Voice Trainer. Speech-to-text and image/video still need their own providers when you want those (see <a href="#status">status</a>).</div>
- </div>
- </section>
-</div>
-
-<div class="wrap">
- <section>
- <p class="tag">Architecture</p>
- <h2>Built on a resource arbiter, not a script</h2>
- <div class="flow">
- <span class="node">User</span><span class="arrow">→</span>
- <span class="node">Agent (identity · memory · voice)</span><span class="arrow">→</span>
- <span class="node">Capability Router</span><span class="arrow">→</span>
- <span class="node">LLM / TTS / STT Providers</span>
- </div>
- <p class="intro" style="margin-top: 22px;">A provider-neutral resource arbiter sits beneath capability routing: workloads request logical CPU/RAM/GPU/VRAM and receive leases that respect placement, priority, and health, rather than agents hardcoding device indexes. Idle model residency can be reclaimed gracefully while active work is protected. Per-voice synthesis settings are configured individually rather than one global profile applied to every voice. This is the same architecture that, at full scale in the private Keep, extends to media, home, and multi-node GPU orchestration. See <a href="/#the-keep">The Keep</a>.</p>
- </section>
-</div>
-
 <div class="wrap">
  <section id="install">
- <p class="tag">Install // Guided or manual</p>
- <h2>Install Otacon</h2>
- <p class="intro">Guided Windows Setup on the left. Manual step-by-step on the right — pick Windows, Ubuntu, or Advanced WSL first. Includes<div class="install-panel" id="install-otacon" style="margin-bottom: 28px;">
+ <p class="tag">Install</p>
+ <h2>Install the OtaconsKeep family</h2>
+ <p class="intro"><strong>OtaconsKeep Lite</strong> is the free foundation (Default Model + Voice Trainer). <strong>KeepRoute</strong> and <strong>AI9</strong> are also free with public install steps. <strong>Keep Desk</strong> and <strong>Premium / Expansion</strong> are the $1 licensed / supporter paths.</p>
+
+ <div class="install-stack">
+
+ <div class="install-panel is-free" id="install-otacon">
+ <span class="free-sticker" aria-label="Free">FREE</span>
  <div class="install-panel-head">
- <h3 class="install-panel-title">Install Otacon</h3>
+ <h3 class="install-panel-title">Install OtaconsKeep Lite</h3>
  <span class="one-click-badge">Guided Windows installer</span>
  </div>
  <div class="install-pill-row" aria-label="Lite trust signals">
@@ -219,8 +178,8 @@
  <p>If the browser blocks the download, use the <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem/archive/refs/heads/main.zip">GitHub ZIP</a>, extract it, then run <span class="mono">OtaconsKeep-Setup.bat</span> from the folder. Do not Save As on a single raw <span class="mono">.bat</span> from GitHub.</p>
  <p style="margin-top:10px;"><strong>Already on Linux?</strong> Use the Manual column → Ubuntu / Debian, or paste:</p>
  <div class="codebox">
- <code id="otacon-cmd-full">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
- <button class="copy-btn" data-copy-target="otacon-cmd-full">Copy</button>
+ <code id="otacon-cmd">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
+ <button class="copy-btn" data-copy-target="otacon-cmd">Copy</button>
  </div>
  <p class="os-hint" style="margin-top:8px;">Lighter install (skip chat model / voice trainer): put <span class="mono">OTACON_INSTALL_DEFAULT_MODEL=0</span> and/or <span class="mono">OTACON_INSTALL_VOICE_TRAINER=0</span> on the <span class="mono">bash</span> side of the pipe.</p>
  </div>
@@ -240,7 +199,7 @@
  </div>
 
  <!-- WINDOWS PATH -->
- <div class="os-path is-active" id="otacon-path-win" data-os-path="win">
+ <div class="os-path is-active" id="lite-path-win" data-os-path="win">
  <div class="manual-steps" data-manual-accordion>
  <details class="manual-step" open>
  <summary><span class="manual-step-num">1</span> Check your computer</summary>
@@ -271,8 +230,8 @@
  <summary><span class="manual-step-num">3</span> Copy and paste</summary>
  <div class="manual-step-body">
  <div class="codebox">
- <code id="otacon-lite-cmd-win">curl -L -o "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat" "https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat"</code>
- <button class="copy-btn" data-copy-target="otacon-lite-cmd-win">Copy</button>
+ <code id="lite-cmd-win">curl -L -o "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat" "https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\OtaconsKeep-Setup.bat"</code>
+ <button class="copy-btn" data-copy-target="lite-cmd-win">Copy</button>
  </div>
  <ol class="step-actions">
  <li>Click the black Command Prompt window.</li>
@@ -282,8 +241,8 @@
  <details class="baby-error" style="margin-top:10px;"><summary>CMD command didn’t work? Try PowerShell ▾</summary>
  <div class="baby-error-body">
  <div class="codebox">
- <code id="otacon-lite-cmd-ps">irm https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat -OutFile "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"; Start-Process "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"</code>
- <button class="copy-btn" data-copy-target="otacon-lite-cmd-ps">Copy</button>
+ <code id="lite-cmd-ps">irm https://otaconskeep.github.io/downloads/OtaconsKeep-Setup.bat -OutFile "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"; Start-Process "$env:USERPROFILE\Downloads\OtaconsKeep-Setup.bat"</code>
+ <button class="copy-btn" data-copy-target="lite-cmd-ps">Copy</button>
  </div>
  </div></details>
  <button type="button" class="manual-next">Next · Step 4 →</button>
@@ -327,7 +286,7 @@
  </div>
 
  <!-- LINUX PATH -->
- <div class="os-path" id="otacon-path-linux" data-os-path="linux">
+ <div class="os-path" id="lite-path-linux" data-os-path="linux">
  <div class="manual-steps" data-manual-accordion>
  <details class="manual-step" open>
  <summary><span class="manual-step-num">1</span> Check your computer</summary>
@@ -351,8 +310,8 @@
  <summary><span class="manual-step-num">3</span> Copy and paste</summary>
  <div class="manual-step-body">
  <div class="codebox">
- <code id="otacon-lite-cmd-linux-baby">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
- <button class="copy-btn" data-copy-target="otacon-lite-cmd-linux-baby">Copy</button>
+ <code id="lite-cmd-linux-baby">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
+ <button class="copy-btn" data-copy-target="lite-cmd-linux-baby">Copy</button>
  </div>
  <ol class="step-actions">
  <li>Click the terminal window.</li>
@@ -378,7 +337,7 @@
  </div>
 
  <!-- ADVANCED WSL PATH -->
- <div class="os-path" id="otacon-path-wsl" data-os-path="wsl">
+ <div class="os-path" id="lite-path-wsl" data-os-path="wsl">
  <div class="manual-steps" data-manual-accordion>
  <details class="manual-step" open>
  <summary><span class="manual-step-num">1</span> Only if Guided Setup won’t run</summary>
@@ -400,8 +359,8 @@
  <summary><span class="manual-step-num">3</span> Run the Linux installer inside Ubuntu</summary>
  <div class="manual-step-body">
  <div class="codebox">
- <code id="otacon-lite-cmd-wsl">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
- <button class="copy-btn" data-copy-target="otacon-lite-cmd-wsl">Copy</button>
+ <code id="lite-cmd-wsl">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh | bash</code>
+ <button class="copy-btn" data-copy-target="lite-cmd-wsl">Copy</button>
  </div>
  <p>When finished, open <a href="http://127.0.0.1:5757" target="_blank" rel="noopener">http://127.0.0.1:5757</a>.</p>
  </div>
@@ -435,163 +394,177 @@
 </div>
 
 
- ils>
+ <div class="install-panel is-free" id="install-ai9">
+ <span class="free-sticker" aria-label="Free">FREE</span>
+ <div class="install-panel-head">
+ <h3 class="install-panel-title">Install AI9 Manga Colorizer</h3>
+ <span class="one-click-badge">One-click or manual</span>
  </div>
- </div>
- </div>
- </div>
-
-<div class="disclaimer-panel">
- <h4 class="verified">✓ Verified, Windows installer, first install phase</h4>
- <ul>
- <li>Downloaded and launched directly from this site's <span class="mono">/downloads/</span> path, not a raw GitHub Save-As</li>
- <li>Handled a genuinely hostile real-world filename/path: <span class="mono">Test User\Downloads\OtaconsKeep-Setup (1).bat</span></li>
- <li>Elevated to admin correctly, ran through to 100.0%, and reported successful operations</li>
- <li>Correctly requested a reboot when WSL2 needed one, exactly as designed</li>
- </ul>
- </div>
- <div class="disclaimer-panel">
- <h4 class="pending">◐ Not yet fully proven, post-reboot completion</h4>
- <p style="font-size: 0.9rem; color: var(--cream-dim); margin: 0 0 10px;">The full "installed and usable after reboot" pass hasn't been independently confirmed end-to-end yet. This is a <strong>test-infrastructure limitation, not a known product defect</strong>: the automated Windows test lab runs Windows guests with nested virtualization disabled by default (a safety default to avoid a known guest-crash class), and Otacon's setup needs WSL2, which needs nested virt. The lab guest hung at the Windows boot screen after the WSL-enable reboot for that reason. The lab config has since been corrected (nested virt enabled) for future runs, but a corrected lab is not yet a green, repeatable release-gate result.</p>
- <p style="font-size: 0.9rem; color: var(--cream-dim); margin: 0;">Release-gate criterion before this is called fully proven: the same download → hostile-path → double-click → WSL → reboot → resume → Core-ready → health-check sequence, green on real Windows 11 hardware or a VM with genuinely proven nested virtualization, not this lab alone.</p>
- </div>
-
- <div class="today-panel" style="border-color: var(--orange-dim);">
- <p class="kicker" style="color: var(--orange-bright);">✓ When it's done</p>
- <p style="margin: 14px 0 0; font-size: 1.05rem;">Otacon is ready. Open it any time at:</p>
- <p style="margin: 10px 0 0;"><a class="btn btn-primary" href="http://localhost:5757" target="_blank" rel="noopener">Open Otacon &rarr;</a></p>
- <p class="info-note" style="margin-top: 16px;">Chat talks to Ollama at <span class="mono">127.0.0.1:11434</span>. Voice Trainer status UI (when GPU path succeeded): <span class="mono">http://127.0.0.1:8765</span>.</p>
- </div>
-
- <details class="install-toggle" style="margin-top: 22px;">
- <summary>Advanced: LAN access, repair, uninstall, and other options</summary>
- <div class="install-box">
- <h4>Use Otacon from another device on your network</h4>
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0 0 14px;">By default Otacon only answers on this machine. To reach it from your phone or another computer, find this PC's LAN IP (<span class="mono">ip addr</span> inside Ubuntu, or your router's device list) and visit <span class="mono">http://&lt;that-ip&gt;:5757</span> instead.</p>
-
- <h4>Repair</h4>
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0 0 14px;">Chat up but voice dead (Piper / TTS)? Do <strong>not</strong> only re-run Setup hoping it will fix itself, if the site answers, Setup can short-circuit to READY and skip TTS. Use explicit repair: <span class="mono">OtaconsKeep-Setup.bat --repair</span> (or choose <strong>[ P ] Repair</strong> when Setup offers Open / Repair / Reinstall). That restarts the <span class="mono">otacon-tts</span> unit, wake task, and spoken preview without wiping data. Full redo: <span class="mono">--reinstall</span> / <span class="mono">--force</span>. Status: <span class="mono">OtaconsKeep-Setup.bat --status</span>. Linux: <span class="mono">otacon doctor</span>.</p>
-
- <h4>Uninstall auto-start only</h4>
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0 0 14px;">Run <a href="https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/uninstall_otacon.bat">uninstall_otacon.bat</a> (Windows). It removes the logon task and the systemd service only. Your Ubuntu environment, install folder, and data are untouched.</p>
-
- <h4>Optional environment variables (set before running <span class="mono">install_otacon.sh</span>)</h4>
- <div class="tablewrap">
- <table>
- <thead><tr><th>Variable</th><th>Default</th><th>What it changes</th></tr></thead>
- <tbody>
- <tr><td class="mono">OTACON_INSTALL_DIR</td><td class="mono">~/otacon-ai-ecosystem</td><td>Where Otacon gets installed</td></tr>
- <tr><td class="mono">OTACON_BUILD_NATIVE</td><td class="mono">1</td><td>Set to 0 to skip building the native .deb app</td></tr>
- <tr><td class="mono">OTACON_INSTALL_DEB</td><td class="mono">0</td><td>Set to 1 to also install the built .deb automatically</td></tr>
- <tr><td class="mono">OTACON_LAUNCH_WIZARD</td><td class="mono">1</td><td>Set to 0 to skip auto-launching the service at the end</td></tr>
- <tr><td class="mono">OTACON_INSTALL_STT</td><td class="mono">0</td><td>Set to 1 to install optional Faster-Whisper speech-to-text</td></tr>
- <tr><td class="mono">OTACON_RUN_TESTS</td><td class="mono">1</td><td>Set to 0 to skip the self-test suite (faster, less safe)</td></tr>
- <tr><td class="mono">OTACON_INSTALL_VOICE_TRAINER</td><td class="mono">1</td><td>Set to 0 to skip Genome Voice Trainer</td></tr>
- <tr><td class="mono">OTACON_INSTALL_DEFAULT_MODEL</td><td class="mono">1</td><td>Set to 0 to skip Ollama + default chat model</td></tr>
- <tr><td class="mono">OTACON_LLM_MODEL</td><td class="mono">(auto)</td><td>Override the VRAM-picked Ollama model tag (e.g. qwen2.5:7b)</td></tr>
- </tbody>
- </table>
- </div>
- </div>
- </details>
-
- <div class="warn-note" style="margin-top: 18px;">Requires <span class="mono">sudo</span> to install a handful of system packages (build tools, Python, WebKit libs) and to register the systemd service. The script explicitly refuses to run as the <span class="mono">root</span> user itself.</div>
- <div class="info-note">Default Model (included) installs Ollama with a VRAM-tier chat model: <span class="mono">qwen2.5:1.5b</span> (CPU/&lt;6GB), <span class="mono">3b</span> (≥6GB), <span class="mono">7b</span> (≥8GB), <span class="mono">14b</span> (≥16GB). Skip with <span class="mono">OTACON_INSTALL_DEFAULT_MODEL=0</span> / <span class="mono">OTACON_INSTALL_VOICE_TRAINER=0</span>.</div>
-
- <p style="margin-top: 20px; font-size: 0.92rem;"><a href="https://github.com/Otaconskeep/otacons-ai-ecosystem#readme" target="_blank" rel="noopener">Full install documentation on GitHub →</a></p>
- </section>
-</div>
-
-<div class="wrap">
- <section id="voice-trainer">
- <p class="tag">Voice Training</p>
- <h2>Genome Voice Trainer, included with Otacon</h2>
- <p class="intro">Custom Piper voices for your agents. The normal Otacon install runs this for you. Standalone only if you skipped it or need to repair.</p>
-
- <details class="install-toggle">
- <summary>Standalone Voice Trainer (advanced)</summary>
- <div class="install-box">
+ <p class="qp-cost free">Runs for free on your own machine. Never costs anything.</p>
+ <p class="install-panel-lead">Local GPU manga colorization + Firefox reading extension. Covered under AI9 (OtaconsKeep family-adjacent). Does <strong>not</strong> require Lite Core. Same pattern as Otacon Setup: download one file from this site, double-click it. No Command Prompt. No ZIP required.</p>
  <div class="os-grid">
  <div class="os-card">
- <p class="os-label">Windows</p>
- <a class="download-btn" href="https://raw.githubusercontent.com/Otaconskeep/otacon-voice-trainer/main/install_voice_trainer.bat" download>Download Windows Installer</a>
+ <p class="os-label">One-click · Windows</p>
+ <div class="install-cta-row">
+ <a class="download-btn" href="/downloads/AI9-Setup.bat" download="AI9-Setup.bat">Download AI9 Setup</a>
+ <div class="install-demo-video install-demo-video--inline" aria-label="AI9 Manga Colorizer demo video">
+ <div class="install-demo-video-frame">
+ <iframe
+ src="https://www.youtube-nocookie.com/embed/aUiwMACSPBk"
+ title="AI9 Manga Colorizer demo"
+ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+ allowfullscreen
+ loading="lazy"
+ referrerpolicy="strict-origin-when-cross-origin"></iframe>
  </div>
- <div class="os-card">
- <p class="os-label">Linux · Ubuntu / Debian / WSL</p>
- <div class="codebox">
- <code id="voice-cmd-standalone">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacon-voice-trainer/main/install_voice_trainer.sh | bash</code>
- <button class="copy-btn" data-copy-target="voice-cmd-standalone">Copy</button>
  </div>
  </div>
+ <p class="os-hint">Saves as <span class="mono">AI9-Setup.bat</span>. Open your Downloads folder and <strong>double-click</strong> it. Approve the Windows prompt if asked. It installs Git Bash if needed, detects your NVIDIA GPU, and finishes the rest. Do <em>not</em> type the filename into Command Prompt.</p>
+ <details style="margin-top: 4px;">
+ <summary style="cursor:pointer; color: var(--cream-dim); font-size: 0.88rem;">Advanced / already cloned the repo?</summary>
+ <p class="os-hint" style="margin-top: 8px;">From the extracted AI9 folder, double-click <span class="mono">install_ai9.bat</span>, or in Git Bash run <span class="mono">./install_ai9.sh</span>. Same installer.</p>
+ <p class="os-hint" style="margin-top: 6px;"><a href="https://github.com/Otaconskeep/AI9/archive/refs/heads/main.zip">Download GitHub ZIP</a> if you prefer a full checkout first.</p>
+ </details>
  </div>
- <p class="info-note" style="margin-top: 12px;">Write-up: <a href="https://github.com/Otaconskeep/otacon-voice-trainer/blob/main/docs/WRITEUP.md" target="_blank" rel="noopener">docs/WRITEUP.md</a></p>
+ <div class="os-card os-card-manual">
+ <span class="manual-col-tag">Manual path</span>
+ <p class="os-label">Manual · click each step</p>
+ <p class="os-hint">Prefer copy-paste? Open Step 1, then Next for Step 2, and so on. Needs an NVIDIA GPU.</p>
+ <div class="manual-steps" data-manual-accordion>
+ <details class="manual-step" open>
+ <summary><span class="manual-step-num">1</span> Prerequisites</summary>
+ <div class="manual-step-body">
+ <ul>
+ <li>Windows 10/11 · no WSL · Lite not required.</li>
+ <li>NVIDIA GPU + current driver. Check: <span class="mono">nvidia-smi</span> in CMD.</li>
+ <li>winget helps install Git/Python/Firefox — install <a href="https://apps.microsoft.com/detail/9nblggh4nns1" target="_blank" rel="noopener">App Installer</a> if missing.</li>
+ </ul>
+ <button type="button" class="manual-next">Next · Step 2 →</button>
  </div>
  </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">2</span> One CMD line</summary>
+ <div class="manual-step-body">
+ <p>Open Command Prompt, paste, Enter:</p>
+ <div class="codebox">
+ <code id="ai9-cmd-win">curl -L -o "%USERPROFILE%\Downloads\AI9-Setup.bat" "https://otaconskeep.github.io/downloads/AI9-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\AI9-Setup.bat"</code>
+ <button class="copy-btn" data-copy-target="ai9-cmd-win">Copy</button>
+ </div>
+ <p>Or PowerShell:</p>
+ <div class="codebox">
+ <code id="ai9-cmd-ps">irm https://otaconskeep.github.io/downloads/AI9-Setup.bat -OutFile "$env:USERPROFILE\Downloads\AI9-Setup.bat"; Start-Process "$env:USERPROFILE\Downloads\AI9-Setup.bat"</code>
+ <button class="copy-btn" data-copy-target="ai9-cmd-ps">Copy</button>
+ </div>
+ <button type="button" class="manual-next">Next · Step 3 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">3</span> Load Firefox extension</summary>
+ <div class="manual-step-body">
+ <ol>
+ <li>Firefox → <span class="mono">about:debugging#/runtime/this-firefox</span></li>
+ <li><strong>Load Temporary Add-on…</strong></li>
+ <li>Pick <span class="mono">C:\opt\manga-colorizer\extension\manifest.json</span></li>
+ <li>Reload after a full Firefox restart (unsigned add-on limit).</li>
+ </ol>
+ <p>Server: <span class="mono">https://127.0.0.1:5000/</span> (self-signed warning is normal).</p>
+ <button type="button" class="manual-next">Next · Step 4 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">4</span> If you see an error</summary>
+ <div class="manual-step-body">
+ <details class="baby-error"><summary>'AI9-Setup.bat' is not recognized</summary>
+ <div class="baby-error-body"><ol><li>Don’t type only the filename. Use the left download (double-click) or Step 2’s full line.</li></ol></div></details>
+ <details class="baby-error"><summary>SmartScreen</summary>
+ <div class="baby-error-body"><ol><li>More info → Run anyway.</li></ol></div></details>
+ <details class="baby-error"><summary>Window flashes and closes</summary>
+ <div class="baby-error-body"><ol><li>Install App Installer / Git, then rerun Setup.</li></ol></div></details>
+ <details class="baby-error"><summary>GPU / nvidia-smi failed</summary>
+ <div class="baby-error-body"><ol><li>Update NVIDIA driver, reboot, rerun Setup.</li></ol></div></details>
+ <details class="baby-error"><summary>Extension gone after restart</summary>
+ <div class="baby-error-body"><ol><li>Reload via about:debugging (Step 3).</li></ol></div></details>
+ </div>
+ </details>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div class="install-panel is-free" id="install-keeproute">
+ <span class="free-sticker" aria-label="Free">FREE</span>
+ <div class="install-panel-head">
+ <h3 class="install-panel-title">Install KeepRoute</h3>
+ <span class="one-click-badge">Free · 1.0 stable</span>
+ </div>
+ <p class="qp-cost free">Free forever. Public install steps — not a supporter vault.</p>
+ <p class="install-panel-lead">Mission-state orchestration on top of OmniRoute: checkpoints, recovery, and cross-agent continuation when a model hits a limit. Does not replace Lite; pairs with it. No Buy Me a Coffee seat required.</p>
+ <div class="os-grid">
+ <div class="os-card">
+ <p class="os-label">Get KeepRoute</p>
+ <a class="download-btn" href="/keeproute/#install">Open KeepRoute install</a>
+ <p class="os-hint">UI package + OmniRoute compose path, provider keys, and smoke checks live on the KeepRoute page.</p>
+ </div>
+ <div class="os-card">
+ <p class="os-label">Why OmniRoute</p>
+ <p class="os-hint">Why we built on OmniRoute instead of Jev or a cloud-only decision router &mdash; <a href="/keeproute/#why-omniroute">read the comparison</a>.</p>
+ </div>
+ </div>
+ </div>
+
+ <div class="install-panel is-donation" id="install-keepdesk">
+ <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
+ <div class="install-panel-head">
+ <h3 class="install-panel-title">Install Keep Desk</h3>
+ <span class="one-click-badge">Supporter vault</span>
+ </div>
+ <p class="qp-cost paid">One-time donation required · $1</p>
+ <p class="install-panel-lead">Local computer-using AI teammates on a workstation you own: named agents, LIVE browser, jobs, and Why dossiers. Install vault unlocks after a $1 Buy Me a Coffee donation (Premium seats included).</p>
+ <div class="os-grid">
+ <div class="os-card">
+ <p class="os-label">Enter Keep Desk</p>
+ <a class="download-btn" href="/keepdesk/#vault">Unlock install vault</a>
+ <p class="os-hint">Demo, honest limits, and the supporter gate are on the Keep Desk page.</p>
+ </div>
+ <div class="os-card">
+ <p class="os-label">Already Premium?</p>
+ <p class="os-hint">Your Member HQ seat unlocks Keep Desk too. One license, both vaults &mdash; <a href="/premium/">open Member HQ</a>.</p>
+ </div>
+ </div>
+ </div>
+
+ <div class="install-panel is-donation" id="install-premium" style="border-color: var(--premium-dim);">
+ <span class="donation-sticker" aria-label="One-time donation required, one dollar">$1</span>
+ <div class="install-panel-head">
+ <h3 class="install-panel-title" style="color: var(--premium-bright);">OtaconsKeep Expansion / Premium</h3>
+ <span class="one-click-badge" style="color: var(--premium-bright); border-color: var(--premium-dim);">Licensed · Available now</span>
+ </div>
+ <p class="qp-cost paid">One-time donation required · $1</p>
+ <p class="install-panel-lead"><strong>Premium / Expansion</strong> — available to licensed members; installer available today; some GPU/creative sidecars remain optional or in development. Five-agent roster, relationship engine, <strong>Culture Learning</strong> (Aria advances → teaches the crew), Command Deck / Codec. Requires Lite first.</p>
+ <div class="os-grid">
+ <div class="os-card">
+ <p class="os-label">Get access</p>
+ <a class="download-btn" href="/premium/" style="background: var(--premium); color: #150f24;">Member HQ / license</a>
+ <p class="os-hint">Support on Buy Me a Coffee or ask in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>. Antonio issues the seat, then unlock Member HQ.</p>
+ </div>
+ <div class="os-card">
+ <p class="os-label">Read first</p>
+ <p class="os-hint">Honest fresh-PC notes, what is READY vs optional &mdash; <a href="/expansion/">full Expansion status</a>. Setup bat: <a href="/downloads/OtaconExpansion-Setup.bat" download>Download Expansion Setup</a>.</p>
+ </div>
+ </div>
+ </div>
+
+ </div>
  </section>
 </div>
 
-<div class="wrap">
- <section id="status">
- <p class="tag">Status</p>
- <h2>What's real, what needs a provider, what's Keep-only</h2>
- <p class="intro">Straight from the repository's own status table. "Requires provider" means the routing and architecture exist and are testable today, you connect the backend. "Keep Reference" means it exists only in Antonio's private environment, not in this public repo at any maturity level yet.</p>
-
- <div class="legend">
- <span><span class="dot available"></span> Available now</span>
- <span><span class="dot provider"></span> Requires provider</span>
- <span><span class="dot keep-ref"></span> Keep reference</span>
- <span><span class="dot planned"></span> Planned</span>
- </div>
-
- <div class="loadout">
- <div class="item"><h4>Persistent conversations</h4><span class="badge validated">Available now</span></div>
- <div class="item"><h4>Long-term memory</h4><span class="badge validated">Available now</span></div>
- <div class="item"><h4>Agent identity &amp; voice profile config</h4><span class="badge validated">Available now</span></div>
- <div class="item"><h4>Native installer &amp; hardware planning</h4><span class="badge validated">Available now</span></div>
- <div class="item"><h4>Backup / restore / safe uninstall</h4><span class="badge validated">Available now</span></div>
- <div class="item"><h4>Agent chat (Default Model / Ollama)</h4><span class="badge validated">Included with Otacon</span></div>
- <div class="item"><h4>Voice synthesis (Piper)</h4><span class="badge pending">Requires provider</span></div>
- <div class="item"><h4>Genome Voice Trainer (GPU Piper)</h4><span class="badge validated">Included with Otacon</span></div>
- <div class="item"><h4>Speech-to-text</h4><span class="badge pending">Requires provider</span></div>
- <div class="item"><h4>Image / video generation</h4><span class="badge pending">Requires provider</span></div>
- <div class="item"><h4>Single remote compute node</h4><span class="badge pending">Requires provider</span></div>
- <div class="item"><h4>Agent rooms</h4><span class="badge keep-ref">Keep reference</span></div>
- <div class="item"><h4>Media automation, Home Assistant, search</h4><span class="badge keep-ref">Keep reference</span></div>
- <div class="item"><h4>Multi-node GPU orchestration</h4><span class="badge keep-ref">Keep reference</span></div>
- <div class="item"><h4>Discord / messaging integrations</h4><span class="badge planned">Planned</span></div>
- </div>
- </section>
-</div>
-
-<div class="wrap">
- <section>
- <p class="tag">Three Tiers</p>
- <h2>Otacon Core, the Keep Blueprint, and Otaconskeep Services</h2>
- <div class="tablewrap">
- <table>
- <thead><tr><th>Tier</th><th>What it is</th><th>Status</th><th>Price</th></tr></thead>
- <tbody>
- <tr><td><strong>OtaconsKeep Lite</strong></td><td>Free · open source · self-hosted</td><td>Install today</td><td>Free</td></tr>
- <tr><td><strong>Premium / Expansion</strong></td><td>Licensed multi-agent layer; installer available today; GPU/creative sidecars optional</td><td>Licensed members · <a href="/expansion/">fresh-PC notes</a></td><td>One-time donation · $1</td></tr>
- <tr><td><strong>Keep Blueprint</strong></td><td>The broader ecosystem architecture demonstrated by the real Keep</td><td>Reference only</td><td>Not offered publicly</td></tr>
- <tr><td><strong>Otaconskeep Services</strong></td><td>Architecture · deployment · support</td><td>Available now</td><td>Contact for scope/pricing</td></tr>
- </tbody>
- </table>
- </div>
- <p class="intro" style="margin-top: 18px;">There's no license key or artificial limit in Otacon Core. It's the real, complete public platform as it stands today. <strong>Otacon Core installs the foundation. The Keep Blueprint shows what that foundation can become.</strong></p>
- <div class="btn-row">
- <a class="btn btn-ghost" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">💬 Ask in Discord</a>
- </div>
- </section>
-</div>
 
 <footer>
  <div class="wrap">
- <span>Otacon AI Ecosystem · Designed &amp; Engineered by Antonio G. Garcia. Apache-2.0.</span>
- <span><a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">github.com/Otaconskeep/otacons-ai-ecosystem</a></span>
+ <span>Otaconskeep · Designed &amp; Engineered by Antonio G. Garcia.</span>
+ <span><a href="/">Home</a> · <a href="/faq/">FAQ</a> · <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a></span>
  </div>
 </footer>
-
 <script src="../assets/site.js"></script>
 </body>
 </html>

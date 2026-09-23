@@ -12,23 +12,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/style.css?v=20260920i">
+<link rel="stylesheet" href="../assets/style.css?v=20260923a">
 <style>
-.news-list { display:grid; gap:22px; margin: 8px 0 48px; }
-.story {
-  border:1px solid var(--line); background:var(--surface); overflow:hidden;
-}
+.news-list { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:16px; margin: 8px 0 48px; align-items: start; }
+@media (max-width: 860px) { .news-list { grid-template-columns: 1fr; } }
+.story { border:1px solid var(--line); background:var(--surface); overflow:hidden; }
 .story-visual { display:block; background:#000; }
-.story-visual img {
-  display:block; width:100%; height:420px; object-fit:cover; object-position:center top; background:#000;
-}
-.story-copy { padding: 16px 18px 18px; }
-.news-kicker {
-  margin:0 0 6px; color:var(--accent-bright);
-  font-family:'JetBrains Mono', ui-monospace, monospace;
-  font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
-}
-.story h2 { font-size: clamp(1.35rem, 2vw, 1.8rem); line-height:1.25; margin: 0 0 8px; }
+.story-visual img, .story-visual iframe { display:block; width:100%; aspect-ratio:16/9; height:auto; object-fit:cover; object-position:center top; background:#000; border:0; }
+.story-copy { padding: 14px 14px 16px; }
+.news-kicker { margin:0 0 6px; color:var(--accent-bright); font-family:'JetBrains Mono', ui-monospace, monospace; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; }
+.story h2 { font-size: 1.05rem; line-height:1.3; margin: 0 0 8px; }
 .story h2 a { color:var(--cream); text-decoration:none; }
 .story h2 a:hover { color:var(--accent-bright); }
 .story-copy p { margin:0; color:var(--cream-dim); }
@@ -49,18 +42,21 @@
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
- <a href="/otacon/">Otacon</a>
- <a href="/keepdesk/">Keep Desk</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
  <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- <a href="/classroom/">Classroom</a>
+ </div>
+ </div>
+ <a href="/classroom/">Learn</a>
  <a href="/engineering/">Engineering</a>
- <a href="/news/" aria-current="page">News</a>
- <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
- <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ <a href="/install/" class="discord">Get Otacon</a>
  </div></div>
 </nav>
 
@@ -76,10 +72,10 @@
  </div>
  </section>
  <div class="news-list">
-<article class="story"><div class="story-visual"><img src="media/01.jpg" alt="Are Local Models Finally Good Enough?" width="1280" height="720"><iframe src="https://www.youtube-nocookie.com/embed/K2IGHj7KQoM" title="Are Local Models Finally Good Enough?" width="1280" height="360" style="display:block;width:100%;height:360px;border:0;background:#000" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="story-copy"><p class="news-kicker">Video · Techno Tim</p><h2><a href="https://www.youtube.com/watch?v=K2IGHj7KQoM" target="_blank" rel="noopener">Are Local Models Finally Good Enough?</a></h2><p>I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video </p></div></article>
-<article class="story"><div class="story-visual"><img src="media/02.jpg" alt="What Is an NPU Actually Good For?" width="1280" height="720"><iframe src="https://www.youtube-nocookie.com/embed/8NFV6duMKQA" title="What Is an NPU Actually Good For?" width="1280" height="360" style="display:block;width:100%;height:360px;border:0;background:#000" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="story-copy"><p class="news-kicker">Video · Techno Tim</p><h2><a href="https://www.youtube.com/watch?v=8NFV6duMKQA" target="_blank" rel="noopener">What Is an NPU Actually Good For?</a></h2><p>What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se</p></div></article>
-<article class="story"><div class="story-visual"><img src="media/03.jpg" alt="AI Companies Need to Stop Doing This" width="1280" height="720"><iframe src="https://www.youtube-nocookie.com/embed/nsA_HeY3idE" title="AI Companies Need to Stop Doing This" width="1280" height="360" style="display:block;width:100%;height:360px;border:0;background:#000" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="story-copy"><p class="news-kicker">Video · Matt Wolfe</p><h2><a href="https://www.youtube.com/shorts/nsA_HeY3idE" target="_blank" rel="noopener">AI Companies Need to Stop Doing This</a></h2><p>PSA to all the AI companies: Please stop announcing features like they’re live when they’re still rolling out “over the coming weeks.” This happened for like 4 different demos in my recent AI news roundup video... Is it so hard to just make an announcement when I can actually use</p></div></article>
-<article class="story"><div class="story-visual"><img src="media/04.jpg" alt="AI News: The AI Slowdown: What You Need to Know" width="1280" height="720"><iframe src="https://www.youtube-nocookie.com/embed/Kof2VcHTjrk" title="AI News: The AI Slowdown: What You Need to Know" width="1280" height="360" style="display:block;width:100%;height:360px;border:0;background:#000" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="story-copy"><p class="news-kicker">Video · Matt Wolfe</p><h2><a href="https://www.youtube.com/watch?v=Kof2VcHTjrk" target="_blank" rel="noopener">AI News: The AI Slowdown: What You Need to Know</a></h2><p>Here&#x27;s the AI News you probably missed from this week. Discover More: 🛠️ Explore AI Tools &amp; News:</p></div></article>
+<article class="story"><div class="story-visual"><iframe src="https://www.youtube-nocookie.com/embed/K2IGHj7KQoM" title="Are Local Models Finally Good Enough?" width="1280" height="360" style="display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;background:#000" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="story-copy"><p class="news-kicker">Video · Techno Tim</p><h2><a href="https://www.youtube.com/watch?v=K2IGHj7KQoM" target="_blank" rel="noopener">Are Local Models Finally Good Enough?</a></h2><p>I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video </p></div></article>
+<article class="story"><div class="story-visual"><iframe src="https://www.youtube-nocookie.com/embed/8NFV6duMKQA" title="What Is an NPU Actually Good For?" width="1280" height="360" style="display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;background:#000" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="story-copy"><p class="news-kicker">Video · Techno Tim</p><h2><a href="https://www.youtube.com/watch?v=8NFV6duMKQA" target="_blank" rel="noopener">What Is an NPU Actually Good For?</a></h2><p>What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se</p></div></article>
+<article class="story"><div class="story-visual"><iframe src="https://www.youtube-nocookie.com/embed/nsA_HeY3idE" title="AI Companies Need to Stop Doing This" width="1280" height="360" style="display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;background:#000" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="story-copy"><p class="news-kicker">Video · Matt Wolfe</p><h2><a href="https://www.youtube.com/shorts/nsA_HeY3idE" target="_blank" rel="noopener">AI Companies Need to Stop Doing This</a></h2><p>PSA to all the AI companies: Please stop announcing features like they’re live when they’re still rolling out “over the coming weeks.” This happened for like 4 different demos in my recent AI news roundup video... Is it so hard to just make an announcement when I can actually use</p></div></article>
+<article class="story"><div class="story-visual"><iframe src="https://www.youtube-nocookie.com/embed/Kof2VcHTjrk" title="AI News: The AI Slowdown: What You Need to Know" width="1280" height="360" style="display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;background:#000" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="story-copy"><p class="news-kicker">Video · Matt Wolfe</p><h2><a href="https://www.youtube.com/watch?v=Kof2VcHTjrk" target="_blank" rel="noopener">AI News: The AI Slowdown: What You Need to Know</a></h2><p>Here&#x27;s the AI News you probably missed from this week. Discover More: 🛠️ Explore AI Tools &amp; News:</p></div></article>
 <article class="story"><a class="story-visual" href="https://github.com/open-webui/open-webui/releases/tag/v0.11.4" target="_blank" rel="noopener"><img src="media/05.png" alt="Open WebUI v0.11.4" width="1280" height="720"></a><div class="story-copy"><p class="news-kicker">Article · Open WebUI</p><h2><a href="https://github.com/open-webui/open-webui/releases/tag/v0.11.4" target="_blank" rel="noopener">Open WebUI v0.11.4</a></h2><p>Added 📉 Far smaller slim image. A slim build now comes down at around 175 MB, near enough 89% smaller than the last release, the local models, the packages around them and the tools that installed them all gone from it; what that changes about the way an instance behaves is set o</p></div></article>
 <article class="story"><a class="story-visual" href="https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.37.1" target="_blank" rel="noopener"><img src="media/06.png" alt="ComfyUI v0.37.1" width="1280" height="720"></a><div class="story-copy"><p class="news-kicker">Article · ComfyUI</p><h2><a href="https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.37.1" target="_blank" rel="noopener">ComfyUI v0.37.1</a></h2><p>ComfyUI v0.37.1</p></div></article>
 <article class="story"><a class="story-visual" href="https://www.reddit.com/r/LocalLLaMA/comments/1wo7mr6/mimov3_is_getting_a_new_architecture_the_core_of/" target="_blank" rel="noopener"><img src="media/07.png" alt="MiMo-V3 is getting a new architecture. The core of it, HySparse2, is out today." width="1280" height="720"></a><div class="story-copy"><p class="news-kicker">Reddit · r/LocalLLaMA</p><h2><a href="https://www.reddit.com/r/LocalLLaMA/comments/1wo7mr6/mimov3_is_getting_a_new_architecture_the_core_of/" target="_blank" rel="noopener">MiMo-V3 is getting a new architecture. The core of it, HySparse2, is out today.</a></h2><p>Reddit from r/LocalLLaMA.</p></div></article>

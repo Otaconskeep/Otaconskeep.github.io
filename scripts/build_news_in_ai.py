@@ -228,13 +228,14 @@ def visual(row: dict) -> str:
         )
     if row['video']:
         src = f'https://www.youtube-nocookie.com/embed/{row["video"]}'
-        player = (
-            f'<iframe src="{src}" title="{title}" width="1280" height="360" '
-            'style="display:block;width:100%;height:360px;border:0;background:#000" '
+        return (
+            '<div class="story-visual">'
+            f'<iframe src="{src}" title="{title}" width="1280" height="720" '
+            'style="display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;background:#000" '
             'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
             'allowfullscreen></iframe>'
+            '</div>'
         )
-        return f'<div class="story-visual">{picture}{player}</div>'
     if picture:
         return (
             f'<a class="story-visual" href="{html.escape(row["url"])}" target="_blank" rel="noopener">'
@@ -276,21 +277,28 @@ def page(rows: list[dict], when: str) -> str:
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css?v=20260920i">
 <style>
-.news-list {{ display:grid; gap:22px; margin: 8px 0 48px; }}
+.news-list {{
+  display:grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:16px; margin: 8px 0 48px; align-items: start;
+}}
+@media (max-width: 860px) {{
+  .news-list {{ grid-template-columns: 1fr; }}
+}}
 .story {{
   border:1px solid var(--line); background:var(--surface); overflow:hidden;
 }}
 .story-visual {{ display:block; background:#000; }}
-.story-visual img {{
-  display:block; width:100%; height:420px; object-fit:cover; object-position:center top; background:#000;
+.story-visual img, .story-visual iframe {{
+  display:block; width:100%; aspect-ratio:16/9; height:auto; object-fit:cover;
+  object-position:center top; background:#000; border:0;
 }}
-.story-copy {{ padding: 16px 18px 18px; }}
+.story-copy {{ padding: 14px 14px 16px; }}
 .news-kicker {{
   margin:0 0 6px; color:var(--accent-bright);
   font-family:'JetBrains Mono', ui-monospace, monospace;
   font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
 }}
-.story h2 {{ font-size: clamp(1.35rem, 2vw, 1.8rem); line-height:1.25; margin: 0 0 8px; }}
+.story h2 {{ font-size: 1.05rem; line-height:1.3; margin: 0 0 8px; }}
 .story h2 a {{ color:var(--cream); text-decoration:none; }}
 .story h2 a:hover {{ color:var(--accent-bright); }}
 .story-copy p {{ margin:0; color:var(--cream-dim); }}
@@ -311,18 +319,21 @@ def page(rows: list[dict], when: str) -> str:
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
- <a href="/otacon/">Otacon</a>
- <a href="/keepdesk/">Keep Desk</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
  <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- <a href="/classroom/">Classroom</a>
+ </div>
+ </div>
+ <a href="/classroom/">Learn</a>
  <a href="/engineering/">Engineering</a>
- <a href="/news/" aria-current="page">News</a>
- <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
- <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ <a class="discord" href="/install/">Get Otacon</a>
  </div></div>
 </nav>
 
