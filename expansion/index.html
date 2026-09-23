@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Otacon Expansion: Otaconskeep</title>
-<meta name="description" content="Otacon Expansion: five-agent roster, Culture Learning, mood engine, and command-center surfaces on Otacon Core. Aria advances and teaches the crew — Genome and Video Studio optional.">
+<meta name="description" content="Otacon Expansion: five-agent roster, Culture Learning, a standing REX business cycle, and command-center surfaces on Otacon Core. Agents draft and review work without waiting for a prompt.">
 <link rel="canonical" href="https://otaconskeep.github.io/expansion/">
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +46,7 @@
  <div class="stamp premium">Otacon Expansion<small>premium · v1.3.1</small></div>
  <p class="eyebrow" style="margin-top: 18px;">Product // Multi-Agent &amp; Emotional-State Layer · Release v1.3.1</p>
  <h1 class="display" style="font-size: clamp(2.6rem, 7vw, 4.5rem);">Otacon Expansion</h1>
- <p class="lede">A five-agent roster with real hierarchy, a live mood and relationship engine, <strong>Culture Learning</strong> (Aria advances then teaches the crew), and command-center surfaces, installed on top of <a href="/otacon/">Otacon Core</a>, licensed separately. Core stays free forever. Expansion is the one paid layer above it. <strong>Fresh PC truth:</strong> Aria + Deck/Codec install today; Genome Voice Trainer and Video Studio are optional and need GPU / Docker (or existing Comfy), not READY on every machine out of the box.</p>
+ <p class="lede">A five-agent roster with real hierarchy, a live mood and relationship engine, <strong>Culture Learning</strong> (Aria advances then teaches the crew), a <a href="#rex-business">standing REX business cycle</a>, and command-center surfaces, installed on top of <a href="/otacon/">Otacon Core</a>, licensed separately. Core stays free forever. Expansion is the one paid layer above it. <strong>Fresh PC truth:</strong> Aria + Deck/Codec install today; Genome Voice Trainer and Video Studio are optional and need GPU / Docker (or existing Comfy), not READY on every machine out of the box.</p>
  <div class="btn-row" style="margin-top: 26px;">
  <a class="btn btn-primary" href="/downloads/OtaconExpansion-Setup.bat" download style="background: var(--premium); border-color: var(--premium); color: #150f24;">Download Expansion Setup &rarr;</a>
  <a class="btn btn-ghost" href="/premium/">Member HQ / license</a>
@@ -189,6 +189,49 @@
 </div>
 
 <div class="wrap">
+ <section id="rex-business">
+ <p class="tag premium">Project REX</p>
+ <h2>The board keeps working your business after you close the chat</h2>
+ <p class="intro">REX used to wait for a new prompt, then mostly hunt infrastructure problems. The standing business cycle gives Aria a queue she refills herself: making, design, rendering, product listings, your public website, and how the team works. Agents write a local draft, a different agent reviews it, and that conversation stays on the card. You configure the mission. They do not wait for the next idea.</p>
+ <div class="culture-stage" aria-label="REX business cycle">
+ <div class="culture-rail">
+ <div class="culture-node">
+ <span class="culture-kicker">01 · Mission</span>
+ <h4>Your products</h4>
+ <p>Wood, print, models, renders, shirts, sales, and the public site you set. The owner dashboard stays off the research path.</p>
+ </div>
+ <div class="culture-node accent">
+ <span class="culture-kicker">02 · Aria</span>
+ <h4>Queues the board</h4>
+ <p>One open card per stream. She assigns an owner and a reviewer. Finished work waits a day before the next cycle.</p>
+ </div>
+ <div class="culture-node">
+ <span class="culture-kicker">03 · Pair</span>
+ <h4>Draft, then challenge</h4>
+ <p>Vector, Muse, Ledger, or Sentry writes the file. Someone else reads it and passes or sends it back. The exchange is on the card.</p>
+ </div>
+ <div class="culture-node">
+ <span class="culture-kicker">04 · Honest close</span>
+ <h4>Local only</h4>
+ <p>A pass means the draft was reviewed. It does not mean the site deployed, a machine ran, or a sale happened. A bad model reply stalls that card and the next stream still moves.</p>
+ </div>
+ </div>
+ <div class="culture-pulse" aria-hidden="true">
+ <span class="pulse-dot"></span>
+ <span class="pulse-label">business_tick · about every 15 minutes</span>
+ </div>
+ </div>
+ <ul class="today-list" style="margin-top:22px;">
+ <li><span class="ok">&#10003;</span> <strong>Proactive</strong> &mdash; the worker starts with Expansion. No new prompt required.</li>
+ <li><span class="ok">&#10003;</span> <strong>They talk</strong> &mdash; assignment, review request, and review notes stay on the REX card.</li>
+ <li><span class="ok">&#10003;</span> <strong>Failures stay visible</strong> &mdash; a reject is rework, not a fake complete.</li>
+ <li><span class="ok">&#10003;</span> <strong>Yours to turn off</strong> &mdash; <span class="mono">OTACON_BUSINESS_GROWTH=0</span> stops the cycle.</li>
+ </ul>
+ <div class="info-note">Ships in Expansion soft-update tip <span class="mono">73a8578</span>+. Same update path as Culture Learning: pull <span class="mono">origin/main</span> on the ecosystem repo and restart. Open the REX board to see the streams.</div>
+ </section>
+</div>
+
+<div class="wrap">
  <section id="motion">
  <p class="tag premium">Aria's Motion Pack</p>
  <h2>Nine real clips, the reference set</h2>
@@ -212,11 +255,11 @@
  <section id="surfaces">
  <p class="tag premium">Ships With</p>
  <h2>Command-center loadout &mdash; surfaces and engines</h2>
- <p class="intro">Command Deck and Codec ship in public Expansion today. Culture Learning and the emotional matrix run under the hood from day one. Remaining Keep-depth rooms keep landing. Status below is honest about what is live vs still deepening.</p>
+ <p class="intro">Command Deck and Codec ship in public Expansion today. Culture Learning, the standing REX business cycle, and the emotional matrix run under the hood from day one. Remaining Keep-depth rooms keep landing. Status below is honest about what is live vs still deepening.</p>
  <div class="loadout">
  <div class="item"><h4>Command Deck</h4><span class="badge available">Ships today</span></div>
  <div class="item"><h4>Codec (voice chat)</h4><span class="badge available">Ships today</span></div>
- <div class="item"><h4>REX Board</h4><span class="badge premium">Job stages + world-model feed</span></div>
+ <div class="item"><h4>REX Board</h4><span class="badge available">Business cycle + world-model feed</span></div>
  <div class="item"><h4>Intel Board</h4><span class="badge premium">Surfaces landing</span></div>
  <div class="item"><h4>Genome Voice Trainer</h4><span class="badge pending">Optional · GPU</span></div>
  <div class="item"><h4>Automatic Dossier &amp; Journal</h4><span class="badge premium">Surfaces landing</span></div>
