@@ -394,7 +394,7 @@ def main() -> None:
         raise SystemExit('Home Current edition is empty')
     out = ROOT / 'news'
     out.mkdir(parents=True, exist_ok=True)
-    rows.sort(key=lambda row: (0 if row['video'] else 1 if row['image'] else 2))
+    rows = [row for row in rows if 'wolfe' not in row['source'].lower() and 'ai news' not in row['title'].lower()]
     save_visuals(rows, out / 'media')
     missing = [row['title'] for row in rows if not row.get('file')]
     if missing:
