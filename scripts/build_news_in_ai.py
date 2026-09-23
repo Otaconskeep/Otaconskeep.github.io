@@ -6,6 +6,7 @@ import html
 import json
 import os
 import re
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -31,6 +32,56 @@ def clean(raw: str) -> str:
     text = re.split(r'\shttps?://', text, maxsplit=1)[0]
     text = re.sub(r'\s+', ' ', text).strip(' |-')
     return text
+
+
+_IMG = re.compile(r'<img\b[^>]*\bsrc=["\']([^"\']+)["\']', re.I)
+_OG = re.compile(
+    r'<meta\b[^>]*(?:property|name)=["\'](?:og:image|twitter:image)["\'][^>]*>',
+    re.I,
+)
+_CONTENT = re.compile(r'\bcontent=["\']([^"\']+)', re.I)
+_YT = re.compile(r'(?:v=|youtu\.be/|shorts/)([A-Za-z0-9_-]{6,})')
+
+
+def youtube_id(url: str) -> str:
+    match = _YT.search(url or '')
+    return match.group(1) if match else ''
+
+
+def https_url(raw: str) -> str:
+    src = html.unescape(raw or '').strip()
+    if src.startswith('//'):
+        src = 'https:' + src
+    if src.startswith('https://') and ' ' not in src:
+        return src
+    return ''
+
+
+def summary_image(raw: str) -> str:
+    for src in _IMG.findall(html.unescape(raw or '')):
+        url = https_url(src)
+        lowered = url.lower()
+        if not url or any(skip in lowered for skip in ('avatar', 'logo', 'emoji', 'badge')):
+            continue
+        return url
+    return ''
+
+
+def og_image(url: str) -> str:
+    request = urllib.request.Request(url, headers={'User-Agent': 'OtaconskeepNews/1.0'})
+    try:
+        with urllib.request.urlopen(request, timeout=12) as response:
+            page = response.read(180000).decode('utf-8', 'replace')
+    except Exception:
+        return ''
+    for tag in _OG.findall(page):
+        match = _CONTENT.search(tag)
+        if not match:
+            continue
+        image = https_url(match.group(1))
+        if image:
+            return image
+    return ''
 
 
 def lane(item: dict) -> str:
@@ -65,14 +116,22 @@ def present(item: dict) -> dict:
     summary = re.split(r'\s#\s', summary, maxsplit=1)[0].strip()
     if summary.lower().startswith(title.lower()):
         summary = summary[len(title):].strip(' |-')
-    if summary.lower() == title.lower():
+    if summary.lower() == title.lower() or len(summary) < 12:
         summary = ''
+    url = str(item.get('url') or '')
+    video = youtube_id(url)
+    image = '' if video else summary_image(str(item.get('summary') or ''))
+    if not video and not image and str(item.get('kind') or '') == 'article':
+        image = og_image(url)
     return {
         'title': title[:180] or source,
-        'url': str(item.get('url') or ''),
+        'url': url,
         'source': source,
         'lane': lane(item),
         'summary': summary[:280],
+        'image': image,
+        'video': video,
+        'short': '/shorts/' in url,
     }
 
 
@@ -92,12 +151,35 @@ def stamp(when: str) -> str:
     return moment.strftime('%B %-d, %Y')
 
 
+def media(row: dict) -> str:
+    title = html.escape(row['title'])
+    if row['video']:
+        shape = ' short' if row['short'] else ''
+        src = f'https://www.youtube-nocookie.com/embed/{row["video"]}'
+        return (
+            f'<div class="news-frame{shape}">'
+            f'<iframe src="{src}" title="{title}" loading="lazy" '
+            'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
+            'referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+            '</div>'
+        )
+    if row['image']:
+        src = html.escape(row['image'])
+        return (
+            f'<a class="news-media" href="{html.escape(row["url"])}" target="_blank" rel="noopener">'
+            f'<img src="{src}" alt="{title}">'
+            '</a>'
+        )
+    return ''
+
+
 def cards(rows: list[dict]) -> str:
     blocks = []
     for row in rows:
         summary = f'<p>{html.escape(row["summary"])}</p>' if row['summary'] else ''
         blocks.append(
             '<article class="news-card">'
+            f'{media(row)}'
             f'<p class="news-kicker">{html.escape(row["lane"])} · {html.escape(row["source"])}</p>'
             f'<h2><a href="{html.escape(row["url"])}" target="_blank" rel="noopener">{html.escape(row["title"])}</a></h2>'
             f'{summary}'
@@ -138,6 +220,14 @@ def page(rows: list[dict], when: str) -> str:
 .news-card h2 a {{ color:var(--cream); text-decoration:none; }}
 .news-card h2 a:hover {{ color:var(--accent-bright); }}
 .news-card p {{ color:var(--cream-dim); }}
+.news-frame {{
+  position:relative; width:100%; aspect-ratio:16/9;
+  margin:0 0 14px; background:#000; overflow:hidden;
+}}
+.news-frame.short {{ max-width:280px; aspect-ratio:9/16; }}
+.news-frame iframe {{ position:absolute; inset:0; width:100%; height:100%; border:0; }}
+.news-media {{ display:block; margin:0 0 14px; background:#0b0d10; }}
+.news-media img {{ width:100%; max-height:440px; object-fit:contain; background:#0b0d10; }}
 </style>
 </head>
 <body>
@@ -201,13 +291,23 @@ def feed(rows: list[dict], when: str) -> str:
         f'<lastBuildDate>{html.escape(when or stamp(""))}</lastBuildDate>',
     ]
     for row in rows:
+        picture = ''
+        if row['video']:
+            picture = f'https://i.ytimg.com/vi/{row["video"]}/hqdefault.jpg'
+        elif row['image']:
+            picture = row['image']
         summary = f'{row["lane"]} · {row["source"]}. {row["summary"]}'.strip()
+        body = summary[:500]
+        if picture:
+            body = f'<img src="{html.escape(picture)}" alt=""><p>{html.escape(body)}</p>'
+        else:
+            body = html.escape(body)
         lines.extend([
             '<item>',
             f'<title>{html.escape(row["title"])}</title>',
             f'<link>{html.escape(row["url"])}</link>',
             f'<guid isPermaLink="true">{html.escape(row["url"])}</guid>',
-            f'<description>{html.escape(summary[:500])}</description>',
+            f'<description><![CDATA[{body.replace("]]>", "]]&gt;")}]]></description>',
             '</item>',
         ])
     lines.append('</channel></rss>')
