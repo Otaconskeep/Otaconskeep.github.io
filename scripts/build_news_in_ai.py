@@ -6,6 +6,8 @@ import html
 import json
 import os
 import re
+import shutil
+import subprocess
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -118,11 +120,17 @@ def present(item: dict) -> dict:
         summary = summary[len(title):].strip(' |-')
     if summary.lower() == title.lower() or len(summary) < 12:
         summary = ''
+    if re.fullmatch(r'v\d[\w.+-]*', title):
+        title = f'{source} {title}'
     url = str(item.get('url') or '')
     video = youtube_id(url)
-    image = '' if video else summary_image(str(item.get('summary') or ''))
-    if not video and not image and str(item.get('kind') or '') == 'article':
-        image = og_image(url)
+    image = ''
+    if video:
+        image = f'https://i.ytimg.com/vi/{video}/maxresdefault.jpg'
+    else:
+        image = summary_image(str(item.get('summary') or '')) or og_image(url)
+    if not summary:
+        summary = f'{lane(item)} from {source}.'
     return {
         'title': title[:180] or source,
         'url': url,
@@ -151,24 +159,86 @@ def stamp(when: str) -> str:
     return moment.strftime('%B %-d, %Y')
 
 
-def media(row: dict) -> str:
-    title = html.escape(row['title'])
-    if row['video']:
-        shape = ' short' if row['short'] else ''
-        src = f'https://www.youtube-nocookie.com/embed/{row["video"]}'
-        return (
-            f'<div class="news-frame{shape}">'
-            f'<iframe src="{src}" title="{title}" loading="lazy" '
-            'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
-            'referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
-            '</div>'
+def _kind(data: bytes) -> str:
+    if data[:3] == b'\xff\xd8\xff':
+        return '.jpg'
+    if data.startswith(b'\x89PNG\r\n\x1a\n'):
+        return '.png'
+    if data[:4] == b'RIFF' and data[8:12] == b'WEBP':
+        return '.webp'
+    if data[:6] in (b'GIF87a', b'GIF89a'):
+        return '.gif'
+    return ''
+
+
+def download_image(url: str, dest: Path) -> str:
+    request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    try:
+        with urllib.request.urlopen(request, timeout=20) as response:
+            data = response.read(8_000_000)
+    except Exception:
+        return ''
+    ext = _kind(data)
+    if not ext or len(data) < 4000:
+        return ''
+    path = dest.with_suffix(ext)
+    path.write_bytes(data)
+    return path.name
+
+
+def screenshot(url: str, dest: Path) -> str:
+    path = dest.with_suffix('.png')
+    try:
+        subprocess.run(
+            [
+                'chromium', '--headless', '--disable-gpu', '--no-sandbox',
+                '--window-size=1280,720', f'--screenshot={path}', url,
+            ],
+            check=False, timeout=40, capture_output=True,
         )
-    if row['image']:
-        src = html.escape(row['image'])
+    except (OSError, subprocess.TimeoutExpired):
+        return ''
+    if path.is_file() and path.stat().st_size > 4000:
+        return path.name
+    return ''
+
+
+def save_visuals(rows: list[dict], folder: Path) -> None:
+    if folder.exists():
+        shutil.rmtree(folder)
+    folder.mkdir(parents=True)
+    for index, row in enumerate(rows, start=1):
+        stem = folder / f'{index:02d}'
+        name = ''
+        if row['image']:
+            name = download_image(row['image'], stem)
+            if not name and row['video']:
+                name = download_image(f'https://i.ytimg.com/vi/{row["video"]}/hqdefault.jpg', stem)
+        if not name:
+            name = screenshot(row['url'], stem)
+        row['file'] = f'media/{name}' if name else ''
+
+
+def visual(row: dict) -> str:
+    title = html.escape(row['title'])
+    picture = ''
+    if row.get('file'):
+        picture = (
+            f'<img src="{html.escape(row["file"])}" alt="{title}" width="1280" height="720">'
+        )
+    if row['video']:
+        src = f'https://www.youtube-nocookie.com/embed/{row["video"]}'
+        player = (
+            f'<iframe src="{src}" title="{title}" width="1280" height="360" '
+            'style="display:block;width:100%;height:360px;border:0;background:#000" '
+            'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" '
+            'allowfullscreen></iframe>'
+        )
+        return f'<div class="story-visual">{picture}{player}</div>'
+    if picture:
         return (
-            f'<a class="news-media" href="{html.escape(row["url"])}" target="_blank" rel="noopener">'
-            f'<img src="{src}" alt="{title}">'
-            '</a>'
+            f'<a class="story-visual" href="{html.escape(row["url"])}" target="_blank" rel="noopener">'
+            f'{picture}</a>'
         )
     return ''
 
@@ -176,14 +246,14 @@ def media(row: dict) -> str:
 def cards(rows: list[dict]) -> str:
     blocks = []
     for row in rows:
-        summary = f'<p>{html.escape(row["summary"])}</p>' if row['summary'] else ''
         blocks.append(
-            '<article class="news-card">'
-            f'{media(row)}'
+            '<article class="story">'
+            f'{visual(row)}'
+            '<div class="story-copy">'
             f'<p class="news-kicker">{html.escape(row["lane"])} · {html.escape(row["source"])}</p>'
             f'<h2><a href="{html.escape(row["url"])}" target="_blank" rel="noopener">{html.escape(row["title"])}</a></h2>'
-            f'{summary}'
-            '</article>'
+            f'<p>{html.escape(row["summary"])}</p>'
+            '</div></article>'
         )
     return '\n'.join(blocks)
 
@@ -206,28 +276,24 @@ def page(rows: list[dict], when: str) -> str:
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css?v=20260920i">
 <style>
-.news-list {{ display:grid; gap:14px; margin: 8px 0 36px; }}
-.news-card {{
-  border:1px solid var(--line); background:var(--surface);
-  padding:18px 18px 8px;
+.news-list {{ display:grid; gap:22px; margin: 8px 0 48px; }}
+.story {{
+  border:1px solid var(--line); background:var(--surface); overflow:hidden;
 }}
+.story-visual {{ display:block; background:#000; }}
+.story-visual img {{
+  display:block; width:100%; height:420px; object-fit:cover; object-position:center top; background:#000;
+}}
+.story-copy {{ padding: 16px 18px 18px; }}
 .news-kicker {{
   margin:0 0 6px; color:var(--accent-bright);
   font-family:'JetBrains Mono', ui-monospace, monospace;
   font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
 }}
-.news-card h2 {{ font-size:1.25rem; line-height:1.3; }}
-.news-card h2 a {{ color:var(--cream); text-decoration:none; }}
-.news-card h2 a:hover {{ color:var(--accent-bright); }}
-.news-card p {{ color:var(--cream-dim); }}
-.news-frame {{
-  position:relative; width:100%; aspect-ratio:16/9;
-  margin:0 0 14px; background:#000; overflow:hidden;
-}}
-.news-frame.short {{ max-width:280px; aspect-ratio:9/16; }}
-.news-frame iframe {{ position:absolute; inset:0; width:100%; height:100%; border:0; }}
-.news-media {{ display:block; margin:0 0 14px; background:#0b0d10; }}
-.news-media img {{ width:100%; max-height:440px; object-fit:contain; background:#0b0d10; }}
+.story h2 {{ font-size: clamp(1.35rem, 2vw, 1.8rem); line-height:1.25; margin: 0 0 8px; }}
+.story h2 a {{ color:var(--cream); text-decoration:none; }}
+.story h2 a:hover {{ color:var(--accent-bright); }}
+.story-copy p {{ margin:0; color:var(--cream-dim); }}
 </style>
 </head>
 <body>
@@ -291,11 +357,7 @@ def feed(rows: list[dict], when: str) -> str:
         f'<lastBuildDate>{html.escape(when or stamp(""))}</lastBuildDate>',
     ]
     for row in rows:
-        picture = ''
-        if row['video']:
-            picture = f'https://i.ytimg.com/vi/{row["video"]}/hqdefault.jpg'
-        elif row['image']:
-            picture = row['image']
+        picture = f'{PAGE}{row["file"]}' if row.get('file') else ''
         summary = f'{row["lane"]} · {row["source"]}. {row["summary"]}'.strip()
         body = summary[:500]
         if picture:
@@ -320,6 +382,11 @@ def main() -> None:
         raise SystemExit('Home Current edition is empty')
     out = ROOT / 'news'
     out.mkdir(parents=True, exist_ok=True)
+    rows.sort(key=lambda row: (0 if row['video'] else 1 if row['image'] else 2))
+    save_visuals(rows, out / 'media')
+    missing = [row['title'] for row in rows if not row.get('file')]
+    if missing:
+        raise SystemExit('missing picture for: ' + '; '.join(missing))
     (out / 'index.html').write_text(page(rows, when), encoding='utf-8')
     (out / 'feed.xml').write_text(feed(rows, when), encoding='utf-8')
     print(f'wrote {len(rows)} stories')
