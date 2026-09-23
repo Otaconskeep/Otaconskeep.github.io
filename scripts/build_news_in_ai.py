@@ -318,6 +318,7 @@ def page(rows: list[dict], when: str) -> str:
  <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
+ <a href="/news/" aria-current="page">News</a>
  <a href="/">Home</a>
  <a href="/#ecosystem">Platform</a>
  <div class="navdrop">
@@ -333,7 +334,6 @@ def page(rows: list[dict], when: str) -> str:
  <a href="/classroom/">Learn</a>
  <a href="/engineering/">Engineering</a>
  <a href="/about/">About</a>
- <a href="/news/" aria-current="page">News</a>
  <a class="discord" href="/install/">Get Otacon</a>
  </div></div>
 </nav>
