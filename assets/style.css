@@ -2877,3 +2877,94 @@ button.btn {
  padding-left: 1.15rem;
 }
 .manual-step-body .step-actions li { margin: 0 0 6px; }
+
+/* ---------------- culture learning ---------------- */
+.culture-stage {
+  margin-top: 8px;
+  padding: 22px 20px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background:
+    radial-gradient(120% 80% at 0% 0%, rgba(57, 230, 200, 0.10), transparent 55%),
+    radial-gradient(90% 70% at 100% 100%, rgba(242, 165, 88, 0.08), transparent 50%),
+    var(--surface);
+  position: relative;
+  overflow: hidden;
+}
+.culture-rail {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  align-items: stretch;
+}
+.culture-node {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px 14px 16px;
+  background: rgba(4, 12, 18, 0.55);
+  min-height: 100%;
+}
+.culture-node.accent {
+  border-color: rgba(57, 230, 200, 0.45);
+  box-shadow: 0 0 0 1px rgba(57, 230, 200, 0.12), 0 0 28px rgba(57, 230, 200, 0.08);
+}
+.culture-kicker {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  margin-bottom: 8px;
+}
+.culture-node h4 {
+  margin: 0 0 8px;
+  font-size: 1.02rem;
+  color: var(--cream);
+}
+.culture-node p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--cream-dim);
+}
+.culture-arrow {
+  display: none;
+}
+.culture-pulse {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+}
+.pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-bright);
+  box-shadow: 0 0 0 0 rgba(57, 230, 200, 0.55);
+  animation: culture-pulse 2.2s ease-out infinite;
+}
+.pulse-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--cream-faint);
+  letter-spacing: 0.04em;
+}
+@keyframes culture-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(57, 230, 200, 0.55); }
+  70% { box-shadow: 0 0 0 12px rgba(57, 230, 200, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(57, 230, 200, 0); }
+}
+@media (max-width: 900px) {
+  .culture-rail {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .culture-rail {
+    grid-template-columns: 1fr;
+  }
+}

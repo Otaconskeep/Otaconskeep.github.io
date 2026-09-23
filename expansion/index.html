@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Otacon Expansion: Otaconskeep</title>
-<meta name="description" content="Otacon Expansion: licensed multi-agent layer on Otacon Core. Aria chat installable today; Genome and Video Studio are optional and need GPU/Docker, not automatic on every fresh PC.">
+<meta name="description" content="Otacon Expansion: five-agent roster, Culture Learning, mood engine, and command-center surfaces on Otacon Core. Aria advances and teaches the crew — Genome and Video Studio optional.">
 <link rel="canonical" href="https://otaconskeep.github.io/expansion/">
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +46,7 @@
  <div class="stamp premium">Otacon Expansion<small>premium · v1.3.1</small></div>
  <p class="eyebrow" style="margin-top: 18px;">Product // Multi-Agent &amp; Emotional-State Layer · Release v1.3.1</p>
  <h1 class="display" style="font-size: clamp(2.6rem, 7vw, 4.5rem);">Otacon Expansion</h1>
- <p class="lede">A five-agent roster with real hierarchy, a live mood and relationship engine, and command-center surfaces, installed on top of <a href="/otacon/">Otacon Core</a>, licensed separately. Core stays free forever. Expansion is the one paid layer above it. <strong>Fresh PC truth:</strong> Aria + Deck/Codec install today; Genome Voice Trainer and Video Studio are optional and need GPU / Docker (or existing Comfy), not READY on every machine out of the box.</p>
+ <p class="lede">A five-agent roster with real hierarchy, a live mood and relationship engine, <strong>Culture Learning</strong> (Aria advances then teaches the crew), and command-center surfaces, installed on top of <a href="/otacon/">Otacon Core</a>, licensed separately. Core stays free forever. Expansion is the one paid layer above it. <strong>Fresh PC truth:</strong> Aria + Deck/Codec install today; Genome Voice Trainer and Video Studio are optional and need GPU / Docker (or existing Comfy), not READY on every machine out of the box.</p>
  <div class="btn-row" style="margin-top: 26px;">
  <a class="btn btn-primary" href="/downloads/OtaconExpansion-Setup.bat" download style="background: var(--premium); border-color: var(--premium); color: #150f24;">Download Expansion Setup &rarr;</a>
  <a class="btn btn-ghost" href="/premium/">Member HQ / license</a>
@@ -141,6 +141,54 @@
 </div>
 
 <div class="wrap">
+ <section id="culture-learning">
+ <p class="tag premium">Culture Learning</p>
+ <h2>She doesn't stay stock &mdash; Aria absorbs the room, then teaches the crew</h2>
+ <p class="intro">Fresh installs used to feel day-one flat. Culture Learning changes that. Aria ships with a social-craft pack, keeps absorbing public signal (news headlines &rarr; human-interaction lessons), and publishes into <strong>shared Keep learning</strong> so Vector, Ledger, Muse, and Sentry pick it up on the next turn &mdash; no private Keep scrape, no movie piracy, just learnable social craft.</p>
+
+ <div class="culture-stage" aria-label="Culture learning flow">
+ <div class="culture-rail">
+ <div class="culture-node">
+ <span class="culture-kicker">01 · Day one</span>
+ <h4>Culture pack</h4>
+ <p>Insults, praise, whip-saws, hellos &mdash; distilled human patterns so she isn't a blank assistant on install.</p>
+ </div>
+ <div class="culture-arrow" aria-hidden="true">→</div>
+ <div class="culture-node accent">
+ <span class="culture-kicker">02 · Aria</span>
+ <h4>Absorbs &amp; graduates</h4>
+ <p>Lessons hit the Learning Engine with evidence. Claims graduate &mdash; revisable, confidence-weighted, not vibes.</p>
+ </div>
+ <div class="culture-arrow" aria-hidden="true">→</div>
+ <div class="culture-node">
+ <span class="culture-kicker">03 · Shared Keep</span>
+ <h4>Teaches the roster</h4>
+ <p>One publish. The whole five-agent team speaks with the same social craft on the next Codec turn.</p>
+ </div>
+ <div class="culture-arrow" aria-hidden="true">→</div>
+ <div class="culture-node">
+ <span class="culture-kicker">04 · Ongoing</span>
+ <h4>Public wire</h4>
+ <p>Autonomy ticks can pull public headlines and fold them into social lessons &mdash; she keeps advancing after install.</p>
+ </div>
+ </div>
+ <div class="culture-pulse" aria-hidden="true">
+ <span class="pulse-dot"></span>
+ <span class="pulse-label">culture_tick · soft-update tip</span>
+ </div>
+ </div>
+
+ <ul class="today-list" style="margin-top:22px;">
+ <li><span class="ok">&#10003;</span> <strong>Not stock on day one</strong> &mdash; culture pack loads at bootstrap.</li>
+ <li><span class="ok">&#10003;</span> <strong>Aria teaches instantly</strong> &mdash; shared Keep learning, not a second chat thread.</li>
+ <li><span class="ok">&#10003;</span> <strong>Keeps getting sharper</strong> &mdash; public headlines + your real chats feed the same engine.</li>
+ <li><span class="ok">&#10003;</span> <strong>Privacy-clean</strong> &mdash; no operator Keep files; no YouTube/Netflix scrapers.</li>
+ </ul>
+ <div class="info-note">Ships in Expansion soft-update tip <span class="mono">57fd1a7</span>+. Soft-update with <span class="mono">OtaconsKeep-Setup.bat</span> (or git reset to <span class="mono">origin/main</span> on Linux/WSL), then restart &mdash; Culture Learning runs on provision and autonomy ticks.</div>
+ </section>
+</div>
+
+<div class="wrap">
  <section id="motion">
  <p class="tag premium">Aria's Motion Pack</p>
  <h2>Nine real clips, the reference set</h2>
@@ -163,8 +211,8 @@
 <div class="wrap">
  <section id="surfaces">
  <p class="tag premium">Ships With</p>
- <h2>Ten command-center surfaces, not one chat window</h2>
- <p class="intro">Command Deck and Codec ship in public Expansion today. Remaining Keep-depth rooms keep landing. Status below is honest about what is live vs still deepening.</p>
+ <h2>Command-center loadout &mdash; surfaces and engines</h2>
+ <p class="intro">Command Deck and Codec ship in public Expansion today. Culture Learning and the emotional matrix run under the hood from day one. Remaining Keep-depth rooms keep landing. Status below is honest about what is live vs still deepening.</p>
  <div class="loadout">
  <div class="item"><h4>Command Deck</h4><span class="badge available">Ships today</span></div>
  <div class="item"><h4>Codec (voice chat)</h4><span class="badge available">Ships today</span></div>
@@ -173,6 +221,7 @@
  <div class="item"><h4>Genome Voice Trainer</h4><span class="badge pending">Optional · GPU</span></div>
  <div class="item"><h4>Automatic Dossier &amp; Journal</h4><span class="badge premium">Surfaces landing</span></div>
  <div class="item"><h4>Emotional State Matrix</h4><span class="badge available">Engine live</span></div>
+ <div class="item"><h4>Culture Learning</h4><span class="badge available">Aria → crew</span></div>
  <div class="item"><h4>War Room</h4><span class="badge premium">Surfaces landing</span></div>
  <div class="item"><h4>Video Studio</h4><span class="badge pending">Optional · Docker/Comfy</span></div>
  <div class="item"><h4>Home Automation</h4><span class="badge premium">Optional config</span></div>
