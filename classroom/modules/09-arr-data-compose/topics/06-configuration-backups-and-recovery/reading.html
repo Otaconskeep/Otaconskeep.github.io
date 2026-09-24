@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06-configuration-backups-and-recovery — Reading · Classroom</title>
+<meta name="description" content="06-configuration-backups-and-recovery — Reading">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/09-arr-data-compose/topics/06-configuration-backups-and-recovery/reading.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M9 READING<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M9 READING<small>reading</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 06-configuration-backups-and-recovery — Reading</h1>
+ <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ 
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> ARR Data Model &amp; Compose<br />
+<strong>Activity type:</strong> Reading (Learn)<br />
+<strong>Objective:</strong> Explain why a configuration archive alone is not a complete recovery strategy.</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>configuration backup</td>
+<td>A captured copy of configuration state, normally accompanied by version, source, integrity, and retention information.</td>
+</tr>
+<tr>
+<td>recovery point objective</td>
+<td>The maximum acceptable amount of configuration history that could be lost, usually expressed as a period of time.</td>
+</tr>
+<tr>
+<td>recovery time objective</td>
+<td>The target amount of time allowed to restore a usable configuration after a failure.</td>
+</tr>
+<tr>
+<td>manifest</td>
+<td>A list of expected files and associated metadata such as cryptographic checksums.</td>
+</tr>
+<tr>
+<td>integrity check</td>
+<td>A test that determines whether bytes have changed since a trusted checksum was created.</td>
+</tr>
+<tr>
+<td>syntax validation</td>
+<td>A check that confirms a file can be parsed according to its data format.</td>
+</tr>
+<tr>
+<td>semantic validation</td>
+<td>A check that confirms parsed values meet application-specific rules, ranges, and required relationships.</td>
+</tr>
+<tr>
+<td>configuration drift</td>
+<td>A difference between the intended configuration and the configuration currently present on a system.</td>
+</tr>
+<tr>
+<td>recovery candidate</td>
+<td>Restored content held in an isolated location while integrity and application-specific checks are performed.</td>
+</tr>
+<tr>
+<td>promotion</td>
+<td>The controlled action that makes a validated recovery candidate the active configuration.</td>
+</tr>
+<tr>
+<td>rollback</td>
+<td>The process of returning to the state that existed immediately before a change or recovery attempt.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div><div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>A useful configuration backup is more than a compressed copy of a directory. A recovery operator must know what was captured, which system or service it belongs to, when it was captured, whether the archive remained intact, and whether the restored files are usable. These requirements create several separate validation layers. An archive listing proves that the container can be read, but it does not prove that the files express valid settings. A cryptographic checksum detects byte changes, but a perfectly intact file can still contain an invalid port, a missing required key, or a value incompatible with the installed application version. Syntax validation confirms that a parser accepts the document. Semantic validation then checks rules meaningful to the service, such as an integer being within an allowed range.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Recovery should be staged. Extracting directly over an active configuration mixes backup extraction, validation, and activation into one difficult-to-reverse operation. Instead, restore into a candidate directory, verify the archive checksum, verify the manifest, inspect metadata, parse the files, and apply semantic checks. Only after those gates pass should the candidate be promoted. Keeping the old configuration under a distinct name provides a rapid rollback path. Renaming directories on the same filesystem also reduces the interval in which an incomplete tree could be visible, although application behavior and open file handles still determine whether a restart or reload is required.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Checksums establish integrity relative to a trusted checksum, not authenticity by themselves. If an attacker can replace both an archive and its checksum, the pair can still verify. Higher-assurance environments should protect manifests with signing, immutable storage, restricted backup credentials, or an independently controlled backup system. Configuration backups may also contain passwords, API tokens, private keys, internal addresses, or identity-provider details. They therefore require access restrictions, retention limits, secure transfer, and tested destruction procedures.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><p>The final measure of backup quality is a successful restore test. A job reporting that it created an archive only proves that a command completed. Regular drills should recover a representative version, validate it against the target software version, and document the time and decisions required. This lab models that workflow entirely under one classroom path: establish a known configuration, create a manifest and archive, introduce legitimate-looking drift, recover to an isolated candidate, validate it, promote it, and preserve a rollback route.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph—triggers, nodes, and how data flows between them.</div>
+ 
+</div></div></div><div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>scope_root</h3>
+<p>/opt/lab-classroom/class39/attempt1/</p>
+<h3>components</h3>
+<p>config/: active configuration used as the source of the backup and later as the promoted recovery target.<br />
+staging/package/: immutable-in-practice package layout assembled before archive creation.<br />
+backups/: compressed archive and its independently stored archive checksum.<br />
+restore/candidate/: isolated extraction location used for recovery validation.<br />
+rollback/: retained copy of the configuration immediately before promotion.<br />
+validate.py: read-only semantic validator for the JSON and INI examples.</p>
+<h3>data_flow</h3>
+<p>Known configuration is written under config/.<br />
+Configuration is copied into staging/package/config/.<br />
+A deterministic file manifest is generated relative to the package root.<br />
+Package contents are archived under backups/ and the archive receives a separate checksum.<br />
+The active configuration is changed to model drift.<br />
+The archive is extracted into restore/candidate/ and validated before activation.<br />
+The drifted configuration is retained, and the candidate configuration is renamed into the active location.</p>
+<h3>trust_boundaries</h3>
+<p>The archive checksum is useful only while its sidecar file is obtained from a trusted location.<br />
+The manifest verifies packaged configuration bytes but does not establish who created them.<br />
+The validator represents application-specific policy and must evolve when configuration schemas change.<br />
+Promotion does not automatically reload a real service; service lifecycle actions require a separate, service-specific runbook.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>GNU tar manual, tutorial and archive operations: https://www.gnu.org/software/tar/manual/</li>
+<li>GNU Coreutils manual, sha2 utilities: https://www.gnu.org/software/coreutils/manual/html_node/sha2-utilities.html</li>
+<li>Python documentation, json module: https://docs.python.org/3/library/json.html</li>
+<li>Python documentation, configparser module: https://docs.python.org/3/library/configparser.html</li>
+<li>NIST SP 800-34 Rev. 1, Contingency Planning Guide for Federal Information Systems: https://csrc.nist.gov/pubs/sp/800/34/r1/final</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - GNU tar manual, tutorial and archive operations: https://www.gnu.org/software/tar/manual/
+- GNU Coreutils manual, sha2 utilities: https://www.gnu.org/softw…</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>GNU tar manual: https://www.gnu.org/software/tar/manual/</li>
+<li>GNU Coreutils sha2 utilities: https://www.gnu.org/software/coreutils/manual/html_node/sha2-utilities.html</li>
+<li>GNU Coreutils sha2 invocation: https://www.gnu.org/software/coreutils/manual/html_node/sha2-utilities.html</li>
+<li>Python json module documentation: https://docs.python.org/3/library/json.html</li>
+<li>Python configparser documentation: https://docs.python.org/3/library/configparser.html</li>
+<li>Python pathlib documentation: https://docs.python.org/3/library/pathlib.html</li>
+<li>NIST SP 800-34 Rev. 1: https://csrc.nist.gov/pubs/sp/800/34/r1/final</li>
+<li>CISA Stop Ransomware Guide, backup and recovery guidance: https://www.cisa.gov/stopransomware/ransomware-guide</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="/classroom/modules/09-arr-data-compose/">← Module hub</a><a href="lesson.html">Lesson →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

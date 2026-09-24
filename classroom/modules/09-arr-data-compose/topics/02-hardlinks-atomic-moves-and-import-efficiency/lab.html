@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02-hardlinks-atomic-moves-and-import-efficiency — Lab · Classroom</title>
+<meta name="description" content="02-hardlinks-atomic-moves-and-import-efficiency — Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/09-arr-data-compose/topics/02-hardlinks-atomic-moves-and-import-efficiency/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M9 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M9 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 02-hardlinks-atomic-moves-and-import-efficiency — Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> ARR Data Model &amp; Compose<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> medium<br />
+<strong>Objective:</strong> Explain the relationship between a pathname, directory entry, inode, and file data.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Comfort using a Linux shell and absolute paths.</li>
+<li>Basic familiarity with files, directories, inodes, mounts, and permissions.</li>
+<li>Ability to run commands with sufficient permission to create files under /opt/lab-classroom/class35/.</li>
+<li>Familiarity with common commands such as stat, mv, ln, find, sha256sum, and findmnt.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>title</h4><p>Build and Verify a Same-Filesystem Import Pipeline</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Build and Verify a Same-Filesystem Import Pipeline</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>Run the commands in a Bash-compatible shell on a Linux host.<br />
+The reset step deletes only descendants of the fixed classroom directory.<br />
+Do not substitute another path into the reset command.<br />
+Record output from stat and sha256sum so the relationships can be explained after the lab.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run the commands in a Bash-compatible shell on a Linux host.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Prepare an isolated workspace</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Prepare an isolated workspace</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>test -d /opt/lab-classroom || { printf '%s\n' 'Required classroom parent is missing.' &gt;&2; exit 1; }<br />
+mkdir -p /opt/lab-classroom/class35<br />
+find /opt/lab-classroom/class35 -mindepth 1 -delete<br />
+mkdir -p /opt/lab-classroom/class35/incoming /opt/lab-classroom/class35/library /opt/lab-classroom/class35/work</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: test -d /opt/lab-classroom || { printf &#x27;%s\n&#x27; &#x27;Required classroom parent is missing.&#x27; &gt;&amp;2; exit 1; }
+mkdir -p /opt/lab-classroom/class35
+find /opt/lab-classr…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The fixed root prevents accidental operation on unrelated data. The incoming, library, and work directories are descendants of the same intended lab root.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The fixed root prevents accidental operation on unrelated data.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Create and inspect a completed source file</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create and inspect a completed source file</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>ROOT=/opt/lab-classroom/class35; printf 'class35-media-payload\nsegment-two\n' &gt; "$ROOT/incoming/episode.bin"<br />
+stat -c 'path=%n device=%d inode=%i links=%h size=%s blocks=%b' /opt/lab-classroom/class35/incoming/episode.bin<br />
+sha256sum /opt/lab-classroom/class35/incoming/episode.bin<br />
+findmnt -T /opt/lab-classroom/class35/incoming/episode.bin -o TARGET,SOURCE,FSTYPE,OPTIONS</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>This establishes the source inode, integrity hash, and filesystem placement before import.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Create a hardlinked library name</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create a hardlinked library name</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>ln /opt/lab-classroom/class35/incoming/episode.bin /opt/lab-classroom/class35/library/episode.bin<br />
+stat -c 'path=%n device=%d inode=%i links=%h size=%s blocks=%b' /opt/lab-classroom/class35/incoming/episode.bin /opt/lab-classroom/class35/library/episode.bin<br />
+sha256sum /opt/lab-classroom/class35/incoming/episode.bin /opt/lab-classroom/class35/library/episode.bin</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>Both paths should report the same device and inode. Their hashes should match, and the shared inode's link count should reflect both names.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Prove that hardlinks share mutable content</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Prove that hardlinks share mutable content</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>ROOT=/opt/lab-classroom/class35; printf 'shared-update\n' &gt;&gt; "$ROOT/library/episode.bin"<br />
+tail -n 1 /opt/lab-classroom/class35/incoming/episode.bin<br />
+stat -c 'path=%n inode=%i links=%h size=%s' /opt/lab-classroom/class35/incoming/episode.bin /opt/lab-classroom/class35/library/episode.bin</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>Appending through the library name changes the common inode, so the incoming name exposes the same appended bytes. This is why hardlinks are not independent backups.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Demonstrate atomic replacement and existing readers</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Demonstrate atomic replacement and existing readers</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>ROOT=/opt/lab-classroom/class35; printf 'version-one\n' &gt; "$ROOT/library/current.txt"; exec 3&lt;"$ROOT/library/current.txt"; printf 'version-two\n' &gt; "$ROOT/work/current.next"; printf 'before='; stat -c '%i' "$ROOT/library/current.txt"; mv -T "$ROOT/work/current.next" "$ROOT/library/current.txt"; printf 'after='; stat -c '%i' "$ROOT/library/current.txt"; IFS= read -r held &lt;&3; exec 3&lt;&amp;-; printf 'held_reader=%s\n' "$held"; printf 'fresh_reader='; cat "$ROOT/library/current.txt"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: ROOT=/opt/lab-classroom/class35; printf &#x27;version-one\n&#x27; &gt; &quot;$ROOT/library/current.txt&quot;; exec 3&lt;&quot;$ROOT/library/current.txt&quot;; printf &#x27;version-two\n&#x27; &gt; &quot;$ROOT/wo…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The open descriptor remains attached to the old inode and reads version-one, while a fresh lookup of the final pathname reads version-two. The replacement changes the directory entry rather than rewriting the old inode in place.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Publish through a temporary destination hardlink</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>ROOT=/opt/lab-classroom/class35; printf 'completed-movie-payload\n' &gt; "$ROOT/incoming/movie.bin"; ln "$ROOT/incoming/movie.bin" "$ROOT/library/.movie.bin.import"; mv -T "$ROOT/library/.movie.bin.import" "$ROOT/library/movie.bin"<br />
+stat -c 'path=%n device=%d inode=%i links=%h size=%s' /opt/lab-classroom/class35/incoming/movie.bin /opt/lab-classroom/class35/library/movie.bin<br />
+sha256sum /opt/lab-classroom/class35/incoming/movie.bin /opt/lab-classroom/class35/library/movie.bin<br />
+test /opt/lab-classroom/class35/incoming/movie.bin -ef /opt/lab-classroom/class35/library/movie.bin &amp;&amp; printf '%s\n' 'PASS: source and published path identify the same file'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The hidden temporary name is created inside the destination directory and is then renamed to the final name. The source remains available while the destination gains an efficient second name.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The hidden temporary name is created inside the destination directory and is then renamed to the final name.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Run final assertions</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run final assertions</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>test "$(stat -c '%d:%i' /opt/lab-classroom/class35/incoming/episode.bin)" = "$(stat -c '%d:%i' /opt/lab-classroom/class35/library/episode.bin)" &amp;&amp; printf '%s\n' 'PASS: episode paths share device and inode'<br />
+test "$(sha256sum /opt/lab-classroom/class35/incoming/movie.bin | awk '{print $1}')" = "$(sha256sum /opt/lab-classroom/class35/library/movie.bin | awk '{print $1}')" &amp;&amp; printf '%s\n' 'PASS: movie hashes match'<br />
+test ! -e /opt/lab-classroom/class35/library/.movie.bin.import &amp;&amp; printf '%s\n' 'PASS: temporary publication name is absent'<br />
+test "$(cat /opt/lab-classroom/class35/library/current.txt)" = 'version-two' &amp;&amp; printf '%s\n' 'PASS: final pathname resolves to the replacement'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>These assertions test identity, integrity, temporary-name cleanup, and final publication state without relying on timing measurements.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: These assertions test identity, integrity, temporary-name cleanup, and final publication state without relying on timing measurements.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The incoming and library episode paths report identical device and inode values after hardlink creation.</li>
+<li>The episode inode reports multiple links while both directory entries exist.</li>
+<li>Appending through the library episode path is visible through the incoming episode path.</li>
+<li>The held file descriptor reads version-one after current.txt has been replaced.</li>
+<li>A fresh lookup of library/current.txt reads version-two after the replacement.</li>
+<li>The incoming and library movie paths identify the same file and produce identical SHA-256 hashes.</li>
+<li>The temporary .movie.bin.import pathname is absent after successful publication.</li>
+<li>No performance number is expected or asserted; the lab verifies filesystem identity and behavior rather than presenting a benchmark.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run: stat -c 'path=%n device=%d inode=%i links=%h size=%s' /opt/lab-classroom/class35/incoming/episode.bin /opt/lab-classroom/class35/library/episode.bin</li>
+<li>[ ] Run: test /opt/lab-classroom/class35/incoming/episode.bin -ef /opt/lab-classroom/class35/library/episode.bin &amp;&amp; echo PASS</li>
+<li>[ ] Run: test /opt/lab-classroom/class35/incoming/movie.bin -ef /opt/lab-classroom/class35/library/movie.bin &amp;&amp; echo PASS</li>
+<li>[ ] Run: sha256sum /opt/lab-classroom/class35/incoming/movie.bin /opt/lab-classroom/class35/library/movie.bin and confirm that both displayed hashes are identical.</li>
+<li>[ ] Run: test ! -e /opt/lab-classroom/class35/library/.movie.bin.import &amp;&amp; echo PASS</li>
+<li>[ ] Run: test "$(cat /opt/lab-classroom/class35/library/current.txt)" = 'version-two' &amp;&amp; echo PASS</li>
+<li>[ ] Run: findmnt -T /opt/lab-classroom/class35/incoming/movie.bin and findmnt -T /opt/lab-classroom/class35/library/movie.bin; confirm that the paths resolve to the intended shared filesystem.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The ln command reports an invalid cross-device link.</td>
+<td>The source and destination resolve to different filesystems even if their pathnames appear close together.</td>
+<td>Compare stat device values and inspect both paths with findmnt. Place the incoming and library directories on the same filesystem for hardlink imports, or use a deliberately managed copy workflow.</td>
+</tr>
+<tr>
+<td>The ln command reports that the destination already exists.</td>
+<td>A prior run or interrupted import left the intended destination or temporary name in place.</td>
+<td>Inspect the existing entry, compare its inode and hash, and apply an explicit collision policy. Reset only the classroom directory if its contents are disposable.</td>
+</tr>
+<tr>
+<td>The source and destination hashes match but inode numbers differ.</td>
+<td>The file was copied rather than hardlinked, or one pathname was later replaced with a new inode.</td>
+<td>Compare device and inode values with stat. Recreate the test from a clean lab directory and use ln without symbolic-link options.</td>
+</tr>
+<tr>
+<td>Editing one hardlinked path unexpectedly changes the other path.</td>
+<td>Both names refer to the same inode, which is the defined behavior of hardlinks.</td>
+<td>Treat imported payloads as immutable. If independent modification is required, create a deliberate copy or replace one path with a separately generated file.</td>
+</tr>
+<tr>
+<td>The move appears to copy data instead of completing immediately as a metadata operation.</td>
+<td>The source and destination are on different filesystems, so the utility cannot use one direct rename operation.</td>
+<td>Inspect filesystem identity before moving. Create the publication temporary file inside the destination filesystem, then rename it to the final destination there.</td>
+</tr>
+<tr>
+<td>Permission is denied while creating the hardlink or renaming the temporary entry.</td>
+<td>The current account lacks directory write and search permissions, or a filesystem policy prevents hardlink creation.</td>
+<td>Inspect directory ownership, mode bits, mount options, and applicable mandatory access controls. Grant only the minimum access required for the classroom path.</td>
+</tr>
+<tr>
+<td>The reported link count is higher than expected.</td>
+<td>Additional hardlinks to the inode exist elsewhere on the same filesystem.</td>
+<td>Review the lab commands and search only within the controlled classroom tree using inode-aware find options. Do not assume that two visible names are the only links.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>Use a fixed, validated root directory before performing cleanup or publication operations.<br />
+Grant import services write access only to the directories where they must create or rename entries.<br />
+Treat user-supplied destination names as untrusted and reject path traversal, unexpected separators, and reserved names.<br />
+Use unique temporary names when concurrent import workers may publish into the same directory.<br />
+Define whether an existing destination must cause failure, versioning, quarantine, or intentional replacement.<br />
+Validate file type and content before publishing a source into a trusted library.<br />
+Do not treat hardlinks as backups because corruption or in-place modification is shared by every linked pathname.<br />
+Remember that deleting a pathname does not necessarily destroy data while another hardlink or open descriptor remains.<br />
+Avoid following untrusted symbolic links when an importer expects regular files.<br />
+Separate namespace atomicity from durability. Software with crash-consistency requirements should synchronize file data and relevant directory metadata appropriately.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>concurrency_notes</h4><p>A predictable temporary name is acceptable only in this isolated single-user lab. Production importers should create unique temporary names safely.<br />
+A check-then-create sequence can race with another worker. Prefer kernel operations and application designs that express collision behavior directly.<br />
+Readers that opened the former destination before replacement may continue to consume the former inode.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>goal</h4><p>Remove all artifacts created by this class while leaving every path outside the classroom directory untouched.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Remove all artifacts created by this class while leaving every path outside the classroom directory untouched.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>commands</h4><p>test -d /opt/lab-classroom/class35 &amp;&amp; find /opt/lab-classroom/class35 -mindepth 1 -delete</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: test -d /opt/lab-classroom/class35 &amp;&amp; find /opt/lab-classroom/class35 -mindepth 1 -delete</div>
+ 
+</div></div><div class="cr-prose-block"><h4>verification</h4><p>Run: find /opt/lab-classroom/class35 -mindepth 1 -print<br />
+Successful rollback produces no listed descendants.<br />
+The directory /opt/lab-classroom/class35 itself remains available for future classroom use.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run: find /opt/lab-classroom/class35 -mindepth 1 -print
+Successful rollback produces no listed descendants.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>limitations</h4><p>Cleanup cannot reconstruct data that existed inside the classroom directory before the initial reset. Preserve any needed classroom artifacts separately before beginning the lab.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Cleanup cannot reconstruct data that existed inside the classroom directory before the initial reset.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01-sonarr-installation-and-first-configuration — Lab · Classroom</title>
+<meta name="description" content="01-sonarr-installation-and-first-configuration — Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/10-sonarr-radarr/topics/01-sonarr-installation-and-first-configuration/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M10 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M10 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 01-sonarr-installation-and-first-configuration — Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain Sonarr's role in a media automation architecture.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>A Linux x86_64 host with Python 3, tar, gzip, and standard process-management utilities installed.</li>
+<li>Permission to create and modify files under /opt/lab-classroom/class40/.</li>
+<li>TCP port 8989 must be unused on the laboratory host.</li>
+<li>Outbound HTTPS access to the official Sonarr download service.</li>
+<li>A web browser capable of reaching http://127.0.0.1:8989 from the laboratory host.</li>
+<li>Basic familiarity with Linux paths, processes, and file permissions.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>scope</h4><p>Every filesystem mutation performed by these steps remains below /opt/lab-classroom/class40/. The lab does not install packages, create operating-system users, alter host startup configuration, or create a system-wide service.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Every filesystem mutation performed by these steps remains below /opt/lab-classroom/class40/.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><p>Confirm the host architecture with: uname -m. Continue only when the result is x86_64.<br />
+Confirm that port 8989 is not already listening with: ss -ltn | grep ':8989'. No output is the desired pre-lab result.<br />
+Create the laboratory directories with: mkdir -p /opt/lab-classroom/class40/{app,artifacts,data,data-baseline,home,tmp,dotnet-bundle,xdg-config,xdg-cache,logs,media/tv}<br />
+Restrict the workspace so it is accessible only to its current owner with: chmod 700 /opt/lab-classroom/class40<br />
+Download the current Sonarr v4 Linux x64 archive over HTTPS with: python3 -c "import urllib.request; urllib.request.urlretrieve('https://services.sonarr.tv/v1/download/main/latest?version=4&amp;os=linux&amp;arch=x64', '/opt/lab-classroom/class40/artifacts/sonarr-linux-x64.tar.gz')"<br />
+Check that the downloaded object is a readable gzip-compressed tar archive with: tar -tzf /opt/lab-classroom/class40/artifacts/sonarr-linux-x64.tar.gz | head<br />
+Extract the archive into the application directory with: tar -xzf /opt/lab-classroom/class40/artifacts/sonarr-linux-x64.tar.gz -C /opt/lab-classroom/class40/app --strip-components=1<br />
+Confirm that the executable exists with: test -x /opt/lab-classroom/class40/app/Sonarr &amp;&amp; echo 'Sonarr executable is present'<br />
+Create a loopback-only initial configuration with: python3 -c "from pathlib import Path; Path('/opt/lab-classroom/class40/data/config.xml').write_text('&lt;?xml version=\"1.0\" encoding=\"utf-8\"?&gt;\n<Config>\n  <BindAddress>127.0.0.1</BindAddress>\n  <Port>8989</Port>\n  <SslPort>9898</SslPort>\n  <EnableSsl>False</EnableSsl>\n  <LaunchBrowser>False</LaunchBrowser>\n  <Branch>main</Branch>\n  <LogLevel>info</LogLevel>\n  <UrlBase></UrlBase>\n  <UpdateMechanism>BuiltIn</UpdateMechanism>\n</Config>\n', encoding='utf-8')"<br />
+Save the pre-start configuration as a rollback baseline with: cp -a /opt/lab-classroom/class40/data/. /opt/lab-classroom/class40/data-baseline/<br />
+Start Sonarr with all configurable runtime paths inside the class workspace by running: cd /opt/lab-classroom/class40; HOME=/opt/lab-classroom/class40/home TMPDIR=/opt/lab-classroom/class40/tmp XDG_CONFIG_HOME=/opt/lab-classroom/class40/xdg-config XDG_CACHE_HOME=/opt/lab-classroom/class40/xdg-cache DOTNET_BUNDLE_EXTRACT_BASE_DIR=/opt/lab-classroom/class40/dotnet-bundle nohup ./app/Sonarr -nobrowser -data=/opt/lab-classroom/class40/data &gt; /opt/lab-classroom/class40/logs/console.log 2&gt;&amp;1 &amp; printf '%s\n' "$!" &gt; /opt/lab-classroom/class40/sonarr.pid<br />
+Wait for startup, then verify that the recorded process exists with: kill -0 "$(cat /opt/lab-classroom/class40/sonarr.pid)" &amp;&amp; echo 'Sonarr process is running'<br />
+Verify loopback listening with: ss -ltn | grep '127.0.0.1:8989'<br />
+Open http://127.0.0.1:8989 in a browser on the same host. Complete the first-run authentication prompt using administrator-created values that are not copied into lesson notes or shell commands.<br />
+In Sonarr, open Settings, then Media Management. Enable advanced settings if required, select Add Root Folder, and add /opt/lab-classroom/class40/media/tv.<br />
+Review the default episode naming and quality-profile behavior without adding indexers or a download client. Preserve defaults unless you can explain the effect of a proposed change.<br />
+Open System, then Status, and record the displayed Sonarr version and application-data path in your private lab notes. Do not record authentication material or sensitive application access values.<br />
+Review System, then Logs. The absence of a configured download client or indexer is acceptable in this introductory lab.<br />
+Stop Sonarr at the end of the lab with: kill "$(cat /opt/lab-classroom/class40/sonarr.pid)"<br />
+Confirm shutdown with: while kill -0 "$(cat /opt/lab-classroom/class40/sonarr.pid)" 2&gt;/dev/null; do sleep 1; done; echo 'Sonarr has stopped'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The Sonarr application files exist under /opt/lab-classroom/class40/app/.</li>
+<li>Persistent configuration, database, and log data are created under /opt/lab-classroom/class40/data/.</li>
+<li>The Sonarr process starts successfully and listens only on 127.0.0.1:8989.</li>
+<li>The local browser displays the Sonarr onboarding or main application interface.</li>
+<li>Initial authentication is enabled using administrator-created values that are not embedded in the lesson.</li>
+<li>The path /opt/lab-classroom/class40/media/tv is accepted as a television root folder.</li>
+<li>Sonarr reports its application-data path as /opt/lab-classroom/class40/data.</li>
+<li>Indexer or download-client health notices may remain because those integrations are intentionally outside this lab.</li>
+<li>The recorded process stops cleanly when the lab shutdown command is run.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run test -x /opt/lab-classroom/class40/app/Sonarr &amp;&amp; echo PASS to confirm that the application executable is present.</li>
+<li>[ ] Run kill -0 "$(cat /opt/lab-classroom/class40/sonarr.pid)" &amp;&amp; echo PASS while Sonarr is expected to be running.</li>
+<li>[ ] Run ss -ltn | grep '127.0.0.1:8989' and confirm that the listening address is loopback rather than a wildcard address.</li>
+<li>[ ] Visit http://127.0.0.1:8989 and confirm that the authenticated Sonarr interface loads.</li>
+<li>[ ] In System Status, confirm that the application-data directory is /opt/lab-classroom/class40/data.</li>
+<li>[ ] In Settings and Media Management, confirm that /opt/lab-classroom/class40/media/tv appears as a root folder.</li>
+<li>[ ] Run test -f /opt/lab-classroom/class40/data/sonarr.db &amp;&amp; echo PASS after first startup to confirm creation of the application database.</li>
+<li>[ ] Inspect /opt/lab-classroom/class40/logs/console.log and the Sonarr Logs page for startup failures without publishing the complete configuration or sensitive application access values.</li>
+<li>[ ] After shutdown, run kill -0 "$(cat /opt/lab-classroom/class40/sonarr.pid)" 2&gt;/dev/null || echo PASS and confirm that PASS is displayed.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The archive download fails.</td>
+<td>The host lacks outbound HTTPS connectivity, name resolution is failing, or the official download service is temporarily unavailable.</td>
+<td>Confirm general network and DNS operation, verify that the official URL is reachable, and retry the Python download command. Do not substitute an untrusted mirror.</td>
+</tr>
+<tr>
+<td>The tar integrity check reports that the file is not a gzip archive.</td>
+<td>The download is incomplete or the service returned an error document instead of the archive.</td>
+<td>Inspect the file type with file /opt/lab-classroom/class40/artifacts/sonarr-linux-x64.tar.gz, download it again from the official service, and repeat the tar listing before extraction.</td>
+</tr>
+<tr>
+<td>The Sonarr executable does not start.</td>
+<td>The host architecture is not x86_64, the archive was not extracted correctly, required runtime support is unavailable, or execution is prohibited on the mounted filesystem.</td>
+<td>Recheck uname -m, confirm the executable bit, review /opt/lab-classroom/class40/logs/console.log, and use the official build matching the host architecture. This lesson's command is specifically for x86_64.</td>
+</tr>
+<tr>
+<td>Sonarr reports that port 8989 is already in use.</td>
+<td>Another service or another Sonarr process already owns the port.</td>
+<td>Use ss -ltnp to identify the existing listener. Stop only a process you own and understand, or conduct the class on an isolated host where port 8989 is free.</td>
+</tr>
+<tr>
+<td>The browser cannot open the Sonarr interface.</td>
+<td>Sonarr is still starting, the process exited, the browser is running on a different machine, or the listener was not created.</td>
+<td>Check the PID with kill -0, inspect console.log, and confirm the socket with ss. Because Sonarr is bound to 127.0.0.1, the browser must run on the same host unless a separately secured access method is deliberately configured.</td>
+</tr>
+<tr>
+<td>The root folder cannot be added.</td>
+<td>The directory does not exist or the Sonarr process lacks traversal or write permission.</td>
+<td>Confirm that /opt/lab-classroom/class40/media/tv exists and that the account running Sonarr owns or can write to the class workspace.</td>
+</tr>
+<tr>
+<td>Sonarr displays health notices about missing indexers or download clients.</td>
+<td>Those integrations were intentionally not configured in this introductory lab.</td>
+<td>Treat the notices as expected for this class. Configure real integrations only after reviewing their authentication, path, and network requirements.</td>
+</tr>
+<tr>
+<td>A later download completes but Sonarr cannot import it.</td>
+<td>The path reported by the download client is not visible to Sonarr, or Sonarr lacks permission to read the source and write the library.</td>
+<td>Compare the exact completed-download path seen by both applications, align container mounts if applicable, and grant the minimum required ownership and group access.</td>
+</tr>
+<tr>
+<td>The shutdown command says that the process does not exist.</td>
+<td>Sonarr already stopped or the PID file is stale.</td>
+<td>Check console.log for an earlier exit and use ps to confirm whether a Sonarr process owned by the lab user remains. Do not signal an unrelated process.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>The initial interface is bound to 127.0.0.1 so it is not directly exposed to other hosts.<br />
+Enable Sonarr authentication during onboarding even when access is currently limited to loopback.<br />
+Use unique administrator-created authentication values and keep them out of shell history, screenshots, lesson submissions, and source control.<br />
+Treat Sonarr's configuration directory and application-generated access material as sensitive.<br />
+Do not publish the complete contents of config.xml or unrestricted diagnostic bundles.<br />
+Keep the class workspace restricted to its owner unless a deliberate group-access design is required.<br />
+Download application archives only from the official Sonarr service. For production, pin an approved release and validate it using officially published integrity information when available.<br />
+Do not expose Sonarr directly to the public internet. Use a deliberately secured access architecture with authentication, encryption, updates, and access controls.<br />
+Run Sonarr as a non-privileged dedicated identity in production rather than as the system administrator.<br />
+Give Sonarr only the filesystem permissions needed to access its application data, completed downloads, and organized media library.<br />
+Review third-party indexers and download clients separately because each integration introduces its own trust boundary.<br />
+Back up the Sonarr application-data directory before upgrades or major configuration changes.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Stop the process with: kill "$(cat /opt/lab-classroom/class40/sonarr.pid)"<br />
+Wait for shutdown with: while kill -0 "$(cat /opt/lab-classroom/class40/sonarr.pid)" 2&gt;/dev/null; do sleep 1; done<br />
+Preserve the post-lab application state with: mv /opt/lab-classroom/class40/data /opt/lab-classroom/class40/data-after-lab<br />
+Re-create the data directory from the baseline with: mkdir -p /opt/lab-classroom/class40/data &amp;&amp; cp -a /opt/lab-classroom/class40/data-baseline/. /opt/lab-classroom/class40/data/<br />
+The portable application, downloaded archive, logs, baseline, and preserved post-lab state remain inside /opt/lab-classroom/class40/ for review.<br />
+To resume the completed configuration instead of the baseline, stop Sonarr, preserve the current data directory under another name within the class workspace, and rename data-after-lab back to data.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Stop the process with: kill &quot;$(cat /opt/lab-classroom/class40/sonarr.pid)&quot;
+Wait for shutdown with: while kill -0 &quot;$(cat /opt/lab-classroom/class40/sonarr.pid…</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

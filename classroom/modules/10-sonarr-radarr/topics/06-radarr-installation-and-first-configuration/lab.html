@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06-radarr-installation-and-first-configuration — Lab · Classroom</title>
+<meta name="description" content="06-radarr-installation-and-first-configuration — Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/10-sonarr-radarr/topics/06-radarr-installation-and-first-configuration/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M10 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M10 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 06-radarr-installation-and-first-configuration — Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain Radarr's role in a media automation architecture</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>A Linux homelab host with Docker Engine and the Docker Compose plugin already installed</li>
+<li>Permission to run Docker commands without changing host-wide configuration</li>
+<li>A web browser that can reach the homelab host on TCP port 7878</li>
+<li>The directory /opt/lab-classroom must already exist and be writable by the learner</li>
+<li>Basic familiarity with containers, bind mounts, ports, and YAML</li>
+<li>No existing service may be using the selected host port</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>scope_guard</h4><p>Every file or directory created by the lesson commands is located under /opt/lab-classroom/class45/. Do not substitute production media directories during this classroom exercise.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Every file or directory created by the lesson commands is located under /opt/lab-classroom/class45/.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Confirm Docker and Compose availability</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Confirm Docker and Compose availability</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>docker --version<br />
+docker compose version<br />
+id -u<br />
+id -g</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Run the checks without installing or reconfiguring anything. Record the numeric user and group identifiers if you want to compare them with the generated environment file.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run the checks without installing or reconfiguring anything.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create isolated persistent directories</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create isolated persistent directories</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>mkdir -p /opt/lab-classroom/class45/config /opt/lab-classroom/class45/media/movies /opt/lab-classroom/class45/downloads</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: mkdir -p /opt/lab-classroom/class45/config /opt/lab-classroom/class45/media/movies /opt/lab-classroom/class45/downloads</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>These directories contain all lesson-created persistent application data and media placeholders.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: These directories contain all lesson-created persistent application data and media placeholders.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the Compose environment file</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the Compose environment file</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>printf 'PUID=%s\nPGID=%s\nTZ=Etc/UTC\nHOST_PORT=7878\n' "$(id -u)" "$(id -g)" &gt; /opt/lab-classroom/class45/.env</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>The generated PUID and PGID match the current shell user. If port 7878 is already allocated, edit only HOST_PORT in this file and use the new port in subsequent browser instructions. Set TZ to a valid timezone name if local timestamps are preferred.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the Radarr Compose definition</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the Radarr Compose definition</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cat &gt; /opt/lab-classroom/class45/compose.yaml &lt;&lt;'EOF'<br />
+services:<br />
+  radarr:<br />
+    image: lscr.io/linuxserver/radarr:latest<br />
+    container_name: class45-radarr<br />
+    environment:<br />
+      PUID: ${PUID}<br />
+      PGID: ${PGID}<br />
+      TZ: ${TZ}<br />
+    volumes:<br />
+      - /opt/lab-classroom/class45/config:/config<br />
+      - /opt/lab-classroom/class45/media/movies:/movies<br />
+      - /opt/lab-classroom/class45/downloads:/downloads<br />
+    ports:<br />
+      - "${HOST_PORT:-7878}:7878"<br />
+    restart: unless-stopped<br />
+EOF</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>The three bind mounts use explicit host paths so there is no ambiguity about where classroom data is stored.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The three bind mounts use explicit host paths so there is no ambiguity about where classroom data is stored.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Validate the resolved Compose model</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Validate the resolved Compose model</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/lab-classroom/class45/.env -f /opt/lab-classroom/class45/compose.yaml config</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Inspect the rendered output. Confirm that the service has three expected bind mounts and that the selected host port maps to container port 7878 before starting it.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Start Radarr</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Start Radarr</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/lab-classroom/class45/.env -f /opt/lab-classroom/class45/compose.yaml up -d<br />
+docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/lab-classroom/class45/.env -f /opt/lab-classroom/class45/compose.yaml ps<br />
+docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/lab-classroom/class45/.env -f /opt/lab-classroom/class45/compose.yaml logs --tail 100 radarr</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Wait until the logs show that Radarr has started listening. Image download and first initialization duration depends on the host and network, so no fixed startup time is assumed.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Wait until the logs show that Radarr has started listening.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Complete initial authentication</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Complete initial authentication</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (commands)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Open http://HOST_ADDRESS:7878 in a browser, replacing HOST_ADDRESS and the port if necessary. When prompted, select an authentication method suitable for interactive administration, create a unique username and strong password, and save. Do not reuse another service's credentials. If the version presents authentication under Settings, open Settings, General, configure authentication, and save.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>8</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 8</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Review media-management settings</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Review media-management settings</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (commands)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Open Settings, Media Management. Review movie naming, folder naming, and Completed Download Handling. Leave destructive or large-scale rename actions unused in this empty classroom deployment. Save only settings you understand.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Open Settings, Media Management.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>9</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 9</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Add the movie root folder</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A root folder is the shelf where finished files should live.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (commands)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Open Settings, Media Management, then Root Folders. Add /movies as the root folder. Do not select /downloads: it is a staging path, not the organized library destination.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A root folder is the shelf where finished files should live.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>10</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 10</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Inspect quality profiles</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inspect quality profiles</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (commands)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Open Settings, Profiles and inspect an existing quality profile. Identify its accepted qualities, upgrade setting, and cutoff. A production policy should be chosen according to storage, client compatibility, and content preferences; this lab does not prescribe a universal profile.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These rules grade releases so your apps pick the quality you actually want.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>11</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 11</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Review system health</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (commands)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Open System, Status and System, Health. Record the displayed Radarr version and container-relevant paths. Missing indexer and download-client notices are expected because those integrations are intentionally outside this class.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>12</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 12</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Test persistence through a controlled restart</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Test persistence through a controlled restart</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/lab-classroom/class45/.env -f /opt/lab-classroom/class45/compose.yaml restart radarr<br />
+docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/lab-classroom/class45/.env -f /opt/lab-classroom/class45/compose.yaml ps</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>After Radarr is available again, sign in and confirm that /movies remains configured as the root folder.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A root folder is the shelf where finished files should live.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The Compose model resolves without a YAML or interpolation error.</li>
+<li>The class45-radarr container is running and publishes the selected host port to container port 7878.</li>
+<li>The Radarr web interface is reachable from the learner's browser.</li>
+<li>Administrative authentication is enabled with learner-selected credentials.</li>
+<li>Radarr accepts /movies as a root folder.</li>
+<li>Configuration files appear beneath /opt/lab-classroom/class45/config/ after first startup.</li>
+<li>The /movies root folder remains configured after a controlled container restart.</li>
+<li>System Health may report missing indexers or download clients because those integrations are intentionally not configured.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A root folder is the shelf where finished files should live.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run: docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/lab-classroom/class45/.env -f /opt/lab-classroom/class45/compose.yaml ps</li>
+<li>[ ] Confirm that class45-radarr is listed as running and that the displayed port mapping ends in container port 7878.</li>
+<li>[ ] Run: docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/lab-classroom/class45/.env -f /opt/lab-classroom/class45/compose.yaml logs --tail 100 radarr</li>
+<li>[ ] Confirm that the recent logs do not show a repeating startup crash, database-open failure, or permission-denied loop.</li>
+<li>[ ] Sign in through the web interface and confirm that Settings, Media Management lists /movies as a root folder.</li>
+<li>[ ] Open System, Status and confirm that Radarr reports an application version and uses /config for application data.</li>
+<li>[ ] Restart the service with Docker Compose, sign in again, and confirm that authentication and the /movies root folder persist.</li>
+<li>[ ] Run: find /opt/lab-classroom/class45 -maxdepth 2 -type d -print</li>
+<li>[ ] Confirm that the classroom configuration, media, and download directories remain under /opt/lab-classroom/class45/.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Docker Compose reports that the host port is already allocated.</td>
+<td>Another process or container is already listening on the HOST_PORT value.</td>
+<td>Edit /opt/lab-classroom/class45/.env, assign an unused high port to HOST_PORT, start the Compose project again, and browse to the revised port.</td>
+</tr>
+<tr>
+<td>The browser cannot connect even though the container was started.</td>
+<td>Radarr is still initializing, the wrong host address or host port was used, or the container exited.</td>
+<td>Check Docker Compose status and recent Radarr logs. Verify the HOST_PORT value in the environment file and use the Docker host's reachable address rather than the container's internal address.</td>
+</tr>
+<tr>
+<td>The container repeatedly restarts and logs show permission-denied errors under /config.</td>
+<td>The PUID or PGID does not represent an identity that can write to the classroom directories, or the directories were created by a different account.</td>
+<td>Stop the Compose project, inspect directory ownership and the numeric values in .env, then have the lab administrator assign the classroom directory to the intended lab account. Do not broaden permissions indiscriminately.</td>
+</tr>
+<tr>
+<td>Radarr refuses to add /movies or reports that the folder is not writable.</td>
+<td>The movie bind mount is missing, incorrectly typed, or inaccessible to the configured container identity.</td>
+<td>Run the Compose configuration validation command, confirm the host path maps to /movies, inspect recent logs, and correct the mapping or classroom-directory ownership before recreating the service.</td>
+</tr>
+<tr>
+<td>The selected root folder disappears after a restart.</td>
+<td>The /config mount was omitted, changed, or not writable, so Radarr used nonpersistent container storage or could not save its database.</td>
+<td>Confirm that /opt/lab-classroom/class45/config maps to /config and that startup logs show no database-write errors. Restore the expected mapping and start the service again.</td>
+</tr>
+<tr>
+<td>System Health reports that no indexers or download clients are available.</td>
+<td>This introductory deployment intentionally does not configure those external services.</td>
+<td>Treat these notices as expected for this class. Configure approved indexer and download-client integrations in later classes before expecting automated searches or transfers.</td>
+</tr>
+<tr>
+<td>A future download completes but Radarr cannot import the reported file.</td>
+<td>Radarr and the download client refer to the shared data using different container paths, or Radarr lacks access to the completed file.</td>
+<td>Prefer consistent shared container paths between the applications. If the download client is remote and consistency is impossible, configure a carefully tested remote path mapping and verify access permissions.</td>
+</tr>
+<tr>
+<td>The learner cannot sign in after initial setup.</td>
+<td>The username, password, or selected authentication method was recorded incorrectly.</td>
+<td>First verify the exact address and credentials. For classroom recovery, stop the service and follow the version-appropriate official Radarr authentication recovery documentation; preserve a copy of the configuration directory before editing application configuration.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Keep the Radarr administrative interface on a trusted management network and do not publish it directly to the public internet.<br />
+Enable authentication during first configuration and use a unique, strong password.<br />
+Treat the Radarr API key as a secret because it authorizes programmatic control of the application.<br />
+Grant the container identity write access only to the configuration, intended library, and staging directories it requires.<br />
+Do not solve permission problems by granting unrestricted access to every local user.<br />
+Review release sources and integrations before entering credentials or API keys.<br />
+Use encrypted transport through a properly managed reverse proxy if administration must cross an untrusted network.<br />
+Pin a tested image version or immutable digest for a production deployment instead of accepting unreviewed image changes automatically.<br />
+Back up the persistent /config directory before upgrades or database recovery work.<br />
+Do not point this classroom instance at an existing production movie library.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An API key is a password apps use to talk to each other. Keep it private.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>goal</h4><p>Stop Radarr and disable accidental relaunch while preserving all classroom data for inspection or later recovery.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Stop Radarr and disable accidental relaunch while preserving all classroom data for inspection or later recovery.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>steps</h4><p>Run: docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/lab-classroom/class45/.env -f /opt/lab-classroom/class45/compose.yaml down<br />
+Run: mv /opt/lab-classroom/class45/compose.yaml /opt/lab-classroom/class45/compose.yaml.disabled<br />
+Confirm that class45-radarr no longer appears in: docker ps --filter name=class45-radarr<br />
+Leave /opt/lab-classroom/class45/config/, /opt/lab-classroom/class45/media/, and /opt/lab-classroom/class45/downloads/ intact.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>restore</h4><p>Run: mv /opt/lab-classroom/class45/compose.yaml.disabled /opt/lab-classroom/class45/compose.yaml<br />
+Validate the Compose model again.<br />
+Start the project with the same Docker Compose command used in the lab.<br />
+Sign in and confirm that the persisted root-folder configuration is present.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

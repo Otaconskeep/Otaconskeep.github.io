@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03-sonarr-quality-profiles-searching-and-importing — Reading · Classroom</title>
+<meta name="description" content="03-sonarr-quality-profiles-searching-and-importing — Reading">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/10-sonarr-radarr/topics/03-sonarr-quality-profiles-searching-and-importing/reading.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M10 READING<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M10 READING<small>reading</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 03-sonarr-quality-profiles-searching-and-importing — Reading</h1>
+ <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ 
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
+<strong>Activity type:</strong> Reading (Learn)<br />
+<strong>Objective:</strong> Explain the difference between a quality definition, quality profile, custom format, and release score.</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quality definition</td>
+<td>A named source and resolution category, such as WEBDL-1080p or Bluray-1080p, together with configurable file-size limits.</td>
+</tr>
+<tr>
+<td>Quality profile</td>
+<td>A policy assigned to a series that identifies allowed qualities, their preference order, whether upgrades are permitted, and when quality upgrades should stop.</td>
+</tr>
+<tr>
+<td>Custom format</td>
+<td>A set of matching conditions used to classify release characteristics such as codec, release group, audio format, streaming service, or unwanted attributes.</td>
+</tr>
+<tr>
+<td>Custom-format score</td>
+<td>The sum of the scores assigned by the active quality profile to all custom formats matched by a release.</td>
+</tr>
+<tr>
+<td>Minimum custom-format score</td>
+<td>The lowest acceptable custom-format score. A release below this threshold is ineligible even when its quality is allowed.</td>
+</tr>
+<tr>
+<td>Upgrade-until quality</td>
+<td>The quality level at which Sonarr no longer needs to seek a higher quality for an existing episode file.</td>
+</tr>
+<tr>
+<td>Upgrade-until custom-format score</td>
+<td>The custom-format score target used when determining whether further score-based upgrades remain desirable within the applicable quality rules.</td>
+</tr>
+<tr>
+<td>Monitored episode</td>
+<td>An episode Sonarr is permitted to consider for grabbing when an eligible release is discovered or a search is initiated.</td>
+</tr>
+<tr>
+<td>RSS sync</td>
+<td>Periodic processing of newly announced releases from configured indexers. It does not perform a historical search of the indexer's entire catalog.</td>
+</tr>
+<tr>
+<td>Automatic search</td>
+<td>A search in which Sonarr evaluates results and attempts to grab the best eligible candidate without requiring the operator to choose a release.</td>
+</tr>
+<tr>
+<td>Interactive search</td>
+<td>A search that displays candidates, scores, rejection reasons, age, size, indexer, and other details so an operator can select a release.</td>
+</tr>
+<tr>
+<td>Completed Download Handling</td>
+<td>The Sonarr process that observes completed download-client jobs and imports recognized episode files into the configured series folder.</td>
+</tr>
+<tr>
+<td>Remote path mapping</td>
+<td>A mapping used when the download client reports a path that is valid in its environment but differs from the path through which Sonarr accesses the same files.</td>
+</tr>
+<tr>
+<td>Hardlink</td>
+<td>A second directory entry pointing to the same file data on one filesystem. A hardlink allows a seeding copy and a library copy to coexist without duplicating file content.</td>
+</tr>
+<tr>
+<td>Manual import</td>
+<td>An operator-guided import in which files are reviewed and mapped to series, season, episode, quality, and language information before being placed in the library.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div><div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>Sonarr makes acquisition decisions by combining several layers of policy. Quality definitions describe categories and size limits, while a quality profile says which categories are allowed and how they are ordered. A custom format does not create a quality category; it detects additional release characteristics and contributes a score configured in the selected profile. This distinction matters because an allowed quality can still be rejected for falling below the minimum custom-format score, exceeding a size limit, being blocklisted, being unparsable, or failing another eligibility rule.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Monitoring is permission, not an immediate search request. A monitored missing episode can be considered when RSS processing discovers a newly posted release, but RSS processing normally examines recent announcements rather than searching all historical results. An automatic search actively queries indexers and lets Sonarr select an eligible result. An interactive search exposes the candidates and rejection reasons to the operator. Interactive search is therefore the preferred diagnostic tool when a release exists but Sonarr does not choose it.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Upgrade behavior must be evaluated against the episode's current file. Sonarr considers whether upgrades are enabled, whether the candidate quality is preferred over the current quality, whether configured targets have already been reached, and whether custom-format scoring permits or favors replacement. Quality order remains meaningful; a large positive score should not be treated as permission to ignore every other profile rule. Administrators should inspect the rejection icons and decision details rather than assuming that the numerically highest score always wins.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-prose-block"><p>After a download completes, Sonarr must be able to resolve the path reported by the download client, identify a video file, parse or otherwise map it to the correct episode, and write to the series folder. If Sonarr and the download client see different path namespaces, a remote path mapping may be required. Container deployments frequently fail here because the two applications mount the same storage at different internal paths. Consistent paths are simpler and reduce configuration mistakes.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: After a download completes, Sonarr must be able to resolve the path reported by the download client, identify a video file, parse or otherwise map it to the …</div>
+ 
+</div></div><div class="cr-prose-block"><p>An import can copy, move, or hardlink a file depending on download state, configuration, and filesystem layout. Hardlinks require the source and destination to reside on the same filesystem. They share an inode but remain independently named directory entries. Removing one name does not remove the underlying file while another hardlink remains. Hardlinks are especially useful when a completed torrent must continue seeding while the episode also appears under an organized library name. This lesson models the decision and hardlink import process entirely under the class sandbox; it does not claim to reproduce every Sonarr protocol or tie-break rule.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div></div><div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>components</h3>
+<p>Indexer: returns release metadata to Sonarr through a configured integration.<br />
+Sonarr decision engine: applies monitoring state, quality rules, custom formats, scores, size limits, history, and rejection rules.<br />
+Download client: retrieves the selected release and reports its state and output path.<br />
+Completed Download Handling: associates a completed job with a Sonarr grab and evaluates files for import.<br />
+Library filesystem: stores the organized series, season, and episode paths used by media servers.<br />
+Media server: scans the library after Sonarr has imported or renamed files.</p>
+<h3>decision_flow</h3>
+<p>A release is discovered through RSS processing or an explicit search.<br />
+Sonarr parses the title and associates it with a series and episode.<br />
+The assigned quality profile determines whether the parsed quality is allowed.<br />
+Size limits, language rules, custom formats, scores, history, and other restrictions are evaluated.<br />
+An eligible release may be sent to the download client.<br />
+The download client reports completion and a path.<br />
+Sonarr resolves the path, verifies episode mapping, and imports the media file.<br />
+The imported name and location are recorded in Sonarr's database, and configured downstream notifications may run.</p>
+<h3>lab_boundary</h3>
+<p>All generated profiles, candidate metadata, simulated downloads, library entries, reports, and rollback artifacts remain below /opt/lab-classroom/class42/. The lab does not contact indexers, modify a Sonarr database, or alter a real media library.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Sonarr Settings documentation: https://wiki.servarr.com/sonarr/settings</li>
+<li>Sonarr FAQ: https://wiki.servarr.com/sonarr/faq</li>
+<li>Sonarr troubleshooting guide: https://wiki.servarr.com/sonarr/troubleshooting</li>
+<li>TRaSH Guides Sonarr collection: https://trash-guides.info/Sonarr/</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These rules grade releases so your apps pick the quality you actually want.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Sonarr official site: https://sonarr.tv/</li>
+<li>Sonarr Settings documentation: https://wiki.servarr.com/sonarr/settings</li>
+<li>Sonarr FAQ: https://wiki.servarr.com/sonarr/faq</li>
+<li>Sonarr troubleshooting documentation: https://wiki.servarr.com/sonarr/troubleshooting</li>
+<li>TRaSH Guides for Sonarr: https://trash-guides.info/Sonarr/</li>
+<li>GNU Coreutils stat documentation: https://www.gnu.org/software/coreutils/manual/html_node/stat-invocation.html</li>
+<li>Linux man-pages link documentation: https://man7.org/linux/man-pages/man2/link.2.html</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These rules grade releases so your apps pick the quality you actually want.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="/classroom/modules/10-sonarr-radarr/">← Module hub</a><a href="lesson.html">Lesson →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

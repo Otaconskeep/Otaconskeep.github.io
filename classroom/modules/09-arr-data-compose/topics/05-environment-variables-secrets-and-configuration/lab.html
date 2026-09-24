@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05-environment-variables-secrets-and-configuration — Lab · Classroom</title>
+<meta name="description" content="05-environment-variables-secrets-and-configuration — Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/09-arr-data-compose/topics/05-environment-variables-secrets-and-configuration/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M9 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M9 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 05-environment-variables-secrets-and-configuration — Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> ARR Data Model &amp; Compose<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Distinguish ordinary configuration values from sensitive values that require stronger handling.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Completion of introductory Linux shell, file permissions, and process-management lessons.</li>
+<li>Python 3.9 or newer available as python3.</li>
+<li>A POSIX-compatible shell with env, stat, install, and chmod.</li>
+<li>The directory /opt/lab-classroom already exists and the learner has permission to create /opt/lab-classroom/class38/.</li>
+<li>All commands must be executed on a disposable lab host or classroom virtual machine.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>scope</h4><p>Every filesystem mutation in this lab is confined to /opt/lab-classroom/class38/. The credential is randomly generated for the exercise, has no external privileges, and is never printed.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Every filesystem mutation in this lab is confined to /opt/lab-classroom/class38/.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the isolated lab directories</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the isolated lab directories</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>install -d -m 0750 /opt/lab-classroom/class38<br />
+install -d -m 0750 /opt/lab-classroom/class38/config<br />
+install -d -m 0700 /opt/lab-classroom/class38/runtime</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: install -d -m 0750 /opt/lab-classroom/class38
+install -d -m 0750 /opt/lab-classroom/class38/config
+install -d -m 0700 /opt/lab-classroom/class38/runtime</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The configuration directory will hold non-sensitive data. The runtime directory has more restrictive permissions because it will hold the generated training credential.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The configuration directory will hold non-sensitive data.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create non-sensitive structured configuration</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create non-sensitive structured configuration</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>python3 - &lt;&lt;'PY'<br />
+import json<br />
+from pathlib import Path<br />
+path = Path('/opt/lab-classroom/class38/config/config.json')<br />
+data = {'app_mode': 'normal', 'log_level': 'info'}<br />
+path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')<br />
+path.chmod(0o640)<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 - &lt;&lt;&#x27;PY&#x27;
+import json
+from pathlib import Path
+path = Path(&#x27;/opt/lab-classroom/class38/config/config.json&#x27;)
+data = {&#x27;app_mode&#x27;: &#x27;normal&#x27;, &#x27;log_level&#x27;:…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The file contains only ordinary configuration. Python writes valid JSON directly, avoiding any need to treat configuration data as executable shell syntax.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The file contains only ordinary configuration.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Generate a disposable credential without displaying it</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Generate a disposable credential without displaying it</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>python3 - &lt;&lt;'PY'<br />
+import os<br />
+import secrets<br />
+from pathlib import Path<br />
+path = Path('/opt/lab-classroom/class38/runtime/app.token')<br />
+flags = os.O_WRONLY | os.O_CREAT | os.O_TRUNC<br />
+fd = os.open(path, flags, 0o600)<br />
+with os.fdopen(fd, 'w', encoding='utf-8') as handle:<br />
+    handle.write(secrets.token_urlsafe(32))<br />
+    handle.write('\n')<br />
+path.chmod(0o600)<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 - &lt;&lt;&#x27;PY&#x27;
+import os
+import secrets
+from pathlib import Path
+path = Path(&#x27;/opt/lab-classroom/class38/runtime/app.token&#x27;)
+flags = os.O_WRONLY | os.O_CRE…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The credential is generated locally, written with restrictive permissions, and never sent to standard output. It is valid only as lab data and grants access to no service.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The credential is generated locally, written with restrictive permissions, and never sent to standard output.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the configuration-loading application</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the configuration-loading application</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>python3 - &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+program = '''import json<br />
+import os<br />
+import stat<br />
+from pathlib import Path</p>
+<p>ROOT = Path("/opt/lab-classroom/class38").resolve()<br />
+CONFIG_PATH = ROOT / "config" / "config.json"<br />
+DEFAULTS = {"app_mode": "normal", "log_level": "warning"}<br />
+ALLOWED_MODES = {"normal", "maintenance"}<br />
+ALLOWED_LEVELS = {"debug", "info", "warning", "error"}</p>
+<p>def require_choice(name, value, allowed):<br />
+    if value not in allowed:<br />
+        raise SystemExit(f"invalid {name}: {value!r}")<br />
+    return value</p>
+<p>def load_sensitive_file():<br />
+    supplied = os.environ.get("APP_TOKEN_FILE")<br />
+    if not supplied:<br />
+        raise SystemExit("APP_TOKEN_FILE is required")<br />
+    path = Path(supplied).resolve(strict=True)<br />
+    if ROOT not in path.parents:<br />
+        raise SystemExit("sensitive file must remain inside the class38 lab root")<br />
+    info = path.stat()<br />
+    if not stat.S_ISREG(info.st_mode):<br />
+        raise SystemExit("sensitive path is not a regular file")<br />
+    permissions = stat.S_IMODE(info.st_mode)<br />
+    if permissions &amp; 0o077:<br />
+        raise SystemExit("sensitive file has group or other permission bits")<br />
+    value = path.read_text(encoding="utf-8").rstrip("\n")<br />
+    if not value:<br />
+        raise SystemExit("sensitive file is empty")<br />
+    return value</p>
+<p>def main():<br />
+    settings = dict(DEFAULTS)<br />
+    file_settings = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))<br />
+    unknown = set(file_settings) - {"app_mode", "log_level"}<br />
+    if unknown:<br />
+        raise SystemExit(f"unknown configuration keys: {sorted(unknown)}")<br />
+    settings.update(file_settings)<br />
+    if "APP_MODE" in os.environ:<br />
+        settings["app_mode"] = os.environ["APP_MODE"]<br />
+    if "LOG_LEVEL" in os.environ:<br />
+        settings["log_level"] = os.environ["LOG_LEVEL"]<br />
+    settings["app_mode"] = require_choice("app_mode", settings["app_mode"], ALLOWED_MODES)<br />
+    settings["log_level"] = require_choice("log_level", settings["log_level"], ALLOWED_LEVELS)<br />
+    sensitive_value = load_sensitive_file()<br />
+    safe_status = {<br />
+        "app_mode": settings["app_mode"],<br />
+        "log_level": settings["log_level"],<br />
+        "sensitive_value_loaded": bool(sensitive_value)<br />
+    }<br />
+    print(json.dumps(safe_status, sort_keys=True))</p>
+<p>if <strong>name</strong> == "<strong>main</strong>":<br />
+    main()<br />
+'''<br />
+path = Path('/opt/lab-classroom/class38/app.py')<br />
+path.write_text(program, encoding='utf-8')<br />
+path.chmod(0o750)<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The application allow-lists configuration keys and values, constrains the sensitive path to the lab root, requires a regular file, rejects broad permissions, and emits only safe status information.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The application allow-lists configuration keys and values, constrains the sensitive path to the lab root, requires a regular file, rejects broad permissions,…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Observe environment inheritance using harmless data</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Observe environment inheritance using harmless data</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>env LAB_DISPLAY=child-visible python3 -c 'import os; print(os.environ["LAB_DISPLAY"])'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: env LAB_DISPLAY=child-visible python3 -c &#x27;import os; print(os.environ[&quot;LAB_DISPLAY&quot;])&#x27;</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The Python child process receives LAB_DISPLAY from its parent invocation. This demonstrates inheritance without placing sensitive data in the environment.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The Python child process receives LAB_DISPLAY from its parent invocation.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Run with file configuration and environment overrides</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run with file configuration and environment overrides</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>env APP_MODE=maintenance LOG_LEVEL=debug APP_TOKEN_FILE=/opt/lab-classroom/class38/runtime/app.token python3 /opt/lab-classroom/class38/app.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: env APP_MODE=maintenance LOG_LEVEL=debug APP_TOKEN_FILE=/opt/lab-classroom/class38/runtime/app.token python3 /opt/lab-classroom/class38/app.py</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The environment overrides the JSON values for application mode and log level. APP_TOKEN_FILE carries only a path. The sensitive file contents are not included in the command or output.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Verify that unsafe permissions fail closed</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Verify that unsafe permissions fail closed</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>chmod 0644 /opt/lab-classroom/class38/runtime/app.token<br />
+env APP_TOKEN_FILE=/opt/lab-classroom/class38/runtime/app.token python3 /opt/lab-classroom/class38/app.py; test $? -ne 0<br />
+chmod 0600 /opt/lab-classroom/class38/runtime/app.token</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: chmod 0644 /opt/lab-classroom/class38/runtime/app.token
+env APP_TOKEN_FILE=/opt/lab-classroom/class38/runtime/app.token python3 /opt/lab-classroom/class38/ap…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The application must reject a sensitive file that has group or other permission bits. The final command restores the intended mode before continuing.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>8</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 8</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Rotate the credential with atomic replacement</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Rotate the credential with atomic replacement</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>python3 - &lt;&lt;'PY'<br />
+import os<br />
+import secrets<br />
+from pathlib import Path<br />
+runtime = Path('/opt/lab-classroom/class38/runtime')<br />
+active = runtime / 'app.token'<br />
+staged = runtime / 'app.token.next'<br />
+fd = os.open(staged, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)<br />
+with os.fdopen(fd, 'w', encoding='utf-8') as handle:<br />
+    handle.write(secrets.token_urlsafe(32))<br />
+    handle.write('\n')<br />
+    handle.flush()<br />
+    os.fsync(handle.fileno())<br />
+staged.chmod(0o600)<br />
+os.replace(staged, active)<br />
+PY<br />
+env APP_TOKEN_FILE=/opt/lab-classroom/class38/runtime/app.token python3 /opt/lab-classroom/class38/app.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 - &lt;&lt;&#x27;PY&#x27;
+import os
+import secrets
+from pathlib import Path
+runtime = Path(&#x27;/opt/lab-classroom/class38/runtime&#x27;)
+active = runtime / &#x27;app.token&#x27;
+staged…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The replacement file is fully written and synchronized before os.replace makes it active. Both paths reside in the same directory and filesystem, enabling atomic replacement under normal POSIX filesystem semantics.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The replacement file is fully written and synchronized before os.replace makes it active.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>9</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 9</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Inspect metadata without reading sensitive content</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inspect metadata without reading sensitive content</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>stat -c 'mode=%a type=%F path=%n' /opt/lab-classroom/class38/runtime/app.token<br />
+python3 -m json.tool /opt/lab-classroom/class38/config/config.json</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: stat -c &#x27;mode=%a type=%F path=%n&#x27; /opt/lab-classroom/class38/runtime/app.token
+python3 -m json.tool /opt/lab-classroom/class38/config/config.json</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>Metadata and non-sensitive configuration are safe to inspect. Do not display, copy, or include the credential file in diagnostic output.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Metadata and non-sensitive configuration are safe to inspect.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The harmless inheritance test prints child-visible.</li>
+<li>The first application run prints a JSON object showing app_mode as maintenance, log_level as debug, and sensitive_value_loaded as true.</li>
+<li>No command or application output displays the generated credential.</li>
+<li>The application exits unsuccessfully while the credential file mode is 0644 and reports that group or other permission bits are present.</li>
+<li>After mode 0600 is restored, the application starts successfully.</li>
+<li>The rotation procedure completes without producing the old or new credential on standard output.</li>
+<li>The post-rotation application run reports sensitive_value_loaded as true.</li>
+<li>The final stat command reports mode=600 and type=regular file for the active credential.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run: test -d /opt/lab-classroom/class38/config &amp;&amp; test -d /opt/lab-classroom/class38/runtime. Success is indicated by exit status zero.</li>
+<li>[ ] Run: python3 -m json.tool /opt/lab-classroom/class38/config/config.json &gt;/dev/null. Success confirms that the non-sensitive configuration is valid JSON.</li>
+<li>[ ] Run: test "$(stat -c '%a' /opt/lab-classroom/class38/runtime/app.token)" = 600. Success confirms the intended permission mode.</li>
+<li>[ ] Run: test -f /opt/lab-classroom/class38/runtime/app.token &amp;&amp; test -s /opt/lab-classroom/class38/runtime/app.token. Success confirms that the active path is a non-empty regular file without revealing its contents.</li>
+<li>[ ] Run: env APP_MODE=maintenance LOG_LEVEL=debug APP_TOKEN_FILE=/opt/lab-classroom/class38/runtime/app.token python3 /opt/lab-classroom/class38/app.py. Verify that the output contains only effective non-sensitive settings and a true loaded status.</li>
+<li>[ ] Run: test ! -e /opt/lab-classroom/class38/runtime/app.token.next. Success confirms that the staged rotation path was replaced rather than left behind.</li>
+<li>[ ] Review the terminal history for the lab and confirm that no generated credential content was printed or supplied as a command argument.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Creating /opt/lab-classroom/class38 fails with permission denied.</td>
+<td>The classroom parent directory was not provisioned as writable for the learner.</td>
+<td>Ask the lab administrator to create /opt/lab-classroom and delegate access. Do not redirect the exercise to another path because the application intentionally enforces the assigned lab root.</td>
+</tr>
+<tr>
+<td>python3 is not found.</td>
+<td>Python 3 is not installed or is not available through the current PATH.</td>
+<td>Use a lab image that satisfies the prerequisite or have the administrator install Python 3 through the operating system's trusted package-management process.</td>
+</tr>
+<tr>
+<td>The application reports that APP_TOKEN_FILE is required.</td>
+<td>The variable was omitted from the process invocation or was not exported to the child process.</td>
+<td>Run the complete env command from the lab so APP_TOKEN_FILE contains the approved path to the lab credential file.</td>
+</tr>
+<tr>
+<td>The application reports that the sensitive file is outside the lab root.</td>
+<td>APP_TOKEN_FILE identifies another location or resolves through a link to another location.</td>
+<td>Set APP_TOKEN_FILE to /opt/lab-classroom/class38/runtime/app.token and confirm that the active path is a regular file created by the lab.</td>
+</tr>
+<tr>
+<td>The application reports group or other permission bits.</td>
+<td>The sensitive file mode is broader than 0600, possibly because the deliberate failure test was not reversed.</td>
+<td>Run chmod 0600 /opt/lab-classroom/class38/runtime/app.token and repeat the application test.</td>
+</tr>
+<tr>
+<td>The application reports an invalid app_mode or log_level.</td>
+<td>The JSON file or environment override contains a value outside the application's allow-list.</td>
+<td>Use normal or maintenance for app_mode and debug, info, warning, or error for log_level.</td>
+</tr>
+<tr>
+<td>The application reports unknown configuration keys.</td>
+<td>An unsupported key was added to config.json.</td>
+<td>Remove the unsupported key. The lab schema permits only app_mode and log_level.</td>
+</tr>
+<tr>
+<td>Atomic replacement fails.</td>
+<td>The staged file and active file are not on the expected filesystem, the directory is not writable, or a previous manual change altered the lab layout.</td>
+<td>Confirm that both paths are directly under /opt/lab-classroom/class38/runtime, correct the directory permissions within the lab root, and rerun the rotation step.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>Classify values before choosing a delivery mechanism. A log level is not equivalent to an authentication credential.<br />
+Do not assume that environment variables are confidential merely because they are not stored in a normal configuration file.<br />
+Use allow-lists and explicit parsing rather than accepting arbitrary keys or values.<br />
+Place only the sensitive file path in the environment for this exercise, not the sensitive value.<br />
+Run services under dedicated identities and restrict sensitive files to the intended service identity.<br />
+Never print sensitive values during startup checks, debugging, verification, or rotation.<br />
+Exclude sensitive files from source control, image build contexts, backups that lack appropriate controls, and routine support archives.<br />
+Treat access to deployment systems, service managers, and container orchestrators as sensitive because they may be able to inject or retrieve runtime configuration.<br />
+Fail closed when a required sensitive file is missing, empty, unexpectedly typed, outside the approved root, or too broadly accessible.<br />
+Document rotation, revocation, audit, and service-reload behavior before deploying a real credential.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>production_notes</h4><p>A production secret-management system may provide identity-based access, encryption, short-lived credentials, audit records, automated rotation, and policy enforcement. A protected file is still useful as a delivery interface, but file permissions alone do not address host compromise, privileged users, backups, memory inspection, or accidental application logging. The lab credential is deliberately isolated and grants no external access.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A production secret-management system may provide identity-based access, encryption, short-lived credentials, audit records, automated rotation, and policy e…</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>goal</h4><p>Remove only the class-specific lab directory and all generated training data.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Remove only the class-specific lab directory and all generated training data.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>prechecks</h4><p>Confirm that the exact cleanup target is /opt/lab-classroom/class38.<br />
+Confirm that no production service uses any file below the class38 directory.<br />
+Confirm that the current lesson work has been assessed before deletion.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Confirm that the exact cleanup target is /opt/lab-classroom/class38.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>command</h4><p>python3 - &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import shutil<br />
+target = Path('/opt/lab-classroom/class38')<br />
+expected = Path('/opt/lab-classroom/class38')<br />
+if target != expected or target.parent != Path('/opt/lab-classroom'):<br />
+    raise SystemExit('refusing unexpected cleanup target')<br />
+if target.exists():<br />
+    shutil.rmtree(target)<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import shutil
+target = Path(&#x27;/opt/lab-classroom/class38&#x27;)
+expected = Path(&#x27;/opt/lab-classroom/class38&#x27;)
+if target !…</div>
+ 
+</div></div><div class="cr-prose-block"><h4>verification</h4><p>Run: test ! -e /opt/lab-classroom/class38. Exit status zero confirms that the class directory was removed while /opt/lab-classroom itself was preserved.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run: test !</div>
+ 
+</div></div><div class="cr-prose-block"><h4>recovery_note</h4><p>Cleanup permanently removes the disposable credential and lab files. Recreate them by repeating the lesson from step 1.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Tear it down and bring it back to prove your data and settings really survive.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

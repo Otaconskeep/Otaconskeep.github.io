@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03-docker-compose-fundamentals — Lab · Classroom</title>
+<meta name="description" content="03-docker-compose-fundamentals — Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/09-arr-data-compose/topics/03-docker-compose-fundamentals/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M9 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M9 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 03-docker-compose-fundamentals — Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> ARR Data Model &amp; Compose<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain the role of a Compose file and how it differs from an individual docker run command.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Completion of an introductory Docker lesson covering images, containers, ports, bind mounts, and container logs.</li>
+<li>A Linux host or virtual machine with Docker Engine installed and running.</li>
+<li>Docker Compose v2 available through the docker compose command.</li>
+<li>An account authorized to access the Docker daemon, either directly or through an approved privilege-elevation method.</li>
+<li>TCP port 8080 available on the loopback interface.</li>
+<li>Internet access for retrieving the referenced container images if they are not already present in the local image cache.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>title</h4><p>Build and Operate a Two-Service Compose Project</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Build and Operate a Two-Service Compose Project</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Confirm the tools</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Confirm the tools</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>docker version<br />
+docker compose version</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>Both commands must succeed before continuing. If Docker access is denied, correct the approved daemon-access configuration rather than changing broad filesystem permissions.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Both commands must succeed before continuing.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Create the bounded lab directories</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the bounded lab directories</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>install -d /opt/lab-classroom/class36/site</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: install -d /opt/lab-classroom/class36/site</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>This is the only host directory tree used for lab-created files.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: This is the only host directory tree used for lab-created files.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Create the static page</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the static page</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>printf '%s\n' '&lt;!doctype html&gt;' '<html lang="en">' '<head><meta charset="utf-8"><title>Class 36</title></head>' '<body><h1>Docker Compose Fundamentals</h1><p>Service discovery and bind mounts are working.</p></body>' '</html>' &gt; /opt/lab-classroom/class36/site/index.html</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The output redirection targets only the approved class directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The output redirection targets only the approved class directory.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Create the Compose model</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the Compose model</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>printf '%s\n' 'services:' '  web:' '    image: nginx:1.27-alpine' '    ports:' '      - "127.0.0.1:8080:80"' '    volumes:' '      - "/opt/lab-classroom/class36/site/index.html:/usr/share/nginx/html/index.html:ro"' '    networks:' '      - labnet' '    security_opt:' '      - no-new-privileges:true' '    healthcheck:' '      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/ &gt;/dev/null || exit 1"]' '      interval: 10s' '      timeout: 3s' '      retries: 5' '      start_period: 5s' '  client:' '    image: busybox:1.36' '    command: ["sh", "-c", "while true; do sleep 3600; done"]' '    networks:' '      - labnet' '    security_opt:' '      - no-new-privileges:true' 'networks:' '  labnet:' '    driver: bridge' &gt; /opt/lab-classroom/class36/compose.yaml</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>Compose files do not require a legacy version key. YAML indentation is significant.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> YAML is the indented text file that describes your services. Spaces matter.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Validate the Compose model</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Validate the Compose model</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml config --quiet<br />
+docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml config</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The first command should produce no output on success. The second displays the normalized model for review.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The first command should produce no output on success.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Start the project</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Start the project</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml up --detach</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>Docker may retrieve the declared images if they are not locally cached. Repeating this command reconciles the existing class36 project rather than intentionally creating an unrelated project.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Docker may retrieve the declared images if they are not locally cached.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Inspect service state</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inspect service state</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml ps<br />
+docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml logs --tail 30 web</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The web health state can initially be starting. Recheck after the configured health-check interval.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>8</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 8</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Verify internal service discovery</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Verify internal service discovery</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml exec -T client wget -qO- http://web/</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The client uses the service name web and container port 80. It does not use the published host port.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>9</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 9</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Inspect the project network</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A Docker network is a private chat room so containers can find each other by name.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>docker network inspect class36_labnet</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A Docker network is a private chat room so containers can find each other by name.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>Review the attached containers and labels. Do not build application logic around the displayed container IP addresses.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Review the attached containers and labels.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>10</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 10</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Observe declarative reconciliation</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Observe declarative reconciliation</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml up --detach<br />
+docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml ps</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>With an unchanged model, Compose should retain the existing desired project state instead of creating a second independently named stack.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: With an unchanged model, Compose should retain the existing desired project state instead of creating a second independently named stack.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The Compose model validates without a YAML or model error.</li>
+<li>The class36 project contains one web container and one client container.</li>
+<li>The web service becomes healthy after its HTTP health check succeeds.</li>
+<li>The client remains running and can resolve the service name web.</li>
+<li>The internal HTTP request returns HTML containing Docker Compose Fundamentals.</li>
+<li>The web service is published only on host address 127.0.0.1 and port 8080.</li>
+<li>The project has a Compose-managed network named class36_labnet.</li>
+<li>The mounted index.html file remains stored beneath /opt/lab-classroom/class36/.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml config --quiet; a zero exit status and no validation message indicate that the model is valid.</li>
+<li>[ ] Run docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml ps; web and client should be running, and web should eventually report healthy.</li>
+<li>[ ] Run docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml exec -T client wget -qO- http://web/; the response should contain the Class 36 page.</li>
+<li>[ ] Run docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml port web 80; the result should identify host loopback port 8080.</li>
+<li>[ ] Run docker network inspect class36_labnet; the output should identify the class36 project network and attached service containers.</li>
+<li>[ ] Run docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml logs --tail 30 web; successful requests should appear without an NGINX startup failure.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker compose is reported as an unknown command.</td>
+<td>The Docker Compose v2 plugin is not installed or the active Docker CLI cannot locate it.</td>
+<td>Install the Compose plugin using the operating system's approved package-management process, then confirm with docker compose version.</td>
+</tr>
+<tr>
+<td>Docker reports permission denied while connecting to the daemon socket.</td>
+<td>The current account is not authorized to access the Docker daemon.</td>
+<td>Use the environment's approved administrative access method or add the account through the documented Docker access process. Remember that Docker daemon access is effectively privileged.</td>
+</tr>
+<tr>
+<td>Compose reports a YAML parsing error.</td>
+<td>Indentation, quoting, or a key in compose.yaml was changed incorrectly.</td>
+<td>Compare the file with the lesson definition, use spaces rather than tabs, and rerun the config command before attempting to start services.</td>
+</tr>
+<tr>
+<td>The web service cannot publish port 8080.</td>
+<td>Another process or container is already listening on 127.0.0.1:8080.</td>
+<td>Stop the conflicting lab workload through its own lifecycle procedure, or choose an approved unused loopback port by editing only /opt/lab-classroom/class36/compose.yaml and then revalidate the model.</td>
+</tr>
+<tr>
+<td>The web container runs but remains unhealthy.</td>
+<td>NGINX did not start, the mounted file is inaccessible, or the health-check command is failing.</td>
+<td>Inspect the web logs, inspect the resolved Compose configuration, and confirm that /opt/lab-classroom/class36/site/index.html exists and is readable by the container.</td>
+</tr>
+<tr>
+<td>The client cannot resolve the name web.</td>
+<td>The services are not attached to the same Compose network or the wrong project/file combination was used.</td>
+<td>Run the config command and verify both services list labnet. Use the exact project name class36 and Compose file path shown in the lesson.</td>
+</tr>
+<tr>
+<td>The bind mount is denied on a host using mandatory access controls.</td>
+<td>The host security policy does not permit the container to read the file with its current label or policy context.</td>
+<td>Follow the platform's documented container-labeling procedure for content beneath the class36 directory. Do not disable the host security control globally.</td>
+</tr>
+<tr>
+<td>The expected network name is not present.</td>
+<td>A different project name was used or the project has already been stopped.</td>
+<td>Start the model with -p class36 and inspect the output of the Compose ps command before checking class36_labnet again.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>The published port is bound to 127.0.0.1, preventing direct exposure on external host interfaces. Remote access should be added only through an intentional, authenticated ingress design.<br />
+The site file is mounted read-only so the web container cannot modify the host copy through that mount.<br />
+Both services use no-new-privileges to prevent processes from gaining additional privileges through set-user-ID or set-group-ID executables.<br />
+The client has no published port and is reachable only through its attached Docker network and administrative Docker access.<br />
+The lab uses explicit image tags for repeatability at the lesson level, but tags are not immutable. Production deployments should use an image governance process and approved digest pinning without inventing or copying unverified digests.<br />
+Anyone with control of the Docker daemon can generally obtain host-level control. Treat Docker group membership and access to the daemon socket as privileged access.<br />
+Do not place passwords, API keys, or private keys directly in a Compose file. Use an appropriate secrets mechanism and restrict access according to the platform's threat model.<br />
+Review images for provenance, maintenance status, and known vulnerabilities before production use.<br />
+The lab does not grant privileged mode, host networking, host process namespace access, or unrestricted host filesystem mounts.<br />
+Application health checks establish availability signals, not application authenticity, authorization, or end-to-end security.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>goal</h4><p>Remove the class36 runtime resources while preserving the lesson files for review or reuse.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Remove the class36 runtime resources while preserving the lesson files for review or reuse.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>commands</h4><p>docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml down --remove-orphans</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>verification</h4><p>Run docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml ps; no class36 service containers should be listed.<br />
+Run docker network inspect class36_labnet; Docker should report that the project network is absent after a successful shutdown.<br />
+Confirm that /opt/lab-classroom/class36/compose.yaml and /opt/lab-classroom/class36/site/index.html remain available as lesson artifacts.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>scope</h4><p>The rollback targets only resources associated with the explicitly named class36 Compose project. It does not prune unrelated containers, networks, volumes, or images.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The rollback targets only resources associated with the explicitly named class36 Compose project.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

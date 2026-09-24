@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05-anime-absolute-numbering-and-multi-episode — Lab · Classroom</title>
+<meta name="description" content="05-anime-absolute-numbering-and-multi-episode — Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/10-sonarr-radarr/topics/05-anime-absolute-numbering-and-multi-episode/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M10 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M10 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 05-anime-absolute-numbering-and-multi-episode — Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain the difference between absolute, season-based, aired, DVD, and metadata-provider episode orderings.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Completion of a basic media-library naming lesson or equivalent familiarity with series, season, and episode folders.</li>
+<li>Ability to run shell commands and read simple regular expressions.</li>
+<li>Python 3 available on the lab host.</li>
+<li>An existing writable /opt/lab-classroom/ directory. The lab must not create or alter files outside /opt/lab-classroom/class44/.</li>
+<li>General familiarity with a media manager or server such as Sonarr, Jellyfin, Plex, or an equivalent application.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Completion of a basic media-library naming lesson or equivalent familiarity with series, season, and episode folders.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>scope</h4><p>This lab uses zero-byte mock media files. Every created, copied, written, or deleted object is confined to /opt/lab-classroom/class44/.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: This lab uses zero-byte mock media files.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>preflight</h4><p>Run: test -d /opt/lab-classroom &amp;&amp; test -w /opt/lab-classroom<br />
+Run: test ! -e /opt/lab-classroom/class44<br />
+If the second command fails, stop and use the rollback procedure or have an instructor review the existing directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run: test -d /opt/lab-classroom &amp;&amp; test -w /opt/lab-classroom
+Run: test !</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the isolated workspace</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the isolated workspace</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>mkdir /opt/lab-classroom/class44<br />
+mkdir /opt/lab-classroom/class44/incoming /opt/lab-classroom/class44/library /opt/lab-classroom/class44/manifests<br />
+mkdir -p '/opt/lab-classroom/class44/library/Star Harbor/Season 00' '/opt/lab-classroom/class44/library/Star Harbor/Season 01'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: mkdir /opt/lab-classroom/class44
+mkdir /opt/lab-classroom/class44/incoming /opt/lab-classroom/class44/library /opt/lab-classroom/class44/manifests
+mkdir -p &#x27;…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create fictional zero-byte source files</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create fictional zero-byte source files</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>touch '/opt/lab-classroom/class44/incoming/Star Harbor - S01E01-E02 - Twin Arrival [WEB-1080p].mkv'<br />
+touch '/opt/lab-classroom/class44/incoming/Star Harbor - 003 - Beacon [WEB-1080p].mkv'<br />
+touch '/opt/lab-classroom/class44/incoming/Star Harbor - S00E01 - Prologue [BD-1080p].mkv'<br />
+touch '/opt/lab-classroom/class44/incoming/Star Harbor - 004-005 - Cloud Gate Pair [WEB-1080p].mkv'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: touch &#x27;/opt/lab-classroom/class44/incoming/Star Harbor - S01E01-E02 - Twin Arrival [WEB-1080p].mkv&#x27;
+touch &#x27;/opt/lab-classroom/class44/incoming/Star Harbor - …</div>
+ 
+</div></div><div class="cr-lab-path"><h4>note</h4><p>These are empty test files and are not playable media.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: These are empty test files and are not playable media.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Record the explicit episode mapping</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Record the explicit episode mapping</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>printf '%s\n' 'absolute,season,episode,title' '001,01,01,Twin Arrival Part One' '002,01,02,Twin Arrival Part Two' '003,01,03,Beacon' '004,01,04,Cloud Gate Part One' '005,01,05,Cloud Gate Part Two' &gt; /opt/lab-classroom/class44/manifests/episode-map.csv</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: printf &#x27;%s\n&#x27; &#x27;absolute,season,episode,title&#x27; &#x27;001,01,01,Twin Arrival Part One&#x27; &#x27;002,01,02,Twin Arrival Part Two&#x27; &#x27;003,01,03,Beacon&#x27; &#x27;004,01,04,Cloud Gate Pa…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>note</h4><p>The prologue is already identified as S00E01 and is intentionally excluded from the numeric absolute map.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The prologue is already identified as S00E01 and is intentionally excluded from the numeric absolute map.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create and run a dry-run normalization tool</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create and run a dry-run normalization tool</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cat &gt; /opt/lab-classroom/class44/normalize.py &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import csv<br />
+import re</p>
+<p>root = Path('/opt/lab-classroom/class44').resolve()<br />
+incoming = root / 'incoming'<br />
+map_path = root / 'manifests' / 'episode-map.csv'<br />
+report_path = root / 'manifests' / 'normalization-report.txt'</p>
+<p>mapping = {}<br />
+with map_path.open(newline='', encoding='utf-8') as handle:<br />
+    for row in csv.DictReader(handle):<br />
+        key = int(row['absolute'])<br />
+        value = (int(row['season']), int(row['episode']), row['title'])<br />
+        if key in mapping:<br />
+            raise SystemExit(f'Duplicate absolute number in map: {key:03d}')<br />
+        mapping[key] = value</p>
+<p>season_pattern = re.compile(r' - S(?P<season>\d{2})E(?P<first>\d{2})(?:-E(?P<last>\d{2}))? - ')<br />
+absolute_pattern = re.compile(r' - (?P<first>\d{3})(?:-(?P<last>\d{3}))? - ')<br />
+lines = []<br />
+errors = []</p>
+<p>for path in sorted(incoming.iterdir()):<br />
+    name = path.name<br />
+    season_match = season_pattern.search(name)<br />
+    if season_match:<br />
+        first = int(season_match.group('first'))<br />
+        last = int(season_match.group('last') or first)<br />
+        if last &lt; first:<br />
+            errors.append(f'ERROR reversed season range: {name}')<br />
+        else:<br />
+            lines.append(f'KEEP {name}')<br />
+        continue</p>
+<pre><code>absolute_match = absolute_pattern.search(name)
+if not absolute_match:
+    errors.append(f'ERROR unrecognized numbering: {name}')
+    continue
+
+first_absolute = int(absolute_match.group('first'))
+last_absolute = int(absolute_match.group('last') or first_absolute)
+absolute_numbers = list(range(first_absolute, last_absolute + 1))
+missing = [number for number in absolute_numbers if number not in mapping]
+if missing:
+    errors.append(f"ERROR unmapped absolute numbers {','.join(f'{number:03d}' for number in missing)}: {name}")
+    continue
+
+mapped = [mapping[number] for number in absolute_numbers]
+seasons = {item[0] for item in mapped}
+episodes = [item[1] for item in mapped]
+if len(seasons) != 1:
+    errors.append(f'ERROR range crosses provider seasons: {name}')
+    continue
+if episodes != list(range(episodes[0], episodes[-1] + 1)):
+    errors.append(f'ERROR range is not contiguous in provider order: {name}')
+    continue
+
+season = mapped[0][0]
+token = f'S{season:02d}E{episodes[0]:02d}'
+if len(episodes) &gt; 1:
+    token += f'-E{episodes[-1]:02d}'
+target = name[:absolute_match.start()] + f' - {token} - ' + name[absolute_match.end():]
+lines.append(f'RENAME {name} -&gt; {target}')
+</code></pre>
+<p>report_path.write_text('\n'.join(lines + errors) + '\n', encoding='utf-8')<br />
+if errors:<br />
+    raise SystemExit(1)<br />
+PY<br />
+python3 /opt/lab-classroom/class44/normalize.py<br />
+cat /opt/lab-classroom/class44/manifests/normalization-report.txt</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cat &gt; /opt/lab-classroom/class44/normalize.py &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import csv
+import re
+
+root = Path(&#x27;/opt/lab-classroom/class44&#x27;).resolve()
+incom…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Stage the reviewed canonical names</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Stage the reviewed canonical names</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cp -- '/opt/lab-classroom/class44/incoming/Star Harbor - S00E01 - Prologue [BD-1080p].mkv' '/opt/lab-classroom/class44/library/Star Harbor/Season 00/Star Harbor - S00E01 - Prologue [BD-1080p].mkv'<br />
+cp -- '/opt/lab-classroom/class44/incoming/Star Harbor - S01E01-E02 - Twin Arrival [WEB-1080p].mkv' '/opt/lab-classroom/class44/library/Star Harbor/Season 01/Star Harbor - S01E01-E02 - Twin Arrival [WEB-1080p].mkv'<br />
+cp -- '/opt/lab-classroom/class44/incoming/Star Harbor - 003 - Beacon [WEB-1080p].mkv' '/opt/lab-classroom/class44/library/Star Harbor/Season 01/Star Harbor - S01E03 - Beacon [WEB-1080p].mkv'<br />
+cp -- '/opt/lab-classroom/class44/incoming/Star Harbor - 004-005 - Cloud Gate Pair [WEB-1080p].mkv' '/opt/lab-classroom/class44/library/Star Harbor/Season 01/Star Harbor - S01E04-E05 - Cloud Gate Pair [WEB-1080p].mkv'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cp -- &#x27;/opt/lab-classroom/class44/incoming/Star Harbor - S00E01 - Prologue [BD-1080p].mkv&#x27; &#x27;/opt/lab-classroom/class44/library/Star Harbor/Season 00/Star Har…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>note</h4><p>The source files remain unchanged. Copying models a reviewable staging workflow rather than an in-place bulk rename.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph—triggers, nodes, and how data flows between them.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Inspect the staged result</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inspect the staged result</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>find /opt/lab-classroom/class44 -type f -printf '%P\n' | sort<br />
+find /opt/lab-classroom/class44/library -type f -size +0c -print</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: find /opt/lab-classroom/class44 -type f -printf &#x27;%P\n&#x27; | sort
+find /opt/lab-classroom/class44/library -type f -size +0c -print</div>
+ 
+</div></div><div class="cr-lab-path"><h4>note</h4><p>The final command should print nothing because all mock media files are zero bytes.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The final command should print nothing because all mock media files are zero bytes.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The incoming directory contains four untouched mock source files.</li>
+<li>The normalization report marks the two already season-based names with KEEP.</li>
+<li>The report proposes that absolute episode 003 become S01E03.</li>
+<li>The report proposes that absolute range 004-005 become S01E04-E05.</li>
+<li>The staged Season 00 directory contains the S00E01 prologue.</li>
+<li>The staged Season 01 directory contains S01E01-E02, S01E03, and S01E04-E05 files.</li>
+<li>No object outside /opt/lab-classroom/class44/ is created, modified, renamed, or deleted by the lab commands.</li>
+<li>The source absolute names remain available for comparison and recovery.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - The incoming directory contains four untouched mock source files.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run <code>test -f '/opt/lab-classroom/class44/library/Star Harbor/Season 00/Star Harbor - S00E01 - Prologue [BD-1080p].mkv'</code> and confirm an exit status of zero.</li>
+<li>[ ] Run <code>test -f '/opt/lab-classroom/class44/library/Star Harbor/Season 01/Star Harbor - S01E01-E02 - Twin Arrival [WEB-1080p].mkv'</code> and confirm an exit status of zero.</li>
+<li>[ ] Run <code>test -f '/opt/lab-classroom/class44/library/Star Harbor/Season 01/Star Harbor - S01E03 - Beacon [WEB-1080p].mkv'</code> and confirm an exit status of zero.</li>
+<li>[ ] Run <code>test -f '/opt/lab-classroom/class44/library/Star Harbor/Season 01/Star Harbor - S01E04-E05 - Cloud Gate Pair [WEB-1080p].mkv'</code> and confirm an exit status of zero.</li>
+<li>[ ] Run <code>grep -F 'RENAME Star Harbor - 003 - Beacon [WEB-1080p].mkv -&gt; Star Harbor - S01E03 - Beacon [WEB-1080p].mkv' /opt/lab-classroom/class44/manifests/normalization-report.txt</code> and confirm that the expected line is returned.</li>
+<li>[ ] Run <code>grep -F 'RENAME Star Harbor - 004-005 - Cloud Gate Pair [WEB-1080p].mkv -&gt; Star Harbor - S01E04-E05 - Cloud Gate Pair [WEB-1080p].mkv' /opt/lab-classroom/class44/manifests/normalization-report.txt</code> and confirm that the expected line is returned.</li>
+<li>[ ] Run <code>find /opt/lab-classroom/class44/incoming -type f | wc -l</code> and confirm that the result is 4.</li>
+<li>[ ] Run <code>find /opt/lab-classroom/class44/library -type f | wc -l</code> and confirm that the result is 4.</li>
+<li>[ ] If testing with a media server, use a separate test library and verify the detected episode identities manually; do not infer success only from filenames.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - [ ] Run this setting and confirm an exit status of zero.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The preflight check reports that /opt/lab-classroom is missing or not writable.</td>
+<td>The classroom base directory was not provisioned, or the learner does not have the required lab permissions.</td>
+<td>Stop the lab and ask the platform administrator to provision a writable /opt/lab-classroom directory. Do not redirect the exercise into a production media path.</td>
+</tr>
+<tr>
+<td>The preflight check finds an existing class44 directory.</td>
+<td>A previous lab run was not rolled back.</td>
+<td>Inspect the existing directory, preserve any desired report, and then use the documented rollback procedure before starting again.</td>
+</tr>
+<tr>
+<td>The normalization script reports unmapped absolute numbers.</td>
+<td>The CSV does not contain every absolute episode represented by the filename range.</td>
+<td>Verify the selected metadata order, add reviewed mappings for the missing numbers, and rerun the dry run. Do not invent mappings from arithmetic.</td>
+</tr>
+<tr>
+<td>The normalization script reports that a range crosses provider seasons.</td>
+<td>The source file contains episodes that map to different seasons under the chosen order.</td>
+<td>Do not generate a single same-season range. Determine whether the file should be split, retained with a scanner-supported cross-season form, or handled manually.</td>
+</tr>
+<tr>
+<td>A media server identifies S01E01-E02 as only one episode.</td>
+<td>The server does not support that range syntax, the library type is incorrect, or the active metadata order differs from the manifest.</td>
+<td>Check the current naming documentation for that server, confirm the show library type and episode order, and test the documented multi-episode syntax in an isolated library.</td>
+</tr>
+<tr>
+<td>Both episode entries begin at the start of a multi-episode file.</td>
+<td>Naming associates multiple episode records with one container but does not provide internal playback boundaries.</td>
+<td>Accept the shared-file behavior, use chapters where supported, or create separate episode files through a reviewed media-processing workflow.</td>
+</tr>
+<tr>
+<td>A special is matched as a regular episode.</td>
+<td>The local S00 assignment does not agree with the selected metadata provider or its configured episode order.</td>
+<td>Look up the special in the active provider, update the manifest to its actual provider identity, and rescan only after reviewing the proposed filename.</td>
+</tr>
+<tr>
+<td>The script exits with a duplicate absolute number error.</td>
+<td>The mapping CSV contains more than one row for the same absolute identifier.</td>
+<td>Resolve the conflict by selecting the correct provider identity and retain only one authoritative row for that absolute number.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>Keep acquisition, staging, and production library paths separate.<br />
+Treat filenames and downloaded sidecar metadata as untrusted input.<br />
+Preview all parser and rename operations before enabling automatic organization.<br />
+Grant automation accounts write access only to directories they must manage.<br />
+Preserve an external manifest or backup before changing a production library.<br />
+Do not test numbering changes directly against the only copy of a media collection.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>path_safety</h4><p>All lab paths are absolute and rooted under /opt/lab-classroom/class44/. Quoted filenames prevent spaces and bracket characters from being interpreted unexpectedly by the shell.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: All lab paths are absolute and rooted under /opt/lab-classroom/class44/.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>privacy</h4><p>Real filenames can reveal viewing habits, usernames, release sources, and storage layout. Remove such information before sharing logs or screenshots.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Real filenames can reveal viewing habits, usernames, release sources, and storage layout.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>integrity</h4><p>A successful filename parse does not prove the file contains the claimed episode. For real media, compare duration, chapters, embedded titles, and actual content against the manifest before import.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A successful filename parse does not prove the file contains the claimed episode.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>precondition</h4><p>Confirm that the resolved target is exactly /opt/lab-classroom/class44 and inspect its contents before deletion.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Confirm that the resolved target is exactly /opt/lab-classroom/class44 and inspect its contents before deletion.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>commands</h4><p>test "$(realpath /opt/lab-classroom/class44)" = '/opt/lab-classroom/class44'<br />
+find /opt/lab-classroom/class44 -mindepth 1 -maxdepth 5 -print<br />
+find /opt/lab-classroom/class44 -depth -mindepth 1 -delete<br />
+rmdir /opt/lab-classroom/class44</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: test &quot;$(realpath /opt/lab-classroom/class44)&quot; = &#x27;/opt/lab-classroom/class44&#x27;
+find /opt/lab-classroom/class44 -mindepth 1 -maxdepth 5 -print
+find /opt/lab-cla…</div>
+ 
+</div></div><div class="cr-prose-block"><h4>result</h4><p>The class44 workspace and its mock files are removed. No production media or files outside the class workspace are affected.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The class44 workspace and its mock files are removed.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>recovery_note</h4><p>Deletion is not reversible from this procedure. Because the lab contains only generated mock files, recovery consists of recreating the workspace and repeating the lesson.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Deletion is not reversible from this procedure.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

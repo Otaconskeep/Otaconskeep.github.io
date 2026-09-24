@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05-environment-variables-secrets-and-configuration — Reading · Classroom</title>
+<meta name="description" content="05-environment-variables-secrets-and-configuration — Reading">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/09-arr-data-compose/topics/05-environment-variables-secrets-and-configuration/reading.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M9 READING<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M9 READING<small>reading</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 05-environment-variables-secrets-and-configuration — Reading</h1>
+ <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ 
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> ARR Data Model &amp; Compose<br />
+<strong>Activity type:</strong> Reading (Learn)<br />
+<strong>Objective:</strong> Distinguish ordinary configuration values from sensitive values that require stronger handling.</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Configuration</td>
+<td>Values that alter application behavior without changing application code, such as a log level, listening port, feature switch, or operating mode.</td>
+</tr>
+<tr>
+<td>Secret</td>
+<td>Sensitive data whose disclosure could grant access or weaken security, such as an authentication token, private key, or encryption key.</td>
+</tr>
+<tr>
+<td>Environment variable</td>
+<td>A named string value attached to a process and normally inherited by child processes.</td>
+</tr>
+<tr>
+<td>Process environment</td>
+<td>The complete set of environment variables available to a running process.</td>
+</tr>
+<tr>
+<td>Configuration precedence</td>
+<td>The documented order used to decide which source wins when several sources define the same setting.</td>
+</tr>
+<tr>
+<td>Secret file</td>
+<td>A file used to deliver sensitive data to a process, normally protected by restrictive ownership and permission controls.</td>
+</tr>
+<tr>
+<td>Least privilege</td>
+<td>Granting only the access required for a user, process, or service to perform its intended function.</td>
+</tr>
+<tr>
+<td>Atomic replacement</td>
+<td>Replacing a destination file in one filesystem operation so readers observe either the old complete file or the new complete file rather than a partially written state.</td>
+</tr>
+<tr>
+<td>Redaction</td>
+<td>Removing or obscuring sensitive values from logs, diagnostics, monitoring output, and user interfaces.</td>
+</tr>
+<tr>
+<td>Fail closed</td>
+<td>Refusing to start or operate when required security conditions cannot be verified.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div><div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>Applications need values that differ between environments: ports, hostnames, feature switches, log levels, credentials, and cryptographic material. These values should not all be handled in the same way. Ordinary configuration may be safe to display during diagnostics, while a secret must remain confidential at rest, in transit, in logs, and during troubleshooting. Environment variables are useful because deployment systems can supply values without rewriting application code. They also support clean process-level overrides. However, an environment variable is not a secret vault. It can be inherited by child processes, copied into diagnostic bundles, exposed by careless process inspection, retained by automation systems, or printed during debugging. For this reason, use environment variables for non-sensitive overrides unless the deployment platform provides a carefully controlled secret-injection mechanism and its limitations are understood.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Configuration precedence must be explicit and predictable. This lesson uses built-in defaults, then a JSON configuration file, then selected environment-variable overrides. The most specific runtime source wins. Unrecognized or invalid values are rejected instead of silently accepted. Sensitive material follows a separate path: an environment variable contains only the pathname of a protected file, and the application reads the file after validating that it is inside the lab directory, is a regular file, has no group or other permission bits, and is not empty. The program reports only whether the value loaded; it never prints the value itself.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-prose-block"><p>A configuration file should be treated as data rather than executable shell text. Loading an untrusted file with shell sourcing can execute commands, expand variables, or alter shell behavior. Structured formats such as JSON avoid that specific execution path, although they still require schema validation and safe permissions. Sensitive files should be readable only by the service identity and should not be committed to version control, copied into container images, embedded in command arguments, or included in support archives.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A configuration file should be treated as data rather than executable shell text.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Rotation is another core requirement. Rewriting a file in place can briefly expose an empty or partial value to a concurrent reader. A safer pattern is to create a new file with restrictive permissions, fully write and flush it, and then atomically replace the active file on the same filesystem. Production systems may also need coordinated overlap, revocation, audit events, and service reload behavior. The lab uses a randomly generated, disposable training credential and never reveals its content. The important operational lesson is that secure configuration includes delivery, validation, observation, rotation, and cleanup rather than merely choosing where to store a string.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Rotation is another core requirement.</div>
+ 
+</div></div></div><div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>components</h3>
+<p>A JSON file containing non-sensitive baseline configuration.<br />
+A Python application that validates and merges configuration sources.<br />
+Selected environment variables carrying non-sensitive overrides and the pathname of a sensitive file.<br />
+A permission-restricted file containing a randomly generated, disposable training credential.<br />
+A rotation procedure that writes a new file and atomically replaces the active file.</p>
+<h3>configuration_precedence</h3>
+<p>Built-in application defaults have the lowest precedence.<br />
+Values in config.json override built-in defaults.<br />
+APP_MODE and LOG_LEVEL environment variables override corresponding JSON values.<br />
+APP_TOKEN_FILE does not contain sensitive content; it identifies the separately protected file that the application must validate and read.</p>
+<h3>data_flow</h3>
+<p>The application loads defaults.<br />
+The application parses /opt/lab-classroom/class38/config/config.json.<br />
+The application applies allow-listed environment overrides.<br />
+The application resolves and validates the sensitive file path.<br />
+The application reads the sensitive value into memory and reports only a Boolean loaded status.</p>
+<h3>trust_boundaries</h3>
+<p>The process environment is outside the application configuration parser and must be validated.<br />
+The filesystem boundary requires path, file type, and permission validation.<br />
+Logs and terminal output are disclosure boundaries and must never contain the sensitive value.<br />
+The lab root is the only location in which the exercises are permitted to create, replace, or change files.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Python documentation: os.environ and process environment behavior.</li>
+<li>Python documentation: pathlib.Path file operations.</li>
+<li>Python documentation: os.replace atomic replacement semantics on a single filesystem.</li>
+<li>Linux manual pages for environ(7), stat(1), chmod(1), and umask(2).</li>
+<li>The Twelve-Factor App section titled Config, read critically with attention to threat models and platform limitations.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Python documentation: os.environ and process environment behavior.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Python Standard Library documentation for os: https://docs.python.org/3/library/os.html</li>
+<li>Python Standard Library documentation for pathlib: https://docs.python.org/3/library/pathlib.html</li>
+<li>Python Standard Library documentation for json: https://docs.python.org/3/library/json.html</li>
+<li>Python Standard Library documentation for secrets: https://docs.python.org/3/library/secrets.html</li>
+<li>Linux man-pages project documentation for environ(7): https://man7.org/linux/man-pages/man7/environ.7.html</li>
+<li>The Twelve-Factor App, Config: https://12factor.net/config</li>
+<li>OWASP Secrets Management Cheat Sheet: https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Python Standard Library documentation for os: https://docs.python.org/3/library/os.html
+- Python Standard Library documentation for pathlib: https://docs.p…</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="/classroom/modules/09-arr-data-compose/">← Module hub</a><a href="lesson.html">Lesson →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>
