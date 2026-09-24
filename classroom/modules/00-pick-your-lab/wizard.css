@@ -95,6 +95,82 @@ button.wiz-node.is-on { border-color: var(--accent-bright, var(--accent)); backg
   margin-left: 8px;
   border-bottom-left-radius: 10px;
 }
+.wiz-level { font-family: 'JetBrains Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-bright); font-size: .72rem; margin: 0 0 8px; }
+.wiz-crumb { margin: 0 0 14px; }
+.wiz-crumb-btn { background: none; border: 0; color: var(--accent-bright); cursor: pointer; font: inherit; padding: 0; }
+.wiz-org { text-align: center; margin-top: 8px; }
+.wiz-tile, .wiz-org > .wiz-tile {
+  display: inline-block;
+  min-width: 160px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.wiz-org > .wiz-tile.is-now { border-color: #43d98a; }
+.wiz-org-line { width: 2px; height: 16px; background: #43d98a; margin: 0 auto; }
+.wiz-org-kids {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  padding-top: 16px;
+}
+.wiz-org-kids::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 18%;
+  right: 18%;
+  height: 2px;
+  background: #43d98a;
+}
+button.wiz-tile {
+  position: relative;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: center;
+  flex: 1 1 140px;
+  max-width: 200px;
+}
+button.wiz-tile::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  width: 2px;
+  height: 16px;
+  background: #43d98a;
+}
+button.wiz-tile strong { display: block; font-size: 1rem; letter-spacing: .04em; text-transform: uppercase; }
+.wiz-card {
+  max-width: 40rem;
+  margin: 8px auto 0;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--surface);
+}
+.wiz-card .wiz-title { font-size: 1.4rem; }
+.wiz-disclose {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px 12px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.wiz-study { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .92rem; }
+.wiz-study th, .wiz-study td { border-bottom: 1px solid var(--line); padding: 8px 6px; text-align: left; vertical-align: top; }
 .wiz-topics { display: grid; gap: 10px; margin-top: 8px; }
 .wiz-also-title { margin-top: 18px; }
 .wiz-topic {
