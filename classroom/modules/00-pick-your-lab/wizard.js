@@ -1473,6 +1473,29 @@
     return isFinite(n) ? n : 0;
   }
 
+  function coverNames(a, ids) {
+    return ids.filter(function (id) { return hasJob(a, id); }).map(function (id) { return JOB_LABELS[id] || id; });
+  }
+
+  function networkCovers(a) {
+    var names = coverNames(a, ['smart']);
+    if (a.role === 'server') names.push('A computer that stays on for the house');
+    if (a.role === 'both') names.push('One computer that also runs the house');
+    return names;
+  }
+
+  function storageCovers(a, storage) {
+    var names = coverNames(a, ['files']);
+    if (storage >= 4000) names.push('A large disk pile');
+    return names;
+  }
+
+  function toneWord(tone) {
+    if (tone === 'stop') return 'Does not fit';
+    if (tone === 'wait') return 'Has a limit';
+    return 'Fits';
+  }
+
   function topicBoard(a) {
     a = a || {};
     var gpu = gpuGb(a);
@@ -1496,6 +1519,7 @@
       }
       add({
         id: 'media', name: 'Media', tone: mediaTone, summary: mediaLine,
+        covers: coverNames(a, ['movies', 'photos', 'video']),
         get: 'A player (Jellyfin or Plex) and CMR hard drives for the files. The system and the player database go on an SSD.',
         how: 'One SSD for the system. One or more CMR disks for the library. Start with one disk you can fill, then add a second copy somewhere else.',
         look: 'CMR on the datasheet. Red Plus, Red Pro, IronWolf, or an enterprise CMR disk. Not Purple. Not a sticker that only says Red.',
@@ -1522,6 +1546,7 @@
       }
       add({
         id: 'ai', name: 'AI', tone: aiTone, summary: aiLine,
+        covers: coverNames(a, ['ai', 'learn']),
         get: 'Ollama, then one model that fits the card. OtaconsKeep Lite only on Windows or Ubuntu, after chat already answers.',
         how: 'One model first. A 4-bit 7B model wants about 6 GB. Do not download three models on the first day.',
         look: 'The size in the model name, and the card memory. Q4 is the smaller copy. Temperature and the system prompt do not add memory.',
@@ -1551,6 +1576,7 @@
       }
       add({
         id: 'games', name: 'Games', tone: gameTone, summary: gameLine,
+        covers: coverNames(a, ['games']),
         get: a.side === 'linux' ? 'Steam, then Valve Proton. The NVIDIA image only if the card is NVIDIA.' : 'Steam or the store the game comes from. Proton is for Linux, not for this Windows or Mac desk.',
         how: 'Install one store. Try one game. Add a second store later.',
         look: 'ProtonDB and AreWeAntiCheatYet for a Linux game. The card memory for the settings you want.',
@@ -1565,6 +1591,7 @@
     if (hasJob(a, 'smart') || a.role === 'server' || a.role === 'both') {
       add({
         id: 'network', name: 'Network', tone: 'go', summary: 'Keep admin pages on the house network. Split guests and cameras when you are ready.',
+        covers: networkCovers(a),
         get: 'A gateway you already understand, then a managed switch only on links that carry more than one VLAN.',
         how: 'Four names on paper: people, servers, cameras, guests. One VLAN number each.',
         look: 'PoE watts if a camera or access point needs power from the switch. The total budget is not max-per-port times every port.',
@@ -1579,6 +1606,7 @@
       add({
         id: 'storage', name: 'Storage', tone: storage >= 1000 ? 'go' : 'wait',
         summary: storage >= 4000 ? 'The disk pile is big enough to treat as its own job.' : 'You asked for files. Give them a disk that is not the only copy.',
+        covers: storageCovers(a, storage),
         get: 'An SSD for the system. CMR disks for the pile. A second copy of anything you would cry about.',
         how: 'One mirror or one extra disk is the start. A second location is the backup.',
         look: 'CMR in the datasheet. NAS-rated if the disks sit in a multi-bay box.',
@@ -1592,6 +1620,7 @@
     if (!topics.length) {
       add({
         id: 'learn', name: 'Learning', tone: 'go', summary: 'Start with the system this build named. Add one app after it boots.',
+        covers: ['The system this build named'],
         get: 'The operating system from the steps above, then one app.',
         how: 'One install. One reboot. One app.',
         look: 'The official download for that app. Skip a random script.',
@@ -1732,12 +1761,21 @@
       });
     }
 
+    function labeledLine(title, text) {
+      var row = el('p', '');
+      var strong = document.createElement('strong');
+      strong.textContent = title;
+      row.appendChild(strong);
+      row.appendChild(document.createTextNode(' ' + text));
+      return row;
+    }
+
     function detailBlock(item) {
-      var box = el('div', '');
-      box.appendChild(el('p', '', 'What to get. ' + item.get));
-      box.appendChild(el('p', '', 'How much. ' + item.how));
-      box.appendChild(el('p', '', 'What to look for. ' + item.look));
-      box.appendChild(el('p', '', 'Compatibility. ' + item.compat));
+      var box = el('div', 'wiz-detail');
+      box.appendChild(labeledLine('What to get.', item.get));
+      box.appendChild(labeledLine('How much.', item.how));
+      box.appendChild(labeledLine('What to look for.', item.look));
+      box.appendChild(labeledLine('Compatibility.', item.compat));
       if (item.buy && item.buy.length) {
         var ul = document.createElement('ul');
         item.buy.forEach(function (link) {
@@ -1899,12 +1937,34 @@
       return box;
     }
 
+    function topicCard(topic) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'wiz-topic ' + topic.tone;
+      button.appendChild(el('strong', '', topic.name));
+      button.appendChild(el('span', 'wiz-verdict', toneWord(topic.tone)));
+      var covers = (topic.covers || []).join(', ');
+      if (covers) button.appendChild(el('span', '', 'From what you selected: ' + covers));
+      button.appendChild(el('span', '', 'What you can do: ' + topic.summary));
+      return button;
+    }
+
+    function topicPanel(topic) {
+      var node = el('div', 'wiz-check ' + topic.tone);
+      node.appendChild(el('strong', '', toneWord(topic.tone) + '. ' + topic.name));
+      var covers = (topic.covers || []).join(', ');
+      if (covers) node.appendChild(labeledLine('From what you selected.', covers));
+      node.appendChild(labeledLine('What you can do.', topic.summary));
+      node.appendChild(moreButton(topic));
+      return node;
+    }
+
     function renderShop(report) {
       var board = topicBoard(answers);
       claimLessons(report, board.topics);
       var wrap = el('section', 'wiz-block');
-      wrap.appendChild(el('h3', '', 'Open a topic'));
-      wrap.appendChild(el('p', '', 'Green fits this build. Yellow has a limit. Red does not fit. Tap one. The rest stays closed.'));
+      wrap.appendChild(el('h3', '', 'Here is what you can do with what you selected'));
+      wrap.appendChild(el('p', '', 'Each box is a category those picks landed in. Fits means this computer can do it. Has a limit means it works with a catch. Does not fit means pick a different job for this computer, or a bigger part.'));
       var row = el('div', 'wiz-topics');
       var panel = el('div', 'wiz-panel');
       var notes = null;
@@ -1916,39 +1976,39 @@
         panel.appendChild(node);
       }
       board.topics.forEach(function (topic) {
-        var button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'wiz-topic ' + topic.tone;
-        var strong = document.createElement('strong');
-        strong.textContent = topic.name;
-        button.appendChild(strong);
+        var button = topicCard(topic);
         button.addEventListener('click', function () {
-          var node = el('div', '');
-          node.appendChild(el('p', '', topic.summary));
-          node.appendChild(moreButton(topic));
-          show(button, node);
+          show(button, topicPanel(topic));
         });
         buttons.push(button);
         row.appendChild(button);
       });
+      wrap.appendChild(row);
+      wrap.appendChild(panel);
+      wrap.appendChild(el('h3', 'wiz-also-title', 'Also'));
+      var also = el('div', 'wiz-topics');
       var extra = document.createElement('button');
       extra.type = 'button';
-      extra.className = 'wiz-topic wait';
+      extra.className = 'wiz-topic';
       extra.appendChild(el('strong', '', 'Consider adding'));
+      extra.appendChild(el('span', '', 'Pieces this build does not have yet, such as a disk shelf or a battery.'));
       extra.addEventListener('click', function () {
-        var node = el('div', '');
+        var node = el('div', 'wiz-check');
+        node.appendChild(el('strong', '', 'Consider adding'));
         board.extras.forEach(function (item) {
-          node.appendChild(el('p', '', item.name + '. ' + item.summary));
+          node.appendChild(el('h3', '', item.name));
+          node.appendChild(el('p', '', item.summary));
           node.appendChild(moreButton(item));
         });
         show(extra, node);
       });
       buttons.push(extra);
-      row.appendChild(extra);
+      also.appendChild(extra);
       var pc = document.createElement('button');
       pc.type = 'button';
       pc.className = 'wiz-topic';
       pc.appendChild(el('strong', '', 'I want to build a PC'));
+      pc.appendChild(el('span', '', 'Pick the parts and see if they fit. Green fits. Yellow needs a look. Red does not fit.'));
       pc.addEventListener('click', function () {
         var node = el('div', '');
         node.appendChild(el('p', '', 'Six parts. The checker tells you if they belong together. Then open a price source. Do not buy from a number this page made up.'));
@@ -1956,9 +2016,8 @@
         show(pc, node);
       });
       buttons.push(pc);
-      row.appendChild(pc);
-      wrap.appendChild(row);
-      wrap.appendChild(panel);
+      also.appendChild(pc);
+      wrap.appendChild(also);
       if (typeof fetch === 'function') {
         fetch('/classroom/modules/00-pick-your-lab/lab-notes.json').then(function (response) {
           return response.ok ? response.json() : null;
