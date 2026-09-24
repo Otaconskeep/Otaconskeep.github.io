@@ -38,3 +38,33 @@
 .wiz-block ul, .wiz-block ol { margin: 8px 0 0; padding-left: 1.3rem; }
 .wiz-block ol li { margin: 8px 0; }
 .wiz-block li { margin: 6px 0; }
+.wiz-topics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.wiz-topic {
+  cursor: pointer;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-align: left;
+}
+.wiz-topic strong { display: block; }
+.wiz-topic.go { border-left-color: #43d98a; }
+.wiz-topic.wait { border-left-color: #e0a83c; }
+.wiz-topic.stop { border-left-color: #ef5f6b; }
+.wiz-topic.is-on { background: var(--surface-2); }
+.wiz-panel { margin-top: 12px; }
+.wiz-check { border-radius: 8px; padding: 12px 14px; margin-top: 10px; }
+.wiz-check.go { background: rgba(67, 217, 138, .12); }
+.wiz-check.wait { background: rgba(224, 168, 60, .14); }
+.wiz-check.stop { background: rgba(239, 95, 107, .12); }
+.wiz-form { display: grid; gap: 8px; margin-top: 8px; }
+.wiz-form label { display: grid; gap: 4px; color: var(--cream-dim); font-size: .92rem; }
+.wiz-form select {
+  color: inherit;
+  background: var(--bg, #0b0f14);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px;
+}
