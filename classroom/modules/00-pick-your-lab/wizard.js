@@ -1739,39 +1739,142 @@
         keys: []
       });
     }
-    var extras = [];
-    if (storage < 4000 && !hasJob(a, 'files')) {
-      extras.push({
+    return { topics: topics, extras: addOnAids(a) };
+  }
+
+  function addOnAids(a) {
+    var media = hasJob(a, 'movies') || hasJob(a, 'photos') || hasJob(a, 'video');
+    var pile = hasJob(a, 'files') || Number(a.storage) >= 4000;
+    var server = a.role === 'server' || a.role === 'both';
+    return [
+      {
         name: 'NAS',
-        summary: 'A separate disk shelf, when the library outgrows the computer.',
-        get: 'A small always-on box, or a bay in the server, plus CMR disks.',
-        how: 'Two disks is the smallest mirror. More disks come later.',
-        look: 'CMR, and a bay count you will actually fill.',
-        compat: 'The NAS holds files. It is not the game desk and not the chat card.',
-        buy: [{ name: 'WD CMR note', detail: 'How to tell the recording type.', href: 'https://support-en.wd.com/app/answers/detailweb/a_id/50697' }]
-      });
-    }
-    extras.push({
-      name: 'UPS',
-      summary: 'A battery so a power blink does not cut a disk write.',
-      get: 'A standby UPS sized for the computer and the disk shelf, not for the whole house.',
-      how: 'One UPS for the server or the NAS. The desk can wait.',
-      look: 'The VA or watt number, and enough outlets for the computer and the disks.',
-      compat: 'The UPS talks to the computer only if you install the vendor tool. A battery alone still gives you time to shut down.',
-      buy: []
-    });
-    if (a.role === 'everyday') {
-      extras.push({
+        summary: pile
+          ? 'You already have a pile. This is the help for the shelf: why it helps, how to hook it in, and how to judge the price.'
+          : 'Not required to boot. Open it when the files outgrow this computer.',
+        layers: [
+          {
+            name: 'Why it helps',
+            lines: [
+              media
+                ? 'You asked for a library. The desk can edit and play. The NAS holds the files and stays on when the desk sleeps, so the TV plays from the shelf.'
+                : 'A NAS is a computer whose only job is the disks. The desk stays the computer you sit at.',
+              'It helps because one machine no longer has to be the game desk, the chat box, and the movie shelf.',
+              pile
+                ? 'This build already has a pile, so the shelf is the next piece, not a someday idea.'
+                : 'It does not help yet if you only have a system disk and no files. Wait until there is a pile.'
+            ]
+          },
+          {
+            name: 'How to hook it in',
+            lines: [
+              'Put the NAS on the same house network as the desk and the TV. Do not forward its admin page to the internet.',
+              'Install the NAS system on an SSD. Put movies and photos on CMR hard drives. The player database stays on the SSD.',
+              'Share one folder. Point Plex or Jellyfin at that folder. Get one file playing before you turn automatic downloads on.',
+              'Two disks is the smallest mirror. A mirror survives one disk dying. It does not survive a fire, a theft, or a delete. Keep a second copy somewhere else.',
+              server
+                ? 'This build already stays on. The NAS can be a guest on that server, or its own small box. The disks are still not the game desk.'
+                : 'Leave the desk as the computer you sit at. The NAS is the other box.'
+            ]
+          },
+          {
+            name: 'Best price, and why',
+            lines: [
+              'The best price is the cheapest disk that is still CMR, not the lowest sticker in the aisle.',
+              'A plain WD Red in the 2 TB to 6 TB sizes was often SMR. SMR is cheaper because a rewrite can stall. Western Digital says a ZFS rebuild does not give that drive the idle time it wants. That discount is how the price goes wrong.',
+              'Compare Red Plus, Red Pro, IronWolf, or an enterprise CMR disk. Same model, new, on PCPartPicker. Used is a fair price only when the listing shows the drive is healthy.',
+              'Jawa is for a used small PC that can become the NAS computer. It does not tell you if the disk is CMR. Read the disk datasheet either way.',
+              'Two modest CMR disks beat one giant disk. One disk is still one copy. This page does not invent a dollar amount.'
+            ],
+            links: [
+              { name: 'WD Red: SMR and CMR', detail: 'Why the cheaper Red is often the wrong price.', href: 'https://support-en.wd.com/app/answers/detailweb/a_id/29458' },
+              { name: 'How to check CMR or SMR', detail: 'Confirm the disk before you pay.', href: 'https://support-en.wd.com/app/answers/detailweb/a_id/50697' },
+              { name: 'NAS hard drives on PCPartPicker', detail: 'New prices. Still match the CMR names above.', href: 'https://pcpartpicker.com/search/?q=NAS%20hard%20drive' },
+              { name: 'Jawa', detail: 'Used small PCs. Search there, then read the disk sheet.', href: 'https://www.jawa.gg/' }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'UPS',
+        summary: server
+          ? 'This build stays on. A battery is the help for a power blink during a disk write.'
+          : 'Put the battery on the machine that holds the files, not on the lamp.',
+        layers: [
+          {
+            name: 'Why it helps',
+            lines: [
+              'A power blink in the middle of a disk write can corrupt the copy you cannot replace. The battery buys time to shut the machine down.',
+              server
+                ? 'This computer is meant to stay on, so the battery belongs on this build.'
+                : 'The desk can wait. The battery belongs on the server or the NAS, once that box exists.',
+              'A surge strip stops a spike. It does not keep the disks spinning. That is the difference.'
+            ]
+          },
+          {
+            name: 'How to hook it in',
+            lines: [
+              'Plug the UPS into the wall. Plug the computer and the disk shelf into the battery outlets, not the surge-only outlets.',
+              'Leave lamps and chargers off the battery side. They steal the minutes you needed for the shutdown.',
+              'The battery already helps before any software is installed. You can shut the machine down by hand.',
+              'Install the vendor shutdown tool after that, so a long outage can turn the computer off for you. The tool is the extra. The battery outlets are the hookup.'
+            ]
+          },
+          {
+            name: 'Best price, and why',
+            lines: [
+              'The best price is the smallest unit that still covers the computer and the disks, not a whole-house battery.',
+              'Read the watt number on the UPS and the watt number on the computer power supply. The UPS has to be able to carry that supply. A cheaper box with only surge outlets does not keep the machine up, so it is not cheaper in the way that matters.',
+              'A low price that hides a tiny battery is the wrong bargain. The watt number and the count of battery outlets have to be on the same page as the price.',
+              'This page does not invent a dollar amount. Compare those two numbers, then read the live price.'
+            ],
+            links: [
+              { name: 'UPS units on PCPartPicker', detail: 'Live prices. Check watts and battery outlets on the same page.', href: 'https://pcpartpicker.com/search/?q=UPS' }
+            ]
+          }
+        ]
+      },
+      {
         name: 'Managed switch',
-        summary: 'Only when one cable must carry more than one network.',
-        get: 'A small smart switch. Unmanaged is fine for a single flat network.',
-        how: 'One switch. Label the ports.',
-        look: 'VLAN support, and PoE only if a camera or access point needs it.',
-        compat: 'Do not plug a trunk into an unmanaged switch.',
-        buy: []
-      });
-    }
-    return { topics: topics, extras: extras };
+        summary: server
+          ? 'The help for splitting people, cameras, and guests onto different networks.'
+          : 'You probably do not need this yet. Open it before you buy a smart switch you will not use.',
+        layers: [
+          {
+            name: 'Why it helps',
+            lines: [
+              server
+                ? 'A server build grows cameras and guests. A managed switch is how one cable carries more than one network without mixing them.'
+                : 'A flat house, one network, does not need a managed switch. An unmanaged switch is the right tool until a camera or a guest network shows up.',
+              'It helps when people, cameras, and guests must not see each other. Creating a VLAN on paper does not isolate them. The switch and the gateway both have to agree.',
+              'It does not help a desk that only talks to the router. Buying it early spends money on ports you will not configure.'
+            ]
+          },
+          {
+            name: 'How to hook it in',
+            lines: [
+              'The gateway creates the networks. The switch carries them. A trunk is the cable that carries more than one. Both ends must agree, or the network falls over.',
+              'Do not plug a trunk into an unmanaged switch. That switch will mishandle the tags.',
+              'Access ports are the normal ports: one network, untagged. Cameras go on the camera network. The desk stays on the trusted network.',
+              'PoE is power from the switch. Use it only when a camera or an access point needs it. Add the device watts. The switch budget is not the maximum per port times every port.',
+              'Do not forward the server, the NAS, or Home Assistant to the internet. The switch stays inside the house.'
+            ]
+          },
+          {
+            name: 'Best price, and why',
+            lines: [
+              'The best price is the smallest managed switch with enough ports for the devices you have, plus two spare.',
+              'PoE raises the price. Pay for it only when a camera or an access point takes power from the switch. A 48-port switch is a bad price for a handful of cables.',
+              'If you still have one flat network, the unmanaged switch is the better price. The managed one is the better price only after you actually split networks.',
+              'Read VLAN support and the PoE budget on the spec page, next to the price. This page does not invent a dollar amount.'
+            ],
+            links: [
+              { name: 'Managed switches on PCPartPicker', detail: 'Live prices. Match the port count and PoE only if you need power.', href: 'https://pcpartpicker.com/search/?q=managed%20switch' }
+            ]
+          }
+        ]
+      }
+    ];
   }
 
   function mount(rootEl) {
@@ -1954,6 +2057,37 @@
             slot.appendChild(build(i + 1));
           }
           return;
+        });
+        wrap.appendChild(button);
+        wrap.appendChild(slot);
+        return wrap;
+      }
+      return build(0);
+    }
+
+    function aidStack(item) {
+      var layers = item.layers || [];
+      function build(i) {
+        var wrap = el('div', '');
+        if (i >= layers.length) return wrap;
+        var layer = layers[i];
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'btn btn-ghost';
+        button.textContent = layer.name;
+        button.setAttribute('aria-expanded', 'false');
+        var slot = el('div', 'wiz-layer');
+        var open = false;
+        button.addEventListener('click', function () {
+          open = !open;
+          slot.textContent = '';
+          button.setAttribute('aria-expanded', open ? 'true' : 'false');
+          if (!open) return;
+          (layer.lines || []).forEach(function (line) {
+            slot.appendChild(el('p', '', line));
+          });
+          if (layer.links && layer.links.length) slot.appendChild(linkList(layer.links));
+          if (i < layers.length - 1) slot.appendChild(build(i + 1));
         });
         wrap.appendChild(button);
         wrap.appendChild(slot);
@@ -2284,14 +2418,17 @@
       extra.type = 'button';
       extra.className = 'wiz-topic';
       extra.appendChild(el('strong', '', 'Consider adding'));
-      extra.appendChild(el('span', '', 'Pieces this build does not have yet, such as a disk shelf or a battery.'));
+      extra.appendChild(el('span', '', 'Optional pieces. Open one for why it helps, how to hook it in, and how to judge the price.'));
       extra.addEventListener('click', function () {
         var node = el('div', 'wiz-check');
         node.appendChild(el('strong', '', 'Consider adding'));
+        node.appendChild(el('p', '', 'These are not required to boot. Open one and walk it. Why it helps, then how to hook it in, then how to judge the price. The next step stays closed until you ask.'));
         board.extras.forEach(function (item) {
-          node.appendChild(el('h3', '', item.name));
-          node.appendChild(el('p', '', item.summary));
-          node.appendChild(moreButton(item));
+          var block = el('section', 'wiz-node');
+          block.appendChild(el('h3', '', item.name));
+          block.appendChild(el('p', '', item.summary));
+          block.appendChild(aidStack(item));
+          node.appendChild(block);
         });
         show(extra, node);
       });
