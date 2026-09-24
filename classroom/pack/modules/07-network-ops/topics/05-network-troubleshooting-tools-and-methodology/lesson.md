@@ -1,4 +1,4 @@
-# Lesson 07.05 — Network Troubleshooting Tools and Methodology
+# Lesson 07.05: Network Troubleshooting Tools and Methodology
 
 **Module:** Network Operations
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

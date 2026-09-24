@@ -1,4 +1,4 @@
-# Module exam — Network Operations
+# Module exam: Network Operations
 
 **Module:** Network Operations
 

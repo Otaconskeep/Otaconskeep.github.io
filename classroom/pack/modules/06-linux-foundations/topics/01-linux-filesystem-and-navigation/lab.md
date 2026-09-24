@@ -1,4 +1,4 @@
-# Lab — Linux Filesystem and Navigation
+# Lab: Linux Filesystem and Navigation
 
 **Module:** Linux Foundations
 **Activity type:** Lab (Practice)

@@ -1,9 +1,9 @@
-# Module 5 — Workflow Automation (n8n)
+# Module 5: Workflow Automation (n8n)
 
 **Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review  
 **Feynman teach-back is required in every lesson.**
 
-## Backward design — module outcome
+## Backward design: module outcome
 
 Student can run n8n on the lab network only, build an RSS digest that explains JSON item cardinality, and require human approval before any mutating agent/SSH action.
 
@@ -46,7 +46,7 @@ Required:
 - [ ] Module exam passed (or instructor/self-check acceptance)
 - [ ] Reflection written on module hub notes
 
-**Stage gate statement:** Gate 5 — cardinality explained; credentials out of git; approval before mutation.
+**Stage gate statement:** Gate 5: cardinality explained; credentials out of git; approval before mutation.
 
 ## Spiral review
 

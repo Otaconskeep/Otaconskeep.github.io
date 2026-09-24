@@ -57,7 +57,7 @@ def render_feynman(body_md: str, class_id: str) -> str:
     for key, label, hint in fields:
         cards.append(
             f'<div class="cr-feynman-field">'
-            f'<label for="fy-{H.escape(class_id)}-{key}"><strong>{label}</strong> — {H.escape(hint)}</label>'
+            f'<label for="fy-{H.escape(class_id)}-{key}"><strong>{label}</strong>: {H.escape(hint)}</label>'
             f'<textarea id="fy-{H.escape(class_id)}-{key}" data-feynman-id="{H.escape(class_id)}" '
             f'data-feynman-field="{key}" rows="4" placeholder="Write here…"></textarea>'
             f"</div>"
@@ -65,7 +65,7 @@ def render_feynman(body_md: str, class_id: str) -> str:
     prose = md_fragment(body_md) if body_md.strip() else ""
     return (
         f'<div class="cr-box cr-box-feynman" id="feynman">'
-        f'<div class="cr-box-head">{kind_badge("feynman")}<h3>Feynman teach-back — required</h3></div>'
+        f'<div class="cr-box-head">{kind_badge("feynman")}<h3>Feynman teach-back: required</h3></div>'
         f"{help_widget(mean, more)}"
         f'<div class="cr-prose-block">{prose}</div>'
         f'<div class="cr-feynman-form" data-feynman-form="{H.escape(class_id)}">'
@@ -200,8 +200,8 @@ def patch(path: Path) -> None:
         '<div class="cr-gate">Mastery unlock: all boxes true + Feynman complete → continue to the next class</div>',
     )
     text = text.replace(
-        '<h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Build. Break. Fix. Verify.</h1>\n <p class="lede">Build-first curriculum for ARR, Home Assistant, and local voice. Same Otaconskeep chrome as the rest of the Keep — structured lessons, checkpoints, and a final verification matrix.</p>',
-        '<h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Learn. Practice. Explain. Master.</h1>\n <p class="lede">A learning system for ARR, Home Assistant, and local voice — Backward Design, Bloom progression, mandatory Feynman teach-backs, mastery gates, and spiral review. Not a pile of videos and quizzes.</p>',
+        '<h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Build. Break. Fix. Verify.</h1>\n <p class="lede">Build-first curriculum for ARR, Home Assistant, and local voice. Same Otaconskeep chrome as the rest of the Keep: structured lessons, checkpoints, and a final verification matrix.</p>',
+        '<h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Learn. Practice. Explain. Master.</h1>\n <p class="lede">A learning system for ARR, Home Assistant, and local voice: Backward Design, Bloom progression, mandatory Feynman teach-backs, mastery gates, and spiral review. Not a pile of videos and quizzes.</p>',
     )
     text = text.replace(
         '<p class="meta" style="margin-top:22px;">UNDERSTAND → BUILD → BREAK → FIX → VERIFY</p>',
@@ -209,7 +209,7 @@ def patch(path: Path) -> None:
     )
     old_how = ''' <p class="tag">00 // How to use</p>
  <h2>One concept. One lab. One gate.</h2>
- <p class="intro">Read the class, run the guided lab once, break it on purpose, fix it, then pass the practical gate. Log evidence in the verification matrix — “it seems to work” is not a grade.</p>
+ <p class="intro">Read the class, run the guided lab once, break it on purpose, fix it, then pass the practical gate. Log evidence in the verification matrix: “it seems to work” is not a grade.</p>
  <div class="cr-callout tip"><strong>Legal / safety:</strong> use only authorized indexers and content. Do not expose ARR admin or download clients to the public internet. Never paste real API keys into screenshots.</div>'''
     new_how = ''' <p class="tag">00 // How to use</p>
  <h2>Every class is a learning cycle</h2>

@@ -1,4 +1,4 @@
-# Reading — Sonarr Installation and First Configuration
+# Reading: Sonarr Installation and First Configuration
 
 **Module:** Sonarr & Radarr
 **Activity type:** Reading (Learn)

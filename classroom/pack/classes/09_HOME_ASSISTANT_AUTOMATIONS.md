@@ -1,6 +1,6 @@
-# Class 9 — Home Assistant Automations as Testable Logic
+# Class 9: Home Assistant Automations as Testable Logic
 
-**Lecture (optional):** [NetworkChuck — Home Assistant](https://www.youtube.com/watch?v=k02P5nghmfs)
+**Lecture (optional):** [NetworkChuck: Home Assistant](https://www.youtube.com/watch?v=k02P5nghmfs)
 **Time:** 150 minutes
 **Learning objective:** Given a plain-language automation requirement, the learner can implement trigger → condition → action logic and prove positive, negative, and failure cases with traces.
 **Bloom level:** Analyze / Create
@@ -13,11 +13,11 @@ Given a plain-language automation requirement, the learner can implement trigger
 
 ## Why this matters
 
-An automation that ‘usually works’ is a hazard. Testable logic — including when it must *not* fire — is how you trust the house.
+An automation that ‘usually works’ is a hazard. Testable logic: including when it must *not* fire: is how you trust the house.
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is a trigger vs a condition vs an action?
 2. Why might an automation fire twice?
@@ -72,11 +72,11 @@ Automation traces show which trigger fired, condition result, path taken, variab
 
 ### Monitoring the homelab
 
-Optional stretch: notify when a critical binary sensor / container health helper fails—still use a helper first.
+Optional stretch: notify when a critical binary sensor / container health helper fails, still use a helper first.
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad requirement:** “Turn on the light when I’m home.”
 
@@ -90,13 +90,13 @@ This requirement is measurable. It identifies trigger, condition, nominal action
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Fill trigger/condition/action boxes for the lesson example together.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Write positive test, negative test, and restart test for your automation. Capture a trace id or screenshot (secrets redacted).
 
@@ -111,7 +111,7 @@ Describe **automations as testable logic, not magic** in your own words. No copy
 Explain the same idea to a 12-year-old. If you use a technical word, define it.
 
 ### Example
-Analogy: a vending machine — coin (trigger), ‘in stock’ (condition), dispense (action).
+Analogy: a vending machine: coin (trigger), ‘in stock’ (condition), dispense (action).
 
 ### Weak spot
 What part was hard to explain? That is where your understanding is thin.
@@ -119,12 +119,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What is the difference between a trigger and a condition?
 2. Why test a negative case?
@@ -141,7 +141,7 @@ Build one automation with explicit acceptance tests. Prefer helpers (`input_bool
 ```text
 When test_trigger turns on AND test_allowed is on → turn on test_lamp (helper)
 Notify/log that the run happened
-Mode: single (or restart — pick one and defend it)
+Mode: single (or restart: pick one and defend it)
 ```
 
 2. **Create helpers** (UI → Helpers): `input_boolean.test_trigger`, `input_boolean.test_allowed`, `input_boolean.test_lamp`.

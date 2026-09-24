@@ -1,6 +1,6 @@
-# Lab — Configuration automation
+# Lab: Configuration automation
 
-**Module:** Module 2 — ARR Media Automation  
+**Module:** Module 2: ARR Media Automation  
 **Activity type:** Lab (Practice)  
 **Objective:** Given a known-good profile backup, the learner can choose one authoritative sync path, run dry-run/apply/rollback, and produce a drift report that matches the live apps.
 
@@ -37,7 +37,7 @@ command -v recyclarr; type recyclarr
 
 :::linux
 ```bash
-# Pattern — exact subcommands depend on current tool docs:
+# Pattern: exact subcommands depend on current tool docs:
 recyclarr config list
 recyclarr sync --dry-run
 # or: docker compose exec recyclarr recyclarr sync --dry-run
@@ -85,7 +85,7 @@ curl -sf "http://127.0.0.1:8989/ping" && echo SONARR_UP
 
 1. Run sync twice; prove idempotency in logs.
 
-2. Point two tools at the same profile (or simulate conflicting ownership)—observe fight; pick one owner.
+2. Point two tools at the same profile (or simulate conflicting ownership), observe fight; pick one owner.
 
 3. Break YAML/config syntax; show validator failure; fix.
 

@@ -1,6 +1,6 @@
-# Quiz — Docker networking
+# Quiz: Docker networking
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Quiz / retrieval practice  
 **Target:** ≥80% before topic mastery unlock  
 **Objective:** Given two Compose services, the learner can place them on an isolated user-defined network, call one service by DNS name from the other, and explain host-port publish versus container-to-container traffic.
@@ -11,7 +11,7 @@ Close the reading. Write answers from memory. Then self-score.
 
 ## Questions
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What does `localhost` mean inside Sonarr's container?
 2. Why is a user-defined bridge better than the legacy default for a Compose stack?

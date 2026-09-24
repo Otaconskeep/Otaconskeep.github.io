@@ -1,4 +1,4 @@
-# Module 10 — Sonarr & Radarr
+# Module 10: Sonarr & Radarr
 
 **Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review
 **Feynman teach-back is required in every lesson.**

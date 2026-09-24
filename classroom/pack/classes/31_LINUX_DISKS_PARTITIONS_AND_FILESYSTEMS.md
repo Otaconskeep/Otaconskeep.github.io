@@ -1,4 +1,4 @@
-# Class 31 — Linux Disks, Partitions, and Filesystems
+# Class 31: Linux Disks, Partitions, and Filesystems
 
 **Module:** Docker, Storage & Permissions  
 **Difficulty:** Beginner · **Duration:** 100 minutes · **Lab risk:** Medium if boundaries are ignored; Low within the provided image-file lab  
@@ -35,7 +35,7 @@ Formatting creates filesystem structures and normally overwrites existing signat
 
 The lab uses a regular sparse file, not a block device. `mkfs.ext4 -F` is intentionally destructive to that one file, so the command verifies the target is a regular file inside the class directory first.
 
-## Visual 1 — Storage Stack
+## Visual 1: Storage Stack
 
 ```mermaid
 flowchart TD
@@ -45,7 +45,7 @@ flowchart TD
   M --> A[Application data]
 ```
 
-## Visual 2 — Choose the Evidence Tool
+## Visual 2: Choose the Evidence Tool
 
 ```mermaid
 flowchart LR

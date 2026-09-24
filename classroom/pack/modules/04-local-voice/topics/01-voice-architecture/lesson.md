@@ -1,6 +1,6 @@
-# Lesson 04.01 — Local voice architecture
+# Lesson 04.01: Local voice architecture
 
-**Module:** Module 4 — Local Voice Assistant  
+**Module:** Module 4: Local Voice Assistant  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
 **Learning objective:** Given a voice request, the learner can draw the local Assist pipeline stages, instrument one test per stage, and isolate faults to mic, wake, STT, intent/action, TTS, or playback.  
 **Bloom level:** Analyze  
@@ -29,7 +29,7 @@ flowchart TD
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What does STT mean? TTS?
 2. Why test stages independently before the full pipeline?
@@ -39,13 +39,13 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 Complete the module reading first:
 
-- [Reading — Local voice architecture](./reading.md)
+- [Reading: Local voice architecture](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
 ## Guided practice (We do)
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Fill the stage table for a sample phrase with assistance.
 
@@ -60,7 +60,7 @@ Describe **the local voice signal chain and fault isolation** in your own words.
 Explain the same idea to a 12-year-old. If you use a technical word, define it.
 
 ### Example
-Analogy: a relay race — you must know which runner dropped the baton.
+Analogy: a relay race: you must know which runner dropped the baton.
 
 ### Weak spot
 What part was hard to explain? That is where your understanding is thin.
@@ -68,7 +68,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 ## Reflection
 

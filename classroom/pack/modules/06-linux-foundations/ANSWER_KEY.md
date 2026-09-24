@@ -1,4 +1,4 @@
-# Module quiz answer key — Linux Foundations
+# Module quiz answer key: Linux Foundations
 
 1. Absolute starts at `/` and does not depend on cwd; relative is interpreted from cwd.
 2. `/data` may hold production media; labs must stay disposable under `/opt/lab-classroom`.

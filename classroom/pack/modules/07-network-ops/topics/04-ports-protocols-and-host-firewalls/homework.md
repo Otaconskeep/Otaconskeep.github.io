@@ -1,4 +1,4 @@
-# Homework — Ports, Protocols, and Host Firewalls
+# Homework: Ports, Protocols, and Host Firewalls
 
 **Module:** Network Operations
 **Activity type:** Homework / independent application

@@ -1,4 +1,4 @@
-# Reading — DNS, DHCP, and NAT
+# Reading: DNS, DHCP, and NAT
 
 **Module:** Network Operations
 **Activity type:** Reading (Learn)
@@ -74,8 +74,8 @@ All services in this lab are modeled in files and Python data structures. The ho
 
 ## References
 
-- RFC 1034, Domain Names—Concepts and Facilities: https://www.rfc-editor.org/rfc/rfc1034
-- RFC 1035, Domain Names—Implementation and Specification: https://www.rfc-editor.org/rfc/rfc1035
+- RFC 1034, Domain Names, Concepts and Facilities: https://www.rfc-editor.org/rfc/rfc1034
+- RFC 1035, Domain Names, Implementation and Specification: https://www.rfc-editor.org/rfc/rfc1035
 - RFC 2131, Dynamic Host Configuration Protocol: https://www.rfc-editor.org/rfc/rfc2131
 - RFC 2132, DHCP Options and BOOTP Vendor Extensions: https://www.rfc-editor.org/rfc/rfc2132
 - RFC 3022, Traditional IP Network Address Translator: https://www.rfc-editor.org/rfc/rfc3022

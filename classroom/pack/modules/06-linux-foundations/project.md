@@ -1,6 +1,6 @@
-# Module project — Linux Foundations
+# Module project: Linux Foundations
 
-**Module:** Module 06 — Linux Foundations  
+**Module:** Module 06: Linux Foundations  
 **Activity type:** Project (integrated Apply/Create)  
 **Classes covered:** 16, 17, 18, 19, 20, 21  
 **Lab risk:** medium (disposable paths + optional user systemd + ssh lab VM only)
@@ -13,10 +13,10 @@ Deliver a single evidence pack proving you can navigate, pipe, permission, super
 
 1. **Lab tree** under `/opt/lab-classroom/module06-project/` with `configs/`, `logs/`, `bin/`.
 2. **Pipeline** that filters ERROR lines from a sample log into `logs/errors.txt` using grep|tee and reports a count.
-3. **Identity** — a lab group and two lab users; shared directory mode proving group-read without world-write (no 777).
-4. **Service** — a user-level oneshot systemd unit that appends a heartbeat line to `logs/heartbeat.log`.
-5. **Journal evidence** — redacted `journalctl --user` excerpt for that unit.
-6. **SSH notes** — screenshot or command transcript of key auth on a lab VM *or* a clearly labeled simulation documenting hardening order and break-glass console plan if no second VM is available.
+3. **Identity**: a lab group and two lab users; shared directory mode proving group-read without world-write (no 777).
+4. **Service**: a user-level oneshot systemd unit that appends a heartbeat line to `logs/heartbeat.log`.
+5. **Journal evidence**: redacted `journalctl --user` excerpt for that unit.
+6. **SSH notes**: screenshot or command transcript of key auth on a lab VM *or* a clearly labeled simulation documenting hardening order and break-glass console plan if no second VM is available.
 
 ## Verification checklist
 

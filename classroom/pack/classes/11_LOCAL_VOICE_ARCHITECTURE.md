@@ -1,6 +1,6 @@
-# Class 11 — Local Voice Architecture and Fault Isolation
+# Class 11: Local Voice Architecture and Fault Isolation
 
-**Lecture (optional):** [Everything Smart Home — Local Smart Home Voice](https://www.youtube.com/watch?v=w9BbjUowmnE)
+**Lecture (optional):** [Everything Smart Home: Local Smart Home Voice](https://www.youtube.com/watch?v=w9BbjUowmnE)
 **Time:** 120 minutes
 **Learning objective:** Given a voice request, the learner can draw the local Assist pipeline stages, instrument one test per stage, and isolate faults to mic, wake, STT, intent/action, TTS, or playback.
 **Bloom level:** Analyze
@@ -29,7 +29,7 @@ flowchart TD
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What does STT mean? TTS?
 2. Why test stages independently before the full pipeline?
@@ -99,21 +99,21 @@ E2E success ≥ 7/10 from seating position
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad debug:** “Voice is broken” → reinstall everything.
 
-**Better:** Stage table — mic level OK? wake fired? STT text correct? intent matched? action ran? TTS audio generated? speaker played? Fix the first failing stage only.
+**Better:** Stage table: mic level OK? wake fired? STT text correct? intent matched? action ran? TTS audio generated? speaker played? Fix the first failing stage only.
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Fill the stage table for a sample phrase with assistance.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Create your pipeline test record template with one pass/fail line per stage. Run it once on a known sentence.
 
@@ -128,7 +128,7 @@ Describe **the local voice signal chain and fault isolation** in your own words.
 Explain the same idea to a 12-year-old. If you use a technical word, define it.
 
 ### Example
-Analogy: a relay race — you must know which runner dropped the baton.
+Analogy: a relay race: you must know which runner dropped the baton.
 
 ### Weak spot
 What part was hard to explain? That is where your understanding is thin.
@@ -136,12 +136,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. Why does a correct HA action not prove STT quality?
 2. What does VAD control?
@@ -200,7 +200,7 @@ aplay /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null || ffplay -autoexit -n
 
 ### Break/fix
 
-Mute mic; confirm wake fails. Unmute. Play TTS with speaker unplugged; confirm synthesis may succeed while playback fails—record both.
+Mute mic; confirm wake fails. Unmute. Play TTS with speaker unplugged; confirm synthesis may succeed while playback fails, record both.
 
 ## Feedback / common mistakes
 

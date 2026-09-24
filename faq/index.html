@@ -50,7 +50,7 @@
  <section class="hero flush">
  <p class="eyebrow">Support</p>
  <h1 class="display" style="font-size: clamp(2.4rem, 6vw, 4rem);">FAQ</h1>
- <p class="lede">General questions and install troubleshooting for Otaconskeep Lite, AI9, and Otacon Expansion. If your question isn't here, ask in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a> &mdash; that's the fastest path to Antonio directly.</p>
+ <p class="lede">General questions and install troubleshooting for Otaconskeep Lite, AI9, and Otacon Expansion. If your question isn't here, ask in <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>: that's the fastest path to Antonio directly.</p>
  </section>
 </div>
 
@@ -62,7 +62,7 @@
  <details class="install-toggle" open>
  <summary>What's the difference between Lite, Expansion, and "the Keep"?</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;"><strong>Otaconskeep Lite</strong> (built on Otacon Core) is the free, open-source, self-hosted foundation &mdash; persistent agents, memory, voice, one command to install. <strong>Otacon Expansion</strong> is the premium layer on top: a <strong>five-agent Lite roster</strong> with real hierarchy, a live mood/relationship engine, and command-center surfaces (Dashboard, Codec, War Room, Video Studio shells, and more). <strong>The Keep</strong> is Antonio's own private reference environment &mdash; a larger <strong>16+ agent</strong> canon plus media automation, smart-home integration, and multi-node GPU orchestration that go beyond what's shipped publicly. Lite installs the foundation. Expansion is the specified public product; the Keep remains the private depth reference, not a downloadable clone.</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;"><strong>Otaconskeep Lite</strong> (built on Otacon Core) is the free, open-source, self-hosted foundation: persistent agents, memory, voice, one command to install. <strong>Otacon Expansion</strong> is the premium layer on top: a <strong>five-agent Lite roster</strong> with real hierarchy, a live mood/relationship engine, and command-center surfaces (Dashboard, Codec, War Room, Video Studio shells, and more). <strong>The Keep</strong> is Antonio's own private reference environment: a larger <strong>16+ agent</strong> canon plus media automation, smart-home integration, and multi-node GPU orchestration that go beyond what's shipped publicly. Lite installs the foundation. Expansion is the specified public product; the Keep remains the private depth reference, not a downloadable clone.</p>
  </div>
  </details>
 
@@ -83,7 +83,7 @@
  <details class="install-toggle">
  <summary>What hardware do I need?</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Lite runs on CPU alone (a smaller model is picked automatically under 6GB VRAM) up through a 16GB+ GPU for the larger default model. AI9 and Expansion's future Video Studio need an NVIDIA GPU &mdash; AI9 supports RTX 30/40/50-series today. There's no minimum GPU for Lite or for today's Expansion foundation install.</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Lite runs on CPU alone (a smaller model is picked automatically under 6GB VRAM) up through a 16GB+ GPU for the larger default model. AI9 and Expansion's future Video Studio need an NVIDIA GPU: AI9 supports RTX 30/40/50-series today. There's no minimum GPU for Lite or for today's Expansion foundation install.</p>
  </div>
  </details>
  </section>
@@ -104,7 +104,7 @@
  <details class="install-toggle">
  <summary>I got an Administrator / "Yes" popup, or a second window opened</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Expected. Click <strong>Yes</strong>. A new Setup window opening is normal &mdash; the old window can stay open, or it'll say setup continues in the new one.</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Expected. Click <strong>Yes</strong>. A new Setup window opening is normal: the old window can stay open, or it'll say setup continues in the new one.</p>
  </div>
  </details>
 
@@ -116,30 +116,30 @@
  </details>
 
  <details class="install-toggle">
- <summary>It asked me to restart &mdash; did it fail?</summary>
+ <summary>It asked me to restart: did it fail?</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">No. Save your work, restart, and Setup should show <strong>WELCOME BACK</strong> and continue on its own. If it doesn't relaunch automatically, double-click the same <span class="mono">OtaconsKeep-Setup.bat</span> again &mdash; it resumes, it doesn't start over.</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">No. Save your work, restart, and Setup should show <strong>WELCOME BACK</strong> and continue on its own. If it doesn't relaunch automatically, double-click the same <span class="mono">OtaconsKeep-Setup.bat</span> again: it resumes, it doesn't start over.</p>
  </div>
  </details>
 
  <details class="install-toggle">
  <summary>It says "Updates are underway, please keep your computer on" with a spinner</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">That's Windows itself, not Otacon &mdash; it's finishing the Linux/WSL feature install it just enabled, using the same screen it uses for regular OS updates. This can take 15&ndash;45+ minutes, longer on a hard drive than an SSD. If a drive activity light is flickering, it's working. Only treat it as stuck after several hours with zero drive activity: hard power off, reboot, run <span class="mono">sfc /scannow</span> then <span class="mono">DISM /Online /Cleanup-Image /RestoreHealth</span> as admin, confirm a few GB of free disk space, then re-run <span class="mono">OtaconsKeep-Setup.bat</span> &mdash; it resumes rather than starting over.</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">That's Windows itself, not Otacon: it's finishing the Linux/WSL feature install it just enabled, using the same screen it uses for regular OS updates. This can take 15&ndash;45+ minutes, longer on a hard drive than an SSD. If a drive activity light is flickering, it's working. Only treat it as stuck after several hours with zero drive activity: hard power off, reboot, run <span class="mono">sfc /scannow</span> then <span class="mono">DISM /Online /Cleanup-Image /RestoreHealth</span> as admin, confirm a few GB of free disk space, then re-run <span class="mono">OtaconsKeep-Setup.bat</span>: it resumes rather than starting over.</p>
  </div>
  </details>
 
  <details class="install-toggle">
  <summary>It's asking me for an Ubuntu username and password</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Windows is creating OtaconsKeep's local WSL Linux environment. Pick any username and a password you'll remember &mdash; it's local to your machine only.</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Windows is creating OtaconsKeep's local WSL Linux environment. Pick any username and a password you'll remember: it's local to your machine only.</p>
  </div>
  </details>
 
  <details class="install-toggle">
  <summary>I opened localhost:5757 and it looks broken</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Don't open it until the setup window says <strong>OTACON IS READY</strong>. Opening early looks broken even when the install is completely fine &mdash; it's just not finished starting yet.</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Don't open it until the setup window says <strong>OTACON IS READY</strong>. Opening early looks broken even when the install is completely fine: it's just not finished starting yet.</p>
  </div>
  </details>
 
@@ -153,14 +153,14 @@
  <details class="install-toggle">
  <summary>Something still seems stuck or broken after a restart</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Re-run <span class="mono">OtaconsKeep-Setup.bat</span> (or <span class="mono">install_otacon.sh</span> on Linux) &mdash; it re-checks everything and continues from where you left off without wiping data. Windows status check: <span class="mono">OtaconsKeep-Setup.bat --status</span>. Linux health check: <span class="mono">otacon doctor</span>.</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Re-run <span class="mono">OtaconsKeep-Setup.bat</span> (or <span class="mono">install_otacon.sh</span> on Linux): it re-checks everything and continues from where you left off without wiping data. Windows status check: <span class="mono">OtaconsKeep-Setup.bat --status</span>. Linux health check: <span class="mono">otacon doctor</span>.</p>
  </div>
  </details>
 
  <details class="install-toggle">
  <summary>The download looked corrupted / the .bat wouldn't run</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Recommended: use the download button on the <a href="/install/#install-otacon">install page</a>. It provides the Windows-formatted installer as tested. Prefer reviewing code first? <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">View source</a>. If the browser blocks the download, use the <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem/archive/refs/heads/main.zip">GitHub ZIP</a> and run the .bat from the extracted folder — don't Save As on a single raw GitHub .bat (that can corrupt encoding).</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Recommended: use the download button on the <a href="/install/#install-otacon">install page</a>. It provides the Windows-formatted installer as tested. Prefer reviewing code first? <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">View source</a>. If the browser blocks the download, use the <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem/archive/refs/heads/main.zip">GitHub ZIP</a> and run the .bat from the extracted folder: don't Save As on a single raw GitHub .bat (that can corrupt encoding).</p>
  </div>
  </details>
  </section>
@@ -188,12 +188,12 @@
  <details class="install-toggle">
  <summary>What does FOUNDATION READY / DEGRADED / FAILED mean?</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;"><strong>READY</strong> (exit 0): the test suite passed and the five-agent roster was generated and validated. <strong>DEGRADED</strong> (exit 2): the roster was still written, but the test suite didn't fully pass &mdash; check the install log. <strong>FAILED</strong> (exit 1): usually Core wasn't found, or the roster failed schema/hierarchy validation. The script always tells you exactly which stage failed and where the log is.</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;"><strong>READY</strong> (exit 0): the test suite passed and the five-agent roster was generated and validated. <strong>DEGRADED</strong> (exit 2): the roster was still written, but the test suite didn't fully pass: check the install log. <strong>FAILED</strong> (exit 1): usually Core wasn't found, or the roster failed schema/hierarchy validation. The script always tells you exactly which stage failed and where the log is.</p>
  </div>
  </details>
 
  <details class="install-toggle">
- <summary>I ran it and got FOUNDATION READY &mdash; where's the Dashboard?</summary>
+ <summary>I ran it and got FOUNDATION READY: where's the Dashboard?</summary>
  <div class="install-box">
  <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Open <span class="mono">http://127.0.0.1:5757/</span> after Expansion install / soft-update. Command Deck and Codec ship in the product UI. Soft-update: re-run <span class="mono">OtaconsKeep-Setup.bat</span>, or in Ubuntu <span class="mono">git -C ~/otacon-ai-ecosystem fetch &amp;&amp; git -C ~/otacon-ai-ecosystem reset --hard origin/main</span> then restart <span class="mono">otacon.service</span>. Hard-refresh the browser.</p>
  </div>
@@ -202,7 +202,7 @@
  <details class="install-toggle">
  <summary>Is it safe to rerun?</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Yes. It re-syncs the repo, re-runs the test suite, and regenerates the roster &mdash; each agent's original creation timestamp is preserved across reruns, nothing is duplicated.</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Yes. It re-syncs the repo, re-runs the test suite, and regenerates the roster: each agent's original creation timestamp is preserved across reruns, nothing is duplicated.</p>
  </div>
  </details>
  </section>
@@ -237,7 +237,7 @@
  <details class="install-toggle">
  <summary>Is there a one-click Expansion installer yet?</summary>
  <div class="install-box">
- <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Yes &mdash; download <a href="/downloads/OtaconExpansion-Setup.bat">OtaconExpansion-Setup.bat</a> (requires Core / Lite first). Member HQ also links the same Setup. Soft-update later by re-running <span class="mono">OtaconsKeep-Setup.bat</span> so cached helpers and the Linux app tip refresh.</p>
+ <p style="color: var(--cream-dim); font-size: 0.92rem; margin: 0;">Yes: download <a href="/downloads/OtaconExpansion-Setup.bat">OtaconExpansion-Setup.bat</a> (requires Core / Lite first). Member HQ also links the same Setup. Soft-update later by re-running <span class="mono">OtaconsKeep-Setup.bat</span> so cached helpers and the Linux app tip refresh.</p>
  </div>
  </details>
 
@@ -297,7 +297,7 @@
  <section>
  <p class="tag">Still stuck?</p>
  <h2>Ask a real person</h2>
- <p class="intro">Discord is the fastest way to reach Antonio directly &mdash; screenshots and log files help.</p>
+ <p class="intro">Discord is the fastest way to reach Antonio directly: screenshots and log files help.</p>
  <div class="btn-row">
  <a class="btn btn-primary" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Ask in Discord &rarr;</a>
  </div>

@@ -1,6 +1,6 @@
-# Lesson 08.07 — PUID, PGID, ACLs, and Container File Access
+# Lesson 08.07: PUID, PGID, ACLs, and Container File Access
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)
 **Learning objective:** Explain numeric UID/GID identity across host and containers; distinguish mode bits from ACLs; diagnose bind-mount access failures; test access using an explicit container user; and design least-privilege ownership without using world-writable shortcuts.
 

@@ -1,6 +1,6 @@
-# Quiz — Docker Volumes and Bind Mounts
+# Quiz: Docker Volumes and Bind Mounts
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Quiz (Test)
 
 ## Knowledge check

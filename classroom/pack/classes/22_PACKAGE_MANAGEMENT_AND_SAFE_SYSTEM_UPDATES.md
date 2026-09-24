@@ -1,4 +1,4 @@
-# Class 22 — Package Management and Safe System Updates
+# Class 22: Package Management and Safe System Updates
 
 **Learning objective:** Explain the difference between a package repository, package metadata, dependency resolver, transaction engine, installed-package database, and running services.; Create a normalized two-column inventory of installed package names and versions.; Inspect repository and candidate-version information without performing a package transaction.; Simulate an update transaction and preserve standard output, standard error, and command status for review.; Contrast APT upgrade with APT dist-upgrade or full-upgrade resolver behavior.; Recognize removals, held packages, dependency conflicts, kernel changes, and service-impacting packages as maintenance review triggers.; Create a planning-only batch report that groups simulated package actions without applying them.; Generate and verify SHA-256 checksums for the lab evidence.; Describe rollback as a preplanned recovery process rather than an automatic package-manager feature.
 **Bloom level:** Understand / Apply

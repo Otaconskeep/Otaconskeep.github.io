@@ -1,4 +1,4 @@
-# Reading — Sonarr Naming and Library Hygiene
+# Reading: Sonarr Naming and Library Hygiene
 
 **Module:** Sonarr & Radarr
 **Activity type:** Reading (Learn)

@@ -1,6 +1,6 @@
-# Quiz — Virtual machines & Proxmox
+# Quiz: Virtual machines & Proxmox
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Quiz / retrieval practice  
 **Target:** ≥80% before topic mastery unlock  
 **Objective:** Given a host and a guest requirement, the learner can choose Type 1 vs Type 2 virtualization, create a working Linux guest (VirtualBox or Proxmox), and prove networking, DNS, and SSH with recorded evidence.
@@ -11,7 +11,7 @@ Close the reading. Write answers from memory. Then self-score.
 
 ## Questions
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. In plain words, what is a virtual machine?
 2. What is the difference between a host and a guest?

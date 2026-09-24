@@ -1,4 +1,4 @@
-# Class 30 — Docker Volumes and Bind Mounts
+# Class 30: Docker Volumes and Bind Mounts
 
 **Module:** Docker, Storage & Permissions  
 **Difficulty:** Beginner · **Duration:** 100 minutes · **Lab risk:** Low  
@@ -31,7 +31,7 @@ Choose based on lifecycle and ownership:
 
 A mount hides image content at the same container path for as long as it is attached. Backups must match application consistency requirements. A stopped single-file application may tolerate filesystem-level archiving; databases often require application-aware dumps, snapshots, or coordinated quiescence.
 
-## Visual 1 — Storage Lifetimes
+## Visual 1: Storage Lifetimes
 
 ```mermaid
 flowchart LR
@@ -41,7 +41,7 @@ flowchart LR
   B[Host bind path] -->|host-coupled| C
 ```
 
-## Visual 2 — Selection Guide
+## Visual 2: Selection Guide
 
 ```mermaid
 flowchart TD

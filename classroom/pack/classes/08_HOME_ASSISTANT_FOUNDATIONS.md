@@ -1,6 +1,6 @@
-# Class 8 — Home Assistant Foundations
+# Class 8: Home Assistant Foundations
 
-**Lecture (optional):** [Smart Home Junkie — Home Assistant Beginner Guide](https://www.youtube.com/watch?v=Frd-C7ZeZAo)
+**Lecture (optional):** [Smart Home Junkie: Home Assistant Beginner Guide](https://www.youtube.com/watch?v=Frd-C7ZeZAo)
 **Time:** 150 minutes
 **Learning objective:** Given a Home Assistant install path, the learner can identify device/entity/area/integration, build a minimal dashboard, and prove backup + restore evidence.
 **Bloom level:** Apply
@@ -13,11 +13,11 @@ Given a Home Assistant install path, the learner can identify device/entity/area
 
 ## Why this matters
 
-Automations and voice are useless on a unnamed mess of entities. Foundations — objects, areas, backups — decide whether later classes are joyful or cursed.
+Automations and voice are useless on a unnamed mess of entities. Foundations: objects, areas, backups: decide whether later classes are joyful or cursed.
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What should you back up before experimenting?
 2. Why do friendly names matter for automations?
@@ -98,7 +98,7 @@ Snapshots, VM backups, and HA backups protect different failure modes. Use layer
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Default entity ids everywhere (`sensor.temperature_3`) and no backup.
 
@@ -106,13 +106,13 @@ Snapshots, VM backups, and HA backups protect different failure modes. Use layer
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Map one physical device → integration → entity → area on paper with assistance.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Rename/organize three entities and prove a backup artifact exists. Write the restore steps without powering off the wrong host.
 
@@ -135,12 +135,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What is the difference between a device and an entity?
 2. How does Home Assistant OS differ from Home Assistant Container?
@@ -159,7 +159,7 @@ Prefer HA OS in a VM (Class 1) or a documented Container install. Record which o
 
 :::linux
 ```bash
-# Example pattern — follow current HA Container docs for exact compose:
+# Example pattern: follow current HA Container docs for exact compose:
 mkdir -p ~/ha-config
 docker compose ps
 # After your compose exists:
@@ -201,7 +201,7 @@ curl.exe -sI http://HA-IP:8123/
 
 :::linux
 ```bash
-# From a machine that can reach HA — Long-Lived Token in password manager only:
+# From a machine that can reach HA: Long-Lived Token in password manager only:
 export HA=http://HA-IP:8123
 export TOKEN='YOUR_LONG_LIVED_TOKEN'
 curl -s -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
@@ -245,7 +245,7 @@ Get-FileHash $HOME\backups\ha\* -Algorithm SHA256 | Format-Table
 
 ### Break/fix
 
-1. Rename an entity after a dashboard depends on it—observe break—rename back or update the card.
+1. Rename an entity after a dashboard depends on it, observe break, rename back or update the card.
 
 2. Stop the HA VM/container briefly; confirm UI down; start; confirm recovery.
 

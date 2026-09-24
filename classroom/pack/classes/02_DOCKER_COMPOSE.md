@@ -1,6 +1,6 @@
-# Class 2 — Docker Compose and Persistent Applications
+# Class 2: Docker Compose and Persistent Applications
 
-**Lecture (optional):** [NetworkChuck — Docker Compose](https://www.youtube.com/watch?v=DM65_JyGxCo)
+**Lecture (optional):** [NetworkChuck: Docker Compose](https://www.youtube.com/watch?v=DM65_JyGxCo)
 **Time:** 120 minutes
 **Learning objective:** Given a multi-step `docker run` intent, the learner can write a Compose file with services, ports, environment, and persistent mounts, then recreate the stack without data loss.
 **Bloom level:** Apply / Create
@@ -13,11 +13,11 @@ Given a multi-step `docker run` intent, the learner can write a Compose file wit
 
 ## Why this matters
 
-Shell history is not a system design. If your stack only exists as remembered commands, you cannot rebuild after failure — and every later ARR/HA/voice service will be fragile.
+Shell history is not a system design. If your stack only exists as remembered commands, you cannot rebuild after failure: and every later ARR/HA/voice service will be fragile.
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is a container image versus a running container?
 2. Where should application data live if the container is deleted?
@@ -104,7 +104,7 @@ docker compose down
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad Compose intent:** No volumes; data lives in the container filesystem; recreate = wipe.
 
@@ -112,13 +112,13 @@ docker compose down
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Convert one documented `docker run` (from the lesson) into Compose YAML with assistance. Check: service name, image, ports, env, volume, restart policy.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Without hints, add a second service to the same Compose project that shares a network name and a documented volume path. Prove both survive recreate.
 
@@ -141,12 +141,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. Why should persistent data not remain only in the container layer?
 2. In `8080:80`, which is the host port?
@@ -161,7 +161,7 @@ Active recall — write answers without rereading first. Target ≥80% before th
 
 Create a project folder and the files below. Use the OS toggle for host commands.
 
-### Setup — create the project files
+### Setup: create the project files
 
 1. **Make the lab directory and Compose file.**
 

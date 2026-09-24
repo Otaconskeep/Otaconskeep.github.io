@@ -1,6 +1,6 @@
-# Lesson 03.01 — Home Assistant foundations
+# Lesson 03.01: Home Assistant foundations
 
-**Module:** Module 3 — Home Assistant & Secure Access  
+**Module:** Module 3: Home Assistant & Secure Access  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
 **Learning objective:** Given a Home Assistant install path, the learner can identify device/entity/area/integration, build a minimal dashboard, and prove backup + restore evidence.  
 **Bloom level:** Apply  
@@ -13,11 +13,11 @@ Given a Home Assistant install path, the learner can identify device/entity/area
 
 ## Why this matters
 
-Automations and voice are useless on a unnamed mess of entities. Foundations — objects, areas, backups — decide whether later classes are joyful or cursed.
+Automations and voice are useless on a unnamed mess of entities. Foundations: objects, areas, backups: decide whether later classes are joyful or cursed.
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What should you back up before experimenting?
 2. Why do friendly names matter for automations?
@@ -27,13 +27,13 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 Complete the module reading first:
 
-- [Reading — Home Assistant foundations](./reading.md)
+- [Reading: Home Assistant foundations](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
 ## Guided practice (We do)
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Map one physical device → integration → entity → area on paper with assistance.
 
@@ -56,7 +56,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 ## Reflection
 

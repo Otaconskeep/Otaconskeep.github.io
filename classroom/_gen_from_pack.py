@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build Homelab Academy Classroom — pack content in Otaconskeep site chrome."""
+"""Build Homelab Academy Classroom: pack content in Otaconskeep site chrome."""
 from __future__ import annotations
 
 import html as H
@@ -121,7 +121,7 @@ def load_dynamic_class_extensions():
             if num in known:
                 continue
             raw = p.read_text(encoding='utf-8', errors='replace')
-            tm = re.search(r'^#\s+Class\s+(\d+)\s+[—\-]\s+(.+)$', raw, re.M)
+            tm = re.search(r'^#\s+Class\s+(\d+)\s+[:\-]\s+(.+)$', raw, re.M)
             title = tm.group(2).strip() if tm else p.stem
             # unit guess from automation roadmap modules via class_index
             unit, unit_name = '6', 'Linux'
@@ -367,7 +367,7 @@ def render_gate(body_md: str, cid: str) -> str:
         for i, t in enumerate(items)
     )
     return f'''<div class="cr-check" data-check-id="{H.escape(cid)}">
- <div class="cr-box-head">{kind_badge("gate")}<h3>Practical mastery gate — pass before you continue</h3></div>
+ <div class="cr-box-head">{kind_badge("gate")}<h3>Practical mastery gate: pass before you continue</h3></div>
  {help_widget(mean, more)}
  {boxes}
  <div class="cr-gate">Mastery unlock: all boxes true + Feynman complete → continue to the next class</div>
@@ -564,7 +564,7 @@ def render_feynman(body_md: str, class_id: str) -> str:
     for key, label, hint in fields:
         cards.append(
             f'<div class="cr-feynman-field">'
-            f'<label for="fy-{H.escape(class_id)}-{key}"><strong>{label}</strong> — {H.escape(hint)}</label>'
+            f'<label for="fy-{H.escape(class_id)}-{key}"><strong>{label}</strong>: {H.escape(hint)}</label>'
             f'<textarea id="fy-{H.escape(class_id)}-{key}" data-feynman-id="{H.escape(class_id)}" '
             f'data-feynman-field="{key}" rows="4" placeholder="Write here…"></textarea>'
             f"</div>"
@@ -572,7 +572,7 @@ def render_feynman(body_md: str, class_id: str) -> str:
     prose = md_fragment(body_md) if body_md.strip() else ""
     return (
         f'<div class="cr-box cr-box-feynman" id="feynman">'
-        f'<div class="cr-box-head">{kind_badge("feynman")}<h3>Feynman teach-back — required</h3></div>'
+        f'<div class="cr-box-head">{kind_badge("feynman")}<h3>Feynman teach-back: required</h3></div>'
         f"{help_widget(mean, more)}"
         f'<div class="cr-prose-block">{prose}</div>'
         f'<div class="cr-feynman-form" data-feynman-form="{H.escape(class_id)}">'
@@ -708,7 +708,7 @@ def discover_extra_modules():
             head = mod_md.read_text(encoding="utf-8", errors="replace").splitlines()[:5]
             for line in head:
                 if line.startswith("# "):
-                    title = re.sub(r"^#\s+Module\s+\d+\s+[—\-]\s+", "", line).strip() or title
+                    title = re.sub(r"^#\s+Module\s+\d+\s+[:\-]\s+", "", line).strip() or title
                     break
         topics = list((d / "topics").glob("*")) if (d / "topics").is_dir() else []
         meta = f"{len(topics)} topics / automation"
@@ -816,11 +816,11 @@ def gen_modules():
             topic_blocks.append(
                 f'<div class="cr-box"><h3>{H.escape(tdir.name)}</h3>'
                 f'<ol class="cr-class-list">'
-                f'<li><a href="{tb}reading.html"><strong>Reading</strong></a> — Learn</li>'
-                f'<li><a href="{tb}lesson.html"><strong>Lesson</strong></a> — Feynman required</li>'
-                f'<li><a href="{tb}lab.html"><strong>Lab</strong></a> — Practice</li>'
-                f'<li><a href="{tb}homework.html"><strong>Homework</strong></a> — Apply</li>'
-                f'<li><a href="{tb}quiz.html"><strong>Quiz</strong></a> — Test</li>'
+                f'<li><a href="{tb}reading.html"><strong>Reading</strong></a>: Learn</li>'
+                f'<li><a href="{tb}lesson.html"><strong>Lesson</strong></a>: Feynman required</li>'
+                f'<li><a href="{tb}lab.html"><strong>Lab</strong></a>: Practice</li>'
+                f'<li><a href="{tb}homework.html"><strong>Homework</strong></a>: Apply</li>'
+                f'<li><a href="{tb}quiz.html"><strong>Quiz</strong></a>: Test</li>'
                 f"</ol></div>"
             )
 
@@ -845,18 +845,18 @@ def gen_modules():
 </div>
 <div class="wrap">
  {''.join(sec_html)}
- <div class="cr-box"><h3>Topics — activity paths</h3>{''.join(topic_blocks)}</div>
+ <div class="cr-box"><h3>Topics: activity paths</h3>{''.join(topic_blocks)}</div>
  <div class="cr-box"><h3>Module assessments</h3>
  <ol class="cr-class-list">
-  <li><a href="project.html"><strong>Project</strong></a> — integrated Apply/Create</li>
-  <li><a href="module-quiz.html"><strong>Module quiz</strong></a> — retention</li>
-  <li><a href="exam.html"><strong>Exam</strong></a> — mastery</li>
-  <li><a href="remediation.html"><strong>Remediation</strong></a> — re-teach weak areas</li>
+  <li><a href="project.html"><strong>Project</strong></a>: integrated Apply/Create</li>
+  <li><a href="module-quiz.html"><strong>Module quiz</strong></a>: retention</li>
+  <li><a href="exam.html"><strong>Exam</strong></a>: mastery</li>
+  <li><a href="remediation.html"><strong>Remediation</strong></a>: re-teach weak areas</li>
  </ol></div>
  {pager(("/classroom/modules/", "All modules"), ("project.html", "Project"))}
 </div>
 """
-        write(out / "index.html", wrap(f"Module {int(num)} — {title} · Classroom", title, f"/classroom/modules/{slug}/", f"MODULE {int(num)}", hub))
+        write(out / "index.html", wrap(f"Module {int(num)}: {title} · Classroom", title, f"/classroom/modules/{slug}/", f"MODULE {int(num)}", hub))
 
         for act, label, lede in [
             ("project", "Project", "Integrated Apply/Create across this module's topics."),
@@ -870,7 +870,7 @@ def gen_modules():
             gen_activity_page(
                 src,
                 out / f"{act}.html",
-                f"{title} — {label}",
+                f"{title}: {label}",
                 f"M{int(num)} {label.upper()}",
                 f"/classroom/modules/{slug}/{act}.html",
                 act,
@@ -888,7 +888,7 @@ def gen_modules():
             tout.mkdir(parents=True)
             topic_base = f"/classroom/modules/{slug}/topics/{tdir.name}/"
             acts = [
-                ("reading", "Reading", "Learn — instruction, vocabulary, worked example."),
+                ("reading", "Reading", "Learn: instruction, vocabulary, worked example."),
                 ("lesson", "Lesson", "Orient, prior check, guided practice, required Feynman, reflect."),
                 ("lab", "Lab", "Guided practice + break/fix + lab gate."),
                 ("homework", "Homework", "Independent application with evidence."),
@@ -900,7 +900,7 @@ def gen_modules():
                 gen_activity_page(
                     tdir / f"{act}.md",
                     tout / f"{act}.html",
-                    f"{tdir.name} — {label}",
+                    f"{tdir.name}: {label}",
                     f"M{int(num)} {label.upper()}",
                     f"{topic_base}{act}.html",
                     act,
@@ -911,7 +911,7 @@ def gen_modules():
                     mod_base=mod_base,
                 )
             links = "".join(
-                f'<li><a href="{a}.html"><strong>{lab}</strong></a> — {lede}</li>'
+                f'<li><a href="{a}.html"><strong>{lab}</strong></a>: {lede}</li>'
                 for a, lab, lede in acts
             )
             tbody = f"""
@@ -979,7 +979,7 @@ def gen_hub():
             f'<a class="cr-course-card" href="classes/{num}.html">'
             f'<div class="num">{num}</div><div>'
             f"<h3>{H.escape(title)}</h3>"
-            f'<p>Unit {unit} — {H.escape(unit_name)}</p>'
+            f'<p>Unit {unit}: {H.escape(unit_name)}</p>'
             f'<div class="meta">Class {int(num)}</div>'
             f"</div></a>"
         )
@@ -990,7 +990,7 @@ def gen_hub():
  <div class="stamp">HOMELAB ACADEMY<small>free · {nclasses}-class pack</small></div>
  <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom</p>
  <h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Learn. Practice. Explain. Master.</h1>
- <p class="lede">A learning system for ARR, Home Assistant, and local voice — Backward Design, Bloom progression, mandatory Feynman teach-backs, mastery gates, and spiral review. Not a pile of videos and quizzes.</p>
+ <p class="lede">A learning system for ARR, Home Assistant, and local voice: Backward Design, Bloom progression, mandatory Feynman teach-backs, mastery gates, and spiral review. Not a pile of videos and quizzes.</p>
  <div class="btn-row" style="margin-top:26px;">
   <a class="btn btn-primary" href="modules/01-infrastructure/">Start Module 1</a>
   <a class="btn btn-ghost" href="workbook.html">Student workbook</a>
@@ -1100,10 +1100,10 @@ def gen_classes():
 '''
         write(
             CLASSES_DIR / f"{num}.html",
-            wrap(f"Class {int(num)} — {title} · Classroom", title, f"/classroom/classes/{num}.html", f"CLASS {int(num)}", body),
+            wrap(f"Class {int(num)}: {title} · Classroom", title, f"/classroom/classes/{num}.html", f"CLASS {int(num)}", body),
         )
         index_lis.append(
-            f'<li><a href="{num}.html"><strong>Class {int(num)}</strong> — {H.escape(title)}</a> <span class="meta">Unit {unit}</span></li>'
+            f'<li><a href="{num}.html"><strong>Class {int(num)}</strong>: {H.escape(title)}</a> <span class="meta">Unit {unit}</span></li>'
         )
 
     body = f'''
@@ -1204,11 +1204,11 @@ def gen_glossary_stub():
  <p class="lede">Every pack lesson has its own vocabulary table. Jump to the unit you need.</p>
  <div class="btn-row" style="margin-top:22px;">
   <a class="btn btn-primary" href="classes/01.html">Class 1</a>
-  <a class="btn btn-ghost" href="classes/05.html">Class 5 — ARR</a>
-  <a class="btn btn-ghost" href="classes/08.html">Class 8 — HA</a>
-  <a class="btn btn-ghost" href="classes/11.html">Class 11 — Voice</a>
-  <a class="btn btn-ghost" href="classes/14.html">Class 14 — n8n</a>
-  <a class="btn btn-ghost" href="classes/15.html">Class 15 — IPv4</a>
+  <a class="btn btn-ghost" href="classes/05.html">Class 5: ARR</a>
+  <a class="btn btn-ghost" href="classes/08.html">Class 8: HA</a>
+  <a class="btn btn-ghost" href="classes/11.html">Class 11: Voice</a>
+  <a class="btn btn-ghost" href="classes/14.html">Class 14: n8n</a>
+  <a class="btn btn-ghost" href="classes/15.html">Class 15: IPv4</a>
  </div>
  </section>
 </div>
@@ -1239,7 +1239,7 @@ def gen_redirects():
 def sync_github():
     readme = (PACK / "README.md").read_text()
     (GH / "README.md").write_text(readme if readme.lstrip().startswith("#") else (
-        "# Otaconskeep Classroom — Homelab Academy\n\n"
+        "# Otaconskeep Classroom: Homelab Academy\n\n"
         "**Site:** https://otaconskeep.github.io/classroom/\n\n" + readme
     ))
     dest = GH / "pack"
@@ -1315,7 +1315,7 @@ def main():
     gen_glossary_stub()
     gen_redirects()
     sync_github()
-    print("DONE — pack in site chrome")
+    print("DONE: pack in site chrome")
 
 
 if __name__ == "__main__":

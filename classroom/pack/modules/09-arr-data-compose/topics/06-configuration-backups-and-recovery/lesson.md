@@ -1,4 +1,4 @@
-# Lesson 09.06 — Configuration Backups and Recovery
+# Lesson 09.06: Configuration Backups and Recovery
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>05-ipv4 — Lab · Classroom</title>
-<meta name="description" content="05-ipv4 — Lab">
+<title>05-ipv4: Lab · Classroom</title>
+<meta name="description" content="05-ipv4: Lab">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/01-infrastructure/topics/05-ipv4/lab.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,7 +63,7 @@
  <section class="hero flush">
  <div class="stamp">M1 LAB<small>lab</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 05-ipv4 — Lab</h1>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 05-ipv4: Lab</h1>
  <p class="lede">Guided practice + break/fix + lab gate.</p>
  <div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>
@@ -73,7 +73,7 @@
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 1 — Infrastructure &amp; Addressing<br />
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 1: Infrastructure &amp; Addressing<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Objective:</strong> Given a host, the learner can read IPv4 address, mask, and gateway; explain network vs host bits; contrast classful charts with classless <code>/24</code> math; and decide same-LAN vs via-gateway delivery.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -100,12 +100,12 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-prose-block"><p>Use the machine you actually lab on. Replace example IPs with yours.</p></div><div class="cr-lab-path"><h4>Path A — Read the trio and classify network vs host</h4><div class="cr-help">
+</div><div class="cr-prose-block"><p>Use the machine you actually lab on. Replace example IPs with yours.</p></div><div class="cr-lab-path"><h4>Path A: Read the trio and classify network vs host</h4><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Path A — Read the trio and classify network vs host)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Path A: Read the trio and classify network vs host)</div>
  
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
@@ -175,12 +175,12 @@ arp -a
  
 </div>
  </div>
-</div></div></div><div class="cr-lab-path"><h4>Path B — Same LAN vs via gateway</h4><div class="cr-help">
+</div></div></div><div class="cr-lab-path"><h4>Path B: Same LAN vs via gateway</h4><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Path B — Same LAN vs via gateway)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Path B: Same LAN vs via gateway)</div>
  
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
@@ -213,7 +213,7 @@ tracert -d 1.1.1.1
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> The gateway is your router’s address on the LAN—the courier when the destination is not on your street.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The gateway is your router’s address on the LAN, the courier when the destination is not on your street.</div>
  
 </div>
  </div>
@@ -230,12 +230,12 @@ tracert -d 1.1.1.1
  
 </div>
  </div>
-</div></div></div><div class="cr-lab-path"><h4>Path C — Usable-address math on your `/24`</h4><div class="cr-help">
+</div></div></div><div class="cr-lab-path"><h4>Path C: Usable-address math on your `/24`</h4><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Path C — Usable-address math on your that command)</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Path C: Usable-address math on your that command)</div>
  
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
@@ -280,7 +280,7 @@ tracert -d 1.1.1.1
  
 </div>
  </div>
-</div></div></div><div class="cr-lab-path"><h4>Path D — Classes, loopback, and ping</h4><div class="cr-help">
+</div></div></div><div class="cr-lab-path"><h4>Path D: Classes, loopback, and ping</h4><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -290,7 +290,7 @@ tracert -d 1.1.1.1
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Classify your LAN IP by first octet</strong> using the A–E chart. Write: class letter, <em>default</em> classful mask, and <strong>your actual</strong> mask. Are they the same? (Most home LANs are Class C <em>looking</em> with a <code>/24</code> mask—or Class A <em>looking</em> <code>10.x</code> with a classless <code>/24</code>.)</p></div>
+  <div class="cr-step-text"><p><strong>Classify your LAN IP by first octet</strong> using the A–E chart. Write: class letter, <em>default</em> classful mask, and <strong>your actual</strong> mask. Are they the same? (Most home LANs are Class C <em>looking</em> with a <code>/24</code> mask, or Class A <em>looking</em> <code>10.x</code> with a classless <code>/24</code>.)</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -357,16 +357,16 @@ ping -c 2 127.0.0.2
 <p><strong>Disconnect Wi-Fi / unplug Ethernet</strong> → <code>ipconfig</code> / <code>ip addr</code> loses address or shows disconnected → restore → address returns (DHCP) or static returns.</p>
 </li>
 <li>
-<p><strong>Wrong mental model:</strong> pretend a host <code>10.0.0.5</code> is “local” to your <code>192.168.1.0/24</code> without a router—explain why the mask says no.</p>
+<p><strong>Wrong mental model:</strong> pretend a host <code>10.0.0.5</code> is “local” to your <code>192.168.1.0/24</code> without a router, explain why the mask says no.</p>
 </li>
 <li>
-<p><strong>Gateway down simulation (lab only):</strong> if you can safely shut WAN on a test router, confirm LAN pings still work while <code>1.1.1.1</code> fails—proves local vs remote paths.</p>
+<p><strong>Gateway down simulation (lab only):</strong> if you can safely shut WAN on a test router, confirm LAN pings still work while <code>1.1.1.1</code> fails, proves local vs remote paths.</p>
 </li>
 <li>
 <p><strong>Class vs mask:</strong> take a <code>10.x</code> address with mask <code>255.255.255.0</code> and explain to a partner why calling it “a Class A network of 16 million hosts” would be wrong for <em>your</em> LAN.</p>
 </li>
 <li>
-<p><strong>Loopback vs LAN:</strong> with Wi-Fi off, confirm <code>ping 127.0.0.1</code> still works while <code>ping 1.1.1.1</code> fails—local stack vs Internet path.</p>
+<p><strong>Loopback vs LAN:</strong> with Wi-Fi off, confirm <code>ping 127.0.0.1</code> still works while <code>ping 1.1.1.1</code> fails, local stack vs Internet path.</p>
 </li>
 </ol><div class="cr-help">
  <div class="cr-actions">
@@ -389,7 +389,7 @@ ping -c 2 127.0.0.2
 <li>Assigning <code>.0</code> or <code>.255</code> to a host on a <code>/24</code>.</li>
 <li>Duplicating an IP already leased by DHCP.</li>
 <li>Debugging Docker DNS before confirming the host even has a gateway.</li>
-<li>Treating <strong>classful defaults</strong> as how the Internet still assigns every network (it does not—CIDR/classless won).</li>
+<li>Treating <strong>classful defaults</strong> as how the Internet still assigns every network (it does not, CIDR/classless won).</li>
 <li>Putting a <strong>Class D/E</strong> or <strong><code>127.x</code></strong> address on a lab host “because the chart had free numbers.”</li>
 <li>Confusing “4.3 billion total IPv4 values” with “4.3 billion free for my devices.”</li>
 </ul><div class="cr-help">

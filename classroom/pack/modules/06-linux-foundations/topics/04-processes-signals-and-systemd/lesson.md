@@ -1,4 +1,4 @@
-# Lesson 06.04 — Processes, Signals, and systemd
+# Lesson 06.04: Processes, Signals, and systemd
 
 **Module:** Linux Foundations
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

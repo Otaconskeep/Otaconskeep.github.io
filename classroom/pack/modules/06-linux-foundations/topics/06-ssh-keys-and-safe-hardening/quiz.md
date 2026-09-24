@@ -1,4 +1,4 @@
-# Quiz — SSH Keys and Safe Hardening
+# Quiz: SSH Keys and Safe Hardening
 
 **Module:** Linux Foundations
 **Activity type:** Quiz / retrieval practice

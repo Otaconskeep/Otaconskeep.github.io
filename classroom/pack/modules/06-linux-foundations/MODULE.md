@@ -1,12 +1,12 @@
-# Module 06 — Linux Foundations
+# Module 06: Linux Foundations
 
 **Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review  
 **Feynman teach-back is required in every lesson.**  
 **Last reviewed:** 2026-09-22
 
-## Backward design — module outcome
+## Backward design: module outcome
 
-Student can navigate a Linux lab tree safely, compose shell pipelines for investigation, apply least-privilege users/groups/permissions, manage processes with signals and user systemd units, extract evidence with journalctl, and harden SSH with keys using console break-glass — all verified under disposable `/opt/lab-classroom/` paths.
+Student can navigate a Linux lab tree safely, compose shell pipelines for investigation, apply least-privilege users/groups/permissions, manage processes with signals and user systemd units, extract evidence with journalctl, and harden SSH with keys using console break-glass: all verified under disposable `/opt/lab-classroom/` paths.
 
 ## Bloom arc
 

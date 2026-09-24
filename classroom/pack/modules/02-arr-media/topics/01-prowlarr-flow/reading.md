@@ -1,7 +1,7 @@
-# Reading — Prowlarr & ARR request flow
+# Reading: Prowlarr & ARR request flow
 
-**Module:** Module 2 — ARR Media Automation  
-**Topic:** 01 — Prowlarr & ARR request flow  
+**Module:** Module 2: ARR Media Automation  
+**Topic:** 01: Prowlarr & ARR request flow  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Apply / Analyze  
 **Links to outcome:** Given authorized indexer credentials and Compose networking, the learner can connect Prowlarr to Sonarr/Radarr, prove sync/tests, and trace a request through search → download client → import boundaries.
@@ -110,7 +110,7 @@ On Linux, compare device and inode values with `stat`. Two paths with the same d
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Point Sonarr at Prowlarr using `localhost` from inside another container; skip indexer tests.
 

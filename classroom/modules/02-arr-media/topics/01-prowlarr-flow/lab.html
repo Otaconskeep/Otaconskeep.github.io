@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>01-prowlarr-flow — Lab · Classroom</title>
-<meta name="description" content="01-prowlarr-flow — Lab">
+<title>01-prowlarr-flow: Lab · Classroom</title>
+<meta name="description" content="01-prowlarr-flow: Lab">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/02-arr-media/topics/01-prowlarr-flow/lab.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,7 +63,7 @@
  <section class="hero flush">
  <div class="stamp">M2 LAB<small>lab</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 01-prowlarr-flow — Lab</h1>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 01-prowlarr-flow: Lab</h1>
  <p class="lede">Guided practice + break/fix + lab gate.</p>
  <div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>
@@ -73,7 +73,7 @@
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 2 — ARR Media Automation<br />
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 2: ARR Media Automation<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Objective:</strong> Given authorized indexer credentials and Compose networking, the learner can connect Prowlarr to Sonarr/Radarr, prove sync/tests, and trace a request through search → download client → import boundaries.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -107,7 +107,7 @@
   <div class="cr-step-text"><p><strong>Back up ARR config databases before changing anything.</strong></p>
 <div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">cd COMPOSE_DIR
 docker compose ps
-# Example paths — adjust to your bind mounts:
+# Example paths: adjust to your bind mounts:
 Copy-Item -Recurse .\prowlarr\config $HOME\backups\prowlarr-$(Get-Date -Format yyyyMMdd) -ErrorAction SilentlyContinue
 Copy-Item -Recurse .\sonarr\config $HOME\backups\sonarr-$(Get-Date -Format yyyyMMdd) -ErrorAction SilentlyContinue
 Copy-Item -Recurse .\radarr\config $HOME\backups\radarr-$(Get-Date -Format yyyyMMdd) -ErrorAction SilentlyContinue
@@ -182,7 +182,7 @@ docker compose exec -u 0 prowlarr sh -c 'wget -qO- http://radarr:7878/ping || cu
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Copy API keys privately (UI → Settings → General).</strong><br />
-   Store them in a password manager—not git, not Discord, not the workbook.</p></div>
+   Store them in a password manager, not git, not Discord, not the workbook.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -256,7 +256,7 @@ curl -s &quot;http://127.0.0.1:8989/api/v3/system/status?apikey=YOUR_SONARR_KEY&
  <div class="cr-step-num">9</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Controlled interactive search.</strong><br />
-   In Sonarr or Radarr, interactive-search a monitored test title. Record why at least three candidates are accepted or rejected (quality, CF score, indexer, category)—no need to download if policy forbids it.</p></div>
+   In Sonarr or Radarr, interactive-search a monitored test title. Record why at least three candidates are accepted or rejected (quality, CF score, indexer, category), no need to download if policy forbids it.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -298,7 +298,7 @@ curl -s &quot;http://127.0.0.1:8989/api/v3/system/status?apikey=YOUR_SONARR_KEY&
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Break/fix exercises)</div>
  
 </div></div><div class="cr-break-card"><h4>Wrong hostname</h4><p>In Prowlarr, set Sonarr URL to <code>http://localhost:8989</code>, <strong>Test</strong> (expect fail). Explain container localhost. Restore <code>http://sonarr:8989</code> and retest.</p>
-<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># From prowlarr container, localhost is prowlarr — not sonarr:
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># From prowlarr container, localhost is prowlarr: not sonarr:
 docker compose exec prowlarr sh -c 'wget -qO- http://127.0.0.1:8989/ping || echo EXPECTED_FAIL'
 docker compose exec prowlarr sh -c 'wget -qO- http://sonarr:8989/ping || curl -sf http://sonarr:8989/ping'
 </code></pre></div><div class="cr-help">

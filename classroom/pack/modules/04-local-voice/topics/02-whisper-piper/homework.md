@@ -1,6 +1,6 @@
-# Homework — Whisper, Piper & Wyoming
+# Homework: Whisper, Piper & Wyoming
 
-**Module:** Module 4 — Local Voice Assistant  
+**Module:** Module 4: Local Voice Assistant  
 **Activity type:** Homework / independent application  
 **Bloom move:** push from guided practice into independent Apply/Analyze  
 **Objective:** Given CPU/RAM constraints, the learner can deploy local Whisper (STT) and Piper (TTS) via Wyoming, benchmark them separately, and record latency/quality tradeoffs before integration.
@@ -11,7 +11,7 @@ Complete **without** peeking at lab hints first. Then compare.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Benchmark two settings (or note why you cannot) and recommend one for your hardware with numbers.
 

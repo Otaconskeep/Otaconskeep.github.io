@@ -1,6 +1,6 @@
-# Lesson 08.05 — Linux Disks, Partitions, and Filesystems
+# Lesson 08.05: Linux Disks, Partitions, and Filesystems
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)
 **Learning objective:** Trace the hierarchy from physical or virtual disk to partition table, partition, filesystem, and mountpoint; interpret `lsblk`, `blkid`, `findmnt`, and `df`; create a filesystem only inside a regular lab image file; and recognize destructive storage operations before running them.
 

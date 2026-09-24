@@ -1,4 +1,4 @@
-# Homework — Logs and journalctl
+# Homework: Logs and journalctl
 
 **Module:** Linux Foundations
 **Activity type:** Homework / independent application

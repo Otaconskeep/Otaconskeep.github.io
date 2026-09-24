@@ -1,4 +1,4 @@
-# Lab — Docker Compose Fundamentals
+# Lab: Docker Compose Fundamentals
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Lab (Practice)

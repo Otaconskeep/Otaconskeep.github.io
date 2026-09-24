@@ -1,4 +1,4 @@
-# Homework — Users, Groups, Permissions, and Least Privilege
+# Homework: Users, Groups, Permissions, and Least Privilege
 
 **Module:** Linux Foundations
 **Activity type:** Homework / independent application

@@ -1,4 +1,4 @@
-# Lesson 09.04 — Health Checks, Dependencies, and Restart Policies
+# Lesson 09.04: Health Checks, Dependencies, and Restart Policies
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

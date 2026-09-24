@@ -1,4 +1,4 @@
-# Module exam — Sonarr & Radarr
+# Module exam: Sonarr & Radarr
 
 **Module:** Sonarr & Radarr
 

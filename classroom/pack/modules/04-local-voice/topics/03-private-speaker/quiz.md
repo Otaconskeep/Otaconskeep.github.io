@@ -1,6 +1,6 @@
-# Quiz — Private smart speaker
+# Quiz: Private smart speaker
 
-**Module:** Module 4 — Local Voice Assistant  
+**Module:** Module 4: Local Voice Assistant  
 **Activity type:** Quiz / retrieval practice  
 **Target:** ≥80% before topic mastery unlock  
 **Objective:** Given working STT/TTS providers, the learner can integrate wake → action → spoken response and prove an internet-disconnected end-to-end pass with staged gates.
@@ -11,7 +11,7 @@ Close the reading. Write answers from memory. Then self-score.
 
 ## Questions
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What proves the system is local?
 2. Why preserve LAN connectivity during the WAN-disconnect test?

@@ -1,6 +1,6 @@
-# Class 12 — Whisper, Piper, and Wyoming
+# Class 12: Whisper, Piper, and Wyoming
 
-**Lecture (optional):** [Home Assistant Voice — Whisper + Piper](https://www.youtube.com/watch?v=1eZJPhR30ek)
+**Lecture (optional):** [Home Assistant Voice: Whisper + Piper](https://www.youtube.com/watch?v=1eZJPhR30ek)
 **Time:** 180 minutes
 **Learning objective:** Given CPU/RAM constraints, the learner can deploy local Whisper (STT) and Piper (TTS) via Wyoming, benchmark them separately, and record latency/quality tradeoffs before integration.
 **Bloom level:** Apply / Evaluate
@@ -17,7 +17,7 @@ Voice feels ‘AI magic’ until a tiny host thrashes. Separate STT/TTS proof pr
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What network contract do Wyoming services need?
 2. Why might a larger Whisper model be a bad choice on a small NUC?
@@ -97,7 +97,7 @@ Record latency, memory, errors, thermal/fan behavior.
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Wire wake→STT→HA→TTS→speaker on day one with the biggest model.
 
@@ -105,13 +105,13 @@ Record latency, memory, errors, thermal/fan behavior.
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Run the STT known-sentence check with notes open; record text output.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Benchmark two settings (or note why you cannot) and recommend one for your hardware with numbers.
 
@@ -134,12 +134,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What does Wyoming provide versus Whisper?
 2. Why record cold and warm latency?
@@ -178,7 +178,7 @@ docker compose logs --tail=100 whisper 2>/dev/null || docker compose logs --tail
 
 3. **Connect Wyoming STT in Home Assistant** (Settings → Devices → add Wyoming).
 
-4. **Fixed phrase set** (workbook)—run each **3 times**, record transcript + cold/warm latency:
+4. **Fixed phrase set** (workbook), run each **3 times**, record transcript + cold/warm latency:
 
 ```text
 turn on test lamp
@@ -254,7 +254,7 @@ Also answer:
 
 ## Spiral hook
 
-Class 13 demands these providers still work with the internet disconnected. Keep the separate tests — you will reuse them under failure.
+Class 13 demands these providers still work with the internet disconnected. Keep the separate tests: you will reuse them under failure.
 
 ## 2026 correction
 

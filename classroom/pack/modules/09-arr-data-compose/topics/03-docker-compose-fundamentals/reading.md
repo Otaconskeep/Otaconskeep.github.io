@@ -1,4 +1,4 @@
-# Reading — Docker Compose Fundamentals
+# Reading: Docker Compose Fundamentals
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Reading (Learn)
@@ -55,20 +55,20 @@ All files and directories directly created or edited by the lab are beneath /opt
 
 ## Required reading
 
-- Docker Docs: Compose file reference — https://docs.docker.com/reference/compose-file/
-- Docker Docs: How Compose works — https://docs.docker.com/compose/intro/compose-application-model/
-- Docker Docs: Networking in Compose — https://docs.docker.com/compose/how-tos/networking/
-- Docker Docs: Docker Compose CLI reference — https://docs.docker.com/reference/cli/docker/compose/
+- Docker Docs: Compose file reference: https://docs.docker.com/reference/compose-file/
+- Docker Docs: How Compose works: https://docs.docker.com/compose/intro/compose-application-model/
+- Docker Docs: Networking in Compose: https://docs.docker.com/compose/how-tos/networking/
+- Docker Docs: Docker Compose CLI reference: https://docs.docker.com/reference/cli/docker/compose/
 
 ## References
 
-- Docker Docs: Docker Compose overview — https://docs.docker.com/compose/
-- Docker Docs: Compose file reference — https://docs.docker.com/reference/compose-file/
-- Docker Docs: Compose services reference — https://docs.docker.com/reference/compose-file/services/
-- Docker Docs: Compose networks reference — https://docs.docker.com/reference/compose-file/networks/
-- Docker Docs: Networking in Compose — https://docs.docker.com/compose/how-tos/networking/
-- Docker Docs: docker compose up — https://docs.docker.com/reference/cli/docker/compose/up/
-- Docker Docs: docker compose down — https://docs.docker.com/reference/cli/docker/compose/down/
-- Docker Docs: docker compose config — https://docs.docker.com/reference/cli/docker/compose/config/
-- Docker Docs: Bind mounts — https://docs.docker.com/engine/storage/bind-mounts/
-- Docker Docs: Container security — https://docs.docker.com/engine/security/
+- Docker Docs: Docker Compose overview: https://docs.docker.com/compose/
+- Docker Docs: Compose file reference: https://docs.docker.com/reference/compose-file/
+- Docker Docs: Compose services reference: https://docs.docker.com/reference/compose-file/services/
+- Docker Docs: Compose networks reference: https://docs.docker.com/reference/compose-file/networks/
+- Docker Docs: Networking in Compose: https://docs.docker.com/compose/how-tos/networking/
+- Docker Docs: docker compose up: https://docs.docker.com/reference/cli/docker/compose/up/
+- Docker Docs: docker compose down: https://docs.docker.com/reference/cli/docker/compose/down/
+- Docker Docs: docker compose config: https://docs.docker.com/reference/cli/docker/compose/config/
+- Docker Docs: Bind mounts: https://docs.docker.com/engine/storage/bind-mounts/
+- Docker Docs: Container security: https://docs.docker.com/engine/security/

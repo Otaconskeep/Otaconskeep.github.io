@@ -1,4 +1,4 @@
-# Class 27 — Docker Engine Installation and Daemon Fundamentals
+# Class 27: Docker Engine Installation and Daemon Fundamentals
 
 **Learning objective:** Explain the responsibilities of the Docker CLI, Docker daemon, containerd, and OCI runtime; Compare repository-based, distribution-provided, convenience, static-binary, and rootless installation approaches; Identify the daemon API endpoint and explain why access to it is security-sensitive; Describe how a service manager starts, stops, and monitors the Docker daemon; Create a syntactically valid daemon configuration with bounded local logging; Validate a staged daemon configuration without starting a second daemon; Recognize common installation, socket, configuration, storage, and service-start failures; Plan a controlled rollback before changing Docker packages or daemon settings
 **Bloom level:** Understand / Apply

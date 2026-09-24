@@ -72,7 +72,7 @@
  });
  }
 
- // ---------------- Inside the Keep: gallery + lightbox + tour ----------------
+ // Inside the Keep: gallery + lightbox + tour
 
  var GALLERY_DATA = [
  { slug: 'loading-room', title: 'Entering the Keep', caption: 'A boot sequence with real continuity and atmosphere, not just a spinner.' },
@@ -275,7 +275,7 @@
  activate(0);
  }
 
- // ---------------- Hear the Keep: codec voice archive player ----------------
+ // Hear the Keep: codec voice archive player
 
  var CODEC_SPEAKERS = [
  { name: 'Otacon', role: 'Systems / Engineering', start: 0, end: 17.3 },

@@ -1,6 +1,6 @@
-# Lab — Secure remote access
+# Lab: Secure remote access
 
-**Module:** Module 3 — Home Assistant & Secure Access  
+**Module:** Module 3: Home Assistant & Secure Access  
 **Activity type:** Lab (Practice)  
 **Objective:** Given a threat model for admin UIs, the learner can choose VPN vs tunnel vs dangerous port-forward patterns, implement an authenticated remote path (or document VPN-only), and prove unauthorized denial plus rollback.
 
@@ -23,16 +23,16 @@
 
 :::linux
 ```bash
-# From the HA/Docker host — list listeners (look for 8123/8096/8989 published on 0.0.0.0 unexpectedly)
+# From the HA/Docker host: list listeners (look for 8123/8096/8989 published on 0.0.0.0 unexpectedly)
 ss -lntp | egrep '8123|8096|8989|7878|9696' || true
-# From an external network (phone LTE), try http://PUBLIC-IP:8123 — expect failure
+# From an external network (phone LTE), try http://PUBLIC-IP:8123: expect failure
 ```
 :::
 
 :::windows
 ```powershell
 netstat -ano | findstr "8123 8989 7878"
-# External test from cellular network browser to your public IP — expect fail
+# External test from cellular network browser to your public IP: expect fail
 ```
 :::
 
@@ -46,7 +46,7 @@ Follow **current** official tunnel docs for connector install. Then:
 
 :::linux
 ```bash
-# Pattern after install — service name varies by distro/docs:
+# Pattern after install: service name varies by distro/docs:
 sudo systemctl status cloudflared --no-pager
 sudo journalctl -u cloudflared -n 50 --no-pager
 ```
@@ -112,7 +112,7 @@ curl.exe -sI http://HA-IP:8123/
 
 1. Stop connector / disconnect VPN → external fail, LAN ok.
 
-2. Remove MFA temporarily in a controlled test only if policy allows—then restore MFA immediately.
+2. Remove MFA temporarily in a controlled test only if policy allows, then restore MFA immediately.
 
 3. Attempt access with a second account that should be denied.
 

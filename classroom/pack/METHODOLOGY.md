@@ -1,4 +1,4 @@
-# Homelab Academy — Learning Methodology
+# Homelab Academy: Learning Methodology
 
 This course is a **learning system**, not a pile of readings, labs, and exams.
 
@@ -6,7 +6,7 @@ This course is a **learning system**, not a pile of readings, labs, and exams.
 
 **Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review**
 
-The Feynman Technique is a **required** section in every lesson — not an optional study tip.
+The Feynman Technique is a **required** section in every lesson: not an optional study tip.
 
 ## Whole-course architecture
 
@@ -37,17 +37,17 @@ We do **not** start with “What lessons should we make?”
 
 We start with: **What should the student be capable of doing when this course is finished?**
 
-**Final outcome:** Student can design, build, operate, troubleshoot, and verify a private homelab that includes Dockerized services, ARR media automation (authorized content only), Home Assistant automations, a local voice pipeline, and guarded workflow automation — with evidence in a verification matrix.
+**Final outcome:** Student can design, build, operate, troubleshoot, and verify a private homelab that includes Dockerized services, ARR media automation (authorized content only), Home Assistant automations, a local voice pipeline, and guarded workflow automation: with evidence in a verification matrix.
 
 Working backward produces the modules:
 
 | Module | Topics | Capability unlocked |
 |---|---|---|
-| 1 — Infrastructure | virtualization, compose, networking, ops, IPv4 | Virtualize, compose, network, operate, and address hosts |
-| 2 — ARR media | prowlarr flow, TRaSH profiles, config automation | Request → search → download → import with quality policy |
-| 3 — Home Assistant | foundations, automations, secure remote | Entities, automations, and secure remote access |
-| 4 — Local voice | architecture, Whisper/Piper, private speaker | Stage-by-stage local STT/TTS to private speaker |
-| 5 — Workflow automation | n8n guarded automation | n8n digests and approval-gated agent actions |
+| 1: Infrastructure | virtualization, compose, networking, ops, IPv4 | Virtualize, compose, network, operate, and address hosts |
+| 2: ARR media | prowlarr flow, TRaSH profiles, config automation | Request → search → download → import with quality policy |
+| 3: Home Assistant | foundations, automations, secure remote | Entities, automations, and secure remote access |
+| 4: Local voice | architecture, Whisper/Piper, private speaker | Stage-by-stage local STT/TTS to private speaker |
+| 5: Workflow automation | n8n guarded automation | n8n digests and approval-gated agent actions |
 | Capstone | Final | End-to-end verification matrix |
 
 ## Module learning cycle
@@ -72,12 +72,12 @@ Each module also has `project.md`, `module-quiz.md`, `exam.md`, and `remediation
 
 ## Lesson template (required inside every topic lesson)
 
-1. **Learning objective** — measurable Bloom verb (not “understand”)
+1. **Learning objective**: measurable Bloom verb (not “understand”)
 2. **Why this matters**
 3. **Prior-knowledge check**
-4. **Learn** — complete the topic Reading
-5. **Guided practice** — We do
-6. **Feynman teach-back** — mandatory Explain / Simplify / Example / Weak spot / Retry
+4. **Learn**: complete the topic Reading
+5. **Guided practice**: We do
+6. **Feynman teach-back**: mandatory Explain / Simplify / Example / Weak spot / Retry
 7. **Reflection** + **Spiral hook**
 8. Then complete separate **Lab → Homework → Quiz**
 

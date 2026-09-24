@@ -1,4 +1,4 @@
-# Course Overview — Homelab Academy
+# Course Overview: Homelab Academy
 
 **Site:** https://otaconskeep.github.io/classroom/  
 **Source:** https://github.com/Otaconskeep/Classroom
@@ -23,7 +23,7 @@ See `METHODOLOGY.md` for the full instructional design.
 
 ## Final capability (north star)
 
-By the end, you can take a blank host and produce a working, documented system with evidence — not vibes — in the verification matrix.
+By the end, you can take a blank host and produce a working, documented system with evidence: not vibes: in the verification matrix.
 
 ## How every class works
 

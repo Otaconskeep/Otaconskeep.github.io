@@ -1,4 +1,4 @@
-# Reading — SSH Keys and Safe Hardening
+# Reading: SSH Keys and Safe Hardening
 
 **Module:** Linux Foundations
 **Activity type:** Reading (Learn)

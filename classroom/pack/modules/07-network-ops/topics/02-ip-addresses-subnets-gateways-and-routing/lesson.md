@@ -1,4 +1,4 @@
-# Lesson 07.02 — IP Addresses, Subnets, Gateways, and Routing
+# Lesson 07.02: IP Addresses, Subnets, Gateways, and Routing
 
 **Module:** Network Operations
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

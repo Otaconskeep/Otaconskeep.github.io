@@ -1,6 +1,6 @@
-# Lab — Local voice architecture
+# Lab: Local voice architecture
 
-**Module:** Module 4 — Local Voice Assistant  
+**Module:** Module 4: Local Voice Assistant  
 **Activity type:** Lab (Practice)  
 **Objective:** Given a voice request, the learner can draw the local Assist pipeline stages, instrument one test per stage, and isolate faults to mic, wake, STT, intent/action, TTS, or playback.
 
@@ -60,7 +60,7 @@ aplay /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null || ffplay -autoexit -n
 
 ### Break/fix
 
-Mute mic; confirm wake fails. Unmute. Play TTS with speaker unplugged; confirm synthesis may succeed while playback fails—record both.
+Mute mic; confirm wake fails. Unmute. Play TTS with speaker unplugged; confirm synthesis may succeed while playback fails, record both.
 
 ## Feedback / common mistakes
 

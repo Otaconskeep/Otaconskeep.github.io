@@ -1,4 +1,4 @@
-# Lab — Sonarr Quality Profiles, Searching, and Importing
+# Lab: Sonarr Quality Profiles, Searching, and Importing
 
 **Module:** Sonarr & Radarr
 **Activity type:** Lab (Practice)

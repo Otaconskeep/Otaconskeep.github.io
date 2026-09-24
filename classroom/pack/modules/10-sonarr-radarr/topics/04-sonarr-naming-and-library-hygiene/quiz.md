@@ -1,4 +1,4 @@
-# Quiz — Sonarr Naming and Library Hygiene
+# Quiz: Sonarr Naming and Library Hygiene
 
 **Module:** Sonarr & Radarr
 **Activity type:** Quiz / retrieval practice

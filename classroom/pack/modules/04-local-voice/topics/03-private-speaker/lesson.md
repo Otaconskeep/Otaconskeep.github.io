@@ -1,6 +1,6 @@
-# Lesson 04.03 — Private smart speaker
+# Lesson 04.03: Private smart speaker
 
-**Module:** Module 4 — Local Voice Assistant  
+**Module:** Module 4: Local Voice Assistant  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
 **Learning objective:** Given working STT/TTS providers, the learner can integrate wake → action → spoken response and prove an internet-disconnected end-to-end pass with staged gates.  
 **Bloom level:** Create / Evaluate  
@@ -13,11 +13,11 @@ Given working STT/TTS providers, the learner can integrate wake → action → s
 
 ## Why this matters
 
-Integrate a voice satellite, wake-word engine, VAD/audio transport, Whisper, Home Assistant Assist, local intent or conversation processing, Piper, and speaker playback. The final privacy requirement is demonstrated behavior under WAN disconnection—not a marketing label.
+Integrate a voice satellite, wake-word engine, VAD/audio transport, Whisper, Home Assistant Assist, local intent or conversation processing, Piper, and speaker playback. The final privacy requirement is demonstrated behavior under WAN disconnection, not a marketing label.
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. Which Class 11 stage tests already pass?
 2. What HA action will you trigger by voice?
@@ -27,13 +27,13 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 Complete the module reading first:
 
-- [Reading — Private smart speaker](./reading.md)
+- [Reading: Private smart speaker](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
 ## Guided practice (We do)
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Execute the progressive integration gates in order with the checklist open.
 
@@ -48,7 +48,7 @@ Describe **what ‘completely local smart speaker’ actually requires** in your
 Explain the same idea to a 12-year-old. If you use a technical word, define it.
 
 ### Example
-Analogy: a flashlight that still works when the power grid is down — vs one that needs a cloud app to turn on.
+Analogy: a flashlight that still works when the power grid is down: vs one that needs a cloud app to turn on.
 
 ### Weak spot
 What part was hard to explain? That is where your understanding is thin.
@@ -56,7 +56,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 ## Reflection
 

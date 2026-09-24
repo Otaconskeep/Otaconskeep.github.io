@@ -1,4 +1,4 @@
-# Module quiz — Network Operations
+# Module quiz: Network Operations
 
 **Module:** Network Operations
 

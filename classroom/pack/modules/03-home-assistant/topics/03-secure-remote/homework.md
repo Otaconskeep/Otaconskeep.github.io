@@ -1,6 +1,6 @@
-# Homework — Secure remote access
+# Homework: Secure remote access
 
-**Module:** Module 3 — Home Assistant & Secure Access  
+**Module:** Module 3: Home Assistant & Secure Access  
 **Activity type:** Homework / independent application  
 **Bloom move:** push from guided practice into independent Apply/Analyze  
 **Objective:** Given a threat model for admin UIs, the learner can choose VPN vs tunnel vs dangerous port-forward patterns, implement an authenticated remote path (or document VPN-only), and prove unauthorized denial plus rollback.
@@ -11,7 +11,7 @@ Complete **without** peeking at lab hints first. Then compare.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Write your threat model in five bullets and the denial test you will run. Execute the denial test and record evidence.
 

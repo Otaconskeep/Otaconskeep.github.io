@@ -1,4 +1,4 @@
-# Class 24 — DNS, DHCP, and NAT
+# Class 24: DNS, DHCP, and NAT
 
 **Learning objective:** Describe the separate responsibilities of DNS, DHCP, and NAT; Explain the DHCP discover, offer, request, and acknowledgment sequence; Distinguish recursive DNS resolution, authoritative answers, caching, and TTL behavior; Explain why transport ports are often part of a NAT translation entry; Identify common DNS, DHCP, and NAT failure domains; Verify simulated records, leases, and translation mappings; Explain why NAT is not a substitute for an explicit network security policy
 **Bloom level:** Understand / Apply
@@ -296,8 +296,8 @@ Begin with a diagram containing a client, a DHCP service, a DNS resolver, a gate
 
 ## References
 
-- RFC 1034, Domain Names—Concepts and Facilities: https://www.rfc-editor.org/rfc/rfc1034
-- RFC 1035, Domain Names—Implementation and Specification: https://www.rfc-editor.org/rfc/rfc1035
+- RFC 1034, Domain Names, Concepts and Facilities: https://www.rfc-editor.org/rfc/rfc1034
+- RFC 1035, Domain Names, Implementation and Specification: https://www.rfc-editor.org/rfc/rfc1035
 - RFC 2131, Dynamic Host Configuration Protocol: https://www.rfc-editor.org/rfc/rfc2131
 - RFC 2132, DHCP Options and BOOTP Vendor Extensions: https://www.rfc-editor.org/rfc/rfc2132
 - RFC 3022, Traditional IP Network Address Translator: https://www.rfc-editor.org/rfc/rfc3022

@@ -1,4 +1,4 @@
-# Quiz — Users, Groups, Permissions, and Least Privilege
+# Quiz: Users, Groups, Permissions, and Least Privilege
 
 **Module:** Linux Foundations
 **Activity type:** Quiz / retrieval practice

@@ -1,6 +1,6 @@
-# Lesson 08.03 — Container Lifecycle and Resource Controls
+# Lesson 08.03: Container Lifecycle and Resource Controls
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)
 **Learning objective:** Explain container states and signals; distinguish create, start, run, stop, kill, restart, pause, and remove; apply memory, CPU, PID, and restart controls; and verify the effective configuration instead of trusting the command line.
 

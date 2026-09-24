@@ -1,6 +1,6 @@
-# Quiz — Docker Images, Tags, Registries, and Provenance
+# Quiz: Docker Images, Tags, Registries, and Provenance
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Quiz (Test)
 
 ## Knowledge check

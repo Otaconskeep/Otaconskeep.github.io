@@ -1,4 +1,4 @@
-# Lab — DNS, DHCP, and NAT
+# Lab: DNS, DHCP, and NAT
 
 **Module:** Network Operations
 **Activity type:** Lab (Practice)

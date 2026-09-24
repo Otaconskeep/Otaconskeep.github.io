@@ -1,6 +1,6 @@
-# Homework — Virtual machines & Proxmox
+# Homework: Virtual machines & Proxmox
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Homework / independent application  
 **Bloom move:** push from guided practice into independent Apply/Analyze  
 **Objective:** Given a host and a guest requirement, the learner can choose Type 1 vs Type 2 virtualization, create a working Linux guest (VirtualBox or Proxmox), and prove networking, DNS, and SSH with recorded evidence.
@@ -11,7 +11,7 @@ Complete **without** peeking at lab hints first. Then compare.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Without looking at the lesson, write:
 

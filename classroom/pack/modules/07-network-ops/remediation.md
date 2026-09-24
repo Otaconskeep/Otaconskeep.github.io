@@ -1,4 +1,4 @@
-# Remediation — Network Operations
+# Remediation: Network Operations
 
 **Module:** Network Operations
 

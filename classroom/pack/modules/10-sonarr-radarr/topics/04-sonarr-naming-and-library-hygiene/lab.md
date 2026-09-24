@@ -1,4 +1,4 @@
-# Lab — Sonarr Naming and Library Hygiene
+# Lab: Sonarr Naming and Library Hygiene
 
 **Module:** Sonarr & Radarr
 **Activity type:** Lab (Practice)

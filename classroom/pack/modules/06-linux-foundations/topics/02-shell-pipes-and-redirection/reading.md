@@ -1,4 +1,4 @@
-# Reading — Shell Pipes and Redirection
+# Reading: Shell Pipes and Redirection
 
 **Module:** Linux Foundations
 **Activity type:** Reading (Learn)

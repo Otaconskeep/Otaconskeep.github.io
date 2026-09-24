@@ -1,6 +1,6 @@
-# Homework — Local voice architecture
+# Homework: Local voice architecture
 
-**Module:** Module 4 — Local Voice Assistant  
+**Module:** Module 4: Local Voice Assistant  
 **Activity type:** Homework / independent application  
 **Bloom move:** push from guided practice into independent Apply/Analyze  
 **Objective:** Given a voice request, the learner can draw the local Assist pipeline stages, instrument one test per stage, and isolate faults to mic, wake, STT, intent/action, TTS, or playback.
@@ -11,7 +11,7 @@ Complete **without** peeking at lab hints first. Then compare.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Create your pipeline test record template with one pass/fail line per stage. Run it once on a known sentence.
 

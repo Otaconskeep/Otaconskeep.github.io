@@ -1,4 +1,4 @@
-# Lab — Package Management and Safe System Updates
+# Lab: Package Management and Safe System Updates
 
 **Module:** Network Operations
 **Activity type:** Lab (Practice)

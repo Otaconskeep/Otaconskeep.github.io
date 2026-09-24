@@ -1,4 +1,4 @@
-# Reading — ARR Stack Data Architecture and the /data Model
+# Reading: ARR Stack Data Architecture and the /data Model
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Reading (Learn)

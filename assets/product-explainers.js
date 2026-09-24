@@ -33,7 +33,7 @@
  try { sessionStorage.setItem(MODE_KEY, mode); } catch (e) {}
  }
 
- /* ---- SVG icons ---- */
+ /* SVG icons */
  var ICONS = {
  core: '<svg class="qp-icon px-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 8v6M24 34v6M8 24h6M34 24h6" stroke="currentColor" stroke-width="2"/></svg>',
  colorizer: '<svg class="qp-icon px-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="22" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M28 18h12v20H18" fill="none" stroke="currentColor" stroke-width="2" opacity=".55"/><path d="M10 20h10M10 26h14M10 32h8" stroke="currentColor" stroke-width="2"/><circle cx="36" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
@@ -42,7 +42,7 @@
  route: '<svg class="qp-icon px-icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="36" cy="36" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 12h8c6 0 6 12 0 12h-4c-6 0-6 12 0 12h12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M32 36h4" stroke="currentColor" stroke-width="2"/></svg>'
  };
 
- /* ---- Diagram builders ---- */
+ /* Diagram builders */
  function node(x, y, w, h, label, sub) {
  var t = '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="3" fill="#121926" stroke="#39e6c8" stroke-width="1.2"/>';
  t += '<text x="' + (x + w / 2) + '" y="' + (y + (sub ? h / 2 - 2 : h / 2 + 4)) + '" text-anchor="middle" fill="#e4edf5" font-size="11" font-family="Figtree,sans-serif">' + esc(label) + '</text>';

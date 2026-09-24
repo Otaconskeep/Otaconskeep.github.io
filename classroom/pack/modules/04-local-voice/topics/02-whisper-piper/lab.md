@@ -1,6 +1,6 @@
-# Lab — Whisper, Piper & Wyoming
+# Lab: Whisper, Piper & Wyoming
 
-**Module:** Module 4 — Local Voice Assistant  
+**Module:** Module 4: Local Voice Assistant  
 **Activity type:** Lab (Practice)  
 **Objective:** Given CPU/RAM constraints, the learner can deploy local Whisper (STT) and Piper (TTS) via Wyoming, benchmark them separately, and record latency/quality tradeoffs before integration.
 
@@ -39,7 +39,7 @@ docker compose logs --tail=100 whisper 2>/dev/null || docker compose logs --tail
 
 3. **Connect Wyoming STT in Home Assistant** (Settings → Devices → add Wyoming).
 
-4. **Fixed phrase set** (workbook)—run each **3 times**, record transcript + cold/warm latency:
+4. **Fixed phrase set** (workbook), run each **3 times**, record transcript + cold/warm latency:
 
 ```text
 turn on test lamp

@@ -1,4 +1,4 @@
-# Lab — Health Checks, Dependencies, and Restart Policies
+# Lab: Health Checks, Dependencies, and Restart Policies
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Lab (Practice)

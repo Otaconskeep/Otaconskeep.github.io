@@ -1,4 +1,4 @@
-# Reading — Logs and journalctl
+# Reading: Logs and journalctl
 
 **Module:** Linux Foundations
 **Activity type:** Reading (Learn)

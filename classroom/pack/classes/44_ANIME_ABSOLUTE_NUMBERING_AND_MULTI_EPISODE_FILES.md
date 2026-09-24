@@ -1,4 +1,4 @@
-# Class 44 — Anime, Absolute Numbering, and Multi-Episode Files
+# Class 44: Anime, Absolute Numbering, and Multi-Episode Files
 
 **Learning objective:** Explain the difference between absolute, season-based, aired, DVD, and metadata-provider episode orderings.; Translate absolute episode numbers into season-and-episode identifiers by using an explicit mapping rather than arithmetic assumptions.; Name contiguous multi-episode files with an unambiguous episode range.; Recognize why specials, split cours, remasters, and provider-order changes can invalidate automatic numbering assumptions.; Create and verify a dry-run normalization plan before copying or renaming media.; Describe the playback, progress-tracking, and metadata limitations of one file representing multiple episodes.
 **Bloom level:** Understand / Apply

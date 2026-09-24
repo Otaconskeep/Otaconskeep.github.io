@@ -1,4 +1,4 @@
-# Lesson 06.05 — Logs and journalctl
+# Lesson 06.05: Logs and journalctl
 
 **Module:** Linux Foundations
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

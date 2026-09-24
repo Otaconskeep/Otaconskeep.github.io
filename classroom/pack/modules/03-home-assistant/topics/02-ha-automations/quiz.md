@@ -1,6 +1,6 @@
-# Quiz — Home Assistant automations
+# Quiz: Home Assistant automations
 
-**Module:** Module 3 — Home Assistant & Secure Access  
+**Module:** Module 3: Home Assistant & Secure Access  
 **Activity type:** Quiz / retrieval practice  
 **Target:** ≥80% before topic mastery unlock  
 **Objective:** Given a plain-language automation requirement, the learner can implement trigger → condition → action logic and prove positive, negative, and failure cases with traces.
@@ -11,7 +11,7 @@ Close the reading. Write answers from memory. Then self-score.
 
 ## Questions
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What is the difference between a trigger and a condition?
 2. Why test a negative case?

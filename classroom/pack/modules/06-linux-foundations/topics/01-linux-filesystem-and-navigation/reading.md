@@ -1,4 +1,4 @@
-# Reading — Linux Filesystem and Navigation
+# Reading: Linux Filesystem and Navigation
 
 **Module:** Linux Foundations
 **Activity type:** Reading (Learn)

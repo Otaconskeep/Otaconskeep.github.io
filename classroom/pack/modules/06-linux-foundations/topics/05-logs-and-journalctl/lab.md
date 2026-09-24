@@ -1,4 +1,4 @@
-# Lab — Logs and journalctl
+# Lab: Logs and journalctl
 
 **Module:** Linux Foundations
 **Activity type:** Lab (Practice)

@@ -1,4 +1,4 @@
-# Quiz — Package Management and Safe System Updates
+# Quiz: Package Management and Safe System Updates
 
 **Module:** Network Operations
 **Activity type:** Quiz / retrieval practice

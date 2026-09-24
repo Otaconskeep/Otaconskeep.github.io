@@ -23,7 +23,7 @@ KEEP_AS_IS = {
     "common mistakes",
 }
 
-LAB_ALIASES = re.compile(r"guided lab|lab —|lab -", re.I)
+LAB_ALIASES = re.compile(r"guided lab|lab: |lab -", re.I)
 BREAK_ALIASES = re.compile(r"break|fix", re.I)
 WHY_ALIASES = re.compile(r"why this|why you|mission|purpose|security objective|core principle", re.I)
 OUTCOME_ALIASES = re.compile(r"what you will learn|outcomes|outcome", re.I)
@@ -51,7 +51,7 @@ PEDAGOGY = {
 **Why better:** Failure stays inside the guest. Snapshots give rollback. The host OS you use for school/work stays untouched.""",
         "guided": """With instructor/notes open, complete **one** of these (hints allowed):
 
-1. Name whether VirtualBox on a laptop is Type 1 or Type 2 — and why.
+1. Name whether VirtualBox on a laptop is Type 1 or Type 2: and why.
 2. List three pieces of evidence that prove a guest is useful for later Docker work (not “it boots”).
 3. Sketch: Hardware → hypervisor → guest → network path to your LAN.""",
         "independent": """Without looking at the lesson, write:
@@ -67,7 +67,7 @@ PEDAGOGY = {
     "02": {
         "objective": "Given a multi-step `docker run` intent, the learner can write a Compose file with services, ports, environment, and persistent mounts, then recreate the stack without data loss.",
         "bloom": "Apply / Create",
-        "why": "Shell history is not a system design. If your stack only exists as remembered commands, you cannot rebuild after failure — and every later ARR/HA/voice service will be fragile.",
+        "why": "Shell history is not a system design. If your stack only exists as remembered commands, you cannot rebuild after failure: and every later ARR/HA/voice service will be fragile.",
         "prior": [
             "What is a container image versus a running container?",
             "Where should application data live if the container is deleted?",
@@ -86,7 +86,7 @@ PEDAGOGY = {
     "03": {
         "objective": "Given two Compose services, the learner can place them on an isolated user-defined network, call one service by DNS name from the other, and explain host-port publish versus container-to-container traffic.",
         "bloom": "Analyze",
-        "why": "Wrong networking is the #1 silent failure in ARR and Home Assistant stacks: ‘it works in the browser on the host’ but containers cannot see each other — or everything is published to the LAN by accident.",
+        "why": "Wrong networking is the #1 silent failure in ARR and Home Assistant stacks: ‘it works in the browser on the host’ but containers cannot see each other: or everything is published to the LAN by accident.",
         "prior": [
             "What does a port number identify?",
             "What is DNS used for?",
@@ -105,7 +105,7 @@ PEDAGOGY = {
     "04": {
         "objective": "Given a running Compose service, the learner can inspect health and logs, perform a controlled image update, and roll back to a known-good state with evidence.",
         "bloom": "Apply / Evaluate",
-        "why": "Building once is easy. Operating for months — updates, failures, disk growth, bad tags — is where homelabs die. This class turns containers into a maintainable system.",
+        "why": "Building once is easy. Operating for months: updates, failures, disk growth, bad tags: is where homelabs die. This class turns containers into a maintainable system.",
         "prior": [
             "What is the difference between desired state and observed state?",
             "Where do container logs go by default?",
@@ -136,14 +136,14 @@ PEDAGOGY = {
         "guided": "Fill a service-contract row (URL, API key handling, network name, test button result) for Prowlarr→Sonarr with assistance.",
         "independent": "Trace one fictional request end-to-end on paper: Seerr/user → Sonarr → Prowlarr → indexer → download client → import path. Mark where hardlinks and categories matter.",
         "feynman_topic": "what Prowlarr does in the ARR flow and how service contracts prevent ‘it just works’ lies",
-        "feynman_example_hint": "Analogy: a switchboard operator who must know each extension — not yelling names down a hallway.",
+        "feynman_example_hint": "Analogy: a switchboard operator who must know each extension: not yelling names down a hallway.",
         "spiral": "Class 6 scores what Prowlarr finds; Class 7 automates those profiles; later troubleshooting always returns to ‘which hop failed?’",
         "reflect_prompt": "Which hop is hardest to prove, and what test button or log line is your evidence?",
     },
     "06": {
         "objective": "Given playback and storage constraints, the learner can write a plain-language quality policy, configure Custom Formats and cutoff/upgrade settings, and prove ranking on five controlled candidates.",
         "bloom": "Evaluate / Create",
-        "why": "Installing Sonarr/Radarr is easy. Designing what they should prefer, reject, upgrade, and stop upgrading is the hard part — and wrong scores waste bandwidth, disk, and evenings.",
+        "why": "Installing Sonarr/Radarr is easy. Designing what they should prefer, reject, upgrade, and stop upgrading is the hard part: and wrong scores waste bandwidth, disk, and evenings.",
         "prior": [
             "What is a quality profile for?",
             "Why might the ‘highest resolution’ release be wrong for your TV?",
@@ -157,8 +157,8 @@ Now scoring can be tested against the sentence.""",
         "guided": "Score three sample release names together using a simple CF table (+/−). Explain the winner out loud.",
         "independent": "Write your household quality sentence. Score five candidates. Change exactly one rule and predict the new ranking before you click save.",
         "feynman_topic": "quality profiles vs Custom Formats vs cutoff/upgrade-until scores",
-        "feynman_example_hint": "Analogy: ordering pizza — ‘make it good’ vs ‘large pepperoni, thin crust, ready in 20 minutes.’",
-        "spiral": "Class 7 will automate these profiles. When automation drifts, you will re-test the same five-candidate table — the policy sentence remains the source of truth.",
+        "feynman_example_hint": "Analogy: ordering pizza: ‘make it good’ vs ‘large pepperoni, thin crust, ready in 20 minutes.’",
+        "spiral": "Class 7 will automate these profiles. When automation drifts, you will re-test the same five-candidate table: the policy sentence remains the source of truth.",
         "reflect_prompt": "Which score almost violated your hardware constraints, and how did the five-candidate table catch it?",
     },
     "07": {
@@ -172,18 +172,18 @@ Now scoring can be tested against the sentence.""",
         ],
         "worked": """**Bad:** Edit scores in the UI *and* in a sync tool with no single owner.
 
-**Better:** Pick one authoritative path (for example Recyclarr *or* Notifiarr — not both fighting), backup → dry run → apply → verify → keep rollback.""",
+**Better:** Pick one authoritative path (for example Recyclarr *or* Notifiarr: not both fighting), backup → dry run → apply → verify → keep rollback.""",
         "guided": "Classify three changes as safe / review / dangerous with the lesson’s change table open.",
         "independent": "Write your control loop: backup → dry run → apply → verify → drift check → rollback trigger. Name the artifact you keep for each step.",
         "feynman_topic": "why ARR configuration needs an authoritative control loop",
         "feynman_example_hint": "Analogy: two people editing the same spreadsheet without track changes.",
-        "spiral": "This control-loop pattern returns for HA dashboards/automations, reverse-proxy config, voice models, and n8n workflows — same discipline, different files.",
+        "spiral": "This control-loop pattern returns for HA dashboards/automations, reverse-proxy config, voice models, and n8n workflows: same discipline, different files.",
         "reflect_prompt": "What would drift look like in your lab tomorrow, and how would you detect it without guessing?",
     },
     "08": {
         "objective": "Given a Home Assistant install path, the learner can identify device/entity/area/integration, build a minimal dashboard, and prove backup + restore evidence.",
         "bloom": "Apply",
-        "why": "Automations and voice are useless on a unnamed mess of entities. Foundations — objects, areas, backups — decide whether later classes are joyful or cursed.",
+        "why": "Automations and voice are useless on a unnamed mess of entities. Foundations: objects, areas, backups: decide whether later classes are joyful or cursed.",
         "prior": [
             "What should you back up before experimenting?",
             "Why do friendly names matter for automations?",
@@ -202,7 +202,7 @@ Now scoring can be tested against the sentence.""",
     "09": {
         "objective": "Given a plain-language automation requirement, the learner can implement trigger → condition → action logic and prove positive, negative, and failure cases with traces.",
         "bloom": "Analyze / Create",
-        "why": "An automation that ‘usually works’ is a hazard. Testable logic — including when it must *not* fire — is how you trust the house.",
+        "why": "An automation that ‘usually works’ is a hazard. Testable logic: including when it must *not* fire: is how you trust the house.",
         "prior": [
             "What is a trigger vs a condition vs an action?",
             "Why might an automation fire twice?",
@@ -214,7 +214,7 @@ Now scoring can be tested against the sentence.""",
         "guided": "Fill trigger/condition/action boxes for the lesson example together.",
         "independent": "Write positive test, negative test, and restart test for your automation. Capture a trace id or screenshot (secrets redacted).",
         "feynman_topic": "automations as testable logic, not magic",
-        "feynman_example_hint": "Analogy: a vending machine — coin (trigger), ‘in stock’ (condition), dispense (action).",
+        "feynman_example_hint": "Analogy: a vending machine: coin (trigger), ‘in stock’ (condition), dispense (action).",
         "spiral": "Voice (11–13) will call actions that must be safe under the same discipline. Monitoring hooks here feed later n8n digests (14).",
         "reflect_prompt": "Which negative test surprised you, and what did the trace reveal?",
     },
@@ -248,11 +248,11 @@ Now scoring can be tested against the sentence.""",
         ],
         "worked": """**Bad debug:** “Voice is broken” → reinstall everything.
 
-**Better:** Stage table — mic level OK? wake fired? STT text correct? intent matched? action ran? TTS audio generated? speaker played? Fix the first failing stage only.""",
+**Better:** Stage table: mic level OK? wake fired? STT text correct? intent matched? action ran? TTS audio generated? speaker played? Fix the first failing stage only.""",
         "guided": "Fill the stage table for a sample phrase with assistance.",
         "independent": "Create your pipeline test record template with one pass/fail line per stage. Run it once on a known sentence.",
         "feynman_topic": "the local voice signal chain and fault isolation",
-        "feynman_example_hint": "Analogy: a relay race — you must know which runner dropped the baton.",
+        "feynman_example_hint": "Analogy: a relay race: you must know which runner dropped the baton.",
         "spiral": "Classes 12–13 implement STT/TTS and the full speaker. Every failure report should cite a Class 11 stage name.",
         "reflect_prompt": "Which stage is hardest to observe, and what log or UI proves it?",
     },
@@ -272,7 +272,7 @@ Now scoring can be tested against the sentence.""",
         "independent": "Benchmark two settings (or note why you cannot) and recommend one for your hardware with numbers.",
         "feynman_topic": "what Whisper, Piper, and Wyoming each contribute",
         "feynman_example_hint": "Analogy: ears (STT), mouth (TTS), and the headset cable standard (Wyoming).",
-        "spiral": "Class 13 demands these providers still work with the internet disconnected. Keep the separate tests — you will reuse them under failure.",
+        "spiral": "Class 13 demands these providers still work with the internet disconnected. Keep the separate tests: you will reuse them under failure.",
         "reflect_prompt": "What latency/quality tradeoff did you accept, and what resource limit forced it?",
     },
     "13": {
@@ -286,18 +286,18 @@ Now scoring can be tested against the sentence.""",
         ],
         "worked": """**Bad acceptance:** “It worked once while Wi-Fi was up.”
 
-**Better:** Progressive gates — wake only → STT → intent/action → TTS → full path — then repeat with internet disconnected and record the pass.""",
+**Better:** Progressive gates: wake only → STT → intent/action → TTS → full path: then repeat with internet disconnected and record the pass.""",
         "guided": "Execute the progressive integration gates in order with the checklist open.",
         "independent": "Run the disconnected exam. Document exact evidence (photos/logs redacted) for pass or the first failing stage.",
         "feynman_topic": "what ‘completely local smart speaker’ actually requires",
-        "feynman_example_hint": "Analogy: a flashlight that still works when the power grid is down — vs one that needs a cloud app to turn on.",
+        "feynman_example_hint": "Analogy: a flashlight that still works when the power grid is down: vs one that needs a cloud app to turn on.",
         "spiral": "Capstone will ask for this evidence again. n8n (14) must not sneak cloud dependencies into the voice path without labeling them.",
         "reflect_prompt": "Did the disconnected test change your architecture confidence? What remains fragile?",
     },
     "14": {
         "objective": "Given a lab-only Docker network, the learner can run n8n, build an RSS digest workflow explaining item cardinality, and require human approval before any mutating Keep Agent / SSH action.",
         "bloom": "Apply / Evaluate",
-        "why": "Automation without approval gates turns small mistakes into fast, wide damage — especially when agents can run commands.",
+        "why": "Automation without approval gates turns small mistakes into fast, wide damage: especially when agents can run commands.",
         "prior": [
             "What is a workflow node?",
             "Why might one RSS item become five messages?",
@@ -309,7 +309,7 @@ Now scoring can be tested against the sentence.""",
         "guided": "Trace item count through a sample RSS → split → notify path with assistance.",
         "independent": "Draw your approval boundary on paper: which nodes may run unattended vs which need a human. Implement that boundary.",
         "feynman_topic": "why n8n automations need cardinality awareness and approval gates",
-        "feynman_example_hint": "Analogy: a mail merge that accidentally sends 500 letters — vs a draft folder that waits for your stamp.",
+        "feynman_example_hint": "Analogy: a mail merge that accidentally sends 500 letters: vs a draft folder that waits for your stamp.",
         "spiral": "Capstone expects guarded automation evidence. Infrastructure classes (2–4) and security (10) are prerequisites for doing this safely.",
         "reflect_prompt": "Where could your workflow mutate something accidentally, and what gate stops it?",
     },
@@ -327,7 +327,7 @@ Now scoring can be tested against the sentence.""",
 **Better:** Compare address and mask; compute network ID; if same network → local delivery; else → send to gateway. Separate loopback and reserved ranges from LAN addresses.""",
         "guided": "Given two example IPs + `/24` mask, decide same-LAN vs needs-gateway together.",
         "independent": "On your lab host, record IP, mask, gateway. Compute usable hosts for your `/24` (or explain your real mask). Explain loopback in one sentence.",
-        "feynman_topic": "IPv4 addresses, masks, gateways, and why classful charts are history — not how modern LANs work",
+        "feynman_topic": "IPv4 addresses, masks, gateways, and why classful charts are history: not how modern LANs work",
         "feynman_example_hint": "Analogy: street address + ZIP (network) vs apartment number (host), and the post office (gateway) for other ZIPs.",
         "spiral": "Use this whenever Class 3 Docker networks, Class 5 ARR URLs, Class 10 remote access, or Class 12 Wyoming hosts misbehave. Addressing is a permanent spiral skill.",
         "reflect_prompt": "Which addressing misconception did you personally hold, and what calculation corrected it?",
@@ -429,7 +429,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 """
 
 
@@ -535,7 +535,7 @@ def rebuild(path: Path) -> None:
     out.append("")
     out.append("## Prior-knowledge check")
     out.append("")
-    out.append("Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.")
+    out.append("Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.")
     out.append("")
     out.append(bullets(ped["prior"]))
     out.append("")
@@ -549,19 +549,19 @@ def rebuild(path: Path) -> None:
     out.append("")
     out.append("## Worked example")
     out.append("")
-    out.append("**I do** — study the reasoning, not just the final answer.")
+    out.append("**I do**: study the reasoning, not just the final answer.")
     out.append("")
     out.append(worked)
     out.append("")
     out.append("## Guided practice")
     out.append("")
-    out.append("**We do** — hints allowed. Check your reasoning against Instruction.")
+    out.append("**We do**: hints allowed. Check your reasoning against Instruction.")
     out.append("")
     out.append(ped["guided"])
     out.append("")
     out.append("## Independent practice")
     out.append("")
-    out.append("**You do** — close the hints. Solve before opening the lab.")
+    out.append("**You do**: close the hints. Solve before opening the lab.")
     out.append("")
     out.append(ped["independent"])
     out.append("")
@@ -573,7 +573,7 @@ def rebuild(path: Path) -> None:
     out.append("")
     out.append("## Retrieval check")
     out.append("")
-    out.append("Active recall — write answers without rereading first. Target ≥80% before the gate.")
+    out.append("Active recall: write answers without rereading first. Target ≥80% before the gate.")
     out.append("")
     out.append(quiz if quiz else "1. Restate the learning objective as a task you can perform.\n2. Give one failure mode for this class.\n3. Name the evidence you will capture.")
     out.append("")

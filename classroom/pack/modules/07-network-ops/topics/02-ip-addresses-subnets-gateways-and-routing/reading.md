@@ -1,4 +1,4 @@
-# Reading — IP Addresses, Subnets, Gateways, and Routing
+# Reading: IP Addresses, Subnets, Gateways, and Routing
 
 **Module:** Network Operations
 **Activity type:** Reading (Learn)

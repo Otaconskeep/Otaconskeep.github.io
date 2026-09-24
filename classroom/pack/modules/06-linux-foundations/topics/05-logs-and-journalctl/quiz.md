@@ -1,4 +1,4 @@
-# Quiz — Logs and journalctl
+# Quiz: Logs and journalctl
 
 **Module:** Linux Foundations
 **Activity type:** Quiz / retrieval practice

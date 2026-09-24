@@ -1,4 +1,4 @@
-# Class 36 — Docker Compose Fundamentals
+# Class 36: Docker Compose Fundamentals
 
 **Learning objective:** Explain the role of a Compose file and how it differs from an individual docker run command.; Define services, images, commands, ports, bind mounts, networks, health checks, and security options in YAML.; Use a Compose project name to create a predictable resource namespace.; Validate a Compose model before starting containers.; Start services in detached mode and inspect their state and logs.; Demonstrate service-to-service communication through Compose DNS.; Distinguish published host ports from internal container-network connectivity.; Stop and remove the lab's Compose-managed runtime resources without affecting unrelated projects.
 **Bloom level:** Understand / Apply
@@ -51,10 +51,10 @@ Teach students how to define, start, inspect, verify, and stop a small multi-con
 
 ## Required reading
 
-- Docker Docs: Compose file reference — https://docs.docker.com/reference/compose-file/
-- Docker Docs: How Compose works — https://docs.docker.com/compose/intro/compose-application-model/
-- Docker Docs: Networking in Compose — https://docs.docker.com/compose/how-tos/networking/
-- Docker Docs: Docker Compose CLI reference — https://docs.docker.com/reference/cli/docker/compose/
+- Docker Docs: Compose file reference: https://docs.docker.com/reference/compose-file/
+- Docker Docs: How Compose works: https://docs.docker.com/compose/intro/compose-application-model/
+- Docker Docs: Networking in Compose: https://docs.docker.com/compose/how-tos/networking/
+- Docker Docs: Docker Compose CLI reference: https://docs.docker.com/reference/cli/docker/compose/
 
 ## Prior-knowledge check
 
@@ -367,16 +367,16 @@ Finally, we repeat the up command to see declarative reconciliation. With no mod
 
 ## References
 
-- Docker Docs: Docker Compose overview — https://docs.docker.com/compose/
-- Docker Docs: Compose file reference — https://docs.docker.com/reference/compose-file/
-- Docker Docs: Compose services reference — https://docs.docker.com/reference/compose-file/services/
-- Docker Docs: Compose networks reference — https://docs.docker.com/reference/compose-file/networks/
-- Docker Docs: Networking in Compose — https://docs.docker.com/compose/how-tos/networking/
-- Docker Docs: docker compose up — https://docs.docker.com/reference/cli/docker/compose/up/
-- Docker Docs: docker compose down — https://docs.docker.com/reference/cli/docker/compose/down/
-- Docker Docs: docker compose config — https://docs.docker.com/reference/cli/docker/compose/config/
-- Docker Docs: Bind mounts — https://docs.docker.com/engine/storage/bind-mounts/
-- Docker Docs: Container security — https://docs.docker.com/engine/security/
+- Docker Docs: Docker Compose overview: https://docs.docker.com/compose/
+- Docker Docs: Compose file reference: https://docs.docker.com/reference/compose-file/
+- Docker Docs: Compose services reference: https://docs.docker.com/reference/compose-file/services/
+- Docker Docs: Compose networks reference: https://docs.docker.com/reference/compose-file/networks/
+- Docker Docs: Networking in Compose: https://docs.docker.com/compose/how-tos/networking/
+- Docker Docs: docker compose up: https://docs.docker.com/reference/cli/docker/compose/up/
+- Docker Docs: docker compose down: https://docs.docker.com/reference/cli/docker/compose/down/
+- Docker Docs: docker compose config: https://docs.docker.com/reference/cli/docker/compose/config/
+- Docker Docs: Bind mounts: https://docs.docker.com/engine/storage/bind-mounts/
+- Docker Docs: Container security: https://docs.docker.com/engine/security/
 
 ## Mastery gate
 

@@ -1,7 +1,7 @@
-# Reading — Docker Volumes and Bind Mounts
+# Reading: Docker Volumes and Bind Mounts
 
-**Module:** Module 8 — Docker, Storage & Permissions
-**Topic:** 04 — Docker Volumes and Bind Mounts
+**Module:** Module 8: Docker, Storage & Permissions
+**Topic:** 04: Docker Volumes and Bind Mounts
 **Activity type:** Reading / reference (Learn)
 **Source:** Class 30 intake, published without rewriting lesson content
 
@@ -26,7 +26,7 @@ A mount hides image content at the same container path for as long as it is atta
 
 A container writes configuration to `/config` without a mount. The operator updates by removing and recreating it, and the configuration disappears. The correct design attaches durable storage at `/config`, backs it up using an application-consistent method, and tests restoration before relying on it.
 
-## Visual 1 — Storage Lifetimes
+## Visual 1: Storage Lifetimes
 
 ```mermaid
 flowchart LR
@@ -36,7 +36,7 @@ flowchart LR
   B[Host bind path] -->|host-coupled| C
 ```
 
-## Visual 2 — Selection Guide
+## Visual 2: Selection Guide
 
 ```mermaid
 flowchart TD

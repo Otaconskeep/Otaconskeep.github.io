@@ -1,6 +1,6 @@
-# Lesson 05.01 — n8n homelab automation
+# Lesson 05.01: n8n homelab automation
 
-**Module:** Module 5 — Workflow Automation (n8n)  
+**Module:** Module 5: Workflow Automation (n8n)  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
 **Learning objective:** Given a lab-only Docker network, the learner can run n8n, build an RSS digest workflow explaining item cardinality, and require human approval before any mutating Keep Agent / SSH action.  
 **Bloom level:** Apply / Evaluate  
@@ -13,11 +13,11 @@ Given a lab-only Docker network, the learner can run n8n, build an RSS digest wo
 
 ## Why this matters
 
-Automation without approval gates turns small mistakes into fast, wide damage — especially when agents can run commands.
+Automation without approval gates turns small mistakes into fast, wide damage: especially when agents can run commands.
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is a workflow node?
 2. Why might one RSS item become five messages?
@@ -27,13 +27,13 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 Complete the module reading first:
 
-- [Reading — n8n homelab automation](./reading.md)
+- [Reading: n8n homelab automation](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
 ## Guided practice (We do)
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Trace item count through a sample RSS → split → notify path with assistance.
 
@@ -48,7 +48,7 @@ Describe **why n8n automations need cardinality awareness and approval gates** i
 Explain the same idea to a 12-year-old. If you use a technical word, define it.
 
 ### Example
-Analogy: a mail merge that accidentally sends 500 letters — vs a draft folder that waits for your stamp.
+Analogy: a mail merge that accidentally sends 500 letters: vs a draft folder that waits for your stamp.
 
 ### Weak spot
 What part was hard to explain? That is where your understanding is thin.
@@ -56,7 +56,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 ## Reflection
 

@@ -1,6 +1,6 @@
-# Quiz — Linux Disks, Partitions, and Filesystems
+# Quiz: Linux Disks, Partitions, and Filesystems
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Quiz (Test)
 
 ## Knowledge check

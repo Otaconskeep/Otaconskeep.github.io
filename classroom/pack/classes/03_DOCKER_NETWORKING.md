@@ -1,6 +1,6 @@
-# Class 3 — Docker Networking for the ARR Stack
+# Class 3: Docker Networking for the ARR Stack
 
-**Lecture (optional):** [NetworkChuck — Docker Networking](https://www.youtube.com/watch?v=bKFMS5C4CG0)
+**Lecture (optional):** [NetworkChuck: Docker Networking](https://www.youtube.com/watch?v=bKFMS5C4CG0)
 **Time:** 120–150 minutes
 **Learning objective:** Given two Compose services, the learner can place them on an isolated user-defined network, call one service by DNS name from the other, and explain host-port publish versus container-to-container traffic.
 **Bloom level:** Analyze
@@ -13,11 +13,11 @@ Given two Compose services, the learner can place them on an isolated user-defin
 
 ## Why this matters
 
-Wrong networking is the #1 silent failure in ARR and Home Assistant stacks: ‘it works in the browser on the host’ but containers cannot see each other — or everything is published to the LAN by accident.
+Wrong networking is the #1 silent failure in ARR and Home Assistant stacks: ‘it works in the browser on the host’ but containers cannot see each other: or everything is published to the LAN by accident.
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What does a port number identify?
 2. What is DNS used for?
@@ -70,7 +70,7 @@ Do not publish every internal service simply because you can. A database used on
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Publish every container port to `0.0.0.0` on the host and point services at `localhost`.
 
@@ -78,13 +78,13 @@ Do not publish every internal service simply because you can. A database used on
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 With the lesson open, trace one packet path: browser → host port → container A → DNS name → container B. Label each hop.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Design a tiny two-service Compose network. Write the exact URL/hostname each side should use. Predict what breaks if you remove the shared network.
 
@@ -107,12 +107,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What does `localhost` mean inside Sonarr's container?
 2. Why is a user-defined bridge better than the legacy default for a Compose stack?
@@ -124,7 +124,7 @@ Active recall — write answers without rereading first. Target ≥80% before th
 
 **Where to run:** Docker host from Class 2 (Linux VM preferred).
 
-### Setup — two containers on one user-defined bridge
+### Setup: two containers on one user-defined bridge
 
 1. **Create the network lab project.**
 
@@ -201,7 +201,7 @@ docker network inspect media_net -f '{{range .Containers}}{{.Name}} {{.IPv4Addre
 :::windows
 ```powershell
 docker compose exec tester curl -sI http://localhost:80
-# Expect failure — localhost is the tester container itself, not responder.
+# Expect failure: localhost is the tester container itself, not responder.
 ```
 :::
 
@@ -249,7 +249,7 @@ Sonarr -> http://qbittorrent:8080
 Radarr -> http://sabnzbd:8080
 ```
 
-Exact ports go in `templates/service_contract.csv`—do not guess.
+Exact ports go in `templates/service_contract.csv`, do not guess.
 
 ## Break / fix
 
@@ -279,7 +279,7 @@ docker compose exec tester curl -sI http://responder:80
 ```
 :::
 
-2. **Replace `responder` with `localhost` in curl** (already done above)—explain the failure in the workbook.
+2. **Replace `responder` with `localhost` in curl** (already done above), explain the failure in the workbook.
 
 3. **Bind only to loopback and compare LAN access.** Change ports to `"127.0.0.1:8081:80"`, recreate, prove host-local works and another LAN device fails.
 

@@ -1,4 +1,4 @@
-# Homework — Health Checks, Dependencies, and Restart Policies
+# Homework: Health Checks, Dependencies, and Restart Policies
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Homework / independent application

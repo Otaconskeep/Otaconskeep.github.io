@@ -1,6 +1,6 @@
-# Class 10 — Secure Remote Access Without Public Admin Panels
+# Class 10: Secure Remote Access Without Public Admin Panels
 
-**Lecture (optional):** [NetworkChuck — Cloudflare Tunnel / Remote Access](https://www.youtube.com/watch?v=ey4u7OUAF3c)
+**Lecture (optional):** [NetworkChuck: Cloudflare Tunnel / Remote Access](https://www.youtube.com/watch?v=ey4u7OUAF3c)
 **Time:** 150 minutes
 **Learning objective:** Given a threat model for admin UIs, the learner can choose VPN vs tunnel vs dangerous port-forward patterns, implement an authenticated remote path (or document VPN-only), and prove unauthorized denial plus rollback.
 **Bloom level:** Evaluate / Apply
@@ -17,7 +17,7 @@ Remote access must not mean publishing every admin interface to the internet. Th
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is authentication vs authorization?
 2. Why is a raw port-forward of an admin UI risky?
@@ -75,11 +75,11 @@ The tunnel encrypts and routes traffic; it does not automatically create a good 
 
 ### Reverse proxy awareness
 
-If you terminate TLS on a proxy, record host headers and whether HA `trusted_proxies` (or equivalent) is required—follow current HA docs.
+If you terminate TLS on a proxy, record host headers and whether HA `trusted_proxies` (or equivalent) is required, follow current HA docs.
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Forward port 8123/8989 to the world because “I’ll use a strong password.”
 
@@ -87,13 +87,13 @@ If you terminate TLS on a proxy, record host headers and whether HA `trusted_pro
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Compare VPN vs tunnel vs reverse-proxy using the lesson’s decision table with notes open.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Write your threat model in five bullets and the denial test you will run. Execute the denial test and record evidence.
 
@@ -116,12 +116,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. Does an encrypted tunnel automatically enforce user authorization?
 2. Why are ARR admin panels poor candidates for public exposure?
@@ -144,16 +144,16 @@ Active recall — write answers without rereading first. Target ≥80% before th
 
 :::linux
 ```bash
-# From the HA/Docker host — list listeners (look for 8123/8096/8989 published on 0.0.0.0 unexpectedly)
+# From the HA/Docker host: list listeners (look for 8123/8096/8989 published on 0.0.0.0 unexpectedly)
 ss -lntp | egrep '8123|8096|8989|7878|9696' || true
-# From an external network (phone LTE), try http://PUBLIC-IP:8123 — expect failure
+# From an external network (phone LTE), try http://PUBLIC-IP:8123: expect failure
 ```
 :::
 
 :::windows
 ```powershell
 netstat -ano | findstr "8123 8989 7878"
-# External test from cellular network browser to your public IP — expect fail
+# External test from cellular network browser to your public IP: expect fail
 ```
 :::
 
@@ -167,7 +167,7 @@ Follow **current** official tunnel docs for connector install. Then:
 
 :::linux
 ```bash
-# Pattern after install — service name varies by distro/docs:
+# Pattern after install: service name varies by distro/docs:
 sudo systemctl status cloudflared --no-pager
 sudo journalctl -u cloudflared -n 50 --no-pager
 ```
@@ -233,7 +233,7 @@ curl.exe -sI http://HA-IP:8123/
 
 1. Stop connector / disconnect VPN → external fail, LAN ok.
 
-2. Remove MFA temporarily in a controlled test only if policy allows—then restore MFA immediately.
+2. Remove MFA temporarily in a controlled test only if policy allows, then restore MFA immediately.
 
 3. Attempt access with a second account that should be denied.
 
@@ -276,4 +276,4 @@ Voice satellites and n8n webhooks inherit this boundary. If Class 10 is weak, la
 
 ## 2026 correction
 
-Provider dashboards, policy syntax, and product names change. Use current official Cloudflare or selected VPN documentation. The security requirements—narrow exposure, explicit identity, denial testing, revocation, and fail-closed behavior—remain the authority.
+Provider dashboards, policy syntax, and product names change. Use current official Cloudflare or selected VPN documentation. The security requirements, narrow exposure, explicit identity, denial testing, revocation, and fail-closed behavior, remain the authority.

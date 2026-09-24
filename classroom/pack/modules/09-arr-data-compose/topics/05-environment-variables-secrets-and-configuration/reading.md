@@ -1,4 +1,4 @@
-# Reading — Environment Variables, Secrets, and Configuration
+# Reading: Environment Variables, Secrets, and Configuration
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Reading (Learn)

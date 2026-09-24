@@ -1,4 +1,4 @@
-# Module 2 remediation — ARR Media Automation
+# Module 2 remediation: ARR Media Automation
 
 **Activity type:** Review / remediation  
 **Use when:** quiz <80%, lab gate failed, Feynman weak spot unresolved, or exam miss.

@@ -1,14 +1,14 @@
-# Reading — Docker Compose & persistence
+# Reading: Docker Compose & persistence
 
-**Module:** Module 1 — Infrastructure & Addressing  
-**Topic:** 02 — Docker Compose & persistence  
+**Module:** Module 1: Infrastructure & Addressing  
+**Topic:** 02: Docker Compose & persistence  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Apply / Create  
 **Links to outcome:** Given a multi-step `docker run` intent, the learner can write a Compose file with services, ports, environment, and persistent mounts, then recreate the stack without data loss.
 
 ## Why this matters
 
-Shell history is not a system design. If your stack only exists as remembered commands, you cannot rebuild after failure — and every later ARR/HA/voice service will be fragile.
+Shell history is not a system design. If your stack only exists as remembered commands, you cannot rebuild after failure: and every later ARR/HA/voice service will be fragile.
 
 ## Vocabulary
 
@@ -91,7 +91,7 @@ docker compose down
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad Compose intent:** No volumes; data lives in the container filesystem; recreate = wipe.
 

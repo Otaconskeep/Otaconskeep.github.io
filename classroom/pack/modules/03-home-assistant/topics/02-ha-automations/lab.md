@@ -1,6 +1,6 @@
-# Lab — Home Assistant automations
+# Lab: Home Assistant automations
 
-**Module:** Module 3 — Home Assistant & Secure Access  
+**Module:** Module 3: Home Assistant & Secure Access  
 **Activity type:** Lab (Practice)  
 **Objective:** Given a plain-language automation requirement, the learner can implement trigger → condition → action logic and prove positive, negative, and failure cases with traces.
 
@@ -18,7 +18,7 @@ Build one automation with explicit acceptance tests. Prefer helpers (`input_bool
 ```text
 When test_trigger turns on AND test_allowed is on → turn on test_lamp (helper)
 Notify/log that the run happened
-Mode: single (or restart — pick one and defend it)
+Mode: single (or restart: pick one and defend it)
 ```
 
 2. **Create helpers** (UI → Helpers): `input_boolean.test_trigger`, `input_boolean.test_allowed`, `input_boolean.test_lamp`.

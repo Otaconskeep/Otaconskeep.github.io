@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""KeepRoute — public OtaconsKeep field UI over OmniRoute.
+"""KeepRoute: public OtaconsKeep field UI over OmniRoute.
 
 Cool cinematic GUI in front. OmniRoute picks the best backend (or a
 local LLM / named specialist). Optional real CLIs stay available as
@@ -37,7 +37,7 @@ MISSION_CONTROLLER = os.environ.get("MISSION_CONTROLLER_URL", "http://127.0.0.1:
 ARIA_OWNS_AUTO_POLICY = False  # P1: Mission Controller owns Auto
 DEFAULT_OMNI = os.environ.get("OMNIROUTE_HOST", "http://127.0.0.1:20128").rstrip("/")
 LOCAL_LLM_MODEL = os.environ.get("ARIA_LOCAL_MODEL", "ollama-local/gpt-oss:20b")
-# OmniRoute auto/* currently prefers Grok on this host — KeepRoute Auto therefore
+# OmniRoute auto/* currently prefers Grok on this host: KeepRoute Auto therefore
 # picks Local LLM for simple jobs and only escalates for hard/coding work.
 AUTO_MODEL = os.environ.get("ARIA_AUTO_MODEL", LOCAL_LLM_MODEL)
 AUTO_CODING_MODEL = os.environ.get("ARIA_AUTO_CODING_MODEL", "auto/best-coding")
@@ -171,7 +171,7 @@ HOW_IT_WORKS = {
     "intro": (
         "KeepRoute is a simple screen that talks for you. "
         "Underneath it, a helper named OmniRoute automatically chooses "
-        "the best service for your job — like Claude, Codex, Cursor, Grok, "
+        "the best service for your job: like Claude, Codex, Cursor, Grok, "
         "or your computer's own Local LLM. You do not have to pick the smartest one. "
         "Auto does that for you."
     ),
@@ -199,7 +199,7 @@ HOW_IT_WORKS = {
             "n": 3,
             "title": "Type a plain sentence",
             "body": (
-                "In the box under the dark window, write what you want — "
+                "In the box under the dark window, write what you want: "
                 "the same way you would tell a helpful person. "
                 "Example: \"Make a short shopping list for tacos.\""
             ),
@@ -245,7 +245,7 @@ FAQ = [
         "q": "What is OmniRoute?",
         "a": (
             "OmniRoute is the traffic director behind KeepRoute. "
-            "You give KeepRoute a job. OmniRoute decides which connected service should handle it — "
+            "You give KeepRoute a job. OmniRoute decides which connected service should handle it: "
             "Claude, Codex, Cursor, Grok, Local LLM, or another one you added."
         ),
     },
@@ -312,7 +312,7 @@ FAQ = [
     {
         "q": "I pressed EXECUTE and nothing happened. What now?",
         "a": (
-            "1) Check the top badge — OmniRoute should say ONLINE. "
+            "1) Check the top badge: OmniRoute should say ONLINE. "
             "2) Open ADD PROVIDERS and confirm your OmniRoute API key is saved. "
             "3) Make sure at least one provider Status light is green. "
             "4) Try a shorter sentence. If it still fails, press ABORT and try again."
@@ -341,7 +341,7 @@ PROVIDER_GUIDES = [
             "In OmniRoute, open Providers.",
             "Connect Claude (sign in if it asks).",
             "Wait until it shows healthy / active.",
-            "Return to KeepRoute and refresh — Claude should appear on the left with a green Status light.",
+            "Return to KeepRoute and refresh: Claude should appear on the left with a green Status light.",
             "Optional: if a key is needed, paste it under Keys below.",
         ],
     },
@@ -352,7 +352,7 @@ PROVIDER_GUIDES = [
         "steps": [
             "In OmniRoute → Providers, connect Codex / ChatGPT.",
             "Sign in when asked.",
-            "When it is active, refresh KeepRoute — Codex appears on the left.",
+            "When it is active, refresh KeepRoute: Codex appears on the left.",
             "Optional key paste is under Keys if needed.",
         ],
     },
@@ -363,7 +363,7 @@ PROVIDER_GUIDES = [
         "steps": [
             "In OmniRoute → Providers, connect Cursor.",
             "Finish any login it shows.",
-            "Refresh KeepRoute — Cursor appears when connected.",
+            "Refresh KeepRoute: Cursor appears when connected.",
         ],
     },
     {
@@ -373,7 +373,7 @@ PROVIDER_GUIDES = [
         "steps": [
             "In OmniRoute → Providers, connect Grok.",
             "Finish login or paste an xAI key if asked.",
-            "Refresh KeepRoute — Grok appears when connected.",
+            "Refresh KeepRoute: Grok appears when connected.",
         ],
     },
     {
@@ -384,7 +384,7 @@ PROVIDER_GUIDES = [
             "Install your local model app (often Ollama) on this computer.",
             "Download a chat model.",
             "In OmniRoute → Providers, turn on the local / ollama provider.",
-            "Refresh KeepRoute — Local LLM appears when it is connected.",
+            "Refresh KeepRoute: Local LLM appears when it is connected.",
         ],
     },
     {
@@ -395,7 +395,7 @@ PROVIDER_GUIDES = [
             "Open OmniRoute → Providers.",
             "Add the new service and finish its login or key form.",
             "Make sure it shows active / healthy.",
-            "In KeepRoute, leave Auto selected — OmniRoute can route jobs to it when it is the best fit.",
+            "In KeepRoute, leave Auto selected: OmniRoute can route jobs to it when it is the best fit.",
         ],
     },
 ]
@@ -738,7 +738,7 @@ def _run_omni_mission(mission_id: str, agent: str, prompt: str) -> None:
         q.put({"t": time.time(), "kind": kind, "text": text})
 
     try:
-        # P1: Auto is owned by Mission Controller sidecar — KeepRoute does not classify/route.
+        # P1: Auto is owned by Mission Controller sidecar: KeepRoute does not classify/route.
         if agent == "auto":
             if ARIA_OWNS_AUTO_POLICY:
                 raise RuntimeError("KeepRoute Auto policy is disabled; Mission Controller must own routing")
@@ -782,7 +782,7 @@ def _run_omni_mission(mission_id: str, agent: str, prompt: str) -> None:
             return
 
         if not key:
-            raise RuntimeError("OmniRoute API key missing — open ADD PROVIDERS and paste it under Keys.")
+            raise RuntimeError("OmniRoute API key missing: open ADD PROVIDERS and paste it under Keys.")
         emit("sys", f"MISSION {mission_id[:8].upper()} · {meta['label']} via OmniRoute")
         emit("sys", f"MODEL {model}")
         mission["status"] = "running"

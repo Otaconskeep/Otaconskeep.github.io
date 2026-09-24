@@ -1,4 +1,4 @@
-# Homework — ARR Stack Data Architecture and the /data Model
+# Homework: ARR Stack Data Architecture and the /data Model
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Homework / independent application

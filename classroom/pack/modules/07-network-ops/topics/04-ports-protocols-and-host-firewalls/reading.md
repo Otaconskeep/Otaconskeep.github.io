@@ -1,4 +1,4 @@
-# Reading — Ports, Protocols, and Host Firewalls
+# Reading: Ports, Protocols, and Host Firewalls
 
 **Module:** Network Operations
 **Activity type:** Reading (Learn)

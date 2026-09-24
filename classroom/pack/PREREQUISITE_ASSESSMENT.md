@@ -1,6 +1,6 @@
 # Prerequisite Assessment
 
-Complete before Class 1. This is diagnostic, not a blocker — wrong answers route you to warm-up reading.
+Complete before Class 1. This is diagnostic, not a blocker: wrong answers route you to warm-up reading.
 
 ## Self-check (answer in the workbook)
 

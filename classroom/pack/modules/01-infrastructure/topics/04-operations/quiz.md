@@ -1,6 +1,6 @@
-# Quiz — Container operations
+# Quiz: Container operations
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Quiz / retrieval practice  
 **Target:** ≥80% before topic mastery unlock  
 **Objective:** Given a running Compose service, the learner can inspect health and logs, perform a controlled image update, and roll back to a known-good state with evidence.
@@ -11,7 +11,7 @@ Close the reading. Write answers from memory. Then self-score.
 
 ## Questions
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. Why is “container is Up” insufficient evidence?
 2. What is authoritative data?

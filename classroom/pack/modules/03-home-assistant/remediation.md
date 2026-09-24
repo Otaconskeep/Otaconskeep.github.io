@@ -1,4 +1,4 @@
-# Module 3 remediation — Home Assistant & Secure Access
+# Module 3 remediation: Home Assistant & Secure Access
 
 **Activity type:** Review / remediation  
 **Use when:** quiz <80%, lab gate failed, Feynman weak spot unresolved, or exam miss.

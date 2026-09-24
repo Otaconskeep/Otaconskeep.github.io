@@ -1,4 +1,4 @@
-# Lesson 10.03 — Sonarr Quality Profiles, Searching, and Importing
+# Lesson 10.03: Sonarr Quality Profiles, Searching, and Importing
 
 **Module:** Sonarr & Radarr
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

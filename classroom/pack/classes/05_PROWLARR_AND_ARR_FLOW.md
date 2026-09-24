@@ -1,6 +1,6 @@
-# Class 5 — Prowlarr and the ARR Request Flow
+# Class 5: Prowlarr and the ARR Request Flow
 
-**Lecture (optional):** [IBRACORP — Prowlarr Guide](https://www.youtube.com/watch?v=nPm5pMfk1OA)
+**Lecture (optional):** [IBRACORP: Prowlarr Guide](https://www.youtube.com/watch?v=nPm5pMfk1OA)
 **Time:** 150 minutes
 **Learning objective:** Given authorized indexer credentials and Compose networking, the learner can connect Prowlarr to Sonarr/Radarr, prove sync/tests, and trace a request through search → download client → import boundaries.
 **Bloom level:** Apply / Analyze
@@ -17,7 +17,7 @@ Clicking through UIs without service contracts produces mystery failures. Prowla
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. Which Docker network will ARR apps use to reach each other?
 2. What evidence proves two apps are connected (not just ‘installed’)?
@@ -123,7 +123,7 @@ On Linux, compare device and inode values with `stat`. Two paths with the same d
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Point Sonarr at Prowlarr using `localhost` from inside another container; skip indexer tests.
 
@@ -131,13 +131,13 @@ On Linux, compare device and inode values with `stat`. Two paths with the same d
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Fill a service-contract row (URL, API key handling, network name, test button result) for Prowlarr→Sonarr with assistance.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Trace one fictional request end-to-end on paper: Seerr/user → Sonarr → Prowlarr → indexer → download client → import path. Mark where hardlinks and categories matter.
 
@@ -152,7 +152,7 @@ Describe **what Prowlarr does in the ARR flow and how service contracts prevent 
 Explain the same idea to a 12-year-old. If you use a technical word, define it.
 
 ### Example
-Analogy: a switchboard operator who must know each extension — not yelling names down a hallway.
+Analogy: a switchboard operator who must know each extension: not yelling names down a hallway.
 
 ### Weak spot
 What part was hard to explain? That is where your understanding is thin.
@@ -160,12 +160,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What responsibility belongs to Prowlarr versus Sonarr/Radarr?
 2. Why are connection and synchronization separate tests?
@@ -186,7 +186,7 @@ Replace `COMPOSE_DIR` with your stack directory. Never paste real API keys into 
 ```powershell
 cd COMPOSE_DIR
 docker compose ps
-# Example paths — adjust to your bind mounts:
+# Example paths: adjust to your bind mounts:
 Copy-Item -Recurse .\prowlarr\config $HOME\backups\prowlarr-$(Get-Date -Format yyyyMMdd) -ErrorAction SilentlyContinue
 Copy-Item -Recurse .\sonarr\config $HOME\backups\sonarr-$(Get-Date -Format yyyyMMdd) -ErrorAction SilentlyContinue
 Copy-Item -Recurse .\radarr\config $HOME\backups\radarr-$(Get-Date -Format yyyyMMdd) -ErrorAction SilentlyContinue
@@ -251,7 +251,7 @@ docker compose exec -u 0 prowlarr sh -c 'wget -qO- http://radarr:7878/ping || cu
 :::
 
 4. **Copy API keys privately (UI → Settings → General).**  
-   Store them in a password manager—not git, not Discord, not the workbook.
+   Store them in a password manager, not git, not Discord, not the workbook.
 
 5. **Add Sonarr and Radarr as Applications in Prowlarr (UI) and run connection tests.**  
    Use URLs like `http://sonarr:8989` and `http://radarr:7878` (service DNS), sync categories as required, click **Test**. Do not use `localhost` for cross-container calls.
@@ -278,7 +278,7 @@ curl -s "http://127.0.0.1:8989/api/v3/system/status?apikey=YOUR_SONARR_KEY" | he
 8. **Configure a download client with distinct test categories** (example: `tv-sonarr`, `movies-radarr`). Run each app’s download-client **Test**.
 
 9. **Controlled interactive search.**  
-   In Sonarr or Radarr, interactive-search a monitored test title. Record why at least three candidates are accepted or rejected (quality, CF score, indexer, category)—no need to download if policy forbids it.
+   In Sonarr or Radarr, interactive-search a monitored test title. Record why at least three candidates are accepted or rejected (quality, CF score, indexer, category), no need to download if policy forbids it.
 
 10. **Hardlink proof (Linux host)** when a completed file exists in both download and library paths:
 
@@ -303,7 +303,7 @@ In Prowlarr, set Sonarr URL to `http://localhost:8989`, **Test** (expect fail). 
 
 :::linux
 ```bash
-# From prowlarr container, localhost is prowlarr — not sonarr:
+# From prowlarr container, localhost is prowlarr: not sonarr:
 docker compose exec prowlarr sh -c 'wget -qO- http://127.0.0.1:8989/ping || echo EXPECTED_FAIL'
 docker compose exec prowlarr sh -c 'wget -qO- http://sonarr:8989/ping || curl -sf http://sonarr:8989/ping'
 ```

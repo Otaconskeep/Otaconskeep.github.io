@@ -1,4 +1,4 @@
-# Quiz — Processes, Signals, and systemd
+# Quiz: Processes, Signals, and systemd
 
 **Module:** Linux Foundations
 **Activity type:** Quiz / retrieval practice

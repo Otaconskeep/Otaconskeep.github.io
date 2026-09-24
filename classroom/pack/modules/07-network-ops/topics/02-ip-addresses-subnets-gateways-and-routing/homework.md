@@ -1,4 +1,4 @@
-# Homework — IP Addresses, Subnets, Gateways, and Routing
+# Homework: IP Addresses, Subnets, Gateways, and Routing
 
 **Module:** Network Operations
 **Activity type:** Homework / independent application

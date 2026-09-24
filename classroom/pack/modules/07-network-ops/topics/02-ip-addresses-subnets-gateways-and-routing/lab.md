@@ -1,4 +1,4 @@
-# Lab — IP Addresses, Subnets, Gateways, and Routing
+# Lab: IP Addresses, Subnets, Gateways, and Routing
 
 **Module:** Network Operations
 **Activity type:** Lab (Practice)

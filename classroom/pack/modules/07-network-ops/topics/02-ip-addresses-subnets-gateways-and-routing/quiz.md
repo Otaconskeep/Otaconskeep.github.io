@@ -1,4 +1,4 @@
-# Quiz — IP Addresses, Subnets, Gateways, and Routing
+# Quiz: IP Addresses, Subnets, Gateways, and Routing
 
 **Module:** Network Operations
 **Activity type:** Quiz / retrieval practice

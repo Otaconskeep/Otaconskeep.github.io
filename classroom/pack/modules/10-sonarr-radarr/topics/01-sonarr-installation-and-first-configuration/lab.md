@@ -1,4 +1,4 @@
-# Lab — Sonarr Installation and First Configuration
+# Lab: Sonarr Installation and First Configuration
 
 **Module:** Sonarr & Radarr
 **Activity type:** Lab (Practice)

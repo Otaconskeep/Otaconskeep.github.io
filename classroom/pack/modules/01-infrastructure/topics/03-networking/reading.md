@@ -1,14 +1,14 @@
-# Reading — Docker networking
+# Reading: Docker networking
 
-**Module:** Module 1 — Infrastructure & Addressing  
-**Topic:** 03 — Docker networking  
+**Module:** Module 1: Infrastructure & Addressing  
+**Topic:** 03: Docker networking  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Analyze  
 **Links to outcome:** Given two Compose services, the learner can place them on an isolated user-defined network, call one service by DNS name from the other, and explain host-port publish versus container-to-container traffic.
 
 ## Why this matters
 
-Wrong networking is the #1 silent failure in ARR and Home Assistant stacks: ‘it works in the browser on the host’ but containers cannot see each other — or everything is published to the LAN by accident.
+Wrong networking is the #1 silent failure in ARR and Home Assistant stacks: ‘it works in the browser on the host’ but containers cannot see each other: or everything is published to the LAN by accident.
 
 ## Vocabulary
 
@@ -57,7 +57,7 @@ Do not publish every internal service simply because you can. A database used on
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Publish every container port to `0.0.0.0` on the host and point services at `localhost`.
 

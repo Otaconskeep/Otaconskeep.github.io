@@ -1,4 +1,4 @@
-# Reading — Package Management and Safe System Updates
+# Reading: Package Management and Safe System Updates
 
 **Module:** Network Operations
 **Activity type:** Reading (Learn)

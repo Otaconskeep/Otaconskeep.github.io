@@ -1,14 +1,14 @@
-# Reading — Home Assistant foundations
+# Reading: Home Assistant foundations
 
-**Module:** Module 3 — Home Assistant & Secure Access  
-**Topic:** 01 — Home Assistant foundations  
+**Module:** Module 3: Home Assistant & Secure Access  
+**Topic:** 01: Home Assistant foundations  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Apply  
 **Links to outcome:** Given a Home Assistant install path, the learner can identify device/entity/area/integration, build a minimal dashboard, and prove backup + restore evidence.
 
 ## Why this matters
 
-Automations and voice are useless on a unnamed mess of entities. Foundations — objects, areas, backups — decide whether later classes are joyful or cursed.
+Automations and voice are useless on a unnamed mess of entities. Foundations: objects, areas, backups: decide whether later classes are joyful or cursed.
 
 ## Vocabulary
 
@@ -85,7 +85,7 @@ Snapshots, VM backups, and HA backups protect different failure modes. Use layer
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Default entity ids everywhere (`sensor.temperature_3`) and no backup.
 

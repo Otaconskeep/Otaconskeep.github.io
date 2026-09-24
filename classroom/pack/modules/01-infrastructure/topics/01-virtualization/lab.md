@@ -1,6 +1,6 @@
-# Lab — Virtual machines & Proxmox
+# Lab: Virtual machines & Proxmox
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Lab (Practice)  
 **Objective:** Given a host and a guest requirement, the learner can choose Type 1 vs Type 2 virtualization, create a working Linux guest (VirtualBox or Proxmox), and prove networking, DNS, and SSH with recorded evidence.
 
@@ -11,13 +11,13 @@
 
 ## Guided lab
 
-Pick **one** primary path and finish every step. Path B (Proxmox) is what later Academy classes expect. Path A (VirtualBox) is a valid first finish if you only have one computer today—then schedule Path B before Class 2.
+Pick **one** primary path and finish every step. Path B (Proxmox) is what later Academy classes expect. Path A (VirtualBox) is a valid first finish if you only have one computer today, then schedule Path B before Class 2.
 
 Use the **Windows / Linux** toggle at the top of this class for host commands. Guest Linux commands are the same on both paths once you are inside the VM.
 
 Replace placeholders: `YOUR-IP`, `GUEST-IP`, `YOURUSER`, `proxmox.iso`, `ubuntu.iso`.
 
-### Path B — Proxmox on spare hardware (preferred)
+### Path B: Proxmox on spare hardware (preferred)
 
 **You need:** a PC/laptop you can wipe, an 8 GB+ USB stick, a network cable to your router/switch, and a second computer with a browser + terminal.
 
@@ -58,7 +58,7 @@ lscpu | egrep 'Virtualization|Hypervisor|Flags'
 :::
 
 3. **Download the Proxmox ISO and write the USB.**
-   Download the current Proxmox VE ISO from the official site into a folder you can find (example: Downloads). Identify the USB device letter/name carefully—wrong disk = data loss.
+   Download the current Proxmox VE ISO from the official site into a folder you can find (example: Downloads). Identify the USB device letter/name carefully, wrong disk = data loss.
 
 :::windows
 Rufus GUI is safest for beginners (select USB → select ISO → mode **DD** → Start).
@@ -73,7 +73,7 @@ Get-Volume | Format-Table DriveLetter, FileSystemLabel, DriveType, Size
 :::linux
 ```bash
 lsblk -o NAME,SIZE,MODEL,TRAN,MOUNTPOINT
-# Example only — YOUR USB might be /dev/sdb or /dev/sdc, NOT /dev/sda (usually the main disk)
+# Example only: YOUR USB might be /dev/sdb or /dev/sdc, NOT /dev/sda (usually the main disk)
 # Unmount partitions first if mounted, then:
 sudo dd if=$HOME/Downloads/proxmox.iso of=/dev/sdX bs=4M status=progress oflag=sync
 sync
@@ -82,7 +82,7 @@ Replace `proxmox.iso` and `/dev/sdX` with your real paths. Triple-check `sdX`.
 :::
 
 4. **Boot the spare PC from USB with Ethernet plugged in.**
-   Cable into router/switch. Boot menu → USB → **Install Proxmox VE**. No CLI on this step—watch the installer.
+   Cable into router/switch. Boot menu → USB → **Install Proxmox VE**. No CLI on this step, watch the installer.
 
 5. **Walk the installer and write the network plan before Install.**
    Agree → choose target disk → locale → strong `root` password. Set hostname, static IP (example `192.168.1.50`), gateway, DNS. Copy every value into the workbook, then install. Remove USB and reboot.
@@ -112,7 +112,7 @@ ip route
 cat /etc/network/interfaces
 ```
 
-7. **Make storage accept VM disks — UI plus verify in shell.**
+7. **Make storage accept VM disks: UI plus verify in shell.**
    UI: **Datacenter → Storage → local → Edit** → enable **Disk image** (+ ISO / Container template) → OK.
 
    Proxmox host shell (node → **Shell**, or SSH as root):
@@ -163,7 +163,7 @@ ping -c 3 $(ip route | awk '/default/ {print $3; exit}')
 getent hosts example.com
 hostname -I
 ```
-    Write down `GUEST-IP`. If `1.1.1.1` works but `example.com` fails, fix DNS—do not reinstall.
+    Write down `GUEST-IP`. If `1.1.1.1` works but `example.com` fails, fix DNS, do not reinstall.
 
 12. **SSH in from your workstation.**
 
@@ -236,7 +236,7 @@ ls /tmp/DELETE-ME || echo "GOOD: file gone after rollback"
 ```
     Record snapshot name `before-break` in the workbook.
 
-### Path A — VirtualBox on your daily computer (acceptable first finish)
+### Path A: VirtualBox on your daily computer (acceptable first finish)
 
 **You need:** your everyday PC, ~20 GB free disk, VirtualBox, and a terminal. This path does **not** wipe your host OS.
 
@@ -484,7 +484,7 @@ curl -kI https://PROXMOX-IP:8006
 
 Break one thing, then repair with commands.
 
-**VirtualBox — disable NIC, watch ping fail, re-enable NAT:**
+**VirtualBox: disable NIC, watch ping fail, re-enable NAT:**
 
 :::windows
 ```powershell
@@ -505,11 +505,11 @@ VBoxManage controlvm "lab-linux-01" nic1 nat
 ```
 :::
 
-**Proxmox — wrong bridge then fix (host shell):**
+**Proxmox: wrong bridge then fix (host shell):**
 ```bash
 qm config 100 | grep -i net
 qm set 100 --delete net0
-# guest loses link — then restore:
+# guest loses link: then restore:
 qm set 100 --net0 virtio,bridge=vmbr0
 qm config 100 | grep -i net
 ```

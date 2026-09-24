@@ -1,4 +1,4 @@
-# Lab — Shell Pipes and Redirection
+# Lab: Shell Pipes and Redirection
 
 **Module:** Linux Foundations
 **Activity type:** Lab (Practice)

@@ -1,4 +1,4 @@
-# Class 43 — Sonarr Naming and Library Hygiene
+# Class 43: Sonarr Naming and Library Hygiene
 
 **Learning objective:** Explain how Sonarr turns parsed release information into season folders and episode filenames.; Select naming tokens that preserve series title, season and episode identity, episode title, quality, release group, and edition information.; Distinguish download-client staging paths from Sonarr-managed library paths.; Explain how copy, hardlink, and move import behavior affects seeding, storage use, and cleanup.; Identify ambiguous, duplicate, unparseable, and misplaced episode files.; Build a safe audit workflow that does not rename production media blindly.; Describe why manual changes inside a managed library should be coordinated with Sonarr.; Verify that naming and path changes produce the expected result before applying them to a real library.
 **Bloom level:** Understand / Apply

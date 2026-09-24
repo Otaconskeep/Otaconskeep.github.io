@@ -1,6 +1,6 @@
-# Lesson 03.03 — Secure remote access
+# Lesson 03.03: Secure remote access
 
-**Module:** Module 3 — Home Assistant & Secure Access  
+**Module:** Module 3: Home Assistant & Secure Access  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
 **Learning objective:** Given a threat model for admin UIs, the learner can choose VPN vs tunnel vs dangerous port-forward patterns, implement an authenticated remote path (or document VPN-only), and prove unauthorized denial plus rollback.  
 **Bloom level:** Evaluate / Apply  
@@ -17,7 +17,7 @@ Remote access must not mean publishing every admin interface to the internet. Th
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is authentication vs authorization?
 2. Why is a raw port-forward of an admin UI risky?
@@ -27,13 +27,13 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 Complete the module reading first:
 
-- [Reading — Secure remote access](./reading.md)
+- [Reading: Secure remote access](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
 ## Guided practice (We do)
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Compare VPN vs tunnel vs reverse-proxy using the lesson’s decision table with notes open.
 
@@ -56,7 +56,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 ## Reflection
 

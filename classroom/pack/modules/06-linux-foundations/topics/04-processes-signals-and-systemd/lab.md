@@ -1,4 +1,4 @@
-# Lab — Processes, Signals, and systemd
+# Lab: Processes, Signals, and systemd
 
 **Module:** Linux Foundations
 **Activity type:** Lab (Practice)

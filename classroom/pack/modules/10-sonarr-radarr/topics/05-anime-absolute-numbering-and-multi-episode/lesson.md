@@ -1,4 +1,4 @@
-# Lesson 10.05 — Anime, Absolute Numbering, and Multi-Episode Files
+# Lesson 10.05: Anime, Absolute Numbering, and Multi-Episode Files
 
 **Module:** Sonarr & Radarr
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

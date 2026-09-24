@@ -1,4 +1,4 @@
-# Homework — Sonarr Installation and First Configuration
+# Homework: Sonarr Installation and First Configuration
 
 **Module:** Sonarr & Radarr
 **Activity type:** Homework / independent application

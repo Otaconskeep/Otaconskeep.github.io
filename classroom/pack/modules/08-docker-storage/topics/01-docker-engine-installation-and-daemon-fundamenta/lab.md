@@ -1,4 +1,4 @@
-# Lab — Docker Engine Installation and Daemon Fundamentals
+# Lab: Docker Engine Installation and Daemon Fundamentals
 
 **Module:** Docker, Storage & Permissions
 **Activity type:** Lab (Practice)

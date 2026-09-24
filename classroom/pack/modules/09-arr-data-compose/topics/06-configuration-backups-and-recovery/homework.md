@@ -1,4 +1,4 @@
-# Homework — Configuration Backups and Recovery
+# Homework: Configuration Backups and Recovery
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Homework / independent application

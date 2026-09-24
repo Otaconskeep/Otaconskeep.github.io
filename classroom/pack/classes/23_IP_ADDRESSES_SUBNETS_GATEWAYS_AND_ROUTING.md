@@ -1,4 +1,4 @@
-# Class 23 — IP Addresses, Subnets, Gateways, and Routing
+# Class 23: IP Addresses, Subnets, Gateways, and Routing
 
 **Learning objective:** Distinguish an IPv4 address from a subnet prefix, network address, broadcast address, and usable host range; Convert common CIDR prefixes into subnet masks and host capacities; Determine whether two addresses are in the same subnet; Explain why a default gateway must normally be reachable on a directly connected network; Read a routing table and identify destination prefixes, next hops, interfaces, and metrics; Apply longest-prefix matching to select a route; Explain the roles of connected routes, static routes, default routes, and dynamic routing; Inspect local addressing and routing without changing production or homelab networking
 **Bloom level:** Understand / Apply

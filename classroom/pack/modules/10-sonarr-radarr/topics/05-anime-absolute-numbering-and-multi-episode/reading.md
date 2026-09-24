@@ -1,4 +1,4 @@
-# Reading — Anime, Absolute Numbering, and Multi-Episode Files
+# Reading: Anime, Absolute Numbering, and Multi-Episode Files
 
 **Module:** Sonarr & Radarr
 **Activity type:** Reading (Learn)

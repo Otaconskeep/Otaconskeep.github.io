@@ -1,4 +1,4 @@
-# Quiz — Sonarr Series Monitoring and Availability
+# Quiz: Sonarr Series Monitoring and Availability
 
 **Module:** Sonarr & Radarr
 **Activity type:** Quiz / retrieval practice

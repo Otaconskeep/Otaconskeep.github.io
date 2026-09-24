@@ -1,7 +1,7 @@
-# Reading — Linux Disks, Partitions, and Filesystems
+# Reading: Linux Disks, Partitions, and Filesystems
 
-**Module:** Module 8 — Docker, Storage & Permissions
-**Topic:** 05 — Linux Disks, Partitions, and Filesystems
+**Module:** Module 8: Docker, Storage & Permissions
+**Topic:** 05: Linux Disks, Partitions, and Filesystems
 **Activity type:** Reading / reference (Learn)
 **Source:** Class 31 intake, published without rewriting lesson content
 
@@ -30,7 +30,7 @@ The lab uses a regular sparse file, not a block device. `mkfs.ext4 -F` is intent
 
 `df` reports 95% usage under `/srv/media`. The underlying disk may be healthy, failing, thin-provisioned, or part of a larger stack; `df` alone cannot tell. Start with `findmnt` to identify the source, `lsblk` for topology, and the device/storage platform's health evidence before planning capacity work.
 
-## Visual 1 — Storage Stack
+## Visual 1: Storage Stack
 
 ```mermaid
 flowchart TD
@@ -40,7 +40,7 @@ flowchart TD
   M --> A[Application data]
 ```
 
-## Visual 2 — Choose the Evidence Tool
+## Visual 2: Choose the Evidence Tool
 
 ```mermaid
 flowchart LR

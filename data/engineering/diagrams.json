@@ -3,7 +3,7 @@
     {
       "id": "BDD-001",
       "type": "bdd",
-      "title": "SysML Block Definition Diagram (BDD) — OtaconsKeep blocks, parts, values, ports",
+      "title": "SysML Block Definition Diagram (BDD): OtaconsKeep blocks, parts, values, ports",
       "notation": "SysML BDD",
       "mermaid": "classDiagram\ndirection TB\nclass OtaconsKeep {\n  <<block>>\n  +String baselineId\n  +Boolean localFirst\n}\nclass AgentRuntime {\n  <<block>>\n  +String agentId\n}\nclass Memory {\n  <<block>>\n}\nclass ModelRouter {\n  <<block>>\n  +port p_llm\n  +port p_tts\n}\nclass ModelRuntime {\n  <<block>>\n}\nclass EmotionalContinuity {\n  <<block>>\n  +Real E_vector\n  +Real inertia\n}\nclass RelationshipEngine {\n  <<block>>\n  +Real bond\n}\nclass ToolLayer {\n  <<block>>\n}\nclass WebUI {\n  <<block>>\n  +port p_http\n}\nclass Persistence {\n  <<block>>\n  +port p_store\n}\nclass REXControlPlane {\n  <<block>>\n}\nclass Installer {\n  <<block>>\n}\nOtaconsKeep *-- AgentRuntime : part\nOtaconsKeep *-- ModelRouter : part\nOtaconsKeep *-- Persistence : part\nOtaconsKeep *-- WebUI : part\nOtaconsKeep *-- Installer : part\nOtaconsKeep *-- REXControlPlane : part\nAgentRuntime *-- Memory : part\nAgentRuntime *-- ToolLayer : part\nAgentRuntime *-- EmotionalContinuity : part\nAgentRuntime *-- RelationshipEngine : part\nModelRouter *-- ModelRuntime : part\nOtaconsKeep --> WebUI : proxy IF-002\nModelRouter --> ModelRuntime : proxy IF-001",
       "notes": "SysML BDD rendered in Mermaid classDiagram. Blocks use <<block>> stereotype. Composition edges are part relationships. Value/port properties listed in compartments. ASCII stereotypes used for Mermaid 10 compatibility (guillemets break the parser)."
@@ -11,7 +11,7 @@
     {
       "id": "IBD-001",
       "type": "ibd",
-      "title": "SysML Internal Block Diagram (IBD) — parts, ports, connectors, item flows",
+      "title": "SysML Internal Block Diagram (IBD): parts, ports, connectors, item flows",
       "notation": "SysML IBD",
       "mermaid": "flowchart TB\n  subgraph SYS[\"block OtaconsKeep IBD\"]\n    direction TB\n    subgraph ARB[\"part AgentRuntime\"]\n      ARP_IN((p_msg))\n      ARP_OUT((p_ctx))\n    end\n    subgraph MEMB[\"part Memory\"]\n      MEMP((p_store))\n    end\n    subgraph ECB[\"part EmotionalContinuity\"]\n      ECP((p_obs))\n    end\n    subgraph REB[\"part RelationshipEngine\"]\n      REP((p_rel))\n    end\n    subgraph MRB[\"part ModelRouter\"]\n      MRP_IN((p_req))\n      MRP_OUT((p_inf))\n    end\n    subgraph MRTB[\"part ModelRuntime\"]\n      MRTP((p_ollama))\n    end\n    subgraph TLB[\"part ToolLayer\"]\n      TLP((p_tool))\n    end\n    subgraph PERB[\"part Persistence\"]\n      PERP((p_fs))\n    end\n    subgraph UIB[\"part WebUI\"]\n      UIP((p_http))\n    end\n  end\n  U[actor User] -->|IF-002 Message JSON| UIP\n  UIP <-->|API Message| ARP_IN\n  ARP_OUT -->|ObserveEvent| ECP\n  ARP_OUT -->|Retrieve Store| MEMP\n  ARP_OUT -->|CapabilityRequest| MRP_IN\n  MRP_OUT -->|IF-001 InferenceRequest| MRTP\n  ARP_OUT -->|ToolCall| TLP\n  MEMP <-->|StateBlob| PERP\n  ARP_OUT -->|BondUpdate| REP\n  REX[part REX] -.->|Job| TLP\n  INST[part Installer] -->|IF-003 OS Feature Ops| OS[external WSL OS]\n  MRTP -.->|optional| EP[external Providers]",
       "notes": "SysML IBD: part usages inside the OtaconsKeep boundary, circular nodes as ports, edges as connectors with typed item flows. ASCII labels for Mermaid 10 compatibility."
@@ -19,7 +19,7 @@
     {
       "id": "UML-COMP-001",
       "type": "uml_component",
-      "title": "UML Component Diagram — deployment-facing components",
+      "title": "UML Component Diagram: deployment-facing components",
       "notation": "UML",
       "mermaid": "flowchart TB\n  subgraph COMP[\"UML Component Diagram OtaconsKeep\"]\n    direction LR\n    C1[[\"OtaconsKeep Core\"]]\n    C2[[\"Agent Runtime\"]]\n    C3[[\"Memory\"]]\n    C4[[\"Model Router\"]]\n    C5[[\"Continuity Engines\"]]\n    C6[[\"Web UI\"]]\n    C7[[\"Persistence\"]]\n  end\n  C1 --> C2\n  C1 --> C4\n  C1 --> C7\n  C2 --> C3\n  C2 --> C5\n  C6 --> C1\n  C4 --> OL[(Ollama)]",
       "notes": "UML companion view for software component packaging alongside SysML BDD/IBD."
@@ -27,49 +27,49 @@
     {
       "id": "SEQ-001",
       "type": "sequence",
-      "title": "UML Sequence — user conversation lifecycle",
+      "title": "UML Sequence: user conversation lifecycle",
       "notation": "UML",
       "mermaid": "sequenceDiagram\n participant U as User\n participant UI as Web UI\n participant AR as Agent Runtime\n participant MR as Model Router\n participant M as Model\n participant MEM as Memory\n participant EC as Emotional Continuity\n U->>UI: message\n UI->>AR: request\n AR->>EC: observe_message\n AR->>MEM: retrieve context\n AR->>MR: route capability\n MR->>M: inference\n M-->>AR: completion\n AR->>MEM: store\n AR-->>UI: response\n UI-->>U: render"
     },
     {
       "id": "SEQ-002",
       "type": "sequence",
-      "title": "UML Sequence — REX lifecycle",
+      "title": "UML Sequence: REX lifecycle",
       "notation": "UML",
       "mermaid": "sequenceDiagram\n participant D as Detect\n participant P as Propose\n participant R as Review/Authorize\n participant E as Execute\n participant V as Verify\n participant C as Close\n participant L as Learn\n D->>P: draft proposal\n P->>R: approval gate\n R->>E: approved item\n E->>V: done + evidence\n V->>C: verified or failed\n C->>L: outcome signal"
     },
     {
       "id": "ACT-001",
       "type": "activity",
-      "title": "SysML Activity — installation",
+      "title": "SysML Activity: installation",
       "notation": "SysML",
       "mermaid": "flowchart TD\n A[Download Setup] --> B[Prerequisite detection]\n B --> C[Dependency installation]\n C --> D{WSL reboot needed?}\n D -->|yes| E[Reboot]\n E --> F[Resume Setup]\n D -->|no| F\n F --> G[Configuration]\n G --> H[Model / runtime setup]\n H --> I[Service setup]\n I --> J[Health check]\n J --> K[Completion]"
     },
     {
       "id": "ACT-002",
       "type": "activity",
-      "title": "SysML Activity — failure / recovery",
+      "title": "SysML Activity: failure / recovery",
       "notation": "SysML",
       "mermaid": "flowchart TD\n A[Detect failure] --> B[Classify]\n B --> C[Recovery action]\n C --> D[Retest / health check]\n D -->|success| E[Resume operations]\n D -->|fail| F[Escalate / document]"
     },
     {
       "id": "ACT-003",
       "type": "activity",
-      "title": "SysML Activity — agent request handling",
+      "title": "SysML Activity: agent request handling",
       "notation": "SysML",
       "mermaid": "flowchart TD\n A[Receive request] --> B[Auth / login gate]\n B --> C[Assemble context]\n C --> D[Apply continuity / relationships]\n D --> E[Route model]\n E --> F[Execute tools if needed]\n F --> G[Generate response]\n G --> H[Persist + return]"
     },
     {
       "id": "STM-001",
       "type": "state",
-      "title": "SysML State Machine — REX proposal states",
+      "title": "SysML State Machine: REX proposal states",
       "notation": "SysML",
       "mermaid": "stateDiagram-v2\n [*] --> Draft\n Draft --> Approved\n Draft --> Rejected\n Approved --> Executing\n Executing --> Done\n Executing --> Failed\n Done --> Verifying\n Verifying --> Verified\n Verifying --> VerifyFailed\n Verifying --> Unverifiable\n Verified --> Closed\n Failed --> Closed\n Rejected --> [*]\n Closed --> [*]"
     },
     {
       "id": "STM-002",
       "type": "state",
-      "title": "SysML State Machine — emotional stage labels",
+      "title": "SysML State Machine: emotional stage labels",
       "notation": "SysML",
       "mermaid": "stateDiagram-v2\n [*] --> calm\n calm --> low\n low --> moderate\n moderate --> jealous_hurt\n moderate --> defensive\n defensive --> high_anger\n high_anger --> disengaged\n jealous_hurt --> moderate: repair\n defensive --> moderate: repair\n disengaged --> moderate: genuine_repair"
     },
@@ -83,21 +83,21 @@
     {
       "id": "VMOD-001",
       "type": "vmodel",
-      "title": "V-Model — left-side definition to right-side verification",
+      "title": "V-Model: left-side definition to right-side verification",
       "notation": "SE V-Model",
       "mermaid": "flowchart LR\n UN[User Needs] --- VAL[Validation]\n SR[System Requirements] --- SV[System Verification]\n AR[Architecture] --- IV[Integration Verification]\n DD[Detailed Design] --- UV[Component Verification]\n IMP[Implementation] --- INT[Integration]\n UN --> SR --> AR --> DD --> IMP --> INT\n INT --> UV --> IV --> SV --> VAL"
     },
     {
       "id": "MBSE-001",
       "type": "mbse_chain",
-      "title": "MBSE verification chain — Need → Requirement → Architecture → Model → Verification → Evidence",
+      "title": "MBSE verification chain: Need → Requirement → Architecture → Model → Verification → Evidence",
       "notation": "MBSE",
       "mermaid": "flowchart TB\n N[Stakeholder Need] --> R[requirement System Requirement]\n R -->|satisfy| B[block Design Element]\n B --> I[Implementation]\n R -->|verify| VC[Verification Case]\n VC --> M[Method TAID]\n VC --> E[Evidence]\n E --> RES[Result]\n B -.->|allocatedTo| VC"
     },
     {
       "id": "PAR-001",
       "type": "parametric",
-      "title": "SysML Parametric — emotion constraints",
+      "title": "SysML Parametric: emotion constraints",
       "notation": "SysML Parametric",
       "mermaid": "flowchart TB\n subgraph Constraints\n C1[\"clamp: 0 ≤ x ≤ 1\"]\n C2[\"_blend(+Δ) accrues\"]\n C3[\"_blend(-Δ) * (1-ι)\"]\n C4[\"decay: λ * min(12, Δt/90)\"]\n C5[\"ΔJ = 0.16 sc (1+0.12 min(6,n))\"]\n end\n E[\"E = [I,J,H,T,A,C,X]\"] --> C1\n E --> C2\n E --> C3\n E --> C4\n Event[comparison] --> C5 --> J[J via _blend]\n P[Personality ι, sc, sr] --> C2\n P --> C3\n P --> C5"
     }

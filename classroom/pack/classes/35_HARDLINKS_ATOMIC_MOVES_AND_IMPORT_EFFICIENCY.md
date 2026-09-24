@@ -1,4 +1,4 @@
-# Class 35 — Hardlinks, Atomic Moves, and Import Efficiency
+# Class 35: Hardlinks, Atomic Moves, and Import Efficiency
 
 **Learning objective:** Explain the relationship between a pathname, directory entry, inode, and file data.; Create and verify hardlinks using device numbers, inode numbers, link counts, sizes, and hashes.; Distinguish hardlinking from copying, symbolic linking, and moving.; Explain why hardlinks cannot normally cross filesystem boundaries.; Demonstrate same-filesystem atomic replacement and describe what existing readers observe.; Design an efficient import sequence that publishes a completed file without duplicating its data blocks.; Identify permission, collision, mutability, durability, and filesystem-boundary risks in automated import pipelines.
 **Bloom level:** Understand / Apply

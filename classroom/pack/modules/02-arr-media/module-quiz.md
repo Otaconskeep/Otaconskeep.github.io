@@ -1,4 +1,4 @@
-# Module 2 quiz — ARR Media Automation
+# Module 2 quiz: ARR Media Automation
 
 **Activity type:** Module quiz (retention / retrieval)  
 **Target:** ≥80%

@@ -1,6 +1,6 @@
-# Lab — IPv4 addresses & gateways
+# Lab: IPv4 addresses & gateways
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Lab (Practice)  
 **Objective:** Given a host, the learner can read IPv4 address, mask, and gateway; explain network vs host bits; contrast classful charts with classless `/24` math; and decide same-LAN vs via-gateway delivery.
 
@@ -13,7 +13,7 @@
 
 Use the machine you actually lab on. Replace example IPs with yours.
 
-### Path A — Read the trio and classify network vs host
+### Path A: Read the trio and classify network vs host
 
 1. **Capture interface facts.**
 
@@ -55,7 +55,7 @@ arp -a
 ```
 :::
 
-### Path B — Same LAN vs via gateway
+### Path B: Same LAN vs via gateway
 
 1. **Same-network test:** ping another LAN host; expect success (firewall permitting).
 
@@ -80,7 +80,7 @@ tracert -d 1.1.1.1
 
 3. **Workbook:** “First hop to the Internet was ____ (gateway). Local NAS ping did / did not need that hop for delivery decision.”
 
-### Path C — Usable-address math on your `/24`
+### Path C: Usable-address math on your `/24`
 
 1. If your mask is `255.255.255.0`, compute:
    - network address
@@ -92,9 +92,9 @@ tracert -d 1.1.1.1
 
 3. **Static caution (do not break production):** pick an unused address **inside** the subnet but **outside** the DHCP pool if you later static a lab VM. Record the choice; do not implement on a critical host until Class 1/Proxmox needs it.
 
-### Path D — Classes, loopback, and ping
+### Path D: Classes, loopback, and ping
 
-1. **Classify your LAN IP by first octet** using the A–E chart. Write: class letter, *default* classful mask, and **your actual** mask. Are they the same? (Most home LANs are Class C *looking* with a `/24` mask—or Class A *looking* `10.x` with a classless `/24`.)
+1. **Classify your LAN IP by first octet** using the A–E chart. Write: class letter, *default* classful mask, and **your actual** mask. Are they the same? (Most home LANs are Class C *looking* with a `/24` mask, or Class A *looking* `10.x` with a classless `/24`.)
 
 2. **Workbook contrast:** one row for “classful default size,” one row for “my real network size.” One sentence: “Classful told me ____; classless/mask told me ____.”
 
@@ -122,13 +122,13 @@ ping -c 2 127.0.0.2
 
 1. **Disconnect Wi-Fi / unplug Ethernet** → `ipconfig` / `ip addr` loses address or shows disconnected → restore → address returns (DHCP) or static returns.
 
-2. **Wrong mental model:** pretend a host `10.0.0.5` is “local” to your `192.168.1.0/24` without a router—explain why the mask says no.
+2. **Wrong mental model:** pretend a host `10.0.0.5` is “local” to your `192.168.1.0/24` without a router, explain why the mask says no.
 
-3. **Gateway down simulation (lab only):** if you can safely shut WAN on a test router, confirm LAN pings still work while `1.1.1.1` fails—proves local vs remote paths.
+3. **Gateway down simulation (lab only):** if you can safely shut WAN on a test router, confirm LAN pings still work while `1.1.1.1` fails, proves local vs remote paths.
 
 4. **Class vs mask:** take a `10.x` address with mask `255.255.255.0` and explain to a partner why calling it “a Class A network of 16 million hosts” would be wrong for *your* LAN.
 
-5. **Loopback vs LAN:** with Wi-Fi off, confirm `ping 127.0.0.1` still works while `ping 1.1.1.1` fails—local stack vs Internet path.
+5. **Loopback vs LAN:** with Wi-Fi off, confirm `ping 127.0.0.1` still works while `ping 1.1.1.1` fails, local stack vs Internet path.
 
 ## Feedback / common mistakes
 
@@ -138,7 +138,7 @@ ping -c 2 127.0.0.2
 - Assigning `.0` or `.255` to a host on a `/24`.
 - Duplicating an IP already leased by DHCP.
 - Debugging Docker DNS before confirming the host even has a gateway.
-- Treating **classful defaults** as how the Internet still assigns every network (it does not—CIDR/classless won).
+- Treating **classful defaults** as how the Internet still assigns every network (it does not, CIDR/classless won).
 - Putting a **Class D/E** or **`127.x`** address on a lab host “because the chart had free numbers.”
 - Confusing “4.3 billion total IPv4 values” with “4.3 billion free for my devices.”
 

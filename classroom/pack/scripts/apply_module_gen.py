@@ -119,11 +119,11 @@ def gen_modules():
             topic_blocks.append(
                 f'<div class="cr-box"><h3>{H.escape(tdir.name)}</h3>'
                 f'<ol class="cr-class-list">'
-                f'<li><a href="{tb}reading.html"><strong>Reading</strong></a> — Learn</li>'
-                f'<li><a href="{tb}lesson.html"><strong>Lesson</strong></a> — Feynman required</li>'
-                f'<li><a href="{tb}lab.html"><strong>Lab</strong></a> — Practice</li>'
-                f'<li><a href="{tb}homework.html"><strong>Homework</strong></a> — Apply</li>'
-                f'<li><a href="{tb}quiz.html"><strong>Quiz</strong></a> — Test</li>'
+                f'<li><a href="{tb}reading.html"><strong>Reading</strong></a>: Learn</li>'
+                f'<li><a href="{tb}lesson.html"><strong>Lesson</strong></a>: Feynman required</li>'
+                f'<li><a href="{tb}lab.html"><strong>Lab</strong></a>: Practice</li>'
+                f'<li><a href="{tb}homework.html"><strong>Homework</strong></a>: Apply</li>'
+                f'<li><a href="{tb}quiz.html"><strong>Quiz</strong></a>: Test</li>'
                 f"</ol></div>"
             )
 
@@ -148,18 +148,18 @@ def gen_modules():
 </div>
 <div class="wrap">
  {''.join(sec_html)}
- <div class="cr-box"><h3>Topics — activity paths</h3>{''.join(topic_blocks)}</div>
+ <div class="cr-box"><h3>Topics: activity paths</h3>{''.join(topic_blocks)}</div>
  <div class="cr-box"><h3>Module assessments</h3>
  <ol class="cr-class-list">
-  <li><a href="project.html"><strong>Project</strong></a> — integrated Apply/Create</li>
-  <li><a href="module-quiz.html"><strong>Module quiz</strong></a> — retention</li>
-  <li><a href="exam.html"><strong>Exam</strong></a> — mastery</li>
-  <li><a href="remediation.html"><strong>Remediation</strong></a> — re-teach weak areas</li>
+  <li><a href="project.html"><strong>Project</strong></a>: integrated Apply/Create</li>
+  <li><a href="module-quiz.html"><strong>Module quiz</strong></a>: retention</li>
+  <li><a href="exam.html"><strong>Exam</strong></a>: mastery</li>
+  <li><a href="remediation.html"><strong>Remediation</strong></a>: re-teach weak areas</li>
  </ol></div>
  {pager(("/classroom/modules/", "All modules"), ("project.html", "Project"))}
 </div>
 """
-        write(out / "index.html", wrap(f"Module {int(num)} — {title} · Classroom", title, f"/classroom/modules/{slug}/", f"MODULE {int(num)}", hub))
+        write(out / "index.html", wrap(f"Module {int(num)}: {title} · Classroom", title, f"/classroom/modules/{slug}/", f"MODULE {int(num)}", hub))
 
         for act, label, lede in [
             ("project", "Project", "Integrated Apply/Create across this module's topics."),
@@ -170,7 +170,7 @@ def gen_modules():
             gen_activity_page(
                 mdir / f"{act}.md",
                 out / f"{act}.html",
-                f"{title} — {label}",
+                f"{title}: {label}",
                 f"M{int(num)} {label.upper()}",
                 f"/classroom/modules/{slug}/{act}.html",
                 act,
@@ -188,7 +188,7 @@ def gen_modules():
             tout.mkdir(parents=True)
             topic_base = f"/classroom/modules/{slug}/topics/{tdir.name}/"
             acts = [
-                ("reading", "Reading", "Learn — instruction, vocabulary, worked example."),
+                ("reading", "Reading", "Learn: instruction, vocabulary, worked example."),
                 ("lesson", "Lesson", "Orient, prior check, guided practice, required Feynman, reflect."),
                 ("lab", "Lab", "Guided practice + break/fix + lab gate."),
                 ("homework", "Homework", "Independent application with evidence."),
@@ -200,7 +200,7 @@ def gen_modules():
                 gen_activity_page(
                     tdir / f"{act}.md",
                     tout / f"{act}.html",
-                    f"{tdir.name} — {label}",
+                    f"{tdir.name}: {label}",
                     f"M{int(num)} {label.upper()}",
                     f"{topic_base}{act}.html",
                     act,
@@ -211,7 +211,7 @@ def gen_modules():
                     mod_base=mod_base,
                 )
             links = "".join(
-                f'<li><a href="{a}.html"><strong>{lab}</strong></a> — {lede}</li>'
+                f'<li><a href="{a}.html"><strong>{lab}</strong></a>: {lede}</li>'
                 for a, lab, lede in acts
             )
             tbody = f"""
@@ -330,7 +330,7 @@ def main():
             "    gen_hub()\n    gen_modules()\n    class_to_module_redirects()\n    gen_classes()",
         )
         # If gen_classes still desired for pack viewing - actually redirects overwrite class html.
-        # Keep gen_classes BEFORE redirects so redirects win — reorder:
+        # Keep gen_classes BEFORE redirects so redirects win: reorder:
         text = text.replace(
             "    gen_hub()\n    gen_modules()\n    class_to_module_redirects()\n    gen_classes()",
             "    gen_hub()\n    gen_modules()\n    gen_classes()\n    class_to_module_redirects()",

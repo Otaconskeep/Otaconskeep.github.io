@@ -1,6 +1,6 @@
-# Homework — Docker networking
+# Homework: Docker networking
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Homework / independent application  
 **Bloom move:** push from guided practice into independent Apply/Analyze  
 **Objective:** Given two Compose services, the learner can place them on an isolated user-defined network, call one service by DNS name from the other, and explain host-port publish versus container-to-container traffic.
@@ -11,7 +11,7 @@ Complete **without** peeking at lab hints first. Then compare.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Design a tiny two-service Compose network. Write the exact URL/hostname each side should use. Predict what breaks if you remove the shared network.
 

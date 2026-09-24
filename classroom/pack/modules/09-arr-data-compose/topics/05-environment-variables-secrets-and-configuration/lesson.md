@@ -1,4 +1,4 @@
-# Lesson 09.05 — Environment Variables, Secrets, and Configuration
+# Lesson 09.05: Environment Variables, Secrets, and Configuration
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

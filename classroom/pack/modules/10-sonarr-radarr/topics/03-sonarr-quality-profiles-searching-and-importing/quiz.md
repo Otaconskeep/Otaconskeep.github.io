@@ -1,4 +1,4 @@
-# Quiz — Sonarr Quality Profiles, Searching, and Importing
+# Quiz: Sonarr Quality Profiles, Searching, and Importing
 
 **Module:** Sonarr & Radarr
 **Activity type:** Quiz / retrieval practice

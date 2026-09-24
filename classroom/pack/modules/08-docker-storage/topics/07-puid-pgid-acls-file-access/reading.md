@@ -1,7 +1,7 @@
-# Reading — PUID, PGID, ACLs, and Container File Access
+# Reading: PUID, PGID, ACLs, and Container File Access
 
-**Module:** Module 8 — Docker, Storage & Permissions
-**Topic:** 07 — PUID, PGID, ACLs, and Container File Access
+**Module:** Module 8: Docker, Storage & Permissions
+**Topic:** 07: PUID, PGID, ACLs, and Container File Access
 **Activity type:** Reading / reference (Learn)
 **Source:** Class 33 intake, published without rewriting lesson content
 
@@ -31,7 +31,7 @@ ACLs allow named/numeric users or groups to receive permissions beyond the three
 
 A container is configured with `PUID=1000`, but the host data is owned by UID 1500 and mode `0750`. The container cannot traverse or write. `chmod 777` would expose the directory to every local identity. Better options include running the process with the intended existing identity, assigning a controlled shared group, or adding a narrow ACL after documenting the ownership model.
 
-## Visual 1 — Access Evaluation
+## Visual 1: Access Evaluation
 
 ```mermaid
 flowchart LR
@@ -41,7 +41,7 @@ flowchart LR
   K --> A{Allow or deny}
 ```
 
-## Visual 2 — Diagnostic Funnel
+## Visual 2: Diagnostic Funnel
 
 ```mermaid
 flowchart TD

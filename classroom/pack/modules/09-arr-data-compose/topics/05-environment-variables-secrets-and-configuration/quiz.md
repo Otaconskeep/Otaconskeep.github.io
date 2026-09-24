@@ -1,4 +1,4 @@
-# Quiz — Environment Variables, Secrets, and Configuration
+# Quiz: Environment Variables, Secrets, and Configuration
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Quiz / retrieval practice

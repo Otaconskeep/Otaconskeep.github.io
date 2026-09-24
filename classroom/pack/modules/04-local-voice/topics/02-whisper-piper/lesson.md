@@ -1,6 +1,6 @@
-# Lesson 04.02 — Whisper, Piper & Wyoming
+# Lesson 04.02: Whisper, Piper & Wyoming
 
-**Module:** Module 4 — Local Voice Assistant  
+**Module:** Module 4: Local Voice Assistant  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
 **Learning objective:** Given CPU/RAM constraints, the learner can deploy local Whisper (STT) and Piper (TTS) via Wyoming, benchmark them separately, and record latency/quality tradeoffs before integration.  
 **Bloom level:** Apply / Evaluate  
@@ -17,7 +17,7 @@ Voice feels ‘AI magic’ until a tiny host thrashes. Separate STT/TTS proof pr
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What network contract do Wyoming services need?
 2. Why might a larger Whisper model be a bad choice on a small NUC?
@@ -27,13 +27,13 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 Complete the module reading first:
 
-- [Reading — Whisper, Piper & Wyoming](./reading.md)
+- [Reading: Whisper, Piper & Wyoming](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
 ## Guided practice (We do)
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Run the STT known-sentence check with notes open; record text output.
 
@@ -56,7 +56,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 ## Reflection
 
@@ -70,7 +70,7 @@ Also answer:
 
 ## Spiral hook
 
-Class 13 demands these providers still work with the internet disconnected. Keep the separate tests — you will reuse them under failure.
+Class 13 demands these providers still work with the internet disconnected. Keep the separate tests: you will reuse them under failure.
 
 ## Topic path (do in order)
 

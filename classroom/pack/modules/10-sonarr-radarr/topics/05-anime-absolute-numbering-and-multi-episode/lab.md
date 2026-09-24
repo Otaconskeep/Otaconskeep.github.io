@@ -1,4 +1,4 @@
-# Lab — Anime, Absolute Numbering, and Multi-Episode Files
+# Lab: Anime, Absolute Numbering, and Multi-Episode Files
 
 **Module:** Sonarr & Radarr
 **Activity type:** Lab (Practice)

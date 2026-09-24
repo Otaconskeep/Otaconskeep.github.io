@@ -1,4 +1,4 @@
-# Module quiz — Sonarr & Radarr
+# Module quiz: Sonarr & Radarr
 
 **Module:** Sonarr & Radarr
 

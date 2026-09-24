@@ -1,4 +1,4 @@
-# Module 1 remediation — Infrastructure & Addressing
+# Module 1 remediation: Infrastructure & Addressing
 
 **Activity type:** Review / remediation  
 **Use when:** quiz <80%, lab gate failed, Feynman weak spot unresolved, or exam miss.

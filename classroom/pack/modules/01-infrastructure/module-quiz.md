@@ -1,4 +1,4 @@
-# Module 1 quiz — Infrastructure & Addressing
+# Module 1 quiz: Infrastructure & Addressing
 
 **Activity type:** Module quiz (retention / retrieval)  
 **Target:** ≥80%

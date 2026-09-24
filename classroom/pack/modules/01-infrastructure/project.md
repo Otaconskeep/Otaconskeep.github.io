@@ -1,4 +1,4 @@
-# Module 1 project — Infrastructure foundation project
+# Module 1 project: Infrastructure foundation project
 
 **Activity type:** Module project (integrated Apply/Create)  
 **Module outcome:** Student can virtualize a safe lab host, run persistent Compose services on isolated Docker networks, operate containers with update/rollback evidence, and read IPv4 address/mask/gateway to decide same-LAN vs via-gateway delivery.
@@ -16,7 +16,7 @@ Screenshots/logs redacted; recreate-without-data-loss proof; DNS name call betwe
 | Criterion | Pass look-for |
 |---|---|
 | Tied to outcome | Deliverable clearly serves the module outcome |
-| Bloom level | Shows Apply or higher — not copy/paste only |
+| Bloom level | Shows Apply or higher: not copy/paste only |
 | Spiral | Uses at least one prior-module skill explicitly |
 | Evidence | Artifacts are reproducible and redacted |
 | Honesty | Failures and fixes are documented |

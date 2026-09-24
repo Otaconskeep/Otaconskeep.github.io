@@ -20,4 +20,4 @@ By the end of Homelab Academy, the learner can:
 
 ## Capstone outcome
 
-Produce a complete verification matrix covering ARR, media, Home Assistant, local voice, and automation boundaries — with redacted evidence artifacts.
+Produce a complete verification matrix covering ARR, media, Home Assistant, local voice, and automation boundaries: with redacted evidence artifacts.

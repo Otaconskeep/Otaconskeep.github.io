@@ -1,4 +1,4 @@
-# Quiz — Sonarr Installation and First Configuration
+# Quiz: Sonarr Installation and First Configuration
 
 **Module:** Sonarr & Radarr
 **Activity type:** Quiz / retrieval practice

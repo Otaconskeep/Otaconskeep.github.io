@@ -1,6 +1,6 @@
-# Lab — Mounts, UUIDs, and fstab
+# Lab: Mounts, UUIDs, and fstab
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Lab (Practice)
 **Objective:** Explain mounting and mount options; identify filesystems by UUID/label; read `fstab`; stage and validate a persistent mount entry without changing boot configuration; and plan recovery from an invalid or unavailable mount.
 

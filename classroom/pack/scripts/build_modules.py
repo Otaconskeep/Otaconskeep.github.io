@@ -2,17 +2,17 @@
 """Build true module curriculum from restructured class markdown.
 
 Produces pack/modules/Mxx-name/ with:
-  MODULE.md          — module hub (backward design, bloom, cycle, mastery, spiral)
+  MODULE.md         : module hub (backward design, bloom, cycle, mastery, spiral)
   topics/Txx-slug/
-    reading.md       — Learn (instruction + vocab + worked example)
-    lesson.md        — Orient/Recall/Explain/Reflect (Feynman required)
-    lab.md           — Practice (guided lab + break/fix)
-    homework.md      — Apply (independent application)
-    quiz.md          — Test (retrieval)
-  project.md         — module integrated application
-  module-quiz.md     — module retention quiz
-  exam.md            — module mastery exam
-  remediation.md     — re-teach weak areas
+    reading.md      : Learn (instruction + vocab + worked example)
+    lesson.md       : Orient/Recall/Explain/Reflect (Feynman required)
+    lab.md          : Practice (guided lab + break/fix)
+    homework.md     : Apply (independent application)
+    quiz.md         : Test (retrieval)
+  project.md        : module integrated application
+  module-quiz.md    : module retention quiz
+  exam.md           : module mastery exam
+  remediation.md    : re-teach weak areas
 """
 from __future__ import annotations
 
@@ -31,7 +31,7 @@ MODULES_SPEC = [
         "outcome": "Student can virtualize a safe lab host, run persistent Compose services on isolated Docker networks, operate containers with update/rollback evidence, and read IPv4 address/mask/gateway to decide same-LAN vs via-gateway delivery.",
         "bloom_arc": "Remember/Understand (IPv4, VM basics) → Apply (Compose, ops) → Analyze (networking)",
         "spiral": "Every later module reuses Compose, networks, ops runbooks, and IP literacy when services cannot talk.",
-        "gate": "Gate 1 — explain persistence, ports, DNS, logs, health, update/rollback, and basic IPv4 delivery with evidence.",
+        "gate": "Gate 1: explain persistence, ports, DNS, logs, health, update/rollback, and basic IPv4 delivery with evidence.",
         "topics": [
             ("01", "01_PROXMOX_VIRTUALIZATION.md", "virtualization", "Virtual machines & Proxmox"),
             ("02", "02_DOCKER_COMPOSE.md", "compose", "Docker Compose & persistence"),
@@ -49,10 +49,10 @@ MODULES_SPEC = [
         "id": "02",
         "slug": "arr-media",
         "title": "ARR Media Automation",
-        "outcome": "Student can connect Prowlarr to Sonarr/Radarr with service contracts, write and test a quality policy with Custom Formats, and automate profile sync with backup → dry-run → apply → drift → rollback — using authorized sources only.",
+        "outcome": "Student can connect Prowlarr to Sonarr/Radarr with service contracts, write and test a quality policy with Custom Formats, and automate profile sync with backup → dry-run → apply → drift → rollback: using authorized sources only.",
         "bloom_arc": "Apply (Prowlarr links) → Evaluate/Create (quality policy) → Evaluate (automation control loop)",
         "spiral": "Quality policy sentences and service contracts return whenever downloads mis-rank or sync drifts; networking/ops from Module 1 diagnose hop failures.",
-        "gate": "Gate 2 — trace request→search→download→import; five-candidate ranking matches written policy; automation rollback proven.",
+        "gate": "Gate 2: trace request→search→download→import; five-candidate ranking matches written policy; automation rollback proven.",
         "topics": [
             ("01", "05_PROWLARR_AND_ARR_FLOW.md", "prowlarr-flow", "Prowlarr & ARR request flow"),
             ("02", "06_TRASH_QUALITY_PROFILES.md", "trash-profiles", "TRaSH quality profiles"),
@@ -68,10 +68,10 @@ MODULES_SPEC = [
         "id": "03",
         "slug": "home-assistant",
         "title": "Home Assistant & Secure Access",
-        "outcome": "Student can model HA devices/entities/areas, build a testable trigger→condition→action automation with positive/negative cases, and provide authenticated remote access (or VPN) without publishing admin panels — with denial and backup/restore evidence.",
+        "outcome": "Student can model HA devices/entities/areas, build a testable trigger→condition→action automation with positive/negative cases, and provide authenticated remote access (or VPN) without publishing admin panels: with denial and backup/restore evidence.",
         "bloom_arc": "Apply (foundations) → Analyze/Create (automations) → Evaluate (threat model & remote access)",
         "spiral": "Entity names become voice targets in Module 4; remote-access boundary constrains n8n webhooks in Module 5.",
-        "gate": "Gate 3 — backup/restore proven; automation traces exist; unauthorized remote admin denied.",
+        "gate": "Gate 3: backup/restore proven; automation traces exist; unauthorized remote admin denied.",
         "topics": [
             ("01", "08_HOME_ASSISTANT_FOUNDATIONS.md", "ha-foundations", "Home Assistant foundations"),
             ("02", "09_HOME_ASSISTANT_AUTOMATIONS.md", "ha-automations", "Home Assistant automations"),
@@ -90,7 +90,7 @@ MODULES_SPEC = [
         "outcome": "Student can instrument a local Assist pipeline stage-by-stage, deploy Whisper/Piper via Wyoming with measured tradeoffs, and prove wake→action→speech with the internet disconnected.",
         "bloom_arc": "Analyze (architecture) → Apply/Evaluate (STT/TTS) → Create/Evaluate (private speaker)",
         "spiral": "Uses HA entities/actions from Module 3 and Docker/network/ops from Module 1; failures must cite stage names forever after.",
-        "gate": "Gate 4 — per-stage tests pass; disconnected end-to-end pass recorded.",
+        "gate": "Gate 4: per-stage tests pass; disconnected end-to-end pass recorded.",
         "topics": [
             ("01", "11_LOCAL_VOICE_ARCHITECTURE.md", "voice-architecture", "Local voice architecture"),
             ("02", "12_WHISPER_PIPER_WYOMING.md", "whisper-piper", "Whisper, Piper & Wyoming"),
@@ -109,7 +109,7 @@ MODULES_SPEC = [
         "outcome": "Student can run n8n on the lab network only, build an RSS digest that explains JSON item cardinality, and require human approval before any mutating agent/SSH action.",
         "bloom_arc": "Apply (workflow build) → Evaluate (approval boundaries & blast radius)",
         "spiral": "Depends on Module 1 networking/ops and Module 3 security boundaries; capstone reuses guarded automation evidence.",
-        "gate": "Gate 5 — cardinality explained; credentials out of git; approval before mutation.",
+        "gate": "Gate 5: cardinality explained; credentials out of git; approval before mutation.",
         "topics": [
             ("01", "14_N8N_HOMELAB_AUTOMATION.md", "n8n-automation", "n8n homelab automation"),
         ],
@@ -195,13 +195,13 @@ def build_topic(mod: dict, topic_num: str, class_file: str, slug: str, topic_tit
     correction = get(sections, "2026 correction")
 
     base = mod_dir / "topics" / f"{topic_num}-{slug}"
-    rel_mod = f"Module {int(mod['id'])} — {mod['title']}"
+    rel_mod = f"Module {int(mod['id'])}: {mod['title']}"
 
-    # READING — Learn
-    reading = f"""# Reading — {topic_title}
+    # READING: Learn
+    reading = f"""# Reading: {topic_title}
 
 **Module:** {rel_mod}  
-**Topic:** {topic_num} — {topic_title}  
+**Topic:** {topic_num}: {topic_title}  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** {bloom}  
 **Links to outcome:** {objective}
@@ -232,8 +232,8 @@ def build_topic(mod: dict, topic_num: str, class_file: str, slug: str, topic_tit
 """
     write(base / "reading.md", reading)
 
-    # LESSON — Orient / Recall / Demonstrate practice / Explain / Reflect
-    lesson = f"""# Lesson {mod['id']}.{topic_num} — {topic_title}
+    # LESSON: Orient / Recall / Demonstrate practice / Explain / Reflect
+    lesson = f"""# Lesson {mod['id']}.{topic_num}: {topic_title}
 
 **Module:** {rel_mod}  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
@@ -258,7 +258,7 @@ def build_topic(mod: dict, topic_num: str, class_file: str, slug: str, topic_tit
 
 Complete the module reading first:
 
-- [Reading — {topic_title}](./reading.md)
+- [Reading: {topic_title}](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
@@ -290,8 +290,8 @@ Then review the worked example inside that reading (I do).
 """
     write(base / "lesson.md", lesson)
 
-    # LAB — Practice
-    lab_md = f"""# Lab — {topic_title}
+    # LAB: Practice
+    lab_md = f"""# Lab: {topic_title}
 
 **Module:** {rel_mod}  
 **Activity type:** Lab (Practice)  
@@ -320,8 +320,8 @@ Then review the worked example inside that reading (I do).
 """
     write(base / "lab.md", lab_md)
 
-    # HOMEWORK — Apply
-    hw = f"""# Homework — {topic_title}
+    # HOMEWORK: Apply
+    hw = f"""# Homework: {topic_title}
 
 **Module:** {rel_mod}  
 **Activity type:** Homework / independent application  
@@ -352,8 +352,8 @@ Complete **without** peeking at lab hints first. Then compare.
 """
     write(base / "homework.md", hw)
 
-    # QUIZ — Test
-    quiz = f"""# Quiz — {topic_title}
+    # QUIZ: Test
+    quiz = f"""# Quiz: {topic_title}
 
 **Module:** {rel_mod}  
 **Activity type:** Quiz / retrieval practice  
@@ -406,12 +406,12 @@ def build_module(mod: dict):
         for t in mod["topics"]
     )
 
-    module_md = f"""# Module {int(mod['id'])} — {mod['title']}
+    module_md = f"""# Module {int(mod['id'])}: {mod['title']}
 
 **Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review  
 **Feynman teach-back is required in every lesson.**
 
-## Backward design — module outcome
+## Backward design: module outcome
 
 {mod['outcome']}
 
@@ -469,7 +469,7 @@ Feedback → targeted reading → new practice → redo Feynman Retry → reasse
     proj = mod["project"]
     write(
         mod_dir / "project.md",
-        f"""# Module {int(mod['id'])} project — {proj['title']}
+        f"""# Module {int(mod['id'])} project: {proj['title']}
 
 **Activity type:** Module project (integrated Apply/Create)  
 **Module outcome:** {mod['outcome']}
@@ -487,7 +487,7 @@ Feedback → targeted reading → new practice → redo Feynman Retry → reasse
 | Criterion | Pass look-for |
 |---|---|
 | Tied to outcome | Deliverable clearly serves the module outcome |
-| Bloom level | Shows Apply or higher — not copy/paste only |
+| Bloom level | Shows Apply or higher: not copy/paste only |
 | Spiral | Uses at least one prior-module skill explicitly |
 | Evidence | Artifacts are reproducible and redacted |
 | Honesty | Failures and fixes are documented |
@@ -500,7 +500,7 @@ Take the [module quiz](module-quiz.md), then the [module exam](exam.md).
 
     write(
         mod_dir / "module-quiz.md",
-        f"""# Module {int(mod['id'])} quiz — {mod['title']}
+        f"""# Module {int(mod['id'])} quiz: {mod['title']}
 
 **Activity type:** Module quiz (retention / retrieval)  
 **Target:** ≥80%
@@ -517,7 +517,7 @@ Take the [module quiz](module-quiz.md), then the [module exam](exam.md).
     )
     write(
         mod_dir / "exam.md",
-        f"""# Module {int(mod['id'])} exam — {mod['title']}
+        f"""# Module {int(mod['id'])} exam: {mod['title']}
 
 **Activity type:** Module exam / practical mastery test  
 **Outcome under test:** {mod['outcome']}
@@ -538,7 +538,7 @@ All critical practical items pass with evidence; no unresolved critical safety/l
 
     write(
         mod_dir / "remediation.md",
-        f"""# Module {int(mod['id'])} remediation — {mod['title']}
+        f"""# Module {int(mod['id'])} remediation: {mod['title']}
 
 **Activity type:** Review / remediation  
 **Use when:** quiz <80%, lab gate failed, Feynman weak spot unresolved, or exam miss.
@@ -565,11 +565,11 @@ def write_index():
     rows = []
     for mod in MODULES_SPEC:
         rows.append(
-            f"| {mod['id']} | [{mod['title']}]({mod['id']}-{mod['slug']}/MODULE.md) | {len(mod['topics'])} topics | {mod['gate'].split('—')[0].strip()} |"
+            f"| {mod['id']} | [{mod['title']}]({mod['id']}-{mod['slug']}/MODULE.md) | {len(mod['topics'])} topics | {mod['gate'].split(', ')[0].strip()} |"
         )
     write(
         MODULES / "README.md",
-        f"""# Modules — Homelab Academy
+        f"""# Modules: Homelab Academy
 
 This is the **authoritative course structure**.
 
@@ -584,7 +584,7 @@ Every **module** has **Project · Module quiz · Exam · Remediation**.
 | ID | Module | Topics | Gate |
 |---|---|---|---|
 {chr(10).join(rows)}
-| — | [Capstone](../FINAL_CAPSTONE.md) | Course mastery | Final |
+|: | [Capstone](../FINAL_CAPSTONE.md) | Course mastery | Final |
 
 ## How to move
 

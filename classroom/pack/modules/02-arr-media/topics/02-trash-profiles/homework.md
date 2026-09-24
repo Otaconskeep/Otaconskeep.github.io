@@ -1,6 +1,6 @@
-# Homework — TRaSH quality profiles
+# Homework: TRaSH quality profiles
 
-**Module:** Module 2 — ARR Media Automation  
+**Module:** Module 2: ARR Media Automation  
 **Activity type:** Homework / independent application  
 **Bloom move:** push from guided practice into independent Apply/Analyze  
 **Objective:** Given playback and storage constraints, the learner can write a plain-language quality policy, configure Custom Formats and cutoff/upgrade settings, and prove ranking on five controlled candidates.
@@ -11,7 +11,7 @@ Complete **without** peeking at lab hints first. Then compare.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Write your household quality sentence. Score five candidates. Change exactly one rule and predict the new ranking before you click save.
 

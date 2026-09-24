@@ -1,14 +1,14 @@
-# Reading — Home Assistant automations
+# Reading: Home Assistant automations
 
-**Module:** Module 3 — Home Assistant & Secure Access  
-**Topic:** 02 — Home Assistant automations  
+**Module:** Module 3: Home Assistant & Secure Access  
+**Topic:** 02: Home Assistant automations  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Analyze / Create  
 **Links to outcome:** Given a plain-language automation requirement, the learner can implement trigger → condition → action logic and prove positive, negative, and failure cases with traces.
 
 ## Why this matters
 
-An automation that ‘usually works’ is a hazard. Testable logic — including when it must *not* fire — is how you trust the house.
+An automation that ‘usually works’ is a hazard. Testable logic: including when it must *not* fire: is how you trust the house.
 
 ## Vocabulary
 
@@ -59,11 +59,11 @@ Automation traces show which trigger fired, condition result, path taken, variab
 
 ### Monitoring the homelab
 
-Optional stretch: notify when a critical binary sensor / container health helper fails—still use a helper first.
+Optional stretch: notify when a critical binary sensor / container health helper fails, still use a helper first.
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad requirement:** “Turn on the light when I’m home.”
 

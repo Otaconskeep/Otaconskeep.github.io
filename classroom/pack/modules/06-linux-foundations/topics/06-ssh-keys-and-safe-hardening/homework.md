@@ -1,4 +1,4 @@
-# Homework — SSH Keys and Safe Hardening
+# Homework: SSH Keys and Safe Hardening
 
 **Module:** Linux Foundations
 **Activity type:** Homework / independent application

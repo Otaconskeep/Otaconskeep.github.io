@@ -1,4 +1,4 @@
-# Lesson 10.02 — Sonarr Series Monitoring and Availability
+# Lesson 10.02: Sonarr Series Monitoring and Availability
 
 **Module:** Sonarr & Radarr
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

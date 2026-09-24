@@ -1,4 +1,4 @@
-# Lesson 09.01 — ARR Stack Data Architecture and the /data Model
+# Lesson 09.01: ARR Stack Data Architecture and the /data Model
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

@@ -1,6 +1,6 @@
-# Lab — Container operations
+# Lab: Container operations
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Lab (Practice)  
 **Objective:** Given a running Compose service, the learner can inspect health and logs, perform a controlled image update, and roll back to a known-good state with evidence.
 
@@ -11,7 +11,7 @@
 
 ## Guided lab
 
-Use the Class 2 `compose-lab` web service (or recreate it). Goal: prove you can update an explicit image tag and roll back with commands—not vibes.
+Use the Class 2 `compose-lab` web service (or recreate it). Goal: prove you can update an explicit image tag and roll back with commands, not vibes.
 
 1. **Record the current image identity (last-known-good).**
 
@@ -43,7 +43,7 @@ curl -s http://127.0.0.1:8080/ | grep UNIQUE
    Browser or curl must show your unique phrase. Record “PASS” + timestamp.
 
 3. **Change to another explicit tag, validate, pull, recreate.**  
-   Edit `image:` from `nginx:stable` to a newer explicit tag you choose from Docker Hub (example pattern `nginx:1.27`—pick one that exists today). Then:
+   Edit `image:` from `nginx:stable` to a newer explicit tag you choose from Docker Hub (example pattern `nginx:1.27`, pick one that exists today). Then:
 
 :::windows
 ```powershell
@@ -68,7 +68,7 @@ docker image inspect $(docker compose images -q web) --format '{{.RepoTags}} {{.
 :::
 
 4. **Re-run the acceptance test.**  
-   `curl` the unique phrase again. If it fails, do not continue—roll back now.
+   `curl` the unique phrase again. If it fails, do not continue, roll back now.
 
 5. **Simulate a bad update (nonexistent tag), then restore.**
 
@@ -105,7 +105,7 @@ curl -s http://127.0.0.1:8080/ | grep UNIQUE
 ```text
 purpose: compose-lab nginx demo
 image/version: (tag + image id)
-configuration path: ./compose.yaml , ./site
+configuration path: ./compose.yaml: ./site
 media/download paths: n/a
 internal address/port: web:80
 published address/port: DOCKER-HOST:8080

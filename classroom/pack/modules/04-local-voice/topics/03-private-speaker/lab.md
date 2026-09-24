@@ -1,6 +1,6 @@
-# Lab — Private smart speaker
+# Lab: Private smart speaker
 
-**Module:** Module 4 — Local Voice Assistant  
+**Module:** Module 4: Local Voice Assistant  
 **Activity type:** Lab (Practice)  
 **Objective:** Given working STT/TTS providers, the learner can integrate wake → action → spoken response and prove an internet-disconnected end-to-end pass with staged gates.
 
@@ -44,19 +44,19 @@ aplay -l
 ```
 :::
 
-4. **Gate A — audio:** record + playback sample; save file hash/path.
+4. **Gate A: audio:** record + playback sample; save file hash/path.
 
-5. **Gate B — wake:** one wake model; 10/10 log sheet.
+5. **Gate B: wake:** one wake model; 10/10 log sheet.
 
-6. **Gate C — STT path:** Wyoming/satellite transport → transcript proof (Class 12 commands).
+6. **Gate C: STT path:** Wyoming/satellite transport → transcript proof (Class 12 commands).
 
-7. **Gate D — HA understanding:** Assist intent from perfect text; expose only needed entities.
+7. **Gate D: HA understanding:** Assist intent from perfect text; expose only needed entities.
 
-8. **Gate E — action:** service call changes entity.
+8. **Gate E: action:** service call changes entity.
 
-9. **Gate F — TTS + playback:** hear response on satellite speaker.
+9. **Gate F: TTS + playback:** hear response on satellite speaker.
 
-10. **Gate G — E2E:** 10 attempts from seating position; log latency + failure layer.
+10. **Gate G: E2E:** 10 attempts from seating position; log latency + failure layer.
 
 :::linux
 ```bash
@@ -66,11 +66,11 @@ date -Is | tee -a ~/voice-e2e.log
 ```
 :::
 
-11. **Gate H — offline privacy:** disable WAN for the test segment **without** killing LAN routing to HA/STT/TTS.
+11. **Gate H: offline privacy:** disable WAN for the test segment **without** killing LAN routing to HA/STT/TTS.
 
 :::linux
 ```bash
-# Example idea only — use your router/firewall controls preferentially:
+# Example idea only: use your router/firewall controls preferentially:
 # On a test client VLAN, block 0.0.0.0/0 except RFC1918.
 ping -c 1 1.1.1.1 || echo WAN_BLOCKED_OK
 ping -c 1 HA-IP && echo LAN_HA_OK
@@ -85,9 +85,9 @@ ping -c 1 HA-IP && echo LAN_HA_OK
 
 ### Break/fix exam
 
-1. Unplug speaker — note which gate fails.  
-2. Stop STT container — note failure layer.  
-3. Block HA from satellite — Assist must fail closed.  
+1. Unplug speaker: note which gate fails.  
+2. Stop STT container: note failure layer.  
+3. Block HA from satellite: Assist must fail closed.  
 4. Restore each fault before the next.
 
 ## Feedback / common mistakes

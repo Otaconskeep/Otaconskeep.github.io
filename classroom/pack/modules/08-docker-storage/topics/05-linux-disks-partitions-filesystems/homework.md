@@ -1,6 +1,6 @@
-# Homework — Linux Disks, Partitions, and Filesystems
+# Homework: Linux Disks, Partitions, and Filesystems
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Homework (Apply)
 
 ## Independent practice

@@ -1,4 +1,4 @@
-# Homework — Sonarr Series Monitoring and Availability
+# Homework: Sonarr Series Monitoring and Availability
 
 **Module:** Sonarr & Radarr
 **Activity type:** Homework / independent application

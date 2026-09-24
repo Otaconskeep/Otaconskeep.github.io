@@ -1,4 +1,4 @@
-# Syllabus — Homelab Academy
+# Syllabus: Homelab Academy
 
 ## Expectations
 

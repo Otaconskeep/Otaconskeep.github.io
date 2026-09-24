@@ -1,6 +1,6 @@
-# Quiz — n8n homelab automation
+# Quiz: n8n homelab automation
 
-**Module:** Module 5 — Workflow Automation (n8n)  
+**Module:** Module 5: Workflow Automation (n8n)  
 **Activity type:** Quiz / retrieval practice  
 **Target:** ≥80% before topic mastery unlock  
 **Objective:** Given a lab-only Docker network, the learner can run n8n, build an RSS digest workflow explaining item cardinality, and require human approval before any mutating Keep Agent / SSH action.
@@ -11,7 +11,7 @@ Close the reading. Write answers from memory. Then self-score.
 
 ## Questions
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What is an n8n **item**, and why does item count matter for Discord nodes?
 2. What is the difference between an LLM summarize node and an AI Agent with tools?
