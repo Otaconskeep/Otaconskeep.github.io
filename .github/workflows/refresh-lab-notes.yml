@@ -1,0 +1,38 @@
+name: refresh-lab-notes
+
+on:
+  schedule:
+    - cron: '0 16 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Refresh Lesson 00 notes
+        run: python classroom/automation/refresh_lab_notes.py
+
+      - name: Open a pull request when the notes changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- classroom/modules/00-pick-your-lab/lab-notes.json; then
+            echo "notes unchanged"
+            exit 0
+          fi
+          branch="automation/lab-notes-$(date -u +%Y-%m)"
+          git checkout -B "$branch"
+          git add classroom/modules/00-pick-your-lab/lab-notes.json
+          git -c user.name='Antonio G. Garcia' -c user.email='230031249+Otaconskeep@users.noreply.github.com' commit -m "Refresh Lesson 00 price links and Linus Tech Tips notes."
+          git push origin "HEAD:$branch"
+          gh pr create --base main --head "$branch" --title "Refresh Lesson 00 notes" --body "Monthly refresh of the Linus Tech Tips list. Prices stay as links to Jawa and PCPartPicker." || true
