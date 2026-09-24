@@ -2065,35 +2065,59 @@
       return build(0);
     }
 
-    function aidStack(item) {
-      var layers = item.layers || [];
-      function build(i) {
-        var wrap = el('div', '');
-        if (i >= layers.length) return wrap;
-        var layer = layers[i];
-        var button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'btn btn-ghost';
-        button.textContent = layer.name;
-        button.setAttribute('aria-expanded', 'false');
-        var slot = el('div', 'wiz-layer');
-        var open = false;
-        button.addEventListener('click', function () {
-          open = !open;
-          slot.textContent = '';
-          button.setAttribute('aria-expanded', open ? 'true' : 'false');
-          if (!open) return;
-          (layer.lines || []).forEach(function (line) {
-            slot.appendChild(el('p', '', line));
+    function aidDiagram(extras) {
+      var root = el('div', 'wiz-tree');
+      var head = el('section', 'wiz-node is-done');
+      head.appendChild(el('h3', '', 'Consider adding'));
+      head.appendChild(el('p', '', 'Click a piece. Three branches drop under it. Click a branch to open the note. Click that same branch again to close it.'));
+      root.appendChild(head);
+      extras.forEach(function (item) {
+        root.appendChild(el('div', 'wiz-stem'));
+        var piece = document.createElement('button');
+        piece.type = 'button';
+        piece.className = 'wiz-node';
+        piece.setAttribute('aria-expanded', 'false');
+        piece.appendChild(el('strong', '', item.name));
+        piece.appendChild(el('span', '', item.summary));
+        var kids = el('div', 'wiz-kids');
+        kids.hidden = true;
+        var pieceOpen = false;
+        (item.layers || []).forEach(function (layer) {
+          var row = el('div', 'wiz-kid');
+          row.appendChild(el('div', 'wiz-elbow'));
+          var branch = document.createElement('button');
+          branch.type = 'button';
+          branch.className = 'wiz-node';
+          branch.setAttribute('aria-expanded', 'false');
+          branch.appendChild(el('strong', '', layer.name));
+          var detail = el('div', 'wiz-kid');
+          detail.hidden = true;
+          var note = el('div', 'wiz-node is-now');
+          (layer.lines || []).forEach(function (line) { note.appendChild(el('p', '', line)); });
+          if (layer.links && layer.links.length) note.appendChild(linkList(layer.links));
+          detail.appendChild(el('div', 'wiz-elbow'));
+          detail.appendChild(note);
+          var branchOpen = false;
+          branch.addEventListener('click', function () {
+            branchOpen = !branchOpen;
+            branch.classList.toggle('is-on', branchOpen);
+            branch.setAttribute('aria-expanded', branchOpen ? 'true' : 'false');
+            detail.hidden = !branchOpen;
           });
-          if (layer.links && layer.links.length) slot.appendChild(linkList(layer.links));
-          if (i < layers.length - 1) slot.appendChild(build(i + 1));
+          row.appendChild(branch);
+          kids.appendChild(row);
+          kids.appendChild(detail);
         });
-        wrap.appendChild(button);
-        wrap.appendChild(slot);
-        return wrap;
-      }
-      return build(0);
+        piece.addEventListener('click', function () {
+          pieceOpen = !pieceOpen;
+          piece.classList.toggle('is-on', pieceOpen);
+          piece.setAttribute('aria-expanded', pieceOpen ? 'true' : 'false');
+          kids.hidden = !pieceOpen;
+        });
+        root.appendChild(piece);
+        root.appendChild(kids);
+      });
+      return root;
     }
 
     function moreButton(item) {
@@ -2418,19 +2442,9 @@
       extra.type = 'button';
       extra.className = 'wiz-topic';
       extra.appendChild(el('strong', '', 'Consider adding'));
-      extra.appendChild(el('span', '', 'Optional pieces. Open one for why it helps, how to hook it in, and how to judge the price.'));
+      extra.appendChild(el('span', '', 'A tree. Click a piece and three branches drop down. Click a branch again to close it.'));
       extra.addEventListener('click', function () {
-        var node = el('div', 'wiz-check');
-        node.appendChild(el('strong', '', 'Consider adding'));
-        node.appendChild(el('p', '', 'These are not required to boot. Open one and walk it. Why it helps, then how to hook it in, then how to judge the price. The next step stays closed until you ask.'));
-        board.extras.forEach(function (item) {
-          var block = el('section', 'wiz-node');
-          block.appendChild(el('h3', '', item.name));
-          block.appendChild(el('p', '', item.summary));
-          block.appendChild(aidStack(item));
-          node.appendChild(block);
-        });
-        show(extra, node);
+        show(extra, aidDiagram(board.extras));
       });
       buttons.push(extra);
       also.appendChild(extra);
