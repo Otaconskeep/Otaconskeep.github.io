@@ -1388,38 +1388,68 @@
 
   var PARTS = {
     cpu: [
-      { id: 'r5-5600', name: 'Ryzen 5 5600', socket: 'AM4', watts: 65 },
-      { id: 'r5-7600', name: 'Ryzen 5 7600', socket: 'AM5', watts: 65 },
-      { id: 'i5-12400f', name: 'Core i5-12400F', socket: 'LGA1700', watts: 65 }
+      { id: 'r5-5600', name: 'AMD Ryzen 5 5600', maker: 'amd', socket: 'AM4', watts: 65, igpu: false, plain: 'A common older AMD chip. It does not make a picture by itself. It uses DDR4.' },
+      { id: 'r5-5600g', name: 'AMD Ryzen 5 5600G', maker: 'amd', socket: 'AM4', watts: 65, igpu: true, plain: 'The G means graphics are built in. A desk or a small server can skip the extra card. AMD lists this at 65 W.' },
+      { id: 'r7-5700x', name: 'AMD Ryzen 7 5700X', maker: 'amd', socket: 'AM4', watts: 65, igpu: false, plain: 'More cores on the older AMD socket. Still no picture of its own. Still DDR4.' },
+      { id: 'r5-7600', name: 'AMD Ryzen 5 7600', maker: 'amd', socket: 'AM5', watts: 65, igpu: true, plain: 'A calm current desk chip. DDR5. It can show a picture without an extra card. AMD lists the default at 65 W.' },
+      { id: 'r7-7700', name: 'AMD Ryzen 7 7700', maker: 'amd', socket: 'AM5', watts: 65, igpu: true, plain: 'More cores, still the 65 W part, still DDR5. This is not the hotter X model.' },
+      { id: 'r9-7900', name: 'AMD Ryzen 9 7900', maker: 'amd', socket: 'AM5', watts: 65, igpu: true, plain: 'The many-core 65 W chip for a heavy desk or a server. Not the 170 W X model.' },
+      { id: 'i3-12100', name: 'Intel Core i3-12100', maker: 'intel', socket: 'LGA1700', watts: 89, igpu: true, plain: 'A small Intel chip with graphics built in. Intel lists 60 W base and 89 W turbo. This checker uses 89 W.' },
+      { id: 'i5-12400', name: 'Intel Core i5-12400', maker: 'intel', socket: 'LGA1700', watts: 117, igpu: true, plain: 'A common Intel desk chip with graphics. Intel lists 117 W turbo. This checker uses that.' },
+      { id: 'i5-12400f', name: 'Intel Core i5-12400F', maker: 'intel', socket: 'LGA1700', watts: 117, igpu: false, plain: 'The F means no picture built in. Add a graphics card. Same 117 W turbo number.' },
+      { id: 'i5-13400', name: 'Intel Core i5-13400', maker: 'intel', socket: 'LGA1700', watts: 148, igpu: true, plain: 'A newer Intel desk chip with graphics. Intel lists 148 W turbo.' },
+      { id: 'i5-13400f', name: 'Intel Core i5-13400F', maker: 'intel', socket: 'LGA1700', watts: 148, igpu: false, plain: 'Same newer chip, no picture built in. Add a graphics card.' },
+      { id: 'i5-14600', name: 'Intel Core i5-14600', maker: 'intel', socket: 'LGA1700', watts: 154, igpu: true, plain: 'A 14th-gen Intel desk chip with graphics. Intel lists 154 W turbo. This is not the K model.' }
     ],
     board: [
-      { id: 'b550', name: 'B550, DDR4, micro-ATX', socket: 'AM4', ram: 'DDR4', form: 'matx' },
-      { id: 'b650', name: 'B650, DDR5, ATX', socket: 'AM5', ram: 'DDR5', form: 'atx' },
-      { id: 'b760-d4', name: 'B760, DDR4, micro-ATX', socket: 'LGA1700', ram: 'DDR4', form: 'matx' },
-      { id: 'b760-d5', name: 'B760, DDR5, ATX', socket: 'LGA1700', ram: 'DDR5', form: 'atx' }
+      { id: 'b550', name: 'AMD B550, DDR4, micro-ATX', maker: 'amd', socket: 'AM4', ram: 'DDR4', form: 'matx', plain: 'For Ryzen 5000. Smaller board. DDR4 only.' },
+      { id: 'b550-atx', name: 'AMD B550, DDR4, ATX', maker: 'amd', socket: 'AM4', ram: 'DDR4', form: 'atx', plain: 'Same older AMD socket, more room in a bigger case.' },
+      { id: 'b650m', name: 'AMD B650, DDR5, micro-ATX', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'matx', plain: 'Current AMD socket in a smaller board. DDR5 only.' },
+      { id: 'b650', name: 'AMD B650, DDR5, ATX', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'atx', plain: 'Current AMD socket, full size. DDR5 only.' },
+      { id: 'b650i', name: 'AMD B650, DDR5, mini-ITX', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'itx', plain: 'A tiny current AMD board. Read the case page. Tiny cases choke fat cards.' },
+      { id: 'b760-d4', name: 'Intel B760, DDR4, micro-ATX', maker: 'intel', socket: 'LGA1700', ram: 'DDR4', form: 'matx', plain: 'Intel socket, older memory. Useful when you already own DDR4.' },
+      { id: 'b760-d4-atx', name: 'Intel B760, DDR4, ATX', maker: 'intel', socket: 'LGA1700', ram: 'DDR4', form: 'atx', plain: 'Same Intel DDR4 idea, full size.' },
+      { id: 'b760-d5m', name: 'Intel B760, DDR5, micro-ATX', maker: 'intel', socket: 'LGA1700', ram: 'DDR5', form: 'matx', plain: 'Intel socket, new memory, smaller board.' },
+      { id: 'b760-d5', name: 'Intel B760, DDR5, ATX', maker: 'intel', socket: 'LGA1700', ram: 'DDR5', form: 'atx', plain: 'Intel socket, new memory, full size.' },
+      { id: 'b760i', name: 'Intel B760, DDR5, mini-ITX', maker: 'intel', socket: 'LGA1700', ram: 'DDR5', form: 'itx', plain: 'A tiny Intel board. DDR5. Check the card length.' }
     ],
     ram: [
-      { id: 'd4-16', name: '16 GB DDR4', ram: 'DDR4' },
-      { id: 'd4-32', name: '32 GB DDR4', ram: 'DDR4' },
-      { id: 'd5-32', name: '32 GB DDR5', ram: 'DDR5' },
-      { id: 'd5-64', name: '64 GB DDR5', ram: 'DDR5' }
+      { id: 'd4-16', name: '16 GB DDR4', ram: 'DDR4', plain: 'Light desk. Tight if you keep many apps open.' },
+      { id: 'd4-32', name: '32 GB DDR4', ram: 'DDR4', plain: 'A calm amount for an older AMD or Intel board.' },
+      { id: 'd4-64', name: '64 GB DDR4', ram: 'DDR4', plain: 'For many virtual computers or a heavy editor.' },
+      { id: 'd5-32', name: '32 GB DDR5', ram: 'DDR5', plain: 'A calm amount on a new board.' },
+      { id: 'd5-64', name: '64 GB DDR5', ram: 'DDR5', plain: 'Room for bigger local models or more house apps.' },
+      { id: 'd5-96', name: '96 GB DDR5', ram: 'DDR5', plain: 'A large kit, often two 48 GB sticks. Confirm the board allows it.' }
     ],
     gpu: [
-      { id: 'none', name: 'No extra card', watts: 0 },
-      { id: 'g8', name: 'About 8 GB card', watts: 200 },
-      { id: 'g12', name: 'About 12 GB card', watts: 220 },
-      { id: 'g16', name: 'About 16 GB card', watts: 320 }
+      { id: 'none', name: 'No extra card', watts: 0, plain: 'Fine only if the processor can make a picture, or this is a server you reach from another screen and you accept no local display.' },
+      { id: 'g8', name: 'About 8 GB card', watts: 200, plain: 'Older and mid games, light picture work. This checker plans 200 W. Read the card page.' },
+      { id: 'g12', name: 'About 12 GB card', watts: 220, plain: 'A strong everyday card. This checker plans 220 W. Read the card page.' },
+      { id: 'g16', name: 'About 16 GB card', watts: 320, plain: 'High settings and heavier picture work. This checker plans 320 W.' },
+      { id: 'g24', name: 'About 24 GB card', watts: 450, plain: 'A very large card. This checker plans 450 W so the power supply is not too small. Read the card page. Real cards differ.' }
+    ],
+    ssd: [
+      { id: 'ssd-500', name: '500 GB SSD', plain: 'The system and a few apps. Not a movie shelf.' },
+      { id: 'ssd-1000', name: '1 TB SSD', plain: 'System, apps, and some games.' },
+      { id: 'ssd-2000', name: '2 TB SSD', plain: 'System and a large game library. Movies still belong on a hard drive.' }
+    ],
+    hdd: [
+      { id: 'hdd-none', name: 'No hard drive yet', plain: 'Fine for a first desk. Add one when the files need a home.' },
+      { id: 'hdd-4', name: 'About 4 TB hard drive', plain: 'A starter photo pile or a small movie shelf.' },
+      { id: 'hdd-8', name: 'About 8 TB hard drive', plain: 'Family movies or a big camera archive.' },
+      { id: 'hdd-16', name: '16 TB or more', plain: 'Media-server size. One disk is still not a backup.' }
     ],
     psu: [
-      { id: 'p550', name: '550 W', watts: 550 },
-      { id: 'p650', name: '650 W', watts: 650 },
-      { id: 'p750', name: '750 W', watts: 750 },
-      { id: 'p850', name: '850 W', watts: 850 }
+      { id: 'p550', name: '550 W', watts: 550, plain: 'Calm desk, no big card.' },
+      { id: 'p650', name: '650 W', watts: 650, plain: 'A normal card and a normal chip.' },
+      { id: 'p750', name: '750 W', watts: 750, plain: 'Room for a stronger card.' },
+      { id: 'p850', name: '850 W', watts: 850, plain: 'A large card, with air left over.' },
+      { id: 'p1000', name: '1000 W', watts: 1000, plain: 'For a very large card. Still read the card page.' }
     ],
     case: [
-      { id: 'itx', name: 'Small ITX case', fits: ['itx'] },
-      { id: 'matx', name: 'Micro-ATX case', fits: ['itx', 'matx'] },
-      { id: 'atx', name: 'ATX mid tower', fits: ['itx', 'matx', 'atx'] }
+      { id: 'itx', name: 'Small ITX case', fits: ['itx'], plain: 'Tiny. A long card often will not fit. Measure.' },
+      { id: 'matx', name: 'Micro-ATX case', fits: ['itx', 'matx'], plain: 'Fits the smaller boards. An ATX board will not.' },
+      { id: 'atx', name: 'ATX mid tower', fits: ['itx', 'matx', 'atx'], plain: 'The normal tower. It can hold the smaller boards too.' }
     ]
   };
 
@@ -1459,6 +1489,22 @@
     }
     if (gpu.watts > 0 && box.id === 'itx') {
       lines.push({ tone: 'wait', text: 'A small case and a graphics card need a length check. Read both product pages before you buy.' });
+    }
+    if (gpu.id === 'none' && !cpu.igpu) {
+      lines.push({ tone: 'stop', text: 'This processor does not make a picture by itself. Add a graphics card, or pick a chip with graphics built in.' });
+    } else if (gpu.id === 'none') {
+      lines.push({ tone: 'go', text: 'No extra card. This processor can make a picture on its own.' });
+    }
+    if (picks.system === 'server' && gpu.watts >= 320) {
+      lines.push({ tone: 'wait', text: 'A closet server rarely needs a card this large. Games and editing belong on the desk. A smaller card can still convert video.' });
+    }
+    var ssd = byId(PARTS.ssd, picks.ssd);
+    var hdd = byId(PARTS.hdd, picks.hdd);
+    if (ssd) lines.push({ tone: 'go', text: 'The boot disk is an SSD. That is where the system should live.' });
+    if (hdd && hdd.id === 'hdd-none' && picks.system === 'server') {
+      lines.push({ tone: 'wait', text: 'A server that keeps files wants a hard drive. The SSD is the system, not the movie shelf.' });
+    } else if (hdd && hdd.id !== 'hdd-none') {
+      lines.push({ tone: 'go', text: 'The hard drive is the pile. It does not have to match the processor brand.' });
     }
     var tone = 'go';
     lines.forEach(function (line) {
@@ -1731,6 +1777,7 @@
   function mount(rootEl) {
     var answers = {};
     var index = 0;
+    var labNotes = null;
 
     function el(tag, className, text) {
       var node = document.createElement(tag);
@@ -1990,68 +2037,178 @@
       return box;
     }
 
-    function pcPanel() {
-      var box = el('div', '');
-      box.appendChild(el('p', '', 'Pick one part in each row. Green means the pair fits. Yellow means check one limit. Red means do not buy that pair.'));
-      var form = el('div', 'wiz-form');
-      var fields = [
-        ['cpu', 'Processor', PARTS.cpu],
-        ['board', 'Motherboard', PARTS.board],
-        ['ram', 'Memory', PARTS.ram],
-        ['gpu', 'Graphics card', PARTS.gpu],
-        ['psu', 'Power supply', PARTS.psu],
-        ['case', 'Case', PARTS.case]
-      ];
-      var selects = {};
-      fields.forEach(function (field) {
-        var label = document.createElement('label');
-        label.appendChild(document.createTextNode(field[1]));
-        var select = document.createElement('select');
-        fillSelect(select, field[2]);
-        selects[field[0]] = select;
-        label.appendChild(select);
-        form.appendChild(label);
-      });
-      box.appendChild(form);
-      var result = el('div', '');
-      var check = document.createElement('button');
-      check.type = 'button';
-      check.className = 'btn btn-primary';
-      check.textContent = 'Check compatibility';
-      check.addEventListener('click', function () {
-        var picks = {};
-        Object.keys(selects).forEach(function (key) { picks[key] = selects[key].value; });
-        var report = checkParts(picks);
-        result.textContent = '';
-        var banner = el('div', 'wiz-check ' + report.tone);
-        var word = report.tone === 'go' ? 'Fits' : (report.tone === 'stop' ? 'Does not fit' : 'Check one limit');
-        banner.appendChild(el('strong', '', word));
-        report.lines.forEach(function (line) {
-          var text = typeof line === 'string' ? line : line.text;
-          var tone = typeof line === 'string' ? report.tone : line.tone;
-          var row = el('p', '', text);
-          if (tone === 'stop') row.style.color = '#ef5f6b';
-          else if (tone === 'wait') row.style.color = '#e0a83c';
-          else row.style.color = '#43d98a';
-          banner.appendChild(row);
+    function partChoices(state, id) {
+      var cpu = byId(PARTS.cpu, state.cpu);
+      var board = byId(PARTS.board, state.board);
+      if (id === 'system') {
+        return [
+          { id: 'desk', name: 'A desk PC', plain: 'You sit at it. Games, school, photos, and a normal screen.' },
+          { id: 'server', name: 'A server', plain: 'It stays on for the house. Files, movies, and house apps.' },
+          { id: 'unsure', name: 'I am not sure', plain: 'Start as a desk PC. You can still add disks and leave it on later.' }
+        ];
+      }
+      if (id === 'maker') {
+        return [
+          { id: 'amd', name: 'AMD', plain: 'One of the two companies that make the processor. These chips use AM4 or AM5.' },
+          { id: 'intel', name: 'Intel', plain: 'The other company. The chips in this list use LGA1700.' },
+          { id: 'either', name: 'I do not know what that means', plain: 'That is fine. The next block explains it and shows both.' }
+        ];
+      }
+      if (id === 'cpu') {
+        return PARTS.cpu.filter(function (item) {
+          return state.maker === 'either' || !state.maker || item.maker === state.maker;
         });
-        result.appendChild(banner);
-      });
-      box.appendChild(check);
-      box.appendChild(result);
-      var prices = document.createElement('button');
-      prices.type = 'button';
-      prices.className = 'btn btn-ghost';
-      prices.textContent = 'This month’s prices';
-      var priceSlot = el('div', '');
-      var priceOpen = false;
-      prices.addEventListener('click', function () {
-        priceOpen = !priceOpen;
-        priceSlot.textContent = '';
-        if (priceOpen) priceSlot.appendChild(priceBlock(notes));
-      });
-      box.appendChild(prices);
-      box.appendChild(priceSlot);
+      }
+      if (id === 'board') {
+        return PARTS.board.filter(function (item) { return cpu && item.socket === cpu.socket; });
+      }
+      if (id === 'ram') {
+        return PARTS.ram.filter(function (item) { return board && item.ram === board.ram; });
+      }
+      if (id === 'gpu') return PARTS.gpu;
+      if (id === 'ssd') return PARTS.ssd;
+      if (id === 'hdd') return PARTS.hdd;
+      if (id === 'psu') return PARTS.psu;
+      if (id === 'case') return PARTS.case;
+      return [];
+    }
+
+    function pcPanel() {
+      var state = {};
+      var order = ['system', 'maker', 'cpu', 'board', 'ram', 'gpu', 'ssd', 'hdd', 'psu', 'case'];
+      var meta = {
+        system: { depth: 0, title: '1. The system', hint: 'This is the whole computer. Everything else hangs under it.' },
+        maker: { depth: 1, title: '2. Who makes the brain', hint: 'AMD and Intel both make the processor. The motherboard has to be the same side. You cannot mix them.' },
+        cpu: { depth: 2, title: '3. The processor', hint: 'The brain. These are common chips, not every chip on earth. Match the socket if yours is missing.' },
+        board: { depth: 2, title: '4. The motherboard', hint: 'Only boards that fit the processor you just picked.' },
+        ram: { depth: 2, title: '5. The memory', hint: 'Only the memory type that board accepts. DDR4 and DDR5 do not swap.' },
+        gpu: { depth: 1, title: '6. Graphics', hint: 'The picture card. Skip it only when the processor can draw the screen itself.' },
+        ssd: { depth: 1, title: '7. Storage, the SSD', hint: 'The fast disk. The system and the apps live here.' },
+        hdd: { depth: 2, title: '8. Storage, the hard drive', hint: 'The spinning disk for movies, photos, and backups. A different shape from the SSD.' },
+        psu: { depth: 1, title: '9. Power', hint: 'The supply has to cover the processor and the card, with air left over.' },
+        case: { depth: 1, title: '10. The case', hint: 'The box has to be big enough for the motherboard.' }
+      };
+      var box = el('div', '');
+      box.appendChild(el('p', '', 'The first block is the whole computer. Each block under it is one piece. Closed blocks wait. Green means that piece fits the one above it.'));
+
+      function currentId() {
+        for (var i = 0; i < order.length; i++) if (!state[order[i]]) return order[i];
+        return '';
+      }
+
+      function drawChoices(node, id) {
+        var list = el('div', 'wiz-choices');
+        partChoices(state, id).forEach(function (choice) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'wiz-choice';
+          button.appendChild(el('strong', '', choice.name));
+          if (choice.plain) button.appendChild(el('span', '', choice.plain));
+          button.addEventListener('click', function () {
+            state[id] = choice.id;
+            var from = order.indexOf(id);
+            order.slice(from + 1).forEach(function (key) {
+              if (key === 'board' || key === 'ram' || key === 'cpu') delete state[key];
+            });
+            if (id === 'maker') delete state.cpu;
+            if (id === 'cpu') { delete state.board; delete state.ram; }
+            if (id === 'board') delete state.ram;
+            redraw();
+          });
+          list.appendChild(button);
+        });
+        node.appendChild(list);
+      }
+
+      function redraw() {
+        var tree = box.querySelector('.wiz-tree');
+        if (tree) tree.remove();
+        tree = el('div', 'wiz-tree');
+        var here = currentId();
+        order.forEach(function (id) {
+          var info = meta[id];
+          var pool = (id === 'system' || id === 'maker') ? partChoices(state, id) : (PARTS[id] || []);
+          var picked = byId(pool, state[id]);
+          var node = el('section', 'wiz-node wiz-depth-' + info.depth + (state[id] ? ' is-done' : (id === here ? ' is-now' : ' is-wait')));
+          node.appendChild(el('h3', '', info.title));
+          if (state[id] && picked) {
+            node.appendChild(el('p', '', picked.name));
+            var change = document.createElement('button');
+            change.type = 'button';
+            change.className = 'btn btn-ghost';
+            change.textContent = 'Change this block';
+            change.addEventListener('click', function () {
+              var from = order.indexOf(id);
+              order.slice(from).forEach(function (key) { delete state[key]; });
+              redraw();
+            });
+            node.appendChild(change);
+          } else if (id === here) {
+            node.appendChild(el('p', '', info.hint));
+            if (id === 'maker' || (id === 'cpu' && state.maker === 'either')) {
+              node.appendChild(el('p', '', 'AMD and Intel are companies, not socket types. The socket is the shape on the board. AM4 and AM5 are AMD. LGA1700 in this list is Intel.'));
+            }
+            drawChoices(node, id);
+          } else {
+            node.appendChild(el('p', '', 'Closed until the block above is chosen.'));
+          }
+          if (id !== 'system') tree.appendChild(el('div', 'wiz-stem wiz-depth-' + info.depth));
+          tree.appendChild(node);
+        });
+        if (!here) {
+          var report = checkParts(state);
+          var done = el('section', 'wiz-node is-now');
+          var word = report.tone === 'go' ? 'Fits' : (report.tone === 'stop' ? 'Does not fit' : 'Check one limit');
+          done.appendChild(el('h3', '', '11. Does this pile fit?'));
+          var banner = el('div', 'wiz-check ' + report.tone);
+          banner.appendChild(el('strong', '', word));
+          report.lines.forEach(function (line) {
+            var text = typeof line === 'string' ? line : line.text;
+            var tone = typeof line === 'string' ? report.tone : line.tone;
+            var row = el('p', '', text);
+            if (tone === 'stop') row.style.color = '#ef5f6b';
+            else if (tone === 'wait') row.style.color = '#e0a83c';
+            else row.style.color = '#43d98a';
+            banner.appendChild(row);
+          });
+          banner.appendChild(el('p', '', 'Your exact part may be missing. Match three things: the socket, DDR4 or DDR5, and the case size. Then size the power supply to the card.'));
+          done.appendChild(banner);
+          tree.appendChild(el('div', 'wiz-stem'));
+          tree.appendChild(done);
+          var prices = el('section', 'wiz-node is-now');
+          prices.appendChild(el('h3', '', '12. Best prices'));
+          prices.appendChild(el('p', '', 'Last step. The live prices are on the seller sites. This page does not invent a dollar amount.'));
+          var ul = document.createElement('ul');
+          order.forEach(function (id) {
+            var item = byId(PARTS[id] || [], state[id]);
+            if (!item) return;
+            var li = document.createElement('li');
+            var anchor = document.createElement('a');
+            anchor.href = 'https://pcpartpicker.com/search/?q=' + encodeURIComponent(item.name);
+            anchor.target = '_blank';
+            anchor.rel = 'noopener';
+            anchor.textContent = item.name + ' on PCPartPicker';
+            li.appendChild(anchor);
+            ul.appendChild(li);
+          });
+          var jawa = document.createElement('li');
+          var jawaLink = document.createElement('a');
+          jawaLink.href = 'https://www.jawa.gg/';
+          jawaLink.target = '_blank';
+          jawaLink.rel = 'noopener';
+          jawaLink.textContent = 'Jawa';
+          jawa.appendChild(jawaLink);
+          jawa.appendChild(document.createTextNode('. Used graphics cards and used whole PCs. Search the part name there.'));
+          ul.appendChild(jawa);
+          prices.appendChild(ul);
+          prices.appendChild(priceBlock(labNotes));
+          tree.appendChild(el('div', 'wiz-stem'));
+          tree.appendChild(prices);
+        }
+        box.appendChild(tree);
+      }
+
+      redraw();
       return box;
     }
 
@@ -2088,16 +2245,29 @@
       var wrap = el('section', 'wiz-block');
       wrap.appendChild(el('h3', '', 'Here is what you can do with what you selected'));
       wrap.appendChild(el('p', '', 'Each box is a category those picks landed in. Fits means this computer can do it. Has a limit means it works with a catch. Does not fit means pick a different job for this computer, or a bigger part.'));
+      var buildPanel = el('div', 'wiz-panel');
+      var buildBtn = document.createElement('button');
+      buildBtn.type = 'button';
+      buildBtn.className = 'wiz-build';
+      buildBtn.appendChild(el('strong', '', 'Help me build a PC or server'));
+      buildBtn.appendChild(el('span', '', 'Start with the whole computer. Then the brain, the disks, the power, and the best prices.'));
       var row = el('div', 'wiz-topics');
       var panel = el('div', 'wiz-panel');
       var notes = null;
       var buttons = [];
-      function show(button, node) {
+      function show(button, node, target) {
         buttons.forEach(function (other) { other.classList.remove('is-on'); });
         button.classList.add('is-on');
         panel.textContent = '';
-        panel.appendChild(node);
+        buildPanel.textContent = '';
+        (target || panel).appendChild(node);
       }
+      buildBtn.addEventListener('click', function () {
+        show(buildBtn, pcPanel(), buildPanel);
+      });
+      buttons.push(buildBtn);
+      wrap.appendChild(buildBtn);
+      wrap.appendChild(buildPanel);
       board.topics.forEach(function (topic) {
         var button = topicCard(topic);
         button.addEventListener('click', function () {
@@ -2127,25 +2297,13 @@
       });
       buttons.push(extra);
       also.appendChild(extra);
-      var pc = document.createElement('button');
-      pc.type = 'button';
-      pc.className = 'wiz-topic';
-      pc.appendChild(el('strong', '', 'I want to build a PC'));
-      pc.appendChild(el('span', '', 'Pick the parts and see if they fit. Green fits. Yellow needs a look. Red does not fit.'));
-      pc.addEventListener('click', function () {
-        var node = el('div', '');
-        node.appendChild(el('p', '', 'Six parts. The checker tells you if they belong together. Then open a price source. Do not buy from a number this page made up.'));
-        node.appendChild(pcPanel());
-        show(pc, node);
-      });
-      buttons.push(pc);
-      also.appendChild(pc);
       wrap.appendChild(also);
       if (typeof fetch === 'function') {
         fetch('/classroom/modules/00-pick-your-lab/lab-notes.json').then(function (response) {
           return response.ok ? response.json() : null;
         }).then(function (data) {
           notes = data;
+          labNotes = data;
         }).catch(function () { notes = null; });
       }
       return wrap;
