@@ -1484,6 +1484,76 @@
     return names;
   }
 
+  function storageLayers(a, storage) {
+    var small = storage > 0 && storage < 1000;
+    var large = storage >= 4000;
+    return [
+      {
+        name: 'SSD and hard drive',
+        lines: [
+          'Two kinds of disk. Stop here if that split is enough.',
+          'An SSD has no spinning head. The system and the apps live on it.',
+          'A hard drive spins. Movies, photos, and the big copies live on it.',
+          small
+            ? 'The size you picked is a system disk. It is not the photo vault. Add a hard drive when the files need a home.'
+            : 'Keep the system on an SSD. Put the pile on a hard drive.'
+        ]
+      },
+      {
+        name: 'What goes on each disk',
+        lines: [
+          'The operating system goes on the SSD.',
+          'A player database, such as Plex or Jellyfin, goes on the SSD too. The video files do not.',
+          'A game that stutters on a spinning disk belongs on the SSD.',
+          'Movies, photos, and backups belong on the hard drive.',
+          'One disk is not a backup. A second copy of anything you would cry about lives somewhere else.'
+        ]
+      },
+      {
+        name: 'Consider a NAS',
+        lines: [
+          'A NAS is a computer whose job is the disks.',
+          large
+            ? 'This pile is large enough to consider that separate shelf.'
+            : 'This computer can hold the start. Consider a NAS when the library outgrows it, or when the disks should stay on while the desk sleeps.',
+          'TrueNAS can be that computer. It is free. Unraid does a similar job and costs money.',
+          'Two disks is the smallest mirror. A mirror survives one disk dying. It does not survive a fire, a theft, or a delete.',
+          'The NAS stores the files. It is not the game desk, and it does not edit the video.'
+        ]
+      },
+      {
+        name: 'CMR, SMR, and the sticker',
+        lines: [
+          'CMR writes tracks beside each other. SMR overlaps them, so a rewrite can stall while the drive rewrites a band.',
+          'Western Digital says many plain WD Red drives in the 2 TB to 6 TB sizes used SMR, and that a ZFS rebuild does not give an SMR drive the idle time it wants.',
+          'WD Red Plus and WD Red Pro are the CMR NAS drives they point at. A sticker that only says Red is not enough.',
+          'Purple and SkyHawk are for cameras. They are the wrong disk for a Plex library or for ZFS.',
+          'Blue and Black are desktop lines. Gold is an enterprise CMR disk. IronWolf and IronWolf Pro are Seagate NAS lines. Exos is the enterprise line.',
+          'Open the model datasheet and find CMR or SMR. Skip the disk if the sheet will not say.'
+        ]
+      },
+      {
+        name: 'M.2, SATA, and NVMe',
+        lines: [
+          'M.2 is a shape, the small gumstick connector. It is not a speed.',
+          'An M.2 drive can be SATA, the same speed class as a 2.5 inch SATA SSD, or NVMe, which talks PCIe and is the fast one.',
+          'A motherboard slot might accept only one of those. Read the slot.',
+          'A 3.5 inch hard drive does not fit an M.2 slot. An M.2 stick does not replace a pile of movie disks.',
+          'Flash wears out. The datasheet TBW number is the endurance. A disk that is rewritten all day needs a higher endurance part, not the cheapest stick.'
+        ]
+      },
+      {
+        name: 'Where to read it',
+        lines: ['These are the maker pages. This page does not pick a model number for you.'],
+        links: [
+          { name: 'WD Red: SMR and CMR', detail: 'Western Digital’s split of Red, Red Plus, and Red Pro.', href: 'https://support-en.wd.com/app/answers/detailweb/a_id/29458' },
+          { name: 'How to check CMR or SMR', detail: 'Where the datasheet says it.', href: 'https://support-en.wd.com/app/answers/detailweb/a_id/50697' },
+          { name: 'WD color lines', detail: 'The marketing page. The datasheet still wins.', href: 'https://www.westerndigital.com/solutions/color-drives' }
+        ]
+      }
+    ];
+  }
+
   function storageCovers(a, storage) {
     var names = coverNames(a, ['files']);
     if (storage >= 4000) names.push('A large disk pile');
@@ -1607,13 +1677,7 @@
         id: 'storage', name: 'Storage', tone: storage >= 1000 ? 'go' : 'wait',
         summary: storage >= 4000 ? 'The disk pile is big enough to treat as its own job.' : 'You asked for files. Give them a disk that is not the only copy.',
         covers: storageCovers(a, storage),
-        get: 'An SSD for the system. CMR disks for the pile. A second copy of anything you would cry about.',
-        how: 'One mirror or one extra disk is the start. A second location is the backup.',
-        look: 'CMR in the datasheet. NAS-rated if the disks sit in a multi-bay box.',
-        compat: 'A RAID light is not an off-site backup. M.2 is a shape. Read whether the slot is SATA or NVMe.',
-        buy: [
-          { name: 'WD Red, SMR and CMR', detail: 'Western Digital’s own split.', href: 'https://support-en.wd.com/app/answers/detailweb/a_id/29458' }
-        ],
+        layers: storageLayers(a, storage),
         keys: ['nas', 'cmr', 'smr', 'm.2']
       });
     }
@@ -1630,7 +1694,7 @@
       });
     }
     var extras = [];
-    if (storage < 4000) {
+    if (storage < 4000 && !hasJob(a, 'files')) {
       extras.push({
         name: 'NAS',
         summary: 'A separate disk shelf, when the library outgrows the computer.',
@@ -1797,6 +1861,60 @@
       return box;
     }
 
+    function linkList(links) {
+      var ul = document.createElement('ul');
+      (links || []).forEach(function (link) {
+        var li = document.createElement('li');
+        var anchor = document.createElement('a');
+        anchor.href = link.href;
+        anchor.textContent = link.name;
+        anchor.target = '_blank';
+        anchor.rel = 'noopener';
+        li.appendChild(anchor);
+        if (link.detail) li.appendChild(document.createTextNode('. ' + link.detail));
+        ul.appendChild(li);
+      });
+      return ul;
+    }
+
+    function layerStack(topic) {
+      var layers = topic.layers || [];
+      function build(i) {
+        var wrap = el('div', '');
+        if (i >= layers.length) return wrap;
+        var layer = layers[i];
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'btn btn-ghost';
+        button.textContent = 'Layer ' + (i + 2) + '. ' + layer.name;
+        button.setAttribute('aria-expanded', 'false');
+        var slot = el('div', 'wiz-layer');
+        var open = false;
+        button.addEventListener('click', function () {
+          open = !open;
+          slot.textContent = '';
+          button.setAttribute('aria-expanded', open ? 'true' : 'false');
+          if (!open) return;
+          (layer.lines || []).forEach(function (line) {
+            slot.appendChild(el('p', '', line));
+          });
+          if (layer.links && layer.links.length) slot.appendChild(linkList(layer.links));
+          if (i === layers.length - 1) {
+            (topic.lessons || []).forEach(function (lesson) {
+              slot.appendChild(lessonSection(lesson));
+            });
+          } else {
+            slot.appendChild(build(i + 1));
+          }
+          return;
+        });
+        wrap.appendChild(button);
+        wrap.appendChild(slot);
+        return wrap;
+      }
+      return build(0);
+    }
+
     function moreButton(item) {
       var button = document.createElement('button');
       button.type = 'button';
@@ -1955,7 +2073,12 @@
       var covers = (topic.covers || []).join(', ');
       if (covers) node.appendChild(labeledLine('From what you selected.', covers));
       node.appendChild(labeledLine('What you can do.', topic.summary));
-      node.appendChild(moreButton(topic));
+      if (topic.layers && topic.layers.length) {
+        node.appendChild(el('p', '', 'This is the top. Open the next layer only when you want the next step. The deeper layers stay closed.'));
+        node.appendChild(layerStack(topic));
+      } else {
+        node.appendChild(moreButton(topic));
+      }
       return node;
     }
 
