@@ -98,7 +98,9 @@ button.wiz-node.is-on { border-color: var(--accent-bright, var(--accent)); backg
 .wiz-level { font-family: 'JetBrains Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-bright); font-size: .72rem; margin: 0 0 8px; }
 .wiz-stage { overflow-x: auto; max-width: 100%; padding-bottom: 12px; }
 .wiz-col { display: flex; flex-direction: column; align-items: center; position: relative; }
-.wiz-col.is-dim { opacity: 0.4; }
+.wiz-col.is-peer { opacity: 0.84; }
+.wiz-col.is-peer:hover, .wiz-col.is-peer:focus-within { opacity: 1; }
+.wiz-switch { margin: 10px 0 0; font-size: .82rem; letter-spacing: .02em; }
 .wiz-stem { width: 2px; height: 14px; background: #43d98a; }
 .wiz-col.is-on-path > .wiz-stem { width: 3px; }
 .wiz-row { display: flex; justify-content: center; align-items: flex-start; gap: 8px; position: relative; padding-top: 14px; }
@@ -134,10 +136,27 @@ button.wiz-tile {
   font: inherit;
   text-align: center;
 }
-button.wiz-tile.is-on { border-color: #43d98a; }
-button.wiz-tile.is-tip { border-width: 2px; box-shadow: 0 0 0 1px #43d98a; }
+button.wiz-tile:hover, button.wiz-tile:focus-visible { border-color: var(--accent-bright, #7dffe0); }
+button.wiz-tile.is-on {
+  border-color: #43d98a;
+  box-shadow: 0 0 0 1px #43d98a, 0 0 18px rgba(67, 217, 138, .32);
+}
+button.wiz-tile.is-tip { border-width: 2px; }
 button.wiz-tile strong { display: block; font-size: .95rem; letter-spacing: .04em; text-transform: uppercase; }
-.wiz-col.is-dim > button.wiz-tile { min-width: 88px; padding: 8px; }
+.wiz-open, .wiz-cue {
+  display: block;
+  margin-top: 6px;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #43d98a;
+}
+.wiz-cue { max-height: 0; margin-top: 0; overflow: hidden; opacity: 0; }
+button.wiz-tile:hover .wiz-cue, button.wiz-tile:focus-visible .wiz-cue {
+  max-height: 1.4rem;
+  margin-top: 6px;
+  opacity: 1;
+}
 .wiz-node-line { max-width: 18rem; margin: 8px 0 0; }
 .wiz-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 22rem; margin-top: 4px; }
 .wiz-chip {
