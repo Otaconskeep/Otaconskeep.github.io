@@ -38,6 +38,37 @@
 .wiz-block ul, .wiz-block ol { margin: 8px 0 0; padding-left: 1.3rem; }
 .wiz-block ol li { margin: 8px 0; }
 .wiz-block li { margin: 6px 0; }
+.wiz-build {
+  display: block;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  margin: 4px 0 12px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 2px solid var(--accent-bright, var(--accent));
+  background: var(--surface-2, var(--surface));
+  box-shadow: 0 0 0 4px rgba(67, 217, 138, .16);
+}
+.wiz-build strong { display: block; font-size: 1.25rem; margin-bottom: 4px; }
+.wiz-build span { display: block; color: var(--cream-dim); line-height: 1.4; }
+.wiz-build.is-on { background: var(--surface); }
+.wiz-tree { display: grid; gap: 0; margin-top: 8px; }
+.wiz-stem { width: 2px; height: 12px; background: var(--accent, #43d98a); }
+.wiz-stem.wiz-depth-1, .wiz-node.wiz-depth-1 { margin-left: 16px; }
+.wiz-stem.wiz-depth-2, .wiz-node.wiz-depth-2 { margin-left: 32px; }
+.wiz-node {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: var(--surface);
+}
+.wiz-node h3 { margin: 0 0 6px; font-size: 1rem; }
+.wiz-node.is-now { border-color: var(--accent-bright, var(--accent)); }
+.wiz-node.is-done { border-color: #43d98a; }
+.wiz-node.is-wait { opacity: .55; }
+.wiz-node .wiz-choices { margin-top: 8px; }
 .wiz-topics { display: grid; gap: 10px; margin-top: 8px; }
 .wiz-also-title { margin-top: 18px; }
 .wiz-topic {
