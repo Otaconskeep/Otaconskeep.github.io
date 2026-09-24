@@ -2613,6 +2613,8 @@
         tile.className = 'wiz-tile' + (onPath ? ' is-on' : '') + (tip ? ' is-tip' : '');
         tile.appendChild(el('span', 'wiz-level', levelStamp(node.level)));
         tile.appendChild(el('strong', '', node.title));
+        if (node.level === 'L2' && onPath && openIds.length > 1) tile.appendChild(el('span', 'wiz-open', 'Open'));
+        if (node.level === 'L2' && !onPath) tile.appendChild(el('span', 'wiz-cue', 'Explore >'));
         tile.addEventListener('click', function () {
           focus = null;
           if (samePath(ids, openIds)) {
@@ -2627,13 +2629,14 @@
         col.appendChild(tile);
         if (onPath && node.children && node.children.length) {
           col.appendChild(el('div', 'wiz-stem'));
+          if (node.level === 'L1' && openIds.length > 1) col.appendChild(el('p', 'wiz-switch', 'Explore another subsystem'));
           var kids = heroOrder(node.children, ids);
           var row = el('div', 'wiz-row' + (kids.length > 1 ? ' is-many' : ' is-one'));
           kids.forEach(function (child) {
             var childIds = ids.concat([child.id]);
             var active = openIds.length > ids.length && openIds[ids.length] === child.id;
             var wrap = renderCol(child, childIds);
-            if (openIds.length > ids.length && !active) wrap.className += ' is-dim';
+            if (openIds.length > ids.length && !active) wrap.className += ' is-peer';
             row.appendChild(wrap);
           });
           col.appendChild(row);
