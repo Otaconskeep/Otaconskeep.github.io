@@ -1386,6 +1386,255 @@
     return step[name];
   }
 
+  var PARTS = {
+    cpu: [
+      { id: 'r5-5600', name: 'Ryzen 5 5600', socket: 'AM4', watts: 65 },
+      { id: 'r5-7600', name: 'Ryzen 5 7600', socket: 'AM5', watts: 65 },
+      { id: 'i5-12400f', name: 'Core i5-12400F', socket: 'LGA1700', watts: 65 }
+    ],
+    board: [
+      { id: 'b550', name: 'B550, DDR4, micro-ATX', socket: 'AM4', ram: 'DDR4', form: 'matx' },
+      { id: 'b650', name: 'B650, DDR5, ATX', socket: 'AM5', ram: 'DDR5', form: 'atx' },
+      { id: 'b760-d4', name: 'B760, DDR4, micro-ATX', socket: 'LGA1700', ram: 'DDR4', form: 'matx' },
+      { id: 'b760-d5', name: 'B760, DDR5, ATX', socket: 'LGA1700', ram: 'DDR5', form: 'atx' }
+    ],
+    ram: [
+      { id: 'd4-16', name: '16 GB DDR4', ram: 'DDR4' },
+      { id: 'd4-32', name: '32 GB DDR4', ram: 'DDR4' },
+      { id: 'd5-32', name: '32 GB DDR5', ram: 'DDR5' },
+      { id: 'd5-64', name: '64 GB DDR5', ram: 'DDR5' }
+    ],
+    gpu: [
+      { id: 'none', name: 'No extra card', watts: 0 },
+      { id: 'g8', name: 'About 8 GB card', watts: 200 },
+      { id: 'g12', name: 'About 12 GB card', watts: 220 },
+      { id: 'g16', name: 'About 16 GB card', watts: 320 }
+    ],
+    psu: [
+      { id: 'p550', name: '550 W', watts: 550 },
+      { id: 'p650', name: '650 W', watts: 650 },
+      { id: 'p750', name: '750 W', watts: 750 },
+      { id: 'p850', name: '850 W', watts: 850 }
+    ],
+    case: [
+      { id: 'itx', name: 'Small ITX case', fits: ['itx'] },
+      { id: 'matx', name: 'Micro-ATX case', fits: ['itx', 'matx'] },
+      { id: 'atx', name: 'ATX mid tower', fits: ['itx', 'matx', 'atx'] }
+    ]
+  };
+
+  function byId(list, id) {
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return null;
+  }
+
+  function checkParts(picks) {
+    picks = picks || {};
+    var cpu = byId(PARTS.cpu, picks.cpu);
+    var board = byId(PARTS.board, picks.board);
+    var ram = byId(PARTS.ram, picks.ram);
+    var gpu = byId(PARTS.gpu, picks.gpu);
+    var psu = byId(PARTS.psu, picks.psu);
+    var box = byId(PARTS.case, picks.case);
+    var lines = [];
+    if (!cpu || !board || !ram || !gpu || !psu || !box) {
+      return { tone: 'wait', lines: ['Pick every part. A blank is not a yes.'] };
+    }
+    lines.push(cpu.socket === board.socket
+      ? { tone: 'go', text: 'The processor and the motherboard use the same socket, ' + cpu.socket + '.' }
+      : { tone: 'stop', text: 'The processor wants ' + cpu.socket + ' and this motherboard is ' + board.socket + '. They do not fit.' });
+    lines.push(ram.ram === board.ram
+      ? { tone: 'go', text: 'The memory is ' + ram.ram + ', and this motherboard takes ' + board.ram + '.' }
+      : { tone: 'stop', text: 'This memory is ' + ram.ram + '. This motherboard takes ' + board.ram + '. Buy the other kind.' });
+    lines.push(box.fits.indexOf(board.form) !== -1
+      ? { tone: 'go', text: 'The motherboard fits this case.' }
+      : { tone: 'stop', text: 'This motherboard is too big for this case.' });
+    var need = cpu.watts + gpu.watts + 150;
+    if (psu.watts >= need + 100) {
+      lines.push({ tone: 'go', text: 'The power supply has room. The plan uses about ' + need + ' W before extra headroom, and this unit is ' + psu.watts + ' W.' });
+    } else if (psu.watts >= need) {
+      lines.push({ tone: 'wait', text: 'The power supply can cover about ' + need + ' W on paper. A bigger unit is calmer.' });
+    } else {
+      lines.push({ tone: 'stop', text: 'The power supply is ' + psu.watts + ' W. This pile wants about ' + need + ' W before you add more.' });
+    }
+    if (gpu.watts > 0 && box.id === 'itx') {
+      lines.push({ tone: 'wait', text: 'A small case and a graphics card need a length check. Read both product pages before you buy.' });
+    }
+    var tone = 'go';
+    lines.forEach(function (line) {
+      if (line.tone === 'stop') tone = 'stop';
+      else if (line.tone === 'wait' && tone !== 'stop') tone = 'wait';
+    });
+    return { tone: tone, lines: lines };
+  }
+
+  function gpuGb(a) {
+    var n = Number(a && a.gpu);
+    return isFinite(n) ? n : 0;
+  }
+
+  function topicBoard(a) {
+    a = a || {};
+    var gpu = gpuGb(a);
+    var ram = Number(a.ram) || 0;
+    var storage = Number(a.storage) || 0;
+    var mac = a.side === 'mac';
+    var topics = [];
+    function add(topic) { topics.push(topic); }
+    if (hasJob(a, 'movies') || hasJob(a, 'photos') || hasJob(a, 'video')) {
+      var mediaTone = 'go';
+      var mediaLine = 'This computer can keep the files and play them.';
+      if (hasJob(a, 'video') && !mac && gpu < 6) {
+        mediaTone = 'stop';
+        mediaLine = 'The card is too small to edit or convert video. Store the files here. Edit on a bigger computer.';
+      } else if (hasJob(a, 'video') && !mac && gpu < 8) {
+        mediaTone = 'wait';
+        mediaLine = 'Light edits can work. A long 4K timeline wants a bigger card.';
+      } else if (storage < 1000) {
+        mediaTone = 'wait';
+        mediaLine = 'The disk is small for a real library. Plan a second disk.';
+      }
+      add({
+        id: 'media', name: 'Media', tone: mediaTone, summary: mediaLine,
+        get: 'A player (Jellyfin or Plex) and CMR hard drives for the files. The system and the player database go on an SSD.',
+        how: 'One SSD for the system. One or more CMR disks for the library. Start with one disk you can fill, then add a second copy somewhere else.',
+        look: 'CMR on the datasheet. Red Plus, Red Pro, IronWolf, or an enterprise CMR disk. Not Purple. Not a sticker that only says Red.',
+        compat: 'The player and the files should be on the same machine or a fast path inside the house. Do not open the admin page to the internet.',
+        buy: [
+          { name: 'Jellyfin', detail: 'The free player.', href: 'https://jellyfin.org/downloads/' },
+          { name: 'Plex install', detail: 'The official install note.', href: 'https://support.plex.tv/articles/200288586-installation/' }
+        ],
+        keys: ['plex', 'jellyfin', 'arr', 'prowlarr', 'sonarr', 'radarr']
+      });
+    }
+    if (hasJob(a, 'ai') || hasJob(a, 'learn')) {
+      var aiTone = 'go';
+      var aiLine = 'Local chat fits this computer if you start with a small model.';
+      if (mac) {
+        if (ram < 16) { aiTone = 'stop'; aiLine = 'Under 16 GB of unified memory, skip a local chat model.'; }
+        else if (ram < 32) { aiTone = 'wait'; aiLine = 'A small 7B model can run if the Mac is quiet.'; }
+      } else if (gpu < 6) {
+        aiTone = 'stop';
+        aiLine = 'Under about 6 GB of card memory, do not plan on a useful chat model on the card.';
+      } else if (gpu < 8) {
+        aiTone = 'wait';
+        aiLine = 'A 7B model at 4-bit can fit. Leave the bigger models for later.';
+      }
+      add({
+        id: 'ai', name: 'AI', tone: aiTone, summary: aiLine,
+        get: 'Ollama, then one model that fits the card. OtaconsKeep Lite only on Windows or Ubuntu, after chat already answers.',
+        how: 'One model first. A 4-bit 7B model wants about 6 GB. Do not download three models on the first day.',
+        look: 'The size in the model name, and the card memory. Q4 is the smaller copy. Temperature and the system prompt do not add memory.',
+        compat: 'One heavy job at a time. A game and a model fight over the same card. A Mac does not use CUDA guides.',
+        buy: [
+          { name: 'Ollama', detail: 'The chat runtime.', href: 'https://ollama.com/download' },
+          { name: 'Ollama library', detail: 'Models you can pull. Match the size to the card.', href: 'https://ollama.com/library' }
+        ],
+        keys: ['ollama', 'adam', 'softmax', 'modelfile', 'gpu', 'otaconskeep', 'premium', 'piper', 'sampling']
+      });
+    }
+    if (hasJob(a, 'games')) {
+      var gameTone = 'go';
+      var gameLine = 'This desk can be the game machine.';
+      if (a.role === 'server') {
+        gameTone = 'stop';
+        gameLine = 'A closet server is the wrong box for games. Play on a desk.';
+      } else if (a.side === 'linux' && a.games === 'aaa') {
+        gameTone = 'wait';
+        gameLine = 'New anti-cheat games may refuse Linux. Check the game before you blame the card.';
+      } else if (mac) {
+        gameTone = 'wait';
+        gameLine = 'Some PC games have no Mac version. Anti-cheat games often do not show up here.';
+      } else if (!mac && gpu < 4) {
+        gameTone = 'wait';
+        gameLine = 'This card is for older games at low settings.';
+      }
+      add({
+        id: 'games', name: 'Games', tone: gameTone, summary: gameLine,
+        get: a.side === 'linux' ? 'Steam, then Valve Proton. The NVIDIA image only if the card is NVIDIA.' : 'Steam or the store the game comes from. Proton is for Linux, not for this Windows or Mac desk.',
+        how: 'Install one store. Try one game. Add a second store later.',
+        look: 'ProtonDB and AreWeAntiCheatYet for a Linux game. The card memory for the settings you want.',
+        compat: 'Proton does not add video memory. Kernel anti-cheat stays on Windows.',
+        buy: [
+          { name: 'ProtonDB', detail: 'Crowd reports. Read the date.', href: 'https://www.protondb.com/' },
+          { name: 'AreWeAntiCheatYet', detail: 'Which games have no Linux path.', href: 'https://areweanticheatyet.com/' }
+        ],
+        keys: ['proton', 'driver', 'bazzite', 'nouveau']
+      });
+    }
+    if (hasJob(a, 'smart') || a.role === 'server' || a.role === 'both') {
+      add({
+        id: 'network', name: 'Network', tone: 'go', summary: 'Keep admin pages on the house network. Split guests and cameras when you are ready.',
+        get: 'A gateway you already understand, then a managed switch only on links that carry more than one VLAN.',
+        how: 'Four names on paper: people, servers, cameras, guests. One VLAN number each.',
+        look: 'PoE watts if a camera or access point needs power from the switch. The total budget is not max-per-port times every port.',
+        compat: 'An unmanaged switch must not sit on a trunk. Do not forward Proxmox, the NAS, or Home Assistant to the internet.',
+        buy: [
+          { name: 'UDM Pro tech specs', detail: 'What that gateway lists today. Read the page for the unit you buy.', href: 'https://techspecs.ui.com/unifi/cloud-gateways/udm-pro' }
+        ],
+        keys: ['vlan', 'poe', 'lacp', 'home assistant', 'switch', 'load balancing']
+      });
+    }
+    if (hasJob(a, 'files') || storage >= 4000) {
+      add({
+        id: 'storage', name: 'Storage', tone: storage >= 1000 ? 'go' : 'wait',
+        summary: storage >= 4000 ? 'The disk pile is big enough to treat as its own job.' : 'You asked for files. Give them a disk that is not the only copy.',
+        get: 'An SSD for the system. CMR disks for the pile. A second copy of anything you would cry about.',
+        how: 'One mirror or one extra disk is the start. A second location is the backup.',
+        look: 'CMR in the datasheet. NAS-rated if the disks sit in a multi-bay box.',
+        compat: 'A RAID light is not an off-site backup. M.2 is a shape. Read whether the slot is SATA or NVMe.',
+        buy: [
+          { name: 'WD Red, SMR and CMR', detail: 'Western Digital’s own split.', href: 'https://support-en.wd.com/app/answers/detailweb/a_id/29458' }
+        ],
+        keys: ['nas', 'cmr', 'smr', 'm.2']
+      });
+    }
+    if (!topics.length) {
+      add({
+        id: 'learn', name: 'Learning', tone: 'go', summary: 'Start with the system this build named. Add one app after it boots.',
+        get: 'The operating system from the steps above, then one app.',
+        how: 'One install. One reboot. One app.',
+        look: 'The official download for that app. Skip a random script.',
+        compat: 'Do not open an admin page to the internet while you are still learning the buttons.',
+        buy: [{ name: 'Ollama', detail: 'A calm first app if this desk will try local chat.', href: 'https://ollama.com/download' }],
+        keys: []
+      });
+    }
+    var extras = [];
+    if (storage < 4000) {
+      extras.push({
+        name: 'NAS',
+        summary: 'A separate disk shelf, when the library outgrows the computer.',
+        get: 'A small always-on box, or a bay in the server, plus CMR disks.',
+        how: 'Two disks is the smallest mirror. More disks come later.',
+        look: 'CMR, and a bay count you will actually fill.',
+        compat: 'The NAS holds files. It is not the game desk and not the chat card.',
+        buy: [{ name: 'WD CMR note', detail: 'How to tell the recording type.', href: 'https://support-en.wd.com/app/answers/detailweb/a_id/50697' }]
+      });
+    }
+    extras.push({
+      name: 'UPS',
+      summary: 'A battery so a power blink does not cut a disk write.',
+      get: 'A standby UPS sized for the computer and the disk shelf, not for the whole house.',
+      how: 'One UPS for the server or the NAS. The desk can wait.',
+      look: 'The VA or watt number, and enough outlets for the computer and the disks.',
+      compat: 'The UPS talks to the computer only if you install the vendor tool. A battery alone still gives you time to shut down.',
+      buy: []
+    });
+    if (a.role === 'everyday') {
+      extras.push({
+        name: 'Managed switch',
+        summary: 'Only when one cable must carry more than one network.',
+        get: 'A small smart switch. Unmanaged is fine for a single flat network.',
+        how: 'One switch. Label the ports.',
+        look: 'VLAN support, and PoE only if a camera or access point needs it.',
+        compat: 'Do not plug a trunk into an unmanaged switch.',
+        buy: []
+      });
+    }
+    return { topics: topics, extras: extras };
+  }
+
   function mount(rootEl) {
     var answers = {};
     var index = 0;
@@ -1466,6 +1715,260 @@
       }
     }
 
+    function claimLessons(report, topics) {
+      var pool = (report.plan.lessons || []).concat(report.plan.advanced || []);
+      var used = {};
+      topics.forEach(function (topic) {
+        topic.lessons = [];
+        pool.forEach(function (item, index) {
+          if (used[index]) return;
+          var title = String(item.title || '').toLowerCase();
+          var hit = (topic.keys || []).some(function (key) { return title.indexOf(key) !== -1; });
+          if (hit) {
+            used[index] = true;
+            topic.lessons.push(item);
+          }
+        });
+      });
+    }
+
+    function detailBlock(item) {
+      var box = el('div', '');
+      box.appendChild(el('p', '', 'What to get. ' + item.get));
+      box.appendChild(el('p', '', 'How much. ' + item.how));
+      box.appendChild(el('p', '', 'What to look for. ' + item.look));
+      box.appendChild(el('p', '', 'Compatibility. ' + item.compat));
+      if (item.buy && item.buy.length) {
+        var ul = document.createElement('ul');
+        item.buy.forEach(function (link) {
+          var li = document.createElement('li');
+          var anchor = document.createElement('a');
+          anchor.href = link.href;
+          anchor.textContent = link.name;
+          anchor.target = '_blank';
+          anchor.rel = 'noopener';
+          li.appendChild(anchor);
+          if (link.detail) li.appendChild(document.createTextNode('. ' + link.detail));
+          ul.appendChild(li);
+        });
+        box.appendChild(ul);
+      }
+      (item.lessons || []).forEach(function (lesson) {
+        box.appendChild(lessonSection(lesson));
+      });
+      return box;
+    }
+
+    function moreButton(item) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'btn btn-ghost';
+      button.textContent = 'I need more detail';
+      var open = false;
+      var slot = el('div', '');
+      button.addEventListener('click', function () {
+        open = !open;
+        slot.textContent = '';
+        if (open) slot.appendChild(detailBlock(item));
+      });
+      var wrap = el('div', '');
+      wrap.appendChild(button);
+      wrap.appendChild(slot);
+      return wrap;
+    }
+
+    function fillSelect(select, list) {
+      var blank = document.createElement('option');
+      blank.value = '';
+      blank.textContent = 'Choose';
+      select.appendChild(blank);
+      list.forEach(function (item) {
+        var option = document.createElement('option');
+        option.value = item.id;
+        option.textContent = item.name;
+        select.appendChild(option);
+      });
+    }
+
+    function priceBlock(notes) {
+      var box = el('div', '');
+      var checked = notes && notes.checked ? notes.checked : 'the links below';
+      box.appendChild(el('p', '', 'This month’s prices live on the source sites. This page does not invent a dollar amount. The links were confirmed ' + checked + '.'));
+      var sources = (notes && notes.prices && notes.prices.sources) || [
+        { name: 'Jawa', href: 'https://www.jawa.gg/', detail: 'Used graphics cards and used whole PCs.' },
+        { name: 'PCPartPicker', href: 'https://pcpartpicker.com/', detail: 'New parts and a running total.' }
+      ];
+      var ul = document.createElement('ul');
+      sources.forEach(function (link) {
+        var li = document.createElement('li');
+        var anchor = document.createElement('a');
+        anchor.href = link.href;
+        anchor.textContent = link.name;
+        anchor.target = '_blank';
+        anchor.rel = 'noopener';
+        li.appendChild(anchor);
+        if (link.detail) li.appendChild(document.createTextNode('. ' + link.detail));
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+      var builds = (notes && notes.prices && notes.prices.builds) || [];
+      builds.forEach(function (build) {
+        box.appendChild(el('p', '', build.name + '. ' + build.for + ' ' + build.parts + ' ' + build.check));
+      });
+      var ltt = (notes && notes.ltt) || [];
+      if (ltt.length) {
+        box.appendChild(el('p', '', 'Recent Linus Tech Tips videos. Background notes, not a shopping list.'));
+        var videos = document.createElement('ul');
+        ltt.slice(0, 3).forEach(function (video) {
+          var li = document.createElement('li');
+          var anchor = document.createElement('a');
+          anchor.href = video.href;
+          anchor.textContent = video.title;
+          anchor.target = '_blank';
+          anchor.rel = 'noopener';
+          li.appendChild(anchor);
+          videos.appendChild(li);
+        });
+        box.appendChild(videos);
+      }
+      return box;
+    }
+
+    function pcPanel() {
+      var box = el('div', '');
+      box.appendChild(el('p', '', 'Pick one part in each row. Green means the pair fits. Yellow means check one limit. Red means do not buy that pair.'));
+      var form = el('div', 'wiz-form');
+      var fields = [
+        ['cpu', 'Processor', PARTS.cpu],
+        ['board', 'Motherboard', PARTS.board],
+        ['ram', 'Memory', PARTS.ram],
+        ['gpu', 'Graphics card', PARTS.gpu],
+        ['psu', 'Power supply', PARTS.psu],
+        ['case', 'Case', PARTS.case]
+      ];
+      var selects = {};
+      fields.forEach(function (field) {
+        var label = document.createElement('label');
+        label.appendChild(document.createTextNode(field[1]));
+        var select = document.createElement('select');
+        fillSelect(select, field[2]);
+        selects[field[0]] = select;
+        label.appendChild(select);
+        form.appendChild(label);
+      });
+      box.appendChild(form);
+      var result = el('div', '');
+      var check = document.createElement('button');
+      check.type = 'button';
+      check.className = 'btn btn-primary';
+      check.textContent = 'Check compatibility';
+      check.addEventListener('click', function () {
+        var picks = {};
+        Object.keys(selects).forEach(function (key) { picks[key] = selects[key].value; });
+        var report = checkParts(picks);
+        result.textContent = '';
+        var banner = el('div', 'wiz-check ' + report.tone);
+        var word = report.tone === 'go' ? 'Fits' : (report.tone === 'stop' ? 'Does not fit' : 'Check one limit');
+        banner.appendChild(el('strong', '', word));
+        report.lines.forEach(function (line) {
+          var text = typeof line === 'string' ? line : line.text;
+          var tone = typeof line === 'string' ? report.tone : line.tone;
+          var row = el('p', '', text);
+          if (tone === 'stop') row.style.color = '#ef5f6b';
+          else if (tone === 'wait') row.style.color = '#e0a83c';
+          else row.style.color = '#43d98a';
+          banner.appendChild(row);
+        });
+        result.appendChild(banner);
+      });
+      box.appendChild(check);
+      box.appendChild(result);
+      var prices = document.createElement('button');
+      prices.type = 'button';
+      prices.className = 'btn btn-ghost';
+      prices.textContent = 'This month’s prices';
+      var priceSlot = el('div', '');
+      var priceOpen = false;
+      prices.addEventListener('click', function () {
+        priceOpen = !priceOpen;
+        priceSlot.textContent = '';
+        if (priceOpen) priceSlot.appendChild(priceBlock(notes));
+      });
+      box.appendChild(prices);
+      box.appendChild(priceSlot);
+      return box;
+    }
+
+    function renderShop(report) {
+      var board = topicBoard(answers);
+      claimLessons(report, board.topics);
+      var wrap = el('section', 'wiz-block');
+      wrap.appendChild(el('h3', '', 'Open a topic'));
+      wrap.appendChild(el('p', '', 'Green fits this build. Yellow has a limit. Red does not fit. Tap one. The rest stays closed.'));
+      var row = el('div', 'wiz-topics');
+      var panel = el('div', 'wiz-panel');
+      var notes = null;
+      var buttons = [];
+      function show(button, node) {
+        buttons.forEach(function (other) { other.classList.remove('is-on'); });
+        button.classList.add('is-on');
+        panel.textContent = '';
+        panel.appendChild(node);
+      }
+      board.topics.forEach(function (topic) {
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'wiz-topic ' + topic.tone;
+        var strong = document.createElement('strong');
+        strong.textContent = topic.name;
+        button.appendChild(strong);
+        button.addEventListener('click', function () {
+          var node = el('div', '');
+          node.appendChild(el('p', '', topic.summary));
+          node.appendChild(moreButton(topic));
+          show(button, node);
+        });
+        buttons.push(button);
+        row.appendChild(button);
+      });
+      var extra = document.createElement('button');
+      extra.type = 'button';
+      extra.className = 'wiz-topic wait';
+      extra.appendChild(el('strong', '', 'Consider adding'));
+      extra.addEventListener('click', function () {
+        var node = el('div', '');
+        board.extras.forEach(function (item) {
+          node.appendChild(el('p', '', item.name + '. ' + item.summary));
+          node.appendChild(moreButton(item));
+        });
+        show(extra, node);
+      });
+      buttons.push(extra);
+      row.appendChild(extra);
+      var pc = document.createElement('button');
+      pc.type = 'button';
+      pc.className = 'wiz-topic';
+      pc.appendChild(el('strong', '', 'I want to build a PC'));
+      pc.addEventListener('click', function () {
+        var node = el('div', '');
+        node.appendChild(el('p', '', 'Six parts. The checker tells you if they belong together. Then open a price source. Do not buy from a number this page made up.'));
+        node.appendChild(pcPanel());
+        show(pc, node);
+      });
+      buttons.push(pc);
+      row.appendChild(pc);
+      wrap.appendChild(row);
+      wrap.appendChild(panel);
+      if (typeof fetch === 'function') {
+        fetch('/classroom/modules/00-pick-your-lab/lab-notes.json').then(function (response) {
+          return response.ok ? response.json() : null;
+        }).then(function (data) {
+          notes = data;
+        }).catch(function () { notes = null; });
+      }
+      return wrap;
+    }
+
     function drawResult() {
       var report = explain(answers);
       var profile = report.profile;
@@ -1480,40 +1983,7 @@
       rootEl.appendChild(section('Use this', [report.plan.use]));
       rootEl.appendChild(listSection('Set it up', report.plan.setup));
       rootEl.appendChild(listSection('How to build it', report.plan.path));
-      rootEl.appendChild(section('OtaconsKeep on this build', [report.plan.keep]));
-      (report.plan.lessons || []).forEach(function (item) {
-        rootEl.appendChild(lessonSection(item));
-      });
-      if (report.plan.advanced && report.plan.advanced.length) {
-        rootEl.appendChild(el('p', 'wiz-progress', 'Advanced layer'));
-        rootEl.appendChild(el('h2', 'wiz-title', 'The deep build'));
-        rootEl.appendChild(el('p', 'wiz-hint', 'Proton, drivers, the network, the disks, the GPU, then how a prompt and the sampling knobs shape an answer, then how training changes the weights. Read one lesson, do that piece, then the next.'));
-        report.plan.advanced.forEach(function (item) {
-          rootEl.appendChild(lessonSection(item));
-        });
-      }
-      if (report.plan.now.length) {
-        rootEl.appendChild(listSection('What you can run', report.plan.now));
-      }
-      if (report.plan.later.length) {
-        rootEl.appendChild(listSection('What it can grow into', report.plan.later));
-      }
-      rootEl.appendChild(listSection('What this build is good at', profile.good));
-      rootEl.appendChild(listSection('What this build should not pretend to be', profile.poor));
-      rootEl.appendChild(section('Memory', [hw.ram]));
-      rootEl.appendChild(section('Graphics', [hw.gpuLabel + '. ' + hw.games]));
-      rootEl.appendChild(section('Photos', [hw.photos]));
-      rootEl.appendChild(section('Video', [hw.video]));
-      rootEl.appendChild(section('AI models', [hw.models]));
-      rootEl.appendChild(section('Storage', [hw.storage]));
-      rootEl.appendChild(section('Money', [hw.budget]));
-      rootEl.appendChild(listSection('Do this first', profile.first));
-      rootEl.appendChild(section('The next doll', [profile.next]));
-      if (report.others.length) {
-        rootEl.appendChild(listSection('The other builds inside your side', report.others.map(function (item) {
-          return item.name + ' — ' + item.plain;
-        })));
-      }
+      rootEl.appendChild(renderShop(report));
       var again = document.createElement('button');
       again.type = 'button';
       again.className = 'btn btn-primary wiz-back';
@@ -1617,6 +2087,8 @@
     stepsFor: stepsFor,
     flavorChoices: flavorChoices,
     explain: explain,
+    topicBoard: topicBoard,
+    checkParts: checkParts,
     mount: mount
   };
 });
