@@ -96,55 +96,75 @@ button.wiz-node.is-on { border-color: var(--accent-bright, var(--accent)); backg
   border-bottom-left-radius: 10px;
 }
 .wiz-level { font-family: 'JetBrains Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-bright); font-size: .72rem; margin: 0 0 8px; }
-.wiz-crumb { margin: 0 0 14px; }
-.wiz-crumb-btn { background: none; border: 0; color: var(--accent-bright); cursor: pointer; font: inherit; padding: 0; }
-.wiz-org { text-align: center; margin-top: 8px; }
-.wiz-tile, .wiz-org > .wiz-tile {
-  display: inline-block;
-  min-width: 160px;
-  padding: 14px 16px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
-}
-.wiz-org > .wiz-tile.is-now { border-color: #43d98a; }
-.wiz-org-line { width: 2px; height: 16px; background: #43d98a; margin: 0 auto; }
-.wiz-org-kids {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  position: relative;
-  padding-top: 16px;
-}
-.wiz-org-kids::before {
+.wiz-stage { overflow-x: auto; max-width: 100%; padding-bottom: 12px; }
+.wiz-col { display: flex; flex-direction: column; align-items: center; position: relative; }
+.wiz-col.is-dim { opacity: 0.4; }
+.wiz-stem { width: 2px; height: 14px; background: #43d98a; }
+.wiz-col.is-on-path > .wiz-stem { width: 3px; }
+.wiz-row { display: flex; justify-content: center; align-items: flex-start; gap: 8px; position: relative; padding-top: 14px; }
+.wiz-row.is-many::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 18%;
-  right: 18%;
+  left: 48px;
+  right: 48px;
   height: 2px;
   background: #43d98a;
 }
+.wiz-row.is-many > .wiz-col::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 2px;
+  height: 14px;
+  background: #43d98a;
+}
+.wiz-row.is-one::before, .wiz-row.is-one > .wiz-col::before { content: none; }
 button.wiz-tile {
-  position: relative;
+  display: block;
+  min-width: 104px;
+  max-width: 168px;
+  padding: 12px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
   color: inherit;
   cursor: pointer;
   font: inherit;
   text-align: center;
-  flex: 1 1 140px;
-  max-width: 200px;
 }
-button.wiz-tile::before {
-  content: '';
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  width: 2px;
-  height: 16px;
-  background: #43d98a;
+button.wiz-tile.is-on { border-color: #43d98a; }
+button.wiz-tile.is-tip { border-width: 2px; box-shadow: 0 0 0 1px #43d98a; }
+button.wiz-tile strong { display: block; font-size: .95rem; letter-spacing: .04em; text-transform: uppercase; }
+.wiz-col.is-dim > button.wiz-tile { min-width: 88px; padding: 8px; }
+.wiz-node-line { max-width: 18rem; margin: 8px 0 0; }
+.wiz-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 22rem; margin-top: 4px; }
+.wiz-chip {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: inherit;
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font: inherit;
 }
-button.wiz-tile strong { display: block; font-size: 1rem; letter-spacing: .04em; text-transform: uppercase; }
+.wiz-chip.is-on { border-color: #43d98a; }
+.wiz-drawer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  max-height: 52vh;
+  overflow: auto;
+  text-align: left;
+  padding: 16px 16px 24px;
+  background: var(--surface);
+  border-top: 2px solid #43d98a;
+  box-shadow: 0 -16px 40px rgba(0, 0, 0, .35);
+}
+.wiz-drawer .wiz-title { font-size: 1.3rem; margin-top: 8px; }
 .wiz-card {
   max-width: 40rem;
   margin: 8px auto 0;
@@ -152,22 +172,7 @@ button.wiz-tile strong { display: block; font-size: 1rem; letter-spacing: .04em;
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 16px;
-  background: var(--surface);
-}
-.wiz-card .wiz-title { font-size: 1.4rem; }
-.wiz-disclose {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 8px;
-  padding: 12px 12px;
-  border: 0;
-  border-top: 1px solid var(--line);
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-  text-align: left;
+  background: var(--bg, transparent);
 }
 .wiz-study { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .92rem; }
 .wiz-study th, .wiz-study td { border-bottom: 1px solid var(--line); padding: 8px 6px; text-align: left; vertical-align: top; }

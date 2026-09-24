@@ -2462,7 +2462,8 @@
 
     function drawResult() {
       var report = explain(answers);
-      var path = [labBreakdown(answers, report)];
+      var root = labBreakdown(answers, report);
+      var openIds = [root.id];
       var focus = null;
 
       function paintLines(parent, lines) {
@@ -2530,124 +2531,167 @@
         }[level] || level;
       }
 
+      function samePath(a, b) {
+        if (a.length !== b.length) return false;
+        for (var i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+        return true;
+      }
+
+      function isPrefix(prefix, full) {
+        if (full.length < prefix.length) return false;
+        for (var i = 0; i < prefix.length; i++) if (full[i] !== prefix[i]) return false;
+        return true;
+      }
+
+      function heroOrder(children, parentIds) {
+        var active = -1;
+        children.forEach(function (child, index) {
+          if (openIds[parentIds.length] === child.id) active = index;
+        });
+        if (active < 0) return children;
+        var rest = children.filter(function (_, index) { return index !== active; });
+        var mid = Math.floor(rest.length / 2);
+        return rest.slice(0, mid).concat([children[active]], rest.slice(mid));
+      }
+
+      function usable(item) {
+        return item && ((item.lines && item.lines.length) || item.panel || item.study);
+      }
+
+      function drawerGroups(node) {
+        var groups = { why: [], how: [], study: [], buy: [], details: [] };
+        (node.sections || []).forEach(function (item) {
+          if (!usable(item)) return;
+          var name = String(item.name || '').toLowerCase();
+          if (item.study || name.indexOf('trade') !== -1) groups.study.push(item);
+          else if (name.indexOf('buy') !== -1 || name.indexOf('where') !== -1) groups.buy.push(item);
+          else if (item.panel || name.indexOf('how') !== -1 || name.indexOf('install') !== -1 || name.indexOf('connect') !== -1) groups.how.push(item);
+          else if (name.indexOf('requirement') !== -1 || name.indexOf('hardware') !== -1 || name.indexOf('fit') !== -1) groups.details.push(item);
+          else groups.why.push(item);
+        });
+        return [
+          groups.why.length && { key: 'why', name: 'Why', items: groups.why },
+          groups.how.length && { key: 'how', name: 'How', items: groups.how },
+          groups.study.length && { key: 'study', name: 'Trade study', items: groups.study },
+          groups.details.length && { key: 'details', name: 'Details', items: groups.details },
+          groups.buy.length && { key: 'buy', name: 'Buy', items: groups.buy }
+        ].filter(Boolean);
+      }
+
+      function renderDrawer(group) {
+        var box = el('aside', 'wiz-drawer');
+        var close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'btn btn-ghost wiz-back';
+        close.textContent = 'Close';
+        close.addEventListener('click', function () {
+          focus = null;
+          paint();
+        });
+        box.appendChild(close);
+        box.appendChild(el('h2', 'wiz-title', group.name));
+        group.items.forEach(function (item) {
+          if (item.study) {
+            box.appendChild(paintStudy(item.study));
+          } else if (item.panel === 'build') {
+            box.appendChild(el('p', '', 'Six kinds of part, one block at a time. Prices are last, and they come from the seller.'));
+            box.appendChild(pcPanel());
+          } else {
+            if (group.items.length > 1) box.appendChild(el('h3', '', item.name));
+            paintLines(box, item.lines);
+          }
+        });
+        return box;
+      }
+
+      function renderCol(node, ids) {
+        var onPath = isPrefix(ids, openIds);
+        var tip = samePath(ids, openIds);
+        var col = el('div', 'wiz-col' + (onPath ? ' is-on-path' : ''));
+        var tile = document.createElement('button');
+        tile.type = 'button';
+        tile.className = 'wiz-tile' + (onPath ? ' is-on' : '') + (tip ? ' is-tip' : '');
+        tile.appendChild(el('span', 'wiz-level', levelStamp(node.level)));
+        tile.appendChild(el('strong', '', node.title));
+        tile.addEventListener('click', function () {
+          focus = null;
+          if (samePath(ids, openIds)) {
+            if (ids.length > 1) openIds = ids.slice(0, -1);
+          } else if (isPrefix(ids, openIds)) {
+            openIds = ids.length === 1 ? ids.slice() : ids.slice(0, -1);
+          } else {
+            openIds = ids.slice();
+          }
+          paint();
+        });
+        col.appendChild(tile);
+        if (onPath && node.children && node.children.length) {
+          col.appendChild(el('div', 'wiz-stem'));
+          var kids = heroOrder(node.children, ids);
+          var row = el('div', 'wiz-row' + (kids.length > 1 ? ' is-many' : ' is-one'));
+          kids.forEach(function (child) {
+            var childIds = ids.concat([child.id]);
+            var active = openIds.length > ids.length && openIds[ids.length] === child.id;
+            var wrap = renderCol(child, childIds);
+            if (openIds.length > ids.length && !active) wrap.className += ' is-dim';
+            row.appendChild(wrap);
+          });
+          col.appendChild(row);
+        }
+        if (tip && (!node.children || !node.children.length)) {
+          if (node.picked) col.appendChild(el('p', 'wiz-level', 'Picked'));
+          if (node.line) col.appendChild(el('p', 'wiz-node-line', node.line));
+          var groups = drawerGroups(node);
+          if (groups.length) {
+            col.appendChild(el('div', 'wiz-stem'));
+            var actions = el('div', 'wiz-actions');
+            groups.forEach(function (group) {
+              var chip = document.createElement('button');
+              chip.type = 'button';
+              chip.className = 'wiz-chip' + (focus && focus.key === group.key ? ' is-on' : '');
+              chip.textContent = group.name + ' >';
+              chip.addEventListener('click', function () {
+                focus = focus && focus.key === group.key ? null : group;
+                paint();
+              });
+              actions.appendChild(chip);
+            });
+            col.appendChild(actions);
+          }
+        }
+        return col;
+      }
+
       function paint() {
         rootEl.innerHTML = '';
-        var node = path[path.length - 1];
-        var crumb = el('p', 'wiz-crumb');
-        path.forEach(function (item, index) {
-          if (index) crumb.appendChild(document.createTextNode(' > '));
-          var jump = document.createElement('button');
-          jump.type = 'button';
-          jump.className = 'wiz-crumb-btn';
-          jump.textContent = item.title;
-          jump.addEventListener('click', function () {
-            path = path.slice(0, index + 1);
-            focus = null;
-            paint();
-          });
-          crumb.appendChild(jump);
-        });
-        rootEl.appendChild(crumb);
-        if (focus) {
-          var screen = el('section', 'wiz-card');
-          screen.appendChild(el('p', 'wiz-level', focus.study ? 'Trade study' : 'Answer'));
-          screen.appendChild(el('h2', 'wiz-title', focus.name));
-          if (focus.study) {
-            rootEl.appendChild(paintStudy(focus.study));
-          } else if (focus.panel === 'build') {
-            screen.appendChild(el('p', '', 'Six kinds of part, one block at a time. Prices are last, and they come from the seller.'));
-            screen.appendChild(pcPanel());
-            rootEl.appendChild(screen);
-          } else {
-            paintLines(screen, focus.lines);
-            rootEl.appendChild(screen);
-          }
-          var backFocus = document.createElement('button');
-          backFocus.type = 'button';
-          backFocus.className = 'btn btn-ghost wiz-back';
-          backFocus.textContent = 'Back';
-          backFocus.addEventListener('click', function () {
-            focus = null;
-            paint();
-          });
-          rootEl.appendChild(backFocus);
-          return;
-        }
-        rootEl.appendChild(el('p', 'wiz-level', levelStamp(node.level)));
-        if (node.children && node.children.length) {
-          var org = el('div', 'wiz-org');
-          var parent = el('div', 'wiz-tile is-now');
-          parent.appendChild(el('strong', '', node.title));
-          org.appendChild(parent);
-          org.appendChild(el('div', 'wiz-org-line'));
-          var kids = el('div', 'wiz-org-kids');
-          node.children.forEach(function (child) {
-            var tile = document.createElement('button');
-            tile.type = 'button';
-            tile.className = 'wiz-tile';
-            tile.appendChild(el('span', 'wiz-level', levelStamp(child.level)));
-            tile.appendChild(el('strong', '', child.title));
-            tile.addEventListener('click', function () {
-              path.push(child);
-              focus = null;
-              paint();
-            });
-            kids.appendChild(tile);
-          });
-          org.appendChild(kids);
-          rootEl.appendChild(org);
-        } else {
-          var card = el('section', 'wiz-card');
-          card.appendChild(el('h2', 'wiz-title', node.title));
-          if (node.picked) card.appendChild(el('p', 'wiz-level', 'Picked'));
-          if (node.line) card.appendChild(el('p', '', node.line));
-          (node.sections || []).forEach(function (item) {
-            if (!item) return;
-            if (!(item.lines && item.lines.length) && !item.panel && !item.study) return;
-            var row = document.createElement('button');
-            row.type = 'button';
-            row.className = 'wiz-disclose';
-            row.appendChild(el('span', '', item.name));
-            row.appendChild(el('span', '', '>'));
-            row.addEventListener('click', function () {
-              focus = item;
-              paint();
-            });
-            card.appendChild(row);
-          });
-          rootEl.appendChild(card);
-        }
-        if (path.length > 1) {
+        var stage = el('div', 'wiz-stage');
+        stage.appendChild(renderCol(root, [root.id]));
+        rootEl.appendChild(stage);
+        if (focus) rootEl.appendChild(renderDrawer(focus));
+        if (openIds.length > 1) {
           var up = document.createElement('button');
           up.type = 'button';
           up.className = 'btn btn-ghost wiz-back';
           up.textContent = 'Back';
           up.addEventListener('click', function () {
-            path.pop();
             focus = null;
+            openIds = openIds.slice(0, -1);
             paint();
           });
           rootEl.appendChild(up);
         }
-      var again = document.createElement('button');
-      again.type = 'button';
-      again.className = 'btn btn-primary wiz-back';
-      again.textContent = 'Start over';
-      again.addEventListener('click', function () {
-        answers = {};
-        index = 0;
-        draw();
-      });
-      rootEl.appendChild(again);
-      var back = document.createElement('button');
-      back.type = 'button';
-      back.className = 'btn btn-ghost wiz-back';
-      back.textContent = 'Change the last layer';
-      back.addEventListener('click', function () {
-        index = Math.max(0, stepsFor(answers).length - 1);
-        draw();
-      });
-      rootEl.appendChild(back);
+        var again = document.createElement('button');
+        again.type = 'button';
+        again.className = 'btn btn-primary wiz-back';
+        again.textContent = 'Start over';
+        again.addEventListener('click', function () {
+          answers = {};
+          index = 0;
+          draw();
+        });
+        rootEl.appendChild(again);
+        var tip = rootEl.querySelector('.is-tip');
+        if (tip && openIds.length > 1) tip.scrollIntoView({ block: 'center', inline: 'center' });
       }
       paint();
     }
@@ -2752,7 +2796,7 @@
 
   function osLeaf(report, level) {
     var plan = report.plan;
-    var card = leaf('os', level || 'L4', report.profile.name, report.pick === 'proxmox'
+    var card = leaf('os', level || 'L5', report.pick === 'proxmox' ? 'Proxmox VE' : report.profile.name, report.pick === 'proxmox'
       ? 'Runs the virtual computers in your lab.'
       : report.profile.plain, [
       note('Why we picked it', [report.because, report.labLine]),
@@ -2812,84 +2856,101 @@
     var wantDesk = a.role !== 'server' || a.role === 'both' || !serverPick;
     if (a.role === 'server' && serverPick) wantDesk = false;
     if (a.role === 'everyday' && !serverPick && pick !== 'maclab') wantServer = false;
+    function nest(id, title, product) {
+      product.level = 'L5';
+      return branch(id, 'L4', title, [product]);
+    }
     var computeKids = [];
-    var os = osLeaf(report, pick === 'proxmox' ? 'L5' : 'L4');
+    var os = osLeaf(report, 'L5');
     var osOnServer = serverPick || a.role === 'server';
-    var serverOs = osOnServer
-      ? (pick === 'proxmox' ? branch('hypervisor', 'L4', 'Hypervisor', [os]) : os)
-      : leaf('server-os', 'L4', 'Server system', report.labLine || 'A second computer that stays on.', []);
     if (wantServer) {
       computeKids.push(branch('server', 'L3', 'Server', [
-        serverOs,
-        leaf('hardware', 'L4', 'Hardware', 'The memory, disks, and case this server needs.', [
+        osOnServer
+          ? nest(pick === 'proxmox' ? 'hypervisor' : 'host', pick === 'proxmox' ? 'Hypervisor' : 'Host', os)
+          : nest('host', 'Host', leaf('server-os', 'L5', 'Server system', report.labLine || 'A second computer that stays on.', [])),
+        nest('hardware', 'Hardware', leaf('parts', 'L5', 'Parts', 'The memory, disks, and case this server needs.', [
           note('Hardware requirements', [report.hardware.ram, report.hardware.storage, report.hardware.gpuLabel]),
           { name: 'Help me build the hardware', lines: [], panel: 'build' }
-        ])
+        ]))
       ]));
     }
     if (wantDesk) {
-      computeKids.push(branch('desktop', 'L3', 'Desktop', [
-        osOnServer ? leaf('desk-os', 'L4', 'Desk system', 'The computer you sit at. It is not the server.', []) : os
-      ]));
+      var deskProduct = osOnServer
+        ? leaf('desk-os', 'L5', 'Desk system', 'The computer you sit at. It is not the server.', [])
+        : os;
+      computeKids.push(branch('desktop', 'L3', 'Desktop', [nest('desk-host', 'Host', deskProduct)]));
     }
     if (a.side !== 'mac') {
-      computeKids.push(leaf('gpu', 'L3', 'GPU', report.hardware.gpuLabel, [
-        note('Why it matters', [report.hardware.games]),
-        note('Pictures and video', [report.hardware.photos, report.hardware.video]),
-        note('Local models', [report.hardware.models]),
-        lessonNote(report, 'gpu', 'GPU classes')
+      computeKids.push(branch('gpu', 'L3', 'GPU', [
+        nest('card', 'Graphics card', leaf('gpu-pick', 'L5', 'Card', report.hardware.gpuLabel, [
+          note('Why it matters', [report.hardware.games]),
+          note('Pictures and video', [report.hardware.photos, report.hardware.video]),
+          note('Local models', [report.hardware.models]),
+          lessonNote(report, 'gpu', 'GPU classes')
+        ]))
       ]));
     }
     var subsystems = [branch('compute', 'L2', 'Compute', computeKids)];
     var storageKids = [
-      leaf('boot', 'L4', 'Boot disk', 'An SSD. The system and the apps live here.', [
-        note('Why you need it', ['The operating system and a player database belong on an SSD. A spinning disk is the wrong place for that.']),
-        note('How it connects', ['It sits in the computer that boots. M.2 is a shape, not a speed. Read whether the slot is SATA or NVMe.'])
+      branch('boot', 'L3', 'Boot', [
+        nest('ssd', 'SSD', leaf('boot-disk', 'L5', 'Boot disk', 'An SSD. The system and the apps live here.', [
+          note('Why you need it', ['The operating system and a player database belong on an SSD. A spinning disk is the wrong place for that.']),
+          note('How it connects', ['It sits in the computer that boots. M.2 is a shape, not a speed. Read whether the slot is SATA or NVMe.'])
+        ]))
       ])
     ];
     if (hasJob(a, 'movies') || hasJob(a, 'photos') || hasJob(a, 'files') || hasJob(a, 'video') || Number(a.storage) >= 4000) {
       storageKids.unshift(branch('nas', 'L3', 'NAS', [
-        leaf('drives', 'L5', 'Hard drives', 'CMR disks for the pile. The system stays on the SSD.', [
+        nest('drives', 'Hard drives', leaf('drive-pick', 'L5', 'Drive choice', 'CMR disks for the pile. The system stays on the SSD.', [
           note('Why you need it', ['The NAS holds the large files. The server or the desk runs the apps. Storage stays separate from compute.']),
           note('How it connects', ['Same house network as the desk and the TV. Share one folder. Do not forward the admin page to the internet.']),
           note('What hardware you need', ['An SSD for the NAS system. CMR hard drives for the files. Two disks is the smallest mirror. A mirror is not an off-site backup.']),
           { name: 'Trade study', lines: [], study: driveStudy(a.storage) }
-        ])
+        ]))
       ]));
     }
-    storageKids.push(leaf('backup', 'L4', 'Backup', 'A second copy somewhere else.', [
-      note('Why you need it', ['A mirror survives one disk dying. It does not survive a fire, a theft, or a delete.'])
+    storageKids.push(branch('backup', 'L3', 'Backup', [
+      nest('copy', 'Second copy', leaf('backup-copy', 'L5', 'Backup copy', 'A second copy somewhere else.', [
+        note('Why you need it', ['A mirror survives one disk dying. It does not survive a fire, a theft, or a delete.'])
+      ]))
     ]));
     subsystems.push(branch('storage', 'L2', 'Storage', storageKids));
     if (hasJob(a, 'smart') || a.role === 'server' || a.role === 'both') {
       subsystems.push(branch('network', 'L2', 'Network', [
-        leaf('router', 'L4', 'Router', 'The gateway. Replies to your traffic can come home. New traffic from the internet stays out.', [
-          note('Why you need it', ['The house already has a gateway. Keep admin pages on the house side of it.']),
-          note('How it connects', ['Do not forward Proxmox, the NAS, Remote Desktop, or Home Assistant to the internet.']),
-          lessonNote(report, 'vlan', 'LAN, WAN, and firewall')
+        branch('gateway', 'L3', 'Gateway', [
+          nest('router', 'Router', leaf('router-pick', 'L5', 'House gateway', 'Replies to your traffic can come home. New traffic from the internet stays out.', [
+            note('Why you need it', ['The house already has a gateway. Keep admin pages on the house side of it.']),
+            note('How it connects', ['Do not forward Proxmox, the NAS, Remote Desktop, or Home Assistant to the internet.']),
+            lessonNote(report, 'vlan', 'LAN, WAN, and firewall')
+          ]))
         ]),
-        leaf('switch', 'L4', 'Switch', 'A managed switch only when one cable must carry more than one network.', [
-          note('Why you need it', ['A flat network does not need one yet. It helps when people, cameras, and guests must not see each other.']),
-          note('How it connects', ['The gateway creates the networks. The switch carries them. Both ends of a trunk must agree.']),
-          lessonNote(report, 'switch', 'Layer 2, Layer 3, and PoE')
+        branch('switching', 'L3', 'Switching', [
+          nest('switch', 'Switch', leaf('switch-pick', 'L5', 'Managed switch', 'A managed switch only when one cable must carry more than one network.', [
+            note('Why you need it', ['A flat network does not need one yet. It helps when people, cameras, and guests must not see each other.']),
+            note('How it connects', ['The gateway creates the networks. The switch carries them. Both ends of a trunk must agree.']),
+            lessonNote(report, 'switch', 'Layer 2, Layer 3, and PoE')
+          ]))
         ])
       ]));
     }
     if (hasJob(a, 'ai') || hasJob(a, 'learn')) {
       subsystems.push(branch('ai', 'L2', 'AI', [
-        leaf('ollama', 'L4', 'Ollama', 'Local chat. One model that fits the memory.', [
+        branch('models', 'L3', 'Local models', [
+          nest('runtime', 'Runtime', leaf('ollama', 'L5', 'Ollama', 'Local chat. One model that fits the memory.', [
           note('Why we picked it', [report.hardware.models]),
           note('How to install it', ['Install Ollama. Pull one model. Do not download three on the first day.']),
           note('Where to get it', [{ name: 'Ollama', href: 'https://ollama.com/download', detail: 'The chat runtime.' }]),
           lessonNote(report, 'sampling', 'Sampling'),
           lessonNote(report, 'modelfile', 'Change a model'),
           lessonNote(report, 'adam', 'Adam')
+        ]))
         ])
       ]));
     }
     if (hasJob(a, 'movies') || hasJob(a, 'photos') || hasJob(a, 'video')) {
       subsystems.push(branch('media', 'L2', 'Media', [
-        leaf('player', 'L4', 'Player', 'Jellyfin or Plex. The files stay on the CMR disks.', [
+        branch('library', 'L3', 'Library', [
+          nest('player', 'Player', leaf('player-pick', 'L5', 'Jellyfin or Plex', 'The files stay on the CMR disks.', [
           note('Why you need it', ['The player serves the files. It is not the shelf.']),
           note('How it connects', ['Point it at the shared folder. The database stays on the SSD. Do not open the admin page to the internet.']),
           lessonNote(report, 'plex', 'Plex layout'),
@@ -2897,23 +2958,28 @@
             { name: 'Jellyfin', href: 'https://jellyfin.org/downloads/', detail: 'The free player.' },
             { name: 'Plex install', href: 'https://support.plex.tv/articles/200288586-installation/', detail: 'The official install note.' }
           ])
+        ]))
         ])
       ]));
     }
     if (hasJob(a, 'smart')) {
       subsystems.push(branch('smart', 'L2', 'Smart home', [
-        leaf('ha', 'L4', 'Home Assistant', 'Lights, sensors, and voice. The admin page stays in the house.', [
+        branch('control', 'L3', 'House control', [
+          nest('controller', 'Controller', leaf('ha', 'L5', 'Home Assistant', 'Lights, sensors, and voice. The admin page stays in the house.', [
           note('Why you need it', ['One place for the house devices, on a machine that stays on.']),
           lessonNote(report, 'home assistant', 'How to run it'),
           note('Where to get it', [{ name: 'Home Assistant', href: 'https://www.home-assistant.io/installation/', detail: 'The official install.' }])
+        ]))
         ])
       ]));
     }
     if (hasJob(a, 'games')) {
       var games = subsystems.filter(function (item) { return item.id === 'compute'; })[0];
-      if (games) games.children.push(leaf('games', 'L4', 'Games', report.hardware.games, [
-        lessonNote(report, 'proton', 'Proton'),
-        lessonNote(report, 'driver', 'Graphics drivers')
+      if (games) games.children.push(branch('games', 'L3', 'Games', [
+        nest('play', 'Play', leaf('game-stack', 'L5', 'Game stack', report.hardware.games, [
+          lessonNote(report, 'proton', 'Proton'),
+          lessonNote(report, 'driver', 'Graphics drivers')
+        ]))
       ]));
     }
     return branch('lab', 'L1', 'Your lab', subsystems);
