@@ -1,4 +1,4 @@
-# Lesson 07.03 — DNS, DHCP, and NAT
+# Lesson 07.03: DNS, DHCP, and NAT
 
 **Module:** Network Operations
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

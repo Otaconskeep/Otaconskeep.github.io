@@ -1,4 +1,4 @@
-# Class 41 — Sonarr Series Monitoring and Availability
+# Class 41: Sonarr Series Monitoring and Availability
 
 **Learning objective:** Differentiate monitored state from missing, available, downloaded, and cutoff-unmet states; Explain how series-, season-, and episode-level monitoring decisions affect release eligibility; Predict whether an episode is waiting for an air date, waiting for availability, missing, cutoff unmet, satisfied, or intentionally unmonitored; Explain the difference between RSS-style release processing, automatic search, and interactive search; Select monitoring policies appropriate for continuing series, completed archives, pilots, and newly added series; Audit monitoring choices without initiating downloads or changing a production Sonarr instance
 **Bloom level:** Understand / Apply

@@ -1,4 +1,4 @@
-# Class 39 — Configuration Backups and Recovery
+# Class 39: Configuration Backups and Recovery
 
 **Learning objective:** Explain why a configuration archive alone is not a complete recovery strategy.; Create a versioned configuration backup with a manifest and archive checksum.; Distinguish archive integrity, file integrity, syntax validation, and semantic validation.; Detect valid-looking configuration drift by comparing files with a trusted manifest.; Restore into a candidate directory instead of immediately overwriting the active configuration.; Promote a validated recovery candidate using same-filesystem directory renames.; Retain a pre-recovery copy and perform a controlled rollback.; Describe how retention, access control, secret handling, and restore testing affect backup reliability.
 **Bloom level:** Understand / Apply

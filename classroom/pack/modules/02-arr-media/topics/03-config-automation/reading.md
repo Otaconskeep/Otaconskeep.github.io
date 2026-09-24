@@ -1,7 +1,7 @@
-# Reading — Configuration automation
+# Reading: Configuration automation
 
-**Module:** Module 2 — ARR Media Automation  
-**Topic:** 03 — Configuration automation  
+**Module:** Module 2: ARR Media Automation  
+**Topic:** 03: Configuration automation  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Apply / Evaluate  
 **Links to outcome:** Given a known-good profile backup, the learner can choose one authoritative sync path, run dry-run/apply/rollback, and produce a drift report that matches the live apps.
@@ -70,7 +70,7 @@ The authoritative record should include:
 
 API URLs and API keys are credentials. Keep them outside tracked configuration when the tool supports environment or secret injection. Limit filesystem permissions. Rotate a key if it appears in logs, screenshots, shell history, or a repository.
 
-Example conceptual configuration—not a copy/paste guarantee:
+Example conceptual configuration, not a copy/paste guarantee:
 
 ```yaml
 radarr:
@@ -90,11 +90,11 @@ Before production syncs, label each change: low (cosmetic rename), medium (score
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Edit scores in the UI *and* in a sync tool with no single owner.
 
-**Better:** Pick one authoritative path (for example Recyclarr *or* Notifiarr — not both fighting), backup → dry run → apply → verify → keep rollback.
+**Better:** Pick one authoritative path (for example Recyclarr *or* Notifiarr: not both fighting), backup → dry run → apply → verify → keep rollback.
 
 ## Current correction
 

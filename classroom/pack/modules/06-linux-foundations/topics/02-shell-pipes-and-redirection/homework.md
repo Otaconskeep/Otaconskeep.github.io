@@ -1,4 +1,4 @@
-# Homework — Shell Pipes and Redirection
+# Homework: Shell Pipes and Redirection
 
 **Module:** Linux Foundations
 **Activity type:** Homework / independent application

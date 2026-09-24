@@ -1,6 +1,6 @@
-# Lesson 08.04 — Docker Volumes and Bind Mounts
+# Lesson 08.04: Docker Volumes and Bind Mounts
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)
 **Learning objective:** Distinguish a container writable layer, named volume, bind mount, and tmpfs mount; select storage intentionally; back up and restore a named volume; verify persistence; and identify the host exposure created by bind mounts.
 

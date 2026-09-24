@@ -41,7 +41,7 @@ Rewrite the lesson objective as a task you can perform:
 
 Draw systems, boundaries, protocols, ports, identities, and authoritative data. Mark the boundary being tested.
 
-### 5. Worked example — what I noticed
+### 5. Worked example: what I noticed
 
 **Bad → better insight:**  
 
@@ -59,15 +59,15 @@ Draw systems, boundaries, protocols, ports, identities, and authoritative data. 
 
 ### 8. Feynman teach-back (required)
 
-**Explain** (own words):  
+**Explain** (own words): 
 
-**Simplify** (to a 12-year-old):  
+**Simplify** (to a 12-year-old): 
 
 **Example / analogy:**  
 
-**Weak spot** (what I could not explain):  
+**Weak spot** (what I could not explain): 
 
-**Retry** (clearer rewrite after restudy):  
+**Retry** (clearer rewrite after restudy): 
 
 ### 9. Retrieval check answers
 

@@ -1,11 +1,11 @@
-# Module 3 — Home Assistant & Secure Access
+# Module 3: Home Assistant & Secure Access
 
 **Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review  
 **Feynman teach-back is required in every lesson.**
 
-## Backward design — module outcome
+## Backward design: module outcome
 
-Student can model HA devices/entities/areas, build a testable trigger→condition→action automation with positive/negative cases, and provide authenticated remote access (or VPN) without publishing admin panels — with denial and backup/restore evidence.
+Student can model HA devices/entities/areas, build a testable trigger→condition→action automation with positive/negative cases, and provide authenticated remote access (or VPN) without publishing admin panels: with denial and backup/restore evidence.
 
 ## Bloom arc
 
@@ -48,7 +48,7 @@ Required:
 - [ ] Module exam passed (or instructor/self-check acceptance)
 - [ ] Reflection written on module hub notes
 
-**Stage gate statement:** Gate 3 — backup/restore proven; automation traces exist; unauthorized remote admin denied.
+**Stage gate statement:** Gate 3: backup/restore proven; automation traces exist; unauthorized remote admin denied.
 
 ## Spiral review
 

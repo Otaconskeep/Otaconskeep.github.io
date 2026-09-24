@@ -1,4 +1,4 @@
-# Reading — Users, Groups, Permissions, and Least Privilege
+# Reading: Users, Groups, Permissions, and Least Privilege
 
 **Module:** Linux Foundations
 **Activity type:** Reading (Learn)

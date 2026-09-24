@@ -1,4 +1,4 @@
-# Class 1 — Virtual machines, hypervisors, and Proxmox
+# Class 1: Virtual machines, hypervisors, and Proxmox
 
 **Learning objective:** Given a host and a guest requirement, the learner can choose Type 1 vs Type 2 virtualization, create a working Linux guest (VirtualBox or Proxmox), and prove networking, DNS, and SSH with recorded evidence.
 **Bloom level:** Apply
@@ -15,7 +15,7 @@ Without a safe practice machine, every later Docker, ARR, Home Assistant, and vo
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is the difference between an operating system and an application?
 2. What does CPU, RAM, and disk do for a computer?
@@ -61,7 +61,7 @@ Three reasons show up again and again in real labs:
 
 1. **Safe practice.** Mess up the guest. Delete it. Rebuild it. Your daily host OS stays untouched.
 2. **Learn other operating systems.** Run Ubuntu, Debian, a server trial, or a second Windows install without repartitioning your only disk.
-3. **Isolation when you experiment.** Labs, scrapers, new stacks, and “what if I change this?” work are safer inside a guest—especially if you keep sharing features (clipboard, folders, bridged LAN) turned down until you need them.
+3. **Isolation when you experiment.** Labs, scrapers, new stacks, and “what if I change this?” work are safer inside a guest, especially if you keep sharing features (clipboard, folders, bridged LAN) turned down until you need them.
 
 Virtualization is not a toy idea. It is how cloud providers and most serious IT shops pack many systems onto fewer machines. Learning it once pays off for the rest of this Academy.
 
@@ -93,33 +93,33 @@ Type 1 (Academy default)
 
 Modern guests expect 64-bit virtualization support in the CPU. In firmware (BIOS/UEFI) look for **Intel VT-x / VMX** or **AMD-V / SVM** and set it to **Enabled**. Keys vary by vendor (`Del`, `F2`, `F10`, `F12`). Change only that setting, save, and reboot. Without it, many 64-bit guests will refuse to start or run poorly.
 
-### Path A — Type 2 on your daily computer (VirtualBox)
+### Path A: Type 2 on your daily computer (VirtualBox)
 
 Use this when you do not yet have a spare PC.
 
 1. Download the guest **ISO** you want (Ubuntu Desktop/Server is a solid first choice). Start the download early; ISOs are large.
 2. Install **VirtualBox** for your host OS from the official site. Accept defaults.
 3. Install the matching **Extension Pack** if you need USB passthrough and related extras.
-4. Create a new VM: name it, choose Linux + a 64-bit Debian/Ubuntu-class type, give it modest RAM (often 2 GB to start on a 8–16 GB host), create a dynamically allocated virtual disk (20 GB+), and assign more than one vCPU only if your host has cores to spare—stay under about half your physical cores.
+4. Create a new VM: name it, choose Linux + a 64-bit Debian/Ubuntu-class type, give it modest RAM (often 2 GB to start on a 8–16 GB host), create a dynamically allocated virtual disk (20 GB+), and assign more than one vCPU only if your host has cores to spare, stay under about half your physical cores.
 5. Attach the ISO as the virtual optical drive and start the VM.
 6. Install the guest OS. Guided partitioning of the *virtual* disk is safe for your host disk; you are formatting the fake drive, not your Windows/macOS partition.
 7. Learn the **host key** (often Right Ctrl on Windows/Linux) so you can release the mouse/keyboard back to the host.
 
 **Power features worth using on day one**
 
-- **Pause** — freeze the guest like pausing a game; resumes where you left off.
-- **Save state** — close the guest and reopen later with apps still open.
-- **Snapshot** — take a restore point before a risky change; roll back if it breaks.
-- **Clone** — duplicate a known-good machine before you thrash a copy.
+- **Pause**: freeze the guest like pausing a game; resumes where you left off.
+- **Save state**: close the guest and reopen later with apps still open.
+- **Snapshot**: take a restore point before a risky change; roll back if it breaks.
+- **Clone**: duplicate a known-good machine before you thrash a copy.
 
 **Network modes (keep this mental model)**
 
-- **NAT** — guest reaches the internet through the host; it is usually *not* a full peer on your home LAN. Good default for isolation.
-- **Bridged** — guest appears on the LAN with its own address. Convenient for SSH from other devices; less isolation.
+- **NAT**: guest reaches the internet through the host; it is usually *not* a full peer on your home LAN. Good default for isolation.
+- **Bridged**: guest appears on the LAN with its own address. Convenient for SSH from other devices; less isolation.
 
 Clipboard sharing, drag-and-drop, and shared folders are convenient and weaken isolation. Leave them off until you understand the tradeoff.
 
-### Path B — Type 1 on spare hardware (Proxmox VE)
+### Path B: Type 1 on spare hardware (Proxmox VE)
 
 Use this when you have an old laptop/desktop (or a small server) you can dedicate. This is the path later Academy classes assume.
 
@@ -191,11 +191,11 @@ Manage Proxmox from a second device at `https://SERVER-IP:8006`. The management 
 
 ### Isolation vs convenience (both paths)
 
-The guest is valuable because it is a sandboxed world. Every convenience feature—bridged LAN, shared clipboard, shared folders, USB passthrough—makes the sandbox thinner. For learning and break/fix work, start strict. Open doors on purpose, one at a time, and write down what you changed.
+The guest is valuable because it is a sandboxed world. Every convenience feature, bridged LAN, shared clipboard, shared folders, USB passthrough, makes the sandbox thinner. For learning and break/fix work, start strict. Open doors on purpose, one at a time, and write down what you changed.
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad approach:** Install experimental servers directly on your daily Windows/macOS desktop “to save time.”
 
@@ -205,17 +205,17 @@ The guest is valuable because it is a sandboxed world. Every convenience feature
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 With instructor/notes open, complete **one** of these (hints allowed):
 
-1. Name whether VirtualBox on a laptop is Type 1 or Type 2 — and why.
+1. Name whether VirtualBox on a laptop is Type 1 or Type 2: and why.
 2. List three pieces of evidence that prove a guest is useful for later Docker work (not “it boots”).
 3. Sketch: Hardware → hypervisor → guest → network path to your LAN.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Without looking at the lesson, write:
 
@@ -242,12 +242,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. In plain words, what is a virtual machine?
 2. What is the difference between a host and a guest?
@@ -261,13 +261,13 @@ Active recall — write answers without rereading first. Target ≥80% before th
 
 ## Guided lab
 
-Pick **one** primary path and finish every step. Path B (Proxmox) is what later Academy classes expect. Path A (VirtualBox) is a valid first finish if you only have one computer today—then schedule Path B before Class 2.
+Pick **one** primary path and finish every step. Path B (Proxmox) is what later Academy classes expect. Path A (VirtualBox) is a valid first finish if you only have one computer today, then schedule Path B before Class 2.
 
 Use the **Windows / Linux** toggle at the top of this class for host commands. Guest Linux commands are the same on both paths once you are inside the VM.
 
 Replace placeholders: `YOUR-IP`, `GUEST-IP`, `YOURUSER`, `proxmox.iso`, `ubuntu.iso`.
 
-### Path B — Proxmox on spare hardware (preferred)
+### Path B: Proxmox on spare hardware (preferred)
 
 **You need:** a PC/laptop you can wipe, an 8 GB+ USB stick, a network cable to your router/switch, and a second computer with a browser + terminal.
 
@@ -308,7 +308,7 @@ lscpu | egrep 'Virtualization|Hypervisor|Flags'
 :::
 
 3. **Download the Proxmox ISO and write the USB.**
-   Download the current Proxmox VE ISO from the official site into a folder you can find (example: Downloads). Identify the USB device letter/name carefully—wrong disk = data loss.
+   Download the current Proxmox VE ISO from the official site into a folder you can find (example: Downloads). Identify the USB device letter/name carefully, wrong disk = data loss.
 
 :::windows
 Rufus GUI is safest for beginners (select USB → select ISO → mode **DD** → Start).
@@ -323,7 +323,7 @@ Get-Volume | Format-Table DriveLetter, FileSystemLabel, DriveType, Size
 :::linux
 ```bash
 lsblk -o NAME,SIZE,MODEL,TRAN,MOUNTPOINT
-# Example only — YOUR USB might be /dev/sdb or /dev/sdc, NOT /dev/sda (usually the main disk)
+# Example only: YOUR USB might be /dev/sdb or /dev/sdc, NOT /dev/sda (usually the main disk)
 # Unmount partitions first if mounted, then:
 sudo dd if=$HOME/Downloads/proxmox.iso of=/dev/sdX bs=4M status=progress oflag=sync
 sync
@@ -332,7 +332,7 @@ Replace `proxmox.iso` and `/dev/sdX` with your real paths. Triple-check `sdX`.
 :::
 
 4. **Boot the spare PC from USB with Ethernet plugged in.**
-   Cable into router/switch. Boot menu → USB → **Install Proxmox VE**. No CLI on this step—watch the installer.
+   Cable into router/switch. Boot menu → USB → **Install Proxmox VE**. No CLI on this step, watch the installer.
 
 5. **Walk the installer and write the network plan before Install.**
    Agree → choose target disk → locale → strong `root` password. Set hostname, static IP (example `192.168.1.50`), gateway, DNS. Copy every value into the workbook, then install. Remove USB and reboot.
@@ -362,7 +362,7 @@ ip route
 cat /etc/network/interfaces
 ```
 
-7. **Make storage accept VM disks — UI plus verify in shell.**
+7. **Make storage accept VM disks: UI plus verify in shell.**
    UI: **Datacenter → Storage → local → Edit** → enable **Disk image** (+ ISO / Container template) → OK.
 
    Proxmox host shell (node → **Shell**, or SSH as root):
@@ -413,7 +413,7 @@ ping -c 3 $(ip route | awk '/default/ {print $3; exit}')
 getent hosts example.com
 hostname -I
 ```
-    Write down `GUEST-IP`. If `1.1.1.1` works but `example.com` fails, fix DNS—do not reinstall.
+    Write down `GUEST-IP`. If `1.1.1.1` works but `example.com` fails, fix DNS, do not reinstall.
 
 12. **SSH in from your workstation.**
 
@@ -486,7 +486,7 @@ ls /tmp/DELETE-ME || echo "GOOD: file gone after rollback"
 ```
     Record snapshot name `before-break` in the workbook.
 
-### Path A — VirtualBox on your daily computer (acceptable first finish)
+### Path A: VirtualBox on your daily computer (acceptable first finish)
 
 **You need:** your everyday PC, ~20 GB free disk, VirtualBox, and a terminal. This path does **not** wipe your host OS.
 
@@ -734,7 +734,7 @@ curl -kI https://PROXMOX-IP:8006
 
 Break one thing, then repair with commands.
 
-**VirtualBox — disable NIC, watch ping fail, re-enable NAT:**
+**VirtualBox: disable NIC, watch ping fail, re-enable NAT:**
 
 :::windows
 ```powershell
@@ -755,11 +755,11 @@ VBoxManage controlvm "lab-linux-01" nic1 nat
 ```
 :::
 
-**Proxmox — wrong bridge then fix (host shell):**
+**Proxmox: wrong bridge then fix (host shell):**
 ```bash
 qm config 100 | grep -i net
 qm set 100 --delete net0
-# guest loses link — then restore:
+# guest loses link: then restore:
 qm set 100 --net0 virtio,bridge=vmbr0
 qm config 100 | grep -i net
 ```

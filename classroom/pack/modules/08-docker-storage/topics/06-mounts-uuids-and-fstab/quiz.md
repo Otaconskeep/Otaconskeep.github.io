@@ -1,6 +1,6 @@
-# Quiz — Mounts, UUIDs, and fstab
+# Quiz: Mounts, UUIDs, and fstab
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Quiz (Test)
 
 ## Knowledge check

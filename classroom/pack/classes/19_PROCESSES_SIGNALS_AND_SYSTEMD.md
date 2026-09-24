@@ -1,4 +1,4 @@
-# Class 19 — Processes, Signals, and systemd
+# Class 19: Processes, Signals, and systemd
 
 **Learning objective:** Distinguish programs, processes, threads, jobs, services, and systemd units; Inspect process identifiers, parent relationships, users, states, and command lines; Explain how Linux delivers signals and why signal handling depends on the target process; Use SIGHUP, SIGTERM, SIGSTOP, SIGCONT, and SIGKILL against a verified lab-owned process; Explain why SIGTERM is normally preferable to SIGKILL; Relate a systemd service unit to its main process and cgroup; Use read-only systemctl queries to inspect service state and selected unit properties; Recognize PID reuse and avoid signaling a process based only on a stale PID file; Clean up the laboratory without altering persistent files outside the approved directory
 **Bloom level:** Understand / Apply

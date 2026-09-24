@@ -1,7 +1,7 @@
-# Reading — Mounts, UUIDs, and fstab
+# Reading: Mounts, UUIDs, and fstab
 
-**Module:** Module 8 — Docker, Storage & Permissions
-**Topic:** 06 — Mounts, UUIDs, and fstab
+**Module:** Module 8: Docker, Storage & Permissions
+**Topic:** 06: Mounts, UUIDs, and fstab
 **Activity type:** Reading / reference (Learn)
 **Source:** Class 32 intake, published without rewriting lesson content
 
@@ -32,7 +32,7 @@ Safe change sequence:
 
 A media disk is configured as `/dev/sdb1`. A new controller changes enumeration and another disk receives that name. A UUID-based entry better expresses which filesystem was intended, but only after verifying that the UUID is unique and belongs to the correct data.
 
-## Visual 1 — Mount Decision
+## Visual 1: Mount Decision
 
 ```mermaid
 flowchart LR
@@ -42,7 +42,7 @@ flowchart LR
   P --> A[application path]
 ```
 
-## Visual 2 — Safe Change Gate
+## Visual 2: Safe Change Gate
 
 ```mermaid
 flowchart TD

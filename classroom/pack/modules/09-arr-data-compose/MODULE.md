@@ -1,4 +1,4 @@
-# Module 9 — ARR Data Model & Compose
+# Module 9: ARR Data Model & Compose
 
 **Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review
 **Feynman teach-back is required in every lesson.**

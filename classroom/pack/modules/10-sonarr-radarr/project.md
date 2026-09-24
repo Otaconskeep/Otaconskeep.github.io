@@ -1,4 +1,4 @@
-# Module project — Sonarr & Radarr
+# Module project: Sonarr & Radarr
 
 **Module:** Sonarr & Radarr
 

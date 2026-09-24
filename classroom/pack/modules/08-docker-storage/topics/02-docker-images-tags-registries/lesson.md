@@ -1,6 +1,6 @@
-# Lesson 08.02 — Docker Images, Tags, Registries, and Provenance
+# Lesson 08.02: Docker Images, Tags, Registries, and Provenance
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)
 **Learning objective:** By the end, you can explain image layers, repositories, tags, manifests, registries, image IDs, and digests; inspect a local image; distinguish convenient naming from immutable identity; and record enough provenance to reproduce or investigate a deployment.
 

@@ -1,6 +1,6 @@
-# Lesson 02.02 — TRaSH quality profiles
+# Lesson 02.02: TRaSH quality profiles
 
-**Module:** Module 2 — ARR Media Automation  
+**Module:** Module 2: ARR Media Automation  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
 **Learning objective:** Given playback and storage constraints, the learner can write a plain-language quality policy, configure Custom Formats and cutoff/upgrade settings, and prove ranking on five controlled candidates.  
 **Bloom level:** Evaluate / Create  
@@ -17,7 +17,7 @@ Installing Sonarr or Radarr is easy. Designing what they should prefer, reject, 
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is a quality profile for?
 2. Why might the ‘highest resolution’ release be wrong for your TV?
@@ -27,13 +27,13 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 Complete the module reading first:
 
-- [Reading — TRaSH quality profiles](./reading.md)
+- [Reading: TRaSH quality profiles](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
 ## Guided practice (We do)
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Score three sample release names together using a simple CF table (+/−). Explain the winner out loud.
 
@@ -48,7 +48,7 @@ Describe **quality profiles vs Custom Formats vs cutoff/upgrade-until scores** i
 Explain the same idea to a 12-year-old. If you use a technical word, define it.
 
 ### Example
-Analogy: ordering pizza — ‘make it good’ vs ‘large pepperoni, thin crust, ready in 20 minutes.’
+Analogy: ordering pizza: ‘make it good’ vs ‘large pepperoni, thin crust, ready in 20 minutes.’
 
 ### Weak spot
 What part was hard to explain? That is where your understanding is thin.
@@ -56,7 +56,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 ## Reflection
 
@@ -70,7 +70,7 @@ Also answer:
 
 ## Spiral hook
 
-Class 7 will automate these profiles. When automation drifts, you will re-test the same five-candidate table — the policy sentence remains the source of truth.
+Class 7 will automate these profiles. When automation drifts, you will re-test the same five-candidate table: the policy sentence remains the source of truth.
 
 ## Topic path (do in order)
 

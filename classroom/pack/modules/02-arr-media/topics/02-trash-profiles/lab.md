@@ -1,6 +1,6 @@
-# Lab — TRaSH quality profiles
+# Lab: TRaSH quality profiles
 
-**Module:** Module 2 — ARR Media Automation  
+**Module:** Module 2: ARR Media Automation  
 **Activity type:** Lab (Practice)  
 **Objective:** Given playback and storage constraints, the learner can write a plain-language quality policy, configure Custom Formats and cutoff/upgrade settings, and prove ranking on five controlled candidates.
 
@@ -11,7 +11,7 @@
 
 ## Guided lab
 
-Work in **one** app first (Sonarr *or* Radarr). Export/backup before edits. TRaSH Guides are a reference for intent—not a blind paste.
+Work in **one** app first (Sonarr *or* Radarr). Export/backup before edits. TRaSH Guides are a reference for intent, not a blind paste.
 
 1. **Export / back up current quality profiles.**
 

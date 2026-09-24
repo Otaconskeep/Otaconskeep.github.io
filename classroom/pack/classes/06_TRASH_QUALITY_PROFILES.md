@@ -1,6 +1,6 @@
-# Class 6 — TRaSH Guides, Quality Profiles, and Custom Formats
+# Class 6: TRaSH Guides, Quality Profiles, and Custom Formats
 
-**Lecture (optional):** [IBRACORP — TRaSH Guides + Notifiarr](https://www.youtube.com/watch?v=DCxU3Vzaz6k)
+**Lecture (optional):** [IBRACORP: TRaSH Guides + Notifiarr](https://www.youtube.com/watch?v=DCxU3Vzaz6k)
 **Time:** 180 minutes
 **Learning objective:** Given playback and storage constraints, the learner can write a plain-language quality policy, configure Custom Formats and cutoff/upgrade settings, and prove ranking on five controlled candidates.
 **Bloom level:** Evaluate / Create
@@ -17,7 +17,7 @@ Installing Sonarr or Radarr is easy. Designing what they should prefer, reject, 
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is a quality profile for?
 2. Why might the ‘highest resolution’ release be wrong for your TV?
@@ -106,7 +106,7 @@ A profile can accept a current file yet continue searching forever if upgrade ta
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad requirement:** “The library should look good.”
 
@@ -120,13 +120,13 @@ Keep the in-class scoring table from the lesson. Practice explaining each total 
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Score three sample release names together using a simple CF table (+/−). Explain the winner out loud.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Write your household quality sentence. Score five candidates. Change exactly one rule and predict the new ranking before you click save.
 
@@ -141,7 +141,7 @@ Describe **quality profiles vs Custom Formats vs cutoff/upgrade-until scores** i
 Explain the same idea to a 12-year-old. If you use a technical word, define it.
 
 ### Example
-Analogy: ordering pizza — ‘make it good’ vs ‘large pepperoni, thin crust, ready in 20 minutes.’
+Analogy: ordering pizza: ‘make it good’ vs ‘large pepperoni, thin crust, ready in 20 minutes.’
 
 ### Weak spot
 What part was hard to explain? That is where your understanding is thin.
@@ -149,12 +149,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What is the difference between a quality and a Custom Format?
 2. Why can multiple CF scores apply to one release?
@@ -165,7 +165,7 @@ Active recall — write answers without rereading first. Target ≥80% before th
 
 ## Guided lab
 
-Work in **one** app first (Sonarr *or* Radarr). Export/backup before edits. TRaSH Guides are a reference for intent—not a blind paste.
+Work in **one** app first (Sonarr *or* Radarr). Export/backup before edits. TRaSH Guides are a reference for intent, not a blind paste.
 
 1. **Export / back up current quality profiles.**
 
@@ -281,7 +281,7 @@ Also answer:
 
 ## Spiral hook
 
-Class 7 will automate these profiles. When automation drifts, you will re-test the same five-candidate table — the policy sentence remains the source of truth.
+Class 7 will automate these profiles. When automation drifts, you will re-test the same five-candidate table: the policy sentence remains the source of truth.
 
 ## 2026 correction
 

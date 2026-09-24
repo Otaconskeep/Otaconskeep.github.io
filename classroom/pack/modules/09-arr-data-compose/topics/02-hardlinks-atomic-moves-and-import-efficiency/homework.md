@@ -1,4 +1,4 @@
-# Homework — Hardlinks, Atomic Moves, and Import Efficiency
+# Homework: Hardlinks, Atomic Moves, and Import Efficiency
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Homework / independent application

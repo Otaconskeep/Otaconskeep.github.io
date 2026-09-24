@@ -1,4 +1,4 @@
-# Lesson 10.04 — Sonarr Naming and Library Hygiene
+# Lesson 10.04: Sonarr Naming and Library Hygiene
 
 **Module:** Sonarr & Radarr
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

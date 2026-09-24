@@ -1,4 +1,4 @@
-# Module exam — ARR Data Model & Compose
+# Module exam: ARR Data Model & Compose
 
 **Module:** ARR Data Model & Compose
 

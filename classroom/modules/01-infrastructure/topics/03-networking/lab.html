@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>03-networking — Lab · Classroom</title>
-<meta name="description" content="03-networking — Lab">
+<title>03-networking: Lab · Classroom</title>
+<meta name="description" content="03-networking: Lab">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/01-infrastructure/topics/03-networking/lab.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,7 +63,7 @@
  <section class="hero flush">
  <div class="stamp">M1 LAB<small>lab</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 03-networking — Lab</h1>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 03-networking: Lab</h1>
  <p class="lede">Guided practice + break/fix + lab gate.</p>
  <div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>
@@ -73,7 +73,7 @@
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 1 — Infrastructure &amp; Addressing<br />
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 1: Infrastructure &amp; Addressing<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Objective:</strong> Given two Compose services, the learner can place them on an isolated user-defined network, call one service by DNS name from the other, and explain host-port publish versus container-to-container traffic.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -100,12 +100,12 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-prose-block"><p><strong>Where to run:</strong> Docker host from Class 2 (Linux VM preferred).</p></div><div class="cr-lab-path"><h4>Setup — two containers on one user-defined bridge</h4><div class="cr-help">
+</div><div class="cr-prose-block"><p><strong>Where to run:</strong> Docker host from Class 2 (Linux VM preferred).</p></div><div class="cr-lab-path"><h4>Setup: two containers on one user-defined bridge</h4><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address, handy and less isolated.</div>
  
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
@@ -187,7 +187,7 @@ docker network inspect media_net -f '{{range .Containers}}{{.Name}} {{.IPv4Addre
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Show why <code>localhost</code> inside tester is wrong for reaching responder.</strong></p>
 <div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">docker compose exec tester curl -sI http://localhost:80
-# Expect failure — localhost is the tester container itself, not responder.
+# Expect failure: localhost is the tester container itself, not responder.
 </code></pre></div>
 <div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">docker compose exec tester curl -sI --max-time 3 http://127.0.0.1:80 || echo &quot;EXPECTED_FAIL localhost&quot;
 </code></pre></div></div>
@@ -234,14 +234,14 @@ docker compose exec tester curl -sI http://responder:80
 Sonarr -&gt; http://qbittorrent:8080
 Radarr -&gt; http://sabnzbd:8080
 </code></pre>
-<p>Exact ports go in <code>templates/service_contract.csv</code>—do not guess.</p><div class="cr-help">
+<p>Exact ports go in <code>templates/service_contract.csv</code>, do not guess.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Later ARR wiring uses names like:
 
-``this setting`this settingtemplates/service_contract.csv`—do not guess.</div>
+``this setting`this settingtemplates/service_contract.csv`, do not guess.</div>
  
 </div></div></div><figure class="class-visual" data-visual="lab"><img src="/classroom/visuals/diagrams/03-docker-networking.svg" alt="Diagram of Docker networking" width="1600" height="900"><figcaption>Reference architecture for this lab.</figcaption></figure><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break / fix</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -269,7 +269,7 @@ docker compose exec tester curl -sI http://responder:80
 </code></pre></div>
 <ol start="2">
 <li>
-<p><strong>Replace <code>responder</code> with <code>localhost</code> in curl</strong> (already done above)—explain the failure in the workbook.</p>
+<p><strong>Replace <code>responder</code> with <code>localhost</code> in curl</strong> (already done above), explain the failure in the workbook.</p>
 </li>
 <li>
 <p><strong>Bind only to loopback and compare LAN access.</strong> Change ports to <code>"127.0.0.1:8081:80"</code>, recreate, prove host-local works and another LAN device fails.</p>

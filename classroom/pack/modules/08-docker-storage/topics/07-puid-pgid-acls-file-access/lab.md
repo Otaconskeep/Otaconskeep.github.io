@@ -1,6 +1,6 @@
-# Lab — PUID, PGID, ACLs, and Container File Access
+# Lab: PUID, PGID, ACLs, and Container File Access
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Lab (Practice)
 **Objective:** Explain numeric UID/GID identity across host and containers; distinguish mode bits from ACLs; diagnose bind-mount access failures; test access using an explicit container user; and design least-privilege ownership without using world-writable shortcuts.
 

@@ -1,4 +1,4 @@
-# Module 1 exam — Infrastructure & Addressing
+# Module 1 exam: Infrastructure & Addressing
 
 **Activity type:** Module exam / practical mastery test  
 **Outcome under test:** Student can virtualize a safe lab host, run persistent Compose services on isolated Docker networks, operate containers with update/rollback evidence, and read IPv4 address/mask/gateway to decide same-LAN vs via-gateway delivery.

@@ -1,11 +1,11 @@
-# Module 2 — ARR Media Automation
+# Module 2: ARR Media Automation
 
 **Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review  
 **Feynman teach-back is required in every lesson.**
 
-## Backward design — module outcome
+## Backward design: module outcome
 
-Student can connect Prowlarr to Sonarr/Radarr with service contracts, write and test a quality policy with Custom Formats, and automate profile sync with backup → dry-run → apply → drift → rollback — using authorized sources only.
+Student can connect Prowlarr to Sonarr/Radarr with service contracts, write and test a quality policy with Custom Formats, and automate profile sync with backup → dry-run → apply → drift → rollback: using authorized sources only.
 
 ## Bloom arc
 
@@ -48,7 +48,7 @@ Required:
 - [ ] Module exam passed (or instructor/self-check acceptance)
 - [ ] Reflection written on module hub notes
 
-**Stage gate statement:** Gate 2 — trace request→search→download→import; five-candidate ranking matches written policy; automation rollback proven.
+**Stage gate statement:** Gate 2: trace request→search→download→import; five-candidate ranking matches written policy; automation rollback proven.
 
 ## Spiral review
 

@@ -1,7 +1,7 @@
-# Reading — Container operations
+# Reading: Container operations
 
-**Module:** Module 1 — Infrastructure & Addressing  
-**Topic:** 04 — Container operations  
+**Module:** Module 1: Infrastructure & Addressing  
+**Topic:** 04: Container operations  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Apply / Evaluate  
 **Links to outcome:** Given a running Compose service, the learner can inspect health and logs, perform a controlled image update, and roll back to a known-good state with evidence.
@@ -77,7 +77,7 @@ For every later service, record the same fields. This turns containers into an o
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad ops:** `docker compose pull && up -d` on Friday night with no backup and no pin.
 

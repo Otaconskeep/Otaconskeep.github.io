@@ -1,4 +1,4 @@
-# Module 4 project — Private speaker integration project
+# Module 4 project: Private speaker integration project
 
 **Activity type:** Module project (integrated Apply/Create)  
 **Module outcome:** Student can instrument a local Assist pipeline stage-by-stage, deploy Whisper/Piper via Wyoming with measured tradeoffs, and prove wake→action→speech with the internet disconnected.
@@ -16,7 +16,7 @@ Stage test table; STT known-sentence; TTS known-phrase; disconnected pass artifa
 | Criterion | Pass look-for |
 |---|---|
 | Tied to outcome | Deliverable clearly serves the module outcome |
-| Bloom level | Shows Apply or higher — not copy/paste only |
+| Bloom level | Shows Apply or higher: not copy/paste only |
 | Spiral | Uses at least one prior-module skill explicitly |
 | Evidence | Artifacts are reproducible and redacted |
 | Honesty | Failures and fixes are documented |

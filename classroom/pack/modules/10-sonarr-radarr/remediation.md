@@ -1,4 +1,4 @@
-# Remediation — Sonarr & Radarr
+# Remediation: Sonarr & Radarr
 
 **Module:** Sonarr & Radarr
 

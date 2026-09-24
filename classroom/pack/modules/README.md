@@ -1,4 +1,4 @@
-# Modules — Homelab Academy
+# Modules: Homelab Academy
 
 This is the **authoritative course structure**.
 
@@ -17,7 +17,7 @@ Every **module** has **Project · Module quiz · Exam · Remediation**.
 | 03 | [Home Assistant & Secure Access](03-home-assistant/MODULE.md) | 3 topics | Gate 3 |
 | 04 | [Local Voice Assistant](04-local-voice/MODULE.md) | 3 topics | Gate 4 |
 | 05 | [Workflow Automation (n8n)](05-workflow-automation/MODULE.md) | 1 topics | Gate 5 |
-| — | [Capstone](../FINAL_CAPSTONE.md) | Course mastery | Final |
+|: | [Capstone](../FINAL_CAPSTONE.md) | Course mastery | Final |
 
 ## How to move
 

@@ -1,4 +1,4 @@
-# Class 25 — Ports, Protocols, and Host Firewalls
+# Class 25: Ports, Protocols, and Host Firewalls
 
 **Learning objective:** Distinguish an IP address, a transport protocol, and a port number; Explain the practical differences between TCP and UDP; Identify the difference between a listening service and a firewall allowance; Describe ingress, egress, loopback, connection state, and default policy; Predict whether a packet will be accepted or dropped by an ordered rule set; Test TCP and UDP listeners without exposing services to the local network; Design a least-privilege host firewall policy before applying it to a real host
 **Bloom level:** Understand / Apply

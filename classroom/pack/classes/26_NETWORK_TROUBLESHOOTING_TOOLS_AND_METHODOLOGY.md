@@ -1,4 +1,4 @@
-# Class 26 — Network Troubleshooting Tools and Methodology
+# Class 26: Network Troubleshooting Tools and Methodology
 
 **Learning objective:** Apply a layered troubleshooting workflow from local state through application response; Distinguish name-resolution failures from routing, transport, and application failures; Use ip, ping, getent, ss, curl, and optional tracepath observations appropriately; Interpret connection refused, timeout, name-resolution failure, and HTTP error symptoms; Verify which address and port a process is listening on; Collect before-and-after evidence while limiting changes to the lab scope; Document a concise incident hypothesis, test, result, and conclusion
 **Bloom level:** Understand / Apply
@@ -52,7 +52,7 @@ Develop a repeatable, evidence-driven method for diagnosing connectivity problem
 - Linux ip-route manual: https://man7.org/linux/man-pages/man8/ip-route.8.html
 - Linux ss manual: https://man7.org/linux/man-pages/man8/ss.8.html
 - curl command-line documentation: https://curl.se/docs/manpage.html
-- RFC 1122, Requirements for Internet Hosts — Communication Layers: https://www.rfc-editor.org/rfc/rfc1122
+- RFC 1122, Requirements for Internet Hosts: Communication Layers: https://www.rfc-editor.org/rfc/rfc1122
 
 ## Prior-knowledge check
 
@@ -367,7 +367,7 @@ Begin with the failed request to port 18081 and resist the temptation to label i
 - curl manual: https://curl.se/docs/manpage.html
 - GNU C Library host-name lookup documentation: https://www.gnu.org/software/libc/manual/html_node/Host-Names.html
 - Python http.server documentation: https://docs.python.org/3/library/http.server.html
-- RFC 1122, Requirements for Internet Hosts — Communication Layers: https://www.rfc-editor.org/rfc/rfc1122
+- RFC 1122, Requirements for Internet Hosts: Communication Layers: https://www.rfc-editor.org/rfc/rfc1122
 - RFC 9293, Transmission Control Protocol: https://www.rfc-editor.org/rfc/rfc9293
 - RFC 9110, HTTP Semantics: https://www.rfc-editor.org/rfc/rfc9110
 

@@ -1,4 +1,4 @@
-# Homework — Sonarr Naming and Library Hygiene
+# Homework: Sonarr Naming and Library Hygiene
 
 **Module:** Sonarr & Radarr
 **Activity type:** Homework / independent application

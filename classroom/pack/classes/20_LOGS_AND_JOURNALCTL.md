@@ -1,4 +1,4 @@
-# Class 20 — Logs and journalctl
+# Class 20: Logs and journalctl
 
 **Learning objective:** Explain the relationship between applications, systemd units, systemd-journald, and journalctl.; Read events from the current boot and inspect the available boot history.; Filter journal records by unit, time, priority, and field.; Recognize common journal output formats and export records for later analysis.; Distinguish volatile journal storage from persistent journal storage.; Verify conclusions by checking timestamps, boot identifiers, priorities, and unit metadata.; Handle journal access and exported log files without unnecessarily exposing sensitive data.
 **Bloom level:** Understand / Apply

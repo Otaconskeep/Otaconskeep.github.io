@@ -1,7 +1,7 @@
-# Module 3 project — House logic + remote boundary project
+# Module 3 project: House logic + remote boundary project
 
 **Activity type:** Module project (integrated Apply/Create)  
-**Module outcome:** Student can model HA devices/entities/areas, build a testable trigger→condition→action automation with positive/negative cases, and provide authenticated remote access (or VPN) without publishing admin panels — with denial and backup/restore evidence.
+**Module outcome:** Student can model HA devices/entities/areas, build a testable trigger→condition→action automation with positive/negative cases, and provide authenticated remote access (or VPN) without publishing admin panels: with denial and backup/restore evidence.
 
 ## Task
 
@@ -16,7 +16,7 @@ Entity list; automation traces; backup artifact; denial test record; threat-mode
 | Criterion | Pass look-for |
 |---|---|
 | Tied to outcome | Deliverable clearly serves the module outcome |
-| Bloom level | Shows Apply or higher — not copy/paste only |
+| Bloom level | Shows Apply or higher: not copy/paste only |
 | Spiral | Uses at least one prior-module skill explicitly |
 | Evidence | Artifacts are reproducible and redacted |
 | Honesty | Failures and fixes are documented |

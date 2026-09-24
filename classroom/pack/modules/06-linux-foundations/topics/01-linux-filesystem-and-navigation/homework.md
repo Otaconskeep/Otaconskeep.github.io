@@ -1,4 +1,4 @@
-# Homework — Linux Filesystem and Navigation
+# Homework: Linux Filesystem and Navigation
 
 **Module:** Linux Foundations
 **Activity type:** Homework / independent application

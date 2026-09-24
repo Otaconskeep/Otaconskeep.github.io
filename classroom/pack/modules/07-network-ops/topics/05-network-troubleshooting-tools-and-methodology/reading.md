@@ -1,4 +1,4 @@
-# Reading — Network Troubleshooting Tools and Methodology
+# Reading: Network Troubleshooting Tools and Methodology
 
 **Module:** Network Operations
 **Activity type:** Reading (Learn)
@@ -58,7 +58,7 @@ ip address establishes local interface state; ip route get establishes path sele
 - Linux ip-route manual: https://man7.org/linux/man-pages/man8/ip-route.8.html
 - Linux ss manual: https://man7.org/linux/man-pages/man8/ss.8.html
 - curl command-line documentation: https://curl.se/docs/manpage.html
-- RFC 1122, Requirements for Internet Hosts — Communication Layers: https://www.rfc-editor.org/rfc/rfc1122
+- RFC 1122, Requirements for Internet Hosts: Communication Layers: https://www.rfc-editor.org/rfc/rfc1122
 
 ## References
 
@@ -68,6 +68,6 @@ ip address establishes local interface state; ip route get establishes path sele
 - curl manual: https://curl.se/docs/manpage.html
 - GNU C Library host-name lookup documentation: https://www.gnu.org/software/libc/manual/html_node/Host-Names.html
 - Python http.server documentation: https://docs.python.org/3/library/http.server.html
-- RFC 1122, Requirements for Internet Hosts — Communication Layers: https://www.rfc-editor.org/rfc/rfc1122
+- RFC 1122, Requirements for Internet Hosts: Communication Layers: https://www.rfc-editor.org/rfc/rfc1122
 - RFC 9293, Transmission Control Protocol: https://www.rfc-editor.org/rfc/rfc9293
 - RFC 9110, HTTP Semantics: https://www.rfc-editor.org/rfc/rfc9110

@@ -1,4 +1,4 @@
-# Lesson 06.06 — SSH Keys and Safe Hardening
+# Lesson 06.06: SSH Keys and Safe Hardening
 
 **Module:** Linux Foundations
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

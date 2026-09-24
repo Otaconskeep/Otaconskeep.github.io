@@ -1045,7 +1045,7 @@
  '<div><span class="k">Fail</span><span class="v bad">' + escapeHtml(String(sum.fail != null ? sum.fail : 0)) + '</span></div>' +
  '<div><span class="k">Modules audited</span><span class="v">' + escapeHtml(String(sum.executor_modules_audited || '-')) + '</span></div>' +
  '</div>' +
- '<p class="intro">REX metrics: ' + escapeHtml(rex.status || 'No data') + ' — ' + escapeHtml(rex.note || '') + '</p>' +
+ '<p class="intro">REX metrics: ' + escapeHtml(rex.status || 'No data') + ': ' + escapeHtml(rex.note || '') + '</p>' +
  '<div class="eng-table-wrap" style="margin-top:12px;"><table class="eng-table" aria-label="Test register"><thead><tr>' +
  '<th>ID</th><th>Title</th><th>Class</th><th>Method</th><th>Level</th><th>Requirements</th><th>Result</th><th>Evidence</th></tr></thead><tbody>' +
  tests.map(function (t) {
@@ -1107,7 +1107,7 @@
  var cards = risks.map(function (r) {
  var steps = r.mitigation_steps || {};
  var road = (r.roadmap || []).map(function (x) {
- return '<li>' + escapeHtml(x.step) + ' — <em>' + escapeHtml(x.status) + '</em></li>';
+ return '<li>' + escapeHtml(x.step) + ': <em>' + escapeHtml(x.status) + '</em></li>';
  }).join('');
  var ib = riskBand(r.initial_risk || 0);
  var rb = riskBand(r.residual_risk || 0);

@@ -1,6 +1,6 @@
-# Lab — Home Assistant foundations
+# Lab: Home Assistant foundations
 
-**Module:** Module 3 — Home Assistant & Secure Access  
+**Module:** Module 3: Home Assistant & Secure Access  
 **Activity type:** Lab (Practice)  
 **Objective:** Given a Home Assistant install path, the learner can identify device/entity/area/integration, build a minimal dashboard, and prove backup + restore evidence.
 
@@ -20,7 +20,7 @@ Prefer HA OS in a VM (Class 1) or a documented Container install. Record which o
 
 :::linux
 ```bash
-# Example pattern — follow current HA Container docs for exact compose:
+# Example pattern: follow current HA Container docs for exact compose:
 mkdir -p ~/ha-config
 docker compose ps
 # After your compose exists:
@@ -62,7 +62,7 @@ curl.exe -sI http://HA-IP:8123/
 
 :::linux
 ```bash
-# From a machine that can reach HA — Long-Lived Token in password manager only:
+# From a machine that can reach HA: Long-Lived Token in password manager only:
 export HA=http://HA-IP:8123
 export TOKEN='YOUR_LONG_LIVED_TOKEN'
 curl -s -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
@@ -106,7 +106,7 @@ Get-FileHash $HOME\backups\ha\* -Algorithm SHA256 | Format-Table
 
 ### Break/fix
 
-1. Rename an entity after a dashboard depends on it—observe break—rename back or update the card.
+1. Rename an entity after a dashboard depends on it, observe break, rename back or update the card.
 
 2. Stop the HA VM/container briefly; confirm UI down; start; confirm recovery.
 

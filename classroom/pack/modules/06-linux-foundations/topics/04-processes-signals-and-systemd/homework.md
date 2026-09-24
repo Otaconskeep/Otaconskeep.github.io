@@ -1,4 +1,4 @@
-# Homework — Processes, Signals, and systemd
+# Homework: Processes, Signals, and systemd
 
 **Module:** Linux Foundations
 **Activity type:** Homework / independent application

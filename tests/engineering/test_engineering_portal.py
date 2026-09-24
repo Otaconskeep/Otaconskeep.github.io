@@ -49,7 +49,7 @@ class EngineeringPortalTests(unittest.TestCase):
         self.assertTrue(any(t["id"].startswith("ST-") for t in tests["tests"]))
 
     def test_broken_xref_detection(self):
-        # validator must fail if we inject a bad ref into a temp copy — unit-level check here
+        # validator must fail if we inject a bad ref into a temp copy: unit-level check here
         reqs = json.loads((DATA / "requirements.json").read_text(encoding="utf-8"))
         linked = []
         for r in reqs["requirements"]:

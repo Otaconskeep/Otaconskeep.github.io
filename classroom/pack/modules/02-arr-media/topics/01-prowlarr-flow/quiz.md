@@ -1,6 +1,6 @@
-# Quiz — Prowlarr & ARR request flow
+# Quiz: Prowlarr & ARR request flow
 
-**Module:** Module 2 — ARR Media Automation  
+**Module:** Module 2: ARR Media Automation  
 **Activity type:** Quiz / retrieval practice  
 **Target:** ≥80% before topic mastery unlock  
 **Objective:** Given authorized indexer credentials and Compose networking, the learner can connect Prowlarr to Sonarr/Radarr, prove sync/tests, and trace a request through search → download client → import boundaries.
@@ -11,7 +11,7 @@ Close the reading. Write answers from memory. Then self-score.
 
 ## Questions
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What responsibility belongs to Prowlarr versus Sonarr/Radarr?
 2. Why are connection and synchronization separate tests?

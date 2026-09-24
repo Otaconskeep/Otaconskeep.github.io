@@ -1,6 +1,6 @@
-# Lesson 01.05 — IPv4 addresses & gateways
+# Lesson 01.05: IPv4 addresses & gateways
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
 **Learning objective:** Given a host, the learner can read IPv4 address, mask, and gateway; explain network vs host bits; contrast classful charts with classless `/24` math; and decide same-LAN vs via-gateway delivery.  
 **Bloom level:** Understand / Apply  
@@ -17,7 +17,7 @@ Every ‘why can’t these containers/hosts talk?’ ticket eventually becomes a
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What does an IP address identify?
 2. What is a default gateway for?
@@ -27,13 +27,13 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 Complete the module reading first:
 
-- [Reading — IPv4 addresses & gateways](./reading.md)
+- [Reading: IPv4 addresses & gateways](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
 ## Guided practice (We do)
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Given two example IPs + `/24` mask, decide same-LAN vs needs-gateway together.
 
@@ -42,7 +42,7 @@ Given two example IPs + `/24` mask, decide same-LAN vs needs-gateway together.
 Required. Do not skip.
 
 ### Explain
-Describe **IPv4 addresses, masks, gateways, and why classful charts are history — not how modern LANs work** in your own words. No copying the lesson verbatim.
+Describe **IPv4 addresses, masks, gateways, and why classful charts are history: not how modern LANs work** in your own words. No copying the lesson verbatim.
 
 ### Simplify
 Explain the same idea to a 12-year-old. If you use a technical word, define it.
@@ -56,7 +56,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 ## Reflection
 

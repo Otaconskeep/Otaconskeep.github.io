@@ -1,4 +1,4 @@
-# Class 32 — Mounts, UUIDs, and fstab
+# Class 32: Mounts, UUIDs, and fstab
 
 **Module:** Docker, Storage & Permissions  
 **Difficulty:** Beginner · **Duration:** 90 minutes · **Lab risk:** Low because the live mount table and `/etc/fstab` are not changed  
@@ -37,7 +37,7 @@ Safe change sequence:
 7. Verify application behavior and reboot behavior.
 8. Restore the known-good file if acceptance checks fail.
 
-## Visual 1 — Mount Decision
+## Visual 1: Mount Decision
 
 ```mermaid
 flowchart LR
@@ -47,7 +47,7 @@ flowchart LR
   P --> A[application path]
 ```
 
-## Visual 2 — Safe Change Gate
+## Visual 2: Safe Change Gate
 
 ```mermaid
 flowchart TD

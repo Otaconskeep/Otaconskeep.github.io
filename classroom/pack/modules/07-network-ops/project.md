@@ -1,4 +1,4 @@
-# Module project — Network Operations
+# Module project: Network Operations
 
 **Module:** Network Operations
 

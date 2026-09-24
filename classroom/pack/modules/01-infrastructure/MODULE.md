@@ -1,9 +1,9 @@
-# Module 1 — Infrastructure & Addressing
+# Module 1: Infrastructure & Addressing
 
 **Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review  
 **Feynman teach-back is required in every lesson.**
 
-## Backward design — module outcome
+## Backward design: module outcome
 
 Student can virtualize a safe lab host, run persistent Compose services on isolated Docker networks, operate containers with update/rollback evidence, and read IPv4 address/mask/gateway to decide same-LAN vs via-gateway delivery.
 
@@ -50,7 +50,7 @@ Required:
 - [ ] Module exam passed (or instructor/self-check acceptance)
 - [ ] Reflection written on module hub notes
 
-**Stage gate statement:** Gate 1 — explain persistence, ports, DNS, logs, health, update/rollback, and basic IPv4 delivery with evidence.
+**Stage gate statement:** Gate 1: explain persistence, ports, DNS, logs, health, update/rollback, and basic IPv4 delivery with evidence.
 
 ## Spiral review
 

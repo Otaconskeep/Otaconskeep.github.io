@@ -1,4 +1,4 @@
-# Quiz — Linux Filesystem and Navigation
+# Quiz: Linux Filesystem and Navigation
 
 **Module:** Linux Foundations
 **Activity type:** Quiz / retrieval practice

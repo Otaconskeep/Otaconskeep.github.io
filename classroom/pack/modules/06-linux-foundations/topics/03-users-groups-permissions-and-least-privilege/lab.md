@@ -1,4 +1,4 @@
-# Lab — Users, Groups, Permissions, and Least Privilege
+# Lab: Users, Groups, Permissions, and Least Privilege
 
 **Module:** Linux Foundations
 **Activity type:** Lab (Practice)

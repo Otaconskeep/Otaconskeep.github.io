@@ -1,4 +1,4 @@
-# Reading — Sonarr Quality Profiles, Searching, and Importing
+# Reading: Sonarr Quality Profiles, Searching, and Importing
 
 **Module:** Sonarr & Radarr
 **Activity type:** Reading (Learn)

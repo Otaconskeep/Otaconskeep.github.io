@@ -1,6 +1,6 @@
-# Lesson 02.03 — Configuration automation
+# Lesson 02.03: Configuration automation
 
-**Module:** Module 2 — ARR Media Automation  
+**Module:** Module 2: ARR Media Automation  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
 **Learning objective:** Given a known-good profile backup, the learner can choose one authoritative sync path, run dry-run/apply/rollback, and produce a drift report that matches the live apps.  
 **Bloom level:** Apply / Evaluate  
@@ -17,7 +17,7 @@ Manual clicking can create a correct profile once. Automation aims to keep decla
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is configuration drift?
 2. Why is a dry run required before apply?
@@ -27,13 +27,13 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 Complete the module reading first:
 
-- [Reading — Configuration automation](./reading.md)
+- [Reading: Configuration automation](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
 ## Guided practice (We do)
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Classify three changes as safe / review / dangerous with the lesson’s change table open.
 
@@ -56,7 +56,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 ## Reflection
 
@@ -70,7 +70,7 @@ Also answer:
 
 ## Spiral hook
 
-This control-loop pattern returns for HA dashboards/automations, reverse-proxy config, voice models, and n8n workflows — same discipline, different files.
+This control-loop pattern returns for HA dashboards/automations, reverse-proxy config, voice models, and n8n workflows: same discipline, different files.
 
 ## Topic path (do in order)
 

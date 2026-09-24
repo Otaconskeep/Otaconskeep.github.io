@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>01-virtualization — Lab · Classroom</title>
-<meta name="description" content="01-virtualization — Lab">
+<title>01-virtualization: Lab · Classroom</title>
+<meta name="description" content="01-virtualization: Lab">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/01-infrastructure/topics/01-virtualization/lab.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,7 +63,7 @@
  <section class="hero flush">
  <div class="stamp">M1 LAB<small>lab</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 01-virtualization — Lab</h1>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 01-virtualization: Lab</h1>
  <p class="lede">Guided practice + break/fix + lab gate.</p>
  <div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>
@@ -73,7 +73,7 @@
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 1 — Infrastructure &amp; Addressing<br />
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 1: Infrastructure &amp; Addressing<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Objective:</strong> Given a host and a guest requirement, the learner can choose Type 1 vs Type 2 virtualization, create a working Linux guest (VirtualBox or Proxmox), and prove networking, DNS, and SSH with recorded evidence.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -100,9 +100,9 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-prose-block"><p>Pick <strong>one</strong> primary path and finish every step. Path B (Proxmox) is what later Academy classes expect. Path A (VirtualBox) is a valid first finish if you only have one computer today—then schedule Path B before Class 2.</p>
+</div><div class="cr-prose-block"><p>Pick <strong>one</strong> primary path and finish every step. Path B (Proxmox) is what later Academy classes expect. Path A (VirtualBox) is a valid first finish if you only have one computer today, then schedule Path B before Class 2.</p>
 <p>Use the <strong>Windows / Linux</strong> toggle at the top of this class for host commands. Guest Linux commands are the same on both paths once you are inside the VM.</p>
-<p>Replace placeholders: <code>YOUR-IP</code>, <code>GUEST-IP</code>, <code>YOURUSER</code>, <code>proxmox.iso</code>, <code>ubuntu.iso</code>.</p></div><div class="cr-lab-path"><h4>Path B — Proxmox on spare hardware (preferred)</h4><div class="cr-prose-block"><p><strong>You need:</strong> a PC/laptop you can wipe, an 8 GB+ USB stick, a network cable to your router/switch, and a second computer with a browser + terminal.</p></div><div class="cr-help">
+<p>Replace placeholders: <code>YOUR-IP</code>, <code>GUEST-IP</code>, <code>YOURUSER</code>, <code>proxmox.iso</code>, <code>ubuntu.iso</code>.</p></div><div class="cr-lab-path"><h4>Path B: Proxmox on spare hardware (preferred)</h4><div class="cr-prose-block"><p><strong>You need:</strong> a PC/laptop you can wipe, an 8 GB+ USB stick, a network cable to your router/switch, and a second computer with a browser + terminal.</p></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -155,14 +155,14 @@ lscpu | egrep 'Virtualization|Hypervisor|Flags'
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Download the Proxmox ISO and write the USB.</strong><br />
-   Download the current Proxmox VE ISO from the official site into a folder you can find (example: Downloads). Identify the USB device letter/name carefully—wrong disk = data loss.</p>
+   Download the current Proxmox VE ISO from the official site into a folder you can find (example: Downloads). Identify the USB device letter/name carefully, wrong disk = data loss.</p>
 <div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><p>Rufus GUI is safest for beginners (select USB → select ISO → mode <strong>DD</strong> → Start).</p>
 <p>Optional PowerShell check of removable disks before you write:</p>
 <pre><code class="language-powershell">Get-Disk | Where-Object BusType -eq 'USB' | Format-Table Number, FriendlyName, Size
 Get-Volume | Format-Table DriveLetter, FileSystemLabel, DriveType, Size
 </code></pre></div>
 <div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">lsblk -o NAME,SIZE,MODEL,TRAN,MOUNTPOINT
-# Example only — YOUR USB might be /dev/sdb or /dev/sdc, NOT /dev/sda (usually the main disk)
+# Example only: YOUR USB might be /dev/sdb or /dev/sdc, NOT /dev/sda (usually the main disk)
 # Unmount partitions first if mounted, then:
 sudo dd if=$HOME/Downloads/proxmox.iso of=/dev/sdX bs=4M status=progress oflag=sync
 sync
@@ -181,7 +181,7 @@ sync
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Boot the spare PC from USB with Ethernet plugged in.</strong><br />
-   Cable into router/switch. Boot menu → USB → <strong>Install Proxmox VE</strong>. No CLI on this step—watch the installer.</p></div>
+   Cable into router/switch. Boot menu → USB → <strong>Install Proxmox VE</strong>. No CLI on this step, watch the installer.</p></div>
   <div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -234,7 +234,7 @@ cat /etc/network/interfaces
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Make storage accept VM disks — UI plus verify in shell.</strong><br />
+  <div class="cr-step-text"><p><strong>Make storage accept VM disks: UI plus verify in shell.</strong><br />
    UI: <strong>Datacenter → Storage → local → Edit</strong> → enable <strong>Disk image</strong> (+ ISO / Container template) → OK.</p>
 <p>Proxmox host shell (node → <strong>Shell</strong>, or SSH as root):</p>
 <pre><code class="language-bash">pvesm status
@@ -321,7 +321,7 @@ ping -c 3 $(ip route | awk '/default/ {print $3; exit}')
 getent hosts example.com
 hostname -I
 </code></pre>
-<pre><code>Write down `GUEST-IP`. If `1.1.1.1` works but `example.com` fails, fix DNS—do not reinstall.
+<pre><code>Write down `GUEST-IP`. If `1.1.1.1` works but `example.com` fails, fix DNS, do not reinstall.
 </code></pre></div>
   <div class="cr-help">
  <div class="cr-actions">
@@ -427,12 +427,12 @@ qm start 100
  
 </div>
  </div>
-</div></div></div><div class="cr-lab-path"><h4>Path A — VirtualBox on your daily computer (acceptable first finish)</h4><div class="cr-prose-block"><p><strong>You need:</strong> your everyday PC, ~20 GB free disk, VirtualBox, and a terminal. This path does <strong>not</strong> wipe your host OS.</p></div><div class="cr-help">
+</div></div></div><div class="cr-lab-path"><h4>Path A: VirtualBox on your daily computer (acceptable first finish)</h4><div class="cr-prose-block"><p><strong>You need:</strong> your everyday PC, ~20 GB free disk, VirtualBox, and a terminal. This path does <strong>not</strong> wipe your host OS.</p></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers.</div>
  
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
@@ -471,7 +471,7 @@ VBoxManage list extpacks
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers.</div>
  
 </div>
  </div>
@@ -504,7 +504,7 @@ VBoxManage list vms
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers.</div>
  
 </div>
  </div>
@@ -526,7 +526,7 @@ VBoxManage list vms
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers.</div>
  
 </div>
  </div>
@@ -551,7 +551,7 @@ ping -c 3 1.1.1.1
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers.</div>
  
 </div>
  </div>
@@ -575,7 +575,7 @@ VBoxManage startvm &quot;lab-linux-01&quot; --type gui
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers.</div>
  
 </div>
  </div>
@@ -611,7 +611,7 @@ VBoxManage startvm &quot;lab-linux-01&quot; --type gui
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers.</div>
  
 </div>
  </div>
@@ -629,7 +629,7 @@ VBoxManage startvm &quot;lab-linux-01&quot; --type gui
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers.</div>
  
 </div>
  </div>
@@ -651,7 +651,7 @@ VBoxManage snapshot &quot;lab-linux-01&quot; list
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers.</div>
  
 </div>
  </div>
@@ -690,7 +690,7 @@ curl -kI https://PROXMOX-IP:8006
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Break it, then fix it)</div>
  
 </div></div><div class="cr-break-card"><h4>Network break</h4><p>Break one thing, then repair with commands.</p>
-<p><strong>VirtualBox — disable NIC, watch ping fail, re-enable NAT:</strong></p>
+<p><strong>VirtualBox: disable NIC, watch ping fail, re-enable NAT:</strong></p>
 <div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">$VB = &quot;C:\Program Files\Oracle\VirtualBox\VBoxManage.exe&quot;
 &amp; $VB controlvm &quot;lab-linux-01&quot; nic1 null
 # in guest: ping -c 2 1.1.1.1  (should fail)
@@ -702,10 +702,10 @@ curl -kI https://PROXMOX-IP:8006
 VBoxManage controlvm &quot;lab-linux-01&quot; nic1 nat
 # guest: ping -c 2 1.1.1.1
 </code></pre></div>
-<p><strong>Proxmox — wrong bridge then fix (host shell):</strong></p>
+<p><strong>Proxmox: wrong bridge then fix (host shell):</strong></p>
 <pre><code class="language-bash">qm config 100 | grep -i net
 qm set 100 --delete net0
-# guest loses link — then restore:
+# guest loses link: then restore:
 qm set 100 --net0 virtio,bridge=vmbr0
 qm config 100 | grep -i net
 </code></pre>
@@ -720,7 +720,7 @@ getent hosts example.com
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers.</div>
  
 </div></div><div class="cr-break-card"><h4>Snapshot break</h4><p>Create a visible file, roll back, prove it vanished (Path B <code>qm rollback</code> or Path A <code>VBoxManage snapshot … restore</code> from the lab above). Do not continue until <code>ls</code> shows the file is gone.</p><div class="cr-help">
  <div class="cr-actions">
@@ -785,7 +785,7 @@ getent hosts example.com
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers.</div>
  
 </div></div></div>
  <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>

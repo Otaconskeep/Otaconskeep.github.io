@@ -1,4 +1,4 @@
-# Lab — Ports, Protocols, and Host Firewalls
+# Lab: Ports, Protocols, and Host Firewalls
 
 **Module:** Network Operations
 **Activity type:** Lab (Practice)

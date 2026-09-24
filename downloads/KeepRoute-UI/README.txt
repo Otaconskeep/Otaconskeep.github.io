@@ -4,7 +4,7 @@ KeepRoute UI package (OtaconsKeep)
 This folder is the KeepRoute field UI (formerly the Aria desk UI).
 It is the same product surface tested on OtaconsKeep hardware, rebranded for public use.
 
-Default URL after start:  http://127.0.0.1:20129/
+Default URL after start: http://127.0.0.1:20129/
 
 See the website Install section for the full step-by-step guide:
   /keeproute/#install

@@ -1,7 +1,7 @@
-# Reading — Secure remote access
+# Reading: Secure remote access
 
-**Module:** Module 3 — Home Assistant & Secure Access  
-**Topic:** 03 — Secure remote access  
+**Module:** Module 3: Home Assistant & Secure Access  
+**Topic:** 03: Secure remote access  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Evaluate / Apply  
 **Links to outcome:** Given a threat model for admin UIs, the learner can choose VPN vs tunnel vs dangerous port-forward patterns, implement an authenticated remote path (or document VPN-only), and prove unauthorized denial plus rollback.
@@ -62,11 +62,11 @@ The tunnel encrypts and routes traffic; it does not automatically create a good 
 
 ### Reverse proxy awareness
 
-If you terminate TLS on a proxy, record host headers and whether HA `trusted_proxies` (or equivalent) is required—follow current HA docs.
+If you terminate TLS on a proxy, record host headers and whether HA `trusted_proxies` (or equivalent) is required, follow current HA docs.
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Forward port 8123/8989 to the world because “I’ll use a strong password.”
 
@@ -74,7 +74,7 @@ If you terminate TLS on a proxy, record host headers and whether HA `trusted_pro
 
 ## Current correction
 
-Provider dashboards, policy syntax, and product names change. Use current official Cloudflare or selected VPN documentation. The security requirements—narrow exposure, explicit identity, denial testing, revocation, and fail-closed behavior—remain the authority.
+Provider dashboards, policy syntax, and product names change. Use current official Cloudflare or selected VPN documentation. The security requirements, narrow exposure, explicit identity, denial testing, revocation, and fail-closed behavior, remain the authority.
 
 ## Next
 

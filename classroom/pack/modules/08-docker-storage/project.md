@@ -2,7 +2,7 @@
 
 Source: authored MODULE_08_COMPLETION.md (published as written).
 
-# Module 8 Completion — Docker, Storage & Permissions
+# Module 8 Completion: Docker, Storage & Permissions
 
 ## Module Purpose
 
@@ -99,17 +99,17 @@ The project may use a disposable VM or remain a reviewed design. Do not expose a
 
 ## Module Exam
 
-### Part A — Concepts (30 points)
+### Part A: Concepts (30 points)
 
 - Explain tag versus digest and the provenance consequence. (10)
 - Explain writable layer versus persistent mount. (10)
 - Explain UID/GID evaluation for a bind-mounted path. (10)
 
-### Part B — Diagnosis (30 points)
+### Part B: Diagnosis (30 points)
 
 Given a container that restarts, exceeds memory, and cannot write to `/config`, identify evidence commands, likely causes, and a safe repair sequence.
 
-### Part C — Practical evidence (40 points)
+### Part C: Practical evidence (40 points)
 
 - Image inspection and recorded identity: 8
 - Bounded container configuration: 8
@@ -142,6 +142,6 @@ Explain to a new homelab operator how an approved image becomes a bounded contai
 
 ## Course Reflection
 
-1. Which hidden dependency—image identity, resources, storage, mounts, or permissions—was easiest to overlook?
+1. Which hidden dependency, image identity, resources, storage, mounts, or permissions, was easiest to overlook?
 2. Which verification step would have prevented a failure you have previously experienced?
 3. What will you standardize in future Compose files?

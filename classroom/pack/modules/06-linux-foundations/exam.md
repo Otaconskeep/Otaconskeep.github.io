@@ -1,23 +1,23 @@
-# Module exam — Linux Foundations (practical)
+# Module exam: Linux Foundations (practical)
 
 **Timebox:** 60–90 minutes  
 **Environment:** disposable lab VM/shell; console available if SSH tasks are live.
 
 ## Stations
 
-### Station A — Navigate & evidence (Classes 16–17)
+### Station A: Navigate & evidence (Classes 16–17)
 Create `/opt/lab-classroom/module06-exam/`, write a sample log, and produce `errors.count` via pipeline.  
 **Pass:** absolute paths correct; count accurate; no writes outside lab path.
 
-### Station B — Permissions (Class 18)
+### Station B: Permissions (Class 18)
 Create a shared directory proving group-read without world-write.  
 **Pass:** `namei -l` evidence; write denied for non-group or others as designed; no 777.
 
-### Station C — Process/service (Classes 19–20)
+### Station C: Process/service (Classes 19–20)
 Install a user oneshot that logs a heartbeat; capture `systemctl --user status` and a journal excerpt.  
 **Pass:** unit succeeded; evidence files present; redaction applied.
 
-### Station D — SSH safety (Class 21)
+### Station D: SSH safety (Class 21)
 Either (live) prove key login on lab VM with hardening notes, or (simulation) write a one-page hardening order + lockout recovery plan.  
 **Pass:** order correct; break-glass documented; no unexplained sshd breakage.
 

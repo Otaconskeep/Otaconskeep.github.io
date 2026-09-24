@@ -1,4 +1,4 @@
-# Class 37 — Health Checks, Dependencies, and Restart Policies
+# Class 37: Health Checks, Dependencies, and Restart Policies
 
 **Learning objective:** Explain why a running process is not necessarily a healthy or ready service; Differentiate startup, liveness, and readiness checks; Describe what dependency ordering can and cannot guarantee; Select an appropriate restart policy for expected failure modes; Identify restart loops, dependency failures, and overly aggressive health checks from logs; Verify recovery behavior by introducing a controlled application failure; Apply bounded retries, timeouts, and backoff concepts to reduce cascading failures
 **Bloom level:** Understand / Apply

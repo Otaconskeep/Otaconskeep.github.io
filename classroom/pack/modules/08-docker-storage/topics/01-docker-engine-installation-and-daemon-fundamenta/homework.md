@@ -1,4 +1,4 @@
-# Homework — Docker Engine Installation and Daemon Fundamentals
+# Homework: Docker Engine Installation and Daemon Fundamentals
 
 **Module:** Docker, Storage & Permissions
 **Activity type:** Homework / independent application

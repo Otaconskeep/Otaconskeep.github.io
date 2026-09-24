@@ -1,6 +1,6 @@
-# Lab — Docker Compose & persistence
+# Lab: Docker Compose & persistence
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Lab (Practice)  
 **Objective:** Given a multi-step `docker run` intent, the learner can write a Compose file with services, ports, environment, and persistent mounts, then recreate the stack without data loss.
 
@@ -15,7 +15,7 @@
 
 Create a project folder and the files below. Use the OS toggle for host commands.
 
-### Setup — create the project files
+### Setup: create the project files
 
 1. **Make the lab directory and Compose file.**
 

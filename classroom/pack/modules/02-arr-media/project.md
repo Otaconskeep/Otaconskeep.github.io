@@ -1,7 +1,7 @@
-# Module 2 project — Media pipeline policy project
+# Module 2 project: Media pipeline policy project
 
 **Activity type:** Module project (integrated Apply/Create)  
-**Module outcome:** Student can connect Prowlarr to Sonarr/Radarr with service contracts, write and test a quality policy with Custom Formats, and automate profile sync with backup → dry-run → apply → drift → rollback — using authorized sources only.
+**Module outcome:** Student can connect Prowlarr to Sonarr/Radarr with service contracts, write and test a quality policy with Custom Formats, and automate profile sync with backup → dry-run → apply → drift → rollback: using authorized sources only.
 
 ## Task
 
@@ -16,7 +16,7 @@ Service-contract table; candidate score sheet; dry-run output; rollback proof; l
 | Criterion | Pass look-for |
 |---|---|
 | Tied to outcome | Deliverable clearly serves the module outcome |
-| Bloom level | Shows Apply or higher — not copy/paste only |
+| Bloom level | Shows Apply or higher: not copy/paste only |
 | Spiral | Uses at least one prior-module skill explicitly |
 | Evidence | Artifacts are reproducible and redacted |
 | Honesty | Failures and fixes are documented |

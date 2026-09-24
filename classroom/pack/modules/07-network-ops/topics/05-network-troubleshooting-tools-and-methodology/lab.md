@@ -1,4 +1,4 @@
-# Lab — Network Troubleshooting Tools and Methodology
+# Lab: Network Troubleshooting Tools and Methodology
 
 **Module:** Network Operations
 **Activity type:** Lab (Practice)

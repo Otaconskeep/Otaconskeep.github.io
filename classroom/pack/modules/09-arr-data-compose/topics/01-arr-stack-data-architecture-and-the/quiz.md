@@ -1,4 +1,4 @@
-# Quiz — ARR Stack Data Architecture and the /data Model
+# Quiz: ARR Stack Data Architecture and the /data Model
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Quiz / retrieval practice

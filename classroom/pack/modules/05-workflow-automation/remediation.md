@@ -1,4 +1,4 @@
-# Module 5 remediation — Workflow Automation (n8n)
+# Module 5 remediation: Workflow Automation (n8n)
 
 **Activity type:** Review / remediation  
 **Use when:** quiz <80%, lab gate failed, Feynman weak spot unresolved, or exam miss.

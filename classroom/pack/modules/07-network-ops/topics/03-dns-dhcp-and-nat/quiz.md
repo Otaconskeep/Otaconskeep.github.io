@@ -1,4 +1,4 @@
-# Quiz — DNS, DHCP, and NAT
+# Quiz: DNS, DHCP, and NAT
 
 **Module:** Network Operations
 **Activity type:** Quiz / retrieval practice

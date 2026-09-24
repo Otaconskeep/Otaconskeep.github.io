@@ -1,6 +1,6 @@
-# Class 7 — Reproducible ARR Configuration and Drift Control
+# Class 7: Reproducible ARR Configuration and Drift Control
 
-**Lecture (optional):** [IBRACORP — Updated TRaSH / Notifiarr Automation](https://www.youtube.com/watch?v=eDlWTze8EKo)
+**Lecture (optional):** [IBRACORP: Updated TRaSH / Notifiarr Automation](https://www.youtube.com/watch?v=eDlWTze8EKo)
 **Time:** 150 minutes
 **Learning objective:** Given a known-good profile backup, the learner can choose one authoritative sync path, run dry-run/apply/rollback, and produce a drift report that matches the live apps.
 **Bloom level:** Apply / Evaluate
@@ -17,7 +17,7 @@ Manual clicking can create a correct profile once. Automation aims to keep decla
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is configuration drift?
 2. Why is a dry run required before apply?
@@ -83,7 +83,7 @@ The authoritative record should include:
 
 API URLs and API keys are credentials. Keep them outside tracked configuration when the tool supports environment or secret injection. Limit filesystem permissions. Rotate a key if it appears in logs, screenshots, shell history, or a repository.
 
-Example conceptual configuration—not a copy/paste guarantee:
+Example conceptual configuration, not a copy/paste guarantee:
 
 ```yaml
 radarr:
@@ -103,21 +103,21 @@ Before production syncs, label each change: low (cosmetic rename), medium (score
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Edit scores in the UI *and* in a sync tool with no single owner.
 
-**Better:** Pick one authoritative path (for example Recyclarr *or* Notifiarr — not both fighting), backup → dry run → apply → verify → keep rollback.
+**Better:** Pick one authoritative path (for example Recyclarr *or* Notifiarr: not both fighting), backup → dry run → apply → verify → keep rollback.
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Classify three changes as safe / review / dangerous with the lesson’s change table open.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Write your control loop: backup → dry run → apply → verify → drift check → rollback trigger. Name the artifact you keep for each step.
 
@@ -140,12 +140,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What is configuration drift?
 2. Why is a second idempotency run useful?
@@ -182,7 +182,7 @@ command -v recyclarr; type recyclarr
 
 :::linux
 ```bash
-# Pattern — exact subcommands depend on current tool docs:
+# Pattern: exact subcommands depend on current tool docs:
 recyclarr config list
 recyclarr sync --dry-run
 # or: docker compose exec recyclarr recyclarr sync --dry-run
@@ -230,7 +230,7 @@ curl -sf "http://127.0.0.1:8989/ping" && echo SONARR_UP
 
 1. Run sync twice; prove idempotency in logs.
 
-2. Point two tools at the same profile (or simulate conflicting ownership)—observe fight; pick one owner.
+2. Point two tools at the same profile (or simulate conflicting ownership), observe fight; pick one owner.
 
 3. Break YAML/config syntax; show validator failure; fix.
 
@@ -271,7 +271,7 @@ Also answer:
 
 ## Spiral hook
 
-This control-loop pattern returns for HA dashboards/automations, reverse-proxy config, voice models, and n8n workflows — same discipline, different files.
+This control-loop pattern returns for HA dashboards/automations, reverse-proxy config, voice models, and n8n workflows: same discipline, different files.
 
 ## 2026 correction
 

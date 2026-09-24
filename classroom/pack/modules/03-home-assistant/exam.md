@@ -1,7 +1,7 @@
-# Module 3 exam — Home Assistant & Secure Access
+# Module 3 exam: Home Assistant & Secure Access
 
 **Activity type:** Module exam / practical mastery test  
-**Outcome under test:** Student can model HA devices/entities/areas, build a testable trigger→condition→action automation with positive/negative cases, and provide authenticated remote access (or VPN) without publishing admin panels — with denial and backup/restore evidence.
+**Outcome under test:** Student can model HA devices/entities/areas, build a testable trigger→condition→action automation with positive/negative cases, and provide authenticated remote access (or VPN) without publishing admin panels: with denial and backup/restore evidence.
 
 ## Practical / written items
 

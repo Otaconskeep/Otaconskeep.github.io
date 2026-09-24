@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>02-ha-automations — Reading · Classroom</title>
-<meta name="description" content="02-ha-automations — Reading">
+<title>02-ha-automations: Reading · Classroom</title>
+<meta name="description" content="02-ha-automations: Reading">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/03-home-assistant/topics/02-ha-automations/reading.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,14 +63,14 @@
  <section class="hero flush">
  <div class="stamp">M3 READING<small>reading</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 02-ha-automations — Reading</h1>
- <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 02-ha-automations: Reading</h1>
+ <p class="lede">Learn: instruction, vocabulary, worked example.</p>
  
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 3 — Home Assistant &amp; Secure Access<br />
-<strong>Topic:</strong> 02 — Home Assistant automations<br />
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 3: Home Assistant &amp; Secure Access<br />
+<strong>Topic:</strong> 02: Home Assistant automations<br />
 <strong>Activity type:</strong> Reading / reference (Learn)<br />
 <strong>Bloom focus:</strong> Analyze / Create<br />
 <strong>Links to outcome:</strong> Given a plain-language automation requirement, the learner can implement trigger → condition → action logic and prove positive, negative, and failure cases with traces.</p></div><div class="cr-box cr-box-why"><div class="cr-box-head"><span class="cr-chip cr-chip-why">Why it matters</span><h3>Why this matters</h3></div><div class="cr-help">
@@ -80,7 +80,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This gives you a reason to care before the theory. Context first, then details.</div>
  
-</div><div class="cr-prose-block"><p>An automation that ‘usually works’ is a hazard. Testable logic — including when it must <em>not</em> fire — is how you trust the house.</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>An automation that ‘usually works’ is a hazard. Testable logic: including when it must <em>not</em> fire: is how you trust the house.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -174,7 +174,7 @@ THEN perform actions
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
  
-</div></div><div class="cr-prose-block"><h4>Monitoring the homelab</h4><p>Optional stretch: notify when a critical binary sensor / container health helper fails—still use a helper first.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Monitoring the homelab</h4><p>Optional stretch: notify when a critical binary sensor / container health helper fails, still use a helper first.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -188,14 +188,14 @@ THEN perform actions
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> I do: watch the bad → better reasoning. Steal the thinking, not just the answer.</div>
  
-</div><div class="cr-prose-block"><p><strong>I do</strong> — study the reasoning, not just the final answer.</p>
+</div><div class="cr-prose-block"><p><strong>I do</strong>: study the reasoning, not just the final answer.</p>
 <p><strong>Bad requirement:</strong> “Turn on the light when I’m home.”</p>
 <p><strong>Better:</strong> “When binary_sensor.front_door changes to on after sunset, if nobody is already marked home, turn on light.living_room and notify; do nothing if the light is already on; mode: single.”</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **I do** — study the reasoning, not just the final answer.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **I do**: study the reasoning, not just the final answer.</div>
  
 </div></div><div class="cr-prose-block"><h4>Example requirement</h4><blockquote>
 <p>When the office test switch turns on after sunset, turn on the office test light at 40 percent. Do nothing during daytime. If the light is unavailable, create a persistent notification.</p>

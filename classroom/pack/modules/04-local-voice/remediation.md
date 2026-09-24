@@ -1,4 +1,4 @@
-# Module 4 remediation — Local Voice Assistant
+# Module 4 remediation: Local Voice Assistant
 
 **Activity type:** Review / remediation  
 **Use when:** quiz <80%, lab gate failed, Feynman weak spot unresolved, or exam miss.

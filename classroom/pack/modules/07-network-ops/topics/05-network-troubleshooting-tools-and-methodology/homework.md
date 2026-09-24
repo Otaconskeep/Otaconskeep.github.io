@@ -1,4 +1,4 @@
-# Homework — Network Troubleshooting Tools and Methodology
+# Homework: Network Troubleshooting Tools and Methodology
 
 **Module:** Network Operations
 **Activity type:** Homework / independent application

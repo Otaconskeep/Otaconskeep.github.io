@@ -128,7 +128,7 @@ def collect_ids(data):
         add(r["id"], "math_trace", "math")
     for r in data.get("analysis.json", {}).get("datasets", []) or []:
         add(r["id"], "dataset", "analysis")
-    # overview EXT / ACT ids may overlap with interfaces intentionally — allow without uniqueness
+    # overview EXT / ACT ids may overlap with interfaces intentionally: allow without uniqueness
     return ids
 
 

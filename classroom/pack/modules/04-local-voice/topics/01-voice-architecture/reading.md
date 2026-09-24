@@ -1,7 +1,7 @@
-# Reading — Local voice architecture
+# Reading: Local voice architecture
 
-**Module:** Module 4 — Local Voice Assistant  
-**Topic:** 01 — Local voice architecture  
+**Module:** Module 4: Local Voice Assistant  
+**Topic:** 01: Local voice architecture  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Analyze  
 **Links to outcome:** Given a voice request, the learner can draw the local Assist pipeline stages, instrument one test per stage, and isolate faults to mic, wake, STT, intent/action, TTS, or playback.
@@ -86,11 +86,11 @@ E2E success ≥ 7/10 from seating position
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad debug:** “Voice is broken” → reinstall everything.
 
-**Better:** Stage table — mic level OK? wake fired? STT text correct? intent matched? action ran? TTS audio generated? speaker played? Fix the first failing stage only.
+**Better:** Stage table: mic level OK? wake fired? STT text correct? intent matched? action ran? TTS audio generated? speaker played? Fix the first failing stage only.
 
 ## Current correction
 

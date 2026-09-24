@@ -1,4 +1,4 @@
-# Lesson 08.01 — Docker Engine Installation and Daemon Fundamentals
+# Lesson 08.01: Docker Engine Installation and Daemon Fundamentals
 
 **Module:** Docker, Storage & Permissions
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

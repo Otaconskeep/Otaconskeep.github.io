@@ -1,4 +1,4 @@
-# Reading — Processes, Signals, and systemd
+# Reading: Processes, Signals, and systemd
 
 **Module:** Linux Foundations
 **Activity type:** Reading (Learn)

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>03-private-speaker — Reading · Classroom</title>
-<meta name="description" content="03-private-speaker — Reading">
+<title>03-private-speaker: Reading · Classroom</title>
+<meta name="description" content="03-private-speaker: Reading">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/04-local-voice/topics/03-private-speaker/reading.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,14 +63,14 @@
  <section class="hero flush">
  <div class="stamp">M4 READING<small>reading</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 03-private-speaker — Reading</h1>
- <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 03-private-speaker: Reading</h1>
+ <p class="lede">Learn: instruction, vocabulary, worked example.</p>
  
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 4 — Local Voice Assistant<br />
-<strong>Topic:</strong> 03 — Private smart speaker<br />
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 4: Local Voice Assistant<br />
+<strong>Topic:</strong> 03: Private smart speaker<br />
 <strong>Activity type:</strong> Reading / reference (Learn)<br />
 <strong>Bloom focus:</strong> Create / Evaluate<br />
 <strong>Links to outcome:</strong> Given working STT/TTS providers, the learner can integrate wake → action → spoken response and prove an internet-disconnected end-to-end pass with staged gates.</p></div><div class="cr-box cr-box-why"><div class="cr-box-head"><span class="cr-chip cr-chip-why">Why it matters</span><h3>Why this matters</h3></div><div class="cr-help">
@@ -80,7 +80,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This gives you a reason to care before the theory. Context first, then details.</div>
  
-</div><div class="cr-prose-block"><p>Integrate a voice satellite, wake-word engine, VAD/audio transport, Whisper, Home Assistant Assist, local intent or conversation processing, Piper, and speaker playback. The final privacy requirement is demonstrated behavior under WAN disconnection—not a marketing label.</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>Integrate a voice satellite, wake-word engine, VAD/audio transport, Whisper, Home Assistant Assist, local intent or conversation processing, Piper, and speaker playback. The final privacy requirement is demonstrated behavior under WAN disconnection, not a marketing label.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -139,7 +139,7 @@
 </tr>
 <tr>
 <td>Wake word</td>
-<td>Satellite or central service—choose and record</td>
+<td>Satellite or central service, choose and record</td>
 </tr>
 <tr>
 <td>STT</td>
@@ -176,63 +176,63 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Do not skip gates:</div>
  
-</div></div><div class="cr-prose-block"><h4>Gate A — audio hardware</h4><p>Record and play a known sample locally. Validate device selection, gain, clipping, channels, sample rate, echo, and speaker route.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Gate A: audio hardware</h4><p>Record and play a known sample locally. Validate device selection, gain, clipping, channels, sample rate, echo, and speaker route.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Record and play a known sample locally.</div>
  
-</div></div><div class="cr-prose-block"><h4>Gate B — wake word</h4><p>Run repeated positive and negative trials. Record threshold/model and test distance.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Gate B: wake word</h4><p>Run repeated positive and negative trials. Record threshold/model and test distance.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run repeated positive and negative trials.</div>
  
-</div></div><div class="cr-prose-block"><h4>Gate C — STT</h4><p>Prove the known sentence transcript. Preserve captured audio for comparison.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Gate C: STT</h4><p>Prove the known sentence transcript. Preserve captured audio for comparison.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Prove the known sentence transcript.</div>
  
-</div></div><div class="cr-prose-block"><h4>Gate D — HA understanding</h4><p>Enter transcript as text. Confirm correct intent, area, entity, and action.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Gate D: HA understanding</h4><p>Enter transcript as text. Confirm correct intent, area, entity, and action.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
  
-</div></div><div class="cr-prose-block"><h4>Gate E — action</h4><p>Confirm entity reaches the requested state and record HA trace/log.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Gate E: action</h4><p>Confirm entity reaches the requested state and record HA trace/log.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
  
-</div></div><div class="cr-prose-block"><h4>Gate F — TTS and playback</h4><p>Synthesize a fixed response and play it through the satellite.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Gate F: TTS and playback</h4><p>Synthesize a fixed response and play it through the satellite.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Synthesize a fixed response and play it through the satellite.</div>
  
-</div></div><div class="cr-prose-block"><h4>Gate G — end to end</h4><p>Speak wake word and command. Capture timestamps at wake, end-of-speech, transcript, intent, state change, synthesis, and playback.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Gate G: end to end</h4><p>Speak wake word and command. Capture timestamps at wake, end-of-speech, transcript, intent, state change, synthesis, and playback.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
  
-</div></div><div class="cr-prose-block"><h4>Gate H — offline privacy</h4><p>Disconnect WAN access while preserving the LAN. Repeat the full command and a second informational command that is defined as local. Verify DNS or cloud dependencies do not silently block the pipeline.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Gate H: offline privacy</h4><p>Disconnect WAN access while preserving the LAN. Repeat the full command and a second informational command that is defined as local. Verify DNS or cloud dependencies do not silently block the pipeline.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
  
-</div></div><div class="cr-prose-block"><h4>Local LLM routing</h4><p>If you add an LLM, whitelist only low-risk intents. Lights/locks/garage need deterministic intents—not open-ended chat.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><h4>Local LLM routing</h4><p>If you add an LLM, whitelist only low-risk intents. Lights/locks/garage need deterministic intents, not open-ended chat.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -253,12 +253,12 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> I do: watch the bad → better reasoning. Steal the thinking, not just the answer.</div>
  
-</div><div class="cr-prose-block"><p><strong>I do</strong> — study the reasoning, not just the final answer.</p><div class="cr-help">
+</div><div class="cr-prose-block"><p><strong>I do</strong>: study the reasoning, not just the final answer.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **I do** — study the reasoning, not just the final answer.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **I do**: study the reasoning, not just the final answer.</div>
  
 </div></div><div class="cr-prose-block"><p><strong>Bad acceptance:</strong> “It worked once while Wi-Fi was up.”</p><div class="cr-help">
  <div class="cr-actions">
@@ -267,7 +267,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **Bad acceptance:** “It worked once while Wi-Fi was up.”</div>
  
-</div></div><div class="cr-prose-block"><p><strong>Better:</strong> Progressive gates — wake only → STT → intent/action → TTS → full path — then repeat with internet disconnected and record the pass.</p><div class="cr-help">
+</div></div><div class="cr-prose-block"><p><strong>Better:</strong> Progressive gates: wake only → STT → intent/action → TTS → full path: then repeat with internet disconnected and record the pass.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

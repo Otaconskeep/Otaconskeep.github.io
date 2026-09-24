@@ -1,4 +1,4 @@
-# Quiz — Anime, Absolute Numbering, and Multi-Episode Files
+# Quiz: Anime, Absolute Numbering, and Multi-Episode Files
 
 **Module:** Sonarr & Radarr
 **Activity type:** Quiz / retrieval practice

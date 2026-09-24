@@ -1,4 +1,4 @@
-# Quiz — Health Checks, Dependencies, and Restart Policies
+# Quiz: Health Checks, Dependencies, and Restart Policies
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Quiz / retrieval practice

@@ -1,6 +1,6 @@
-# Lesson 01.01 — Virtual machines & Proxmox
+# Lesson 01.01: Virtual machines & Proxmox
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
 **Learning objective:** Given a host and a guest requirement, the learner can choose Type 1 vs Type 2 virtualization, create a working Linux guest (VirtualBox or Proxmox), and prove networking, DNS, and SSH with recorded evidence.  
 **Bloom level:** Apply  
@@ -17,7 +17,7 @@ Without a safe practice machine, every later Docker, ARR, Home Assistant, and vo
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is the difference between an operating system and an application?
 2. What does CPU, RAM, and disk do for a computer?
@@ -27,17 +27,17 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 Complete the module reading first:
 
-- [Reading — Virtual machines & Proxmox](./reading.md)
+- [Reading: Virtual machines & Proxmox](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
 ## Guided practice (We do)
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 With instructor/notes open, complete **one** of these (hints allowed):
 
-1. Name whether VirtualBox on a laptop is Type 1 or Type 2 — and why.
+1. Name whether VirtualBox on a laptop is Type 1 or Type 2: and why.
 2. List three pieces of evidence that prove a guest is useful for later Docker work (not “it boots”).
 3. Sketch: Hardware → hypervisor → guest → network path to your LAN.
 
@@ -60,7 +60,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 ## Reflection
 

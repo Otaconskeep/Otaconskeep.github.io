@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>01-n8n-automation — Lab · Classroom</title>
-<meta name="description" content="01-n8n-automation — Lab">
+<title>01-n8n-automation: Lab · Classroom</title>
+<meta name="description" content="01-n8n-automation: Lab">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/05-workflow-automation/topics/01-n8n-automation/lab.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,7 +63,7 @@
  <section class="hero flush">
  <div class="stamp">M5 LAB<small>lab</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 01-n8n-automation — Lab</h1>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 01-n8n-automation: Lab</h1>
  <p class="lede">Guided practice + break/fix + lab gate.</p>
  <div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>
@@ -73,7 +73,7 @@
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 5 — Workflow Automation (n8n)<br />
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 5: Workflow Automation (n8n)<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Objective:</strong> Given a lab-only Docker network, the learner can run n8n, build an RSS digest workflow explaining item cardinality, and require human approval before any mutating Keep Agent / SSH action.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -100,7 +100,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
-</div><div class="cr-prose-block"><p><strong>Prereqs:</strong> Class 2 Compose working on a Linux host/VM; Discord or Telegram you control; optional Ollama or an API key you are allowed to use.</p></div><div class="cr-lab-path"><h4>Path A — Install n8n with Compose</h4><div class="cr-help">
+</div><div class="cr-prose-block"><p><strong>Prereqs:</strong> Class 2 Compose working on a Linux host/VM; Discord or Telegram you control; optional Ollama or an API key you are allowed to use.</p></div><div class="cr-lab-path"><h4>Path A: Install n8n with Compose</h4><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -128,7 +128,7 @@ cd $HOME\n8n-lab
 </div><div class="cr-step" data-step="2">
  <div class="cr-step-num">2</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Write a minimal Compose file</strong> (adjust ports if <code>5678</code> is taken). Prefer current official n8n image tags from docs—pin an explicit version when you find one you trust:</p>
+  <div class="cr-step-text"><p><strong>Write a minimal Compose file</strong> (adjust ports if <code>5678</code> is taken). Prefer current official n8n image tags from docs, pin an explicit version when you find one you trust:</p>
 <div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">cat &gt; compose.yaml &lt;&lt;'YAML'
 name: n8n-lab
 services:
@@ -188,7 +188,7 @@ docker compose ps
 </div><div class="cr-step" data-step="3">
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Open the UI and finish owner setup.</strong> Browser: <code>http://N8N-HOST:5678</code>. Create the owner account. Skip marketing extras. Record the URL in the workbook—<strong>do not</strong> publish port 5678 to the internet.</p>
+  <div class="cr-step-text"><p><strong>Open the UI and finish owner setup.</strong> Browser: <code>http://N8N-HOST:5678</code>. Create the owner account. Skip marketing extras. Record the URL in the workbook, <strong>do not</strong> publish port 5678 to the internet.</p>
 <div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">curl -sI http://127.0.0.1:5678/ | head
 </code></pre></div>
 <div class="cr-os-block" data-os="win"><span class="cr-os-label win">Windows (CMD / PowerShell)</span><pre><code class="language-powershell">curl.exe -sI http://127.0.0.1:5678/
@@ -215,12 +215,12 @@ docker compose ps
  
 </div>
  </div>
-</div></div></div><div class="cr-lab-path"><h4>Path B — First workflow: RSS digest → Discord</h4><div class="cr-help">
+</div></div></div><div class="cr-lab-path"><h4>Path B: First workflow: RSS digest → Discord</h4><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph—triggers, nodes, and how data flows between them.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph, triggers, nodes, and how data flows between them.</div>
  
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
@@ -231,7 +231,7 @@ docker compose ps
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph—triggers, nodes, and how data flows between them.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph, triggers, nodes, and how data flows between them.</div>
  
 </div>
  </div>
@@ -303,7 +303,7 @@ docker compose ps
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Optional branch — Execute Command</strong> on the n8n host (only if your install allows it; many hardened setups disable host exec). Safer alternative: skip host exec and use <strong>SSH</strong> to a <strong>dedicated test VM</strong>. If you do run a host command for learning, use a harmless read-only check:</p>
+  <div class="cr-step-text"><p><strong>Optional branch: Execute Command</strong> on the n8n host (only if your install allows it; many hardened setups disable host exec). Safer alternative: skip host exec and use <strong>SSH</strong> to a <strong>dedicated test VM</strong>. If you do run a host command for learning, use a harmless read-only check:</p>
 <pre><code class="language-text">ping -c 3 1.1.1.1
 </code></pre>
 <p>Pin outputs. Do not chain this into production destructive actions.</p></div>
@@ -329,7 +329,7 @@ docker compose ps
  
 </div>
  </div>
-</div></div></div><div class="cr-lab-path"><h4>Path C — Keep Agent (observe → approve → fix on a toy site)</h4><div class="cr-prose-block"><p>Build this on the <strong>same Docker host</strong> as a disposable demo site—not on critical Proxmox nodes until you trust your prompts.</p></div><div class="cr-help">
+</div></div></div><div class="cr-lab-path"><h4>Path C: Keep Agent (observe → approve → fix on a toy site)</h4><div class="cr-prose-block"><p>Build this on the <strong>same Docker host</strong> as a disposable demo site, not on critical Proxmox nodes until you trust your prompts.</p></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -467,12 +467,12 @@ curl -sI --max-time 3 http://127.0.0.1:8090/ || echo EXPECTED_DOWN
  
 </div>
  </div>
-</div></div></div><div class="cr-lab-path"><h4>Path D — n8n orchestrates an AI CLI over SSH (optional stretch)</h4><div class="cr-prose-block"><p><strong>Goal:</strong> prove the thin bridge: n8n SSH → headless AI CLI → stdout back, then resume the same session. Pick <strong>one</strong> CLI you are licensed to use (Claude Code, Gemini CLI, or another headless-capable tool). Commands below use <code>claude</code> as a stand-in—swap the binary and flags to match <strong>current</strong> docs for your tool.</p></div><div class="cr-help">
+</div></div></div><div class="cr-lab-path"><h4>Path D: n8n orchestrates an AI CLI over SSH (optional stretch)</h4><div class="cr-prose-block"><p><strong>Goal:</strong> prove the thin bridge: n8n SSH → headless AI CLI → stdout back, then resume the same session. Pick <strong>one</strong> CLI you are licensed to use (Claude Code, Gemini CLI, or another headless-capable tool). Commands below use <code>claude</code> as a stand-in, swap the binary and flags to match <strong>current</strong> docs for your tool.</p></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address, handy and less isolated.</div>
  
 </div><div class="cr-step-list"><div class="cr-step" data-step="1">
  <div class="cr-step-num">1</div>
@@ -500,7 +500,7 @@ claude --version   # or: gemini --version
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address, handy and less isolated.</div>
  
 </div>
  </div>
@@ -520,7 +520,7 @@ claude --version   # or: gemini --version
 </div><div class="cr-step" data-step="4">
  <div class="cr-step-num">4</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Smoke test the shell</strong> — Command field:</p>
+  <div class="cr-step-text"><p><strong>Smoke test the shell</strong>: Command field:</p>
 <pre><code class="language-bash">hostname
 </code></pre>
 <p>Execute step. Confirm <code>stdout</code> shows the jump host name.</p></div>
@@ -536,7 +536,7 @@ claude --version   # or: gemini --version
 </div><div class="cr-step" data-step="5">
  <div class="cr-step-num">5</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Smoke test the AI CLI</strong> — Command field (adjust binary):</p>
+  <div class="cr-step-text"><p><strong>Smoke test the AI CLI</strong>: Command field (adjust binary):</p>
 <pre><code class="language-bash">claude --version
 </code></pre>
 <p>If this fails but interactive SSH works, fix PATH for non-interactive shells (common). Workbook the fix.</p></div>
@@ -568,7 +568,7 @@ claude --version   # or: gemini --version
 </div><div class="cr-step" data-step="7">
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
-  <div class="cr-step-text"><p><strong>Add project context</strong> — create a tiny folder the CLI can see:</p>
+  <div class="cr-step-text"><p><strong>Add project context</strong>: create a tiny folder the CLI can see:</p>
 <div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash">mkdir -p ~/keep-cli-context
 printf '%s\n' '# Keep lab note' 'Class 14 AI CLI bridge test.' 'Do not change production systems.' &gt; ~/keep-cli-context/README.md
 </code></pre></div>
@@ -581,7 +581,7 @@ printf '%s\n' '# Keep lab note' 'Class 14 AI CLI bridge test.' 'Do not change pr
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address, handy and less isolated.</div>
  
 </div>
  </div>
@@ -610,7 +610,7 @@ printf '%s\n' '# Keep lab note' 'Class 14 AI CLI bridge test.' 'Do not change pr
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A session id lets you resume the same AI conversation later—like continuing a chat instead of starting over.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A session id lets you resume the same AI conversation later, like continuing a chat instead of starting over.</div>
  
 </div>
  </div>
@@ -650,7 +650,7 @@ printf '%s\n' '# Keep lab note' 'Class 14 AI CLI bridge test.' 'Do not change pr
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address, handy and less isolated.</div>
  
 </div>
  </div>
@@ -744,7 +744,7 @@ printf '%s\n' '# Keep lab note' 'Class 14 AI CLI bridge test.' 'Do not change pr
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address—handy and less isolated.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address, handy and less isolated.</div>
  
 </div></div></div>
  <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>

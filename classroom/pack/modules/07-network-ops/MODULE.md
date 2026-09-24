@@ -1,4 +1,4 @@
-# Module 7 — Network Operations
+# Module 7: Network Operations
 
 **Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review
 **Feynman teach-back is required in every lesson.**

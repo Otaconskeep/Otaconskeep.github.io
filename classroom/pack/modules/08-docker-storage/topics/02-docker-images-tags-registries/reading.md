@@ -1,7 +1,7 @@
-# Reading — Docker Images, Tags, Registries, and Provenance
+# Reading: Docker Images, Tags, Registries, and Provenance
 
-**Module:** Module 8 — Docker, Storage & Permissions
-**Topic:** 02 — Docker Images, Tags, Registries, and Provenance
+**Module:** Module 8: Docker, Storage & Permissions
+**Topic:** 02: Docker Images, Tags, Registries, and Provenance
 **Activity type:** Reading / reference (Learn)
 **Source:** Class 28 intake, published without rewriting lesson content
 
@@ -32,7 +32,7 @@ Do not place registry credentials in image names, Dockerfiles, shell history, or
 
 An operator records `example/app:stable`, deploys it, and later recreates the container. The tag now resolves to a different digest. The configuration looks unchanged, but the binary content changed. Recording and approving `example/app@sha256:…` would make the change visible and reversible.
 
-## Visual 1 — Image Supply Path
+## Visual 1: Image Supply Path
 
 ```mermaid
 flowchart LR
@@ -45,7 +45,7 @@ flowchart LR
 
 The trust decision spans the entire path; pulling successfully proves availability, not trust.
 
-## Visual 2 — Name Versus Identity
+## Visual 2: Name Versus Identity
 
 ```mermaid
 flowchart TD

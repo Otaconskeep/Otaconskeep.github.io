@@ -1,4 +1,4 @@
-# Reading — Health Checks, Dependencies, and Restart Policies
+# Reading: Health Checks, Dependencies, and Restart Policies
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Reading (Learn)

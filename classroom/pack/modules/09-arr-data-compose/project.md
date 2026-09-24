@@ -1,4 +1,4 @@
-# Module project — ARR Data Model & Compose
+# Module project: ARR Data Model & Compose
 
 **Module:** ARR Data Model & Compose
 

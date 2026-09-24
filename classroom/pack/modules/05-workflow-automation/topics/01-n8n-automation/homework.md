@@ -1,6 +1,6 @@
-# Homework — n8n homelab automation
+# Homework: n8n homelab automation
 
-**Module:** Module 5 — Workflow Automation (n8n)  
+**Module:** Module 5: Workflow Automation (n8n)  
 **Activity type:** Homework / independent application  
 **Bloom move:** push from guided practice into independent Apply/Analyze  
 **Objective:** Given a lab-only Docker network, the learner can run n8n, build an RSS digest workflow explaining item cardinality, and require human approval before any mutating Keep Agent / SSH action.
@@ -11,7 +11,7 @@ Complete **without** peeking at lab hints first. Then compare.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Draw your approval boundary on paper: which nodes may run unattended vs which need a human. Implement that boundary.
 

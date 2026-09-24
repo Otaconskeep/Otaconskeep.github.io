@@ -1,4 +1,4 @@
-# Homework — Environment Variables, Secrets, and Configuration
+# Homework: Environment Variables, Secrets, and Configuration
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Homework / independent application

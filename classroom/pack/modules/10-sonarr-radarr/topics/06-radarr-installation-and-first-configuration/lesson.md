@@ -1,4 +1,4 @@
-# Lesson 10.06 — Radarr Installation and First Configuration
+# Lesson 10.06: Radarr Installation and First Configuration
 
 **Module:** Sonarr & Radarr
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

@@ -1,4 +1,4 @@
-# Class 28 — Docker Images, Tags, Registries, and Provenance
+# Class 28: Docker Images, Tags, Registries, and Provenance
 
 **Module:** Docker, Storage & Permissions  
 **Difficulty:** Beginner · **Duration:** 90 minutes · **Lab risk:** Low  
@@ -37,7 +37,7 @@ Use a controlled promotion pattern:
 
 Do not place registry credentials in image names, Dockerfiles, shell history, or lesson evidence. Prefer short-lived credentials and the platform's credential store.
 
-## Visual 1 — Image Supply Path
+## Visual 1: Image Supply Path
 
 ```mermaid
 flowchart LR
@@ -50,7 +50,7 @@ flowchart LR
 
 The trust decision spans the entire path; pulling successfully proves availability, not trust.
 
-## Visual 2 — Name Versus Identity
+## Visual 2: Name Versus Identity
 
 ```mermaid
 flowchart TD

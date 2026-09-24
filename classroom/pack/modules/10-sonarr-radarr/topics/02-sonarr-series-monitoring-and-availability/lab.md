@@ -1,4 +1,4 @@
-# Lab — Sonarr Series Monitoring and Availability
+# Lab: Sonarr Series Monitoring and Availability
 
 **Module:** Sonarr & Radarr
 **Activity type:** Lab (Practice)

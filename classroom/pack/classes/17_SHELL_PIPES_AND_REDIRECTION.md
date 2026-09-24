@@ -1,4 +1,4 @@
-# Class 17 — Shell Pipes and Redirection
+# Class 17: Shell Pipes and Redirection
 
 **Learning objective:** Identify file descriptors 0, 1, and 2 as standard input, standard output, and standard error; Use a pipe to connect one command's standard output to another command's standard input; Redirect output with > and append output with >>; Redirect standard input with <; Capture standard error separately with 2>; Combine standard output and standard error with > file 2>&1; Explain why redirection order matters; Recognize that a pipeline normally reports the status of its final command; Use tee when output must be displayed or passed onward while also being saved; Verify generated files without changing anything outside the class laboratory directory
 **Bloom level:** Understand / Apply

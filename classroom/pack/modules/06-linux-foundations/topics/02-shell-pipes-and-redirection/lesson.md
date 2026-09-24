@@ -1,4 +1,4 @@
-# Lesson 06.02 — Shell Pipes and Redirection
+# Lesson 06.02: Shell Pipes and Redirection
 
 **Module:** Linux Foundations
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

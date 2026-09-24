@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>03-config-automation — Lab · Classroom</title>
-<meta name="description" content="03-config-automation — Lab">
+<title>03-config-automation: Lab · Classroom</title>
+<meta name="description" content="03-config-automation: Lab">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/02-arr-media/topics/03-config-automation/lab.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,7 +63,7 @@
  <section class="hero flush">
  <div class="stamp">M2 LAB<small>lab</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 03-config-automation — Lab</h1>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 03-config-automation: Lab</h1>
  <p class="lede">Guided practice + break/fix + lab gate.</p>
  <div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>
@@ -73,7 +73,7 @@
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 2 — ARR Media Automation<br />
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 2: ARR Media Automation<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Objective:</strong> Given a known-good profile backup, the learner can choose one authoritative sync path, run dry-run/apply/rollback, and produce a drift report that matches the live apps.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -138,7 +138,7 @@ command -v recyclarr; type recyclarr
  <div class="cr-step-num">3</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Point config at the test profile only.</strong> Validate / dry-run without applying.</p>
-<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># Pattern — exact subcommands depend on current tool docs:
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># Pattern: exact subcommands depend on current tool docs:
 recyclarr config list
 recyclarr sync --dry-run
 # or: docker compose exec recyclarr recyclarr sync --dry-run
@@ -264,7 +264,7 @@ curl -sf &quot;http://127.0.0.1:8989/ping&quot; &amp;&amp; echo SONARR_UP
 <p>Run sync twice; prove idempotency in logs.</p>
 </li>
 <li>
-<p>Point two tools at the same profile (or simulate conflicting ownership)—observe fight; pick one owner.</p>
+<p>Point two tools at the same profile (or simulate conflicting ownership), observe fight; pick one owner.</p>
 </li>
 <li>
 <p>Break YAML/config syntax; show validator failure; fix.</p>

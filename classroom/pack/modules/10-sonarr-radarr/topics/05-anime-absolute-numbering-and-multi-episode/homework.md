@@ -1,4 +1,4 @@
-# Homework — Anime, Absolute Numbering, and Multi-Episode Files
+# Homework: Anime, Absolute Numbering, and Multi-Episode Files
 
 **Module:** Sonarr & Radarr
 **Activity type:** Homework / independent application

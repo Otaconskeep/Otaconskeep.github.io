@@ -1,4 +1,4 @@
-# Lesson 06.01 — Linux Filesystem and Navigation
+# Lesson 06.01: Linux Filesystem and Navigation
 
 **Module:** Linux Foundations
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

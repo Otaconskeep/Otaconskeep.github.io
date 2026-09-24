@@ -1,4 +1,4 @@
-# Module 3 quiz — Home Assistant & Secure Access
+# Module 3 quiz: Home Assistant & Secure Access
 
 **Activity type:** Module quiz (retention / retrieval)  
 **Target:** ≥80%

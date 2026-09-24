@@ -1,4 +1,4 @@
-# Class 21 — SSH Keys and Safe Hardening
+# Class 21: SSH Keys and Safe Hardening
 
 **Learning objective:** Explain the different roles of an SSH private key and public key.; Generate a passphrase-protected Ed25519 key pair in an isolated lab directory.; Inspect key fingerprints and verify restrictive private-key permissions.; Build a sandbox authorized_keys file with source and feature restrictions.; Identify high-value SSH daemon hardening directives and explain their operational impact.; Describe a staged production hardening process that avoids remote administrative lockout.; Recognize why host-key verification and private-key protection are separate security controls.
 **Bloom level:** Understand / Apply

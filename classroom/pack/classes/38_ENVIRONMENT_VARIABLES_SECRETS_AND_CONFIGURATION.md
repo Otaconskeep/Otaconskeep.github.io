@@ -1,4 +1,4 @@
-# Class 38 — Environment Variables, Secrets, and Configuration
+# Class 38: Environment Variables, Secrets, and Configuration
 
 **Learning objective:** Distinguish ordinary configuration values from sensitive values that require stronger handling.; Explain how a child process inherits exported environment variables.; Describe why environment variables are convenient but are not automatically confidential.; Implement explicit configuration precedence using defaults, a configuration file, and environment overrides.; Load a sensitive value from a permission-restricted file without displaying it.; Reject a sensitive file when group or other permission bits are present.; Rotate a generated training credential with an atomic file replacement.; Verify effective configuration without logging sensitive content.
 **Bloom level:** Understand / Apply

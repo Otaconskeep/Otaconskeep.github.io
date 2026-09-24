@@ -1,4 +1,4 @@
-# Reading — Configuration Backups and Recovery
+# Reading: Configuration Backups and Recovery
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Reading (Learn)

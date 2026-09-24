@@ -1,9 +1,9 @@
-# Module 4 — Local Voice Assistant
+# Module 4: Local Voice Assistant
 
 **Design chain:** Backward Design → Bloom’s Taxonomy → Learn / Practice / Test / Reflect → Mastery → Spiral Review  
 **Feynman teach-back is required in every lesson.**
 
-## Backward design — module outcome
+## Backward design: module outcome
 
 Student can instrument a local Assist pipeline stage-by-stage, deploy Whisper/Piper via Wyoming with measured tradeoffs, and prove wake→action→speech with the internet disconnected.
 
@@ -48,7 +48,7 @@ Required:
 - [ ] Module exam passed (or instructor/self-check acceptance)
 - [ ] Reflection written on module hub notes
 
-**Stage gate statement:** Gate 4 — per-stage tests pass; disconnected end-to-end pass recorded.
+**Stage gate statement:** Gate 4: per-stage tests pass; disconnected end-to-end pass recorded.
 
 ## Spiral review
 

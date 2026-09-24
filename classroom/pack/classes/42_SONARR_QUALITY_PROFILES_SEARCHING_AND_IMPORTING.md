@@ -1,4 +1,4 @@
-# Class 42 — Sonarr Quality Profiles, Searching, and Importing
+# Class 42: Sonarr Quality Profiles, Searching, and Importing
 
 **Learning objective:** Explain the difference between a quality definition, quality profile, custom format, and release score.; Describe how monitoring, RSS processing, automatic search, and interactive search differ.; Predict whether a candidate release is allowed, rejected, or considered an upgrade.; Explain why quality ranking and custom-format scoring must be considered separately.; Distinguish automatic import, manual import, copy-based import, move-based import, and hardlink-based import.; Verify a hardlink import by comparing device numbers, inode numbers, and link counts.; Identify common reasons a download remains in Sonarr's activity queue without importing.; Apply safe path, permission, and download-client practices to Sonarr imports.
 **Bloom level:** Understand / Apply

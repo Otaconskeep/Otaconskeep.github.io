@@ -1,4 +1,4 @@
-# Quiz — Hardlinks, Atomic Moves, and Import Efficiency
+# Quiz: Hardlinks, Atomic Moves, and Import Efficiency
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Quiz / retrieval practice

@@ -1,4 +1,4 @@
-# Module 4 exam — Local Voice Assistant
+# Module 4 exam: Local Voice Assistant
 
 **Activity type:** Module exam / practical mastery test  
 **Outcome under test:** Student can instrument a local Assist pipeline stage-by-stage, deploy Whisper/Piper via Wyoming with measured tradeoffs, and prove wake→action→speech with the internet disconnected.

@@ -1,4 +1,4 @@
-# Remediation — Module 06
+# Remediation: Module 06
 
 ## Feedback → targeted review → reassess
 

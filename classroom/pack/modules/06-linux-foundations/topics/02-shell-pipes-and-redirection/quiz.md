@@ -1,4 +1,4 @@
-# Quiz — Shell Pipes and Redirection
+# Quiz: Shell Pipes and Redirection
 
 **Module:** Linux Foundations
 **Activity type:** Quiz / retrieval practice

@@ -1,6 +1,6 @@
-# Lesson 01.02 — Docker Compose & persistence
+# Lesson 01.02: Docker Compose & persistence
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)  
 **Learning objective:** Given a multi-step `docker run` intent, the learner can write a Compose file with services, ports, environment, and persistent mounts, then recreate the stack without data loss.  
 **Bloom level:** Apply / Create  
@@ -13,11 +13,11 @@ Given a multi-step `docker run` intent, the learner can write a Compose file wit
 
 ## Why this matters
 
-Shell history is not a system design. If your stack only exists as remembered commands, you cannot rebuild after failure — and every later ARR/HA/voice service will be fragile.
+Shell history is not a system design. If your stack only exists as remembered commands, you cannot rebuild after failure: and every later ARR/HA/voice service will be fragile.
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is a container image versus a running container?
 2. Where should application data live if the container is deleted?
@@ -27,13 +27,13 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 Complete the module reading first:
 
-- [Reading — Docker Compose & persistence](./reading.md)
+- [Reading: Docker Compose & persistence](./reading.md)
 
 Then review the worked example inside that reading (I do).
 
 ## Guided practice (We do)
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Convert one documented `docker run` (from the lesson) into Compose YAML with assistance. Check: service name, image, ports, env, volume, restart policy.
 
@@ -56,7 +56,7 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 ## Reflection
 

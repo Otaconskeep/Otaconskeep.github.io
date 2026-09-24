@@ -1,4 +1,4 @@
-# Reading — Hardlinks, Atomic Moves, and Import Efficiency
+# Reading: Hardlinks, Atomic Moves, and Import Efficiency
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Reading (Learn)

@@ -1,4 +1,4 @@
-# Class 40 — Sonarr Installation and First Configuration
+# Class 40: Sonarr Installation and First Configuration
 
 **Learning objective:** Explain Sonarr's role in a media automation architecture.; Install the current Sonarr v4 Linux x64 release into a self-contained laboratory directory.; Configure Sonarr to listen only on the loopback interface for the initial lab.; Start and stop Sonarr without creating a system-wide service.; Complete the first-run authentication and media root configuration.; Distinguish a root folder from a download-client destination.; Verify the process, listening socket, web interface, logs, and application data.; Describe how permissions and path consistency affect imports.
 **Bloom level:** Understand / Apply

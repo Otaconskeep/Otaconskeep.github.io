@@ -1,4 +1,4 @@
-# Homework — Docker Compose Fundamentals
+# Homework: Docker Compose Fundamentals
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Homework / independent application

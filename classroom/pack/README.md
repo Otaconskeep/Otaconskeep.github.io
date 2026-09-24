@@ -1,4 +1,4 @@
-# Otaconskeep Classroom — Homelab Academy
+# Otaconskeep Classroom: Homelab Academy
 
 **Site:** https://otaconskeep.github.io/classroom/
 
@@ -12,10 +12,10 @@ This is a **module-based learning system**, not a pile of readings, videos, quiz
 
 ## Start here
 
-1. [`pack/METHODOLOGY.md`](pack/METHODOLOGY.md) — how the system works  
-2. [`pack/LEARNING_OUTCOMES.md`](pack/LEARNING_OUTCOMES.md) — what you can do at the end  
+1. [`pack/METHODOLOGY.md`](pack/METHODOLOGY.md): how the system works  
+2. [`pack/LEARNING_OUTCOMES.md`](pack/LEARNING_OUTCOMES.md): what you can do at the end  
 3. [`pack/PREREQUISITE_ASSESSMENT.md`](pack/PREREQUISITE_ASSESSMENT.md)  
-4. [`pack/modules/README.md`](pack/modules/README.md) — **authoritative module index**  
+4. [`pack/modules/README.md`](pack/modules/README.md): **authoritative module index**  
 5. Open Module 1 → Topic 1 → Reading → Lesson (Feynman) → Lab → Homework → Quiz  
 
 ## Module shape
@@ -37,8 +37,8 @@ Module
 
 ## Package contents
 
-- `pack/modules/` — **primary curriculum**
-- `pack/classes/` — combined reference exports of each topic (legacy-compatible)
+- `pack/modules/`: **primary curriculum**
+- `pack/classes/`: combined reference exports of each topic (legacy-compatible)
 - Course docs: overview, syllabus, outcomes, methodology, prereq, map
 - Workbook, instructor key, capstone, templates, references
 
@@ -50,4 +50,4 @@ Module
 
 ## License
 
-MIT — Antonio G. Garcia (Otaconskeep)
+MIT: Antonio G. Garcia (Otaconskeep)

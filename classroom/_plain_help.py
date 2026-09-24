@@ -83,13 +83,13 @@ SECTION_PLAIN: dict[str, tuple[str, str]] = {
     ),
     "hypervisors: type 2 vs type 1": (
         "The hypervisor is the app (or OS) that creates VMs. Type 2 sits on your normal OS. Type 1 replaces it on dedicated hardware.",
-        "Same goal—make guests. Different place in the stack and different power.",
+        "Same goal, make guests. Different place in the stack and different power.",
     ),
-    "path a — type 2 on your daily computer (virtualbox)": (
+    "path a: type 2 on your daily computer (virtualbox)": (
         "This path installs VirtualBox on the computer you already use. Good when you have no spare PC yet.",
         "Finish a working guest and snapshots here, then plan a Proxmox box for later classes.",
     ),
-    "path b — type 1 on spare hardware (proxmox ve)": (
+    "path b: type 1 on spare hardware (proxmox ve)": (
         "This path installs Proxmox on a machine you can dedicate. That is the Academy’s default for later labs.",
         "Back up the disk first. Prefer wired Ethernet for the host.",
     ),
@@ -99,7 +99,7 @@ SECTION_PLAIN: dict[str, tuple[str, str]] = {
     ),
     "isolation vs convenience (both paths)": (
         "Every sharing feature makes the sandbox thinner. Turn them on only when you need them.",
-        "Bridged LAN, clipboard, and shared folders are convenience doors—not free upgrades.",
+        "Bridged LAN, clipboard, and shared folders are convenience doors, not free upgrades.",
     ),
     "firmware: turn on hardware virtualization": (
         "Your CPU has a switch for virtualization. Turn it on in BIOS/UEFI or 64-bit guests may fail.",
@@ -142,7 +142,7 @@ SECTION_PLAIN: dict[str, tuple[str, str]] = {
         "If a secret leaks, rotate it (make a new one and retire the old one).",
     ),
     "learning objective": (
-        "This is the finish line for the class — a task you should be able to do, not a vague 'understand.'",
+        "This is the finish line for the class: a task you should be able to do, not a vague 'understand.'",
         "If you cannot restate it as something you can perform, you are not ready for the gate.",
     ),
     "why this matters": (
@@ -150,7 +150,7 @@ SECTION_PLAIN: dict[str, tuple[str, str]] = {
         "",
     ),
     "prior-knowledge check": (
-        "Warm up your brain. Wrong answers are useful — they show what to review.",
+        "Warm up your brain. Wrong answers are useful: they show what to review.",
         "Do not skip ahead. Activation makes the lesson stick.",
     ),
     "instruction": (
@@ -171,7 +171,7 @@ SECTION_PLAIN: dict[str, tuple[str, str]] = {
     ),
     "feynman teach-back": (
         "If you cannot explain it simply, you do not own it yet. This section is required for mastery.",
-        "Weak spots are gold — restudy that part and rewrite.",
+        "Weak spots are gold: restudy that part and rewrite.",
     ),
     "retrieval check": (
         "Write from memory first. Retrieval beats rereading.",
@@ -223,32 +223,32 @@ KIND_PLAIN = {
 
 # Keyword rules for lab / prose steps → plain words
 STEP_RULES: list[tuple[re.Pattern[str], str]] = [
-    (re.compile(r"\bVirtualBox\b|\bExtension Pack\b", re.I), "VirtualBox is a free Type 2 hypervisor—an app on your normal OS that creates guest computers."),
+    (re.compile(r"\bVirtualBox\b|\bExtension Pack\b", re.I), "VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers."),
     (re.compile(r"\bProxmox\b", re.I), "Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser."),
     (re.compile(r"\bType\s*[12]\b|\bhypervisor\b", re.I), "A hypervisor creates and runs virtual machines. Type 2 sits on your OS; Type 1 sits on the hardware."),
     (re.compile(r"\bVT-x\b|\bAMD-V\b|\bSVM\b|\bVMX\b|\bfirmware\b.*virtual", re.I), "This is the BIOS/UEFI switch that lets your CPU run virtual machines well. Turn it on, save, reboot."),
     (re.compile(r"\bsnapshot\b", re.I), "A snapshot is a restore point. Take one before a risky change so you can roll back fast."),
     (re.compile(r"\bclone\b", re.I), "A clone is a full copy of a VM. Break the copy; keep the original clean."),
     (re.compile(r"\bNAT\b", re.I), "NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN."),
-    (re.compile(r"\bbridged?\b", re.I), "Bridged networking puts the guest on the real LAN with its own address—handy and less isolated."),
+    (re.compile(r"\bbridged?\b", re.I), "Bridged networking puts the guest on the real LAN with its own address, handy and less isolated."),
     (re.compile(r"\bISO\b", re.I), "An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD."),
     (re.compile(r"\bhost key\b|Right Ctrl", re.I), "The host key releases mouse and keyboard from the guest window back to your real desktop."),
-    (re.compile(r"\bLXC\b|\bcontainer template\b", re.I), "LXC is a lightweight Linux system that shares the host kernel—fast to start, less separate than a VM."),
+    (re.compile(r"\bLXC\b|\bcontainer template\b", re.I), "LXC is a lightweight Linux system that shares the host kernel, fast to start, less separate than a VM."),
     (re.compile(r"\bvmbr0\b", re.I), "vmbr0 is Proxmox’s usual virtual switch. Guests plug into it to reach the network."),
     (re.compile(r"\bn8n\b", re.I), "n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items."),
-    (re.compile(r"\bworkflow\b", re.I), "A workflow is the whole automation graph—triggers, nodes, and how data flows between them."),
+    (re.compile(r"\bworkflow\b", re.I), "A workflow is the whole automation graph, triggers, nodes, and how data flows between them."),
     (re.compile(r"\bwebhook\b", re.I), "A webhook is a secret URL another service can POST to. Treat it like a password."),
     (re.compile(r"\bhuman-in-the-loop\b|\bneeds_approval\b|\bapproval\b", re.I), "Pause for a human yes/no before the automation changes anything important."),
-    (re.compile(r"\bAI [Aa]gent\b|\bKeep Agent\b", re.I), "An agent is a model plus tools. It can choose checks—but mutating tools stay behind approval."),
+    (re.compile(r"\bAI [Aa]gent\b|\bKeep Agent\b", re.I), "An agent is a model plus tools. It can choose checks, but mutating tools stay behind approval."),
     (re.compile(r"\bAI CLI\b|\bClaude Code\b|\bgemini cli\b|\bheadless\b", re.I), "An AI CLI is a terminal AI tool. n8n can SSH in and run it headless, then read the text it prints."),
-    (re.compile(r"\bsession[- ]?id\b|\bUUID\b", re.I), "A session id lets you resume the same AI conversation later—like continuing a chat instead of starting over."),
+    (re.compile(r"\bsession[- ]?id\b|\bUUID\b", re.I), "A session id lets you resume the same AI conversation later, like continuing a chat instead of starting over."),
     (re.compile(r"\borchestrator\b", re.I), "n8n starts and routes the work; the AI CLI (or other tools) do the heavy thinking on a jump host."),
     (re.compile(r"\bIPv4\b|\bIP address\b|\bsubnet mask\b|\bnetmask\b", re.I), "An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’"),
-    (re.compile(r"\bdefault gateway\b|\bdefault router\b", re.I), "The gateway is your router’s address on the LAN—the courier when the destination is not on your street."),
+    (re.compile(r"\bdefault gateway\b|\bdefault router\b", re.I), "The gateway is your router’s address on the LAN, the courier when the destination is not on your street."),
     (re.compile(r"\bDHCP\b", re.I), "DHCP is how most home devices get an IP automatically from the router."),
     (re.compile(r"\bbroadcast\b", re.I), "The broadcast address talks to every host on that subnet. Do not assign it to a normal device."),
     (re.compile(r"\bclassful\b|\bClass [ABCDE]\b", re.I), "Old IPv4 classes A–C each had a default mask size. Learn the chart for exams; real labs use classless masks (CIDR)."),
-    (re.compile(r"\bclassless\b|\bCIDR\b", re.I), "Classless means you choose the mask that fits—you are not stuck with the old Class A/B/C default."),
+    (re.compile(r"\bclassless\b|\bCIDR\b", re.I), "Classless means you choose the mask that fits, you are not stuck with the old Class A/B/C default."),
     (re.compile(r"\bloopback\b|\b127\.0\.0\.1\b", re.I), "Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack."),
     (re.compile(r"\bIANA\b", re.I), "IANA sits at the top of public IP number allocation. Regions and ISPs get slices under that system."),
     (re.compile(r"\bmulticast\b", re.I), "Multicast (Class D) sends to a group of listeners. Do not use it as a normal host address."),
@@ -268,7 +268,7 @@ STEP_RULES: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"\bhealth\b|\bhealthcheck\b", re.I), "A health check asks “are you really ready?” not just “did the process start?”"),
     (re.compile(r"\blog\b", re.I), "Logs are the app’s diary. Read the newest lines when something breaks."),
     (re.compile(r"\bpermission\b|\bPUID\b|\bPGID\b|\bownership\b", re.I), "If the app cannot write files, the user numbers (who owns the folder) are probably wrong."),
-    (re.compile(r"\bVPN\b|\bGluetun\b|\btunnel\b", re.I), "This path is about safe remote reach or private download traffic — not opening every admin page to the world."),
+    (re.compile(r"\bVPN\b|\bGluetun\b|\btunnel\b", re.I), "This path is about safe remote reach or private download traffic: not opening every admin page to the world."),
     (re.compile(r"\bHome Assistant\b|\bentity\b|\bautomation\b", re.I), "Home Assistant watches sensors and runs if-this-then-that rules for your house."),
     (re.compile(r"\bwake word\b|\bSTT\b|\bTTS\b|\bWhisper\b|\bPiper\b", re.I), "Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time."),
     (re.compile(r"\blocalhost\b", re.I), "Localhost means “this same machine/container.” From inside another container it often points at the wrong place."),

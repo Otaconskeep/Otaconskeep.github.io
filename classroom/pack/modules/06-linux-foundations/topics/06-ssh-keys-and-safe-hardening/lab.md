@@ -1,4 +1,4 @@
-# Lab — SSH Keys and Safe Hardening
+# Lab: SSH Keys and Safe Hardening
 
 **Module:** Linux Foundations
 **Activity type:** Lab (Practice)

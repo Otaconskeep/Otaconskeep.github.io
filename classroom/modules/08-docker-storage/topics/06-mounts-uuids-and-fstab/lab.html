@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>06-mounts-uuids-and-fstab — Lab · Classroom</title>
-<meta name="description" content="06-mounts-uuids-and-fstab — Lab">
+<title>06-mounts-uuids-and-fstab: Lab · Classroom</title>
+<meta name="description" content="06-mounts-uuids-and-fstab: Lab">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/08-docker-storage/topics/06-mounts-uuids-and-fstab/lab.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,7 +63,7 @@
  <section class="hero flush">
  <div class="stamp">M8 LAB<small>lab</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 06-mounts-uuids-and-fstab — Lab</h1>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 06-mounts-uuids-and-fstab: Lab</h1>
  <p class="lede">Guided practice + break/fix + lab gate.</p>
  <div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>
@@ -73,7 +73,7 @@
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 8 — Docker, Storage &amp; Permissions<br />
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 8: Docker, Storage &amp; Permissions<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Objective:</strong> Explain mounting and mount options; identify filesystems by UUID/label; read <code>fstab</code>; stage and validate a persistent mount entry without changing boot configuration; and plan recovery from an invalid or unavailable mount.</p></div><div class="cr-box cr-box-practice"><div class="cr-box-head"><span class="cr-chip cr-chip-practice">Practice</span><h3>Guided practice</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -112,7 +112,7 @@ findmnt --verify --verbose --tab-file &quot;$LAB/fstab.staged&quot; 2&gt;&amp;1 
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A session id lets you resume the same AI conversation later—like continuing a chat instead of starting over.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A session id lets you resume the same AI conversation later, like continuing a chat instead of starting over.</div>
  
 </div></div><div class="cr-prose-block"><h4>Verification checkpoints</h4><pre><code class="language-bash">test -s &quot;$LAB/fstab.staged&quot; &amp;&amp; echo 'PASS: staged entry exists'
 awk 'NF==6 &amp;&amp; $1 ~ /^UUID=/ &amp;&amp; $3==&quot;ext4&quot; {ok=1} END{exit !ok}' &quot;$LAB/fstab.staged&quot; &amp;&amp; echo 'PASS: six-field ext4 entry'
@@ -123,7 +123,7 @@ test &quot;$(wc -l &lt; &quot;$LAB/fstab.staged&quot;)&quot; -eq 1 &amp;&amp; ec
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A session id lets you resume the same AI conversation later—like continuing a chat instead of starting over.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A session id lets you resume the same AI conversation later, like continuing a chat instead of starting over.</div>
  
 </div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-help">
  <div class="cr-actions">

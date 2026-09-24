@@ -1,6 +1,6 @@
-# Lesson 08.06 — Mounts, UUIDs, and fstab
+# Lesson 08.06: Mounts, UUIDs, and fstab
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)
 **Learning objective:** Explain mounting and mount options; identify filesystems by UUID/label; read `fstab`; stage and validate a persistent mount entry without changing boot configuration; and plan recovery from an invalid or unavailable mount.
 

@@ -1,6 +1,6 @@
-# Homework — Mounts, UUIDs, and fstab
+# Homework: Mounts, UUIDs, and fstab
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Homework (Apply)
 
 ## Independent practice

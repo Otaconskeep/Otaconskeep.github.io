@@ -1,6 +1,6 @@
-# Lab — Docker networking
+# Lab: Docker networking
 
-**Module:** Module 1 — Infrastructure & Addressing  
+**Module:** Module 1: Infrastructure & Addressing  
 **Activity type:** Lab (Practice)  
 **Objective:** Given two Compose services, the learner can place them on an isolated user-defined network, call one service by DNS name from the other, and explain host-port publish versus container-to-container traffic.
 
@@ -13,7 +13,7 @@
 
 **Where to run:** Docker host from Class 2 (Linux VM preferred).
 
-### Setup — two containers on one user-defined bridge
+### Setup: two containers on one user-defined bridge
 
 1. **Create the network lab project.**
 
@@ -90,7 +90,7 @@ docker network inspect media_net -f '{{range .Containers}}{{.Name}} {{.IPv4Addre
 :::windows
 ```powershell
 docker compose exec tester curl -sI http://localhost:80
-# Expect failure — localhost is the tester container itself, not responder.
+# Expect failure: localhost is the tester container itself, not responder.
 ```
 :::
 
@@ -138,7 +138,7 @@ Sonarr -> http://qbittorrent:8080
 Radarr -> http://sabnzbd:8080
 ```
 
-Exact ports go in `templates/service_contract.csv`—do not guess.
+Exact ports go in `templates/service_contract.csv`, do not guess.
 
 ## Break / fix
 
@@ -168,7 +168,7 @@ docker compose exec tester curl -sI http://responder:80
 ```
 :::
 
-2. **Replace `responder` with `localhost` in curl** (already done above)—explain the failure in the workbook.
+2. **Replace `responder` with `localhost` in curl** (already done above), explain the failure in the workbook.
 
 3. **Bind only to loopback and compare LAN access.** Change ports to `"127.0.0.1:8081:80"`, recreate, prove host-local works and another LAN device fails.
 

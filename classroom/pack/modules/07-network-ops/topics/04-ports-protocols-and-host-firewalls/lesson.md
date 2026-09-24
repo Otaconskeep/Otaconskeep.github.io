@@ -1,4 +1,4 @@
-# Lesson 07.04 — Ports, Protocols, and Host Firewalls
+# Lesson 07.04: Ports, Protocols, and Host Firewalls
 
 **Module:** Network Operations
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

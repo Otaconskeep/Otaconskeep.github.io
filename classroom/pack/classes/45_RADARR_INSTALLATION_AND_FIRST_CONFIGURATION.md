@@ -1,4 +1,4 @@
-# Class 45 — Radarr Installation and First Configuration
+# Class 45: Radarr Installation and First Configuration
 
 **Learning objective:** Explain Radarr's role in a media automation architecture; Deploy Radarr with Docker Compose while keeping lesson-created persistent files under /opt/lab-classroom/class45/; Map Radarr configuration, movie library, and download-staging directories into the container; Complete the initial authentication and media-management configuration; Add and validate a movie root folder; Explain why Radarr and a download client must agree on filesystem paths; Verify container status, web access, persistence, and basic application health; Stop the deployment and disable its Compose definition without deleting classroom data
 **Bloom level:** Understand / Apply

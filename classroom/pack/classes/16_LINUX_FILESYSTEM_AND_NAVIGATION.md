@@ -1,4 +1,4 @@
-# Class 16 — Linux Filesystem and Navigation
+# Class 16: Linux Filesystem and Navigation
 
 **Learning objective:** Explain the difference between the filesystem root directory and the root user; Distinguish absolute paths from relative paths; Navigate with pwd, cd, dot, dot-dot, and the home-directory shortcut; List normal and hidden directory entries with ls; Create and organize directories and files inside the assigned lab path; Explain the difference between a filename, a pathname, an inode, and file data; Create and inspect hard links and symbolic links; Use stat, file, readlink, namei, and find to investigate filesystem objects; Recognize why quoting paths and verifying the current directory are important safety practices; Roll back the lab without modifying data outside the controlled workspace
 **Bloom level:** Understand / Apply

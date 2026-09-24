@@ -1,4 +1,4 @@
-# Lesson 09.02 — Hardlinks, Atomic Moves, and Import Efficiency
+# Lesson 09.02: Hardlinks, Atomic Moves, and Import Efficiency
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

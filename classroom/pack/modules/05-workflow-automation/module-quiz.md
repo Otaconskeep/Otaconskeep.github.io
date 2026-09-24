@@ -1,4 +1,4 @@
-# Module 5 quiz — Workflow Automation (n8n)
+# Module 5 quiz: Workflow Automation (n8n)
 
 **Activity type:** Module quiz (retention / retrieval)  
 **Target:** ≥80%

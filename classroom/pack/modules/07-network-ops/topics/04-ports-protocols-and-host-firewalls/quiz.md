@@ -1,4 +1,4 @@
-# Quiz — Ports, Protocols, and Host Firewalls
+# Quiz: Ports, Protocols, and Host Firewalls
 
 **Module:** Network Operations
 **Activity type:** Quiz / retrieval practice

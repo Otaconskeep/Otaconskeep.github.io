@@ -1,4 +1,4 @@
-# Lab — Environment Variables, Secrets, and Configuration
+# Lab: Environment Variables, Secrets, and Configuration
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Lab (Practice)

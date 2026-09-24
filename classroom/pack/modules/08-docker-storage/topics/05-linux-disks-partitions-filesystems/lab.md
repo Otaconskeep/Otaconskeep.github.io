@@ -1,6 +1,6 @@
-# Lab — Linux Disks, Partitions, and Filesystems
+# Lab: Linux Disks, Partitions, and Filesystems
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Lab (Practice)
 **Objective:** Trace the hierarchy from physical or virtual disk to partition table, partition, filesystem, and mountpoint; interpret `lsblk`, `blkid`, `findmnt`, and `df`; create a filesystem only inside a regular lab image file; and recognize destructive storage operations before running them.
 

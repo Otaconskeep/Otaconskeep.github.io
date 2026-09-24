@@ -1,7 +1,7 @@
-# Reading — Virtual machines & Proxmox
+# Reading: Virtual machines & Proxmox
 
-**Module:** Module 1 — Infrastructure & Addressing  
-**Topic:** 01 — Virtual machines & Proxmox  
+**Module:** Module 1: Infrastructure & Addressing  
+**Topic:** 01: Virtual machines & Proxmox  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Apply  
 **Links to outcome:** Given a host and a guest requirement, the learner can choose Type 1 vs Type 2 virtualization, create a working Linux guest (VirtualBox or Proxmox), and prove networking, DNS, and SSH with recorded evidence.
@@ -50,7 +50,7 @@ Three reasons show up again and again in real labs:
 
 1. **Safe practice.** Mess up the guest. Delete it. Rebuild it. Your daily host OS stays untouched.
 2. **Learn other operating systems.** Run Ubuntu, Debian, a server trial, or a second Windows install without repartitioning your only disk.
-3. **Isolation when you experiment.** Labs, scrapers, new stacks, and “what if I change this?” work are safer inside a guest—especially if you keep sharing features (clipboard, folders, bridged LAN) turned down until you need them.
+3. **Isolation when you experiment.** Labs, scrapers, new stacks, and “what if I change this?” work are safer inside a guest, especially if you keep sharing features (clipboard, folders, bridged LAN) turned down until you need them.
 
 Virtualization is not a toy idea. It is how cloud providers and most serious IT shops pack many systems onto fewer machines. Learning it once pays off for the rest of this Academy.
 
@@ -82,33 +82,33 @@ Type 1 (Academy default)
 
 Modern guests expect 64-bit virtualization support in the CPU. In firmware (BIOS/UEFI) look for **Intel VT-x / VMX** or **AMD-V / SVM** and set it to **Enabled**. Keys vary by vendor (`Del`, `F2`, `F10`, `F12`). Change only that setting, save, and reboot. Without it, many 64-bit guests will refuse to start or run poorly.
 
-### Path A — Type 2 on your daily computer (VirtualBox)
+### Path A: Type 2 on your daily computer (VirtualBox)
 
 Use this when you do not yet have a spare PC.
 
 1. Download the guest **ISO** you want (Ubuntu Desktop/Server is a solid first choice). Start the download early; ISOs are large.
 2. Install **VirtualBox** for your host OS from the official site. Accept defaults.
 3. Install the matching **Extension Pack** if you need USB passthrough and related extras.
-4. Create a new VM: name it, choose Linux + a 64-bit Debian/Ubuntu-class type, give it modest RAM (often 2 GB to start on a 8–16 GB host), create a dynamically allocated virtual disk (20 GB+), and assign more than one vCPU only if your host has cores to spare—stay under about half your physical cores.
+4. Create a new VM: name it, choose Linux + a 64-bit Debian/Ubuntu-class type, give it modest RAM (often 2 GB to start on a 8–16 GB host), create a dynamically allocated virtual disk (20 GB+), and assign more than one vCPU only if your host has cores to spare, stay under about half your physical cores.
 5. Attach the ISO as the virtual optical drive and start the VM.
 6. Install the guest OS. Guided partitioning of the *virtual* disk is safe for your host disk; you are formatting the fake drive, not your Windows/macOS partition.
 7. Learn the **host key** (often Right Ctrl on Windows/Linux) so you can release the mouse/keyboard back to the host.
 
 **Power features worth using on day one**
 
-- **Pause** — freeze the guest like pausing a game; resumes where you left off.
-- **Save state** — close the guest and reopen later with apps still open.
-- **Snapshot** — take a restore point before a risky change; roll back if it breaks.
-- **Clone** — duplicate a known-good machine before you thrash a copy.
+- **Pause**: freeze the guest like pausing a game; resumes where you left off.
+- **Save state**: close the guest and reopen later with apps still open.
+- **Snapshot**: take a restore point before a risky change; roll back if it breaks.
+- **Clone**: duplicate a known-good machine before you thrash a copy.
 
 **Network modes (keep this mental model)**
 
-- **NAT** — guest reaches the internet through the host; it is usually *not* a full peer on your home LAN. Good default for isolation.
-- **Bridged** — guest appears on the LAN with its own address. Convenient for SSH from other devices; less isolation.
+- **NAT**: guest reaches the internet through the host; it is usually *not* a full peer on your home LAN. Good default for isolation.
+- **Bridged**: guest appears on the LAN with its own address. Convenient for SSH from other devices; less isolation.
 
 Clipboard sharing, drag-and-drop, and shared folders are convenient and weaken isolation. Leave them off until you understand the tradeoff.
 
-### Path B — Type 1 on spare hardware (Proxmox VE)
+### Path B: Type 1 on spare hardware (Proxmox VE)
 
 Use this when you have an old laptop/desktop (or a small server) you can dedicate. This is the path later Academy classes assume.
 
@@ -180,11 +180,11 @@ Manage Proxmox from a second device at `https://SERVER-IP:8006`. The management 
 
 ### Isolation vs convenience (both paths)
 
-The guest is valuable because it is a sandboxed world. Every convenience feature—bridged LAN, shared clipboard, shared folders, USB passthrough—makes the sandbox thinner. For learning and break/fix work, start strict. Open doors on purpose, one at a time, and write down what you changed.
+The guest is valuable because it is a sandboxed world. Every convenience feature, bridged LAN, shared clipboard, shared folders, USB passthrough, makes the sandbox thinner. For learning and break/fix work, start strict. Open doors on purpose, one at a time, and write down what you changed.
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad approach:** Install experimental servers directly on your daily Windows/macOS desktop “to save time.”
 

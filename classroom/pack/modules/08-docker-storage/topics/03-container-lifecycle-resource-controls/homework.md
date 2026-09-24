@@ -1,6 +1,6 @@
-# Homework — Container Lifecycle and Resource Controls
+# Homework: Container Lifecycle and Resource Controls
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Homework (Apply)
 
 ## Independent practice

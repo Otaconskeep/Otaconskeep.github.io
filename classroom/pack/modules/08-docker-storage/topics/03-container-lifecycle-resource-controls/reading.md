@@ -1,7 +1,7 @@
-# Reading — Container Lifecycle and Resource Controls
+# Reading: Container Lifecycle and Resource Controls
 
-**Module:** Module 8 — Docker, Storage & Permissions
-**Topic:** 03 — Container Lifecycle and Resource Controls
+**Module:** Module 8: Docker, Storage & Permissions
+**Topic:** 03: Container Lifecycle and Resource Controls
 **Activity type:** Reading / reference (Learn)
 **Source:** Class 29 intake, published without rewriting lesson content
 
@@ -23,7 +23,7 @@ Useful evidence includes `docker inspect`, `docker stats --no-stream`, `docker e
 
 A media scanner with no memory limit consumes nearly all RAM. The kernel kills a database process instead, and several applications fail. The correct response is not merely an automatic restart: reserve host memory, set measured limits, observe peak usage, and test the scanner's behavior when constrained.
 
-## Visual 1 — Lifecycle
+## Visual 1: Lifecycle
 
 ```mermaid
 stateDiagram-v2
@@ -36,7 +36,7 @@ stateDiagram-v2
   Exited --> Removed: rm
 ```
 
-## Visual 2 — Shared Host Boundary
+## Visual 2: Shared Host Boundary
 
 ```mermaid
 flowchart TD

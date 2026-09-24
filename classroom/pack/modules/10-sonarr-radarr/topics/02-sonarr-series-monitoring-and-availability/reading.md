@@ -1,4 +1,4 @@
-# Reading — Sonarr Series Monitoring and Availability
+# Reading: Sonarr Series Monitoring and Availability
 
 **Module:** Sonarr & Radarr
 **Activity type:** Reading (Learn)

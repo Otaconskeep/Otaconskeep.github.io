@@ -1,7 +1,7 @@
-# Module 2 exam — ARR Media Automation
+# Module 2 exam: ARR Media Automation
 
 **Activity type:** Module exam / practical mastery test  
-**Outcome under test:** Student can connect Prowlarr to Sonarr/Radarr with service contracts, write and test a quality policy with Custom Formats, and automate profile sync with backup → dry-run → apply → drift → rollback — using authorized sources only.
+**Outcome under test:** Student can connect Prowlarr to Sonarr/Radarr with service contracts, write and test a quality policy with Custom Formats, and automate profile sync with backup → dry-run → apply → drift → rollback: using authorized sources only.
 
 ## Practical / written items
 

@@ -1,4 +1,4 @@
-# Class 34 — ARR Stack Data Architecture and the /data Model
+# Class 34: ARR Stack Data Architecture and the /data Model
 
 **Learning objective:** Explain why download and media paths should share one visible /data namespace.; Design separate locations for torrent, Usenet, and organized media data without creating incompatible container paths.; Distinguish application configuration data from bulk media and download data.; Explain the requirements for hardlinks and atomic moves.; Map Sonarr, Radarr, a download client, and a media server to consistent paths.; Use inode, link-count, device, and canonical-path checks to verify storage behavior.; Identify permission, ownership, mount-boundary, category, and remote-path errors.; Document a storage contract before deploying an ARR stack.
 **Bloom level:** Understand / Apply

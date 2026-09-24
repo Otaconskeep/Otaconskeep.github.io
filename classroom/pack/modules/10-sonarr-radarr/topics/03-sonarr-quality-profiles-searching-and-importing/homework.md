@@ -1,4 +1,4 @@
-# Homework — Sonarr Quality Profiles, Searching, and Importing
+# Homework: Sonarr Quality Profiles, Searching, and Importing
 
 **Module:** Sonarr & Radarr
 **Activity type:** Homework / independent application

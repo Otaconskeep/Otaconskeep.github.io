@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>01-n8n-automation — Reading · Classroom</title>
-<meta name="description" content="01-n8n-automation — Reading">
+<title>01-n8n-automation: Reading · Classroom</title>
+<meta name="description" content="01-n8n-automation: Reading">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/05-workflow-automation/topics/01-n8n-automation/reading.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,14 +63,14 @@
  <section class="hero flush">
  <div class="stamp">M5 READING<small>reading</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 01-n8n-automation — Reading</h1>
- <p class="lede">Learn — instruction, vocabulary, worked example.</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 01-n8n-automation: Reading</h1>
+ <p class="lede">Learn: instruction, vocabulary, worked example.</p>
  
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 5 — Workflow Automation (n8n)<br />
-<strong>Topic:</strong> 01 — n8n homelab automation<br />
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 5: Workflow Automation (n8n)<br />
+<strong>Topic:</strong> 01: n8n homelab automation<br />
 <strong>Activity type:</strong> Reading / reference (Learn)<br />
 <strong>Bloom focus:</strong> Apply / Evaluate<br />
 <strong>Links to outcome:</strong> Given a lab-only Docker network, the learner can run n8n, build an RSS digest workflow explaining item cardinality, and require human approval before any mutating Keep Agent / SSH action.</p></div><div class="cr-box cr-box-why"><div class="cr-box-head"><span class="cr-chip cr-chip-why">Why it matters</span><h3>Why this matters</h3></div><div class="cr-help">
@@ -80,7 +80,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This gives you a reason to care before the theory. Context first, then details.</div>
  
-</div><div class="cr-prose-block"><p>Automation without approval gates turns small mistakes into fast, wide damage — especially when agents can run commands.</p><div class="cr-help">
+</div><div class="cr-prose-block"><p>Automation without approval gates turns small mistakes into fast, wide damage: especially when agents can run commands.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -148,7 +148,7 @@
 </tr>
 <tr>
 <td>Headless / print mode</td>
-<td>Non-interactive one-shot prompt (<code>-p</code> / equivalent)—no TTY chat UI</td>
+<td>Non-interactive one-shot prompt (<code>-p</code> / equivalent), no TTY chat UI</td>
 </tr>
 <tr>
 <td>Session ID</td>
@@ -173,7 +173,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
  
-</div><div class="cr-prose-block"><h4>Originally: What you will learn</h4><p>You will install n8n on your lab host, learn how workflows move <strong>items</strong> of JSON between <strong>nodes</strong>, build a safe first automation (RSS → filter → notify), and then build a small AI agent that can <strong>observe</strong> your lab—and only <strong>change</strong> things after a human approval step. You will also learn a second pattern: use n8n as an <strong>orchestrator</strong> that SSHes into a Linux box and runs a headless <strong>AI CLI</strong> (Claude Code, Gemini CLI, or similar) so the heavy context and skills stay on the terminal tool while n8n handles triggers, chat front-ends, and session IDs. You will treat credentials, SSH, and command execution as high-risk tools with explicit guardrails.</p><div class="cr-help">
+</div><div class="cr-prose-block"><h4>Originally: What you will learn</h4><p>You will install n8n on your lab host, learn how workflows move <strong>items</strong> of JSON between <strong>nodes</strong>, build a safe first automation (RSS → filter → notify), and then build a small AI agent that can <strong>observe</strong> your lab, and only <strong>change</strong> things after a human approval step. You will also learn a second pattern: use n8n as an <strong>orchestrator</strong> that SSHes into a Linux box and runs a headless <strong>AI CLI</strong> (Claude Code, Gemini CLI, or similar) so the heavy context and skills stay on the terminal tool while n8n handles triggers, chat front-ends, and session IDs. You will treat credentials, SSH, and command execution as high-risk tools with explicit guardrails.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -186,7 +186,7 @@
 <li>Never paste production API keys into the workbook or public Discord.</li>
 <li>Do <strong>not</strong> give an agent unrestricted root SSH on day one.</li>
 <li>Any command that <strong>creates, deletes, stops, or rewrites</strong> systems must go through <strong>approval</strong>.</li>
-<li>Keep n8n’s admin UI on LAN/VPN only (Class 10 patterns)—not open to the world.</li>
+<li>Keep n8n’s admin UI on LAN/VPN only (Class 10 patterns), not open to the world.</li>
 <li>AI CLI “dangerous” / YOLO flags that skip confirmations are <strong>lab-only</strong> and still need your approval gate in n8n before mutate.</li>
 <li>Put the AI CLI on a <strong>jump host</strong> you control; do not SSH as root into every production box from n8n on day one.</li>
 </ul><div class="cr-help">
@@ -196,8 +196,8 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> n8n is a self-hosted automation app. You connect nodes into a workflow that moves JSON items.</div>
  
-</div></div><div class="cr-prose-block"><h4>What n8n is</h4><p>n8n is an open-source workflow automation platform you can self-host. Visually, you connect nodes. Under the hood, each node receives JSON <strong>items</strong>, does work, and passes items forward. One RSS node that returns 13 articles hands <strong>13 items</strong> to the next node—so a “send message” node may fire 13 times unless you <strong>limit</strong>, <strong>aggregate</strong>, or <strong>batch</strong> deliberately.</p>
-<p>Compared with hosted “if this then that” SaaS tools, self-hosted n8n keeps credentials and execution inside <strong>your</strong> boundary—when you install it that way.</p>
+</div></div><div class="cr-prose-block"><h4>What n8n is</h4><p>n8n is an open-source workflow automation platform you can self-host. Visually, you connect nodes. Under the hood, each node receives JSON <strong>items</strong>, does work, and passes items forward. One RSS node that returns 13 articles hands <strong>13 items</strong> to the next node, so a “send message” node may fire 13 times unless you <strong>limit</strong>, <strong>aggregate</strong>, or <strong>batch</strong> deliberately.</p>
+<p>Compared with hosted “if this then that” SaaS tools, self-hosted n8n keeps credentials and execution inside <strong>your</strong> boundary, when you install it that way.</p>
 <pre><code class="language-text">Trigger → (optional) fetch/transform → action / notify / agent tools
                 ↑
          credentials + JSON items
@@ -225,7 +225,7 @@
 <li><strong>Save often.</strong></li>
 <li><strong>Execute step</strong> while building; use <strong>Pin</strong> on expensive/AI nodes so you do not re-spend tokens.</li>
 <li>Inspect the connector badges: <code>1 item</code> vs <code>N items</code> explains “why Discord said hi thirteen times.”</li>
-<li>Credentials live under a separate library—reuse them; do not hard-code secrets in node fields when a credential type exists.</li>
+<li>Credentials live under a separate library, reuse them; do not hard-code secrets in node fields when a credential type exists.</li>
 </ol><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
@@ -263,7 +263,7 @@
 </tr>
 <tr>
 <td>Code (optional)</td>
-<td>Last resort—prefer built-ins first</td>
+<td>Last resort, prefer built-ins first</td>
 </tr>
 </tbody>
 </table><div class="cr-help">
@@ -278,15 +278,15 @@
 | Edit Fields (Set) | Keep only t…</div>
  
 </div></div><div class="cr-prose-block"><h4>AI in n8n (two different powers)</h4><ol>
-<li><strong>LLM chain / summarize</strong> — transform text (summarize an article).</li>
-<li><strong>AI Agent + tools</strong> — model chooses tools (HTTP, workflow-as-tool SSH) based on a system prompt.</li>
+<li><strong>LLM chain / summarize</strong>: transform text (summarize an article).</li>
+<li><strong>AI Agent + tools</strong>: model chooses tools (HTTP, workflow-as-tool SSH) based on a system prompt.</li>
 </ol>
 <p>Agents need: a chat/LLM credential, a clear <strong>system message</strong> (who they are / what they may do), and tools with honest descriptions. For autonomous schedules, replace chat input with an <strong>Edit Fields</strong> prompt + stable session/chat id for memory.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph—triggers, nodes, and how data flows between them.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph, triggers, nodes, and how data flows between them.</div>
  
 </div></div><div class="cr-prose-block"><h4>Guarded autonomy pattern (Keep Agent)</h4><pre><code class="language-text">Schedule → set prompt → Agent (observe tools only)
   → structured JSON { ok: bool, needs_approval: bool, commands: [], message }
@@ -309,22 +309,22 @@
 </code></pre>
 <p><strong>Why this is useful</strong></p>
 <ol>
-<li><strong>Context</strong> — <code>cd</code> into a project directory before the AI CLI runs so it sees real files, not an empty sandbox.</li>
-<li><strong>Subscription economics</strong> — token-heavy research can stay on a CLI plan you already pay for, while n8n handles timing and messaging.</li>
-<li><strong>Skills / multi-step tools</strong> — complex “how to talk to UniFi / Proxmox” knowledge can live as markdown/skills next to the CLI; n8n stays a thin trigger.</li>
-<li><strong>Sessions</strong> — generate a UUID once, pass <code>--session-id</code> (or product equivalent), then later resume with <code>-r</code> / resume flag so Slack/Discord can hold a real conversation.</li>
+<li><strong>Context</strong>: <code>cd</code> into a project directory before the AI CLI runs so it sees real files, not an empty sandbox.</li>
+<li><strong>Subscription economics</strong>: token-heavy research can stay on a CLI plan you already pay for, while n8n handles timing and messaging.</li>
+<li><strong>Skills / multi-step tools</strong>: complex “how to talk to UniFi / Proxmox” knowledge can live as markdown/skills next to the CLI; n8n stays a thin trigger.</li>
+<li><strong>Sessions</strong>: generate a UUID once, pass <code>--session-id</code> (or product equivalent), then later resume with <code>-r</code> / resume flag so Slack/Discord can hold a real conversation.</li>
 </ol>
 <p><strong>Where to install the AI CLI</strong></p>
 <p>Anywhere Linux-capable you trust: the same VM as n8n, a Raspberry Pi, or a dedicated Ubuntu jump host beside the lab. Prefer “next to the files and APIs you want it to see,” not “on every router.”</p>
 <p><strong>SSH gotchas</strong></p>
 <p>n8n’s SSH session is often a non-login shell. If <code>claude --version</code> works in your interactive terminal but fails from n8n, fix PATH / login profile for that SSH user (workbook the exact error). Test with <code>hostname</code> first, then the AI CLI version flag.</p>
-<p><strong>Headless prompt shape (illustrative—check current CLI flags)</strong></p>
+<p><strong>Headless prompt shape (illustrative, check current CLI flags)</strong></p>
 <pre><code class="language-bash">cd /path/to/project &amp;&amp; claude -p &quot;Summarize README.md in five bullets&quot;
 </code></pre>
 <p>Resume:</p>
 <pre><code class="language-bash">claude -p &quot;Continue: what should I fix first?&quot; -r --session-id &quot;$SESSION_UUID&quot;
 </code></pre>
-<p>Exact flags differ by tool and version—verify against that tool’s current docs. The Academy skill is the <strong>pattern</strong>, not a frozen flag list.</p>
+<p>Exact flags differ by tool and version, verify against that tool’s current docs. The Academy skill is the <strong>pattern</strong>, not a frozen flag list.</p>
 <p><strong>Chat front-end loop (Slack/Discord/Telegram)</strong></p>
 <pre><code class="language-text">Inbound message → ensure session UUID exists → SSH AI CLI with -p + session
   → reply to chat
@@ -349,12 +349,12 @@ AI CLI = deep context, skills, parallel sub-agents on the jump host
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> I do: watch the bad → better reasoning. Steal the thinking, not just the answer.</div>
  
-</div><div class="cr-prose-block"><p><strong>I do</strong> — study the reasoning, not just the final answer.</p><div class="cr-help">
+</div><div class="cr-prose-block"><p><strong>I do</strong>: study the reasoning, not just the final answer.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **I do** — study the reasoning, not just the final answer.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: **I do**: study the reasoning, not just the final answer.</div>
  
 </div></div><div class="cr-prose-block"><p><strong>Bad:</strong> Webhook → agent → shell mutate production with no approval.</p><div class="cr-help">
  <div class="cr-actions">

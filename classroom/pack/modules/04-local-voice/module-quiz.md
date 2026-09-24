@@ -1,4 +1,4 @@
-# Module 4 quiz — Local Voice Assistant
+# Module 4 quiz: Local Voice Assistant
 
 **Activity type:** Module quiz (retention / retrieval)  
 **Target:** ≥80%

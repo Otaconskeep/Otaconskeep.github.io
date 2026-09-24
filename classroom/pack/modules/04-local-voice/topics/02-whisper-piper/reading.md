@@ -1,7 +1,7 @@
-# Reading — Whisper, Piper & Wyoming
+# Reading: Whisper, Piper & Wyoming
 
-**Module:** Module 4 — Local Voice Assistant  
-**Topic:** 02 — Whisper, Piper & Wyoming  
+**Module:** Module 4: Local Voice Assistant  
+**Topic:** 02: Whisper, Piper & Wyoming  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Apply / Evaluate  
 **Links to outcome:** Given CPU/RAM constraints, the learner can deploy local Whisper (STT) and Piper (TTS) via Wyoming, benchmark them separately, and record latency/quality tradeoffs before integration.
@@ -84,7 +84,7 @@ Record latency, memory, errors, thermal/fan behavior.
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Wire wake→STT→HA→TTS→speaker on day one with the biggest model.
 

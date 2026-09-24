@@ -1,4 +1,4 @@
-# Module curriculum publisher — imported/merged into _gen_from_pack.py helpers.
+# Module curriculum publisher: imported/merged into _gen_from_pack.py helpers.
 # This file is concatenated conceptually; applied by apply_module_gen.py
 
 MODULE_DIRS = [

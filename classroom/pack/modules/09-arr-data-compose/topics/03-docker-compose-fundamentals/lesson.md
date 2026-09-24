@@ -1,4 +1,4 @@
-# Lesson 09.03 — Docker Compose Fundamentals
+# Lesson 09.03: Docker Compose Fundamentals
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

@@ -1,7 +1,7 @@
-# Reading — TRaSH quality profiles
+# Reading: TRaSH quality profiles
 
-**Module:** Module 2 — ARR Media Automation  
-**Topic:** 02 — TRaSH quality profiles  
+**Module:** Module 2: ARR Media Automation  
+**Topic:** 02: TRaSH quality profiles  
 **Activity type:** Reading / reference (Learn)  
 **Bloom focus:** Evaluate / Create  
 **Links to outcome:** Given playback and storage constraints, the learner can write a plain-language quality policy, configure Custom Formats and cutoff/upgrade settings, and prove ranking on five controlled candidates.
@@ -93,7 +93,7 @@ A profile can accept a current file yet continue searching forever if upgrade ta
 
 ## Worked example (study this)
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad requirement:** “The library should look good.”
 

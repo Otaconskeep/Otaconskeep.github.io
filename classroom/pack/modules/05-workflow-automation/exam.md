@@ -1,4 +1,4 @@
-# Module 5 exam — Workflow Automation (n8n)
+# Module 5 exam: Workflow Automation (n8n)
 
 **Activity type:** Module exam / practical mastery test  
 **Outcome under test:** Student can run n8n on the lab network only, build an RSS digest that explains JSON item cardinality, and require human approval before any mutating agent/SSH action.

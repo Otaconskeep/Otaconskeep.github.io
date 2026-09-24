@@ -1,4 +1,4 @@
-# Final Capstone — Verified Private Homelab
+# Final Capstone: Verified Private Homelab
 
 ## Mission scenario
 
@@ -101,7 +101,7 @@ Pass requires at least 80 points and zero unresolved critical failures.
 
 Explain the **entire course system** as if teaching a smart beginner:
 
-1. **Explain:** How does a request become playable media, how does Home Assistant know service health, and how does local voice answer — in your own words?
+1. **Explain:** How does a request become playable media, how does Home Assistant know service health, and how does local voice answer: in your own words?
 2. **Simplify:** Explain the same story to a 12-year-old. Define every jargon word.
 3. **Example:** Give one real incident from your lab and which module’s idea fixed it.
 4. **Weak spot:** Which module still feels fuzzy?

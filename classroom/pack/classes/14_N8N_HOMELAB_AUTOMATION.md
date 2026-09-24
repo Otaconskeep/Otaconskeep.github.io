@@ -1,4 +1,4 @@
-# Class 14 — n8n automation for the homelab
+# Class 14: n8n automation for the homelab
 
 **Learning objective:** Given a lab-only Docker network, the learner can run n8n, build an RSS digest workflow explaining item cardinality, and require human approval before any mutating Keep Agent / SSH action.
 **Bloom level:** Apply / Evaluate
@@ -11,11 +11,11 @@ Given a lab-only Docker network, the learner can run n8n, build an RSS digest wo
 
 ## Why this matters
 
-Automation without approval gates turns small mistakes into fast, wide damage — especially when agents can run commands.
+Automation without approval gates turns small mistakes into fast, wide damage: especially when agents can run commands.
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is a workflow node?
 2. Why might one RSS item become five messages?
@@ -36,7 +36,7 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 | Structured output | Force the model to return predictable JSON fields for branching |
 | Human-in-the-loop | Pause for approve/deny before risky actions |
 | AI CLI | Terminal AI tool (Claude Code, Gemini CLI, Codex, …) run headless from scripts/SSH |
-| Headless / print mode | Non-interactive one-shot prompt (`-p` / equivalent)—no TTY chat UI |
+| Headless / print mode | Non-interactive one-shot prompt (`-p` / equivalent), no TTY chat UI |
 | Session ID | Stable ID so a later command can **resume** the same AI conversation |
 | Orchestrator pattern | n8n triggers/routes/notifies; the AI CLI owns deep context, skills, and multi-step tools |
 
@@ -44,7 +44,7 @@ Answer briefly before reading Instruction. Wrong answers are useful — they sho
 
 ### Originally: What you will learn
 
-You will install n8n on your lab host, learn how workflows move **items** of JSON between **nodes**, build a safe first automation (RSS → filter → notify), and then build a small AI agent that can **observe** your lab—and only **change** things after a human approval step. You will also learn a second pattern: use n8n as an **orchestrator** that SSHes into a Linux box and runs a headless **AI CLI** (Claude Code, Gemini CLI, or similar) so the heavy context and skills stay on the terminal tool while n8n handles triggers, chat front-ends, and session IDs. You will treat credentials, SSH, and command execution as high-risk tools with explicit guardrails.
+You will install n8n on your lab host, learn how workflows move **items** of JSON between **nodes**, build a safe first automation (RSS → filter → notify), and then build a small AI agent that can **observe** your lab, and only **change** things after a human approval step. You will also learn a second pattern: use n8n as an **orchestrator** that SSHes into a Linux box and runs a headless **AI CLI** (Claude Code, Gemini CLI, or similar) so the heavy context and skills stay on the terminal tool while n8n handles triggers, chat front-ends, and session IDs. You will treat credentials, SSH, and command execution as high-risk tools with explicit guardrails.
 
 ### Safety boundary
 
@@ -54,15 +54,15 @@ n8n can talk to email, chat, SSH, APIs, and shells. That power cuts both ways.
 - Never paste production API keys into the workbook or public Discord.
 - Do **not** give an agent unrestricted root SSH on day one.
 - Any command that **creates, deletes, stops, or rewrites** systems must go through **approval**.
-- Keep n8n’s admin UI on LAN/VPN only (Class 10 patterns)—not open to the world.
+- Keep n8n’s admin UI on LAN/VPN only (Class 10 patterns), not open to the world.
 - AI CLI “dangerous” / YOLO flags that skip confirmations are **lab-only** and still need your approval gate in n8n before mutate.
 - Put the AI CLI on a **jump host** you control; do not SSH as root into every production box from n8n on day one.
 
 ### What n8n is
 
-n8n is an open-source workflow automation platform you can self-host. Visually, you connect nodes. Under the hood, each node receives JSON **items**, does work, and passes items forward. One RSS node that returns 13 articles hands **13 items** to the next node—so a “send message” node may fire 13 times unless you **limit**, **aggregate**, or **batch** deliberately.
+n8n is an open-source workflow automation platform you can self-host. Visually, you connect nodes. Under the hood, each node receives JSON **items**, does work, and passes items forward. One RSS node that returns 13 articles hands **13 items** to the next node, so a “send message” node may fire 13 times unless you **limit**, **aggregate**, or **batch** deliberately.
 
-Compared with hosted “if this then that” SaaS tools, self-hosted n8n keeps credentials and execution inside **your** boundary—when you install it that way.
+Compared with hosted “if this then that” SaaS tools, self-hosted n8n keeps credentials and execution inside **your** boundary, when you install it that way.
 
 ```text
 Trigger → (optional) fetch/transform → action / notify / agent tools
@@ -87,7 +87,7 @@ Install n8n **beside** your stacks, not inside every ARR container. Give it a de
 1. **Save often.**
 2. **Execute step** while building; use **Pin** on expensive/AI nodes so you do not re-spend tokens.
 3. Inspect the connector badges: `1 item` vs `N items` explains “why Discord said hi thirteen times.”
-4. Credentials live under a separate library—reuse them; do not hard-code secrets in node fields when a credential type exists.
+4. Credentials live under a separate library, reuse them; do not hard-code secrets in node fields when a credential type exists.
 
 ### Data shaping nodes you will reuse
 
@@ -98,12 +98,12 @@ Install n8n **beside** your stacks, not inside every ARR container. Give it a de
 | Edit Fields (Set) | Keep only the columns you want |
 | Split Out | Turn one array field into many items |
 | Merge | Combine branches (use carefully with unequal item counts) |
-| Code (optional) | Last resort—prefer built-ins first |
+| Code (optional) | Last resort, prefer built-ins first |
 
 ### AI in n8n (two different powers)
 
-1. **LLM chain / summarize** — transform text (summarize an article).
-2. **AI Agent + tools** — model chooses tools (HTTP, workflow-as-tool SSH) based on a system prompt.
+1. **LLM chain / summarize**: transform text (summarize an article).
+2. **AI Agent + tools**: model chooses tools (HTTP, workflow-as-tool SSH) based on a system prompt.
 
 Agents need: a chat/LLM credential, a clear **system message** (who they are / what they may do), and tools with honest descriptions. For autonomous schedules, replace chat input with an **Edit Fields** prompt + stable session/chat id for memory.
 
@@ -131,10 +131,10 @@ Chat / Schedule / Webhook (n8n)
 
 **Why this is useful**
 
-1. **Context** — `cd` into a project directory before the AI CLI runs so it sees real files, not an empty sandbox.
-2. **Subscription economics** — token-heavy research can stay on a CLI plan you already pay for, while n8n handles timing and messaging.
-3. **Skills / multi-step tools** — complex “how to talk to UniFi / Proxmox” knowledge can live as markdown/skills next to the CLI; n8n stays a thin trigger.
-4. **Sessions** — generate a UUID once, pass `--session-id` (or product equivalent), then later resume with `-r` / resume flag so Slack/Discord can hold a real conversation.
+1. **Context**: `cd` into a project directory before the AI CLI runs so it sees real files, not an empty sandbox.
+2. **Subscription economics**: token-heavy research can stay on a CLI plan you already pay for, while n8n handles timing and messaging.
+3. **Skills / multi-step tools**: complex “how to talk to UniFi / Proxmox” knowledge can live as markdown/skills next to the CLI; n8n stays a thin trigger.
+4. **Sessions**: generate a UUID once, pass `--session-id` (or product equivalent), then later resume with `-r` / resume flag so Slack/Discord can hold a real conversation.
 
 **Where to install the AI CLI**
 
@@ -144,7 +144,7 @@ Anywhere Linux-capable you trust: the same VM as n8n, a Raspberry Pi, or a dedic
 
 n8n’s SSH session is often a non-login shell. If `claude --version` works in your interactive terminal but fails from n8n, fix PATH / login profile for that SSH user (workbook the exact error). Test with `hostname` first, then the AI CLI version flag.
 
-**Headless prompt shape (illustrative—check current CLI flags)**
+**Headless prompt shape (illustrative, check current CLI flags)**
 
 ```bash
 cd /path/to/project && claude -p "Summarize README.md in five bullets"
@@ -156,7 +156,7 @@ Resume:
 claude -p "Continue: what should I fix first?" -r --session-id "$SESSION_UUID"
 ```
 
-Exact flags differ by tool and version—verify against that tool’s current docs. The Academy skill is the **pattern**, not a frozen flag list.
+Exact flags differ by tool and version, verify against that tool’s current docs. The Academy skill is the **pattern**, not a frozen flag list.
 
 **Chat front-end loop (Slack/Discord/Telegram)**
 
@@ -179,7 +179,7 @@ You can still call an in-n8n AI Agent that *decides* to invoke the SSH→CLI too
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad:** Webhook → agent → shell mutate production with no approval.
 
@@ -187,13 +187,13 @@ You can still call an in-n8n AI Agent that *decides* to invoke the SSH→CLI too
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Trace item count through a sample RSS → split → notify path with assistance.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Draw your approval boundary on paper: which nodes may run unattended vs which need a human. Implement that boundary.
 
@@ -208,7 +208,7 @@ Describe **why n8n automations need cardinality awareness and approval gates** i
 Explain the same idea to a 12-year-old. If you use a technical word, define it.
 
 ### Example
-Analogy: a mail merge that accidentally sends 500 letters — vs a draft folder that waits for your stamp.
+Analogy: a mail merge that accidentally sends 500 letters: vs a draft folder that waits for your stamp.
 
 ### Weak spot
 What part was hard to explain? That is where your understanding is thin.
@@ -216,12 +216,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. What is an n8n **item**, and why does item count matter for Discord nodes?
 2. What is the difference between an LLM summarize node and an AI Agent with tools?
@@ -237,7 +237,7 @@ Active recall — write answers without rereading first. Target ≥80% before th
 
 **Prereqs:** Class 2 Compose working on a Linux host/VM; Discord or Telegram you control; optional Ollama or an API key you are allowed to use.
 
-### Path A — Install n8n with Compose
+### Path A: Install n8n with Compose
 
 1. **Create a dedicated project directory.**
 
@@ -254,7 +254,7 @@ cd $HOME\n8n-lab
 ```
 :::
 
-2. **Write a minimal Compose file** (adjust ports if `5678` is taken). Prefer current official n8n image tags from docs—pin an explicit version when you find one you trust:
+2. **Write a minimal Compose file** (adjust ports if `5678` is taken). Prefer current official n8n image tags from docs, pin an explicit version when you find one you trust:
 
 :::linux
 ```bash
@@ -311,7 +311,7 @@ docker compose ps
 ```
 :::
 
-3. **Open the UI and finish owner setup.** Browser: `http://N8N-HOST:5678`. Create the owner account. Skip marketing extras. Record the URL in the workbook—**do not** publish port 5678 to the internet.
+3. **Open the UI and finish owner setup.** Browser: `http://N8N-HOST:5678`. Create the owner account. Skip marketing extras. Record the URL in the workbook, **do not** publish port 5678 to the internet.
 
 :::linux
 ```bash
@@ -327,7 +327,7 @@ curl.exe -sI http://127.0.0.1:5678/
 
 4. **Prove persistence:** `docker compose down && docker compose up -d` and confirm you still log in (data volume kept).
 
-### Path B — First workflow: RSS digest → Discord
+### Path B: First workflow: RSS digest → Discord
 
 1. **Create workflow** → add **Manual Trigger** and optional **Schedule** (daily). Connect both into the same next node later if you want.
 
@@ -341,7 +341,7 @@ curl.exe -sI http://127.0.0.1:5678/
 
 6. **Fix the “header repeated N times” lesson:** either keep per-item messages, or add an **Aggregate / Summarize** style step later. For this class, document why 5 messages appeared.
 
-7. **Optional branch — Execute Command** on the n8n host (only if your install allows it; many hardened setups disable host exec). Safer alternative: skip host exec and use **SSH** to a **dedicated test VM**. If you do run a host command for learning, use a harmless read-only check:
+7. **Optional branch: Execute Command** on the n8n host (only if your install allows it; many hardened setups disable host exec). Safer alternative: skip host exec and use **SSH** to a **dedicated test VM**. If you do run a host command for learning, use a harmless read-only check:
 
 ```text
 ping -c 3 1.1.1.1
@@ -351,9 +351,9 @@ Pin outputs. Do not chain this into production destructive actions.
 
 8. **Save** as `01-rss-digest`. Toggle **Active** only after a successful manual run.
 
-### Path C — Keep Agent (observe → approve → fix on a toy site)
+### Path C: Keep Agent (observe → approve → fix on a toy site)
 
-Build this on the **same Docker host** as a disposable demo site—not on critical Proxmox nodes until you trust your prompts.
+Build this on the **same Docker host** as a disposable demo site, not on critical Proxmox nodes until you trust your prompts.
 
 1. **Create a toy website container** you are willing to stop/start:
 
@@ -409,9 +409,9 @@ curl -sI --max-time 3 http://127.0.0.1:8090/ || echo EXPECTED_DOWN
 
 8. **Deactivate** the schedule when you leave the lab so it does not page you overnight during learning.
 
-### Path D — n8n orchestrates an AI CLI over SSH (optional stretch)
+### Path D: n8n orchestrates an AI CLI over SSH (optional stretch)
 
-**Goal:** prove the thin bridge: n8n SSH → headless AI CLI → stdout back, then resume the same session. Pick **one** CLI you are licensed to use (Claude Code, Gemini CLI, or another headless-capable tool). Commands below use `claude` as a stand-in—swap the binary and flags to match **current** docs for your tool.
+**Goal:** prove the thin bridge: n8n SSH → headless AI CLI → stdout back, then resume the same session. Pick **one** CLI you are licensed to use (Claude Code, Gemini CLI, or another headless-capable tool). Commands below use `claude` as a stand-in, swap the binary and flags to match **current** docs for your tool.
 
 1. **Install the AI CLI on a Linux jump host** (VM from Class 1 is fine). Log in interactively and confirm:
 
@@ -427,7 +427,7 @@ claude --version   # or: gemini --version
 
 3. **Create SSH credential** to the jump host (password or key). Prefer a **dedicated non-root user** with only the rights that CLI needs. **Test connection**.
 
-4. **Smoke test the shell** — Command field:
+4. **Smoke test the shell**: Command field:
 
 ```bash
 hostname
@@ -435,7 +435,7 @@ hostname
 
 Execute step. Confirm `stdout` shows the jump host name.
 
-5. **Smoke test the AI CLI** — Command field (adjust binary):
+5. **Smoke test the AI CLI**: Command field (adjust binary):
 
 ```bash
 claude --version
@@ -451,7 +451,7 @@ claude -p "In one short paragraph, explain what a virtual machine is."
 
 Execute. Confirm answer text lands in SSH node stdout. **Pin** that output.
 
-7. **Add project context** — create a tiny folder the CLI can see:
+7. **Add project context**: create a tiny folder the CLI can see:
 
 :::linux
 ```bash

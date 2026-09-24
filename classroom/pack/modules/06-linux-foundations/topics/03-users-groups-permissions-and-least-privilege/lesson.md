@@ -1,4 +1,4 @@
-# Lesson 06.03 — Users, Groups, Permissions, and Least Privilege
+# Lesson 06.03: Users, Groups, Permissions, and Least Privilege
 
 **Module:** Linux Foundations
 **Activity type:** Lesson (Orient → Recall → Learn → Explain → Reflect)

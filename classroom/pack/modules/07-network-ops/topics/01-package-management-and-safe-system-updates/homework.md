@@ -1,4 +1,4 @@
-# Homework — Package Management and Safe System Updates
+# Homework: Package Management and Safe System Updates
 
 **Module:** Network Operations
 **Activity type:** Homework / independent application

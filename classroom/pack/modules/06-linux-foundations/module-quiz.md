@@ -1,4 +1,4 @@
-# Module quiz — Linux Foundations
+# Module quiz: Linux Foundations
 
 **Target:** ≥80% (at least 8/10)  
 **Closed book preferred.**

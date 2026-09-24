@@ -1,6 +1,6 @@
-# Homework — Docker Images, Tags, Registries, and Provenance
+# Homework: Docker Images, Tags, Registries, and Provenance
 
-**Module:** Module 8 — Docker, Storage & Permissions
+**Module:** Module 8: Docker, Storage & Permissions
 **Activity type:** Homework (Apply)
 
 ## Independent practice

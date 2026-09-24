@@ -1,4 +1,4 @@
-# Lab — Configuration Backups and Recovery
+# Lab: Configuration Backups and Recovery
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Lab (Practice)

@@ -1,4 +1,4 @@
-# Class 18 — Users, Groups, Permissions, and Least Privilege
+# Class 18: Users, Groups, Permissions, and Least Privilege
 
 **Learning objective:** Explain the difference between a user ID, primary group, supplementary groups, and an account name.; Interpret owner, group, and other permission classes for files and directories.; Explain the distinct meanings of read, write, and execute permissions on files and directories.; Use id, getent, stat, namei, and getfacl to investigate identity and authorization decisions.; Apply restrictive permissions and a narrowly scoped ACL inside the isolated lab directory.; Verify both successful access and expected access denial.; Describe why least privilege, group design, and periodic access review are preferable to broadly writable resources.
 **Bloom level:** Understand / Apply

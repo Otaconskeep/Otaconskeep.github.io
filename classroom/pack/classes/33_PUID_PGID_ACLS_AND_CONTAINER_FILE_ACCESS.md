@@ -1,4 +1,4 @@
-# Class 33 — PUID, PGID, ACLs, and Container File Access
+# Class 33: PUID, PGID, ACLs, and Container File Access
 
 **Module:** Docker, Storage & Permissions  
 **Difficulty:** Intermediate · **Duration:** 100 minutes · **Lab risk:** Low  
@@ -36,7 +36,7 @@ Diagnosis order:
 
 ACLs allow named/numeric users or groups to receive permissions beyond the three basic classes. The ACL mask limits effective permissions for named users/groups and the owning group. Default ACLs on directories influence newly created children; they do not retroactively repair existing files.
 
-## Visual 1 — Access Evaluation
+## Visual 1: Access Evaluation
 
 ```mermaid
 flowchart LR
@@ -46,7 +46,7 @@ flowchart LR
   K --> A{Allow or deny}
 ```
 
-## Visual 2 — Diagnostic Funnel
+## Visual 2: Diagnostic Funnel
 
 ```mermaid
 flowchart TD

@@ -1,4 +1,4 @@
-# Class 29 — Container Lifecycle and Resource Controls
+# Class 29: Container Lifecycle and Resource Controls
 
 **Module:** Docker, Storage & Permissions  
 **Difficulty:** Beginner · **Duration:** 90 minutes · **Lab risk:** Low  
@@ -28,7 +28,7 @@ Resource controls depend on Linux kernel capabilities and cgroups. Memory limits
 
 Useful evidence includes `docker inspect`, `docker stats --no-stream`, `docker events`, exit codes, OOM indicators, and application logs. An exit code is a clue, not a complete root cause.
 
-## Visual 1 — Lifecycle
+## Visual 1: Lifecycle
 
 ```mermaid
 stateDiagram-v2
@@ -41,7 +41,7 @@ stateDiagram-v2
   Exited --> Removed: rm
 ```
 
-## Visual 2 — Shared Host Boundary
+## Visual 2: Shared Host Boundary
 
 ```mermaid
 flowchart TD

@@ -102,7 +102,7 @@
  date: '2026-09-16',
  tag: 'RC1',
  {
- title: 'Otacon v1.1 — Keep-parity Aria behavior',
+ title: 'Otacon v1.1: Keep-parity Aria behavior',
  body: 'Public roster ships work-first delivery, anti-greeting scrub, and layered learning. Soft-update with OtaconsKeep-Setup.bat. GitHub: otacons-ai-ecosystem releases/tag/v1.1.',
  date: '2026-09-22'
 },

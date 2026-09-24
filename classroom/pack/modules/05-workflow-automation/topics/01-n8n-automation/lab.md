@@ -1,6 +1,6 @@
-# Lab — n8n homelab automation
+# Lab: n8n homelab automation
 
-**Module:** Module 5 — Workflow Automation (n8n)  
+**Module:** Module 5: Workflow Automation (n8n)  
 **Activity type:** Lab (Practice)  
 **Objective:** Given a lab-only Docker network, the learner can run n8n, build an RSS digest workflow explaining item cardinality, and require human approval before any mutating Keep Agent / SSH action.
 
@@ -13,7 +13,7 @@
 
 **Prereqs:** Class 2 Compose working on a Linux host/VM; Discord or Telegram you control; optional Ollama or an API key you are allowed to use.
 
-### Path A — Install n8n with Compose
+### Path A: Install n8n with Compose
 
 1. **Create a dedicated project directory.**
 
@@ -30,7 +30,7 @@ cd $HOME\n8n-lab
 ```
 :::
 
-2. **Write a minimal Compose file** (adjust ports if `5678` is taken). Prefer current official n8n image tags from docs—pin an explicit version when you find one you trust:
+2. **Write a minimal Compose file** (adjust ports if `5678` is taken). Prefer current official n8n image tags from docs, pin an explicit version when you find one you trust:
 
 :::linux
 ```bash
@@ -87,7 +87,7 @@ docker compose ps
 ```
 :::
 
-3. **Open the UI and finish owner setup.** Browser: `http://N8N-HOST:5678`. Create the owner account. Skip marketing extras. Record the URL in the workbook—**do not** publish port 5678 to the internet.
+3. **Open the UI and finish owner setup.** Browser: `http://N8N-HOST:5678`. Create the owner account. Skip marketing extras. Record the URL in the workbook, **do not** publish port 5678 to the internet.
 
 :::linux
 ```bash
@@ -103,7 +103,7 @@ curl.exe -sI http://127.0.0.1:5678/
 
 4. **Prove persistence:** `docker compose down && docker compose up -d` and confirm you still log in (data volume kept).
 
-### Path B — First workflow: RSS digest → Discord
+### Path B: First workflow: RSS digest → Discord
 
 1. **Create workflow** → add **Manual Trigger** and optional **Schedule** (daily). Connect both into the same next node later if you want.
 
@@ -117,7 +117,7 @@ curl.exe -sI http://127.0.0.1:5678/
 
 6. **Fix the “header repeated N times” lesson:** either keep per-item messages, or add an **Aggregate / Summarize** style step later. For this class, document why 5 messages appeared.
 
-7. **Optional branch — Execute Command** on the n8n host (only if your install allows it; many hardened setups disable host exec). Safer alternative: skip host exec and use **SSH** to a **dedicated test VM**. If you do run a host command for learning, use a harmless read-only check:
+7. **Optional branch: Execute Command** on the n8n host (only if your install allows it; many hardened setups disable host exec). Safer alternative: skip host exec and use **SSH** to a **dedicated test VM**. If you do run a host command for learning, use a harmless read-only check:
 
 ```text
 ping -c 3 1.1.1.1
@@ -127,9 +127,9 @@ Pin outputs. Do not chain this into production destructive actions.
 
 8. **Save** as `01-rss-digest`. Toggle **Active** only after a successful manual run.
 
-### Path C — Keep Agent (observe → approve → fix on a toy site)
+### Path C: Keep Agent (observe → approve → fix on a toy site)
 
-Build this on the **same Docker host** as a disposable demo site—not on critical Proxmox nodes until you trust your prompts.
+Build this on the **same Docker host** as a disposable demo site, not on critical Proxmox nodes until you trust your prompts.
 
 1. **Create a toy website container** you are willing to stop/start:
 
@@ -185,9 +185,9 @@ curl -sI --max-time 3 http://127.0.0.1:8090/ || echo EXPECTED_DOWN
 
 8. **Deactivate** the schedule when you leave the lab so it does not page you overnight during learning.
 
-### Path D — n8n orchestrates an AI CLI over SSH (optional stretch)
+### Path D: n8n orchestrates an AI CLI over SSH (optional stretch)
 
-**Goal:** prove the thin bridge: n8n SSH → headless AI CLI → stdout back, then resume the same session. Pick **one** CLI you are licensed to use (Claude Code, Gemini CLI, or another headless-capable tool). Commands below use `claude` as a stand-in—swap the binary and flags to match **current** docs for your tool.
+**Goal:** prove the thin bridge: n8n SSH → headless AI CLI → stdout back, then resume the same session. Pick **one** CLI you are licensed to use (Claude Code, Gemini CLI, or another headless-capable tool). Commands below use `claude` as a stand-in, swap the binary and flags to match **current** docs for your tool.
 
 1. **Install the AI CLI on a Linux jump host** (VM from Class 1 is fine). Log in interactively and confirm:
 
@@ -203,7 +203,7 @@ claude --version   # or: gemini --version
 
 3. **Create SSH credential** to the jump host (password or key). Prefer a **dedicated non-root user** with only the rights that CLI needs. **Test connection**.
 
-4. **Smoke test the shell** — Command field:
+4. **Smoke test the shell**: Command field:
 
 ```bash
 hostname
@@ -211,7 +211,7 @@ hostname
 
 Execute step. Confirm `stdout` shows the jump host name.
 
-5. **Smoke test the AI CLI** — Command field (adjust binary):
+5. **Smoke test the AI CLI**: Command field (adjust binary):
 
 ```bash
 claude --version
@@ -227,7 +227,7 @@ claude -p "In one short paragraph, explain what a virtual machine is."
 
 Execute. Confirm answer text lands in SSH node stdout. **Pin** that output.
 
-7. **Add project context** — create a tiny folder the CLI can see:
+7. **Add project context**: create a tiny folder the CLI can see:
 
 :::linux
 ```bash

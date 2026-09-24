@@ -1,6 +1,6 @@
-# Class 4 — Operating Containers as a System
+# Class 4: Operating Containers as a System
 
-**Lecture (optional):** [NetworkChuck — 18 Ways I Use Docker](https://www.youtube.com/watch?v=RUqGlWr5LBA)
+**Lecture (optional):** [NetworkChuck: 18 Ways I Use Docker](https://www.youtube.com/watch?v=RUqGlWr5LBA)
 **Time:** 90–120 minutes
 **Learning objective:** Given a running Compose service, the learner can inspect health and logs, perform a controlled image update, and roll back to a known-good state with evidence.
 **Bloom level:** Apply / Evaluate
@@ -17,7 +17,7 @@ The lecture demonstrates Docker's breadth. This class turns that inspiration int
 
 ## Prior-knowledge check
 
-Answer briefly before reading Instruction. Wrong answers are useful — they show what to review.
+Answer briefly before reading Instruction. Wrong answers are useful: they show what to review.
 
 1. What is the difference between desired state and observed state?
 2. Where do container logs go by default?
@@ -90,7 +90,7 @@ For every later service, record the same fields. This turns containers into an o
 
 ## Worked example
 
-**I do** — study the reasoning, not just the final answer.
+**I do**: study the reasoning, not just the final answer.
 
 **Bad ops:** `docker compose pull && up -d` on Friday night with no backup and no pin.
 
@@ -98,13 +98,13 @@ For every later service, record the same fields. This turns containers into an o
 
 ## Guided practice
 
-**We do** — hints allowed. Check your reasoning against Instruction.
+**We do**: hints allowed. Check your reasoning against Instruction.
 
 Walk the update checklist in the lab with notes open. Mark which step produces rollback evidence.
 
 ## Independent practice
 
-**You do** — close the hints. Solve before opening the lab.
+**You do**: close the hints. Solve before opening the lab.
 
 Write a one-page runbook for *one* service: health check, log command, update steps, rollback steps, and when not to update.
 
@@ -127,12 +127,12 @@ What part was hard to explain? That is where your understanding is thin.
 ### Retry
 Return to that part of **Instruction**, restudy it, then rewrite a clearer explanation below.
 
-> Mastery note: a completed Feynman teach-back is required before the next class unlocks — “I get it” without explanation does not count.
+> Mastery note: a completed Feynman teach-back is required before the next class unlocks: “I get it” without explanation does not count.
 
 
 ## Retrieval check
 
-Active recall — write answers without rereading first. Target ≥80% before the gate.
+Active recall: write answers without rereading first. Target ≥80% before the gate.
 
 1. Why is “container is Up” insufficient evidence?
 2. What is authoritative data?
@@ -142,7 +142,7 @@ Active recall — write answers without rereading first. Target ≥80% before th
 
 ## Guided lab
 
-Use the Class 2 `compose-lab` web service (or recreate it). Goal: prove you can update an explicit image tag and roll back with commands—not vibes.
+Use the Class 2 `compose-lab` web service (or recreate it). Goal: prove you can update an explicit image tag and roll back with commands, not vibes.
 
 1. **Record the current image identity (last-known-good).**
 
@@ -174,7 +174,7 @@ curl -s http://127.0.0.1:8080/ | grep UNIQUE
    Browser or curl must show your unique phrase. Record “PASS” + timestamp.
 
 3. **Change to another explicit tag, validate, pull, recreate.**  
-   Edit `image:` from `nginx:stable` to a newer explicit tag you choose from Docker Hub (example pattern `nginx:1.27`—pick one that exists today). Then:
+   Edit `image:` from `nginx:stable` to a newer explicit tag you choose from Docker Hub (example pattern `nginx:1.27`, pick one that exists today). Then:
 
 :::windows
 ```powershell
@@ -199,7 +199,7 @@ docker image inspect $(docker compose images -q web) --format '{{.RepoTags}} {{.
 :::
 
 4. **Re-run the acceptance test.**  
-   `curl` the unique phrase again. If it fails, do not continue—roll back now.
+   `curl` the unique phrase again. If it fails, do not continue, roll back now.
 
 5. **Simulate a bad update (nonexistent tag), then restore.**
 
@@ -236,7 +236,7 @@ curl -s http://127.0.0.1:8080/ | grep UNIQUE
 ```text
 purpose: compose-lab nginx demo
 image/version: (tag + image id)
-configuration path: ./compose.yaml , ./site
+configuration path: ./compose.yaml: ./site
 media/download paths: n/a
 internal address/port: web:80
 published address/port: DOCKER-HOST:8080

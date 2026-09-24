@@ -1,4 +1,4 @@
-# Quiz — Configuration Backups and Recovery
+# Quiz: Configuration Backups and Recovery
 
 **Module:** ARR Data Model & Compose
 **Activity type:** Quiz / retrieval practice

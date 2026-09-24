@@ -1,4 +1,4 @@
-# Homework — DNS, DHCP, and NAT
+# Homework: DNS, DHCP, and NAT
 
 **Module:** Network Operations
 **Activity type:** Homework / independent application

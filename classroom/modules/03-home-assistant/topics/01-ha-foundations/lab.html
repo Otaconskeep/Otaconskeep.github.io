@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>01-ha-foundations — Lab · Classroom</title>
-<meta name="description" content="01-ha-foundations — Lab">
+<title>01-ha-foundations: Lab · Classroom</title>
+<meta name="description" content="01-ha-foundations: Lab">
 <link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/03-home-assistant/topics/01-ha-foundations/lab.html">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,7 +63,7 @@
  <section class="hero flush">
  <div class="stamp">M3 LAB<small>lab</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 01-ha-foundations — Lab</h1>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 01-ha-foundations: Lab</h1>
  <p class="lede">Guided practice + break/fix + lab gate.</p>
  <div class="cr-osbar" role="group" aria-label="Command host">
  <span>Show commands for:</span>
@@ -73,7 +73,7 @@
  </section>
 </div>
 <div class="wrap">
- <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 3 — Home Assistant &amp; Secure Access<br />
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 3: Home Assistant &amp; Secure Access<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Objective:</strong> Given a Home Assistant install path, the learner can identify device/entity/area/integration, build a minimal dashboard, and prove backup + restore evidence.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -106,7 +106,7 @@
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Deploy or document the install.</strong><br />
    If new VM: create from Class 1, attach HA OS image per current docs, boot, note the onboarding URL. If Container:</p>
-<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># Example pattern — follow current HA Container docs for exact compose:
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># Example pattern: follow current HA Container docs for exact compose:
 mkdir -p ~/ha-config
 docker compose ps
 # After your compose exists:
@@ -198,7 +198,7 @@ curl.exe -sI http://HA-IP:8123/
  <div class="cr-step-num">7</div>
  <div class="cr-step-body">
   <div class="cr-step-text"><p><strong>Developer Tools proof.</strong></p>
-<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># From a machine that can reach HA — Long-Lived Token in password manager only:
+<div class="cr-os-block" data-os="lin"><span class="cr-os-label lin">Linux / macOS (Terminal)</span><pre><code class="language-bash"># From a machine that can reach HA: Long-Lived Token in password manager only:
 export HA=http://HA-IP:8123
 export TOKEN='YOUR_LONG_LIVED_TOKEN'
 curl -s -H &quot;Authorization: Bearer $TOKEN&quot; -H &quot;Content-Type: application/json&quot; \
@@ -274,7 +274,7 @@ Get-FileHash $HOME\backups\ha\* -Algorithm SHA256 | Format-Table
  <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one variable at a time.</div>
 </div><div class="cr-break-card"><h4>Break/fix</h4><ol>
 <li>
-<p>Rename an entity after a dashboard depends on it—observe break—rename back or update the card.</p>
+<p>Rename an entity after a dashboard depends on it, observe break, rename back or update the card.</p>
 </li>
 <li>
 <p>Stop the HA VM/container briefly; confirm UI down; start; confirm recovery.</p>
