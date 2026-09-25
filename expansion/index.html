@@ -354,7 +354,7 @@
  <code id="exp-cmd-win">curl -L -o "%USERPROFILE%\Downloads\OtaconExpansion-Setup.bat" "https://otaconskeep.github.io/downloads/OtaconExpansion-Setup.bat" &amp;&amp; start "" "%USERPROFILE%\Downloads\OtaconExpansion-Setup.bat"</code>
  <button class="copy-btn" data-copy-target="exp-cmd-win">Copy</button>
  </div>
- <p style="margin-top:8px;"><strong>Linux / WSL:</strong></p>
+ <p style="margin-top:8px;"><strong>Linux / WSL one-liner.</strong> The step-by-step manual with errors is <a href="#expansion-wsl-linux-manual">below</a>.</p>
  <div class="codebox">
  <code id="exp-cmd-linux">curl -fsSL https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon_expansion.sh | bash</code>
  <button class="copy-btn" data-copy-target="exp-cmd-linux">Copy</button>
@@ -375,6 +375,193 @@
  </details>
  </div>
  </div>
+ </div>
+
+ <div class="os-card os-card-manual" id="expansion-wsl-linux-manual" style="margin-top:16px;">
+ <span class="manual-col-tag">WSL / Linux</span>
+ <p class="os-label">Expansion manual for WSL or Linux, including the errors</p>
+ <p class="os-hint">Lite must already answer on port 5757. This does not grant the $1 seat. Antonio issues that seat in Member HQ. These steps install the Expansion layer inside the same Ubuntu that is already running Lite.</p>
+ <div class="os-chooser" role="tablist" aria-label="Expansion on WSL or Linux" data-os-chooser>
+ <button type="button" class="os-chooser-btn is-active" data-os-target="wsl" role="tab" aria-selected="true">Windows · WSL<span class="os-choice-sub">Same Ubuntu as Lite</span></button>
+ <button type="button" class="os-chooser-btn" data-os-target="linux" role="tab" aria-selected="false">Ubuntu / Debian PC<span class="os-choice-sub">Same machine as Lite</span></button>
+ </div>
+
+ <div class="os-path is-active" data-os-path="wsl">
+ <div class="manual-steps" data-manual-accordion>
+ <details class="manual-step" open>
+ <summary><span class="manual-step-num">1</span> Lite is already up inside Ubuntu</summary>
+ <div class="manual-step-body">
+ <p>Open <strong>Ubuntu</strong> from the Start menu, not PowerShell. Confirm <a href="http://127.0.0.1:5757/" target="_blank" rel="noopener">http://127.0.0.1:5757</a> loads in the Windows browser. If it does not, use the <a href="/install/#lite-wsl-linux-manual">Lite WSL manual</a> first.</p>
+ <button type="button" class="manual-next">Next · Step 2 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">2</span> Save the Expansion installer, then run it</summary>
+ <div class="manual-step-body">
+ <p>Same Ubuntu user that installed Lite. Do not prefix this with sudo.</p>
+ <div class="codebox">
+ <code id="expage-wsl-sh">curl -fsSL -o "$HOME/install_otacon_expansion.sh" https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon_expansion.sh
+bash "$HOME/install_otacon_expansion.sh"</code>
+ <button class="copy-btn" data-copy-target="expage-wsl-sh">Copy</button>
+ </div>
+ <p>If GitHub does not resolve inside Ubuntu, turn the VPN off and run <span class="mono">wsl --shutdown</span> from PowerShell, then reopen Ubuntu and retry. Windows being online does not prove Ubuntu is online.</p>
+ <button type="button" class="manual-next">Next · Step 3 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">3</span> Restart and confirm the seat</summary>
+ <div class="manual-step-body">
+ <pre class="baby-code mono">sudo systemctl restart otacon
+systemctl status otacon --no-pager</pre>
+ <p>Hard-refresh <span class="mono">http://127.0.0.1:5757</span>. Locked premium rooms mean the license seat is not on yet. That is separate from this installer. Check <a href="/premium/">Member HQ</a>.</p>
+ </div>
+ </details>
+ </div>
+ </div>
+
+ <div class="os-path" data-os-path="linux">
+ <div class="manual-steps" data-manual-accordion>
+ <details class="manual-step" open>
+ <summary><span class="manual-step-num">1</span> Lite is already up on this PC</summary>
+ <div class="manual-step-body">
+ <p>On the Ubuntu or Debian machine, <span class="mono">http://127.0.0.1:5757</span> must load. Install Lite there first if it does not.</p>
+ <button type="button" class="manual-next">Next · Step 2 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">2</span> Save the Expansion installer, then run it</summary>
+ <div class="manual-step-body">
+ <div class="codebox">
+ <code id="expage-linux-sh">curl -fsSL -o "$HOME/install_otacon_expansion.sh" https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon_expansion.sh
+bash "$HOME/install_otacon_expansion.sh"</code>
+ <button class="copy-btn" data-copy-target="expage-linux-sh">Copy</button>
+ </div>
+ <p>Normal user, not root. If apt is locked by another update, wait or reboot, then rerun this same command.</p>
+ <button type="button" class="manual-next">Next · Step 3 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">3</span> Restart Otacon</summary>
+ <div class="manual-step-body">
+ <pre class="baby-code mono">sudo systemctl restart otacon</pre>
+ <p>Hard-refresh the browser. A successful script with locked rooms still needs the Member HQ seat.</p>
+ </div>
+ </details>
+ </div>
+ </div>
+
+ <details class="install-help-block" style="margin-top:12px;">
+ <summary>If Expansion stops, match the message</summary>
+ <div class="install-help-inner">
+ 
+ <h5>Wrong window or wrong Linux</h5>
+ <details class="baby-error"><summary>This terminal isn't running Ubuntu or Debian</summary>
+ <div class="baby-error-body"><ol>
+ <li>You pasted the command into PowerShell, Command Prompt, or Git Bash. Those are not the installer window.</li>
+ <li>Open the <strong>Ubuntu</strong> app from the Start menu, or a terminal on the Ubuntu/Debian machine, and run it there.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>Unsupported OS / not Ubuntu 22.04, 24.04, or Debian 12</summary>
+ <div class="baby-error-body"><ol>
+ <li>Check with <span class="mono">cat /etc/os-release</span>.</li>
+ <li>Those three releases are the supported ones. Other distros, including other Ubuntu versions, stop on purpose.</li>
+ <li><span class="mono">OTACON_ALLOW_UNSUPPORTED_OS=1</span> continues anyway. Core's web UI may still fail. Treat that as unsupported, not as a fix.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>sudo: password is invisible, or sudo is missing</summary>
+ <div class="baby-error-body"><ol>
+ <li>The password is your Ubuntu/Linux password. Nothing appears while you type. Press Enter.</li>
+ <li>Do not run the whole installer as <span class="mono">sudo bash</span>. Run it as your normal user. It asks for sudo only for system packages.</li>
+ <li>If the message says sudo isn't available, install sudo as root, or run the privileged phase as root. Do not grant NOPASSWD to all commands.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>user phase must not run as root</summary>
+ <div class="baby-error-body"><ol>
+ <li>You started the script with sudo or as root. File ownership would be wrong.</li>
+ <li>Close it. Open a normal user shell and run <span class="mono">bash</span> on the script again.</li>
+ </ol></div></details>
+
+ <h5>Packages stuck</h5>
+ <details class="baby-error"><summary>apt/dpkg is locked, or "Could not get lock"</summary>
+ <div class="baby-error-body"><ol>
+ <li>Another update is running (Ubuntu Software or unattended-upgrades). Wait for it to finish.</li>
+ <li>On WSL, from Windows PowerShell run <span class="mono">wsl --shutdown</span>, reopen Ubuntu, and rerun the installer.</li>
+ <li>On a Linux PC, reboot if the lock does not clear, then rerun.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>dpkg was interrupted / apt-get -f install failed</summary>
+ <div class="baby-error-body"><ol>
+ <li>The installer tries <span class="mono">sudo dpkg --configure -a</span> and <span class="mono">sudo apt-get -f install -y</span> by itself.</li>
+ <li>If it still stops, the log names the package. Fix that package, then rerun the same installer. It is safe to run again.</li>
+ <li>Repair log: <span class="mono">~/.config/otacon/logs/</span></li>
+ </ol></div></details>
+ <details class="baby-error"><summary>A step timed out</summary>
+ <div class="baby-error-body"><ol>
+ <li>Usually apt mirrors, GitHub, or a sudo prompt nobody answered.</li>
+ <li>Fix the network, then rerun the same command. The log path is printed in the error.</li>
+ </ol></div></details>
+
+ <h5>Disk, memory, and GitHub</h5>
+ <details class="baby-error"><summary>Preflight failed (RAM / disk / network)</summary>
+ <div class="baby-error-body"><ol>
+ <li>Under 4 GB RAM or under 8 GB free in your home filesystem stops the install. 8 GB RAM and 20 GB free is the comfortable size. The chat model is the large part.</li>
+ <li>Free space, or rerun with <span class="mono">OTACON_INSTALL_DEFAULT_MODEL=0</span> to skip the chat-model download. Voice trainer can be skipped with <span class="mono">OTACON_INSTALL_VOICE_TRAINER=0</span>.</li>
+ <li>If Windows can open GitHub but Ubuntu cannot, they are not the same network. Turn the VPN off, run <span class="mono">wsl --shutdown</span> from PowerShell, reopen Ubuntu, and test <span class="mono">getent hosts github.com</span>.</li>
+ <li>On Windows 11, if that name still does not resolve, create <span class="mono">%UserProfile%\.wslconfig</span> with <span class="mono">[wsl2]</span> and <span class="mono">dnsTunneling=true</span>, run <span class="mono">wsl --shutdown</span>, and try again.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>git fetch failed / cannot reach github.com</summary>
+ <div class="baby-error-body"><ol>
+ <li>This is the Linux or WSL network, not proof that Lite is missing.</li>
+ <li>Same recovery as the preflight network failure above. Then rerun.</li>
+ </ol></div></details>
+
+ <h5>The page does not open</h5>
+ <details class="baby-error"><summary>127.0.0.1:5757 is blank or refused</summary>
+ <div class="baby-error-body"><ol>
+ <li>Wait until the installer finishes. A blank page during download is normal.</li>
+ <li>From Ubuntu: <span class="mono">systemctl status otacon --no-pager</span> and <span class="mono">sudo journalctl -u otacon -n 80 --no-pager</span>.</li>
+ <li>If <span class="mono">systemctl</span> says systemd is not running, add this to <span class="mono">/etc/wsl.conf</span> and then run <span class="mono">wsl --shutdown</span> from Windows:</li>
+ </ol>
+ <pre class="baby-code mono">[boot]
+systemd=true</pre>
+ <ol start="4">
+ <li>Port 5757 already in use is usually a previous Otacon. The installer restarts <span class="mono">otacon.service</span>. Use the journal if it does not come back.</li>
+ <li>Open <span class="mono">http://127.0.0.1:5757</span> from the Windows browser too. Do not publish that port on your router.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>nvidia-smi failed, or Codec says no GPU</summary>
+ <div class="baby-error-body"><ol>
+ <li>Core still installs. Spoken voice (Piper) can run on CPU.</li>
+ <li>Genome Voice Trainer is optional and needs an NVIDIA GPU visible inside Linux.</li>
+ <li>If Windows <span class="mono">nvidia-smi</span> works and Ubuntu's does not: update the NVIDIA driver on Windows, reopen Ubuntu. On the guided Windows path, <span class="mono">Fix-Otacon-GPU.bat</span> is the repair.</li>
+ </ol></div></details>
+
+ <h5>Expansion on top of Lite</h5>
+ <details class="baby-error"><summary>Otacon Core is not installed</summary>
+ <div class="baby-error-body"><ol>
+ <li>Expansion will not create Lite for you. Finish Lite until <span class="mono">http://127.0.0.1:5757</span> loads, then rerun Expansion.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>Python virtual environment wasn't found</summary>
+ <div class="baby-error-body"><ol>
+ <li>Core's <span class="mono">~/otacon-ai-ecosystem/.venv</span> is missing or was deleted.</li>
+ <li>Rerun the Lite installer as your normal user, then rerun Expansion.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>expansion/ was not found after syncing</summary>
+ <div class="baby-error-body"><ol>
+ <li>The Core checkout is older than Expansion.</li>
+ <li>If you have not edited files in <span class="mono">~/otacon-ai-ecosystem</span>, the installer's recovery is fetch and reset to <span class="mono">origin/main</span>. That discards uncommitted edits in that folder.</li>
+ <li>If you did edit files there, copy them out first. The soft-update path keeps a backup branch and a stash, and the log names them.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>Surfaces stay locked after a successful install</summary>
+ <div class="baby-error-body"><ol>
+ <li>The installer does not grant the $1 seat. War Room and the other premium rails stay locked until entitlement is on.</li>
+ <li>Confirm the seat in <a href="/premium/">Member HQ</a>, restart with <span class="mono">sudo systemctl restart otacon</span>, then hard-refresh <span class="mono">:5757</span>.</li>
+ <li>Optional pieces (Genome Voice Trainer, Video Studio) can stay off without a GPU or Docker. The roster can still be installed.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>Low disk for video packs</summary>
+ <div class="baby-error-body"><ol>
+ <li>Video Studio pack downloads are optional. Free space and use Set Up Video Studio in the product later.</li>
+ <li>A pack warning does not roll back the roster install.</li>
+ </ol></div></details>
+
+ <p class="os-hint" style="margin-top:12px;">Rerun the same script after the fix. Log: <span class="mono">~/.config/otacon/logs/</span>. <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a> if the log names a package you cannot repair.</p>
+ </div>
+ </details>
  </div>
  <p class="os-hint" style="margin-top:12px;">Soft-update later: re-run <span class="mono">OtaconsKeep-Setup.bat</span> (Windows). On Linux/WSL: <span class="mono">git -C ~/otacon-ai-ecosystem fetch &amp;&amp; git -C ~/otacon-ai-ecosystem reset --hard origin/main</span> then restart <span class="mono">otacon.service</span>. Hard-refresh the browser.</p>
  </section>
