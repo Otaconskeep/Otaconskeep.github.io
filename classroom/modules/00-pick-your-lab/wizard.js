@@ -1966,7 +1966,16 @@
       var paths = {
         coin: 'M12 3v18M8 7.5h6a2.5 2.5 0 0 1 0 5H8m0 0h7a2.5 2.5 0 0 1 0 5H8',
         bolt: 'M13 2 4 14h7l-1 8 9-12h-7l1-8z',
-        gpu: 'M3 8h18v8H3zM8 8V5m4 3V5m4 3V5M7 16v3m10-3v3',
+        gpu: 'M3 8h18v8H3zM7 8V5m5 3V5m5 3V5M6 16v3m12-3v3M6 11h12',
+        board: 'M4 4h16v16H4zM7 7h4v3H7zM13 7h4M13 10h4M7 13h10v4H7z',
+        ram: 'M5 7h14v10H5zM8 7v10M12 7v10M16 7v10',
+        ssd: 'M4 8h16v8H4zM7 11h2M11 11h2M15 11h2',
+        psu: 'M5 6h14v12H5zM8 9h3v3H8zM14 15h2',
+        gateway: 'M4 9h16v8H4zM8 9V6m8 3V6M8 13h.01M12 13h.01M16 13h.01',
+        switch: 'M3 8h18v8H3zM6 12h.01M9 12h.01M12 12h.01M15 12h.01M18 12h.01',
+        ap: 'M12 16v4M8 15a4 4 0 0 1 8 0M5 12a7 7 0 0 1 14 0',
+        nas: 'M4 5h16v14H4zM7 8h4v4H7zM13 8h4v4h-4zM7 14h10',
+        ups: 'M7 4h10v16H7zM9 8h6M10 14h4',
         cpu: 'M8 8h8v8H8zM10 4v4m4-4v4M10 16v4m4-4v4M4 10h4m-4 4h4M16 10h4m-4 4h4',
         disk: 'M12 4a8 8 0 1 0 .01 0M12 10a2 2 0 1 0 .01 0',
         net: 'M4 8h16M4 16h16M8 4v16M16 4v16',
@@ -1987,6 +1996,38 @@
       path.setAttribute('stroke-linecap', 'round');
       path.setAttribute('stroke-linejoin', 'round');
       svg.appendChild(path);
+      return svg;
+    }
+
+    function schematic(kind) {
+      var drawings = {
+        gpu: ['M16 30h128v40H16z', 'M26 38h72v24H26z', 'M106 42h28v6h-28z', 'M106 54h28v6h-28z', 'M16 70h8v14h-8z', 'M30 70h8v10h-8z', 'M6 38h10v24H6z'],
+        cpu: ['M48 28h64v44H48z', 'M60 40h40v20H60z', 'M56 16v12', 'M80 16v12', 'M104 16v12', 'M56 72v12', 'M80 72v12', 'M104 72v12', 'M36 40h12', 'M36 56h12', 'M112 40h12', 'M112 56h12'],
+        board: ['M18 16h124v68H18z', 'M28 26h36v22H28z', 'M74 28h52', 'M74 38h40', 'M28 58h104', 'M28 68h70', 'M112 54h18v18h-18z'],
+        ram: ['M28 22h104v56H28z', 'M40 22v56', 'M58 22v56', 'M76 22v56', 'M94 22v56', 'M112 22v56', 'M36 78h8', 'M116 78h8'],
+        ssd: ['M22 34h116v32H22z', 'M32 46h10', 'M50 46h10', 'M68 46h10', 'M108 46h16v8h-16z'],
+        disk: ['M80 18a32 32 0 1 0 .1 0', 'M80 40a10 10 0 1 0 .1 0', 'M28 78h104'],
+        psu: ['M28 18h104v64H28z', 'M40 30h28v22H40z', 'M80 34h36', 'M80 46h28', 'M40 64h16', 'M64 64h16', 'M88 64h16'],
+        gateway: ['M24 32h112v40H24z', 'M40 32V20', 'M120 32V20', 'M44 52h.1', 'M68 52h.1', 'M92 52h.1', 'M116 52h.1'],
+        switch: ['M18 34h124v32H18z', 'M32 50h.1', 'M52 50h.1', 'M72 50h.1', 'M92 50h.1', 'M112 50h.1', 'M132 50h.1'],
+        ap: ['M80 62v16', 'M58 58a22 22 0 0 1 44 0', 'M42 46a38 38 0 0 1 76 0', 'M80 78h.1'],
+        nas: ['M24 18h112v64H24z', 'M36 30h36v24H36z', 'M88 30h36v24H88z', 'M36 62h88'],
+        ups: ['M54 14h52v72H54z', 'M64 28h32', 'M70 48h20v16H70z']
+      };
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 160 100');
+      svg.setAttribute('aria-hidden', 'true');
+      svg.setAttribute('class', 'wiz-schematic-art');
+      (drawings[kind] || drawings.board).forEach(function (d) {
+        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'currentColor');
+        path.setAttribute('stroke-width', '1.6');
+        path.setAttribute('stroke-linecap', 'round');
+        path.setAttribute('stroke-linejoin', 'round');
+        svg.appendChild(path);
+      });
       return svg;
     }
 
@@ -2601,6 +2642,10 @@
       var focus = null;
       var cartOpen = false;
       var inspected = null;
+      var inspectorTab = 'overview';
+      var compareOpen = false;
+      var upgradeOpen = false;
+      var pulseId = '';
       var record = { version: 1, name: '', items: {} };
       var STORAGE_KEY = 'otacon-lab-build-v1';
 
@@ -2731,13 +2776,7 @@
       }
 
       function levelStamp(level) {
-        return {
-          L1: 'L1 System',
-          L2: 'L2 Subsystem',
-          L3: 'L3 Assembly',
-          L4: 'L4 Component',
-          L5: 'L5 Solution'
-        }[level] || level;
+        return level || '';
       }
 
       function samePath(a, b) {
@@ -2811,6 +2850,44 @@
         return box;
       }
 
+      function toneOf(ids, node) {
+        var s = ((ids || []).concat([node && node.id, node && node.title]).join(' ')).toLowerCase();
+        if (/jelly|plex|media/.test(s)) return 'media';
+        if (/ollama|assistant|home-assistant/.test(s)) return 'ai';
+        if (/warden|smart|camera/.test(s)) return 'smart';
+        if (/network|switch|gateway|vlan|wifi|wi-fi|opnsense|omada|dream/.test(s)) return 'network';
+        if (/storage|disk|raid|hdd|ssd|nvme|boot|bulk|ironwolf|cmr|smr/.test(s)) return 'storage';
+        return 'compute';
+      }
+
+      function artKind(node) {
+        var s = ((node && node.id) || '') + ' ' + ((node && node.title) || '');
+        s = s.toLowerCase();
+        if (/rtx|radeon|arc |gpu|graphics|blackwell|ampere|ada|rdna/.test(s)) return 'gpu';
+        if (/ryzen|core i|cpu|xeon/.test(s)) return 'cpu';
+        if (/b650|b550|b760|motherboard|board/.test(s)) return 'board';
+        if (/\bram\b|ddr/.test(s)) return 'ram';
+        if (/nvme|ssd/.test(s)) return 'ssd';
+        if (/hdd|ironwolf|red |exos|hard drive|cmr|smr/.test(s)) return 'disk';
+        if (/psu|power supply/.test(s)) return 'psu';
+        if (/gateway|opnsense|omada|dream machine|udm/.test(s)) return 'gateway';
+        if (/switch|poe/.test(s)) return 'switch';
+        if (/u6|access point|wi-fi|wifi/.test(s)) return 'ap';
+        if (/nas|truenas/.test(s)) return 'nas';
+        if (/ups/.test(s)) return 'ups';
+        return kindOf(s);
+      }
+
+      function stateMark(node) {
+        var saved = itemState(node.id);
+        if (saved === 'owned') return { mark: '⌂', name: 'Owned' };
+        if (saved === 'equipped') return { mark: '✓', name: 'Equipped' };
+        if (node.status === 'over') return { mark: '×', name: 'Incompatible' };
+        if (node.status === 'need') return { mark: '!', name: 'Needs decision' };
+        if (saved === 'recommended' || node.status === 'recommended' || node.status === 'ready' || node.status === 'selected') return { mark: '★', name: 'Recommended' };
+        return null;
+      }
+
       function renderCol(node, ids) {
         var onPath = isPrefix(ids, openIds);
         var tip = samePath(ids, openIds);
@@ -2818,22 +2895,21 @@
         var tile = document.createElement('button');
         tile.type = 'button';
         tile.className = 'wiz-tile' + (onPath ? ' is-on' : '') + (tip ? ' is-tip' : '');
+        var tone = toneOf(ids, node);
+        tile.className += ' tone-' + tone;
+        if (pulseId === node.id) tile.className += ' is-pulse';
         tile.appendChild(el('span', 'wiz-level', levelStamp(node.level)));
         var tileMark = el('span', 'wiz-tile-mark');
-        tileMark.appendChild(glyph(kindOf(node.title + ' ' + (node.line || ''))));
+        tileMark.appendChild(glyph(artKind(node)));
         tile.appendChild(tileMark);
         tile.appendChild(el('strong', '', node.title));
-        var statusLabel = { ready: 'In the build', selected: 'Selected', recommended: 'Recommended', over: 'Over budget', need: 'Choose', skip: 'Not required' }[node.status];
-        if (itemState(node.id) === 'owned') statusLabel = 'Owned';
-        else if (itemState(node.id) === 'equipped') statusLabel = 'Equipped';
-        else if (itemState(node.id) === 'skipped') statusLabel = 'Skipped';
-        if (statusLabel) tile.appendChild(el('span', 'wiz-open', statusLabel));
-        if (node.level === 'L2' && onPath && openIds.length > 1) tile.appendChild(el('span', 'wiz-open', 'Open'));
-        if (node.level === 'L2' && !onPath) tile.appendChild(el('span', 'wiz-cue', 'Explore >'));
+        var mark = stateMark(node);
+        if (mark) tile.appendChild(el('span', 'wiz-state', mark.mark + ' ' + mark.name));
         tile.addEventListener('mousedown', function (event) { event.preventDefault(); });
         tile.addEventListener('click', function () {
           focus = null;
           inspected = node;
+          if (!node.kind && node.children && node.children.length === 1 && node.children[0].kind) inspected = node.children[0];
           if (samePath(ids, openIds)) {
             if (ids.length > 1) openIds = ids.slice(0, -1);
           } else if (isPrefix(ids, openIds)) {
@@ -2857,60 +2933,6 @@
             row.appendChild(wrap);
           });
           col.appendChild(row);
-        }
-        if (tip && (!node.children || !node.children.length)) {
-          if (node.picked) col.appendChild(el('p', 'wiz-level', 'Picked'));
-          if (node.line) col.appendChild(el('p', 'wiz-node-line', node.line));
-          var groups = drawerGroups(node);
-          if (groups.length) {
-            col.appendChild(el('div', 'wiz-stem'));
-            var actions = el('div', 'wiz-actions');
-            groups.forEach(function (group) {
-              var chip = document.createElement('button');
-              chip.type = 'button';
-              chip.className = 'wiz-chip' + (focus && focus.key === group.key ? ' is-on' : '');
-              chip.textContent = group.name + ' >';
-              chip.addEventListener('mousedown', function (event) { event.preventDefault(); });
-              chip.addEventListener('click', function () {
-                focus = focus && focus.key === group.key ? null : group;
-                paint();
-              });
-              actions.appendChild(chip);
-            });
-            col.appendChild(actions);
-          }
-        }
-        if (tip && node.kind === 'hardware' && node.offer) {
-          var bill = el('div', 'wiz-actions');
-          var onBill = itemState(node.id) === 'equipped' || itemState(node.id) === 'owned';
-          var toggle = document.createElement('button');
-          toggle.type = 'button';
-          toggle.className = 'wiz-chip';
-          toggle.textContent = onBill ? 'Remove from build' : 'Equip';
-          toggle.addEventListener('click', function () {
-            commit(node.id, onBill ? 'skipped' : 'equipped');
-            paint();
-          });
-          bill.appendChild(toggle);
-          var priceLabel = el('label', 'wiz-price', 'Price you saw');
-          var priceInput = document.createElement('input');
-          priceInput.type = 'number';
-          priceInput.min = '0';
-          priceInput.step = '0.01';
-          priceInput.placeholder = 'Seller page';
-          var savedPrice = record.items[node.id] && record.items[node.id].actual;
-          if (savedPrice != null && savedPrice !== '') priceInput.value = savedPrice;
-          priceInput.addEventListener('input', function () {
-            var typed = priceInput.value === '' ? null : priceInput.value;
-            var next = itemState(node.id);
-            if (typed != null) next = 'equipped';
-            else if (next !== 'equipped' && next !== 'owned' && next !== 'skipped') next = 'recommended';
-            commit(node.id, next || 'recommended', typed);
-            paintBudget();
-          });
-          priceLabel.appendChild(priceInput);
-          bill.appendChild(priceLabel);
-          col.appendChild(bill);
         }
         return col;
       }
@@ -3025,18 +3047,21 @@
 
       function paintBudget() {
         var old = rootEl.querySelector('.wiz-budget');
-        var card = el('aside', 'wiz-budget');
+        var card = el('aside', 'wiz-budget wiz-hud');
         var settled = settleBuild(root, record);
         var budget = settled.budget;
         var lines = settled.actualBuild.items.map(function (item) {
           var money = item.state === 'owned' ? '$0 owned' : (item.actual != null ? '$' + item.actual + ' typed' : (item.kind === 'planning' ? 'class floor $' + item.planning : (item.kind === 'free' || item.kind === 'design' ? '$0' : 'unpriced')));
           return item.group + ' · ' + item.title + ' ×' + item.quantity + ' · ' + money;
         });
-        var head = el('div', 'wiz-cart-head');
-        head.appendChild(el('p', 'wiz-level', settled.name));
+        var head = el('div', 'wiz-hud-top');
+        var title = el('div', '');
+        title.appendChild(el('p', 'wiz-kicker', 'Project'));
+        title.appendChild(el('h2', 'wiz-title', settled.name));
+        var roleLine = { server: 'Stays on for the house', everyday: 'Everyday computer', both: 'Desk and a house server' }[answers.role] || 'Lab build';
+        title.appendChild(el('p', 'wiz-hud-role', roleLine));
+        head.appendChild(title);
         card.appendChild(head);
-        if (budget.ceiling != null) card.appendChild(el('p', '', 'Budget ceiling $' + budget.ceiling));
-        card.appendChild(el('p', 'wiz-cart-total', 'Known selected cost $' + budget.known));
         var nameLabel = el('label', 'wiz-price', 'Build name');
         var nameInput = document.createElement('input');
         nameInput.type = 'text';
@@ -3048,14 +3073,19 @@
         });
         nameLabel.appendChild(nameInput);
         card.appendChild(nameLabel);
-        var truth = el('p', budget.status === 'incomplete' ? 'is-incomplete' : '', budget.line);
-        card.appendChild(truth);
-        card.appendChild(el('p', '', 'Unpriced selected items: ' + budget.unpriced));
-        if (budget.estimated != null) card.appendChild(el('p', '', 'Estimated complete build ~$' + budget.estimated + '. Not charged until you equip a part.'));
         var ready = settled.readiness;
         var pricingLabel = { incomplete: 'INCOMPLETE', priced: 'PRICED', over: 'OVER BUDGET' }[budget.status] || budget.status;
-        card.appendChild(el('p', '', 'PRICING STATUS: ' + pricingLabel));
-        card.appendChild(el('p', '', 'BUILD READINESS: ' + ready.percent + '%'));
+        var facts = el('div', 'wiz-hud-facts');
+        function fact(label, value) {
+          var cell = el('div', 'wiz-hud-fact');
+          cell.appendChild(el('span', '', label));
+          cell.appendChild(el('strong', '', value));
+          facts.appendChild(cell);
+        }
+        fact('Known cost / budget', '$' + budget.known + ' / ' + (budget.ceiling != null ? ('$' + budget.ceiling) : 'No ceiling'));
+        fact('Unpriced', String(budget.unpriced));
+        fact('Build readiness', ready.percent + '%');
+        card.appendChild(facts);
         var readyRow = el('div', 'wiz-stat');
         readyRow.appendChild(el('span', '', 'Readiness'));
         var track = el('span', 'wiz-bar');
@@ -3065,22 +3095,17 @@
         readyRow.appendChild(track);
         readyRow.appendChild(el('span', '', ready.percent + '%'));
         card.appendChild(readyRow);
-        if (budget.status === 'over') card.appendChild(el('p', 'wiz-cart-over', '⚠ $' + (budget.known - budget.ceiling) + ' over the band'));
-        Object.keys(settled.groups).forEach(function (group) {
-          var row = el('div', 'wiz-cart-row');
-          row.appendChild(glyph(kindOf(group)));
-          row.appendChild(el('span', '', group));
-          var bucket = settled.groups[group];
-          var groupText = bucket.unpriced ? ('$' + bucket.known + ' + ' + bucket.unpriced + ' unpriced') : ('$' + bucket.known);
-          row.appendChild(el('span', '', groupText));
-          card.appendChild(row);
-        });
+        var slotText = ready.missing.length
+          ? ('Open: ' + ready.missing.join(', '))
+          : (ready.required ? 'Required slots filled' : 'No required slots on this build');
+        card.appendChild(el('p', 'wiz-hud-line', 'Required slots  ' + slotText));
+        if (budget.status === 'over') card.appendChild(el('p', 'wiz-hud-warn', 'Warning  $' + (budget.known - budget.ceiling) + ' over the band'));
+        else if (ready.unresolved.length) card.appendChild(el('p', 'wiz-hud-warn', 'Warning  ' + ready.unresolved[0]));
         var count = settled.actualBuild.items.length;
-        card.appendChild(el('p', 'wiz-cart-count', count + (count === 1 ? ' item equipped or owned' : ' items equipped or owned')));
         var view = document.createElement('button');
         view.type = 'button';
-        view.className = 'wiz-chip';
-        view.textContent = cartOpen ? 'Hide the build' : 'View the build';
+        view.className = 'wiz-action-primary';
+        view.textContent = cartOpen ? 'Hide loadout' : 'View loadout';
         view.addEventListener('mousedown', function (event) { event.preventDefault(); });
         view.addEventListener('click', function () {
           cartOpen = !cartOpen;
@@ -3089,7 +3114,20 @@
         card.appendChild(view);
         if (cartOpen) {
           var more = el('div', 'wiz-cart-more');
-          lines.forEach(function (line) { more.appendChild(el('p', '', line)); });
+          more.appendChild(el('p', 'wiz-hud-line', budget.line));
+          more.appendChild(el('p', 'wiz-hud-line', 'Pricing status  ' + pricingLabel));
+          if (budget.estimated != null) more.appendChild(el('p', 'wiz-hud-line', 'Estimated complete build ~$' + budget.estimated + '. Not charged until you equip a part.'));
+          more.appendChild(el('p', 'wiz-hud-line', count + (count === 1 ? ' item equipped or owned' : ' items equipped or owned')));
+          Object.keys(settled.groups).forEach(function (group) {
+            var row = el('div', 'wiz-cart-row');
+            row.appendChild(glyph(kindOf(group)));
+            row.appendChild(el('span', '', group));
+            var bucket = settled.groups[group];
+            var groupText = bucket.unpriced ? ('$' + bucket.known + ' + ' + bucket.unpriced + ' unpriced') : ('$' + bucket.known);
+            row.appendChild(el('span', '', groupText));
+            more.appendChild(row);
+          });
+          lines.forEach(function (line) { more.appendChild(el('p', 'wiz-hud-line', line)); });
           if (root.model && root.model.conflict) {
             more.appendChild(el('h3', '', 'Budget conflict'));
             root.model.conflict.lines.forEach(function (line) { more.appendChild(el('p', '', line)); });
@@ -3113,7 +3151,7 @@
         function tool(label, run) {
           var button = document.createElement('button');
           button.type = 'button';
-          button.className = 'wiz-chip';
+          button.className = 'wiz-action-tertiary';
           button.textContent = label;
           button.addEventListener('mousedown', function (event) { event.preventDefault(); });
           button.addEventListener('click', run);
@@ -3195,7 +3233,7 @@
         var otherPoe = field('Other PoE devices', 'otherPoe');
         var calc = document.createElement('button');
         calc.type = 'button';
-        calc.className = 'wiz-chip';
+        calc.className = 'wiz-action-secondary';
         calc.textContent = 'Calculate';
         calc.addEventListener('mousedown', function (event) { event.preventDefault(); });
         calc.addEventListener('click', function () {
@@ -3219,99 +3257,102 @@
         return box;
       }
 
+      function whyLines(node, card) {
+        var lines = [];
+        (node.sections || []).forEach(function (item) {
+          if ((item.slot || 'why') !== 'why') return;
+          (item.lines || []).forEach(function (line) {
+            if (typeof line === 'string' && line) lines.push(line);
+          });
+        });
+        if (!lines.length && card.blurb) lines.push(card.blurb);
+        if (node.line && lines.indexOf(node.line) === -1) lines.push(node.line);
+        return lines.slice(0, 4);
+      }
+
+      function actionButton(className, label, run) {
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = className;
+        button.textContent = label;
+        button.addEventListener('mousedown', function (event) { event.preventDefault(); });
+        button.addEventListener('click', run);
+        return button;
+      }
+
       function renderItem(node) {
         var card = itemProfile(node);
-        var box = el('aside', 'wiz-drawer wiz-item');
-        var close = document.createElement('button');
-        close.type = 'button';
-        close.className = 'btn btn-ghost wiz-back';
-        close.textContent = 'Close';
-        close.addEventListener('mousedown', function (event) { event.preventDefault(); });
-        close.addEventListener('click', function () { inspected = null; paint(); });
-        box.appendChild(close);
-        if (node.product) box.appendChild(renderProductGear(node));
-        else box.appendChild(el('p', 'wiz-level', card.role));
-        box.appendChild(el('h2', 'wiz-title', node.title));
-        var cpuPart = (PARTS.cpu || []).filter(function (part) { return part.name === node.title; })[0];
-        if (cpuPart && cpuPart.arch) {
-          box.appendChild(el('p', 'wiz-badge', cpuPart.arch + ' · ' + cpuPart.socket + ' · ' + cpuPart.cores + ' cores / ' + cpuPart.threads + ' threads · ' + cpuPart.watts + ' W · ' + cpuPart.memory + (cpuPart.igpu ? ' · integrated graphics' : '')));
-          box.appendChild(el('p', '', 'Architecture is the generation of the chip. Zen 4 is newer than Zen 3. A newer architecture can do more work per watt. It does not, by itself, decide how large an AI model fits in video memory. That is the graphics card.'));
-        }
-        box.appendChild(el('p', '', card.blurb));
-        Object.keys(card.stars || {}).forEach(function (name) {
-          var row = el('div', 'wiz-stat');
-          row.appendChild(el('span', '', name));
-          row.appendChild(el('span', '', starLine(card.stars[name])));
-          box.appendChild(row);
-        });
-        if (card.requires && card.requires.length) {
-          box.appendChild(el('h3', '', 'Requires'));
-          card.requires.forEach(function (line) { box.appendChild(el('p', '', line)); });
-        }
-        if (card.example) box.appendChild(el('p', '', card.example));
-        if (card.good) box.appendChild(el('p', '', 'Good for: ' + card.good));
-        if (card.bad) box.appendChild(el('p', '', 'Bad for: ' + card.bad));
-        if (card.candidates && card.candidates.length) {
-          box.appendChild(el('h3', '', 'Candidates'));
-          card.candidates.forEach(function (row) { box.appendChild(el('p', '', row.name + ' — ' + row.result)); });
-        }
-        var price = card.floor == null ? 'No class floor on this choice. The shelf price stays on the seller page.' : ('Class floor $' + card.floor + ', dated Sep 24, 2026. Amazon, Newegg, and B&H are not filled in here.');
-        box.appendChild(el('p', '', price));
-        box.appendChild(renderMarkets(node.product ? node.product.model : node.title));
-        var actions = el('div', 'wiz-actions');
+        var box = el('aside', 'wiz-drawer wiz-item tone-' + toneOf([], node));
+        var head = el('header', 'wiz-inspect-head');
+        var close = actionButton('wiz-action-tertiary', 'Close', function () { inspected = null; compareOpen = false; upgradeOpen = false; paint(); });
+        head.appendChild(close);
+        head.appendChild(el('p', 'wiz-kicker', node.product ? 'Graphics' : card.role));
+        head.appendChild(el('h2', 'wiz-title', node.title));
+        var arch = node.product ? (node.product.vendor + ' · ' + node.product.architecture) : (card.role || '');
+        if (arch) head.appendChild(el('p', 'wiz-badge', arch));
+        var mark = stateMark(node);
+        if (mark) head.appendChild(el('p', 'wiz-state', mark.mark + ' ' + mark.name));
+        var plate = el('div', 'wiz-plate wiz-schematic');
+        plate.appendChild(schematic(artKind(node)));
+        if (node.product) plate.appendChild(el('span', 'wiz-hud-line', node.product.vram_gb + ' GB · ' + node.product.watts + ' W'));
+        head.appendChild(plate);
+        if (node.product) head.appendChild(el('p', 'wiz-gear-kicker', node.product.generation + ' · ' + node.product.vram_gb + ' GB ' + node.product.memory));
+        box.appendChild(head);
+        var actionable = !!node.kind;
         var verbs = {
-          hardware: { take: 'Equip', taken: 'Equipped', own: 'I already own this', owned: 'Owned' },
-          optional: { take: 'Equip', taken: 'Equipped', own: 'I already own this', owned: 'Owned' },
-          architecture: { take: 'Select', taken: 'Selected' },
-          'free-software': { take: 'Install', taken: 'In use' },
-          'paid-software': { take: 'Add license', taken: 'Licensed' }
-        }[node.kind] || { take: 'Equip', taken: 'Equipped', own: 'I already own this', owned: 'Owned' };
-        var add = document.createElement('button');
-        add.type = 'button';
-        add.className = 'wiz-chip';
-        var equippedNow = itemState(node.id) === 'equipped';
-        add.textContent = equippedNow ? verbs.taken : (verbs.take + (node.kind === 'hardware' && card.floor ? (' — class floor $' + card.floor) : ''));
-        add.addEventListener('mousedown', function (event) { event.preventDefault(); });
-        add.addEventListener('click', function () {
-          commit(node.id, 'equipped');
-          paint();
-        });
-        actions.appendChild(add);
-        if (node.product) {
-          var upgrade = document.createElement('button');
-          upgrade.type = 'button';
-          upgrade.className = 'wiz-chip';
-          upgrade.textContent = 'Upgrade';
-          upgrade.addEventListener('mousedown', function (event) { event.preventDefault(); });
-          upgrade.addEventListener('click', function () {
-            record.upgradeFrom = node.product.id;
+          hardware: { take: 'Equip', own: 'I own this' },
+          optional: { take: 'Equip', own: 'I own this' },
+          architecture: { take: 'Select' },
+          'free-software': { take: 'Install' },
+          'paid-software': { take: 'Add license' }
+        }[node.kind] || { take: 'Equip', own: 'I own this' };
+        var priceBit = '';
+        var typed = record.items[node.id] && record.items[node.id].actual;
+        if (typed != null && typed !== '') priceBit = ' · $' + typed + ' typed';
+        else if (card.floor != null) priceBit = ' · class floor $' + card.floor;
+        else if (node.offer && node.offer.dollars === 0) priceBit = ' · $0';
+        else priceBit = ' · price not checked';
+        if (actionable) {
+        var primary = actionButton('wiz-action-primary', '', function () {
+          pulseId = node.id;
+          if (node.product) equipProduct(node.product);
+          else {
+            commit(node.id, 'equipped');
             paint();
-          });
-          actions.appendChild(upgrade);
-          var compare = document.createElement('button');
-          compare.type = 'button';
-          compare.className = 'wiz-chip';
-          compare.textContent = 'Compare';
-          compare.addEventListener('mousedown', function (event) { event.preventDefault(); });
-          compare.addEventListener('click', function () {
+          }
+        });
+        var primaryName = document.createElement('span');
+        primaryName.textContent = (itemState(node.id) === 'equipped' ? 'Equipped' : verbs.take) + ' ' + node.title;
+        var primaryPrice = document.createElement('span');
+        primaryPrice.className = 'wiz-action-price';
+        primaryPrice.textContent = priceBit.replace(/^ · /, '');
+        primary.appendChild(primaryName);
+        primary.appendChild(primaryPrice);
+        box.appendChild(primary);
+        var secondary = el('div', 'wiz-action-row');
+        if (node.product) {
+          secondary.appendChild(actionButton('wiz-action-secondary', 'Compare', function () {
             record.compare = record.compare || [];
             if (record.compare.indexOf(node.product.id) === -1 && record.compare.length < 3) record.compare.push(node.product.id);
+            compareOpen = true;
+            inspectorTab = 'compare';
             paint();
-          });
-          actions.appendChild(compare);
+          }));
+          secondary.appendChild(actionButton('wiz-action-secondary', 'Upgrade path', function () {
+            record.upgradeFrom = node.product.id;
+            upgradeOpen = true;
+            inspectorTab = 'overview';
+            paint();
+          }));
         }
         if (verbs.own) {
-          var own = document.createElement('button');
-          own.type = 'button';
-          own.className = 'wiz-chip';
-          own.textContent = itemState(node.id) === 'owned' ? verbs.owned : verbs.own;
-          own.addEventListener('mousedown', function (event) { event.preventDefault(); });
-          own.addEventListener('click', function () {
+          secondary.appendChild(actionButton('wiz-action-secondary', itemState(node.id) === 'owned' ? 'Owned' : verbs.own, function () {
+            pulseId = node.id;
             commit(node.id, 'owned', null);
             paint();
-          });
-          actions.appendChild(own);
+          }));
         }
+        box.appendChild(secondary);
         if (node.offer && node.offer.qty > 1) {
           var qtyLabel = el('label', 'wiz-price', 'Quantity');
           var qtyInput = document.createElement('input');
@@ -3325,97 +3366,349 @@
             paint();
           });
           qtyLabel.appendChild(qtyInput);
-          actions.appendChild(qtyLabel);
+          box.appendChild(qtyLabel);
         }
-        box.appendChild(actions);
+        var priceLabel = el('label', 'wiz-price', 'Price you saw');
+        var priceInput = document.createElement('input');
+        priceInput.type = 'number';
+        priceInput.min = '0';
+        priceInput.step = '0.01';
+        priceInput.placeholder = 'Seller page';
+        if (typed != null && typed !== '') priceInput.value = typed;
+        priceInput.addEventListener('input', function () {
+          var nextTyped = priceInput.value === '' ? null : priceInput.value;
+          var next = itemState(node.id);
+          if (nextTyped != null) next = 'equipped';
+          else if (next !== 'equipped' && next !== 'owned' && next !== 'skipped') next = 'recommended';
+          commit(node.id, next || 'recommended', nextTyped);
+          paintBudget();
+        });
+        priceLabel.appendChild(priceInput);
+        box.appendChild(priceLabel);
+        }
+        var tabs = el('div', 'wiz-tabs');
+        [['overview', 'Overview'], ['compare', 'Compare'], ['trade', 'Trade study'], ['offers', 'Offers'], ['specs', 'Specs']].forEach(function (pair) {
+          var tab = actionButton('wiz-tab' + (inspectorTab === pair[0] ? ' is-on' : ''), pair[1], function () {
+            inspectorTab = pair[0];
+            if (pair[0] === 'compare' && node.product) compareOpen = true;
+            paint();
+          });
+          tabs.appendChild(tab);
+        });
+        box.appendChild(tabs);
+        var body = el('div', 'wiz-tab-body');
+        if (inspectorTab === 'overview') body.appendChild(renderOverview(node, card));
+        else if (inspectorTab === 'compare') body.appendChild(el('p', 'wiz-hud-line', node.product ? 'The comparison workspace is open over the map. It holds up to three items.' : 'Open a catalog part, then Compare, to put it in the workspace.'));
+        else if (inspectorTab === 'trade') body.appendChild(renderTrade(node));
+        else if (inspectorTab === 'offers') body.appendChild(renderMarkets(node.product ? node.product.model : node.title));
+        else body.appendChild(renderSpecs(node, card));
+        box.appendChild(body);
         if (node.id && node.id.indexOf('sw-') === 0) box.appendChild(switchSizer());
-        if (node.product && record.upgradeFrom === node.product.id) box.appendChild(renderUpgrade(node.product));
-        if (record.compare && record.compare.length) box.appendChild(renderCompare());
         return box;
       }
 
-      function renderProductGear(node) {
-        var product = node.product;
-        var scores = gpuScores(product);
-        var head = el('div', 'wiz-gear');
-        head.appendChild(el('p', 'wiz-badge', product.vendor + ' · ' + product.architecture));
-        head.appendChild(el('p', 'wiz-gear-kicker', product.generation + ' · ' + product.vram_gb + ' GB ' + product.memory));
-        var plate = el('div', 'wiz-plate');
-        plate.appendChild(el('strong', '', product.architecture.slice(0, 3).toUpperCase()));
-        plate.appendChild(el('span', '', product.watts + ' W'));
-        head.appendChild(plate);
-        ['ai', 'gaming', 'efficiency'].forEach(function (name) {
-          var row = el('div', 'wiz-stat');
-          row.appendChild(el('span', '', name === 'ai' ? 'AI' : (name === 'gaming' ? 'Gaming' : 'Efficiency')));
-          var track = el('span', 'wiz-bar');
-          var fill = document.createElement('i');
-          fill.style.width = scores[name] + '%';
-          track.appendChild(fill);
-          row.appendChild(track);
-          row.appendChild(el('span', '', String(scores[name])));
-          head.appendChild(row);
-        });
-        head.appendChild(el('p', 'wiz-note', 'These bars come from VRAM, generation, and watts. They are not a benchmark.'));
-        head.appendChild(el('p', '', 'Encoder: ' + product.encoder + '. Vendor system power: ' + product.psu + ' W.'));
-        var current = equippedGpu();
-        if (current && current.id !== product.id) {
-          var cpuWatts = root.model && root.model.fit && root.model.fit.cpu ? root.model.fit.cpu.watts : 0;
-          var psuWatts = root.model && root.model.fit && root.model.fit.psu ? root.model.fit.psu.watts : null;
-          var impact = gpuSwapImpact(current, product, cpuWatts, psuWatts);
-          head.appendChild(el('h3', '', 'Build impact'));
-          head.appendChild(el('p', '', 'VRAM ' + impact.vram[0] + ' GB → ' + impact.vram[1] + ' GB'));
-          head.appendChild(el('p', '', 'Power ' + impact.watts[0] + ' W → ' + impact.watts[1] + ' W'));
-          head.appendChild(el('p', '', 'This checker wants about ' + impact.formulaNeed + ' W before headroom.' + (impact.formulaOk === false ? ' The suggested power supply is short of that.' : '')));
-          if (impact.vendorOk === false) head.appendChild(el('p', 'wiz-cart-over', product.vendor + ' lists a ' + product.psu + ' W system power supply for this card.'));
+      function renderOverview(node, card) {
+        var box = el('div', '');
+        var why = el('section', 'wiz-insight');
+        why.appendChild(el('h3', '', 'Why this matters'));
+        whyLines(node, card).forEach(function (line) { why.appendChild(el('p', 'wiz-hud-line', line)); });
+        box.appendChild(why);
+        var fitText = card.good || workloadLine(node);
+        if (fitText) {
+          var fit = el('section', 'wiz-insight is-fit');
+          fit.appendChild(el('h3', '', 'For your build'));
+          fit.appendChild(el('p', 'wiz-hud-line', fitText));
+          box.appendChild(fit);
         }
-        return head;
+        var tradeText = card.bad || tradeoffLine(node);
+        if (tradeText) {
+          var trade = el('section', 'wiz-insight is-trade');
+          trade.appendChild(el('h3', '', 'Tradeoff'));
+          trade.appendChild(el('p', 'wiz-hud-line', tradeText));
+          box.appendChild(trade);
+        }
+        if (node.product) {
+          var scores = gpuScores(node.product);
+          ['ai', 'gaming', 'efficiency'].forEach(function (name) {
+            var stat = el('div', 'wiz-stat');
+            stat.appendChild(el('span', '', name === 'ai' ? 'AI fit' : (name === 'gaming' ? 'Gaming fit' : 'Efficiency fit')));
+            var track = el('span', 'wiz-bar');
+            var fill = document.createElement('i');
+            fill.style.width = scores[name] + '%';
+            track.appendChild(fill);
+            stat.appendChild(track);
+            stat.appendChild(el('span', '', fitWord(scores[name])));
+            box.appendChild(stat);
+          });
+          box.appendChild(el('p', 'wiz-note', 'Fit estimate from VRAM, generation, and watts. Not a benchmark.'));
+        }
+        var impact = renderImpact(node);
+        if (impact) box.appendChild(impact);
+        return box;
+      }
+
+      function jobPhrase() {
+        var jobs = [];
+        if (hasJob(answers, 'ai')) jobs.push('local AI');
+        if (hasJob(answers, 'games')) jobs.push('games');
+        if (hasJob(answers, 'video')) jobs.push('video');
+        if (hasJob(answers, 'files')) jobs.push('files and backups');
+        if (hasJob(answers, 'movies')) jobs.push('movies');
+        if (hasJob(answers, 'photos')) jobs.push('photos');
+        if (hasJob(answers, 'smart')) jobs.push('the house');
+        return jobs.length ? jobs.join(', ') : 'this lab';
+      }
+
+      function workloadLine(node) {
+        if (!node.product) return '';
+        return node.product.vram_gb + ' GB is the memory this card can hold for ' + jobPhrase() + '. The bars are a fit estimate from VRAM, generation, and watts. They are not a benchmark.';
+      }
+
+      function tradeoffLine(node) {
+        if (!node.product) return '';
+        return 'This card draws ' + node.product.watts + ' W. The vendor lists a ' + node.product.psu + ' W system supply. A smaller card uses less power and holds less memory.';
+      }
+
+      function fitWord(score) {
+        if (score >= 75) return 'HIGH';
+        if (score >= 45) return 'MEDIUM';
+        return 'LOW';
+      }
+
+      function classIdForGpu(product) {
+        if (!product) return 'none';
+        if (product.vram_gb >= 24) return 'g24';
+        if (product.vram_gb >= 16) return 'g16';
+        if (product.vram_gb >= 12) return 'g12';
+        return 'g8';
       }
 
       function equippedGpu() {
         var ids = Object.keys(record.items || {});
+        var owned = null;
         for (var i = 0; i < ids.length; i++) {
           var state = record.items[ids[i]] && record.items[ids[i]].state;
-          if (state !== 'equipped' && state !== 'owned') continue;
           var found = GPU_CATALOG.filter(function (item) { return ids[i] === 'gpu-' + item.id; })[0];
-          if (found) return found;
+          if (!found) continue;
+          if (state === 'equipped') return found;
+          if (state === 'owned') owned = found;
+        }
+        return owned;
+      }
+
+      function loadoutCheck(product) {
+        var fit = root.model && root.model.fit;
+        if (!fit || !fit.cpu || !fit.board || !fit.ram || !fit.psu || !fit.case) return null;
+        var report = checkParts({
+          cpu: fit.cpu.id,
+          board: fit.board.id,
+          ram: fit.ram.id,
+          gpu: product ? classIdForGpu(product) : (fit.gpu ? fit.gpu.id : 'none'),
+          psu: fit.psu.id,
+          case: fit.case.id,
+          system: (answers.role === 'server' || answers.role === 'both') ? 'server' : 'desk',
+          ssd: 'ssd-1000',
+          hdd: Number(answers.storage) >= 4000 ? 'hdd-8' : 'hdd-none'
+        });
+        var exact = product ? gpuSwapImpact({ vram_gb: 0, watts: fit.gpu ? fit.gpu.watts : 0 }, product, fit.cpu.watts, fit.psu.watts) : null;
+        return { report: report, exact: exact, fit: fit };
+      }
+
+      function equipProduct(product) {
+        var match = null;
+        walk(root, []).forEach(function (item) {
+          if (!item.product) return;
+          if (item.product.id === product.id) match = item;
+          else if (itemState(item.id) === 'equipped') commit(item.id, 'skipped');
+        });
+        if (!match) return;
+        pulseId = match.id;
+        commit(match.id, 'equipped');
+        inspected = match;
+        upgradeOpen = false;
+        inspectorTab = 'overview';
+        paint();
+      }
+
+      function budgetConsequence(node) {
+        var typed = record.items[node.id] && record.items[node.id].actual;
+        if (typed != null && typed !== '') return '-$' + typed + ' typed';
+        if (node.offer && node.offer.dollars === 0) return '$0';
+        if (node.offer && node.offer.floor != null) return 'class floor $' + node.offer.floor;
+        return 'price not checked';
+      }
+
+      function renderImpact(node) {
+        var box = el('section', 'wiz-impact');
+        box.appendChild(el('h3', '', 'Build impact'));
+        function row(label, text, warn, changed) {
+          var line = el('p', 'wiz-impact-row' + (warn ? ' is-warn' : '') + (changed ? ' is-delta' : ''), label + '  ' + text + (warn ? '  Warning' : ''));
+          box.appendChild(line);
+        }
+        if (node.product) {
+          var current = equippedGpu();
+          var other = current && current.id !== node.product.id ? current : null;
+          var check = loadoutCheck(node.product);
+          var scores = gpuScores(node.product);
+          if (other) {
+            var impact = gpuSwapImpact(other, node.product, check && check.fit.cpu ? check.fit.cpu.watts : 0, check && check.fit.psu ? check.fit.psu.watts : null);
+            var before = gpuScores(other);
+            row('VRAM', impact.vram[0] + ' GB → ' + impact.vram[1] + ' GB', false, impact.vram[0] !== impact.vram[1]);
+            row('GPU power', impact.watts[0] + ' W → ' + impact.watts[1] + ' W', false, impact.watts[0] !== impact.watts[1]);
+            row('PSU', (check && check.fit.psu ? check.fit.psu.watts + ' W supply' : 'PSU not set') + ' → vendor ' + node.product.psu + ' W', impact.vendorOk === false, true);
+            row('AI fit', fitWord(before.ai) + ' → ' + fitWord(scores.ai), false, fitWord(before.ai) !== fitWord(scores.ai));
+          } else if (check && check.fit.gpu) {
+            row('VRAM', check.fit.gpu.name + ' → ' + node.product.vram_gb + ' GB ' + node.product.memory, false, true);
+            row('GPU power', check.fit.gpu.watts + ' W class plan → ' + node.product.watts + ' W', false, check.fit.gpu.watts !== node.product.watts);
+            row('PSU', check.fit.psu.watts + ' W supply → vendor ' + node.product.psu + ' W', check.exact && check.exact.vendorOk === false, true);
+            row('AI fit', '— → ' + fitWord(scores.ai) + ' estimate', false, true);
+          }
+          row('Budget', budgetConsequence(node), false, false);
+          if (check && check.exact) {
+            var supply = check.fit.psu ? check.fit.psu.watts + ' W' : 'not set';
+            row('Checker power', check.exact.formulaNeed + ' W needed, ' + supply + ' supply', check.exact.formulaOk === false, false);
+          }
+          if (check) {
+            check.report.lines.forEach(function (line) {
+              var text = typeof line === 'string' ? line : line.text;
+              var tone = typeof line === 'string' ? '' : line.tone;
+              if (!/power|case|slot|motherboard|socket|memory|picture|server/i.test(text)) return;
+              row(tone === 'stop' ? 'Stop' : (tone === 'wait' ? 'Check' : 'Fit'), text, tone === 'stop' || tone === 'wait', false);
+            });
+          }
+          box.appendChild(el('p', 'wiz-note', 'Fit words are estimates, not a benchmark. A class plan is the questionnaire watt allowance, not a shelf card.'));
+          return box;
+        }
+        if (node.offer && (node.offer.floor != null || node.offer.dollars === 0 || (record.items[node.id] && record.items[node.id].actual != null))) {
+          row('Budget', budgetConsequence(node), false, false);
+          if (node.offer.qty > 1) row('Quantity', String((record.items[node.id] && record.items[node.id].quantity) || node.offer.qty), false, false);
+          return box;
         }
         return null;
       }
 
-      function renderUpgrade(product) {
-        var box = el('div', 'wiz-upgrade');
-        box.appendChild(el('h3', '', 'Upgrade from ' + product.model));
-        box.appendChild(el('p', '', 'Price deltas stay unknown until an offer has a checked price. Power and VRAM still change.'));
-        upgradePaths(product.id).forEach(function (row) {
-          var impact = gpuSwapImpact(product, row.product, 0, null);
-          var line = el('p', '');
-          line.appendChild(el('strong', '', row.role + ' · ' + row.product.model));
-          line.appendChild(document.createTextNode(' ' + row.product.architecture + ' · ' + impact.vram[0] + ' GB → ' + impact.vram[1] + ' GB · ' + impact.watts[0] + ' W → ' + impact.watts[1] + ' W'));
-          box.appendChild(line);
+      function renderTrade(node) {
+        var study = null;
+        (node.sections || []).forEach(function (item) {
+          if (item.study) study = item.study;
         });
+        if (!study) return el('p', '', 'This part has no scored trade study. The overview still states the tradeoff.');
+        return paintStudy(study);
+      }
+
+      function renderSpecs(node, card) {
+        var box = el('div', '');
+        if (node.product) {
+          var p = node.product;
+          [p.architecture, p.vram_gb + ' GB ' + p.memory, p.watts + ' W', 'Encoder ' + p.encoder, 'Vendor system power ' + p.psu + ' W'].forEach(function (line) {
+            box.appendChild(el('p', '', line));
+          });
+        } else if (node.line) box.appendChild(el('p', '', node.line));
+        (card.requires || []).forEach(function (line) { box.appendChild(el('p', '', line)); });
+        if (card.example) box.appendChild(el('p', '', card.example));
+        var cpuPart = (PARTS.cpu || []).filter(function (part) { return part.name === node.title; })[0];
+        if (cpuPart && cpuPart.arch) box.appendChild(el('p', '', cpuPart.arch + ' · ' + cpuPart.socket + ' · ' + cpuPart.cores + ' cores / ' + cpuPart.threads + ' threads · ' + cpuPart.watts + ' W · ' + cpuPart.memory));
+        return box;
+      }
+
+      function renderUpgrade(product) {
+        var box = el('div', 'wiz-workspace');
+        var bar = el('div', 'wiz-workspace-bar');
+        bar.appendChild(el('h2', '', 'Upgrade from ' + product.model));
+        bar.appendChild(actionButton('wiz-action-tertiary', 'Close', function () { upgradeOpen = false; paint(); }));
+        box.appendChild(bar);
+        box.appendChild(el('p', 'wiz-hud-line', 'Current loadout starts at ' + product.model + '. Price deltas stay unknown until an offer has a checked price.'));
+        var cpuWatts = root.model && root.model.fit && root.model.fit.cpu ? root.model.fit.cpu.watts : 0;
+        var psuWatts = root.model && root.model.fit && root.model.fit.psu ? root.model.fit.psu.watts : null;
+        var row = el('div', 'wiz-compare-row');
+        upgradePaths(product.id).forEach(function (path) {
+          var impact = gpuSwapImpact(product, path.product, cpuWatts, psuWatts);
+          var card = el('article', 'wiz-gear-card');
+          card.appendChild(schematic('gpu'));
+          card.appendChild(el('p', 'wiz-kicker', path.role));
+          card.appendChild(el('strong', '', path.product.model));
+          card.appendChild(el('p', 'wiz-hud-line', path.product.architecture));
+          card.appendChild(el('p', 'wiz-hud-line', 'VRAM ' + impact.vram[0] + ' GB → ' + impact.vram[1] + ' GB'));
+          card.appendChild(el('p', 'wiz-hud-line', 'Power ' + impact.watts[0] + ' W → ' + impact.watts[1] + ' W'));
+          card.appendChild(el('p', 'wiz-hud-line' + (impact.vendorOk === false || impact.formulaOk === false ? ' is-warn' : ''), 'Checker ' + impact.formulaNeed + ' W' + (psuWatts == null ? '' : (' · supply ' + psuWatts + ' W')) + (impact.vendorOk === false ? ' · vendor wants ' + path.product.psu + ' W' : '')));
+          card.appendChild(el('p', 'wiz-note', 'Price delta unknown'));
+          card.appendChild(actionButton('wiz-action-primary', 'Use this path', function () {
+            equipProduct(path.product);
+          }));
+          card.appendChild(actionButton('wiz-action-secondary', 'Inspect', function () {
+            record.upgradeFrom = product.id;
+            upgradeOpen = false;
+            var match = null;
+            walk(root, []).forEach(function (item) {
+              if (item.product && item.product.id === path.product.id) match = item;
+            });
+            if (match) inspected = match;
+            paint();
+          }));
+          row.appendChild(card);
+        });
+        box.appendChild(row);
+        box.appendChild(el('p', 'wiz-note', 'CPU, RAM, storage, and network upgrades use this same panel once a path list exists. Only graphics cards have paths today.'));
         return box;
       }
 
       function renderCompare() {
-        var box = el('div', 'wiz-compare');
-        box.appendChild(el('h3', '', 'Compare'));
-        var row = el('div', 'wiz-compare-row');
+        var box = el('div', 'wiz-workspace');
         var picked = (record.compare || []).map(function (id) {
           return GPU_CATALOG.filter(function (item) { return item.id === id; })[0];
         }).filter(Boolean);
-        var best = picked.slice().sort(function (a, b) { return gpuScores(b).ai - gpuScores(a).ai; })[0];
+        var bar = el('div', 'wiz-workspace-bar');
+        bar.appendChild(el('h2', '', 'Compare'));
+        bar.appendChild(actionButton('wiz-action-tertiary', 'Close', function () { compareOpen = false; inspectorTab = 'overview'; paint(); }));
+        box.appendChild(bar);
+        if (!picked.length) {
+          box.appendChild(el('p', '', 'Add up to three graphics cards from their inspectors.'));
+          return box;
+        }
+        var aiJob = hasJob(answers, 'ai');
+        var gameJob = hasJob(answers, 'games') || hasJob(answers, 'video');
+        function by(fn) {
+          return picked.slice().sort(fn)[0];
+        }
+        var yours = by(function (a, b) {
+          if (aiJob) return (b.vram_gb - a.vram_gb) || (gpuScores(b).ai - gpuScores(a).ai) || (a.watts - b.watts);
+          if (gameJob) return gpuScores(b).gaming - gpuScores(a).gaming || (b.watts - a.watts);
+          return gpuScores(b).efficiency - gpuScores(a).efficiency || (a.watts - b.watts);
+        });
+        var value = by(function (a, b) { return a.watts - b.watts; });
+        var aiWin = by(function (a, b) { return (b.vram_gb - a.vram_gb) || (a.watts - b.watts); });
+        var perf = by(function (a, b) { return gpuScores(b).gaming - gpuScores(a).gaming || (b.watts - a.watts); });
+        var row = el('div', 'wiz-compare-row');
         picked.forEach(function (product) {
           var scores = gpuScores(product);
-          var card = el('article', 'wiz-gear-card');
+          var card = el('article', 'wiz-gear-card' + (product.id === yours.id ? ' is-winner' : ''));
+          card.appendChild(schematic('gpu'));
           card.appendChild(el('strong', '', product.model));
-          card.appendChild(el('p', '', product.architecture + ' · ' + product.vram_gb + ' GB'));
-          card.appendChild(el('p', '', 'AI ' + scores.ai + ' · Gaming ' + scores.gaming + ' · Power ' + scores.efficiency));
-          card.appendChild(el('p', '', 'Price not checked'));
+          card.appendChild(el('p', 'wiz-hud-line', product.architecture + ' · ' + product.vram_gb + ' GB ' + product.memory));
+          card.appendChild(el('p', 'wiz-hud-line', product.watts + ' W · ' + product.encoder));
+          card.appendChild(el('p', 'wiz-hud-line', 'Live price not checked'));
+          card.appendChild(el('p', 'wiz-note', 'AI fit ' + scores.ai + ' · Gaming fit ' + scores.gaming + ' · Efficiency fit ' + scores.efficiency + '. Not a benchmark.'));
+          var flags = el('div', 'wiz-flags');
+          if (product.id === yours.id) flags.appendChild(el('span', 'wiz-chip', 'Your winner'));
+          if (product.id === value.id) flags.appendChild(el('span', 'wiz-chip', 'Value winner'));
+          if (product.id === aiWin.id) flags.appendChild(el('span', 'wiz-chip', 'AI / VRAM winner'));
+          if (product.id === perf.id) flags.appendChild(el('span', 'wiz-chip', 'Performance winner'));
+          card.appendChild(flags);
           row.appendChild(card);
         });
         box.appendChild(row);
-        if (best) box.appendChild(el('p', '', 'Highest AI score in this comparison: ' + best.model + '. A newer architecture does not replace VRAM.'));
+        var why = el('section', 'wiz-insight');
+        why.appendChild(el('h3', '', 'Why this won'));
+        var reason = aiJob
+          ? (yours.model + ' is the workload pick: most video memory in this set, then the lower power draw when memory is tied. A newer architecture does not replace VRAM.')
+          : (gameJob
+            ? (yours.model + ' is the performance pick for the games or video job in this comparison. The fit bars are estimates, not a benchmark.')
+            : (yours.model + ' is the lowest-draw fit in this set. Price is not checked, so value here means watts, not dollars.'));
+        why.appendChild(el('p', '', reason));
+        if (!aiJob) why.appendChild(el('p', 'wiz-note', 'Value winner is the lowest watt card because no offer has a checked price.'));
+        box.appendChild(why);
         var tech = document.createElement('details');
+        tech.className = 'wiz-technical';
         var summary = document.createElement('summary');
         summary.textContent = 'Technical trade study';
         tech.appendChild(summary);
@@ -3423,21 +3716,21 @@
           tech.appendChild(el('p', '', product.model + ' · ' + product.architecture + ' · ' + product.vram_gb + ' GB ' + product.memory + ' · ' + product.watts + ' W · ' + product.encoder + ' · vendor PSU ' + product.psu + ' W'));
         });
         box.appendChild(tech);
-        var clear = document.createElement('button');
-        clear.type = 'button';
-        clear.className = 'wiz-chip';
-        clear.textContent = 'Clear compare';
-        clear.addEventListener('click', function () { record.compare = []; paint(); });
-        box.appendChild(clear);
+        box.appendChild(actionButton('wiz-action-tertiary', 'Clear compare', function () { record.compare = []; compareOpen = false; paint(); }));
         return box;
       }
 
       function renderMarkets(query) {
         var wrap = el('div', 'wiz-markets');
         wrap.appendChild(el('h3', '', 'Offers'));
+        var offers = marketOffers(query);
+        var priced = offers.some(function (offer) { return offer.price != null; });
         record.offerFilter = record.offerFilter || 'all';
+        if (record.offerFilter === 'cheapest' || record.offerFilter === 'warranty') record.offerFilter = 'all';
         var filters = el('div', 'wiz-actions');
-        [['all', 'Used okay'], ['new', 'New only'], ['cheapest', 'Cheapest'], ['warranty', 'Best warranty']].forEach(function (pair) {
+        var pairs = [['all', 'Used okay'], ['new', 'New only']];
+        if (priced) pairs.push(['cheapest', 'Cheapest'], ['warranty', 'Best warranty']);
+        pairs.forEach(function (pair) {
           var button = document.createElement('button');
           button.type = 'button';
           button.className = 'wiz-chip' + (record.offerFilter === pair[0] ? ' is-on' : '');
@@ -3447,25 +3740,36 @@
           filters.appendChild(button);
         });
         wrap.appendChild(filters);
-        var offers = marketOffers(query);
-        if (record.offerFilter === 'cheapest') wrap.appendChild(el('p', '', 'No checked price, so the cheapest seller is unknown.'));
-        else if (record.offerFilter === 'warranty') wrap.appendChild(el('p', '', 'Warranty is not on these offers yet. Read it on the seller page.'));
-        offers.filter(function (offer) {
-          if (record.offerFilter === 'new') return offer.condition === 'new';
-          return true;
-        }).forEach(function (offer) {
+        function paintOffer(offer) {
           var line = el('p', 'wiz-offer');
-          line.appendChild(glyph('coin'));
-          line.appendChild(el('span', '', offer.condition === 'new' ? 'New' : 'Used'));
+          line.appendChild(el('span', 'wiz-chip', offer.condition === 'new' ? 'New' : 'Used'));
+          line.appendChild(el('span', '', offer.market));
           var link = document.createElement('a');
           link.href = offer.url;
           link.target = '_blank';
           link.rel = 'noopener';
-          link.textContent = offer.market;
+          link.textContent = offer.price != null ? ('$' + offer.price) : 'Open search';
           line.appendChild(link);
-          line.appendChild(el('span', '', 'Not checked'));
+          var bits = offer.price != null ? 'Checked' : 'Live price not checked';
+          if (offer.checked_at) bits += ' · ' + offer.checked_at;
+          if (offer.stock) bits += ' · ' + offer.stock;
+          if (offer.shipping) bits += ' · ' + offer.shipping;
+          if (offer.warranty) bits += ' · ' + offer.warranty;
+          line.appendChild(el('span', '', bits));
           wrap.appendChild(line);
+        }
+        ['new', 'used'].forEach(function (condition) {
+          if (record.offerFilter === 'new' && condition !== 'new') return;
+          var group = offers.filter(function (offer) { return offer.condition === condition; });
+          if (!group.length) return;
+          wrap.appendChild(el('h3', 'wiz-market-head', condition === 'new' ? 'New' : 'Used'));
+          group.forEach(paintOffer);
+          if (priced) {
+            var best = group.filter(function (offer) { return offer.price != null; }).sort(function (a, b) { return a.price - b.price; })[0];
+            if (best) wrap.appendChild(el('p', 'wiz-hud-line', (condition === 'new' ? 'Best new' : 'Best used') + '  ' + best.market + ' $' + best.price));
+          }
         });
+        if (!priced) wrap.appendChild(el('p', 'wiz-note', 'Cheapest and best warranty stay hidden until an offer has a checked price.'));
         return wrap;
       }
 
@@ -3482,13 +3786,24 @@
         var scrollY = window.scrollY;
         rootEl.style.minHeight = rootEl.offsetHeight + 'px';
         rootEl.innerHTML = '';
-        var layout = el('div', 'wiz-layout');
+        var layout = el('div', 'wiz-layout' + (inspected ? ' is-split' : ' is-map-only'));
         var stage = el('div', 'wiz-stage');
         stage.appendChild(renderCol(root, [root.id]));
         layout.appendChild(stage);
-        if (focus) layout.appendChild(renderDrawer(focus));
-        else if (inspected) layout.appendChild(renderItem(inspected));
+        if (inspected) layout.appendChild(renderItem(inspected));
         rootEl.appendChild(layout);
+        if (compareOpen) {
+          var shade = el('div', 'wiz-overlay');
+          shade.appendChild(renderCompare());
+          rootEl.appendChild(shade);
+        } else if (upgradeOpen && record.upgradeFrom) {
+          var from = GPU_CATALOG.filter(function (item) { return item.id === record.upgradeFrom; })[0];
+          if (from) {
+            var shadeUpgrade = el('div', 'wiz-overlay');
+            shadeUpgrade.appendChild(renderUpgrade(from));
+            rootEl.appendChild(shadeUpgrade);
+          }
+        }
         if (openIds.length > 1) {
           var up = document.createElement('button');
           up.type = 'button';
@@ -3527,6 +3842,13 @@
           }
         }
         rootEl.style.minHeight = '';
+        var stageEl = rootEl.querySelector('.wiz-stage');
+        var tipEl = rootEl.querySelector('.is-tip');
+        if (stageEl && tipEl && stageEl.scrollWidth > stageEl.clientWidth + 8) {
+          var tipCenter = tipEl.getBoundingClientRect().left + tipEl.offsetWidth / 2;
+          var stageCenter = stageEl.getBoundingClientRect().left + stageEl.clientWidth / 2;
+          stageEl.scrollLeft += tipCenter - stageCenter;
+        }
         if (!nudged) requestAnimationFrame(function () { restoreScroll(scrollX, scrollY); });
       }
       paint();
