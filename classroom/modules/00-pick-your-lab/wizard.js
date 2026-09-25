@@ -2465,6 +2465,9 @@
       var root = labBreakdown(answers, report);
       var openIds = [root.id];
       var focus = null;
+      var prices = {};
+      var added = {};
+      var dropped = {};
 
       function paintLines(parent, lines) {
         (lines || []).forEach(function (line) {
@@ -2493,7 +2496,7 @@
         var table = document.createElement('table');
         table.className = 'wiz-study';
         var head = document.createElement('tr');
-        ['Candidate', 'CMR', 'NAS rated', 'Warranty', 'Result'].forEach(function (label) {
+        (study.columns || ['Candidate', 'CMR', 'NAS rated', 'Warranty', 'Result']).forEach(function (label) {
           var cell = document.createElement('th');
           cell.textContent = label;
           head.appendChild(cell);
@@ -2501,7 +2504,7 @@
         table.appendChild(head);
         study.rows.forEach(function (row) {
           var tr = document.createElement('tr');
-          [row.name, row.cmr, row.nas, row.warranty, row.result].forEach(function (value) {
+          (row.cells || [row.name, row.cmr, row.nas, row.warranty, row.result]).forEach(function (value) {
             var cell = document.createElement('td');
             cell.textContent = value;
             tr.appendChild(cell);
@@ -2527,7 +2530,7 @@
           L2: 'L2 Subsystem',
           L3: 'L3 Assembly',
           L4: 'L4 Component',
-          L5: 'L5 Product'
+          L5: 'L5 Solution'
         }[level] || level;
       }
 
@@ -2559,23 +2562,21 @@
       }
 
       function drawerGroups(node) {
-        var groups = { why: [], how: [], study: [], buy: [], details: [] };
-        (node.sections || []).forEach(function (item) {
-          if (!usable(item)) return;
-          var name = String(item.name || '').toLowerCase();
-          if (item.study || name.indexOf('trade') !== -1) groups.study.push(item);
-          else if (name.indexOf('buy') !== -1 || name.indexOf('where') !== -1) groups.buy.push(item);
-          else if (item.panel || name.indexOf('how') !== -1 || name.indexOf('install') !== -1 || name.indexOf('connect') !== -1) groups.how.push(item);
-          else if (name.indexOf('requirement') !== -1 || name.indexOf('hardware') !== -1 || name.indexOf('fit') !== -1) groups.details.push(item);
-          else groups.why.push(item);
-        });
-        return [
-          groups.why.length && { key: 'why', name: 'Why', items: groups.why },
-          groups.how.length && { key: 'how', name: 'How', items: groups.how },
-          groups.study.length && { key: 'study', name: 'Trade study', items: groups.study },
-          groups.details.length && { key: 'details', name: 'Details', items: groups.details },
-          groups.buy.length && { key: 'buy', name: 'Buy', items: groups.buy }
-        ].filter(Boolean);
+        var spec = {
+          hardware: [['why', 'Why'], ['compare', 'Compare'], ['study', 'Trade study'], ['buy', 'Buy']],
+          'free-software': [['why', 'Why'], ['install', 'Install'], ['compare', 'Compare'], ['requirements', 'Requirements']],
+          'paid-software': [['why', 'Why'], ['license', 'License'], ['cost', 'Cost'], ['compare', 'Compare']],
+          service: [['why', 'Why'], ['configure', 'Configure'], ['requirements', 'Requirements']],
+          architecture: [['why', 'Why'], ['study', 'Trade study'], ['risks', 'Risks']],
+          optional: [['add', 'Add to build'], ['skip', 'Skip']]
+        }[node.kind] || [['why', 'Why'], ['install', 'Install'], ['study', 'Trade study']];
+        return spec.map(function (pair) {
+          var items = (node.sections || []).filter(function (item) {
+            return usable(item) && (item.slot || 'why') === pair[0];
+          });
+          if (!items.length) return null;
+          return { key: pair[0], name: items.length === 1 ? items[0].name : pair[1], items: items };
+        }).filter(Boolean);
       }
 
       function renderDrawer(group) {
@@ -2613,6 +2614,9 @@
         tile.className = 'wiz-tile' + (onPath ? ' is-on' : '') + (tip ? ' is-tip' : '');
         tile.appendChild(el('span', 'wiz-level', levelStamp(node.level)));
         tile.appendChild(el('strong', '', node.title));
+        if (node.status === 'ready') tile.appendChild(el('span', 'wiz-open', 'Ready'));
+        if (node.status === 'need') tile.appendChild(el('span', 'wiz-open', 'Choose'));
+        if (node.status === 'skip') tile.appendChild(el('span', 'wiz-open', 'Not required'));
         if (node.level === 'L2' && onPath && openIds.length > 1) tile.appendChild(el('span', 'wiz-open', 'Open'));
         if (node.level === 'L2' && !onPath) tile.appendChild(el('span', 'wiz-cue', 'Explore >'));
         tile.addEventListener('click', function () {
@@ -2662,7 +2666,97 @@
             col.appendChild(actions);
           }
         }
+        if (tip && node.kind === 'hardware' && node.offer) {
+          var bill = el('div', 'wiz-actions');
+          var onBill = !dropped[node.id] && (added[node.id] || node.selected);
+          var toggle = document.createElement('button');
+          toggle.type = 'button';
+          toggle.className = 'wiz-chip';
+          toggle.textContent = onBill ? 'Remove from build' : 'Add to build';
+          function listed() { return !dropped[node.id] && (added[node.id] || node.selected); }
+          toggle.addEventListener('click', function () {
+            if (listed()) { dropped[node.id] = true; added[node.id] = false; }
+            else { dropped[node.id] = false; added[node.id] = true; }
+            paint();
+          });
+          bill.appendChild(toggle);
+          var priceLabel = el('label', 'wiz-price', 'Price you saw');
+          var priceInput = document.createElement('input');
+          priceInput.type = 'number';
+          priceInput.min = '0';
+          priceInput.step = '0.01';
+          priceInput.placeholder = 'Seller page';
+          if (prices[node.id] != null) priceInput.value = prices[node.id];
+          priceInput.addEventListener('input', function () {
+            prices[node.id] = priceInput.value;
+            if (priceInput.value !== '') {
+              dropped[node.id] = false;
+              added[node.id] = true;
+            }
+            toggle.textContent = listed() ? 'Remove from build' : 'Add to build';
+            paintBudget();
+          });
+          priceLabel.appendChild(priceInput);
+          bill.appendChild(priceLabel);
+          col.appendChild(bill);
+        }
         return col;
+      }
+
+      function walk(node, acc) {
+        acc.push(node);
+        (node.children || []).forEach(function (child) { walk(child, acc); });
+        return acc;
+      }
+
+      function onBill(node) {
+        if (!node.offer) return false;
+        if (dropped[node.id]) return false;
+        return !!(added[node.id] || node.selected);
+      }
+
+      function lineDollars(node) {
+        if (prices[node.id] != null && prices[node.id] !== '') return Number(prices[node.id]);
+        if (node.offer && node.offer.dollars === 0) return 0;
+        return null;
+      }
+
+      function paintBudget() {
+        var old = rootEl.querySelector('.wiz-budget');
+        var card = el('aside', 'wiz-budget');
+        var cap = root.model && root.model.ceiling;
+        card.appendChild(el('p', 'wiz-level', 'Your lab budget'));
+        card.appendChild(el('p', '', cap ? cap.label : 'Budget'));
+        var groups = {};
+        var known = 0;
+        var unpriced = 0;
+        walk(root, []).forEach(function (node) {
+          if (!onBill(node)) return;
+          var group = node.offer.group || 'Other';
+          groups[group] = groups[group] || [];
+          var dollars = lineDollars(node);
+          if (dollars == null || isNaN(dollars)) unpriced += 1;
+          else known += dollars;
+          groups[group].push(node.offer.name + (dollars == null || isNaN(dollars) ? ': seller page' : ': $' + dollars));
+        });
+        Object.keys(groups).forEach(function (group) {
+          card.appendChild(el('h3', '', group));
+          groups[group].forEach(function (line) { card.appendChild(el('p', '', line)); });
+        });
+        card.appendChild(el('p', '', 'Known total: $' + known));
+        if (unpriced) card.appendChild(el('p', '', unpriced + ' lines still need the price you saw. This page does not invent one.'));
+        else if (cap && cap.max != null) card.appendChild(el('p', '', 'Remaining in the band: $' + (cap.max - known)));
+        var view = document.createElement('button');
+        view.type = 'button';
+        view.className = 'wiz-chip';
+        view.textContent = 'View the build';
+        view.addEventListener('click', function () {
+          focus = { key: 'summary', name: 'Your homelab build', items: [{ name: 'Build', slot: 'why', lines: (root.model && root.model.summary) || [] }] };
+          paint();
+        });
+        card.appendChild(view);
+        if (old) rootEl.replaceChild(card, old);
+        else rootEl.insertBefore(card, rootEl.firstChild);
       }
 
       function paint() {
@@ -2695,6 +2789,7 @@
         rootEl.appendChild(again);
         var tip = rootEl.querySelector('.is-tip');
         if (tip && openIds.length > 1) tip.scrollIntoView({ block: 'center', inline: 'center' });
+        paintBudget();
       }
       paint();
     }
@@ -2784,8 +2879,21 @@
     return { id: id, level: level, title: title, line: '', children: children || [], sections: [] };
   }
 
-  function note(name, lines) {
-    return { name: name, lines: (lines || []).filter(function (line) { return line; }) };
+  function note(name, lines, slot) {
+    return { name: name, slot: slot || 'why', lines: (lines || []).filter(function (line) { return line; }) };
+  }
+
+  function asSlot(item, slot) {
+    if (item) item.slot = slot;
+    return item;
+  }
+
+  function tag(node, kind, offer, status) {
+    node.kind = kind;
+    if (offer) node.offer = offer;
+    if (status) node.status = status;
+    if (status === 'ready') node.selected = true;
+    return node;
   }
 
   function lessonNote(report, key, name) {
@@ -2802,20 +2910,17 @@
     var card = leaf('os', level || 'L5', report.pick === 'proxmox' ? 'Proxmox VE' : report.profile.name, report.pick === 'proxmox'
       ? 'Runs the virtual computers in your lab.'
       : report.profile.plain, [
-      note('Why we picked it', [report.because, report.labLine]),
-      note('How it fits your lab', [report.jobs.length ? 'This lab is for ' + report.jobs.join(', ') + '.' : '']),
-      note('How to install it', (plan.setup || []).concat(plan.path || [])),
-      note('Hardware requirements', [report.hardware.ram, report.hardware.gpuLabel, report.hardware.storage]),
-      note('Where to buy the hardware', [
-        { name: 'PCPartPicker', href: 'https://pcpartpicker.com/', detail: 'New parts and a running total. This page does not invent a price.' },
-        { name: 'Jawa', href: 'https://www.jawa.gg/', detail: 'Used graphics cards and used whole computers.' }
-      ])
+      note('Why we picked it', [report.because, report.labLine], 'why'),
+      note('How it fits your lab', [report.jobs.length ? 'This lab is for ' + report.jobs.join(', ') + '.' : ''], 'compare'),
+      note('How to install it', (plan.setup || []).concat(plan.path || []), 'install'),
+      note('Requirements', [report.hardware.ram, report.hardware.gpuLabel, report.hardware.storage], 'requirements')
     ]);
-    card.picked = true;
-    return card;
+    return tag(card, 'free-software', { group: 'Software', name: card.title, dollars: 0 }, 'ready');
   }
 
-  function driveStudy(storageGb) {
+  function driveStudy(storageGb, answers) {
+    var a = answers || {};
+    var cameraOnly = hasJob(a, 'smart') && !hasJob(a, 'files') && !hasJob(a, 'movies') && !hasJob(a, 'photos') && !hasJob(a, 'video');
     var big = Number(storageGb) >= 4000;
     return {
       title: 'Storage drive trade study',
@@ -2826,9 +2931,12 @@
         { name: 'Seagate IronWolf', cmr: 'Pass', nas: 'Pass', warranty: '3 years', result: 'Qualifies' },
         { name: 'WD Red Plus', cmr: 'Pass', nas: 'Pass', warranty: '3 years', result: 'Qualifies' },
         { name: 'WD Red Pro', cmr: 'Pass', nas: 'Pass', warranty: '5 years', result: 'Qualifies' },
-        { name: 'Plain WD Red, 2 TB to 6 TB', cmr: 'Fail', nas: 'Not the NAS line', warranty: '3 years', result: 'Reject' }
+        { name: 'Plain WD Red, 2 TB to 6 TB', cmr: 'Fail', nas: 'Not the NAS line', warranty: '3 years', result: 'Reject' },
+        { name: 'WD Purple', cmr: 'Pass', nas: 'Surveillance, not a file NAS', warranty: '3 years', result: cameraOnly ? 'Qualifies' : 'Reject' },
+        { name: 'WD Black', cmr: 'Pass', nas: 'Fail', warranty: '5 years', result: 'Reject' },
+        { name: 'Exos', cmr: 'Pass', nas: 'Pass', warranty: '5 years', result: 'Qualifies' }
       ],
-      decision: 'Seagate IronWolf or WD Red Plus.',
+      decision: cameraOnly ? 'WD Purple.' : 'Seagate IronWolf or WD Red Plus.',
       requirements: [
         { id: 'R1', text: 'CMR', result: 'Pass' },
         { id: 'R2', text: 'NAS workload rating', result: 'Pass' },
@@ -2839,7 +2947,8 @@
       why: [
         'Both pass the mandatory checks: CMR, a NAS workload rating, and at least a 3-year warranty.',
         'Buy the one with the lower price on the day you look. This page does not invent that dollar.',
-        'Plain WD Red in the 2 TB to 6 TB sizes fails CMR. Western Digital says many of those drives used SMR, and a rebuild does not give an SMR drive the idle time it wants. The lower sticker is how that price goes wrong.'
+        'Plain WD Red in the 2 TB to 6 TB sizes fails CMR. Western Digital says many of those drives used SMR, and a rebuild does not give an SMR drive the idle time it wants. The lower sticker is how that price goes wrong.',
+        'WD Black fails the NAS duty rating. WD Purple is for cameras, so it wins only when the lab is cameras and not a file pile. Exos passes, and it is louder than a house wants.'
       ],
       tradeoff: 'WD Red Pro also passes, and the warranty is 5 years. Pay the extra only if you want that longer warranty.',
       links: [
@@ -2848,6 +2957,191 @@
         { name: 'WD Red, SMR and CMR', href: 'https://support-en.wd.com/app/answers/detailweb/a_id/29458', detail: 'Why the cheaper Red fails.' }
       ]
     };
+  }
+
+  function ceilingOf(budget) {
+    if (budget === 200) return { max: 200, label: 'Under $200' };
+    if (budget === 500) return { max: 500, label: '$200 to $500' };
+    if (budget === 1200) return { max: 1200, label: '$500 to $1,200' };
+    if (budget === 'more') return { max: null, label: 'More than $1,200' };
+    return { max: null, label: 'You already own the box' };
+  }
+
+  function raidPlan(storageGb, answers) {
+    var a = answers || {};
+    var gb = Number(storageGb) || 0;
+    if (gb < 4000) {
+      return {
+        disks: 1, eachTb: 1, pick: 'No RAID',
+        layouts: [{ name: 'No RAID', usable: 'The one disk', loss: '0' }],
+        why: 'One disk is enough for this pile. RAID is not a backup. Keep a second copy somewhere else.'
+      };
+    }
+    var four = gb >= 16000;
+    var disks = four ? 4 : 2;
+    var eachTb = four ? 8 : Math.max(4, Math.round(gb / 1000));
+    var raw = disks * eachTb;
+    var layouts = [
+      { name: 'Stripe', usable: raw + ' TB', loss: '0 disks' },
+      { name: 'Mirror pairs', usable: (raw / 2) + ' TB', loss: disks === 2 ? '1 disk' : '1 disk in each pair' },
+      { name: 'RAIDZ1', usable: disks >= 3 ? ((disks - 1) * eachTb) + ' TB' : 'Needs 3 disks', loss: '1 disk' },
+      { name: 'RAIDZ2', usable: disks >= 4 ? ((disks - 2) * eachTb) + ' TB' : 'Needs 4 disks', loss: '2 disks' },
+      { name: 'No RAID', usable: eachTb + ' TB', loss: '0 disks' }
+    ];
+    var pick = disks >= 4 && (hasJob(a, 'files') || !hasJob(a, 'movies')) ? 'RAIDZ2' : (disks >= 2 ? 'Mirror pairs' : 'No RAID');
+    if (disks >= 4 && hasJob(a, 'movies') && !hasJob(a, 'files')) pick = 'RAIDZ1';
+    return {
+      disks: disks, eachTb: eachTb, pick: pick, layouts: layouts,
+      why: pick + ' is the layout that meets the pile with the least waste. A stripe gives you ' + raw + ' TB and loses everything if one disk dies. RAID is not a backup. The backup branch is the second copy.'
+    };
+  }
+
+  function gatewayStudy(answers) {
+    var a = answers || {};
+    var needVlan = a.role === 'server' || a.role === 'both' || hasJob(a, 'smart');
+    var canBuild = a.skill === 'ok';
+    var rows = [
+      { name: 'ISP router', vlan: needVlan ? 'Fail' : 'Pass', run: 'Pass' },
+      { name: 'UniFi Dream Machine Pro', vlan: 'Pass', run: 'Pass' },
+      { name: 'UniFi Cloud Gateway class', vlan: 'Pass', run: 'Pass' },
+      { name: 'OPNsense appliance', vlan: 'Pass', run: canBuild ? 'Pass' : 'Fail' },
+      { name: 'TP-Link Omada gateway', vlan: 'Pass', run: 'Pass' }
+    ];
+    rows.forEach(function (row) {
+      row.result = row.vlan === 'Fail' || row.run === 'Fail' ? 'Reject' : 'Qualifies';
+      row.cells = [row.name, row.vlan, row.run, row.result];
+    });
+    var decision = !needVlan ? 'ISP router' : (canBuild && (a.role === 'server' || a.role === 'both') ? 'OPNsense appliance' : 'UniFi Dream Machine Pro');
+    return {
+      title: 'Gateway trade study',
+      columns: ['Candidate', 'VLANs', 'You can run it', 'Result'],
+      requirement: needVlan ? 'The lab needs separate networks for servers, guests, or smart devices.' : 'One flat house network is enough.',
+      rows: rows,
+      decision: decision,
+      requirements: [
+        { id: 'R1', text: 'VLANs when the lab has a server or smart devices', result: needVlan ? 'Required' : 'Not required' },
+        { id: 'R2', text: 'A custom firewall only if you can fix a bad rule', result: canBuild ? 'Pass' : 'Fail for a custom firewall' }
+      ],
+      confidence: 'High. The winner is the qualifying gateway that adds the least new work.',
+      why: [
+        'If the house network can stay flat, the ISP router wins because a new gateway is not a requirement.',
+        'If VLANs are required and you can fix a problem, OPNsense wins for a server: you own the rules.',
+        'If VLANs are required and you are new to this, the Dream Machine Pro wins. It is a gateway and a controller in one box. The Cloud Gateway class and an Omada gateway also qualify. Pick between those three by the live price, not by a number this page invents.'
+      ],
+      tradeoff: 'A custom firewall is more flexible. It is also easier to lock yourself out of the house network.',
+      links: [
+        { name: 'UniFi Dream Machine Pro specs', href: 'https://techspecs.ui.com/unifi/cloud-gateways/udm-pro', detail: 'Official spec.' },
+        { name: 'OPNsense', href: 'https://opnsense.org/', detail: 'The firewall project.' },
+        { name: 'Omada', href: 'https://www.tp-link.com/us/omada-sdn/', detail: 'The controller family.' }
+      ]
+    };
+  }
+
+  function switchStudy(answers) {
+    var a = answers || {};
+    var needVlan = a.role === 'server' || a.role === 'both' || hasJob(a, 'smart');
+    var needPoe = !!hasJob(a, 'smart');
+    var wantFast = Number(a.storage) >= 8000 && (a.role === 'server' || a.role === 'both');
+    function row(name, vlan, poe, speed) {
+      var fail = (needVlan && vlan === 'Fail') || (needPoe && poe === 'Fail');
+      return { cells: [name, vlan, poe, speed, fail ? 'Reject' : 'Qualifies'] };
+    }
+    var rows = [
+      row('Unmanaged', 'Fail', 'Fail', '1 GbE'),
+      row('Managed 1 GbE', 'Pass', 'Fail', '1 GbE'),
+      row('Managed PoE', 'Pass', 'Pass', '1 GbE'),
+      row('Managed 2.5 or 10 GbE', 'Pass', needPoe ? 'Fail' : 'Pass', '2.5 / 10 GbE')
+    ];
+    var decision = 'Unmanaged';
+    if (needPoe) decision = 'Managed PoE';
+    else if (needVlan && wantFast) decision = 'Managed 2.5 or 10 GbE';
+    else if (needVlan) decision = 'Managed 1 GbE';
+    return {
+      title: 'Switch trade study',
+      columns: ['Candidate', 'VLANs', 'PoE', 'Speed', 'Result'],
+      requirement: 'Ports for the machines you named. VLANs if the lab splits networks. PoE if a camera or an access point must be powered by the switch. A faster uplink only if the server and a large pile share the wire.',
+      rows: rows,
+      decision: decision,
+      requirements: [
+        { id: 'R1', text: 'VLAN support', result: needVlan ? 'Required' : 'Not required' },
+        { id: 'R2', text: 'PoE for cameras or access points', result: needPoe ? 'Required' : 'Not required' },
+        { id: 'R3', text: 'Faster than 1 GbE', result: wantFast && !needPoe ? 'Preferred' : 'Not required yet' }
+      ],
+      confidence: 'High. The smallest class that passes every required row wins.',
+      why: [
+        'A managed switch is for separate networks, not only for "one cable, two networks." People, cameras, guests, and the server should not all sit on one flat LAN.',
+        'PoE means the switch feeds power down the cable. Add the device watts. The switch total is smaller than the maximum per port times every port. About 15.4 W for 802.3af, about 30 W for 802.3at.',
+        'If PoE and a fast uplink are both wanted, buy the PoE switch for the edge. A 10 GbE link between the server and the NAS can be a later, separate cable. Do not skip PoE to chase 10 GbE.'
+      ],
+      tradeoff: '10 GbE costs more ports and more power. It is not the default for a house.',
+      links: [
+        { name: 'PCPartPicker', href: 'https://pcpartpicker.com/products/network-card/', detail: 'Live prices for network parts. This page does not invent one.' }
+      ]
+    };
+  }
+
+  function mediaStudy(answers) {
+    var a = answers || {};
+    var server = a.role === 'server' || a.role === 'both' || a.flavor === 'proxmox';
+    var decision = server || a.skill === 'ok' ? 'Jellyfin' : 'Plex';
+    return {
+      title: 'Media server trade study',
+      columns: ['Requirement', 'Jellyfin', 'Plex', 'Plex Pass'],
+      requirement: 'Play the files in the house. The player is not the disk shelf.',
+      rows: [
+        { cells: ['Basic server', 'Free', 'Free tier', 'Paid'] },
+        { cells: ['Hardware transcoding', 'Free', 'Limited', 'Included'] },
+        { cells: ['Remote apps', 'Good', 'Excellent', 'Excellent'] },
+        { cells: ['Open source', 'Yes', 'No', 'No'] },
+        { cells: ['Needs an account', 'No', 'Yes', 'Yes'] },
+        { cells: ['Lifetime option', 'No', 'No', 'Yes'] }
+      ],
+      decision: decision,
+      requirements: [
+        { id: 'R1', text: 'No subscription for hardware transcoding', result: decision === 'Jellyfin' ? 'Jellyfin passes' : 'Not the deciding row' },
+        { id: 'R2', text: 'Easy TV apps for someone new to this', result: decision === 'Plex' ? 'Plex free tier passes' : 'Not required' }
+      ],
+      confidence: 'High. Money is $0 unless you later choose Plex Pass on Plex’s own plan page.',
+      why: [
+        decision === 'Jellyfin'
+          ? 'Jellyfin wins because hardware transcoding stays free and the server does not need a Plex account.'
+          : 'Plex’s free tier wins because the TV apps are the easier path, and this build did not require free hardware transcoding.',
+        'Plex Pass is the paid row: monthly, annual, or lifetime. Its price stays on Plex’s plan page. It is not required for a basic server.'
+      ],
+      tradeoff: 'Plex’s remote apps are smoother. The account and the paid transcoding are the cost of that.',
+      links: [
+        { name: 'Jellyfin', href: 'https://jellyfin.org/downloads/', detail: 'Free.' },
+        { name: 'Plex', href: 'https://support.plex.tv/articles/200288586-installation/', detail: 'Free tier install.' }
+      ]
+    };
+  }
+
+  function labModel(answers, report) {
+    var a = answers || {};
+    var raid = raidPlan(a.storage, a);
+    var drives = driveStudy(a.storage, a);
+    var gateway = gatewayStudy(a);
+    var net = switchStudy(a);
+    var media = (hasJob(a, 'movies') || hasJob(a, 'photos') || hasJob(a, 'video')) ? mediaStudy(a) : null;
+    var ceiling = ceilingOf(a.budget);
+    var checks = [];
+    checks.push('RAM follows the amount you picked.');
+    if (Number(a.gpu) >= 16) checks.push('A 16 GB or larger card still needs a case that fits its length and a PSU that meets the card page. Read both there.');
+    else checks.push('No large extra card, so GPU clearance is not the blocking check.');
+    if (raid.disks >= 4) checks.push('Four data disks need four SATA ports, or an HBA. Count the ports on the motherboard.');
+    else checks.push('This pile fits the SATA ports on a normal motherboard.');
+    checks.push('RAID is not a backup. ' + raid.why);
+    if (a.role === 'server' || a.role === 'both' || hasJob(a, 'smart')) checks.push('Gateway: ' + gateway.decision + '. Switch: ' + net.decision + '.');
+    var summary = [
+      'Software on this design is $0 until you choose a paid option such as Plex Pass.',
+      'Hardware lines stay blank until you type the price you saw. This page does not invent one.',
+      'Ceiling: ' + ceiling.label + '.',
+      'Drives: ' + drives.decision,
+      'Layout: ' + raid.pick + ' across ' + raid.disks + ' disk' + (raid.disks === 1 ? '' : 's') + '.'
+    ].concat(checks);
+    if (media) summary.push('Player: ' + media.decision + '.');
+    summary.push((raid.disks >= 4 || Number(a.gpu) >= 16) ? 'Build status: open. A compatibility check above is still waiting on a part you choose.' : 'Build status: the decisions that can be made from your answers are made. Prices are still yours to enter.');
+    return { ceiling: ceiling, raid: raid, drives: drives, gateway: gateway, switchPick: net, media: media, summary: summary };
   }
 
   function labBreakdown(answers, report) {
@@ -2863,6 +3157,15 @@
       product.level = 'L5';
       return branch(id, 'L4', title, [product]);
     }
+    var model = labModel(a, report);
+    function hw(id, asm, pickTitle, status, line, sections) {
+      var offer = status === 'skip' ? null : { group: 'Server', name: pickTitle, dollars: null };
+      var body = sections || [
+        note('Why', [line], 'why'),
+        note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/search/?q=' + encodeURIComponent(pickTitle), detail: 'Live price. This page does not invent one.' }], 'buy')
+      ];
+      return tag(leaf(id + '-pick', 'L5', pickTitle, line, body), 'hardware', offer, status);
+    }
     var computeKids = [];
     var os = osLeaf(report, 'L5');
     var osOnServer = serverPick || a.role === 'server';
@@ -2871,10 +3174,30 @@
         osOnServer
           ? nest(pick === 'proxmox' ? 'hypervisor' : 'host', pick === 'proxmox' ? 'Hypervisor' : 'Host', os)
           : nest('host', 'Host', leaf('server-os', 'L5', 'Server system', report.labLine || 'A second computer that stays on.', [])),
-        nest('hardware', 'Hardware', leaf('parts', 'L5', 'Parts', 'The memory, disks, and case this server needs.', [
-          note('Hardware requirements', [report.hardware.ram, report.hardware.storage, report.hardware.gpuLabel]),
-          { name: 'Help me build the hardware', lines: [], panel: 'build' }
-        ]))
+        branch('hardware', 'L4', 'Hardware', [
+          hw('case', 'Case', 'Case', 'need', 'Match the board. A Micro-ATX case does not take an E-ATX board.'),
+          hw('board', 'Motherboard', 'Motherboard', 'need', 'Count the SATA ports and the PCIe slots before a GPU, an HBA, and a fast NIC share this board.', [
+            note('Why', ['The board decides the socket, the RAM type, and how many disks fit without an extra controller.'], 'why'),
+            { name: 'Check fit', slot: 'compare', lines: ['Six kinds of part. Green fits, red clashes, yellow needs a closer look.'], panel: 'build' },
+            note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/', detail: 'Live price. This page does not invent one.' }], 'buy')
+          ]),
+          hw('cpu', 'CPU', 'CPU class', 'need', 'A 65W desktop CPU. Prefer graphics built in when there is no extra card.'),
+          hw('cooler', 'CPU cooler', 'Cooler', 'need', 'Use the cooler in the CPU box, or a low one if the case is small.'),
+          hw('ram', 'RAM', (a.ram || 16) + ' GB', 'ready', report.hardware.ram),
+          hw('gpubom', 'GPU slot', Number(a.gpu) ? 'Graphics card' : 'No extra card', Number(a.gpu) ? 'need' : 'skip', report.hardware.gpuLabel),
+          hw('psu', 'PSU', 'Power supply', 'need', 'Add the CPU watts, the card watts, and about 150 W. The parts checker does this when you name the parts.'),
+          hw('bootssd', 'Boot SSD', 'NVMe boot', 'ready', 'The system lives here. The pile does not.'),
+          hw('datadisks', 'Data drives', 'Data drives', model.raid.disks > 1 ? 'need' : 'skip', model.drives.decision),
+          hw('nic', 'NIC', 'Ethernet', (model.switchPick.decision.indexOf('10') !== -1 || model.switchPick.decision.indexOf('2.5') !== -1) ? 'need' : 'skip', 'Onboard Ethernet is enough until the switch study asks for more than 1 GbE.'),
+          hw('wifi', 'Wi-Fi', 'Wi-Fi', 'skip', 'A server should use a cable. Wi-Fi belongs on an access point.'),
+          hw('sound', 'Sound', 'Sound', 'skip', 'Not required on this lab box.'),
+          hw('fans', 'Fans', 'Fans', 'need', 'Start with the fans that come with the case.'),
+          hw('hba', 'HBA', 'HBA', model.raid.disks >= 4 ? 'need' : 'skip', 'Four or more SATA disks need four ports, or an HBA.'),
+          tag(leaf('ups-pick', 'L5', 'UPS', 'A short outage should park the disks.', [
+            note('Add to build', ['Add it when this machine must stay up through a flicker.'], 'add'),
+            note('Skip', ['Skip it only if this machine can go dark without hurting the only copy of the files.'], 'skip')
+          ]), 'optional', null, 'need')
+        ])
       ]));
     }
     if (wantDesk) {
@@ -2885,107 +3208,178 @@
     }
     if (a.side !== 'mac') {
       computeKids.push(branch('gpu', 'L3', 'GPU', [
-        nest('card', 'Graphics card', leaf('gpu-pick', 'L5', 'Card', report.hardware.gpuLabel, [
-          note('Why it matters', [report.hardware.games]),
-          note('Pictures and video', [report.hardware.photos, report.hardware.video]),
-          note('Local models', [report.hardware.models]),
-          lessonNote(report, 'gpu', 'GPU classes')
-        ]))
+        nest('card', 'Graphics card', tag(leaf('gpu-pick', 'L5', 'Card', report.hardware.gpuLabel, [
+          note('Why it matters', [report.hardware.games], 'why'),
+          note('Pictures and video', [report.hardware.photos, report.hardware.video], 'compare'),
+          note('Requirements', [report.hardware.models], 'requirements'),
+          asSlot(lessonNote(report, 'gpu', 'GPU classes'), 'compare')
+        ]), Number(a.gpu) ? 'hardware' : 'architecture', Number(a.gpu) ? { group: 'Server', name: 'Graphics card', dollars: null } : null, Number(a.gpu) ? 'need' : 'skip'))
       ]));
     }
     var subsystems = [branch('compute', 'L2', 'Compute', computeKids)];
+    function layoutNode(name) {
+      var chosen = name === model.raid.pick;
+      var row = model.raid.layouts.filter(function (item) { return item.name === name; })[0] || { usable: '', loss: '' };
+      return nest(name.toLowerCase().replace(/\s+/g, '-'), name, tag(leaf(name.toLowerCase().replace(/\s+/g, '-') + '-pick', 'L5', name, row.usable + '. Failures tolerated: ' + row.loss + '.', [
+        note('Why', [model.raid.why], 'why'),
+        note('Risks', ['RAID is not a backup. A mirror survives a dead disk. It does not survive a fire, a theft, or a delete.'], 'risks')
+      ]), 'architecture', null, chosen ? 'ready' : 'skip'));
+    }
     var storageKids = [
-      branch('boot', 'L3', 'Boot', [
-        nest('ssd', 'SSD', leaf('boot-disk', 'L5', 'Boot disk', 'An SSD. The system and the apps live here.', [
-          note('Why you need it', ['The operating system and a player database belong on an SSD. A spinning disk is the wrong place for that.']),
-          note('How it connects', ['It sits in the computer that boots. M.2 is a shape, not a speed. Read whether the slot is SATA or NVMe.'])
-        ]))
+      branch('boot', 'L3', 'Boot storage', [
+        nest('nvme', 'NVMe', tag(leaf('boot-nvme', 'L5', 'NVMe boot', 'The system and the apps. M.2 is the shape. NVMe is the speed.', [
+          note('Why', ['The operating system and a player database belong on an SSD.'], 'why'),
+          note('Compare', ['Some M.2 slots are SATA, not NVMe. Read the slot before you buy.'], 'compare'),
+          note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/search/?q=NVMe%20SSD', detail: 'Live price.' }], 'buy')
+        ]), 'hardware', { group: 'Storage', name: 'NVMe boot', dollars: null }, 'ready')),
+        nest('sata-boot', 'SATA SSD', tag(leaf('boot-sata', 'L5', 'SATA boot SSD', 'Use this when the board has no NVMe slot.', [
+          note('Why', ['SATA SSD still beats a spinning disk for the system.'], 'why')
+        ]), 'hardware', null, 'skip'))
       ])
     ];
     if (hasJob(a, 'movies') || hasJob(a, 'photos') || hasJob(a, 'files') || hasJob(a, 'video') || Number(a.storage) >= 4000) {
-      storageKids.unshift(branch('nas', 'L3', 'NAS', [
-        nest('drives', 'Hard drives', leaf('drive-pick', 'L5', 'Drive choice', 'CMR disks for the pile. The system stays on the SSD.', [
-          note('Why you need it', ['The NAS holds the large files. The server or the desk runs the apps. Storage stays separate from compute.']),
-          note('How it connects', ['Same house network as the desk and the TV. Share one folder. Do not forward the admin page to the internet.']),
-          note('What hardware you need', ['An SSD for the NAS system. CMR hard drives for the files. Two disks is the smallest mirror. A mirror is not an off-site backup.']),
-          { name: 'Trade study', lines: [], study: driveStudy(a.storage) }
-        ]))
+      storageKids.push(branch('bulk', 'L3', 'Bulk storage', [
+        nest('drives', 'Hard drives', tag(leaf('drive-pick', 'L5', 'Drive family', 'CMR disks for the pile. The system stays on the SSD.', [
+          note('Why', ['The NAS holds the large files. The server runs the apps.'], 'why'),
+          note('Compare', ['Same house network as the desk. Do not forward the admin page to the internet.'], 'compare'),
+          { name: 'Trade study', slot: 'study', lines: [], study: model.drives },
+          note('Where to buy it', model.drives.links, 'buy')
+        ]), 'hardware', { group: 'Storage', name: model.drives.decision, dollars: null }, 'need')),
+        nest('bulk-ssd', 'SATA SSD', tag(leaf('bulk-ssd-pick', 'L5', 'Bulk SATA SSD', 'Right for a small fast pile. Wrong price per terabyte for movies.', [
+          note('Why', ['Pick this only when the pile is small and you want it quiet.'], 'why')
+        ]), 'hardware', null, 'skip')),
+        nest('bulk-nvme', 'NVMe', tag(leaf('bulk-nvme-pick', 'L5', 'Bulk NVMe', 'Too expensive per terabyte for a file shelf.', [
+          note('Why', ['Keep NVMe for boot and for a cache, not for the movie pile.'], 'why')
+        ]), 'hardware', null, 'skip'))
       ]));
     }
+    storageKids.push(branch('cache', 'L3', 'Cache', [
+      nest('cache-disk', 'Cache disk', tag(leaf('cache-pick', 'L5', 'Cache later', 'A cache helps when many people open the same files. It is not the first disk you buy.', [
+        note('Add to build', ['Add a cache after the pile is already too slow.'], 'add'),
+        note('Skip', ['Skip it on the first build.'], 'skip')
+      ]), 'optional', null, 'skip'))
+    ]));
+    storageKids.push(branch('layout', 'L3', 'RAID / ZFS', [
+      layoutNode('Mirror pairs'),
+      layoutNode('RAIDZ1'),
+      layoutNode('RAIDZ2'),
+      layoutNode('No RAID')
+    ]));
     storageKids.push(branch('backup', 'L3', 'Backup', [
-      nest('copy', 'Second copy', leaf('backup-copy', 'L5', 'Backup copy', 'A second copy somewhere else.', [
-        note('Why you need it', ['A mirror survives one disk dying. It does not survive a fire, a theft, or a delete.'])
-      ]))
+      nest('local-copy', 'Local second copy', tag(leaf('local-copy-pick', 'L5', 'Local second copy', 'A second disk in the same room. It survives one disk dying.', [
+        note('Why', ['This is the minimum. It does not survive a fire.'], 'why'),
+        note('Risks', ['Same shelf, same disaster.'], 'risks')
+      ]), 'architecture', null, 'skip')),
+      nest('other-machine', 'Another machine', tag(leaf('other-machine-pick', 'L5', 'Another machine', 'A copy on a different computer in the house.', [
+        note('Why', ['A dead NAS does not take the only copy with it.'], 'why')
+      ]), 'architecture', null, 'ready')),
+      nest('offsite', 'Off-site', tag(leaf('offsite-pick', 'L5', 'Off-site copy', 'A disk at another building, or a cloud copy of the files you cannot replace.', [
+        note('Why', ['This is the copy that survives the house.'], 'why'),
+        note('Where to buy it', [{ name: 'The disk, on PCPartPicker', href: 'https://pcpartpicker.com/search/?q=external%20HDD', detail: 'Live price for the disk. Cloud prices stay on the provider page.' }], 'buy')
+      ]), 'hardware', { group: 'Storage', name: 'Off-site disk', dollars: null }, 'need'))
     ]));
     subsystems.push(branch('storage', 'L2', 'Storage', storageKids));
     if (hasJob(a, 'smart') || a.role === 'server' || a.role === 'both') {
+      function netPick(id, asm, title, decision, group) {
+        var chosen = title === decision;
+        return nest(id, asm, tag(leaf(id + '-pick', 'L5', title, chosen ? 'The requirements picked this.' : 'It stays in the study.', [
+          { name: 'Trade study', slot: 'study', lines: [], study: id.indexOf('gate') === 0 ? model.gateway : model.switchPick },
+          note('Risks', ['Do not forward Proxmox, the NAS, Remote Desktop, or Home Assistant to the internet.'], 'risks')
+        ]), 'architecture', chosen ? { group: 'Networking', name: title, dollars: title === 'ISP router' || title === 'Unmanaged' ? 0 : null } : null, chosen ? 'ready' : 'skip'));
+      }
       subsystems.push(branch('network', 'L2', 'Network', [
         branch('gateway', 'L3', 'Gateway', [
-          nest('router', 'Router', leaf('router-pick', 'L5', 'House gateway', 'Replies to your traffic can come home. New traffic from the internet stays out.', [
-            note('Why you need it', ['The house already has a gateway. Keep admin pages on the house side of it.']),
-            note('How it connects', ['Do not forward Proxmox, the NAS, Remote Desktop, or Home Assistant to the internet.']),
-            lessonNote(report, 'vlan', 'LAN, WAN, and firewall')
-          ]))
+          netPick('gate-isp', 'ISP router', 'ISP router', model.gateway.decision),
+          netPick('gate-pro', 'Prosumer gateway', 'UniFi Dream Machine Pro', model.gateway.decision),
+          netPick('gate-cloud', 'Cloud gateway', 'UniFi Cloud Gateway class', model.gateway.decision),
+          netPick('gate-opn', 'Custom firewall', 'OPNsense appliance', model.gateway.decision),
+          netPick('gate-omada', 'Omada', 'TP-Link Omada gateway', model.gateway.decision)
         ]),
         branch('switching', 'L3', 'Switching', [
-          nest('switch', 'Switch', leaf('switch-pick', 'L5', 'Managed switch', 'A managed switch only when one cable must carry more than one network.', [
-            note('Why you need it', ['A flat network does not need one yet. It helps when people, cameras, and guests must not see each other.']),
-            note('How it connects', ['The gateway creates the networks. The switch carries them. Both ends of a trunk must agree.']),
-            lessonNote(report, 'switch', 'Layer 2, Layer 3, and PoE')
-          ]))
+          netPick('sw-un', 'Unmanaged', 'Unmanaged', model.switchPick.decision),
+          netPick('sw-l2', 'Managed L2', 'Managed 1 GbE', model.switchPick.decision),
+          netPick('sw-poe', 'PoE', 'Managed PoE', model.switchPick.decision),
+          netPick('sw-fast', 'Faster uplink', 'Managed 2.5 or 10 GbE', model.switchPick.decision)
+        ]),
+        branch('wireless', 'L3', 'Wireless', [
+          nest('ap', 'Wi-Fi AP', tag(leaf('ap-pick', 'L5', hasJob(a, 'smart') ? 'Wi-Fi 6 AP' : 'Cable the server', hasJob(a, 'smart') ? 'One access point on the house VLAN. PoE if the switch study picked PoE.' : 'The server does not need Wi-Fi.', [
+            note('Why', ['Wi-Fi 7 is not a requirement until the clients you own can use it.'], 'why')
+          ]), 'architecture', null, hasJob(a, 'smart') ? 'ready' : 'skip'))
+        ]),
+        branch('vlans', 'L3', 'VLANs', [
+          nest('vlan-trusted', 'Trusted', tag(leaf('vlan-trusted-pick', 'L5', 'Trusted', 'Phones and the desk you sit at.', [note('Why', ['This is the network you trust.'], 'why')]), 'architecture', null, 'ready')),
+          nest('vlan-iot', 'IoT', tag(leaf('vlan-iot-pick', 'L5', 'IoT', 'Plugs and bulbs. They do not need to see the server admin page.', [note('Why', ['Smart devices stay on their own network.'], 'why')]), 'architecture', null, hasJob(a, 'smart') ? 'ready' : 'skip')),
+          nest('vlan-cam', 'Cameras', tag(leaf('vlan-cam-pick', 'L5', 'Cameras', 'Cameras write video. They do not join the desk network.', [note('Why', ['A camera VLAN keeps that traffic off the house LAN.'], 'why')]), 'architecture', null, hasJob(a, 'smart') ? 'ready' : 'skip')),
+          nest('vlan-guest', 'Guests', tag(leaf('vlan-guest-pick', 'L5', 'Guests', 'Internet only.', [note('Why', ['Guests do not see the lab.'], 'why')]), 'architecture', null, 'ready')),
+          nest('vlan-servers', 'Servers', tag(leaf('vlan-servers-pick', 'L5', 'Servers', 'The lab machines. Admin pages stay here.', [note('Why', ['The server VLAN is where Proxmox and the NAS answer.'], 'why')]), 'architecture', null, 'ready'))
+        ]),
+        branch('cabling', 'L3', 'Cabling', [
+          nest('cat6', 'Cat6', tag(leaf('cat6-pick', 'L5', 'Cat6', 'Enough for 1 GbE in a house.', [note('Why', ['Cat6 is the default cable.'], 'why')]), 'hardware', { group: 'Networking', name: 'Cat6', dollars: null }, model.switchPick.decision.indexOf('10') === -1 ? 'ready' : 'skip')),
+          nest('cat6a', 'Cat6a', tag(leaf('cat6a-pick', 'L5', 'Cat6a', 'Use this when a run must carry 10 GbE.', [note('Why', ['Cat6a is for the fast uplink, not for every phone.'], 'why')]), 'hardware', { group: 'Networking', name: 'Cat6a', dollars: null }, model.switchPick.decision.indexOf('10') !== -1 ? 'ready' : 'skip')),
+          nest('fiber', 'Fiber', tag(leaf('fiber-pick', 'L5', 'Fiber or DAC', 'A short DAC between the server and the switch, or fiber when the run is long.', [note('Why', ['This is a later link, not the first cable in the house.'], 'why')]), 'hardware', null, 'skip'))
         ])
       ]));
     }
     if (hasJob(a, 'ai') || hasJob(a, 'learn')) {
       subsystems.push(branch('ai', 'L2', 'AI', [
         branch('models', 'L3', 'Local models', [
-          nest('runtime', 'Runtime', leaf('ollama', 'L5', 'Ollama', 'Local chat. One model that fits the memory.', [
-          note('Why we picked it', [report.hardware.models]),
-          note('How to install it', ['Install Ollama. Pull one model. Do not download three on the first day.']),
-          note('Where to get it', [{ name: 'Ollama', href: 'https://ollama.com/download', detail: 'The chat runtime.' }]),
-          lessonNote(report, 'sampling', 'Sampling'),
-          lessonNote(report, 'modelfile', 'Change a model'),
-          lessonNote(report, 'adam', 'Adam')
-        ]))
+          nest('runtime', 'Runtime', tag(leaf('ollama', 'L5', 'Ollama', 'Local chat. One model that fits the memory. The software is free.', [
+          note('Why', [report.hardware.models], 'why'),
+          note('Install', ['Install Ollama. Pull one model. Do not download three on the first day.', { name: 'Ollama', href: 'https://ollama.com/download', detail: 'The chat runtime.' }], 'install'),
+          note('Models', ['One model that fits the memory. A bigger download is not a better lab.'], 'compare'),
+          note('Requirements', [report.hardware.models], 'requirements'),
+          asSlot(lessonNote(report, 'sampling', 'Sampling'), 'compare'),
+          asSlot(lessonNote(report, 'modelfile', 'Change a model'), 'compare'),
+          asSlot(lessonNote(report, 'adam', 'Adam'), 'compare')
+        ]), 'free-software', { group: 'Software', name: 'Ollama', dollars: 0 }, 'ready'))
         ])
       ]));
     }
     if (hasJob(a, 'movies') || hasJob(a, 'photos') || hasJob(a, 'video')) {
       subsystems.push(branch('media', 'L2', 'Media', [
         branch('library', 'L3', 'Library', [
-          nest('player', 'Player', leaf('player-pick', 'L5', 'Jellyfin or Plex', 'The files stay on the CMR disks.', [
-          note('Why you need it', ['The player serves the files. It is not the shelf.']),
-          note('How it connects', ['Point it at the shared folder. The database stays on the SSD. Do not open the admin page to the internet.']),
-          lessonNote(report, 'plex', 'Plex layout'),
-          note('Where to get it', [
-            { name: 'Jellyfin', href: 'https://jellyfin.org/downloads/', detail: 'The free player.' },
-            { name: 'Plex install', href: 'https://support.plex.tv/articles/200288586-installation/', detail: 'The official install note.' }
-          ])
-        ]))
+          nest('jellyfin', 'Jellyfin', tag(leaf('jellyfin-pick', 'L5', 'Jellyfin', 'Free. Hardware transcoding stays free. No account.', [
+            note('Why', ['This is the pick when the lab should not pay for transcoding.'], 'why'),
+            note('Install', [{ name: 'Jellyfin', href: 'https://jellyfin.org/downloads/', detail: 'The free player.' }], 'install'),
+            { name: 'Trade study', slot: 'compare', lines: [], study: model.media }
+          ]), 'free-software', { group: 'Software', name: 'Jellyfin', dollars: 0 }, model.media && model.media.decision === 'Jellyfin' ? 'ready' : 'skip')),
+          nest('plex', 'Plex', tag(leaf('plex-pick', 'L5', 'Plex', 'Free tier. The TV apps are the easy path. Hardware transcoding is limited.', [
+            note('Why', ['Pick the free tier when the apps matter more than free transcoding.'], 'why'),
+            note('Install', [{ name: 'Plex install', href: 'https://support.plex.tv/articles/200288586-installation/', detail: 'The official install note.' }], 'install'),
+            { name: 'Trade study', slot: 'compare', lines: [], study: model.media }
+          ]), 'free-software', { group: 'Software', name: 'Plex', dollars: 0 }, model.media && model.media.decision === 'Plex' ? 'ready' : 'skip')),
+          nest('plex-pass', 'Plex Pass', tag(leaf('plex-pass-pick', 'L5', 'Plex Pass', 'Paid. Monthly, annual, or lifetime. The price stays on Plex’s plan page.', [
+            note('License', ['Plex Pass is the paid row. It is not required to play files in the house.'], 'license'),
+            note('Cost', ['Monthly, annual, or lifetime. Read the current price on Plex’s plan page. This page does not invent it.'], 'cost'),
+            { name: 'Trade study', slot: 'compare', lines: [], study: model.media }
+          ]), 'paid-software', null, 'skip'))
         ])
       ]));
     }
     if (hasJob(a, 'smart')) {
       subsystems.push(branch('smart', 'L2', 'Smart home', [
         branch('control', 'L3', 'House control', [
-          nest('controller', 'Controller', leaf('ha', 'L5', 'Home Assistant', 'Lights, sensors, and voice. The admin page stays in the house.', [
-          note('Why you need it', ['One place for the house devices, on a machine that stays on.']),
-          lessonNote(report, 'home assistant', 'How to run it'),
-          note('Where to get it', [{ name: 'Home Assistant', href: 'https://www.home-assistant.io/installation/', detail: 'The official install.' }])
-        ]))
+          nest('controller', 'Controller', tag(leaf('ha', 'L5', 'Home Assistant', 'Lights, sensors, and voice. The admin page stays in the house. The software is free.', [
+          note('Why', ['One place for the house devices, on a machine that stays on.'], 'why'),
+          note('Install', [{ name: 'Home Assistant', href: 'https://www.home-assistant.io/installation/', detail: 'The official install.' }], 'install'),
+          asSlot(lessonNote(report, 'home assistant', 'How to run it'), 'install'),
+          note('Requirements', ['The admin page stays on the house side of the gateway.'], 'requirements')
+        ]), 'free-software', { group: 'Software', name: 'Home Assistant', dollars: 0 }, 'ready'))
         ])
       ]));
     }
     if (hasJob(a, 'games')) {
       var games = subsystems.filter(function (item) { return item.id === 'compute'; })[0];
       if (games) games.children.push(branch('games', 'L3', 'Games', [
-        nest('play', 'Play', leaf('game-stack', 'L5', 'Game stack', report.hardware.games, [
-          lessonNote(report, 'proton', 'Proton'),
-          lessonNote(report, 'driver', 'Graphics drivers')
-        ]))
+        nest('play', 'Play', tag(leaf('game-stack', 'L5', 'Game stack', report.hardware.games, [
+          asSlot(lessonNote(report, 'proton', 'Proton'), 'why'),
+          asSlot(lessonNote(report, 'driver', 'Graphics drivers'), 'install')
+        ]), 'free-software', { group: 'Software', name: 'Proton', dollars: 0 }, 'ready'))
       ]));
     }
-    return branch('lab', 'L1', 'Your lab', subsystems);
+    var tree = branch('lab', 'L1', 'Your lab', subsystems);
+    tree.model = model;
+    return tree;
   }
 
   return {
