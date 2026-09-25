@@ -503,6 +503,9 @@
     if (pick === 'virtualbox') {
       labLine = 'VirtualBox stays on the computer you sit at and runs one practice guest. It does not replace a closet server.';
     }
+    if (!labLine && a.sideReason) labLine = a.sideReason;
+    if (a.ramUnsure) labLine = (labLine ? labLine + ' ' : '') + 'Memory was I don’t know, so this plan uses ' + (Number(a.ram) || 16) + ' GB. Change it if you already know the number.';
+    if (a.gpuUnsure && a.side !== 'mac') labLine = (labLine ? labLine + ' ' : '') + 'The graphics card was I don’t know. The plan picked a size from the jobs, not from a card you named.';
     var pickedJobs = jobList(a).map(function (id) { return JOB_LABELS[id] || id; });
     return {
       pick: pick,
@@ -1300,13 +1303,13 @@
 
   var STEPS = [
     {
-      id: 'side',
-      title: 'Choose your side',
-      hint: 'Start with the family you want. The next screens open only that family. Windows, Linux, and Mac are the three sides.',
+      id: 'mode',
+      title: 'What are you doing?',
+      hint: 'Start with the job, not the operating system. A new build, an upgrade, and a pile of parts you already own are three different labs.',
       choices: [
-        { value: 'win', label: 'Windows', detail: 'The normal PC. Games, stores, and the buttons most people know.' },
-        { value: 'linux', label: 'Linux', detail: 'Free systems. A friendly desk, a closet server, or a boss of many little computers.' },
-        { value: 'mac', label: 'Mac', detail: 'The Apple desk. Quiet, finished, and a different kind of memory.' }
+        { value: 'new', label: 'Build new', detail: 'I am shopping for a machine. I may not own the parts yet.' },
+        { value: 'upgrade', label: 'Upgrade what I own', detail: 'The computer exists. I want to change the weak parts.' },
+        { value: 'own', label: 'Use parts I already own', detail: 'Plan around the box and the parts I have. Buy only what is missing.' }
       ]
     },
     {
@@ -1318,9 +1321,9 @@
       },
       hint: 'One computer. Say if you sit at it, if it hides in a closet, or if it tries to do both.',
       choices: [
-        { value: 'everyday', label: 'I sit at it', detail: 'Web, school, files, maybe games.' },
-        { value: 'server', label: 'It stays on for the house', detail: 'A closet box or a Mac mini. I use another screen to control it.' },
-        { value: 'both', label: 'One computer does both', detail: 'I sit at it, and it also runs the house.' }
+        { value: 'everyday', label: 'Daily PC', detail: 'I sit at it. Web, school, files, maybe games.' },
+        { value: 'server', label: 'Server', detail: 'It stays on for the house. I use another screen to control it.' },
+        { value: 'both', label: 'Both', detail: 'I sit at it, and it also runs the house.' }
       ]
     },
     {
@@ -1388,7 +1391,8 @@
     {
       id: 'ram',
       titleFor: function (a) {
-        return a.side === 'mac' ? 'How much unified memory does the Mac have?' : 'How much memory (RAM) can it have?';
+        if (a.mode === 'new') return a.side === 'mac' ? 'How much unified memory should the Mac have?' : 'How much memory (RAM) should it have?';
+        return a.side === 'mac' ? 'How much unified memory does the Mac have?' : 'How much memory (RAM) does it have?';
       },
       hintFor: function (a) {
         if (a.side === 'mac') return 'On a Mac, this number is also the graphics memory. The screen and the AI share it. It is not a separate NVIDIA card.';
@@ -1397,6 +1401,7 @@
       choicesFor: function (a) {
         if (a.side === 'mac') {
           return [
+            { value: 'unsure', label: "I don't know", detail: (a.role === 'server' || a.role === 'both') ? 'We will plan 32 GB. That is where a real lab starts. You can change it later.' : 'We will plan 16 GB. That is a normal daily Mac. You can change it later.' },
             { value: 8, label: '8 GB', detail: 'Tight. Browsing and writing. Local AI will feel sticky.' },
             { value: 16, label: '16 GB', detail: 'A calm daily Mac. One small model if the Mac is quiet.' },
             { value: 24, label: '24 GB', detail: 'More air for video and mid-size models.' },
@@ -1406,6 +1411,7 @@
           ];
         }
         return [
+          { value: 'unsure', label: "I don't know", detail: (a.role === 'server' || a.role === 'both') ? 'We will plan 32 GB. That is where a real lab starts. You can change it later.' : 'We will plan 16 GB. That is a normal daily computer. You can change it later.' },
           { value: 8, label: '8 GB', detail: 'One job at a time.' },
           { value: 16, label: '16 GB', detail: 'A normal daily computer, or a starter server.' },
           { value: 32, label: '32 GB', detail: 'The start of a real lab.' },
@@ -1417,10 +1423,15 @@
     {
       id: 'gpu',
       when: function (a) { return a.side !== 'mac'; },
-      title: 'What graphics card do you have?',
-      hint: 'The GPU draws games and can run AI. The GB here is the card’s own memory, not the computer’s RAM. A Mac does not get this question, because its graphics share system memory.',
+      titleFor: function (a) {
+        if (a.mode === 'new') return 'What graphics card should it have?';
+        if (a.mode === 'upgrade') return 'What graphics card is in it now?';
+        return 'What graphics card do you already have?';
+      },
+      hint: 'The GPU draws games and can run AI. The GB here is the card’s own memory, not the computer’s RAM. Pick I don’t know if you are shopping and have not chosen a card. A Mac does not get this question, because its graphics share system memory.',
       choices: [
-        { value: 'none', label: 'No extra card', detail: 'Only the graphics built into the processor.' },
+        { value: 'unsure', label: "I don't know", detail: 'Local AI plans about 16 GB. Games plan about 8 GB. A house server with no games plans no extra card. You can change it on the map.' },
+        { value: 'none', label: 'No extra card', detail: 'Only the graphics built into the processor, or a new build that does not need a card yet.' },
         { value: 1, label: '1 GB or less', detail: 'A very old card. It shows the desktop. It is not for new games or AI.' },
         { value: 2, label: 'About 2 GB', detail: 'An old card. Old games at low settings. Not a chat-model card.' },
         { value: 4, label: 'About 3 or 4 GB', detail: 'A common older card. Light 1080p games. Still small for AI.' },
@@ -1433,9 +1444,12 @@
     },
     {
       id: 'storage',
-      title: 'How much storage will hold your files?',
-      hint: 'Count the big disks, not only the small drive the system boots from.',
+      titleFor: function (a) {
+        return a.mode === 'new' ? 'How much storage should hold the files?' : 'How much storage do you already have for files?';
+      },
+      hint: 'Count the big disks, not only the small drive the system boots from. I don’t know is a fair answer.',
       choices: [
+        { value: 'unsure', label: "I don't know", detail: 'Movies, photos, or a file pile plan about 8 TB. Anything smaller plans 1 TB. You can change it later.' },
         { value: 256, label: '256 GB', detail: 'System and apps. Not a photo vault.' },
         { value: 1000, label: '1 TB', detail: 'Games or a starter photo library.' },
         { value: 4000, label: 'About 4 TB', detail: 'A real photo pile or a small movie shelf.' },
@@ -1446,7 +1460,11 @@
     {
       id: 'budget',
       title: 'What can you spend if you had to buy the box?',
-      hint: 'If you already own it, say so.',
+      hintFor: function (a) {
+        if (a.mode === 'own') return 'You already have parts. Say what a replacement would cost, or that you already own the box.';
+        if (a.mode === 'upgrade') return 'This is money for the next parts, not a price for the whole computer you already have.';
+        return 'If you already own it, say so.';
+      },
       choices: [
         { value: 'have', label: 'I already own it', detail: 'I am only picking the system.' },
         { value: 200, label: 'Under $200', detail: 'Used tiny office PC money.' },
@@ -1454,6 +1472,22 @@
         { value: 1200, label: '$500 to $1,200', detail: 'A starter lab or a nice daily PC.' },
         { value: 'more', label: 'More than $1,200', detail: 'Enough to think about two computers.' }
       ]
+    },
+    {
+      id: 'side',
+      title: 'Which platform do you want?',
+      hintFor: function (a) {
+        if (a.mode === 'upgrade' || a.mode === 'own') return 'If the computer already has a system, pick that one. Recommend for me follows the jobs you named.';
+        return 'Recommend for me follows the jobs. Windows, Linux, and Mac stay available when you already know.';
+      },
+      choicesFor: function () {
+        return [
+          { value: 'recommend', label: 'Recommend for me', detail: 'A house box leans Linux. New anti-cheat games lean Windows. You can still change it.' },
+          { value: 'win', label: 'Windows', detail: 'The normal PC. Games, stores, and the buttons most people know.' },
+          { value: 'linux', label: 'Linux', detail: 'Free systems. A friendly desk, a closet server, or a boss of many little computers.' },
+          { value: 'mac', label: 'Mac', detail: 'The Apple desk. Quiet, finished, and a different kind of memory.' }
+        ];
+      }
     },
     {
       id: 'flavor',
@@ -1467,11 +1501,42 @@
     }
   ];
 
+  var STEP_ORDER = ['mode', 'role', 'job', 'games', 'budget', 'ram', 'gpu', 'storage', 'side', 'skill', 'flavor'];
+
   function stepsFor(answers) {
     var a = answers || {};
     return STEPS.filter(function (step) {
       return !step.when || step.when(a);
+    }).sort(function (left, right) {
+      return STEP_ORDER.indexOf(left.id) - STEP_ORDER.indexOf(right.id);
     });
+  }
+
+  function acceptChoice(step, choice, answers) {
+    var value = choice.value;
+    if (step.id === 'ram' && value === 'unsure') {
+      answers.ramUnsure = true;
+      value = (answers.role === 'server' || answers.role === 'both') ? 32 : 16;
+    }
+    if (step.id === 'gpu' && value === 'unsure') {
+      answers.gpuUnsure = true;
+      value = hasJob(answers, 'ai') ? 16 : (hasJob(answers, 'games') ? 8 : 'none');
+    }
+    if (step.id === 'storage' && value === 'unsure') {
+      answers.storageUnsure = true;
+      value = (hasJob(answers, 'movies') || hasJob(answers, 'files') || hasJob(answers, 'photos') || hasJob(answers, 'video')) ? 8000 : 1000;
+    }
+    if (step.id === 'side' && value === 'recommend') {
+      answers.sideChoice = 'recommend';
+      if (answers.role === 'server' || answers.role === 'both') value = 'linux';
+      else if (hasJob(answers, 'games') && answers.games === 'aaa') value = 'win';
+      else if (hasJob(answers, 'games')) value = 'linux';
+      else value = 'win';
+      answers.sideReason = value === 'linux'
+        ? 'Linux is the recommendation: a house box, or a desk that is not chasing new anti-cheat games.'
+        : 'Windows is the recommendation: you sit at it, and new games are happier there.';
+    }
+    answers[step.id] = value;
   }
 
   function field(step, answers, name) {
@@ -1496,53 +1561,53 @@
       { id: 'i5-14600', name: 'Intel Core i5-14600', maker: 'intel', socket: 'LGA1700', arch: 'Raptor Lake', cores: 14, threads: 20, watts: 154, igpu: true, memory: 'DDR4 or DDR5', plain: '14th-gen Raptor Lake refresh with graphics. Intel lists 154 W turbo. This is not the K model.' }
     ],
     board: [
-      { id: 'b550', name: 'AMD B550, DDR4, micro-ATX', maker: 'amd', socket: 'AM4', ram: 'DDR4', form: 'matx', plain: 'For Ryzen 5000. Smaller board. DDR4 only.' },
+      { id: 'b550', name: 'MSI B550M PRO-VDH WIFI', maker: 'amd', socket: 'AM4', ram: 'DDR4', form: 'matx', plain: 'Micro-ATX, AM4, DDR4. A common smaller board for Ryzen 5000. Another B550 micro-ATX board is the same fit.' },
       { id: 'b550-atx', name: 'MSI MAG B550 Tomahawk', maker: 'amd', socket: 'AM4', ram: 'DDR4', form: 'atx', plain: 'AM4, DDR4, ATX. The older socket for a Ryzen 5000 chip. A B550 board does not take a Ryzen 7000 chip.' },
-      { id: 'b650m', name: 'AMD B650, DDR5, micro-ATX', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'matx', plain: 'Current AMD socket in a smaller board. DDR5 only.' },
+      { id: 'b650m', name: 'Gigabyte B650M AORUS ELITE AX', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'matx', plain: 'Micro-ATX, AM5, DDR5. Another B650 micro-ATX board is the same fit.' },
       { id: 'b650', name: 'Gigabyte B850 Gaming X WiFi6E', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'atx', plain: 'AM5, DDR5, ATX. Linus Tech Tips used this board in the 2026 build. A B650 ATX board is the same socket if this exact one is gone.' },
-      { id: 'b650i', name: 'AMD B650, DDR5, mini-ITX', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'itx', plain: 'A tiny current AMD board. Read the case page. Tiny cases choke fat cards.' },
-      { id: 'b760-d4', name: 'Intel B760, DDR4, micro-ATX', maker: 'intel', socket: 'LGA1700', ram: 'DDR4', form: 'matx', plain: 'Intel socket, older memory. Useful when you already own DDR4.' },
-      { id: 'b760-d4-atx', name: 'Intel B760, DDR4, ATX', maker: 'intel', socket: 'LGA1700', ram: 'DDR4', form: 'atx', plain: 'Same Intel DDR4 idea, full size.' },
-      { id: 'b760-d5m', name: 'Intel B760, DDR5, micro-ATX', maker: 'intel', socket: 'LGA1700', ram: 'DDR5', form: 'matx', plain: 'Intel socket, new memory, smaller board.' },
-      { id: 'b760-d5', name: 'Intel B760, DDR5, ATX', maker: 'intel', socket: 'LGA1700', ram: 'DDR5', form: 'atx', plain: 'Intel socket, new memory, full size.' },
-      { id: 'b760i', name: 'Intel B760, DDR5, mini-ITX', maker: 'intel', socket: 'LGA1700', ram: 'DDR5', form: 'itx', plain: 'A tiny Intel board. DDR5. Check the card length.' }
+      { id: 'b650i', name: 'Gigabyte B650I AORUS ULTRA', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'itx', plain: 'Mini-ITX, AM5, DDR5. Read the case page. Tiny cases choke fat cards. Another B650 mini-ITX board is the same fit.' },
+      { id: 'b760-d4', name: 'ASUS B760M-AYW WIFI D4 II', maker: 'intel', socket: 'LGA1700', ram: 'DDR4', form: 'matx', plain: 'Micro-ATX, DDR4, LGA1700. Linus Tech Tips used this board in the 2026 $1,000 build.' },
+      { id: 'b760-d4-atx', name: 'ASUS TUF GAMING B760-PLUS WIFI D4', maker: 'intel', socket: 'LGA1700', ram: 'DDR4', form: 'atx', plain: 'ATX, LGA1700, DDR4. Another B760 ATX DDR4 board is the same fit.' },
+      { id: 'b760-d5m', name: 'MSI PRO B760M-A WIFI DDR5', maker: 'intel', socket: 'LGA1700', ram: 'DDR5', form: 'matx', plain: 'Micro-ATX, LGA1700, DDR5. Another B760 micro-ATX DDR5 board is the same fit.' },
+      { id: 'b760-d5', name: 'ASUS PRIME B760-PLUS', maker: 'intel', socket: 'LGA1700', ram: 'DDR5', form: 'atx', plain: 'ATX, LGA1700, DDR5. Another B760 ATX DDR5 board is the same fit.' },
+      { id: 'b760i', name: 'ASUS ROG STRIX B760-I GAMING WIFI', maker: 'intel', socket: 'LGA1700', ram: 'DDR5', form: 'itx', plain: 'Mini-ITX, LGA1700, DDR5. Check the card length. Another B760 mini-ITX DDR5 board is the same fit.' }
     ],
     ram: [
       { id: 'd4-16', name: 'G.Skill Ripjaws V 16GB DDR4-3600', ram: 'DDR4', plain: '16 GB DDR4, the kit from the 2026 Linus Tech Tips $1,000 build. Two sticks. Tight if you keep many apps open.' },
       { id: 'd4-32', name: 'G.Skill Ripjaws V 32GB DDR4-3600', ram: 'DDR4', plain: '32 GB DDR4-3600, two sticks. The same Ripjaws line as the 16 GB kit, for an older board.' },
-      { id: 'd4-64', name: '64 GB DDR4', ram: 'DDR4', plain: 'For many virtual computers or a heavy editor.' },
+      { id: 'd4-64', name: 'G.Skill Ripjaws V 64GB DDR4-3600', ram: 'DDR4', plain: '64 GB DDR4-3600 in the same Ripjaws line. Confirm the board allows 64 GB before you buy it.' },
       { id: 'd5-32', name: 'G.Skill Flare X5 32GB DDR5-6000', ram: 'DDR5', plain: '32 GB DDR5-6000 CL30, two sticks. Linus Tech Tips and current board guides use this speed on Ryzen 7000 and 9000.' },
       { id: 'd5-64', name: 'G.Skill Flare X5 64GB DDR5-6000', ram: 'DDR5', plain: '64 GB DDR5-6000, two sticks. Confirm the board allows 64 GB before you buy it.' },
-      { id: 'd5-96', name: '96 GB DDR5', ram: 'DDR5', plain: 'A large kit, often two 48 GB sticks. Confirm the board allows it.' }
+      { id: 'd5-96', name: 'G.Skill Flare X5 96GB DDR5-6000', ram: 'DDR5', plain: '96 GB DDR5-6000, often two 48 GB sticks in the Flare X5 line. Confirm the board allows 96 GB before you buy it.' }
     ],
     gpu: [
       { id: 'none', name: 'No extra card', watts: 0, plain: 'Fine only if the processor can make a picture, or this is a server you reach from another screen and you accept no local display.' },
       { id: 'g8', name: 'RTX 5060 8GB', watts: 200, plain: 'The current 8 GB example is the RTX 5060. NVIDIA lists 145 W and a 550 W system. This checker still plans 200 W so the supply is not too small.' },
-      { id: 'g12', name: 'RTX 5070 12GB', watts: 220, plain: 'The current 12 GB example is the RTX 5070. NVIDIA lists 250 W and a 650 W system. This checker plans 220 W for the class. Read the card page before you size the supply to the class number.' },
+      { id: 'g12', name: 'RTX 5070 12GB', watts: 250, plain: 'The current 12 GB example is the RTX 5070. NVIDIA lists 250 W and a 650 W system. This checker uses those 250 W, not a lower class allowance.' },
       { id: 'g16', name: 'RTX 5070 Ti 16GB', watts: 320, plain: 'The current 16 GB example is the RTX 5070 Ti. NVIDIA lists 300 W and a 750 W system. This checker plans 320 W.' },
       { id: 'g24', name: 'RTX 3090 24GB', watts: 450, plain: 'The 24 GB example for a local model is the RTX 3090. NVIDIA lists 350 W. This checker plans 450 W so the supply is not too small. A 4090 is the gaming example and draws more.' }
     ],
     ssd: [
-      { id: 'ssd-500', name: '500 GB SSD', plain: 'The system and a few apps. Not a movie shelf.' },
-      { id: 'ssd-1000', name: '1 TB SSD', plain: 'System, apps, and some games.' },
-      { id: 'ssd-2000', name: '2 TB SSD', plain: 'System and a large game library. Movies still belong on a hard drive.' }
+      { id: 'ssd-500', name: 'Crucial BX500 500GB', plain: 'A budget SATA SSD in the 500 GB size. Linus Tech Tips used the 1 TB BX500 in the 2026 $1,000 build. This size is the system, not the movie shelf.' },
+      { id: 'ssd-1000', name: 'WD Black SN850X 1TB', plain: 'A current PCIe 4.0 boot drive in 2026 build guides. System, apps, and some games.' },
+      { id: 'ssd-2000', name: 'Samsung 990 Pro 2TB', plain: 'Linus Tech Tips used a 990 Pro when the build had room for a larger boot drive. Movies still belong on a hard drive.' }
     ],
     hdd: [
       { id: 'hdd-none', name: 'No hard drive yet', plain: 'Fine for a first desk. Add one when the files need a home.' },
-      { id: 'hdd-4', name: 'About 4 TB hard drive', plain: 'A starter photo pile or a small movie shelf.' },
-      { id: 'hdd-8', name: 'About 8 TB hard drive', plain: 'Family movies or a big camera archive.' },
-      { id: 'hdd-16', name: '16 TB or more', plain: 'Media-server size. One disk is still not a backup.' }
+      { id: 'hdd-4', name: 'Seagate IronWolf 4TB', plain: 'The same CMR NAS line as the larger IronWolf, in a starter size. Read the label. One disk is not a backup.' },
+      { id: 'hdd-8', name: 'WD Red Pro 8TB', plain: 'CMR, NAS, 7200 rpm, 5-year warranty. The scored pick when no shelf price is checked. A cheaper IronWolf or Red Plus can win on the day you look.' },
+      { id: 'hdd-16', name: 'Seagate IronWolf 16TB', plain: 'Media-server size in the IronWolf NAS line. One disk is still not a backup. Read the current CMR page before you buy.' }
     ],
     psu: [
-      { id: 'p550', name: '550 W', watts: 550, plain: 'Calm desk, no big card.' },
+      { id: 'p550', name: 'Corsair CX550', watts: 550, plain: '550 W from a known brand. Calm desk, no big card. Read the card page before you trust 550 W.' },
       { id: 'p650', name: 'MSI MAG A650BN', watts: 650, plain: '650 W. Linus Tech Tips used this unit in the 2026 $1,000 build. Another 650 W unit from a known brand can replace it.' },
       { id: 'p750', name: 'Seasonic Focus GX-750', watts: 750, plain: '750 W, 80+ Gold. Linus Tech Tips used this unit in the 2026 $2,000 build. Another 750 W Gold unit can replace it.' },
       { id: 'p850', name: 'Seasonic Focus GX-850', watts: 850, plain: '850 W in the same Focus GX line as the 750 W unit. For a large card. Another 850 W Gold unit can replace it.' },
-      { id: 'p1000', name: '1000 W', watts: 1000, plain: 'For a very large card. Still read the card page.' }
+      { id: 'p1000', name: 'Seasonic Focus GX-1000', watts: 1000, plain: '1000 W in the same Focus GX line as the 750 W unit. For a very large card. Read the card page. Another 1000 W Gold unit can replace it.' }
     ],
     case: [
-      { id: 'itx', name: 'Small ITX case', fits: ['itx'], plain: 'Tiny. A long card often will not fit. Measure.' },
-      { id: 'matx', name: 'Micro-ATX case', fits: ['itx', 'matx'], plain: 'Fits the smaller boards. An ATX board will not.' },
+      { id: 'itx', name: 'Cooler Master NR200', fits: ['itx'], plain: 'A small ITX case. A long card often will not fit. Measure the card and the cooler.' },
+      { id: 'matx', name: 'Lian Li Lancool 205M', fits: ['itx', 'matx'], plain: 'A Micro-ATX case. It holds the smaller boards. An ATX board will not fit.' },
       { id: 'atx', name: 'Fractal Design North', fits: ['itx', 'matx', 'atx'], plain: 'ATX mid tower. Linus Tech Tips used it in the 2026 build. It holds an ATX board and the smaller boards.' }
     ]
   };
@@ -2196,7 +2261,7 @@
             draw();
             return;
           }
-          answers[step.id] = choice.value;
+          acceptChoice(step, choice, answers);
           index += 1;
           draw();
         });
@@ -3436,6 +3501,8 @@
         head.appendChild(plate);
         if (isGpu) head.appendChild(el('p', 'wiz-gear-kicker', node.product.generation + ' · ' + node.product.vram_gb + ' GB ' + node.product.memory));
         box.appendChild(head);
+        var teaching = renderOverview(node, card);
+        box.appendChild(teaching);
         var actionable = !!node.kind;
         var verbs = {
           hardware: { take: 'Equip', own: 'I own this' },
@@ -3479,8 +3546,11 @@
             var pool = parent ? parent.children.filter(function (child) { return child.product; }) : [];
             var ordered = pool.filter(function (child) { return child.id === node.id; }).concat(pool.filter(function (child) { return child.id !== node.id; }));
             if (!ordered.length) ordered = [node];
-            record.compare = ordered.slice(0, 3).map(function (child) { return child.product.id; });
-            compareOpen = true;
+            record.comparePool = ordered.map(function (child) { return child.product.id; });
+            var recommended = ordered.filter(function (child) { return child.product && child.product.pick; })[0];
+            record.compare = [node.product.id];
+            if (recommended && recommended.product.id !== node.product.id) record.compare.push(recommended.product.id);
+            compareOpen = 'pick';
             inspectorTab = 'compare';
             paint();
           }));
@@ -3514,40 +3584,47 @@
           qtyLabel.appendChild(qtyInput);
           box.appendChild(qtyLabel);
         }
-        var priceLabel = el('label', 'wiz-price', 'Price you saw');
-        var priceInput = document.createElement('input');
-        priceInput.type = 'number';
-        priceInput.min = '0';
-        priceInput.step = '0.01';
-        priceInput.placeholder = 'Seller page';
-        if (typed != null && typed !== '') priceInput.value = typed;
-        priceInput.addEventListener('input', function () {
-          var nextTyped = priceInput.value === '' ? null : priceInput.value;
-          var next = itemState(node.id);
-          if (nextTyped != null) next = 'equipped';
-          else if (next !== 'equipped' && next !== 'owned' && next !== 'skipped') next = 'recommended';
-          commit(node.id, next || 'recommended', nextTyped);
-          paintBudget();
-        });
-        priceLabel.appendChild(priceInput);
-        box.appendChild(priceLabel);
         }
+        var hasStudy = (node.sections || []).some(function (item) { return item && item.study; });
+        var tabPairs = [];
+        if (node.product) tabPairs.push(['compare', 'Compare']);
+        if (hasStudy) tabPairs.push(['trade', 'Trade study']);
+        if (node.kind === 'hardware' || node.kind === 'optional' || node.product) tabPairs.push(['offers', 'Offers']);
+        if (node.product || node.line || (card.requires && card.requires.length)) tabPairs.push(['specs', 'Specs']);
+        if (!tabPairs.some(function (pair) { return pair[0] === inspectorTab; })) inspectorTab = '';
         var tabs = el('div', 'wiz-tabs');
-        [['overview', 'Overview'], ['compare', 'Compare'], ['trade', 'Trade study'], ['offers', 'Offers'], ['specs', 'Specs']].forEach(function (pair) {
+        tabPairs.forEach(function (pair) {
           var tab = actionButton('wiz-tab' + (inspectorTab === pair[0] ? ' is-on' : ''), pair[1], function () {
             inspectorTab = pair[0];
-            if (pair[0] === 'compare' && node.product) compareOpen = true;
+            if (pair[0] === 'compare' && node.product && compareOpen !== true) compareOpen = 'pick';
             paint();
           });
           tabs.appendChild(tab);
         });
         box.appendChild(tabs);
         var body = el('div', 'wiz-tab-body');
-        if (inspectorTab === 'overview') body.appendChild(renderOverview(node, card));
-        else if (inspectorTab === 'compare') body.appendChild(el('p', 'wiz-hud-line', node.product ? 'The comparison workspace is open over the map. It holds up to three items.' : 'Open a catalog part, then Compare, to put it in the workspace.'));
+        if (inspectorTab === 'compare') body.appendChild(el('p', 'wiz-hud-line', compareOpen === 'pick' ? 'Choose two or three models, then open the comparison.' : 'The comparison workspace is open over the map.'));
         else if (inspectorTab === 'trade') body.appendChild(renderTrade(node));
-        else if (inspectorTab === 'offers') body.appendChild(renderMarkets(node.product ? node.product.model : node.title));
-        else body.appendChild(renderSpecs(node, card));
+        else if (inspectorTab === 'offers') {
+          body.appendChild(renderMarkets(node.product ? node.product.model : node.title));
+          var priceLabel = el('label', 'wiz-price', 'Price you saw');
+          var priceInput = document.createElement('input');
+          priceInput.type = 'number';
+          priceInput.min = '0';
+          priceInput.step = '0.01';
+          priceInput.placeholder = 'After you check a seller';
+          if (typed != null && typed !== '') priceInput.value = typed;
+          priceInput.addEventListener('input', function () {
+            var nextTyped = priceInput.value === '' ? null : priceInput.value;
+            var next = itemState(node.id);
+            if (nextTyped != null) next = 'equipped';
+            else if (next !== 'equipped' && next !== 'owned' && next !== 'skipped') next = 'recommended';
+            commit(node.id, next || 'recommended', nextTyped);
+            paintBudget();
+          });
+          priceLabel.appendChild(priceInput);
+          body.appendChild(priceLabel);
+        } else if (inspectorTab === 'specs') body.appendChild(renderSpecs(node, card));
         box.appendChild(body);
         if (node.id && node.id.indexOf('sw-') === 0) box.appendChild(switchSizer());
         return box;
@@ -3573,7 +3650,9 @@
           trade.appendChild(el('p', 'wiz-hud-line', tradeText));
           box.appendChild(trade);
         }
-        if (node.product) {
+        var impact = renderImpact(node);
+        if (impact) box.appendChild(impact);
+        if (node.product && node.product.vram_gb != null) {
           var scores = gpuScores(node.product);
           ['ai', 'gaming', 'efficiency'].forEach(function (name) {
             var stat = el('div', 'wiz-stat');
@@ -3588,8 +3667,6 @@
           });
           box.appendChild(el('p', 'wiz-note', 'Fit estimate from VRAM, generation, and watts. Not a benchmark.'));
         }
-        var impact = renderImpact(node);
-        if (impact) box.appendChild(impact);
         return box;
       }
 
@@ -3818,6 +3895,50 @@
         return box;
       }
 
+      function renderComparePick() {
+        var box = el('div', 'wiz-workspace');
+        var bar = el('div', 'wiz-workspace-bar');
+        bar.appendChild(el('h2', '', 'Choose what to compare'));
+        bar.appendChild(actionButton('wiz-action-tertiary', 'Close', function () { compareOpen = false; paint(); }));
+        box.appendChild(bar);
+        box.appendChild(el('p', '', 'Current is already checked. Recommended is checked when this slot has one. Pick two or three, then open the comparison. This is not a dollar ranking.'));
+        var selected = (record.compare || []).slice();
+        (record.comparePool || []).forEach(function (id) {
+          var product = null;
+          walk(root, []).forEach(function (item) {
+            if (item.product && item.product.id === id) product = item.product;
+          });
+          if (!product) return;
+          var row = el('label', 'wiz-choice');
+          var input = document.createElement('input');
+          input.type = 'checkbox';
+          input.checked = selected.indexOf(id) !== -1;
+          input.addEventListener('change', function () {
+            var next = (record.compare || []).slice();
+            var at = next.indexOf(id);
+            if (input.checked && at === -1 && next.length < 3) next.push(id);
+            if (!input.checked && at !== -1) next.splice(at, 1);
+            if (input.checked && next.length >= 3 && at === -1) input.checked = false;
+            record.compare = next;
+            paint();
+          });
+          row.appendChild(input);
+          var copy = el('span', '');
+          copy.appendChild(el('strong', '', product.model));
+          copy.appendChild(el('span', '', (product.pick ? 'Recommended. ' : '') + (product.architecture || '')));
+          row.appendChild(copy);
+          box.appendChild(row);
+        });
+        var open = actionButton('wiz-action-primary', 'Compare these', function () {
+          if ((record.compare || []).length < 2) return;
+          compareOpen = true;
+          paint();
+        });
+        if ((record.compare || []).length < 2) open.disabled = true;
+        box.appendChild(open);
+        return box;
+      }
+
       function renderCompare() {
         var box = el('div', 'wiz-workspace');
         function findCompared(id) {
@@ -3849,7 +3970,9 @@
           : by(function (a, b) {
           if (aiJob) return (b.vram_gb - a.vram_gb) || (gpuScores(b).ai - gpuScores(a).ai) || (a.watts - b.watts);
           if (gameJob) return gpuScores(b).gaming - gpuScores(a).gaming || (b.watts - a.watts);
-          return gpuScores(b).efficiency - gpuScores(a).efficiency || (a.watts - b.watts);
+          var supply = root.model && root.model.fit && root.model.fit.psu ? root.model.fit.psu.watts : null;
+          function covers(item) { return supply == null || item.psu == null || supply >= item.psu ? 0 : 1; }
+          return covers(a) - covers(b) || gpuScores(b).efficiency - gpuScores(a).efficiency || (a.watts - b.watts);
         }));
         var gpuSet = picked[0] && picked[0].vram_gb != null;
         var value = gpuSet ? by(function (a, b) { return a.watts - b.watts; }) : yours;
@@ -3874,7 +3997,7 @@
           card.appendChild(el('p', 'wiz-hud-line', 'Live price not checked'));
           var flags = el('div', 'wiz-flags');
           if (product.id === yours.id) flags.appendChild(el('span', 'wiz-chip', 'Your winner'));
-          if (gpuSet && product.id === value.id) flags.appendChild(el('span', 'wiz-chip', 'Value winner'));
+          if (gpuSet && product.id === value.id) flags.appendChild(el('span', 'wiz-chip', 'Efficiency winner'));
           if (gpuSet && product.id === aiWin.id) flags.appendChild(el('span', 'wiz-chip', 'AI / VRAM winner'));
           if (gpuSet && product.id === perf.id) flags.appendChild(el('span', 'wiz-chip', 'Performance winner'));
           card.appendChild(flags);
@@ -3889,9 +4012,9 @@
           ? (yours.model + ' is the workload pick: most video memory in this set, then the lower power draw when memory is tied. A newer architecture does not replace VRAM.')
           : (gameJob
             ? (yours.model + ' is the performance pick for the games or video job in this comparison. The fit bars are estimates, not a benchmark.')
-            : (yours.model + ' is the lowest-draw fit in this set. Price is not checked, so value here means watts, not dollars.')));
+            : (yours.model + ' is the efficiency pick: it fits the planned supply, then the lower power draw. Price is not checked, so this is watts, not dollars. The fit bars are estimates, not a benchmark.')));
         why.appendChild(el('p', '', reason));
-        if (gpuSet && !aiJob) why.appendChild(el('p', 'wiz-note', 'Value winner is the lowest watt card because no offer has a checked price.'));
+        if (gpuSet && !aiJob) why.appendChild(el('p', 'wiz-note', 'Efficiency winner is the lowest watt card. No offer has a checked price, so this is not a dollar value.'));
         box.appendChild(why);
         var tech = document.createElement('details');
         tech.className = 'wiz-technical';
@@ -4019,6 +4142,10 @@
           var helpShade = el('div', 'wiz-overlay');
           helpShade.appendChild(renderHelp());
           rootEl.appendChild(helpShade);
+        } else if (compareOpen === 'pick') {
+          var pickShade = el('div', 'wiz-overlay');
+          pickShade.appendChild(renderComparePick());
+          rootEl.appendChild(pickShade);
         } else if (compareOpen) {
           var shade = el('div', 'wiz-overlay');
           shade.appendChild(renderCompare());
@@ -4076,7 +4203,56 @@
           var stageCenter = stageEl.getBoundingClientRect().left + stageEl.clientWidth / 2;
           stageEl.scrollLeft += tipCenter - stageCenter;
         }
+        if (stageEl && stageEl.scrollWidth > stageEl.clientWidth + 8) {
+          stageEl.classList.add('is-wide');
+          var stageBox = stageEl.getBoundingClientRect();
+          var layoutBox = layout.getBoundingClientRect();
+          var more = document.createElement('button');
+          more.type = 'button';
+          more.className = 'wiz-more';
+          more.textContent = 'More →';
+          more.style.top = (stageBox.top - layoutBox.top + 24) + 'px';
+          more.style.left = (stageBox.right - layoutBox.left - 96) + 'px';
+          more.addEventListener('mousedown', function (event) { event.preventDefault(); });
+          more.addEventListener('click', function () { stageEl.scrollLeft += 280; });
+          layout.appendChild(more);
+          function pinLeft() {
+            var existing = layout.querySelector('.wiz-more.is-left');
+            if (stageEl.scrollLeft > 12 && !existing) {
+              var less = document.createElement('button');
+              less.type = 'button';
+              less.className = 'wiz-more is-left';
+              less.textContent = '← More';
+              less.style.top = (stageBox.top - layoutBox.top + 24) + 'px';
+              less.style.left = (stageBox.left - layoutBox.left + 8) + 'px';
+              less.addEventListener('mousedown', function (event) { event.preventDefault(); });
+              less.addEventListener('click', function () { stageEl.scrollLeft = Math.max(0, stageEl.scrollLeft - 280); });
+              layout.appendChild(less);
+            } else if (stageEl.scrollLeft <= 12 && existing) existing.remove();
+          }
+          pinLeft();
+          stageEl.addEventListener('scroll', pinLeft);
+        }
         if (!nudged) requestAnimationFrame(function () { restoreScroll(scrollX, scrollY); });
+      }
+      function pathToSlot(node, slotId, ids) {
+        var next = ids.concat([node.id]);
+        if (node.slotId === slotId) return { node: node, ids: next };
+        var kids = node.children || [];
+        for (var i = 0; i < kids.length; i++) {
+          var hit = pathToSlot(kids[i], slotId, next);
+          if (hit) return hit;
+        }
+        return null;
+      }
+      var firstGap = settleBuild(root, record).readiness.missing[0];
+      var gap = firstGap ? pathToSlot(root, firstGap, []) : null;
+      if (gap) {
+        openIds = gap.ids;
+        var gapKids = gap.node.children || [];
+        var gapPick = gapKids.filter(function (item) { return item.product && item.product.pick; })[0];
+        var gapChild = gapPick || gapKids.filter(function (item) { return item.kind; })[0];
+        inspected = gapChild || gap.node;
       }
       paint();
     }
