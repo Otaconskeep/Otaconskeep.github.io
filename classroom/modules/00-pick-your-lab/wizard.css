@@ -114,6 +114,11 @@ button.wiz-node.is-on { border-color: var(--accent-bright, var(--accent)); backg
 .wiz-cart-total { margin: 0; font-weight: 700; }
 .wiz-cart-over { color: #e0b040; font-weight: 700; }
 .wiz-cart-more { margin-top: 8px; max-height: 40vh; overflow: auto; }
+.wiz-item { border-left: 2px solid #e0b040; }
+.wiz-stat { display: grid; grid-template-columns: 8.5rem 1fr auto; gap: 8px; align-items: center; margin: 4px 0; font-size: .85rem; }
+.wiz-bar { display: block; height: 8px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
+.wiz-bar i { display: block; height: 100%; background: #43d98a; }
+.wiz-item h3 { margin: 12px 0 4px; }
 .wiz-price { display: flex; gap: 8px; align-items: center; font-size: .85rem; }
 .wiz-price input { width: 7rem; background: transparent; color: inherit; border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
 .wiz-stage { overflow-x: auto; max-width: 100%; padding-bottom: 12px; }
