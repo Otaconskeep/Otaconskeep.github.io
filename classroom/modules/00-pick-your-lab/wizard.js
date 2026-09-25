@@ -2538,7 +2538,7 @@
 
       function persist() {
         try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, answers: answers, name: record.name, items: record.items }));
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, answers: answers, name: record.name, items: record.items, switchPlan: record.switchPlan || null }));
         } catch (err) { /* private mode can refuse storage */ }
       }
 
@@ -2551,14 +2551,15 @@
           if (JSON.stringify(data.answers) !== JSON.stringify(answers)) return;
           record.name = data.name || '';
           record.items = data.items || {};
+          record.switchPlan = data.switchPlan || null;
         } catch (err) { /* ignore a bad saved blob */ }
       }
 
-      function commit(id, state, actual) {
-        var prev = record.items[id] || { quantity: 1, actual: null };
+      function commit(id, state, actual, quantity) {
+        var prev = record.items[id] || { quantity: null, actual: null };
         record.items[id] = {
           state: state,
-          quantity: prev.quantity || 1,
+          quantity: quantity !== undefined ? quantity : (prev.quantity != null ? prev.quantity : null),
           actual: actual !== undefined ? actual : prev.actual
         };
         persist();
@@ -2785,7 +2786,7 @@
           var toggle = document.createElement('button');
           toggle.type = 'button';
           toggle.className = 'wiz-chip';
-          toggle.textContent = onBill ? 'Remove from build' : 'Add to build';
+          toggle.textContent = onBill ? 'Remove from build' : 'Equip';
           toggle.addEventListener('click', function () {
             commit(node.id, onBill ? 'skipped' : 'equipped');
             paint();
@@ -2933,9 +2934,9 @@
         });
         var head = el('div', 'wiz-cart-head');
         head.appendChild(el('p', 'wiz-level', settled.name));
-        var capText = budget.ceiling != null ? ' / $' + budget.ceiling : '';
-        head.appendChild(el('p', 'wiz-cart-total', 'Known $' + budget.known + capText));
         card.appendChild(head);
+        if (budget.ceiling != null) card.appendChild(el('p', '', 'Budget ceiling $' + budget.ceiling));
+        card.appendChild(el('p', 'wiz-cart-total', 'Known selected cost $' + budget.known));
         var nameLabel = el('label', 'wiz-price', 'Build name');
         var nameInput = document.createElement('input');
         nameInput.type = 'text';
@@ -2951,8 +2952,10 @@
         card.appendChild(truth);
         card.appendChild(el('p', '', 'Unpriced selected items: ' + budget.unpriced));
         if (budget.estimated != null) card.appendChild(el('p', '', 'Estimated complete build ~$' + budget.estimated + '. Not charged until you equip a part.'));
-        card.appendChild(el('p', '', 'Budget status: ' + budget.status.toUpperCase()));
         var ready = settled.readiness;
+        var pricingLabel = { incomplete: 'INCOMPLETE', priced: 'PRICED', over: 'OVER BUDGET' }[budget.status] || budget.status;
+        card.appendChild(el('p', '', 'PRICING STATUS: ' + pricingLabel));
+        card.appendChild(el('p', '', 'BUILD READINESS: ' + ready.percent + '%'));
         var readyRow = el('div', 'wiz-stat');
         readyRow.appendChild(el('span', '', 'Readiness'));
         var track = el('span', 'wiz-bar');
@@ -2966,7 +2969,9 @@
         Object.keys(settled.groups).forEach(function (group) {
           var row = el('div', 'wiz-cart-row');
           row.appendChild(el('span', '', group));
-          row.appendChild(el('span', '', settled.groups[group] === 'incomplete' ? 'unpriced' : ('$' + settled.groups[group])));
+          var bucket = settled.groups[group];
+          var groupText = bucket.unpriced ? ('$' + bucket.known + ' + ' + bucket.unpriced + ' unpriced') : ('$' + bucket.known);
+          row.appendChild(el('span', '', groupText));
           card.appendChild(row);
         });
         var count = settled.actualBuild.items.length;
@@ -3022,7 +3027,7 @@
           paint();
         });
         tool('Export', function () {
-          var blob = new Blob([JSON.stringify({ version: 1, answers: answers, name: record.name, items: record.items }, null, 2)], { type: 'application/json' });
+          var blob = new Blob([JSON.stringify({ version: 1, answers: answers, name: record.name, items: record.items, switchPlan: record.switchPlan || null }, null, 2)], { type: 'application/json' });
           var url = URL.createObjectURL(blob);
           var link = document.createElement('a');
           link.href = url;
@@ -3030,6 +3035,35 @@
           link.click();
           URL.revokeObjectURL(url);
         });
+        var file = document.createElement('input');
+        file.type = 'file';
+        file.accept = 'application/json';
+        file.hidden = true;
+        file.addEventListener('change', function () {
+          var picked = file.files && file.files[0];
+          if (!picked) return;
+          var reader = new FileReader();
+          reader.onload = function () {
+            var data = null;
+            try { data = JSON.parse(String(reader.result || '')); } catch (err) { data = null; }
+            var reason = acceptImport(data);
+            if (reason) {
+              window.alert(reason);
+              return;
+            }
+            Object.keys(answers).forEach(function (key) { delete answers[key]; });
+            Object.keys(data.answers).forEach(function (key) { answers[key] = data.answers[key]; });
+            record.name = data.name || '';
+            record.items = data.items;
+            record.switchPlan = data.switchPlan || null;
+            persist();
+            index = 999;
+            draw();
+          };
+          reader.readAsText(picked);
+        });
+        tool('Import', function () { file.click(); });
+        card.appendChild(file);
         card.appendChild(tools);
         if (old) rootEl.replaceChild(card, old);
         else {
@@ -3037,6 +3071,51 @@
           if (layout) rootEl.insertBefore(card, layout);
           else rootEl.insertBefore(card, rootEl.firstChild);
         }
+      }
+
+      function switchSizer() {
+        var box = el('div', '');
+        box.appendChild(el('h3', '', 'Size your switch'));
+        var saved = record.switchPlan || {};
+        function field(label, key) {
+          var wrap = el('label', 'wiz-price', label);
+          var input = document.createElement('input');
+          input.type = 'number';
+          input.min = '0';
+          input.step = '1';
+          input.value = saved[key] != null ? saved[key] : 0;
+          wrap.appendChild(input);
+          box.appendChild(wrap);
+          return input;
+        }
+        var wired = field('Wired devices', 'wired');
+        var cameras = field('PoE cameras', 'cameras');
+        var aps = field('Wi-Fi access points', 'aps');
+        var otherPoe = field('Other PoE devices', 'otherPoe');
+        var calc = document.createElement('button');
+        calc.type = 'button';
+        calc.className = 'wiz-chip';
+        calc.textContent = 'Calculate';
+        calc.addEventListener('mousedown', function (event) { event.preventDefault(); });
+        calc.addEventListener('click', function () {
+          record.switchPlan = sizeSwitch({
+            wired: Number(wired.value),
+            cameras: Number(cameras.value),
+            aps: Number(aps.value),
+            otherPoe: Number(otherPoe.value),
+            speed: '1',
+            uplink10: false
+          });
+          persist();
+          paint();
+        });
+        box.appendChild(calc);
+        if (saved.minimumPorts != null) {
+          box.appendChild(el('p', '', 'Minimum physical ports ' + saved.minimumPorts + '. Recommended ' + saved.recommendedPorts + '.'));
+          box.appendChild(el('p', '', 'PoE ports ' + saved.poePorts + '. Minimum PoE budget ' + saved.poeWatts + ' W. Recommended reserve ' + saved.poeReserveWatts + ' W.'));
+          box.appendChild(el('p', '', 'VLANs ' + (saved.vlans ? 'required' : 'not required from this count') + '.'));
+        }
+        return box;
       }
 
       function renderItem(node) {
@@ -3078,27 +3157,53 @@
         shop.textContent = 'Check PCPartPicker';
         box.appendChild(shop);
         var actions = el('div', 'wiz-actions');
+        var verbs = {
+          hardware: { take: 'Equip', taken: 'Equipped', own: 'I already own this', owned: 'Owned' },
+          optional: { take: 'Equip', taken: 'Equipped', own: 'I already own this', owned: 'Owned' },
+          architecture: { take: 'Select', taken: 'Selected' },
+          'free-software': { take: 'Install', taken: 'In use' },
+          'paid-software': { take: 'Add license', taken: 'Licensed' }
+        }[node.kind] || { take: 'Equip', taken: 'Equipped', own: 'I already own this', owned: 'Owned' };
         var add = document.createElement('button');
         add.type = 'button';
         add.className = 'wiz-chip';
-        add.textContent = itemState(node.id) === 'equipped' ? 'Equipped' : ('Add to build' + (card.floor ? (' — class floor $' + card.floor) : ''));
+        var equippedNow = itemState(node.id) === 'equipped';
+        add.textContent = equippedNow ? verbs.taken : (verbs.take + (node.kind === 'hardware' && card.floor ? (' — class floor $' + card.floor) : ''));
         add.addEventListener('mousedown', function (event) { event.preventDefault(); });
         add.addEventListener('click', function () {
           commit(node.id, 'equipped');
           paint();
         });
-        var own = document.createElement('button');
-        own.type = 'button';
-        own.className = 'wiz-chip';
-        own.textContent = itemState(node.id) === 'owned' ? 'Owned' : 'I already own this';
-        own.addEventListener('mousedown', function (event) { event.preventDefault(); });
-        own.addEventListener('click', function () {
-          commit(node.id, 'owned', null);
-          paint();
-        });
         actions.appendChild(add);
-        actions.appendChild(own);
+        if (verbs.own) {
+          var own = document.createElement('button');
+          own.type = 'button';
+          own.className = 'wiz-chip';
+          own.textContent = itemState(node.id) === 'owned' ? verbs.owned : verbs.own;
+          own.addEventListener('mousedown', function (event) { event.preventDefault(); });
+          own.addEventListener('click', function () {
+            commit(node.id, 'owned', null);
+            paint();
+          });
+          actions.appendChild(own);
+        }
+        if (node.offer && node.offer.qty > 1) {
+          var qtyLabel = el('label', 'wiz-price', 'Quantity');
+          var qtyInput = document.createElement('input');
+          qtyInput.type = 'number';
+          qtyInput.min = '1';
+          qtyInput.step = '1';
+          qtyInput.value = (record.items[node.id] && record.items[node.id].quantity) || node.offer.qty;
+          qtyInput.addEventListener('change', function () {
+            var nextQty = Math.max(1, Number(qtyInput.value) || node.offer.qty);
+            commit(node.id, itemState(node.id) || 'equipped', undefined, nextQty);
+            paint();
+          });
+          qtyLabel.appendChild(qtyInput);
+          actions.appendChild(qtyLabel);
+        }
         box.appendChild(actions);
+        if (node.id && node.id.indexOf('sw-') === 0) box.appendChild(switchSizer());
         return box;
       }
 
@@ -3289,11 +3394,94 @@
     return tag(card, 'free-software', { group: 'Software', name: card.title, dollars: 0 }, 'ready');
   }
 
+  var HDD_8TB = [
+    { id: 'st8000vn004', brand: 'Seagate', model: 'IronWolf 8TB', mpn: 'ST8000VN004', category: 'hdd', capacity_tb: 8, recording: 'CMR', interface: 'SATA', rpm: 7200, warranty_years: 3, workload: 'NAS', noise: 'home', price_per_unit: null },
+    { id: 'wd80efpx', brand: 'WD', model: 'Red Plus 8TB', mpn: 'WD80EFPX', category: 'hdd', capacity_tb: 8, recording: 'CMR', interface: 'SATA', rpm: 5640, warranty_years: 3, workload: 'NAS', noise: 'home', price_per_unit: null },
+    { id: 'wd8003ffbx', brand: 'WD', model: 'Red Pro 8TB', mpn: 'WD8003FFBX', category: 'hdd', capacity_tb: 8, recording: 'CMR', interface: 'SATA', rpm: 7200, warranty_years: 5, workload: 'NAS', noise: 'home', price_per_unit: null },
+    { id: 'st8000nm000a', brand: 'Seagate', model: 'Exos 8TB', mpn: 'ST8000NM000A', category: 'hdd', capacity_tb: 8, recording: 'CMR', interface: 'SATA', rpm: 7200, warranty_years: 5, workload: 'enterprise', noise: 'loud', price_per_unit: null },
+    { id: 'wd84purz', brand: 'WD', model: 'Purple 8TB', mpn: 'WD84PURZ', category: 'hdd', capacity_tb: 8, recording: 'CMR', interface: 'SATA', rpm: 5640, warranty_years: 3, workload: 'surveillance', noise: 'home', price_per_unit: null },
+    { id: 'wd-black-8tb', brand: 'WD', model: 'Black 8TB', mpn: null, category: 'hdd', capacity_tb: 8, recording: 'CMR', interface: 'SATA', rpm: 7200, warranty_years: 5, workload: 'desktop', noise: 'home', price_per_unit: null }
+  ];
+
+  function hddScores(drive) {
+    return {
+      warranty: drive.warranty_years >= 5 ? 100 : 60,
+      noise: drive.noise === 'loud' ? 35 : (drive.rpm <= 5700 ? 90 : 70),
+      performance: drive.rpm >= 7200 ? 80 : 55,
+      reliability: drive.workload === 'enterprise' ? 85 : (drive.workload === 'NAS' ? 80 : 40),
+      price: drive.price_per_unit
+    };
+  }
+
+  function scoreTrade(candidates, spec) {
+    var weights = (spec && spec.weights) || {};
+    var keys = Object.keys(weights).filter(function (key) {
+      return (candidates || []).some(function (row) { return row.scores && row.scores[key] != null; });
+    });
+    var sum = 0;
+    keys.forEach(function (key) { sum += Number(weights[key]) || 0; });
+    var rows = (candidates || []).map(function (row) {
+      var failed = ((spec && spec.mandatory) || []).filter(function (rule) { return !rule.pass(row); });
+      if (failed.length) return { id: row.id, name: row.model || row.name, result: 'Reject', score: 0, why: failed[0].text };
+      var score = 0;
+      if (sum) keys.forEach(function (key) { score += (row.scores[key] || 0) * weights[key]; });
+      return { id: row.id, name: row.model || row.name, result: 'Qualifies', score: sum ? Math.round(score / sum) : 0, why: '' };
+    });
+    var ranked = rows.filter(function (row) { return row.result === 'Qualifies'; }).sort(function (a, b) {
+      return b.score - a.score || String(a.name).localeCompare(String(b.name));
+    });
+    return { rows: rows, winner: ranked[0] || null, weightsUsed: keys };
+  }
+
+  function sizeSwitch(input) {
+    var src = input || {};
+    var wired = Math.max(0, Number(src.wired) || 0);
+    var cameras = Math.max(0, Number(src.cameras) || 0);
+    var aps = Math.max(0, Number(src.aps) || 0);
+    var other = Math.max(0, Number(src.otherPoe) || 0);
+    var minimumPorts = wired + cameras + aps + other + 2;
+    var sizes = [8, 16, 24, 48];
+    var recommendedPorts = sizes.filter(function (size) { return size >= minimumPorts; })[0] || minimumPorts;
+    var poePorts = cameras + aps + other;
+    var poeWatts = Math.round(poePorts * 15.4 * 10) / 10;
+    return {
+      wired: wired,
+      cameras: cameras,
+      aps: aps,
+      otherPoe: other,
+      speed: src.speed || '1',
+      uplink10: !!src.uplink10,
+      minimumPorts: minimumPorts,
+      recommendedPorts: recommendedPorts,
+      poePorts: poePorts,
+      poeWatts: poeWatts,
+      poeReserveWatts: Math.ceil(poeWatts * 1.25),
+      vlans: cameras > 0 || aps > 0
+    };
+  }
+
+  function acceptImport(data) {
+    if (!data || typeof data !== 'object' || Array.isArray(data)) return 'This file is not a lab build.';
+    if (data.version !== 1) return 'This file is not a version 1 lab build.';
+    if (!data.answers || typeof data.answers !== 'object' || Array.isArray(data.answers)) return 'This file has no saved answers.';
+    if (!data.items || typeof data.items !== 'object' || Array.isArray(data.items)) return 'This file has no saved items.';
+    var states = { recommended: 1, equipped: 1, owned: 1, skipped: 1 };
+    var ids = Object.keys(data.items);
+    for (var i = 0; i < ids.length; i++) {
+      var item = data.items[ids[i]];
+      if (!item || !states[item.state]) return 'An item has a state this version does not know.';
+      if (item.quantity != null && (!isFinite(Number(item.quantity)) || Number(item.quantity) < 1)) return 'An item has a bad quantity.';
+    }
+    return '';
+  }
+
   function driveStudy(storageGb, answers) {
     var a = answers || {};
     var cameraOnly = hasJob(a, 'smart') && !hasJob(a, 'files') && !hasJob(a, 'movies') && !hasJob(a, 'photos') && !hasJob(a, 'video');
     var big = Number(storageGb) >= 4000;
-    return {
+    var gb = Number(storageGb) || 0;
+    var eachTb = gb < 4000 ? 0 : (gb >= 16000 ? 8 : Math.max(4, Math.round(gb / 1000)));
+    var study = {
       title: 'Storage drive trade study',
       requirement: big
         ? 'A NAS drive in the size you picked. CMR. Rated to stay on. SATA. New, or used only if the listing shows the drive is healthy.'
@@ -3328,6 +3516,31 @@
         { name: 'WD Red, SMR and CMR', href: 'https://support-en.wd.com/app/answers/detailweb/a_id/29458', detail: 'Why the cheaper Red fails.' }
       ]
     };
+    if (eachTb === 8 && !cameraOnly) {
+      var scored = scoreTrade(HDD_8TB.map(function (drive) {
+        return { id: drive.id, model: drive.model, scores: hddScores(drive), drive: drive };
+      }), {
+        weights: { price: 30, warranty: 20, noise: 15, performance: 15, reliability: 20 },
+        mandatory: [
+          { text: 'CMR', pass: function (row) { return row.drive.recording === 'CMR'; } },
+          { text: 'SATA', pass: function (row) { return row.drive.interface === 'SATA'; } },
+          { text: '8TB', pass: function (row) { return row.drive.capacity_tb >= 8; } },
+          { text: 'NAS or enterprise workload', pass: function (row) { return row.drive.workload === 'NAS' || row.drive.workload === 'enterprise'; } }
+        ]
+      });
+      study.rows = scored.rows.map(function (row) {
+        var drive = HDD_8TB.filter(function (item) { return item.id === row.id; })[0];
+        return { name: row.name + (drive && drive.mpn ? ' ' + drive.mpn : ''), result: row.result, score: row.score, why: row.why };
+      });
+      study.decision = scored.winner ? scored.winner.name : study.decision;
+      study.why = [
+        scored.winner ? (scored.winner.name + ' wins the scored rows. Price is not in this score, because no checked offer is stored. A lower shelf price can change the buy.') : 'No drive passed the mandatory rows.',
+        'Mandatory rows are CMR, SATA, at least 8TB, and a NAS or enterprise workload. Purple is surveillance. Black is a desktop drive. Both fail that workload rule.',
+        'Exos passes and loses on noise. Red Pro’s 5-year warranty outscores the 3-year NAS drives when price is left out.'
+      ];
+      study.confidence = 'The score uses warranty, noise, performance, and workload. It does not use a shelf price.';
+    }
+    return study;
   }
 
   function ceilingOf(budget) {
@@ -3717,11 +3930,13 @@
       var saved = stored[node.id];
       var state = saved && saved.state ? saved.state : baseState(node);
       if (state !== 'recommended' && state !== 'equipped' && state !== 'owned' && state !== 'skipped') state = 'skipped';
+      var offerQty = node.offer && node.offer.qty ? node.offer.qty : 1;
+      var quantity = saved && saved.quantity ? saved.quantity : offerQty;
       var entry = {
         id: node.id,
         title: node.title,
         state: state,
-        quantity: saved && saved.quantity ? saved.quantity : 1,
+        quantity: quantity,
         ancestors: row.ancestors.map(function (parent) { return parent.id; }),
         slot: row.ancestors.length ? row.ancestors[row.ancestors.length - 1].title : node.title,
         group: (node.offer && node.offer.group) || 'Design',
@@ -3736,30 +3951,31 @@
       if (state === 'owned' || entry.kind === 'free' || entry.kind === 'design') amount = 0;
       else if (entry.actual != null) amount = entry.actual * entry.quantity;
       else if (entry.kind === 'planning') amount = entry.planning * entry.quantity;
+      if (!groups[entry.group]) groups[entry.group] = { known: 0, unpriced: 0 };
       if (amount == null) {
         unpriced += 1;
-        groups[entry.group] = 'incomplete';
+        groups[entry.group].unpriced += 1;
       } else {
         known += amount;
-        if (groups[entry.group] !== 'incomplete') groups[entry.group] = (groups[entry.group] || 0) + amount;
+        groups[entry.group].known += amount;
       }
     });
 
     var cap = tree && tree.model && tree.model.ceiling;
     var max = cap && cap.max != null ? cap.max : null;
-    var status = unpriced > 0 ? 'incomplete' : (max != null && known > max ? 'over' : 'complete');
-    var noun = unpriced === 1 ? 'item is' : 'items are';
+    var status = unpriced > 0 ? 'incomplete' : (max != null && known > max ? 'over' : 'priced');
+    var before = max == null ? null : (max - known);
     var line;
-    if (unpriced > 0 && max != null && known > max) line = 'Known selected cost already passes the band by $' + (known - max) + ', and ' + unpriced + ' selected ' + noun + ' not yet priced.';
-    else if (unpriced > 0 && max != null) line = 'At least $' + (max - known) + ' remains; ' + unpriced + ' selected ' + noun + ' not yet priced.';
-    else if (unpriced > 0) line = 'Final remaining: unknown. ' + unpriced + ' selected ' + noun + ' not yet priced.';
-    else if (max != null) line = 'Known remaining $' + (max - known) + '.';
+    if (unpriced > 0 && before != null && before < 0) line = 'Known selected cost is $' + (known - max) + ' over the ceiling, before unpriced items. Final remaining: UNKNOWN.';
+    else if (unpriced > 0 && before != null) line = '$' + before + ' remains before unpriced items. Final remaining: UNKNOWN.';
+    else if (unpriced > 0) line = 'Final remaining: UNKNOWN.';
+    else if (before != null && before < 0) line = '$' + (known - max) + ' over the ceiling.';
+    else if (before != null) line = 'Known remaining $' + before + '.';
     else line = 'This band has no ceiling. Known selected cost $' + known + '.';
 
-    var requiredTitles = { 'Case': 1, 'Motherboard': 1, 'CPU': 1, 'RAM': 1, 'PSU': 1, 'Boot drive': 1, 'Gateway': 1, 'RAID / ZFS': 1 };
     var slots = [];
     function collect(node) {
-      if (requiredTitles[node.title] && node.children && node.children.length) slots.push(node);
+      if (node.required && node.slotId && node.children && node.children.length) slots.push(node);
       (node.children || []).forEach(collect);
     }
     if (tree) collect(tree);
@@ -3768,7 +3984,7 @@
     slots.forEach(function (slot) {
       var ok = actual.some(function (item) { return item.ancestors.indexOf(slot.id) !== -1; });
       if (ok) filled += 1;
-      else missing.push(slot.title);
+      else missing.push(slot.slotId);
     });
     var unresolved = [];
     function findTitle(node, title) {
@@ -3805,10 +4021,12 @@
         estimated: tree && tree.model ? tree.model.recommended : null,
         status: status,
         line: line,
-        ceiling: max
+        ceiling: max,
+        beforeUnpriced: before,
+        finalRemaining: unpriced > 0 || before == null ? null : before
       },
       readiness: {
-        percent: slots.length ? Math.round((filled / slots.length) * 100) : 0,
+        percent: slots.length ? Math.round((filled / slots.length) * 100) : 100,
         filled: filled,
         required: slots.length,
         missing: missing,
@@ -3830,6 +4048,11 @@
     function nest(id, title, product) {
       product.level = 'L5';
       return branch(id, 'L4', title, [product]);
+    }
+    function req(node, slotId, required) {
+      node.slotId = slotId;
+      node.required = !!required;
+      return node;
     }
     var model = labModel(a, report);
     function hw(id, asm, pickTitle, status, floor, line, sections) {
@@ -3854,19 +4077,19 @@
         osOnServer
           ? nest(pick === 'proxmox' ? 'hypervisor' : 'host', pick === 'proxmox' ? 'Hypervisor' : 'Host', os)
           : nest('host', 'Host', leaf('server-os', 'L5', 'Server system', report.labLine || 'A second computer that stays on.', [])),
-        hw('case', 'Case', model.fit.case ? model.fit.case.name : 'Case', 'selected', 50, model.fit.case ? model.fit.case.plain : 'Match the board. A Micro-ATX case does not take an E-ATX board.'),
-          hw('board', 'Motherboard', model.fit.board ? model.fit.board.name : 'Motherboard', 'selected', 80, model.fit.board ? model.fit.board.plain : 'The board must match the CPU socket.', [
+        req(hw('case', 'Case', model.fit.case ? model.fit.case.name : 'Case', 'selected', 50, model.fit.case ? model.fit.case.plain : 'Match the board. A Micro-ATX case does not take an E-ATX board.'), 'case', true),
+          req(hw('board', 'Motherboard', model.fit.board ? model.fit.board.name : 'Motherboard', 'selected', 80, model.fit.board ? model.fit.board.plain : 'The board must match the CPU socket.', [
             note('Why', ['Socket, RAM generation, SATA count, and PCIe slots are decided here.'].concat(model.fit.lines.map(function (line) { return line.text; })), 'why'),
             { name: 'Check fit', slot: 'compare', lines: ['Six kinds of part. Green fits, red clashes, yellow needs a closer look.'], panel: 'build' },
             note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/', detail: 'Live price. A class floor is not a shelf price.' }], 'buy')
-          ]),
-          hw('cpu', 'CPU', model.fit.cpu ? model.fit.cpu.name : '65W class CPU', 'selected', 100, model.fit.cpu ? model.fit.cpu.plain : 'A 65W desktop CPU. The board has to use that socket.'),
+          ]), 'motherboard', true),
+          req(hw('cpu', 'CPU', model.fit.cpu ? model.fit.cpu.name : '65W class CPU', 'selected', 100, model.fit.cpu ? model.fit.cpu.plain : 'A 65W desktop CPU. The board has to use that socket.'), 'cpu', true),
           hw('cooler', 'CPU cooler', 'Included cooler', 'skip', 0, 'Use the cooler in the CPU box unless the case is too short for it.'),
-          hw('ram', 'RAM', model.fit.ram ? model.fit.ram.name : ((a.ram || 16) + ' GB'), 'selected', Number(a.ram) >= 64 ? 120 : (Number(a.ram) >= 32 ? 70 : 40), model.fit.ram ? model.fit.ram.plain : report.hardware.ram),
+          req(hw('ram', 'RAM', model.fit.ram ? model.fit.ram.name : ((a.ram || 16) + ' GB'), 'selected', Number(a.ram) >= 64 ? 120 : (Number(a.ram) >= 32 ? 70 : 40), model.fit.ram ? model.fit.ram.plain : report.hardware.ram), 'ram', true),
           hw('gpubom', 'GPU', model.fit.gpu ? model.fit.gpu.name : 'No extra card', model.fit.gpu && model.fit.gpu.id !== 'none' ? 'need' : 'skip', 0, model.fit.gpu ? model.fit.gpu.plain : report.hardware.gpuLabel),
-          hw('psu', 'PSU', model.fit.psu ? model.fit.psu.name : 'Power supply', 'selected', 60, model.fit.psu ? model.fit.psu.plain : 'Add the CPU watts, the card watts, and about 150 W.'),
-          hw('bootssd', 'Boot drive', 'NVMe boot', 'selected', 50, 'The system lives here. The pile does not.'),
-          hw('datadisks', 'Data drives', model.drives.decision, model.raid.disks > 1 ? 'selected' : 'skip', 150 * Math.max(1, model.raid.disks), model.raid.why),
+          req(hw('psu', 'PSU', model.fit.psu ? model.fit.psu.name : 'Power supply', 'selected', 60, model.fit.psu ? model.fit.psu.plain : 'Add the CPU watts, the card watts, and about 150 W.'), 'psu', true),
+          req(hw('bootssd', 'Boot drive', 'NVMe boot', 'selected', 50, 'The system lives here. The pile does not.'), 'boot', true),
+          hw('datadisks', 'Data drives', model.drives.decision, model.raid.disks > 1 ? 'selected' : 'skip', 150, model.raid.why),
           hw('nic', 'NIC', (model.switchPick.decision.indexOf('10') !== -1 || model.switchPick.decision.indexOf('2.5') !== -1) ? 'Faster NIC' : 'Onboard Ethernet', (model.switchPick.decision.indexOf('10') !== -1 || model.switchPick.decision.indexOf('2.5') !== -1) ? 'need' : 'skip', 0, 'Onboard Ethernet is enough until the switch study asks for more than 1 GbE.'),
           hw('wifi', 'Wi-Fi', 'Not required', 'skip', 0, 'A server should use a cable. Wi-Fi belongs on an access point.'),
           hw('sound', 'Sound', 'Not required', 'skip', 0, 'Not required on this lab box.'),
@@ -3939,12 +4162,16 @@
         note('Skip', ['Skip it on the first build.'], 'skip')
       ]), 'optional', null, 'skip'))
     ]));
-    storageKids.push(branch('layout', 'L3', 'RAID / ZFS', [
+    var layoutBranch = branch('layout', 'L3', 'RAID / ZFS', [
       layoutNode('Mirror pairs'),
       layoutNode('RAIDZ1'),
       layoutNode('RAIDZ2'),
       layoutNode('No RAID')
-    ]));
+    ]);
+    var needsLayout = hasJob(a, 'movies') || hasJob(a, 'photos') || hasJob(a, 'files') || hasJob(a, 'video') || Number(a.storage) >= 4000;
+    layoutBranch.slotId = 'storage-layout';
+    layoutBranch.required = needsLayout;
+    storageKids.push(layoutBranch);
     storageKids.push(branch('backup', 'L3', 'Backup', [
       nest('local-copy', 'Local second copy', tag(leaf('local-copy-pick', 'L5', 'Local second copy', 'A second disk in the same room. It survives one disk dying.', [
         note('Why', ['This is the minimum. It does not survive a fire.'], 'why'),
@@ -3973,14 +4200,17 @@
           note('Risks', ['Do not forward Proxmox, the NAS, Remote Desktop, or Home Assistant to the internet.'], 'risks')
         ]), 'architecture', offer, st));
       }
-      subsystems.push(branch('network', 'L2', 'Network', [
-        branch('gateway', 'L3', 'Gateway', [
+      var gatewayBranch = branch('gateway', 'L3', 'Gateway', [
           netPick('gate-isp', 'ISP router', 'ISP router', model.gateway.decision),
           netPick('gate-pro', 'Prosumer gateway', 'UniFi Dream Machine Pro', model.gateway.decision),
           netPick('gate-cloud', 'Cloud gateway', 'UniFi Cloud Gateway class', model.gateway.decision),
           netPick('gate-opn', 'Custom firewall', 'OPNsense appliance', model.gateway.decision),
           netPick('gate-omada', 'Omada', 'TP-Link Omada gateway', model.gateway.decision)
-        ]),
+        ]);
+      gatewayBranch.slotId = 'gateway';
+      gatewayBranch.required = true;
+      subsystems.push(branch('network', 'L2', 'Network', [
+        gatewayBranch,
         branch('switching', 'L3', 'Switching', [
           netPick('sw-un', 'Unmanaged', 'Unmanaged', model.switchPick.decision),
           netPick('sw-l2', 'Managed L2', 'Managed 1 GbE', model.switchPick.decision),
@@ -4083,6 +4313,10 @@
     checkParts: checkParts,
     labBreakdown: labBreakdown,
     settleBuild: settleBuild,
+    scoreTrade: scoreTrade,
+    sizeSwitch: sizeSwitch,
+    acceptImport: acceptImport,
+    hddCatalog: function () { return HDD_8TB; },
     mount: mount
   };
 });
