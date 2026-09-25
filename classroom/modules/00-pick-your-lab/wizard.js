@@ -2521,6 +2521,7 @@
       var root = labBreakdown(answers, report);
       var openIds = [root.id];
       var focus = null;
+      var cartOpen = false;
       var prices = {};
       var added = {};
       var dropped = {};
@@ -2679,6 +2680,7 @@
         if (statusLabel) tile.appendChild(el('span', 'wiz-open', statusLabel));
         if (node.level === 'L2' && onPath && openIds.length > 1) tile.appendChild(el('span', 'wiz-open', 'Open'));
         if (node.level === 'L2' && !onPath) tile.appendChild(el('span', 'wiz-cue', 'Explore >'));
+        tile.addEventListener('mousedown', function (event) { event.preventDefault(); });
         tile.addEventListener('click', function () {
           focus = null;
           if (samePath(ids, openIds)) {
@@ -2717,6 +2719,7 @@
               chip.type = 'button';
               chip.className = 'wiz-chip' + (focus && focus.key === group.key ? ' is-on' : '');
               chip.textContent = group.name + ' >';
+              chip.addEventListener('mousedown', function (event) { event.preventDefault(); });
               chip.addEventListener('click', function () {
                 focus = focus && focus.key === group.key ? null : group;
                 paint();
@@ -2783,54 +2786,67 @@
       }
 
       function paintBudget() {
-        renderSheet();
         var old = rootEl.querySelector('.wiz-budget');
         var card = el('aside', 'wiz-budget');
         var cap = root.model && root.model.ceiling;
-        card.appendChild(el('p', 'wiz-level', 'Your lab budget'));
-        card.appendChild(el('p', '', cap ? cap.label : 'Budget'));
         var groups = {};
         var known = 0;
-        var unpriced = 0;
+        var count = 0;
+        var lines = [];
         walk(root, []).forEach(function (node) {
           if (!onBill(node)) return;
+          if (node.offer.noteOnly) return;
           var group = node.offer.group || 'Other';
-          groups[group] = groups[group] || [];
+          groups[group] = groups[group] || 0;
           var dollars = lineDollars(node);
           var typed = prices[node.id] != null && prices[node.id] !== '';
-          if (dollars == null || isNaN(dollars)) unpriced += 1;
-          else if (!node.offer.noteOnly) known += dollars;
-          var money = node.offer.noteOnly ? 'not required, $0' : (dollars == null || isNaN(dollars) ? 'no class floor' : (typed ? '$' + dollars : 'class floor $' + dollars));
-          var qty = node.offer.qty || 1;
-          var stateWord = node.status === 'over' ? 'over budget' : (node.status === 'need' ? 'pending' : 'selected');
-          var tail = node.offer.noteOnly ? '' : (' ×' + qty + ' · ' + stateWord + ' · ' + (node.offer.retailer || 'PCPartPicker') + ' · ' + (node.offer.checked || 'Sep 24, 2026'));
-          groups[group].push(node.offer.name + ': ' + money + tail);
+          var amount = (dollars == null || isNaN(dollars)) ? 0 : dollars;
+          groups[group] += amount;
+          known += amount;
+          count += 1;
+          var money = (dollars == null || isNaN(dollars)) ? 'no class floor' : (typed ? '$' + dollars : 'class floor $' + dollars);
+          lines.push(group + ' · ' + node.offer.name + ' ×' + (node.offer.qty || 1) + ' · ' + money);
         });
-        Object.keys(groups).forEach(function (group) {
-          card.appendChild(el('h3', '', group));
-          groups[group].forEach(function (line) { card.appendChild(el('p', '', line)); });
+        var head = el('div', 'wiz-cart-head');
+        head.appendChild(el('p', 'wiz-level', 'Your lab'));
+        var capText = cap && cap.max != null ? ' / $' + cap.max : '';
+        head.appendChild(el('p', 'wiz-cart-total', '$' + known + capText));
+        card.appendChild(head);
+        if (cap && cap.max != null && known > cap.max) card.appendChild(el('p', 'wiz-cart-over', '⚠ $' + (known - cap.max) + ' over'));
+        else if (root.model && root.model.conflict) card.appendChild(el('p', 'wiz-cart-over', '⚠ Over this band'));
+        ['Server', 'Storage', 'Networking', 'Software'].concat(Object.keys(groups)).filter(function (group, index, all) {
+          return groups[group] != null && all.indexOf(group) === index;
+        }).forEach(function (group) {
+          var row = el('div', 'wiz-cart-row');
+          row.appendChild(el('span', '', group));
+          row.appendChild(el('span', '', '$' + groups[group]));
+          card.appendChild(row);
         });
-        card.appendChild(el('p', '', 'Class-floor total: $' + known));
-        if (root.model && root.model.forecast && root.model.forecast.length) {
-          card.appendChild(el('h3', '', 'If you spend more'));
-          root.model.forecast.forEach(function (rung) { card.appendChild(el('p', '', rung.line)); });
-        }
-        if (root.model && root.model.conflict) {
-          card.appendChild(el('h3', '', 'Budget conflict'));
-          root.model.conflict.lines.forEach(function (line) { card.appendChild(el('p', '', line)); });
-        } else if (cap && cap.max != null && unpriced === 0) {
-          card.appendChild(el('p', '', 'Remaining in the band: $' + (cap.max - known)));
-        }
-        card.appendChild(el('p', '', 'A class floor is budget math, dated Sep 24, 2026. It does not change when a store changes its price. Type the price you saw to replace it.'));
+        card.appendChild(el('p', 'wiz-cart-count', count + (count === 1 ? ' item selected' : ' items selected')));
         var view = document.createElement('button');
         view.type = 'button';
         view.className = 'wiz-chip';
-        view.textContent = 'View the build';
+        view.textContent = cartOpen ? 'Hide the build' : 'View the build';
+        view.addEventListener('mousedown', function (event) { event.preventDefault(); });
         view.addEventListener('click', function () {
-          focus = { key: 'summary', name: 'Your homelab build', items: [{ name: 'Build', slot: 'why', lines: (root.model && root.model.summary) || [] }] };
-          paint();
+          cartOpen = !cartOpen;
+          paintBudget();
         });
         card.appendChild(view);
+        if (cartOpen) {
+          var more = el('div', 'wiz-cart-more');
+          lines.forEach(function (line) { more.appendChild(el('p', '', line)); });
+          if (root.model && root.model.conflict) {
+            more.appendChild(el('h3', '', 'Budget conflict'));
+            root.model.conflict.lines.forEach(function (line) { more.appendChild(el('p', '', line)); });
+          }
+          if (root.model && root.model.forecast) {
+            more.appendChild(el('h3', '', 'If you spend more'));
+            root.model.forecast.forEach(function (rung) { more.appendChild(el('p', '', rung.line)); });
+          }
+          more.appendChild(el('p', '', 'A class floor is budget math, dated Sep 24, 2026. It does not change when a store changes its price. Type the price you saw to replace it.'));
+          card.appendChild(more);
+        }
         if (old) rootEl.replaceChild(card, old);
         else {
           var layout = rootEl.querySelector('.wiz-layout');
@@ -2839,33 +2855,18 @@
         }
       }
 
-      function renderSheet() {
-        var old = rootEl.querySelector('.wiz-sheet');
-        var sheet = root.sheet;
-        if (!sheet) return;
-        var box = el('section', 'wiz-sheet');
-        box.appendChild(el('p', 'wiz-level', 'Recommended build'));
-        box.appendChild(el('h2', '', sheet.klass));
-        box.appendChild(el('p', 'wiz-sheet-name', sheet.name));
-        var grid = el('div', 'wiz-slots');
-        sheet.slots.forEach(function (slot) {
-          var typed = prices[slot.id] != null && prices[slot.id] !== '';
-          var cell = el('div', 'wiz-slot' + (slot.status === 'over' ? ' is-over' : '') + (slot.noteOnly ? ' is-empty' : '') + (slot.status === 'need' ? ' is-open' : ''));
-          cell.appendChild(el('span', '', slot.slot));
-          cell.appendChild(el('strong', '', slot.item));
-          var money = slot.noteOnly ? 'Not equipped · $0' : (typed ? ('$' + prices[slot.id] + ' · price you saw') : (slot.floor == null ? 'No class floor yet' : ('Class floor $' + slot.floor + (slot.qty > 1 ? ' ×' + slot.qty : ''))));
-          var mark = slot.status === 'over' ? 'Locked by this band' : (slot.status === 'need' ? 'Open slot' : (slot.noteOnly ? 'Left empty on purpose' : 'Equipped'));
-          cell.appendChild(el('em', '', money + ' · ' + mark));
-          grid.appendChild(cell);
-        });
-        box.appendChild(grid);
-        if (sheet.traits && sheet.traits.length) box.appendChild(el('p', '', 'Passives: ' + sheet.traits.join(' · ')));
-        box.appendChild(el('p', 'wiz-sheet-source', sheet.priceNote));
-        if (old) rootEl.replaceChild(box, old);
-        else rootEl.insertBefore(box, rootEl.firstChild);
+      function restoreScroll(x, y) {
+        var html = document.documentElement;
+        var prev = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+        window.scrollTo(x, y);
+        html.style.scrollBehavior = prev;
       }
 
       function paint() {
+        var scrollX = window.scrollX;
+        var scrollY = window.scrollY;
+        rootEl.style.minHeight = rootEl.offsetHeight + 'px';
         rootEl.innerHTML = '';
         var layout = el('div', 'wiz-layout');
         var stage = el('div', 'wiz-stage');
@@ -2878,6 +2879,7 @@
           up.type = 'button';
           up.className = 'btn btn-ghost wiz-back';
           up.textContent = 'Back';
+          up.addEventListener('mousedown', function (event) { event.preventDefault(); });
           up.addEventListener('click', function () {
             focus = null;
             openIds = openIds.slice(0, -1);
@@ -2895,9 +2897,20 @@
           draw();
         });
         rootEl.appendChild(again);
-        var tip = rootEl.querySelector('.is-tip');
-        if (tip && openIds.length > 1) tip.scrollIntoView({ block: 'center', inline: 'center' });
         paintBudget();
+        restoreScroll(scrollX, scrollY);
+        var tip = rootEl.querySelector('.is-tip');
+        var nudged = false;
+        if (tip) {
+          var rect = tip.getBoundingClientRect();
+          var off = rect.bottom < 0 || rect.top > window.innerHeight;
+          if (off) {
+            nudged = true;
+            tip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+          }
+        }
+        rootEl.style.minHeight = '';
+        if (!nudged) requestAnimationFrame(function () { restoreScroll(scrollX, scrollY); });
       }
       paint();
     }
