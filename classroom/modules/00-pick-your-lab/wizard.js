@@ -98,6 +98,51 @@
       ],
       next: 'The next doll is a separate Ubuntu or Proxmox box for movies, backups, and Home Assistant. This computer stays the game desk.'
     },
+    esxi: {
+      name: 'VMware ESXi',
+      build: 'VMware closet boss',
+      plain: 'VMware’s hypervisor. One real computer runs smaller computers. You drive it from a web page in the house.',
+      why: 'ESXi is the VMware version of a closet boss, the same job as Proxmox. The old free ESXi license is not the current home path. A home lab usually picks Proxmox because it is free to use at home and the guides match. Pick ESXi when you already know VMware or a class requires it. Keep the web page inside the house.',
+      good: [
+        'A closet computer, not the desk you sit at for games.',
+        'Someone who already knows VMware from work or a class.',
+        'Guests that stay separate, so one broken job does not take the others.'
+      ],
+      poor: [
+        'A first home lab. Proxmox is the usual pick, and it is free for a house.',
+        '8 or 16 GB of memory. The boss plus the guests will feel cramped. 32 GB is the calm start.',
+        'The computer you play new games on.',
+        'Publishing the web page on the internet.'
+      ],
+      first: [
+        'Read VMware’s own product page before you erase a disk. Do not use a borrowed license.',
+        'Put ESXi on its own SSD. Put photos and movies on a different disk.',
+        'Open the web page only at home.'
+      ],
+      next: 'The next doll is Proxmox when you want the same job without a VMware license.'
+    },
+    virtualbox: {
+      name: 'VirtualBox',
+      build: 'One practice computer',
+      plain: 'A free program on the computer you already sit at. It runs one practice computer inside a window.',
+      why: 'VirtualBox is not a closet boss. Proxmox and ESXi take over the whole machine. VirtualBox sits on Windows, Linux, or a Mac and runs one guest so you can practice. It is the right shape when you still sit at the computer. It is the wrong shape for a box that stays on for the house.',
+      good: [
+        'One practice system while you keep your normal desk.',
+        'Learning what a virtual computer is before you build a closet server.',
+        'A guest you can throw away without erasing the computer you sit at.'
+      ],
+      poor: [
+        'A house server. Files, movies, and Home Assistant want a machine that stays on, running Ubuntu or Proxmox.',
+        'Many guests at once. That wants 32 GB and Proxmox or ESXi.',
+        'Apple silicon Macs, where many PC guests will not start. Read the VirtualBox download page before you count on it.'
+      ],
+      first: [
+        'Install VirtualBox from the official download page onto the system you already use.',
+        'Give the guest a disk file, not the only copy of your photos.',
+        'Keep the guest on the house network. Do not forward it to the internet.'
+      ],
+      next: 'The next doll is Proxmox or ESXi when the practice guest needs to become a closet computer that stays on.'
+    },
     omarchy: {
       name: 'Omarchy',
       build: 'Keyboard Linux desk',
@@ -383,35 +428,48 @@
 
   function flavorChoices(a) {
     var out = [];
+    var seen = {};
     function add(id) {
+      if (seen[id] || !FLAVORS[id]) return;
+      seen[id] = true;
       var item = FLAVORS[id];
-      out.push({ value: id, label: item.name, detail: item.plain });
+      var detail = item.plain;
+      if (id === 'proxmox' && Number(a.ram) > 0 && Number(a.ram) < 32) detail = 'Best at 32 GB or more. At ' + a.ram + ' GB the guests feel cramped. Ubuntu is calmer until then. Keep the web page inside the house.';
+      if (id === 'omarchy' && a.role === 'server') detail = 'A keyboard desk, not a closet server. A house box wants Ubuntu or Proxmox.';
+      else if (id === 'omarchy' && a.skill !== 'ok') detail = 'A keyboard-first Linux desk for someone who can fix an update. If Linux is new, start with Mint.';
+      if (id === 'esxi') detail = 'VMware’s hypervisor. The old free ESXi license is not the current home path. Proxmox is the usual home pick. Keep the web page inside the house.';
+      if (id === 'virtualbox' && a.role === 'server') detail = 'A program for one practice computer on a machine you sit at. A closet box wants Proxmox or Ubuntu.';
+      if (id === 'virtualbox' && a.side === 'mac') detail = 'One practice computer on the Mac. Apple silicon guests are limited. It is not Proxmox.';
+      out.push({ value: id, label: item.name, detail: detail });
     }
     if (a.side === 'win') {
       add('win');
       add('winpro');
+      add('virtualbox');
       return out;
     }
     if (a.side === 'mac') {
       if (a.role === 'server') {
         add('macmini');
+        add('virtualbox');
         return out;
       }
       add('mac');
       if (a.role === 'both' || a.skill === 'lab') add('maclab');
       if (a.role === 'everyday' && a.skill !== 'lab') add('macmini');
+      add('virtualbox');
       return out;
     }
     if (a.role !== 'server' && hasJob(a, 'games')) add('bazzite');
     if (a.role !== 'server') add('mint');
-    if (a.role !== 'server' && a.skill === 'ok') add('omarchy');
-    if (a.role !== 'everyday') {
-      add('ubuntu');
-      if (Number(a.ram) >= 32) add('proxmox');
-      var jobs = jobList(a);
-      var onlySmallJobs = jobs.length > 0 && jobs.every(function (id) { return id === 'smart' || id === 'learn'; });
-      if (Number(a.ram) <= 8 && a.skill === 'ok' && onlySmallJobs) add('alpine');
-    }
+    if (a.role !== 'everyday') add('ubuntu');
+    var jobs = jobList(a);
+    var onlySmallJobs = jobs.length > 0 && jobs.every(function (id) { return id === 'smart' || id === 'learn'; });
+    if (a.role !== 'everyday' && Number(a.ram) <= 8 && a.skill === 'ok' && onlySmallJobs) add('alpine');
+    add('omarchy');
+    add('proxmox');
+    add('esxi');
+    add('virtualbox');
     if (!out.length) add('mint');
     return out;
   }
@@ -435,6 +493,15 @@
       labLine = Number(a.ram) >= 32
         ? 'The lab box in this build is Proxmox, because 32 GB or more was on the table. The Mac stays macOS.'
         : 'The lab box in this build is Ubuntu Server or Debian. Step up to Proxmox only after that box has 32 GB.';
+    }
+    if (pick === 'proxmox' && Number(a.ram) < 32) {
+      labLine = 'Proxmox is on the list because you can choose it. ' + (Number(a.ram) || 16) + ' GB is tight. Leave 4 GB for Proxmox itself. Two small guests is the limit. Ubuntu Server is the calmer system until this box has 32 GB.';
+    }
+    if (pick === 'esxi') {
+      labLine = 'ESXi is VMware’s closet hypervisor. The old free license is not the current home path. Proxmox does this same job for a house. Keep the web page inside the house.';
+    }
+    if (pick === 'virtualbox') {
+      labLine = 'VirtualBox stays on the computer you sit at and runs one practice guest. It does not replace a closet server.';
     }
     var pickedJobs = jobList(a).map(function (id) { return JOB_LABELS[id] || id; });
     return {
@@ -479,8 +546,8 @@
     var ram = Number(a.ram) || 16;
     var card = gpuGb(a);
     var disk = Number(a.storage) || 0;
-    var server = pick === 'proxmox' || pick === 'ubuntu' || pick === 'alpine' || pick === 'macmini';
-    var desk = pick === 'win' || pick === 'winpro' || pick === 'mint' || pick === 'bazzite' || pick === 'omarchy' || pick === 'mac';
+    var server = pick === 'proxmox' || pick === 'ubuntu' || pick === 'alpine' || pick === 'macmini' || pick === 'esxi';
+    var desk = pick === 'win' || pick === 'winpro' || pick === 'mint' || pick === 'bazzite' || pick === 'omarchy' || pick === 'mac' || pick === 'virtualbox';
     var now = [];
     var later = [];
     function add(list, name, detail) { list.push(name + '. ' + detail); }
@@ -528,8 +595,25 @@
         'Do not put the only copy of family photos here.',
         'Add Ollama from Ollama’s own download if you want a local model. The OtaconsKeep Lite installer is not written for Arch.'
       ];
+    } else if (pick === 'esxi') {
+      use = 'Use VMware ESXi only if you already know VMware or a class requires it. It is a closet hypervisor, the same job as Proxmox. The old free ESXi license is not the current home path. Proxmox is the usual home pick. Drive ESXi from a web page inside the house. Do not publish that page on the internet, and do not use a borrowed license.';
+      setup = [
+        'Read VMware’s own product page before you erase a disk.',
+        'Install ESXi on its own SSD. Leave the big disks for files.',
+        'Open the web page only from inside the house.',
+        'If this is a first home lab, stop and use Proxmox instead.'
+      ];
+    } else if (pick === 'virtualbox') {
+      use = 'Keep the system you already sit at. Install VirtualBox from the official download page and run one practice computer in a window. VirtualBox is not Proxmox and it is not ESXi. Those take over a closet machine. This one stays a desk.';
+      setup = [
+        'Download VirtualBox from virtualbox.org. Do not use a repackaged installer.',
+        'Create one guest. Give it a disk file, not the only copy of your photos.',
+        'Keep the guest on the house network. Do not forward it to the internet.',
+        'When the practice guest needs to stay on for the house, move that job to Ubuntu or Proxmox.'
+      ];
     } else if (pick === 'proxmox') {
       use = 'Use Proxmox VE. It is free for a home. You drive it from a web page in the house. Each job gets its own small computer, called a guest. The host is Proxmox itself, and it must keep some memory.';
+      if (ram < 32) use += ' This box has ' + ram + ' GB. That is tight. Leave 4 GB for Proxmox. Two small guests is the limit. Ubuntu Server is calmer until you have 32 GB.';
       setup = ram >= 64
         ? [
           'Install Proxmox VE on its own SSD. Leave the big disks for files and movies.',
@@ -699,6 +783,12 @@
     } else if (pick === 'mint') {
       keep = 'OtaconsKeep Lite’s Linux installer is written for Ubuntu or Debian. Mint can follow the Ubuntu steps on the Lite page. If a step does not match, stop and use Ollama’s own download. Premium does not install Plex or the arr apps.';
       path.push('Try OtaconsKeep Lite from the Ubuntu steps on the Lite page. If the steps assume Ubuntu and yours do not match, install Ollama from Ollama’s download page instead.');
+    } else if (pick === 'esxi') {
+      keep = 'Do not install OtaconsKeep Lite on the ESXi host. Install Lite on the Windows computer you sit at, or inside an Ubuntu guest. The old free ESXi license is not the current home path. Proxmox is the usual home hypervisor.';
+      path.push('Leave the ESXi host as the boss. Install OtaconsKeep Lite on your Windows desk, or in one Ubuntu guest, when you want the Keep’s Ollama and Piper.');
+    } else if (pick === 'virtualbox') {
+      keep = 'VirtualBox is one practice guest on the computer you sit at. Install OtaconsKeep Lite on the Windows or Ubuntu host, not as a replacement for the guest. Do not publish the guest on the internet.';
+      path.push('Install VirtualBox from virtualbox.org on the desk you already use. Then install Lite on that same Windows or Ubuntu desk if you want the Keep.');
     } else if (pick === 'proxmox' || pick === 'maclab') {
       keep = 'Do not install OtaconsKeep Lite on the Proxmox host. Install Lite on the Windows computer you sit at, or inside an Ubuntu guest. Lite brings Ollama and Piper for the agents. Plex and the arr apps are separate. Premium does not install them.';
       path.push('Leave the Proxmox host as the boss. Install OtaconsKeep Lite on your Windows desk, or in one Ubuntu guest, when you want the Keep’s Ollama and Piper.');
@@ -765,9 +855,9 @@
 
     var liteHere = liteMachine
       ? 'On this computer, OtaconsKeep Lite is the installer that does Ollama and Piper for you.'
-      : (pick === 'proxmox' || pick === 'maclab'
-        ? 'On this build, do not put Lite on the Proxmox host. Put Lite on the Windows computer you sit at, or inside one Ubuntu guest.'
-        : (pick === 'omarchy' || pick === 'bazzite' || pick === 'alpine' || a.side === 'mac'
+      : (pick === 'proxmox' || pick === 'maclab' || pick === 'esxi'
+        ? 'On this build, do not put Lite on the hypervisor host. Put Lite on the Windows computer you sit at, or inside one Ubuntu guest.'
+        : (pick === 'omarchy' || pick === 'bazzite' || pick === 'alpine' || pick === 'virtualbox' || a.side === 'mac'
           ? 'Lite’s installer is Windows, and Ubuntu or Debian. It is the wrong installer for this system. Use the service lessons below on this computer, and use Lite only on a Windows or Ubuntu machine.'
           : 'Lite’s tested Linux path is Ubuntu or Debian. On Mint, follow the Ubuntu steps only while they match what you see. If a step does not match, stop and use the Ollama download instead.'));
 
@@ -1368,7 +1458,11 @@
     {
       id: 'flavor',
       title: 'Open the last layer',
-      hint: 'These are the real builds inside the side you chose. The other sides stay closed. Tap the one that should be yours.',
+      hintFor: function (a) {
+        if (a.side === 'linux') return 'The first one is the calmer pick. Proxmox, ESXi, VirtualBox, and Omarchy are on this list too. Read the line under each name. It says when that system is the right shape.';
+        if (a.side === 'win') return 'Windows Home or Pro is the desk. VirtualBox is a program on that desk for one practice computer. Proxmox and ESXi belong on a second closet computer, which is the Linux side.';
+        return 'The Mac stays the Mac. VirtualBox can run one practice computer on it. Proxmox is a lab box beside the Mac, not a system you install over macOS.';
+      },
       choicesFor: function (a) { return flavorChoices(a); }
     }
   ];
@@ -2069,6 +2163,7 @@
       rootEl.appendChild(el('p', 'wiz-progress', 'Layer ' + (index + 1) + ' of ' + steps.length));
       rootEl.appendChild(el('h2', 'wiz-title', field(step, answers, 'title')));
       rootEl.appendChild(el('p', 'wiz-hint', field(step, answers, 'hint') || ''));
+      if (index === 0) rootEl.appendChild(el('p', 'wiz-hint', 'These questions are Help me build it. Answer them in plain language. The last step fills the lab in and says why each part was picked.'));
       var list = el('div', 'wiz-choices');
       var picked = Array.isArray(answers[step.id]) ? answers[step.id] : [];
       choices.forEach(function (choice) {
@@ -2642,6 +2737,7 @@
       var openIds = [root.id];
       var focus = null;
       var cartOpen = false;
+      var helpOpen = false;
       var inspected = null;
       var inspectorTab = 'overview';
       var compareOpen = false;
@@ -2710,6 +2806,12 @@
         var box = el('section', 'wiz-card');
         box.appendChild(el('p', 'wiz-level', 'Trade study'));
         box.appendChild(el('h2', 'wiz-title', study.title));
+        if (study.decision) {
+          var verdict = el('section', 'wiz-insight');
+          verdict.appendChild(el('h3', '', 'Why this won'));
+          verdict.appendChild(el('p', '', study.decision + ' is the pick. ' + ((study.why && study.why[0]) || study.tradeoff || 'It is the row that passes the rules for this lab.')));
+          box.appendChild(verdict);
+        }
         box.appendChild(el('p', '', study.requirement));
         (study.rows || []).forEach(function (row) {
           var result = String(row.result || '');
@@ -2724,6 +2826,7 @@
             chips.appendChild(el('span', 'wiz-mini', String(bit)));
           });
           body.appendChild(chips);
+          if (row.why) body.appendChild(el('p', 'wiz-hud-line', row.why));
           if (row.score != null && !isNaN(Number(row.score))) {
             var track = el('span', 'wiz-bar');
             var fill = document.createElement('i');
@@ -2765,7 +2868,7 @@
           box.appendChild(el('p', '', req.id + '  ' + req.text + '  ' + req.result));
         });
         if (study.confidence) box.appendChild(el('p', '', 'Decision confidence: ' + study.confidence));
-        paintLines(box, study.why);
+        paintLines(box, (study.why || []).slice(study.decision ? 1 : 0));
         if (study.forecast && study.forecast.length) {
           box.appendChild(el('h3', '', 'If you spend more'));
           study.forecast.forEach(function (rung) { box.appendChild(el('p', '', rung.line)); });
@@ -2890,13 +2993,31 @@
         return null;
       }
 
+      function categoryFill(node) {
+        if (!node || (node.level !== 'L2' && node.level !== 'L3' && node.level !== 'L4')) return '';
+        var pending = [];
+        function collect(current) {
+          if (current !== node && (current.status === 'need' || current.status === 'recommended' || current.status === 'ready' || current.status === 'selected' || (current.required && current.slotId))) pending.push(current);
+          (current.children || []).forEach(collect);
+        }
+        collect(node);
+        function chosen(current) {
+          var state = itemState(current.id);
+          if (state === 'equipped' || state === 'owned') return true;
+          return (current.children || []).some(chosen);
+        }
+        if (!pending.length) return chosen(node) ? 'set' : '';
+        return pending.some(function (slot) { return !chosen(slot); }) ? 'gap' : 'set';
+      }
+
       function renderCol(node, ids) {
         var onPath = isPrefix(ids, openIds);
         var tip = samePath(ids, openIds);
         var col = el('div', 'wiz-col' + (onPath ? ' is-on-path' : ''));
         var tile = document.createElement('button');
         tile.type = 'button';
-        tile.className = 'wiz-tile' + (onPath ? ' is-on' : '') + (tip ? ' is-tip' : '');
+        var fill = categoryFill(node);
+        tile.className = 'wiz-tile' + (onPath ? ' is-on' : '') + (tip ? ' is-tip' : '') + (fill === 'gap' ? ' is-gap' : '') + (fill === 'set' ? ' is-set' : '');
         var tone = toneOf(ids, node);
         tile.className += ' tone-' + tone;
         if (pulseId === node.id) tile.className += ' is-pulse';
@@ -2907,6 +3028,8 @@
         tile.appendChild(el('strong', '', node.title));
         var mark = stateMark(node);
         if (mark) tile.appendChild(el('span', 'wiz-state', mark.mark + ' ' + mark.name));
+        if (fill === 'gap') tile.appendChild(el('span', 'wiz-fill is-gap', 'Missing'));
+        if (fill === 'set') tile.appendChild(el('span', 'wiz-fill is-set', 'Selected'));
         tile.addEventListener('mousedown', function (event) { event.preventDefault(); });
         tile.addEventListener('click', function () {
           focus = null;
@@ -3113,6 +3236,18 @@
           cartOpen = !cartOpen;
           paintBudget();
         });
+        var help = document.createElement('button');
+        help.type = 'button';
+        help.className = 'wiz-action-primary';
+        help.textContent = 'Help me build it';
+        help.addEventListener('mousedown', function (event) { event.preventDefault(); });
+        help.addEventListener('click', function () {
+          helpOpen = true;
+          compareOpen = false;
+          upgradeOpen = false;
+          paint();
+        });
+        card.appendChild(help);
         card.appendChild(view);
         if (cartOpen) {
           var more = el('div', 'wiz-cart-more');
@@ -3832,6 +3967,43 @@
         html.style.scrollBehavior = prev;
       }
 
+      function renderHelp() {
+        var box = el('div', 'wiz-workspace');
+        var bar = el('div', 'wiz-workspace-bar');
+        bar.appendChild(el('h2', '', 'Help me build it'));
+        bar.appendChild(actionButton('wiz-action-tertiary', 'Close', function () { helpOpen = false; paint(); }));
+        box.appendChild(bar);
+        box.appendChild(el('p', '', 'These are the answers in plain language, and the build they make. The first system on the last question is the calmer pick. You can change any part after this.'));
+        box.appendChild(el('p', '', report.profile.plain));
+        box.appendChild(el('p', '', report.because));
+        if (report.labLine) box.appendChild(el('p', '', report.labLine));
+        if (report.plan && report.plan.use) box.appendChild(el('p', '', report.plan.use));
+        var picks = [];
+        walk(root, []).forEach(function (node) {
+          if (!node.kind) return;
+          if (node.status === 'recommended' || node.status === 'ready' || node.status === 'selected' || node.status === 'need') picks.push(node);
+        });
+        box.appendChild(el('h3', '', 'What gets filled in'));
+        picks.forEach(function (node) {
+          var why = node.product && node.product.why ? node.product.why : (node.line || '');
+          box.appendChild(el('p', 'wiz-hud-line', node.title + (why ? ' — ' + why : '')));
+        });
+        box.appendChild(actionButton('wiz-action-primary', 'Use this build', function () {
+          picks.forEach(function (node) { commit(node.id, 'equipped'); });
+          helpOpen = false;
+          paint();
+        }));
+        box.appendChild(actionButton('wiz-action-secondary', 'Ask me again', function () {
+          answers = {};
+          index = 0;
+          record = { version: 1, name: '', items: {} };
+          try { localStorage.removeItem(STORAGE_KEY); } catch (err) { /* ignore */ }
+          helpOpen = false;
+          draw();
+        }));
+        return box;
+      }
+
       function paint() {
         var scrollX = window.scrollX;
         var scrollY = window.scrollY;
@@ -3843,7 +4015,11 @@
         layout.appendChild(stage);
         if (inspected) layout.appendChild(renderItem(inspected));
         rootEl.appendChild(layout);
-        if (compareOpen) {
+        if (helpOpen) {
+          var helpShade = el('div', 'wiz-overlay');
+          helpShade.appendChild(renderHelp());
+          rootEl.appendChild(helpShade);
+        } else if (compareOpen) {
           var shade = el('div', 'wiz-overlay');
           shade.appendChild(renderCompare());
           rootEl.appendChild(shade);
@@ -4237,7 +4413,7 @@
       ],
       confidence: 'High. Both qualifying drives meet every mandatory rule. The winner between them is whichever has the lower price on the seller page.',
       why: [
-        'Both pass the mandatory checks: CMR, a NAS workload rating, and at least a 3-year warranty.',
+        'IronWolf and Red Plus both pass CMR, a NAS rating, and a 3-year warranty. Buy the cheaper one on the day you look. Red Pro is the pick only when you want the 5-year warranty, because this page has no checked price to break the tie.',
         'Buy the one with the lower price on the day you look. This page does not invent that dollar.',
         'Plain WD Red in the 2 TB to 6 TB sizes fails CMR. Western Digital says many of those drives used SMR, and a rebuild does not give an SMR drive the idle time it wants. The lower sticker is how that price goes wrong.',
         'WD Black fails the NAS duty rating. WD Purple is for cameras, so it wins only when the lab is cameras and not a file pile. Exos passes, and it is louder than a house wants.'
@@ -4267,7 +4443,7 @@
       });
       study.decision = scored.winner ? scored.winner.name : study.decision;
       study.why = [
-        scored.winner ? (scored.winner.name + ' wins the scored rows. Price is not in this score, because no checked offer is stored. A lower shelf price can change the buy.') : 'No drive passed the mandatory rows.',
+        scored.winner ? (scored.winner.name + ' wins because price is not checked, so the 5-year warranty and the 7200 rpm score beat the 3-year NAS drives. A lower shelf price on IronWolf or Red Plus can change the buy.') : 'No drive passed the mandatory rows.',
         'Mandatory rows are CMR, SATA, at least 8TB, and a NAS or enterprise workload. Purple is surveillance. Black is a desktop drive. Both fail that workload rule.',
         'Exos passes and loses on noise. Red Pro’s 5-year warranty outscores the 3-year NAS drives when price is left out.'
       ];
@@ -4366,6 +4542,7 @@
       ],
       confidence: 'High. The highest score that still passes the mandatory rows wins.',
       why: [
+        decision + ' wins because it is the highest score that still passes VLANs and “you can run it,” and it still fits this budget band. ' + (ideal !== decision ? (ideal + ' scores higher and costs a class floor of $' + floorOf[ideal] + ', which this band does not hold.') : 'It is also the requirements winner when the band is ignored.'),
         'ISP router, class floor $0. It unlocks internet on one network. It does not unlock VLANs, PoE, or a controller. Keep it when the house can stay flat.',
         'TP-Link Omada, class floor $150. It unlocks VLANs in the Omada app. Buy the Omada switch and the Omada access point later so they share that app. It does not unlock UniFi gear.',
         'OPNsense, class floor $200. It unlocks VLANs and firewall rules you own. It does not include Wi-Fi or PoE. This rung is only open when you can fix a bad rule. The switch brand then follows the access point, not the firewall.',
@@ -4442,6 +4619,7 @@
       ],
       confidence: 'High. The smallest class that passes every required row wins.',
       why: [
+        decision + ' wins because it is the smallest switch class that passes every required row for this house. A bigger class does not win just because it is faster.',
         'A managed switch is for separate networks, not only for "one cable, two networks." People, cameras, guests, and the server should not all sit on one flat LAN.',
         'PoE means the switch feeds power down the cable. Add the device watts. The switch total is smaller than the maximum per port times every port. About 15.4 W for 802.3af, about 30 W for 802.3at.',
         'If PoE and a fast uplink are both wanted, buy the PoE switch for the edge. A 10 GbE link between the server and the NAS can be a later, separate cable. Do not skip PoE to chase 10 GbE.',
@@ -4773,7 +4951,7 @@
     var a = answers || {};
     report = report || explain(a);
     var pick = report.pick;
-    var serverPick = pick === 'proxmox' || pick === 'ubuntu' || pick === 'alpine' || pick === 'macmini';
+    var serverPick = pick === 'proxmox' || pick === 'ubuntu' || pick === 'alpine' || pick === 'macmini' || pick === 'esxi';
     var wantServer = a.role === 'server' || a.role === 'both' || serverPick || pick === 'maclab';
     var wantDesk = a.role !== 'server' || a.role === 'both' || !serverPick;
     if (a.role === 'server' && serverPick) wantDesk = false;
@@ -4957,7 +5135,10 @@
       storageKids.push(branch('bulk', 'L3', 'Bulk storage', [
         (function () {
           var camera = model.drives.decision.indexOf('Purple') !== -1;
-          var mainName = camera ? 'WD Purple 8TB' : 'Seagate IronWolf 8TB';
+          var winnerDrive = HDD_8TB.filter(function (drive) {
+            return String(model.drives.decision || '').indexOf(drive.model) !== -1;
+          })[0];
+          var mainName = winnerDrive ? (winnerDrive.brand + ' ' + winnerDrive.model) : (camera ? 'WD Purple 8TB' : 'Seagate IronWolf 8TB');
           var slot = nest('drives', 'Hard drives', tag(leaf('drive-pick', 'L5', mainName, 'CMR disks for the pile. The system stays on the SSD.', [
             note('Why', ['The NAS holds the large files. The server runs the apps.'], 'why'),
             note('Compare', ['Same house network as the desk. Do not forward the admin page to the internet.'], 'compare'),
@@ -4967,7 +5148,7 @@
           var alts = HDD_8TB.filter(function (drive) { return drive.workload !== 'desktop'; }).map(function (drive) {
             return namedProduct(drive.id, drive.brand + ' ' + drive.model, drive.capacity_tb + ' TB · ' + drive.recording + ' · ' + drive.rpm + ' rpm · ' + drive.warranty_years + ' year warranty', drive.model + ' is a named 8 TB disk in the lab catalog. ' + drive.recording + ', ' + drive.workload + '.', drive.workload === 'surveillance' ? 'Purple is for cameras. It is the wrong disk for a ZFS or RAID file shelf.' : 'The shelf price is not checked.');
           });
-          return decorateSlot(slot, namedProduct(camera ? 'wd84purz' : 'st8000vn004', mainName, camera ? '8 TB · CMR · surveillance' : '8 TB · CMR · NAS', model.drives.decision, 'RAID is not a backup.'), alts);
+          return decorateSlot(slot, namedProduct(winnerDrive ? winnerDrive.id : (camera ? 'wd84purz' : 'st8000vn004'), mainName, winnerDrive ? (winnerDrive.capacity_tb + ' TB · ' + winnerDrive.recording + ' · ' + winnerDrive.workload) : (camera ? '8 TB · CMR · surveillance' : '8 TB · CMR · NAS'), (model.drives.why && model.drives.why[0]) || model.drives.decision, 'RAID is not a backup. A lower shelf price can change which qualifying drive you buy.'), alts);
         })(),
         nest('cmr', 'CMR', tag(leaf('cmr-pick', 'L5', 'CMR', 'Conventional recording. The kind a rebuild can finish.', [note('Why', ['IronWolf, Red Plus, Red Pro, and Exos are CMR.'], 'why')]), 'architecture', null, 'recommended')),
         nest('smr', 'SMR', tag(leaf('smr-pick', 'L5', 'SMR', 'Shingled recording. Cheaper, and a poor fit for a RAID rebuild.', [note('Why', ['Plain WD Red in the 2 TB to 6 TB sizes often used SMR. That fails this lab.'], 'why')]), 'architecture', null, 'skip')),
