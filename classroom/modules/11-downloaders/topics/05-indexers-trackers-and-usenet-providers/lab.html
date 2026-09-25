@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05-indexers-trackers-and-usenet-providers: Lab · Classroom</title>
+<meta name="description" content="05-indexers-trackers-and-usenet-providers: Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/11-downloaders/topics/05-indexers-trackers-and-usenet-providers/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M11 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M11 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 05-indexers-trackers-and-usenet-providers: Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Download Clients &amp; Indexers<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Differentiate a Usenet indexer, Usenet provider, torrent indexer, BitTorrent tracker, download client, and automation application.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Basic understanding of client-server networking and HTTPS</li>
+<li>Basic familiarity with JSON configuration files</li>
+<li>Ability to run shell commands and Python 3</li>
+<li>Conceptual familiarity with download clients and media automation applications</li>
+<li>A lab environment in which /opt/lab-classroom/class53/ is writable</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>name</h4><p>Classify synthetic discovery and transfer services</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Classify synthetic discovery and transfer services</div>
+ 
+</div></div><div class="cr-lab-path"><h4>objective</h4><p>Create a local service catalog, classify each component, and generate a policy report without making any network requests.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create a local service catalog, classify each component, and generate a policy report without making any network requests.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>scope_rule</h4><p>Every file created, modified, or removed by this lab is under /opt/lab-classroom/class53/. The supplied evaluator uses only Python standard-library modules and does not contact external systems.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Every file created, modified, or removed by this lab is under /opt/lab-classroom/class53/.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Create the isolated lab and output directories.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the isolated lab and output directories.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>mkdir -p /opt/lab-classroom/class53/output</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: mkdir -p /opt/lab-classroom/class53/output</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Create a synthetic catalog. The names describe fictional lab components and are not provider recommendations.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create a synthetic catalog.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cat &gt; /opt/lab-classroom/class53/catalog.json &lt;&lt;'EOF'<br />
+[<br />
+  {<br />
+    "name": "Synthetic Usenet Catalog",<br />
+    "role": "usenet_indexer",<br />
+    "transport": "https",<br />
+    "authentication": "api_key",<br />
+    "returns": "nzb",<br />
+    "authorized_content_only": true<br />
+  },<br />
+  {<br />
+    "name": "Synthetic NNTP Access",<br />
+    "role": "usenet_provider",<br />
+    "transport": "nntps",<br />
+    "authentication": "account_secret",<br />
+    "returns": "article_bodies",<br />
+    "authorized_content_only": true<br />
+  },<br />
+  {<br />
+    "name": "Synthetic Torrent Catalog",<br />
+    "role": "torrent_indexer",<br />
+    "transport": "https",<br />
+    "authentication": "api_key",<br />
+    "returns": "torrent_metadata",<br />
+    "authorized_content_only": true<br />
+  },<br />
+  {<br />
+    "name": "Synthetic Peer Coordinator",<br />
+    "role": "torrent_tracker",<br />
+    "transport": "https",<br />
+    "authentication": "none",<br />
+    "returns": "peer_information",<br />
+    "authorized_content_only": true<br />
+  }<br />
+]<br />
+EOF</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cat &gt; /opt/lab-classroom/class53/catalog.json &lt;&lt;&#x27;EOF&#x27;
+[
+  {
+    &quot;name&quot;: &quot;Synthetic Usenet Catalog&quot;,
+    &quot;role&quot;: &quot;usenet_indexer&quot;,
+    &quot;transport&quot;: &quot;https&quot;,
+ …</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Create the offline evaluator. It validates allowed roles, checks transport and policy fields, and records the dependency associated with each role.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the offline evaluator.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cat &gt; /opt/lab-classroom/class53/evaluate.py &lt;&lt;'PY'<br />
+import json<br />
+from pathlib import Path</p>
+<p>root = Path('/opt/lab-classroom/class53')<br />
+source = root / 'catalog.json'<br />
+destination = root / 'output' / 'recommendations.json'</p>
+<p>rules = {<br />
+    'usenet_indexer': {<br />
+        'expected_return': 'nzb',<br />
+        'dependency': 'usenet_provider and usenet_download_client',<br />
+        'purpose': 'discovery'<br />
+    },<br />
+    'usenet_provider': {<br />
+        'expected_return': 'article_bodies',<br />
+        'dependency': 'usenet_download_client',<br />
+        'purpose': 'transfer infrastructure'<br />
+    },<br />
+    'torrent_indexer': {<br />
+        'expected_return': 'torrent_metadata',<br />
+        'dependency': 'bittorrent_client',<br />
+        'purpose': 'discovery'<br />
+    },<br />
+    'torrent_tracker': {<br />
+        'expected_return': 'peer_information',<br />
+        'dependency': 'bittorrent_client and participating peers',<br />
+        'purpose': 'peer coordination'<br />
+    }<br />
+}</p>
+<p>records = json.loads(source.read_text(encoding='utf-8'))<br />
+report = []<br />
+for record in records:<br />
+    role = record.get('role')<br />
+    findings = []<br />
+    rule = rules.get(role)<br />
+    if rule is None:<br />
+        findings.append('unknown role')<br />
+    else:<br />
+        if record.get('returns') != rule['expected_return']:<br />
+            findings.append('returned artifact does not match role')<br />
+        if record.get('transport') not in {'https', 'nntps'}:<br />
+            findings.append('encrypted transport not declared')<br />
+        if record.get('authorized_content_only') is not True:<br />
+            findings.append('authorization policy not affirmed')<br />
+    report.append({<br />
+        'name': record.get('name'),<br />
+        'role': role,<br />
+        'purpose': rule['purpose'] if rule else 'unknown',<br />
+        'dependency': rule['dependency'] if rule else 'manual review',<br />
+        'status': 'pass' if not findings else 'review',<br />
+        'findings': findings<br />
+    })</p>
+<p>destination.parent.mkdir(parents=True, exist_ok=True)<br />
+destination.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')<br />
+print(f'Wrote {len(report)} classified records to {destination}')<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cat &gt; /opt/lab-classroom/class53/evaluate.py &lt;&lt;&#x27;PY&#x27;
+import json
+from pathlib import Path
+
+root = Path(&#x27;/opt/lab-classroom/class53&#x27;)
+source = root / &#x27;catalog.…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Run the evaluator. It reads and writes only within the class directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run the evaluator.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 /opt/lab-classroom/class53/evaluate.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 /opt/lab-classroom/class53/evaluate.py</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Inspect the generated policy report.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inspect the generated policy report.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 -m json.tool /opt/lab-classroom/class53/output/recommendations.json</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 -m json.tool /opt/lab-classroom/class53/output/recommendations.json</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Confirm that each synthetic component passed and that discovery roles are distinct from transfer or coordination roles.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Confirm that each synthetic component passed and that discovery roles are distinct from transfer or coordination roles.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 -c "import json; from pathlib import Path; p=Path('/opt/lab-classroom/class53/output/recommendations.json'); data=json.loads(p.read_text()); assert len(data)==4; assert all(x['status']=='pass' for x in data); assert {x['purpose'] for x in data}=={'discovery','transfer infrastructure','peer coordination'}; print('Class 53 verification passed')"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 -c &quot;import json; from pathlib import Path; p=Path(&#x27;/opt/lab-classroom/class53/output/recommendations.json&#x27;); data=json.loads(p.read_text()); assert l…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>extension</h4><p>Make one reversible edit inside catalog.json, such as changing the synthetic tracker transport from https to http, rerun the evaluator, and observe that its status becomes review. Restore https and rerun the verification command. Do not add real service addresses or credentials.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Make one reversible edit inside catalog.json, such as changing the synthetic tracker transport from https to http, rerun the evaluator, and observe that its …</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The evaluator reports that it wrote four classified records.</li>
+<li>The generated recommendations.json file contains two discovery records, one transfer-infrastructure record, and one peer-coordination record.</li>
+<li>The Usenet indexer record depends on both a Usenet provider and a Usenet download client.</li>
+<li>The Usenet provider record returns article bodies rather than NZB metadata.</li>
+<li>The torrent indexer record returns torrent metadata and depends on a BitTorrent client.</li>
+<li>The tracker record returns peer information and is classified as peer coordination rather than content hosting.</li>
+<li>All four unmodified synthetic records have a status of pass and an empty findings array.</li>
+<li>The final assertion prints Class 53 verification passed.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run: python3 -m json.tool /opt/lab-classroom/class53/catalog.json</li>
+<li>[ ] Run: python3 -m json.tool /opt/lab-classroom/class53/output/recommendations.json</li>
+<li>[ ] Run: python3 -c "import json; from pathlib import Path; d=json.loads(Path('/opt/lab-classroom/class53/output/recommendations.json').read_text()); print([(x['role'], x['purpose'], x['status']) for x in d])"</li>
+<li>[ ] Verify that usenet_indexer maps to discovery and expects NZB metadata.</li>
+<li>[ ] Verify that usenet_provider maps to transfer infrastructure and expects article bodies.</li>
+<li>[ ] Verify that torrent_indexer maps to discovery while torrent_tracker maps to peer coordination.</li>
+<li>[ ] Run the step 6 assertion and confirm that it exits successfully.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - [ ] Run: python3 -m json.tool /opt/lab-classroom/class53/catalog.json
+- [ ] Run: python3 -m json.tool /opt/lab-classroom/class53/output/recommendations.jso…</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mkdir reports permission denied.</td>
+<td>The current lab account is not allowed to create directories under /opt/lab-classroom.</td>
+<td>Use the classroom account or environment that has been delegated access to /opt/lab-classroom. Do not redirect the exercise to an unrelated production path.</td>
+</tr>
+<tr>
+<td>python3 is not found.</td>
+<td>Python 3 is absent from the lab image or is not available through the current command search path.</td>
+<td>Use a compatible lab image with Python 3 preinstalled. Do not install system packages as part of this exercise because that would mutate locations outside the permitted class directory.</td>
+</tr>
+<tr>
+<td>The evaluator reports invalid JSON.</td>
+<td>The catalog heredoc was copied incompletely, contains a missing comma, or contains typographic quotation marks.</td>
+<td>Recreate catalog.json exactly as shown and validate it with python3 -m json.tool before rerunning the evaluator.</td>
+</tr>
+<tr>
+<td>A record has status review and the finding says encrypted transport not declared.</td>
+<td>The transport field was changed to a value other than https or nntps.</td>
+<td>Restore the synthetic transport appropriate to the role, then rerun evaluate.py.</td>
+</tr>
+<tr>
+<td>A record has status review and the finding says returned artifact does not match role.</td>
+<td>The service role and returns fields describe incompatible responsibilities.</td>
+<td>Use nzb for usenet_indexer, article_bodies for usenet_provider, torrent_metadata for torrent_indexer, or peer_information for torrent_tracker.</td>
+</tr>
+<tr>
+<td>A real automation application can search but cannot download.</td>
+<td>Discovery succeeded, but the download client, provider authentication, peer discovery, category mapping, or transfer path failed.</td>
+<td>Test each boundary separately. Confirm the client API, then provider or peer connectivity, then category and path mapping. Do not treat a successful search as proof of transfer availability.</td>
+</tr>
+<tr>
+<td>Usenet jobs fail with missing articles.</td>
+<td>The selected provider may not have every referenced article, or the NZB may describe an incomplete posting.</td>
+<td>Confirm that the metadata is valid and that the content is authorized. Review provider availability and the client's completion logs without exposing credentials.</td>
+</tr>
+<tr>
+<td>A torrent remains idle even though metadata was accepted.</td>
+<td>No reachable peers are available, tracker communication failed, DHT is unavailable or disallowed, or the torrent is no longer active.</td>
+<td>Inspect client status and peer-discovery messages. Metadata acceptance proves only that the client understood the job; it does not guarantee available peers.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>credential_handling</h4><p>Store indexer, provider, and client API secrets in the application's secret mechanism rather than in shared examples or source control.<br />
+Use different credentials for different trust boundaries when the service supports that model.<br />
+Rotate any credential exposed in logs, screenshots, shell history, or support bundles.<br />
+Redact query strings and headers because some APIs place tokens in URLs or authorization headers.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>transport</h4><p>Prefer encrypted HTTPS for indexer and client APIs.<br />
+Prefer NNTP protected by TLS when communicating with a Usenet provider.<br />
+Validate certificates rather than disabling certificate verification to conceal a trust problem.<br />
+Understand that BitTorrent peers can observe participating peer addresses even when control-plane services use HTTPS.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>service_exposure</h4><p>Do not publish download-client administration interfaces directly to untrusted networks.<br />
+Require authentication on local service APIs and restrict which automation applications may reach them.<br />
+Separate untrusted download staging from curated libraries.<br />
+Treat imported archives, media containers, subtitles, scripts, and metadata as untrusted input.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>legal_and_policy</h4><p>Use indexers, providers, trackers, and peers only for material you are authorized to access or distribute. Encryption, private membership, or a paid subscription does not replace authorization and does not override service terms or applicable law.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Use indexers, providers, trackers, and peers only for material you are authorized to access or distribute.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>lab_assurance</h4><p>The lab uses fictional records, performs no network operations, contains no real credentials, and confines all mutations to /opt/lab-classroom/class53/.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The lab uses fictional records, performs no network operations, contains no real credentials, and confines all mutations to /opt/lab-classroom/class53/.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>purpose</h4><p>Remove only the files and directories created by this class.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Remove only the files and directories created by this class.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>precheck</h4><p>Inspect the target with: find /opt/lab-classroom/class53 -maxdepth 2 -print</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inspect the target with: find /opt/lab-classroom/class53 -maxdepth 2 -print</div>
+ 
+</div></div><div class="cr-prose-block"><h4>command</h4><p>python3 -c "from pathlib import Path; root=Path('/opt/lab-classroom/class53').resolve(); expected=Path('/opt/lab-classroom/class53'); assert root==expected; files=[root/'output/recommendations.json',root/'evaluate.py',root/'catalog.json']; [p.unlink() for p in files if p.is_file()]; out=root/'output'; out.rmdir() if out.exists() and not any(out.iterdir()) else None; root.rmdir() if root.exists() and not any(root.iterdir()) else None"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 -c &quot;from pathlib import Path; root=Path(&#x27;/opt/lab-classroom/class53&#x27;).resolve(); expected=Path(&#x27;/opt/lab-classroom/class53&#x27;); assert root==expected; …</div>
+ 
+</div></div><div class="cr-prose-block"><h4>postcheck</h4><p>Run: test ! -e /opt/lab-classroom/class53 &amp;&amp; echo 'Class 53 artifacts removed' || find /opt/lab-classroom/class53 -maxdepth 2 -print</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run: test !</div>
+ 
+</div></div><div class="cr-prose-block"><h4>note</h4><p>The cleanup intentionally stops if unexpected content prevents a directory from being removed. Inspect unexpected content rather than broadening the deletion scope.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The cleanup intentionally stops if unexpected content prevents a directory from being removed.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

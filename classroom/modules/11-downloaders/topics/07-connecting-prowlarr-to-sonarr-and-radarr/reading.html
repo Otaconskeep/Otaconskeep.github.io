@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07-connecting-prowlarr-to-sonarr-and-radarr: Reading · Classroom</title>
+<meta name="description" content="07-connecting-prowlarr-to-sonarr-and-radarr: Reading">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/11-downloaders/topics/07-connecting-prowlarr-to-sonarr-and-radarr/reading.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M11 READING<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M11 READING<small>reading</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 07-connecting-prowlarr-to-sonarr-and-radarr: Reading</h1>
+ <p class="lede">Learn: instruction, vocabulary, worked example.</p>
+ 
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Download Clients &amp; Indexers<br />
+<strong>Activity type:</strong> Reading (Learn)<br />
+<strong>Objective:</strong> Explain why Prowlarr connects to Sonarr and Radarr through their APIs</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application integration</td>
+<td>A Prowlarr configuration that permits Prowlarr to create and maintain compatible indexer entries in Sonarr or Radarr.</td>
+</tr>
+<tr>
+<td>API key</td>
+<td>A secret value used by one service to authenticate API requests to another service.</td>
+</tr>
+<tr>
+<td>Application URL</td>
+<td>The network address Prowlarr uses to contact Sonarr or Radarr. It must be valid from Prowlarr's network context.</td>
+</tr>
+<tr>
+<td>Prowlarr URL</td>
+<td>The address that Sonarr or Radarr can use when sending indexer queries through Prowlarr.</td>
+</tr>
+<tr>
+<td>Full Sync</td>
+<td>A synchronization mode in which Prowlarr can add, update, and remove managed indexer definitions in the connected application.</td>
+</tr>
+<tr>
+<td>Add and Remove Only</td>
+<td>A synchronization mode in which Prowlarr manages the presence of indexers but avoids synchronizing every editable indexer setting.</td>
+</tr>
+<tr>
+<td>Base URL</td>
+<td>An optional path prefix, such as /sonarr, used when an application is published beneath a subpath.</td>
+</tr>
+<tr>
+<td>Category</td>
+<td>A protocol-specific identifier used to distinguish content types such as television or movies.</td>
+</tr>
+<tr>
+<td>Tag</td>
+<td>A label that can limit which Prowlarr indexers are synchronized to a particular application.</td>
+</tr>
+<tr>
+<td>Test action</td>
+<td>A connection check performed before saving an application integration.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div><div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>Prowlarr centralizes indexer management while Sonarr and Radarr remain responsible for monitoring titles, selecting releases, and sending downloads to a download client. Connecting the applications does not merge their libraries or transfer media files. Instead, Prowlarr authenticates to the Sonarr and Radarr APIs and creates compatible indexer definitions for them.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-prose-block"><p>The most important addressing rule is that an application URL must work from Prowlarr's network context. A URL that opens in an administrator's browser is not automatically usable by Prowlarr. For example, http://localhost:8989 means the system or container making the request. If Prowlarr and Sonarr are separate containers, localhost inside Prowlarr refers to Prowlarr itself rather than Sonarr. On a shared container network, a service name such as http://sonarr:8989 is often appropriate. If services use host networking, separate systems, or a reverse proxy, the correct address may instead be a host address or internal DNS name. The same rule applies to Radarr on its configured port.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ 
+</div></div><div class="cr-prose-block"><p>The Prowlarr URL has the opposite direction of concern: it must be usable by Sonarr or Radarr when they query an indexer managed through Prowlarr. Internal service names are generally preferable when all participants share the same trusted network. Public proxy addresses can work, but they add dependencies involving DNS, TLS certificates, authentication middleware, and proxy routing. Base URLs must be represented consistently. If Sonarr is configured with /sonarr, an address that omits that path may reach a proxy but still return a not-found response.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ 
+</div></div><div class="cr-prose-block"><p>To prepare a real connection, retrieve the API key from the target application's General settings and treat it as a credential. In Prowlarr, open Settings, then Apps, add the appropriate Sonarr or Radarr application type, enter a descriptive name, synchronization level, application URL, Prowlarr URL, and the target application's API key. Use the Test action before Save. A successful test confirms basic addressability, API authentication, and API compatibility; it does not prove that every indexer supports the desired media categories.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An API key is a password apps use to talk to each other. Keep it private.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Tags control scope. With no restrictive tags, eligible indexers can be synchronized broadly. If an application entry has tags, only appropriately tagged indexers are selected. This is useful when one tracker should provide television results but not movie results, or when separate applications require different indexer policies. A tag mismatch can therefore produce an apparently healthy application connection with no useful synchronized indexers.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Full Sync gives Prowlarr stronger authority over managed indexer definitions. Changes made directly to a Prowlarr-managed indexer in Sonarr or Radarr may be overwritten during a later synchronization. Add and Remove Only is useful when local tuning should remain under the target application's control, although exact options can vary by release. Choose ownership deliberately instead of treating the sync level as a cosmetic setting.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-prose-block"><p>After saving a production integration, inspect the target application's Indexers page and identify the entries managed through Prowlarr. Run a test from the target application, then perform an interactive search for a known monitored title. Do not immediately enable automatic searching across a large library. A staged check makes authentication, category, rate-limit, and quality-profile mistakes easier to isolate. This lesson's executable lab does not alter live applications; it builds and validates an integration plan entirely under the required classroom directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
+ 
+</div></div></div><div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>components</h3>
+<p>Prowlarr stores indexer definitions and application integration records.<br />
+Sonarr manages television monitoring, release selection, and import workflows.<br />
+Radarr manages movie monitoring, release selection, and import workflows.<br />
+Indexers provide searchable release metadata.<br />
+A download client receives approved download requests from Sonarr or Radarr.</p>
+<h3>control_flow</h3>
+<p>An administrator configures Sonarr and Radarr application records in Prowlarr.<br />
+Prowlarr authenticates to the target application API and synchronizes eligible indexer definitions.<br />
+Sonarr or Radarr sends a search request through the synchronized Prowlarr-backed indexer endpoint.<br />
+Prowlarr queries eligible upstream indexers and returns normalized results.<br />
+Sonarr or Radarr evaluates the results and can submit an accepted release to its configured download client.</p>
+<h3>trust_boundaries</h3>
+<p>API keys cross the boundary from Prowlarr to the target application.<br />
+Indexer credentials remain under Prowlarr's management.<br />
+Application-to-application traffic must use addresses valid on the participating services' network.<br />
+Reverse proxies and identity gateways can introduce additional authentication and routing boundaries.</p>
+<h3>example_internal_addresses</h3>
+<h3>prowlarr</h3>
+<p>http://prowlarr:9696</p>
+<h3>sonarr</h3>
+<p>http://sonarr:8989</p>
+<h3>radarr</h3>
+<p>http://radarr:7878</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Prowlarr documentation: https://wiki.servarr.com/prowlarr</li>
+<li>Sonarr settings documentation: https://wiki.servarr.com/sonarr/settings</li>
+<li>Radarr settings documentation: https://wiki.servarr.com/radarr/settings</li>
+<li>Servarr Docker guide: https://wiki.servarr.com/docker-guide</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Prowlarr documentation: https://wiki.servarr.com/prowlarr
+- Sonarr settings documentation: https://wiki.servarr.com/sonarr/settings
+- Radarr settings docum…</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Prowlarr documentation: https://wiki.servarr.com/prowlarr</li>
+<li>Prowlarr application settings documentation: https://wiki.servarr.com/prowlarr/settings</li>
+<li>Sonarr documentation: https://wiki.servarr.com/sonarr</li>
+<li>Radarr documentation: https://wiki.servarr.com/radarr</li>
+<li>Servarr Docker guide: https://wiki.servarr.com/docker-guide</li>
+<li>Python urllib.parse documentation: https://docs.python.org/3/library/urllib.parse.html</li>
+<li>Python json documentation: https://docs.python.org/3/library/json.html</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Prowlarr documentation: https://wiki.servarr.com/prowlarr
+- Prowlarr application settings documentation: https://wiki.servarr.com/prowlarr/settings
+- Sonar…</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="/classroom/modules/11-downloaders/">← Module hub</a><a href="lesson.html">Lesson →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

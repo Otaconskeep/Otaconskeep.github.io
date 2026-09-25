@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09-radarr-naming-and-movie-library-hygiene: Lab · Classroom</title>
+<meta name="description" content="09-radarr-naming-and-movie-library-hygiene: Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/10-sonarr-radarr/topics/09-radarr-naming-and-movie-library-hygiene/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M10 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M10 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 09-radarr-naming-and-movie-library-hygiene: Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain the difference between a movie folder format and a movie file format in Radarr.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Basic familiarity with Radarr movies, root folders, and the Media Management settings page</li>
+<li>Ability to run shell and Python 3 commands on a Linux host</li>
+<li>Understanding of files, directories, extensions, hard links, and symbolic links</li>
+<li>Completion of introductory storage and media-library organization lessons</li>
+<li>Write access to /opt/lab-classroom/class48/</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Basic familiarity with Radarr movies, root folders, and the Media Management settings page
+- Ability to run shell and Python 3 commands on a Linux host
+- U…</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>scope</h4><p>All files created or modified by this lab remain under /opt/lab-classroom/class48/. The lab does not connect to Radarr or rename a production media file.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: All files created or modified by this lab remain under /opt/lab-classroom/class48/.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>scenario</h4><p>A synthetic movie library contains inconsistent folder names, weak file names, sidecar files, duplicate-title movies from different years, and one edition. You will build an inventory and calculate deterministic destination paths from an authoritative fixture manifest.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A synthetic movie library contains inconsistent folder names, weak file names, sidecar files, duplicate-title movies from different years, and one edition.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the isolated fixture library</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the isolated fixture library</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Run the following command. It creates small text fixtures with media-like extensions; it does not create or copy real video content.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run the following command.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 - &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import json<br />
+root = Path('/opt/lab-classroom/class48')<br />
+assert str(root) == '/opt/lab-classroom/class48'<br />
+library = root / 'library'<br />
+reports = root / 'reports'<br />
+backups = root / 'backups'<br />
+for path in (library, reports, backups):<br />
+    path.mkdir(parents=True, exist_ok=True)<br />
+fixtures = [<br />
+    {<br />
+        'source': 'Arrival (2016)/Arrival.2016.mkv',<br />
+        'title': 'Arrival', 'year': 2016, 'tmdb_id': 329865,<br />
+        'quality': 'Bluray-1080p', 'edition': ''<br />
+    },<br />
+    {<br />
+        'source': 'Dune 2021/Dune.2021.1080p.mkv',<br />
+        'title': 'Dune', 'year': 2021, 'tmdb_id': 438631,<br />
+        'quality': 'WEBDL-1080p', 'edition': ''<br />
+    },<br />
+    {<br />
+        'source': 'The Thing/thing_final.mkv',<br />
+        'title': 'The Thing', 'year': 1982, 'tmdb_id': 1091,<br />
+        'quality': 'Bluray-1080p', 'edition': ''<br />
+    },<br />
+    {<br />
+        'source': 'Blade Runner 1982/BR-final-cut.mkv',<br />
+        'title': 'Blade Runner', 'year': 1982, 'tmdb_id': 78,<br />
+        'quality': 'Bluray-1080p', 'edition': "Final Cut"<br />
+    },<br />
+    {<br />
+        'source': 'Crash 1996/Crash.mkv',<br />
+        'title': 'Crash', 'year': 1996, 'tmdb_id': 884,<br />
+        'quality': 'DVD', 'edition': ''<br />
+    },<br />
+    {<br />
+        'source': 'Crash 2004/Crash.mp4',<br />
+        'title': 'Crash', 'year': 2004, 'tmdb_id': 1640,<br />
+        'quality': 'WEBDL-1080p', 'edition': ''<br />
+    }<br />
+]<br />
+for item in fixtures:<br />
+    target = library / item['source']<br />
+    target.parent.mkdir(parents=True, exist_ok=True)<br />
+    target.write_text('synthetic class 48 fixture\n', encoding='utf-8')<br />
+(library / 'Arrival (2016)' / 'Arrival.2016.en.srt').write_text('1\n00:00:00,000 --&gt; 00:00:01,000\nSynthetic subtitle\n', encoding='utf-8')<br />
+(library / 'Dune 2021' / 'poster.jpg').write_text('synthetic artwork fixture\n', encoding='utf-8')<br />
+(root / 'manifest.json').write_text(json.dumps(fixtures, indent=2), encoding='utf-8')<br />
+print(root)<br />
+print(f'Fixture records: {len(fixtures)}')<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import json
+root = Path(&#x27;/opt/lab-classroom/class48&#x27;)
+assert str(root) == &#x27;/opt/lab-classroom/class48&#x27;
+library = ro…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Inventory the synthetic library</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inventory the synthetic library</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Review every fixture path before proposing a change.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Review every fixture path before proposing a change.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>find /opt/lab-classroom/class48/library -type f -printf '%P\n' | sort</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: find /opt/lab-classroom/class48/library -type f -printf &#x27;%P\n&#x27; | sort</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create a dry-run naming audit</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create a dry-run naming audit</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Create an audit program that derives proposed paths from manifest metadata, checks source existence, validates video extensions, examines Unicode normalization, and detects destination collisions.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create an audit program that derives proposed paths from manifest metadata, checks source existence, validates video extensions, examines Unicode normalizati…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cat &gt; /opt/lab-classroom/class48/audit_naming.py &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import csv<br />
+import json<br />
+import re<br />
+import unicodedata</p>
+<p>ROOT = Path('/opt/lab-classroom/class48')<br />
+if str(ROOT) != '/opt/lab-classroom/class48':<br />
+    raise SystemExit('Unexpected lab root')<br />
+LIBRARY = ROOT / 'library'<br />
+REPORT = ROOT / 'reports' / 'naming-audit.csv'<br />
+SUMMARY = ROOT / 'reports' / 'summary.txt'<br />
+VIDEO_EXTENSIONS = {'.mkv', '.mp4', '.m4v'}</p>
+<p>def clean_component(value):<br />
+    value = unicodedata.normalize('NFC', value)<br />
+    value = re.sub(r'[\x00-\x1f]', '', value)<br />
+    value = value.replace('/', ' - ')<br />
+    return value.strip().rstrip('.')</p>
+<p>records = json.loads((ROOT / 'manifest.json').read_text(encoding='utf-8'))<br />
+rows = []<br />
+proposed_paths = {}<br />
+for record in records:<br />
+    source_relative = Path(record['source'])<br />
+    source = LIBRARY / source_relative<br />
+    title = clean_component(record['title'])<br />
+    year = int(record['year'])<br />
+    tmdb_id = int(record['tmdb_id'])<br />
+    quality = clean_component(record['quality'])<br />
+    edition = clean_component(record.get('edition', ''))<br />
+    folder = f'{title} ({year}) [tmdb-{tmdb_id}]'<br />
+    edition_text = f' - {edition}' if edition else ''<br />
+    filename = f'{title} ({year}){edition_text} - {quality}{source.suffix.lower()}'<br />
+    proposed = Path(folder) / filename<br />
+    warnings = []<br />
+    if not source.exists():<br />
+        warnings.append('SOURCE_MISSING')<br />
+    if source.suffix.lower() not in VIDEO_EXTENSIONS:<br />
+        warnings.append('UNEXPECTED_VIDEO_EXTENSION')<br />
+    if str(source_relative) != unicodedata.normalize('NFC', str(source_relative)):<br />
+        warnings.append('SOURCE_NOT_NFC')<br />
+    key = unicodedata.normalize('NFC', str(proposed)).casefold()<br />
+    proposed_paths.setdefault(key, []).append(str(source_relative))<br />
+    rows.append({<br />
+        'source': str(source_relative),<br />
+        'proposed': str(proposed),<br />
+        'status': 'WARN' if warnings else 'OK',<br />
+        'notes': ';'.join(warnings)<br />
+    })<br />
+collisions = {key: value for key, value in proposed_paths.items() if len(value) &gt; 1}<br />
+for row in rows:<br />
+    key = unicodedata.normalize('NFC', row['proposed']).casefold()<br />
+    if key in collisions:<br />
+        row['status'] = 'BLOCK'<br />
+        row['notes'] = ';'.join(filter(None, [row['notes'], 'DESTINATION_COLLISION']))<br />
+REPORT.parent.mkdir(parents=True, exist_ok=True)<br />
+with REPORT.open('w', newline='', encoding='utf-8') as handle:<br />
+    writer = csv.DictWriter(handle, fieldnames=['source', 'proposed', 'status', 'notes'])<br />
+    writer.writeheader()<br />
+    writer.writerows(rows)<br />
+summary_lines = [<br />
+    f'Records: {len(rows)}',<br />
+    f'OK: {sum(row["status"] == "OK" for row in rows)}',<br />
+    f'WARN: {sum(row["status"] == "WARN" for row in rows)}',<br />
+    f'BLOCK: {sum(row["status"] == "BLOCK" for row in rows)}',<br />
+    f'Collisions: {len(collisions)}',<br />
+    'No media paths were renamed.'<br />
+]<br />
+SUMMARY.write_text('\n'.join(summary_lines) + '\n', encoding='utf-8')<br />
+print('\n'.join(summary_lines))<br />
+PY<br />
+python3 /opt/lab-classroom/class48/audit_naming.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cat &gt; /opt/lab-classroom/class48/audit_naming.py &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import csv
+import json
+import re
+import unicodedata
+
+ROOT = Path(&#x27;/opt/lab-c…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Review the complete path mapping</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Review the complete path mapping</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Inspect every source and proposed destination. Treat any BLOCK row as a stop condition for a real migration.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inspect every source and proposed destination.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 - &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import csv<br />
+report = Path('/opt/lab-classroom/class48/reports/naming-audit.csv')<br />
+with report.open(encoding='utf-8', newline='') as handle:<br />
+    for row in csv.DictReader(handle):<br />
+        print(f"{row['status']:5} | {row['source']} -&gt; {row['proposed']} | {row['notes']}")<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import csv
+report = Path(&#x27;/opt/lab-classroom/class48/reports/naming-audit.csv&#x27;)
+with report.open(encoding=&#x27;utf-8&#x27;, …</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Identify unmanaged sidecars</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Identify unmanaged sidecars</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Compare the complete filesystem inventory with the manifest's primary movie files. Sidecars are not automatically bad, but a cleanup plan must account for them.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Compare the complete filesystem inventory with the manifest&#x27;s primary movie files.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 - &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import json<br />
+root = Path('/opt/lab-classroom/class48')<br />
+library = root / 'library'<br />
+managed = {item['source'] for item in json.loads((root / 'manifest.json').read_text(encoding='utf-8'))}<br />
+all_files = {str(path.relative_to(library)) for path in library.rglob('*') if path.is_file()}<br />
+for path in sorted(all_files - managed):<br />
+    print(f'SIDECAR | {path}')<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import json
+root = Path(&#x27;/opt/lab-classroom/class48&#x27;)
+library = root / &#x27;library&#x27;
+managed = {item[&#x27;source&#x27;] for item…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Translate the audit into a Radarr change plan</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Translate the audit into a Radarr change plan</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>In a real Radarr instance, compare the policy with the live naming preview. Confirm token support, inspect unmapped files, correct metadata, select one low-impact movie as a pilot, and use Radarr's supported organize or rename workflow. Do not apply production changes as part of this lab.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph, triggers, nodes, and how data flows between them.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The directory /opt/lab-classroom/class48/ contains a synthetic library, manifest, audit program, and reports.</li>
+<li>The inventory lists six synthetic primary movie files and two sidecar files.</li>
+<li>The naming audit reports six records and states that no media paths were renamed.</li>
+<li>Every proposed movie folder includes a title, release year, and TMDB identifier derived from the fixture manifest.</li>
+<li>The two movies titled Crash produce different destinations because their years and identifiers differ.</li>
+<li>Blade Runner includes its Final Cut edition in the proposed file name.</li>
+<li>The sidecar audit identifies the subtitle and poster fixtures without classifying them as primary movie files.</li>
+<li>The supplied fixture set produces no destination collision; a future collision would be marked BLOCK.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - The directory /opt/lab-classroom/class48/ contains a synthetic library, manifest, audit program, and reports.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run <code>test -f /opt/lab-classroom/class48/reports/naming-audit.csv &amp;&amp; echo PASS</code> and confirm that PASS is printed.</li>
+<li>[ ] Run <code>cat /opt/lab-classroom/class48/reports/summary.txt</code> and confirm that it ends with <code>No media paths were renamed.</code></li>
+<li>[ ] Run <code>grep -c '^' /opt/lab-classroom/class48/reports/naming-audit.csv</code> and confirm that the result is 7: one header and six data rows.</li>
+<li>[ ] Run <code>grep -F 'Blade Runner (1982) - Final Cut - Bluray-1080p.mkv' /opt/lab-classroom/class48/reports/naming-audit.csv</code> and confirm that a matching row is returned.</li>
+<li>[ ] Run <code>grep -F '[tmdb-884]' /opt/lab-classroom/class48/reports/naming-audit.csv</code> and <code>grep -F '[tmdb-1640]' /opt/lab-classroom/class48/reports/naming-audit.csv</code>; confirm that both Crash records have distinct identifiers.</li>
+<li>[ ] Run <code>find /opt/lab-classroom/class48/library -type f -printf '%P\n' | sort</code> and confirm that original fixture names remain unchanged.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - [ ] Run this setting and confirm that PASS is printed.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The setup command reports a permission error.</td>
+<td>The current account cannot create or write within /opt/lab-classroom/class48/.</td>
+<td>Have the lab administrator provision /opt/lab-classroom/class48/ for the student account, then rerun the setup. Do not redirect the exercise to a production media root.</td>
+</tr>
+<tr>
+<td>The audit reports SOURCE_MISSING.</td>
+<td>A fixture path was renamed, the manifest was edited, or setup did not finish.</td>
+<td>Compare manifest.json with the library inventory and rerun the fixture setup to restore the expected synthetic source paths.</td>
+</tr>
+<tr>
+<td>The report contains DESTINATION_COLLISION.</td>
+<td>Two records normalize to the same case-insensitive proposed path, or their identity fields were duplicated.</td>
+<td>Stop the migration plan. Verify metadata identifiers, years, editions, and template fields. Do not resolve the condition by allowing one file to replace another.</td>
+</tr>
+<tr>
+<td>Radarr's naming preview does not recognize a token from an external guide.</td>
+<td>The guide targets another Radarr release, the token was entered incorrectly, or that field is unavailable in the current naming context.</td>
+<td>Use the token selector and preview presented by the installed Radarr version. Remove unsupported fields and test the revised format before saving.</td>
+</tr>
+<tr>
+<td>A movie is renamed cleanly but now represents the wrong title.</td>
+<td>The media file was associated with an incorrect Radarr movie record before naming was applied.</td>
+<td>Correct the movie match and metadata association first. Reinspect the path preview before organizing the file again.</td>
+</tr>
+<tr>
+<td>Subtitles no longer load after a production rename.</td>
+<td>The subtitle base name no longer matches the renamed video, or the subtitle application retained the old path.</td>
+<td>Review sidecar handling before further renames, restore the recorded path mapping if necessary, and rename or reimport subtitles using a controlled workflow.</td>
+</tr>
+<tr>
+<td>A media server shows both old and new library entries.</td>
+<td>Its database has not reconciled the path change, or both an old root and a new root are being scanned.</td>
+<td>Confirm that only the intended library roots are configured, initiate the media server's supported library scan, and inspect unavailable entries before removing records.</td>
+</tr>
+<tr>
+<td>Names that look identical are treated as different paths.</td>
+<td>The strings use different Unicode normalization forms or visually similar characters.</td>
+<td>Use the audit's normalized comparison, inspect exact metadata values, and test the proposed names on the actual destination filesystem before a production migration.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>Run Radarr with a dedicated service identity rather than an interactive administrator identity.<br />
+Grant the service only the access required for configured download and media paths.<br />
+Do not expose Radarr directly to an untrusted network; place remote access behind an authenticated and maintained access layer.<br />
+Protect API keys because they permit automation clients to query or change Radarr.<br />
+Limit write access to naming reports and migration maps because they disclose library structure.<br />
+Treat imported subtitle and metadata files as untrusted content even when they are not executable media.<br />
+Keep backups of the Radarr application data and database separate from the movie library.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>change_control</h4><p>Export or record the current naming settings before changing them.<br />
+Review unmapped files, duplicate movie records, editions, and metadata mismatches before bulk organization.<br />
+Use a small pilot containing a noncritical movie and its sidecars.<br />
+Pause competing import or post-processing jobs during an approved production rename window.<br />
+Preserve a source-to-destination mapping and verify downstream applications before expanding the change.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Export or record the current naming settings before changing them.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>privacy_note</h4><p>Library paths can reveal viewing interests and household information. Restrict access to audit reports, screenshots, logs, and support bundles.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Library paths can reveal viewing interests and household information.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>lab</h4><p>The audit itself does not rename fixture media, so no media rollback is required.<br />
+To preserve an earlier report before rerunning the audit, move it within the lab workspace using <code>mv /opt/lab-classroom/class48/reports/naming-audit.csv /opt/lab-classroom/class48/backups/naming-audit-before-rerun.csv</code>.<br />
+Rerun the fixture setup if a synthetic source file was accidentally changed; all resulting writes remain under /opt/lab-classroom/class48/.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The audit itself does not rename fixture media, so no media rollback is required.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>production_plan</h4><p>Stop after the pilot if any title match, edition, subtitle, link, permission, or media-server verification fails.<br />
+Use the recorded source-to-destination mapping to reverse only the affected paths through an approved application workflow.<br />
+Restore the previous Radarr naming formats from the recorded configuration.<br />
+Verify Radarr's movie path, the physical path, sidecars, playback, and media-server indexing after reversal.<br />
+Restoring the old naming template alone does not automatically reverse names that were already applied.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph, triggers, nodes, and how data flows between them.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>
