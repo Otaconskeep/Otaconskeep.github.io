@@ -173,6 +173,9 @@ button.wiz-node.is-on { border-color: var(--accent-bright, var(--accent)); backg
 .wiz-price { display: flex; gap: 8px; align-items: center; font-size: .85rem; }
 .wiz-price input { width: 7rem; background: transparent; color: inherit; border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
 .wiz-stage { overflow-x: auto; max-width: 100%; padding-bottom: 12px; }
+.wiz-stage.is-wide { mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 64px), transparent 100%); }
+.wiz-more { position: absolute; z-index: 4; border: 1px solid #e0a83c; background: #1a1406; color: #e0a83c; border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+.wiz-action-primary:disabled { opacity: 0.4; cursor: not-allowed; }
 .wiz-col { display: flex; flex-direction: column; align-items: stretch; position: relative; }
 .wiz-col > .wiz-tile, .wiz-col > .wiz-stem { align-self: center; }
 .wiz-col > .wiz-switch { align-self: flex-start; position: sticky; left: 12px; }
@@ -295,7 +298,7 @@ button.wiz-tile:hover .wiz-cue, button.wiz-tile:focus-visible .wiz-cue {
   font: inherit;
 }
 .wiz-chip.is-on { border-color: #43d98a; }
-.wiz-layout { display: grid; gap: 16px; align-items: start; }
+.wiz-layout { display: grid; gap: 16px; align-items: start; position: relative; }
 .wiz-layout.is-map-only { grid-template-columns: 1fr; }
 .wiz-layout.is-split { grid-template-columns: minmax(0, 1.35fr) minmax(480px, 600px); }
 .wiz-layout.is-split button.wiz-tile { min-width: 92px; max-width: 128px; padding: 8px 8px; }
