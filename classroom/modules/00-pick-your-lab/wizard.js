@@ -2614,9 +2614,8 @@
         tile.className = 'wiz-tile' + (onPath ? ' is-on' : '') + (tip ? ' is-tip' : '');
         tile.appendChild(el('span', 'wiz-level', levelStamp(node.level)));
         tile.appendChild(el('strong', '', node.title));
-        if (node.status === 'ready') tile.appendChild(el('span', 'wiz-open', 'Ready'));
-        if (node.status === 'need') tile.appendChild(el('span', 'wiz-open', 'Choose'));
-        if (node.status === 'skip') tile.appendChild(el('span', 'wiz-open', 'Not required'));
+        var statusLabel = { ready: 'In the build', selected: 'Selected', over: 'Over budget', need: 'Choose', skip: 'Not required' }[node.status];
+        if (statusLabel) tile.appendChild(el('span', 'wiz-open', statusLabel));
         if (node.level === 'L2' && onPath && openIds.length > 1) tile.appendChild(el('span', 'wiz-open', 'Open'));
         if (node.level === 'L2' && !onPath) tile.appendChild(el('span', 'wiz-cue', 'Explore >'));
         tile.addEventListener('click', function () {
@@ -2718,6 +2717,7 @@
       function lineDollars(node) {
         if (prices[node.id] != null && prices[node.id] !== '') return Number(prices[node.id]);
         if (node.offer && node.offer.dollars === 0) return 0;
+        if (node.offer && node.offer.floor != null) return node.offer.floor;
         return null;
       }
 
@@ -2735,17 +2735,24 @@
           var group = node.offer.group || 'Other';
           groups[group] = groups[group] || [];
           var dollars = lineDollars(node);
+          var typed = prices[node.id] != null && prices[node.id] !== '';
           if (dollars == null || isNaN(dollars)) unpriced += 1;
-          else known += dollars;
-          groups[group].push(node.offer.name + (dollars == null || isNaN(dollars) ? ': seller page' : ': $' + dollars));
+          else if (!node.offer.noteOnly) known += dollars;
+          var money = node.offer.noteOnly ? 'not required, $0' : (dollars == null || isNaN(dollars) ? 'no class floor' : (typed ? '$' + dollars : 'class floor $' + dollars));
+          groups[group].push(node.offer.name + ': ' + money);
         });
         Object.keys(groups).forEach(function (group) {
           card.appendChild(el('h3', '', group));
           groups[group].forEach(function (line) { card.appendChild(el('p', '', line)); });
         });
-        card.appendChild(el('p', '', 'Known total: $' + known));
-        if (unpriced) card.appendChild(el('p', '', unpriced + ' lines still need the price you saw. This page does not invent one.'));
-        else if (cap && cap.max != null) card.appendChild(el('p', '', 'Remaining in the band: $' + (cap.max - known)));
+        card.appendChild(el('p', '', 'Class-floor total: $' + known));
+        if (root.model && root.model.conflict) {
+          card.appendChild(el('h3', '', 'Budget conflict'));
+          root.model.conflict.lines.forEach(function (line) { card.appendChild(el('p', '', line)); });
+        } else if (cap && cap.max != null && unpriced === 0) {
+          card.appendChild(el('p', '', 'Remaining in the band: $' + (cap.max - known)));
+        }
+        card.appendChild(el('p', '', 'A class floor is budget math, dated Sep 24, 2026. It is not a live shelf price. Type the price you saw to replace it.'));
         var view = document.createElement('button');
         view.type = 'button';
         view.className = 'wiz-chip';
@@ -2761,10 +2768,12 @@
 
       function paint() {
         rootEl.innerHTML = '';
+        var layout = el('div', 'wiz-layout');
         var stage = el('div', 'wiz-stage');
         stage.appendChild(renderCol(root, [root.id]));
-        rootEl.appendChild(stage);
-        if (focus) rootEl.appendChild(renderDrawer(focus));
+        layout.appendChild(stage);
+        if (focus) layout.appendChild(renderDrawer(focus));
+        rootEl.appendChild(layout);
         if (openIds.length > 1) {
           var up = document.createElement('button');
           up.type = 'button';
@@ -2892,7 +2901,7 @@
     node.kind = kind;
     if (offer) node.offer = offer;
     if (status) node.status = status;
-    if (status === 'ready') node.selected = true;
+    if (status === 'ready' || status === 'selected' || status === 'over') node.selected = true;
     return node;
   }
 
@@ -3007,14 +3016,32 @@
       { name: 'OPNsense appliance', vlan: 'Pass', run: canBuild ? 'Pass' : 'Fail' },
       { name: 'TP-Link Omada gateway', vlan: 'Pass', run: 'Pass' }
     ];
+    var floorOf = {
+      'ISP router': 0,
+      'UniFi Dream Machine Pro': 350,
+      'UniFi Cloud Gateway class': 250,
+      'OPNsense appliance': 200,
+      'TP-Link Omada gateway': 150
+    };
     rows.forEach(function (row) {
-      row.result = row.vlan === 'Fail' || row.run === 'Fail' ? 'Reject' : 'Qualifies';
-      row.cells = [row.name, row.vlan, row.run, row.result];
+      var rejected = row.vlan === 'Fail' || row.run === 'Fail';
+      row.result = rejected ? 'Reject' : 'Qualifies';
+      var score = 0;
+      if (!rejected) {
+        score = 60;
+        if (row.name !== 'ISP router' && row.name !== 'OPNsense appliance') score += 15;
+        if (row.name === 'OPNsense appliance') score += 20;
+        if (row.name === 'ISP router') score += 10;
+        if (!needVlan && row.name !== 'ISP router') score -= 30;
+      }
+      row.score = score;
+      row.cells = [row.name, row.vlan, row.run, row.result, String(score)];
     });
-    var decision = !needVlan ? 'ISP router' : (canBuild && (a.role === 'server' || a.role === 'both') ? 'OPNsense appliance' : 'UniFi Dream Machine Pro');
+    var decision = rows.slice().sort(function (a, b) { return b.score - a.score; })[0].name;
     return {
       title: 'Gateway trade study',
-      columns: ['Candidate', 'VLANs', 'You can run it', 'Result'],
+      columns: ['Candidate', 'VLANs', 'You can run it', 'Result', 'Score'],
+      floor: floorOf[decision],
       requirement: needVlan ? 'The lab needs separate networks for servers, guests, or smart devices.' : 'One flat house network is enough.',
       rows: rows,
       decision: decision,
@@ -3022,7 +3049,7 @@
         { id: 'R1', text: 'VLANs when the lab has a server or smart devices', result: needVlan ? 'Required' : 'Not required' },
         { id: 'R2', text: 'A custom firewall only if you can fix a bad rule', result: canBuild ? 'Pass' : 'Fail for a custom firewall' }
       ],
-      confidence: 'High. The winner is the qualifying gateway that adds the least new work.',
+      confidence: 'High. The highest score that still passes the mandatory rows wins.',
       why: [
         'If the house network can stay flat, the ISP router wins because a new gateway is not a requirement.',
         'If VLANs are required and you can fix a problem, OPNsense wins for a server: you own the rules.',
@@ -3056,9 +3083,16 @@
     if (needPoe) decision = 'Managed PoE';
     else if (needVlan && wantFast) decision = 'Managed 2.5 or 10 GbE';
     else if (needVlan) decision = 'Managed 1 GbE';
+    var switchFloor = { 'Unmanaged': 20, 'Managed 1 GbE': 40, 'Managed PoE': 120, 'Managed 2.5 or 10 GbE': 250 };
+    rows.forEach(function (row) {
+      var rejected = row.cells[4] === 'Reject';
+      var score = rejected ? 0 : (row.cells[0] === decision ? 90 : 60);
+      row.cells.push(String(score));
+    });
     return {
       title: 'Switch trade study',
-      columns: ['Candidate', 'VLANs', 'PoE', 'Speed', 'Result'],
+      columns: ['Candidate', 'VLANs', 'PoE', 'Speed', 'Result', 'Score'],
+      floor: switchFloor[decision],
       requirement: 'Ports for the machines you named. VLANs if the lab splits networks. PoE if a camera or an access point must be powered by the switch. A faster uplink only if the server and a large pile share the wire.',
       rows: rows,
       decision: decision,
@@ -3132,16 +3166,33 @@
     else checks.push('This pile fits the SATA ports on a normal motherboard.');
     checks.push('RAID is not a backup. ' + raid.why);
     if (a.role === 'server' || a.role === 'both' || hasJob(a, 'smart')) checks.push('Gateway: ' + gateway.decision + '. Switch: ' + net.decision + '.');
+    var owns = a.budget === 'have';
+    var ramFloor = Number(a.ram) >= 64 ? 120 : (Number(a.ram) >= 32 ? 70 : 40);
+    var minimum = 0;
+    if (!owns && (a.role === 'server' || a.role === 'both')) minimum += 100 + 80 + ramFloor + 50 + 60 + 50;
+    if (a.role === 'server' || a.role === 'both' || hasJob(a, 'smart')) minimum += (gateway.floor || 0) + (net.floor || 0);
+    if (hasJob(a, 'smart')) minimum += 100;
+    if (raid.disks > 1) minimum += 150 * raid.disks;
+    var conflict = ceiling.max != null && minimum > ceiling.max ? {
+      minimum: minimum,
+      lines: [
+        'This design cannot be built for ' + ceiling.label + '.',
+        'Class-floor minimum: about $' + minimum + '.',
+        'Option A: raise the budget.',
+        'Option B: reuse the router and the server you already own.',
+        'Option C: build the server first. Add managed networking later.'
+      ]
+    } : null;
     var summary = [
-      'Software on this design is $0 until you choose a paid option such as Plex Pass.',
-      'Hardware lines stay blank until you type the price you saw. This page does not invent one.',
+      conflict ? conflict.lines.join(' ') : 'The class-floor total fits the band you picked, or you already own the box.',
+      'A class floor is budget math, dated Sep 24, 2026. It is not a live shelf price.',
       'Ceiling: ' + ceiling.label + '.',
       'Drives: ' + drives.decision,
       'Layout: ' + raid.pick + ' across ' + raid.disks + ' disk' + (raid.disks === 1 ? '' : 's') + '.'
     ].concat(checks);
     if (media) summary.push('Player: ' + media.decision + '.');
     summary.push((raid.disks >= 4 || Number(a.gpu) >= 16) ? 'Build status: open. A compatibility check above is still waiting on a part you choose.' : 'Build status: the decisions that can be made from your answers are made. Prices are still yours to enter.');
-    return { ceiling: ceiling, raid: raid, drives: drives, gateway: gateway, switchPick: net, media: media, summary: summary };
+    return { ceiling: ceiling, raid: raid, drives: drives, gateway: gateway, switchPick: net, media: media, conflict: conflict, summary: summary };
   }
 
   function labBreakdown(answers, report) {
@@ -3158,13 +3209,19 @@
       return branch(id, 'L4', title, [product]);
     }
     var model = labModel(a, report);
-    function hw(id, asm, pickTitle, status, line, sections) {
-      var offer = status === 'skip' ? null : { group: 'Server', name: pickTitle, dollars: null };
+    function hw(id, asm, pickTitle, status, floor, line, sections) {
+      var owns = a.budget === 'have';
+      var useFloor = owns ? 0 : floor;
+      var st = status;
+      if (st === 'ready' || st === 'selected') st = (!owns && model.ceiling.max != null && useFloor > model.ceiling.max) ? 'over' : 'selected';
+      var offer = st === 'skip'
+        ? { group: 'Server', name: pickTitle, dollars: 0, noteOnly: true }
+        : { group: 'Server', name: pickTitle, dollars: owns ? 0 : null, floor: useFloor };
       var body = sections || [
         note('Why', [line], 'why'),
-        note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/search/?q=' + encodeURIComponent(pickTitle), detail: 'Live price. This page does not invent one.' }], 'buy')
+        note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/search/?q=' + encodeURIComponent(pickTitle), detail: 'Live price. A class floor is not a shelf price.' }], 'buy')
       ];
-      return tag(leaf(id + '-pick', 'L5', pickTitle, line, body), 'hardware', offer, status);
+      return nest(id, asm, tag(leaf(id + '-pick', 'L5', pickTitle, line, body), 'hardware', offer, st));
     }
     var computeKids = [];
     var os = osLeaf(report, 'L5');
@@ -3174,30 +3231,28 @@
         osOnServer
           ? nest(pick === 'proxmox' ? 'hypervisor' : 'host', pick === 'proxmox' ? 'Hypervisor' : 'Host', os)
           : nest('host', 'Host', leaf('server-os', 'L5', 'Server system', report.labLine || 'A second computer that stays on.', [])),
-        branch('hardware', 'L4', 'Hardware', [
-          hw('case', 'Case', 'Case', 'need', 'Match the board. A Micro-ATX case does not take an E-ATX board.'),
-          hw('board', 'Motherboard', 'Motherboard', 'need', 'Count the SATA ports and the PCIe slots before a GPU, an HBA, and a fast NIC share this board.', [
-            note('Why', ['The board decides the socket, the RAM type, and how many disks fit without an extra controller.'], 'why'),
+        hw('case', 'Case', 'Case', 'selected', 50, 'Match the board. A Micro-ATX case does not take an E-ATX board.'),
+          hw('board', 'Motherboard', 'Motherboard', 'selected', 80, 'The board must match the CPU socket. Count SATA ports and PCIe slots before a GPU, an HBA, and a fast NIC share it.', [
+            note('Why', ['Socket, RAM generation, SATA count, and PCIe slots are decided here. The parts checker turns red when two picks clash.'], 'why'),
             { name: 'Check fit', slot: 'compare', lines: ['Six kinds of part. Green fits, red clashes, yellow needs a closer look.'], panel: 'build' },
-            note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/', detail: 'Live price. This page does not invent one.' }], 'buy')
+            note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/', detail: 'Live price. A class floor is not a shelf price.' }], 'buy')
           ]),
-          hw('cpu', 'CPU', 'CPU class', 'need', 'A 65W desktop CPU. Prefer graphics built in when there is no extra card.'),
-          hw('cooler', 'CPU cooler', 'Cooler', 'need', 'Use the cooler in the CPU box, or a low one if the case is small.'),
-          hw('ram', 'RAM', (a.ram || 16) + ' GB', 'ready', report.hardware.ram),
-          hw('gpubom', 'GPU slot', Number(a.gpu) ? 'Graphics card' : 'No extra card', Number(a.gpu) ? 'need' : 'skip', report.hardware.gpuLabel),
-          hw('psu', 'PSU', 'Power supply', 'need', 'Add the CPU watts, the card watts, and about 150 W. The parts checker does this when you name the parts.'),
-          hw('bootssd', 'Boot SSD', 'NVMe boot', 'ready', 'The system lives here. The pile does not.'),
-          hw('datadisks', 'Data drives', 'Data drives', model.raid.disks > 1 ? 'need' : 'skip', model.drives.decision),
-          hw('nic', 'NIC', 'Ethernet', (model.switchPick.decision.indexOf('10') !== -1 || model.switchPick.decision.indexOf('2.5') !== -1) ? 'need' : 'skip', 'Onboard Ethernet is enough until the switch study asks for more than 1 GbE.'),
-          hw('wifi', 'Wi-Fi', 'Wi-Fi', 'skip', 'A server should use a cable. Wi-Fi belongs on an access point.'),
-          hw('sound', 'Sound', 'Sound', 'skip', 'Not required on this lab box.'),
-          hw('fans', 'Fans', 'Fans', 'need', 'Start with the fans that come with the case.'),
-          hw('hba', 'HBA', 'HBA', model.raid.disks >= 4 ? 'need' : 'skip', 'Four or more SATA disks need four ports, or an HBA.'),
-          tag(leaf('ups-pick', 'L5', 'UPS', 'A short outage should park the disks.', [
+          hw('cpu', 'CPU', '65W class CPU', 'selected', 100, 'A 65W desktop CPU with graphics built in when there is no extra card. The board has to use that socket.'),
+          hw('cooler', 'CPU cooler', 'Included cooler', 'skip', 0, 'Use the cooler in the CPU box unless the case is too short for it.'),
+          hw('ram', 'RAM', (a.ram || 16) + ' GB', 'selected', Number(a.ram) >= 64 ? 120 : (Number(a.ram) >= 32 ? 70 : 40), report.hardware.ram),
+          hw('gpubom', 'GPU', Number(a.gpu) ? 'Graphics card' : 'No extra card', Number(a.gpu) ? 'need' : 'skip', 0, report.hardware.gpuLabel),
+          hw('psu', 'PSU', 'Power supply', 'selected', 60, 'Add the CPU watts, the card watts, and about 150 W. The parts checker does this when you name both parts.'),
+          hw('bootssd', 'Boot drive', 'NVMe boot', 'selected', 50, 'The system lives here. The pile does not.'),
+          hw('datadisks', 'Data drives', model.drives.decision, model.raid.disks > 1 ? 'selected' : 'skip', 150 * Math.max(1, model.raid.disks), model.raid.why),
+          hw('nic', 'NIC', (model.switchPick.decision.indexOf('10') !== -1 || model.switchPick.decision.indexOf('2.5') !== -1) ? 'Faster NIC' : 'Onboard Ethernet', (model.switchPick.decision.indexOf('10') !== -1 || model.switchPick.decision.indexOf('2.5') !== -1) ? 'need' : 'skip', 0, 'Onboard Ethernet is enough until the switch study asks for more than 1 GbE.'),
+          hw('wifi', 'Wi-Fi', 'Not required', 'skip', 0, 'A server should use a cable. Wi-Fi belongs on an access point.'),
+          hw('sound', 'Sound', 'Not required', 'skip', 0, 'Not required on this lab box.'),
+          hw('fans', 'Fans', 'Case fans', 'need', 0, 'Start with the fans that come with the case.'),
+          hw('hba', 'HBA', model.raid.disks >= 4 ? 'HBA or extra SATA' : 'Not required', model.raid.disks >= 4 ? 'need' : 'skip', model.raid.disks >= 4 ? 40 : 0, 'Four or more SATA disks need four ports, or an HBA. A Micro-ATX board often does not have four.'),
+          nest('ups', 'UPS', tag(leaf('ups-pick', 'L5', 'UPS', 'A short outage should park the disks.', [
             note('Add to build', ['Add it when this machine must stay up through a flicker.'], 'add'),
             note('Skip', ['Skip it only if this machine can go dark without hurting the only copy of the files.'], 'skip')
-          ]), 'optional', null, 'need')
-        ])
+          ]), 'optional', null, 'need'))
       ]));
     }
     if (wantDesk) {
@@ -3223,15 +3278,15 @@
       return nest(name.toLowerCase().replace(/\s+/g, '-'), name, tag(leaf(name.toLowerCase().replace(/\s+/g, '-') + '-pick', 'L5', name, row.usable + '. Failures tolerated: ' + row.loss + '.', [
         note('Why', [model.raid.why], 'why'),
         note('Risks', ['RAID is not a backup. A mirror survives a dead disk. It does not survive a fire, a theft, or a delete.'], 'risks')
-      ]), 'architecture', null, chosen ? 'ready' : 'skip'));
+      ]), 'architecture', null, chosen ? 'selected' : 'skip'));
     }
     var storageKids = [
       branch('boot', 'L3', 'Boot storage', [
-        nest('nvme', 'NVMe', tag(leaf('boot-nvme', 'L5', 'NVMe boot', 'The system and the apps. M.2 is the shape. NVMe is the speed.', [
+        nest('nvme', 'NVMe', tag(leaf('boot-nvme', 'L5', 'NVMe boot', wantServer ? 'Counted on the server boot drive. Do not buy a second one for the same machine.' : 'The system and the apps. M.2 is the shape. NVMe is the speed.', [
           note('Why', ['The operating system and a player database belong on an SSD.'], 'why'),
           note('Compare', ['Some M.2 slots are SATA, not NVMe. Read the slot before you buy.'], 'compare'),
           note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/search/?q=NVMe%20SSD', detail: 'Live price.' }], 'buy')
-        ]), 'hardware', { group: 'Storage', name: 'NVMe boot', dollars: null }, 'ready')),
+        ]), 'hardware', wantServer ? null : { group: 'Storage', name: 'NVMe boot', dollars: null, floor: 50 }, wantServer ? 'skip' : 'selected')),
         nest('sata-boot', 'SATA SSD', tag(leaf('boot-sata', 'L5', 'SATA boot SSD', 'Use this when the board has no NVMe slot.', [
           note('Why', ['SATA SSD still beats a spinning disk for the system.'], 'why')
         ]), 'hardware', null, 'skip'))
@@ -3272,7 +3327,7 @@
       ]), 'architecture', null, 'skip')),
       nest('other-machine', 'Another machine', tag(leaf('other-machine-pick', 'L5', 'Another machine', 'A copy on a different computer in the house.', [
         note('Why', ['A dead NAS does not take the only copy with it.'], 'why')
-      ]), 'architecture', null, 'ready')),
+      ]), 'architecture', null, 'selected')),
       nest('offsite', 'Off-site', tag(leaf('offsite-pick', 'L5', 'Off-site copy', 'A disk at another building, or a cloud copy of the files you cannot replace.', [
         note('Why', ['This is the copy that survives the house.'], 'why'),
         note('Where to buy it', [{ name: 'The disk, on PCPartPicker', href: 'https://pcpartpicker.com/search/?q=external%20HDD', detail: 'Live price for the disk. Cloud prices stay on the provider page.' }], 'buy')
@@ -3280,12 +3335,17 @@
     ]));
     subsystems.push(branch('storage', 'L2', 'Storage', storageKids));
     if (hasJob(a, 'smart') || a.role === 'server' || a.role === 'both') {
-      function netPick(id, asm, title, decision, group) {
+      function netPick(id, asm, title, decision) {
         var chosen = title === decision;
-        return nest(id, asm, tag(leaf(id + '-pick', 'L5', title, chosen ? 'The requirements picked this.' : 'It stays in the study.', [
-          { name: 'Trade study', slot: 'study', lines: [], study: id.indexOf('gate') === 0 ? model.gateway : model.switchPick },
+        var study = id.indexOf('gate') === 0 ? model.gateway : model.switchPick;
+        var floor = chosen ? (study.floor || 0) : 0;
+        var st = 'skip';
+        if (chosen) st = (model.ceiling.max != null && floor > model.ceiling.max) ? 'over' : (floor === 0 ? 'selected' : 'selected');
+        var offer = chosen ? { group: 'Networking', name: title, dollars: floor === 0 ? 0 : null, floor: floor } : null;
+        return nest(id, asm, tag(leaf(id + '-pick', 'L5', title, chosen ? 'Highest score that passes the mandatory rows. Class floor $' + floor + '.' : 'Lower score. It stays in the study.', [
+          { name: 'Trade study', slot: 'study', lines: [], study: study },
           note('Risks', ['Do not forward Proxmox, the NAS, Remote Desktop, or Home Assistant to the internet.'], 'risks')
-        ]), 'architecture', chosen ? { group: 'Networking', name: title, dollars: title === 'ISP router' || title === 'Unmanaged' ? 0 : null } : null, chosen ? 'ready' : 'skip'));
+        ]), 'architecture', offer, st));
       }
       subsystems.push(branch('network', 'L2', 'Network', [
         branch('gateway', 'L3', 'Gateway', [
@@ -3302,20 +3362,21 @@
           netPick('sw-fast', 'Faster uplink', 'Managed 2.5 or 10 GbE', model.switchPick.decision)
         ]),
         branch('wireless', 'L3', 'Wireless', [
-          nest('ap', 'Wi-Fi AP', tag(leaf('ap-pick', 'L5', hasJob(a, 'smart') ? 'Wi-Fi 6 AP' : 'Cable the server', hasJob(a, 'smart') ? 'One access point on the house VLAN. PoE if the switch study picked PoE.' : 'The server does not need Wi-Fi.', [
-            note('Why', ['Wi-Fi 7 is not a requirement until the clients you own can use it.'], 'why')
-          ]), 'architecture', null, hasJob(a, 'smart') ? 'ready' : 'skip'))
+          nest('ap', 'Wi-Fi AP', tag(leaf('ap-pick', 'L5', hasJob(a, 'smart') ? 'UniFi U6+ class' : 'Not required', hasJob(a, 'smart') ? 'One Wi-Fi 6 access point, PoE, VLAN tagging. Wi-Fi 7 is not required until the clients you own can use it. Class floor $100.' : 'The server uses a cable. Do not buy an access point for the server itself.', [
+            note('Why', ['Coverage is one ceiling per floor in a normal house. PoE comes from the switch study. Wi-Fi 7 waits until the phones can use it.'], 'why'),
+            note('Trade study', ['UniFi U6+ class: Wi-Fi 6, PoE, VLAN, class floor $100. UniFi U7 Pro class: Wi-Fi 7, PoE, VLAN, class floor $180. The U6+ class wins because Wi-Fi 7 is not a requirement yet.'], 'study')
+          ]), hasJob(a, 'smart') ? 'hardware' : 'architecture', hasJob(a, 'smart') ? { group: 'Networking', name: 'UniFi U6+ class', dollars: null, floor: 100 } : { group: 'Networking', name: 'Wi-Fi', dollars: 0, noteOnly: true }, hasJob(a, 'smart') ? ((model.ceiling.max != null && 100 > model.ceiling.max) ? 'over' : 'selected') : 'skip'))
         ]),
         branch('vlans', 'L3', 'VLANs', [
-          nest('vlan-trusted', 'Trusted', tag(leaf('vlan-trusted-pick', 'L5', 'Trusted', 'Phones and the desk you sit at.', [note('Why', ['This is the network you trust.'], 'why')]), 'architecture', null, 'ready')),
-          nest('vlan-iot', 'IoT', tag(leaf('vlan-iot-pick', 'L5', 'IoT', 'Plugs and bulbs. They do not need to see the server admin page.', [note('Why', ['Smart devices stay on their own network.'], 'why')]), 'architecture', null, hasJob(a, 'smart') ? 'ready' : 'skip')),
-          nest('vlan-cam', 'Cameras', tag(leaf('vlan-cam-pick', 'L5', 'Cameras', 'Cameras write video. They do not join the desk network.', [note('Why', ['A camera VLAN keeps that traffic off the house LAN.'], 'why')]), 'architecture', null, hasJob(a, 'smart') ? 'ready' : 'skip')),
-          nest('vlan-guest', 'Guests', tag(leaf('vlan-guest-pick', 'L5', 'Guests', 'Internet only.', [note('Why', ['Guests do not see the lab.'], 'why')]), 'architecture', null, 'ready')),
-          nest('vlan-servers', 'Servers', tag(leaf('vlan-servers-pick', 'L5', 'Servers', 'The lab machines. Admin pages stay here.', [note('Why', ['The server VLAN is where Proxmox and the NAS answer.'], 'why')]), 'architecture', null, 'ready'))
+          nest('vlan-trusted', 'Trusted', tag(leaf('vlan-trusted-pick', 'L5', 'Trusted', 'Phones and the desk. The firewall allows this VLAN to start connections. It does not allow IoT or cameras to start a connection back.', [note('Why', ['Trusted may reach the server. The other VLANs may not reach trusted.'], 'why')]), 'architecture', null, 'selected')),
+          nest('vlan-iot', 'IoT', tag(leaf('vlan-iot-pick', 'L5', 'IoT', 'Plugs and bulbs. They may reach the internet. They may not open a connection to the server admin page.', [note('Why', ['Block IoT from starting sessions into trusted or servers.'], 'why')]), 'architecture', null, hasJob(a, 'smart') ? 'selected' : 'skip')),
+          nest('vlan-cam', 'Cameras', tag(leaf('vlan-cam-pick', 'L5', 'Cameras', 'Cameras may write to the NAS. They may not join the desk VLAN.', [note('Why', ['Allow cameras to the storage address only.'], 'why')]), 'architecture', null, hasJob(a, 'smart') ? 'selected' : 'skip')),
+          nest('vlan-guest', 'Guests', tag(leaf('vlan-guest-pick', 'L5', 'Guests', 'Internet only. No path to the lab.', [note('Why', ['Drop guest traffic toward every other VLAN.'], 'why')]), 'architecture', null, 'selected')),
+          nest('vlan-servers', 'Servers', tag(leaf('vlan-servers-pick', 'L5', 'Servers', 'Proxmox and the NAS answer here. Do not publish their admin pages on the WAN.', [note('Why', ['Servers accept connections from trusted. They do not accept new connections from IoT, cameras, or guests.'], 'why')]), 'architecture', null, 'selected'))
         ]),
         branch('cabling', 'L3', 'Cabling', [
-          nest('cat6', 'Cat6', tag(leaf('cat6-pick', 'L5', 'Cat6', 'Enough for 1 GbE in a house.', [note('Why', ['Cat6 is the default cable.'], 'why')]), 'hardware', { group: 'Networking', name: 'Cat6', dollars: null }, model.switchPick.decision.indexOf('10') === -1 ? 'ready' : 'skip')),
-          nest('cat6a', 'Cat6a', tag(leaf('cat6a-pick', 'L5', 'Cat6a', 'Use this when a run must carry 10 GbE.', [note('Why', ['Cat6a is for the fast uplink, not for every phone.'], 'why')]), 'hardware', { group: 'Networking', name: 'Cat6a', dollars: null }, model.switchPick.decision.indexOf('10') !== -1 ? 'ready' : 'skip')),
+          nest('cat6', 'Cat6', tag(leaf('cat6-pick', 'L5', 'Cat6', 'Enough for 1 GbE in a house. Class floor $15.', [note('Why', ['Cat6 is the default cable.'], 'why')]), 'hardware', { group: 'Networking', name: 'Cat6', dollars: null, floor: 15 }, model.switchPick.decision.indexOf('10') === -1 ? 'selected' : 'skip')),
+          nest('cat6a', 'Cat6a', tag(leaf('cat6a-pick', 'L5', 'Cat6a', 'Use this when a run must carry 10 GbE. Class floor $25.', [note('Why', ['Cat6a is for the fast uplink, not for every phone.'], 'why')]), 'hardware', { group: 'Networking', name: 'Cat6a', dollars: null, floor: 25 }, model.switchPick.decision.indexOf('10') !== -1 ? 'selected' : 'skip')),
           nest('fiber', 'Fiber', tag(leaf('fiber-pick', 'L5', 'Fiber or DAC', 'A short DAC between the server and the switch, or fiber when the run is long.', [note('Why', ['This is a later link, not the first cable in the house.'], 'why')]), 'hardware', null, 'skip'))
         ])
       ]));

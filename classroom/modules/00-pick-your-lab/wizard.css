@@ -174,19 +174,22 @@ button.wiz-tile:hover .wiz-cue, button.wiz-tile:focus-visible .wiz-cue {
   font: inherit;
 }
 .wiz-chip.is-on { border-color: #43d98a; }
+.wiz-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 380px); gap: 16px; align-items: start; }
 .wiz-drawer {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 30;
-  max-height: 52vh;
+  position: sticky;
+  top: 12px;
+  max-height: calc(100vh - 24px);
   overflow: auto;
   text-align: left;
-  padding: 16px 16px 24px;
+  padding: 16px;
   background: var(--surface);
-  border-top: 2px solid #43d98a;
-  box-shadow: 0 -16px 40px rgba(0, 0, 0, .35);
+  border: 1px solid var(--line);
+  border-left: 2px solid #43d98a;
+  border-radius: 12px;
+}
+@media (max-width: 860px) {
+  .wiz-layout { grid-template-columns: 1fr; }
+  .wiz-drawer { position: static; max-height: none; }
 }
 .wiz-drawer .wiz-title { font-size: 1.3rem; margin-top: 8px; }
 .wiz-card {
