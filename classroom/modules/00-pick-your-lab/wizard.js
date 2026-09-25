@@ -1388,18 +1388,18 @@
 
   var PARTS = {
     cpu: [
-      { id: 'r5-5600', name: 'AMD Ryzen 5 5600', maker: 'amd', socket: 'AM4', watts: 65, igpu: false, plain: 'A common older AMD chip. It does not make a picture by itself. It uses DDR4.' },
-      { id: 'r5-5600g', name: 'AMD Ryzen 5 5600G', maker: 'amd', socket: 'AM4', watts: 65, igpu: true, plain: 'The G means graphics are built in. A desk or a small server can skip the extra card. AMD lists this at 65 W.' },
-      { id: 'r7-5700x', name: 'AMD Ryzen 7 5700X', maker: 'amd', socket: 'AM4', watts: 65, igpu: false, plain: 'More cores on the older AMD socket. Still no picture of its own. Still DDR4.' },
-      { id: 'r5-7600', name: 'AMD Ryzen 5 7600', maker: 'amd', socket: 'AM5', watts: 65, igpu: true, plain: 'A calm current desk chip. DDR5. It can show a picture without an extra card. AMD lists the default at 65 W.' },
-      { id: 'r7-7700', name: 'AMD Ryzen 7 7700', maker: 'amd', socket: 'AM5', watts: 65, igpu: true, plain: 'More cores, still the 65 W part, still DDR5. This is not the hotter X model.' },
-      { id: 'r9-7900', name: 'AMD Ryzen 9 7900', maker: 'amd', socket: 'AM5', watts: 65, igpu: true, plain: 'The many-core 65 W chip for a heavy desk or a server. Not the 170 W X model.' },
-      { id: 'i3-12100', name: 'Intel Core i3-12100', maker: 'intel', socket: 'LGA1700', watts: 89, igpu: true, plain: 'A small Intel chip with graphics built in. Intel lists 60 W base and 89 W turbo. This checker uses 89 W.' },
-      { id: 'i5-12400', name: 'Intel Core i5-12400', maker: 'intel', socket: 'LGA1700', watts: 117, igpu: true, plain: 'A common Intel desk chip with graphics. Intel lists 117 W turbo. This checker uses that.' },
-      { id: 'i5-12400f', name: 'Intel Core i5-12400F', maker: 'intel', socket: 'LGA1700', watts: 117, igpu: false, plain: 'The F means no picture built in. Add a graphics card. Same 117 W turbo number.' },
-      { id: 'i5-13400', name: 'Intel Core i5-13400', maker: 'intel', socket: 'LGA1700', watts: 148, igpu: true, plain: 'A newer Intel desk chip with graphics. Intel lists 148 W turbo.' },
-      { id: 'i5-13400f', name: 'Intel Core i5-13400F', maker: 'intel', socket: 'LGA1700', watts: 148, igpu: false, plain: 'Same newer chip, no picture built in. Add a graphics card.' },
-      { id: 'i5-14600', name: 'Intel Core i5-14600', maker: 'intel', socket: 'LGA1700', watts: 154, igpu: true, plain: 'A 14th-gen Intel desk chip with graphics. Intel lists 154 W turbo. This is not the K model.' }
+      { id: 'r5-5600', name: 'AMD Ryzen 5 5600', maker: 'amd', socket: 'AM4', arch: 'Zen 3', cores: 6, threads: 12, watts: 65, igpu: false, memory: 'DDR4', plain: 'A common older AMD chip. Zen 3 on AM4. It does not make a picture by itself. It uses DDR4.' },
+      { id: 'r5-5600g', name: 'AMD Ryzen 5 5600G', maker: 'amd', socket: 'AM4', arch: 'Zen 3', cores: 6, threads: 12, watts: 65, igpu: true, memory: 'DDR4', plain: 'Zen 3 with graphics built in. A desk or a small server can skip the extra card. AMD lists this at 65 W.' },
+      { id: 'r7-5700x', name: 'AMD Ryzen 7 5700X', maker: 'amd', socket: 'AM4', arch: 'Zen 3', cores: 8, threads: 16, watts: 65, igpu: false, memory: 'DDR4', plain: 'More Zen 3 cores on AM4. Still no picture of its own. Still DDR4.' },
+      { id: 'r5-7600', name: 'AMD Ryzen 5 7600', maker: 'amd', socket: 'AM5', arch: 'Zen 4', cores: 6, threads: 12, watts: 65, igpu: true, memory: 'DDR5', plain: 'Zen 4 on AM5. Six cores, 12 threads, 65 W, DDR5, and graphics built in.' },
+      { id: 'r7-7700', name: 'AMD Ryzen 7 7700', maker: 'amd', socket: 'AM5', arch: 'Zen 4', cores: 8, threads: 16, watts: 65, igpu: true, memory: 'DDR5', plain: 'Zen 4, eight cores, still the 65 W part, still DDR5. This is not the hotter X model.' },
+      { id: 'r9-7900', name: 'AMD Ryzen 9 7900', maker: 'amd', socket: 'AM5', arch: 'Zen 4', cores: 12, threads: 24, watts: 65, igpu: true, memory: 'DDR5', plain: 'Zen 4, twelve cores, the 65 W chip for a heavy desk or a server. Not the 170 W X model.' },
+      { id: 'i3-12100', name: 'Intel Core i3-12100', maker: 'intel', socket: 'LGA1700', arch: 'Alder Lake', cores: 4, threads: 8, watts: 89, igpu: true, memory: 'DDR4 or DDR5', plain: '12th-gen Alder Lake with graphics built in. Intel lists 60 W base and 89 W turbo. This checker uses 89 W.' },
+      { id: 'i5-12400', name: 'Intel Core i5-12400', maker: 'intel', socket: 'LGA1700', arch: 'Alder Lake', cores: 6, threads: 12, watts: 117, igpu: true, memory: 'DDR4 or DDR5', plain: '12th-gen Alder Lake with graphics. Intel lists 117 W turbo. This checker uses that.' },
+      { id: 'i5-12400f', name: 'Intel Core i5-12400F', maker: 'intel', socket: 'LGA1700', arch: 'Alder Lake', cores: 6, threads: 12, watts: 117, igpu: false, memory: 'DDR4 or DDR5', plain: 'Same Alder Lake chip. The F means no picture built in. Add a graphics card.' },
+      { id: 'i5-13400', name: 'Intel Core i5-13400', maker: 'intel', socket: 'LGA1700', arch: 'Raptor Lake', cores: 10, threads: 16, watts: 148, igpu: true, memory: 'DDR4 or DDR5', plain: '13th-gen Raptor Lake with graphics. Intel lists 148 W turbo.' },
+      { id: 'i5-13400f', name: 'Intel Core i5-13400F', maker: 'intel', socket: 'LGA1700', arch: 'Raptor Lake', cores: 10, threads: 16, watts: 148, igpu: false, memory: 'DDR4 or DDR5', plain: 'Same Raptor Lake chip, no picture built in. Add a graphics card.' },
+      { id: 'i5-14600', name: 'Intel Core i5-14600', maker: 'intel', socket: 'LGA1700', arch: 'Raptor Lake', cores: 14, threads: 20, watts: 154, igpu: true, memory: 'DDR4 or DDR5', plain: '14th-gen Raptor Lake refresh with graphics. Intel lists 154 W turbo. This is not the K model.' }
     ],
     board: [
       { id: 'b550', name: 'AMD B550, DDR4, micro-ATX', maker: 'amd', socket: 'AM4', ram: 'DDR4', form: 'matx', plain: 'For Ryzen 5000. Smaller board. DDR4 only.' },
@@ -3128,8 +3128,14 @@
         close.addEventListener('mousedown', function (event) { event.preventDefault(); });
         close.addEventListener('click', function () { inspected = null; paint(); });
         box.appendChild(close);
-        box.appendChild(el('p', 'wiz-level', card.role));
+        if (node.product) box.appendChild(renderProductGear(node));
+        else box.appendChild(el('p', 'wiz-level', card.role));
         box.appendChild(el('h2', 'wiz-title', node.title));
+        var cpuPart = (PARTS.cpu || []).filter(function (part) { return part.name === node.title; })[0];
+        if (cpuPart && cpuPart.arch) {
+          box.appendChild(el('p', 'wiz-badge', cpuPart.arch + ' · ' + cpuPart.socket + ' · ' + cpuPart.cores + ' cores / ' + cpuPart.threads + ' threads · ' + cpuPart.watts + ' W · ' + cpuPart.memory + (cpuPart.igpu ? ' · integrated graphics' : '')));
+          box.appendChild(el('p', '', 'Architecture is the generation of the chip. Zen 4 is newer than Zen 3. A newer architecture can do more work per watt. It does not, by itself, decide how large an AI model fits in video memory. That is the graphics card.'));
+        }
         box.appendChild(el('p', '', card.blurb));
         Object.keys(card.stars || {}).forEach(function (name) {
           var row = el('div', 'wiz-stat');
@@ -3150,12 +3156,7 @@
         }
         var price = card.floor == null ? 'No class floor on this choice. The shelf price stays on the seller page.' : ('Class floor $' + card.floor + ', dated Sep 24, 2026. Amazon, Newegg, and B&H are not filled in here.');
         box.appendChild(el('p', '', price));
-        var shop = document.createElement('a');
-        shop.href = 'https://pcpartpicker.com/search/?q=' + encodeURIComponent(node.title);
-        shop.target = '_blank';
-        shop.rel = 'noopener';
-        shop.textContent = 'Check PCPartPicker';
-        box.appendChild(shop);
+        box.appendChild(renderMarkets(node.product ? node.product.model : node.title));
         var actions = el('div', 'wiz-actions');
         var verbs = {
           hardware: { take: 'Equip', taken: 'Equipped', own: 'I already own this', owned: 'Owned' },
@@ -3175,6 +3176,29 @@
           paint();
         });
         actions.appendChild(add);
+        if (node.product) {
+          var upgrade = document.createElement('button');
+          upgrade.type = 'button';
+          upgrade.className = 'wiz-chip';
+          upgrade.textContent = 'Upgrade';
+          upgrade.addEventListener('mousedown', function (event) { event.preventDefault(); });
+          upgrade.addEventListener('click', function () {
+            record.upgradeFrom = node.product.id;
+            paint();
+          });
+          actions.appendChild(upgrade);
+          var compare = document.createElement('button');
+          compare.type = 'button';
+          compare.className = 'wiz-chip';
+          compare.textContent = 'Compare';
+          compare.addEventListener('mousedown', function (event) { event.preventDefault(); });
+          compare.addEventListener('click', function () {
+            record.compare = record.compare || [];
+            if (record.compare.indexOf(node.product.id) === -1 && record.compare.length < 3) record.compare.push(node.product.id);
+            paint();
+          });
+          actions.appendChild(compare);
+        }
         if (verbs.own) {
           var own = document.createElement('button');
           own.type = 'button';
@@ -3204,7 +3228,143 @@
         }
         box.appendChild(actions);
         if (node.id && node.id.indexOf('sw-') === 0) box.appendChild(switchSizer());
+        if (node.product && record.upgradeFrom === node.product.id) box.appendChild(renderUpgrade(node.product));
+        if (record.compare && record.compare.length) box.appendChild(renderCompare());
         return box;
+      }
+
+      function renderProductGear(node) {
+        var product = node.product;
+        var scores = gpuScores(product);
+        var head = el('div', 'wiz-gear');
+        head.appendChild(el('p', 'wiz-badge', product.vendor + ' · ' + product.architecture));
+        head.appendChild(el('p', 'wiz-gear-kicker', product.generation + ' · ' + product.vram_gb + ' GB ' + product.memory));
+        var plate = el('div', 'wiz-plate');
+        plate.appendChild(el('strong', '', product.architecture.slice(0, 3).toUpperCase()));
+        plate.appendChild(el('span', '', product.watts + ' W'));
+        head.appendChild(plate);
+        ['ai', 'gaming', 'efficiency'].forEach(function (name) {
+          var row = el('div', 'wiz-stat');
+          row.appendChild(el('span', '', name === 'ai' ? 'AI' : (name === 'gaming' ? 'Gaming' : 'Efficiency')));
+          var track = el('span', 'wiz-bar');
+          var fill = document.createElement('i');
+          fill.style.width = scores[name] + '%';
+          track.appendChild(fill);
+          row.appendChild(track);
+          row.appendChild(el('span', '', String(scores[name])));
+          head.appendChild(row);
+        });
+        head.appendChild(el('p', 'wiz-note', 'These bars come from VRAM, generation, and watts. They are not a benchmark.'));
+        head.appendChild(el('p', '', 'Encoder: ' + product.encoder + '. Vendor system power: ' + product.psu + ' W.'));
+        var current = equippedGpu();
+        if (current && current.id !== product.id) {
+          var cpuWatts = root.model && root.model.fit && root.model.fit.cpu ? root.model.fit.cpu.watts : 0;
+          var psuWatts = root.model && root.model.fit && root.model.fit.psu ? root.model.fit.psu.watts : null;
+          var impact = gpuSwapImpact(current, product, cpuWatts, psuWatts);
+          head.appendChild(el('h3', '', 'Build impact'));
+          head.appendChild(el('p', '', 'VRAM ' + impact.vram[0] + ' GB → ' + impact.vram[1] + ' GB'));
+          head.appendChild(el('p', '', 'Power ' + impact.watts[0] + ' W → ' + impact.watts[1] + ' W'));
+          head.appendChild(el('p', '', 'This checker wants about ' + impact.formulaNeed + ' W before headroom.' + (impact.formulaOk === false ? ' The suggested power supply is short of that.' : '')));
+          if (impact.vendorOk === false) head.appendChild(el('p', 'wiz-cart-over', product.vendor + ' lists a ' + product.psu + ' W system power supply for this card.'));
+        }
+        return head;
+      }
+
+      function equippedGpu() {
+        var ids = Object.keys(record.items || {});
+        for (var i = 0; i < ids.length; i++) {
+          var state = record.items[ids[i]] && record.items[ids[i]].state;
+          if (state !== 'equipped' && state !== 'owned') continue;
+          var found = GPU_CATALOG.filter(function (item) { return ids[i] === 'gpu-' + item.id; })[0];
+          if (found) return found;
+        }
+        return null;
+      }
+
+      function renderUpgrade(product) {
+        var box = el('div', 'wiz-upgrade');
+        box.appendChild(el('h3', '', 'Upgrade from ' + product.model));
+        box.appendChild(el('p', '', 'Price deltas stay unknown until an offer has a checked price. Power and VRAM still change.'));
+        upgradePaths(product.id).forEach(function (row) {
+          var impact = gpuSwapImpact(product, row.product, 0, null);
+          var line = el('p', '');
+          line.appendChild(el('strong', '', row.role + ' · ' + row.product.model));
+          line.appendChild(document.createTextNode(' ' + row.product.architecture + ' · ' + impact.vram[0] + ' GB → ' + impact.vram[1] + ' GB · ' + impact.watts[0] + ' W → ' + impact.watts[1] + ' W'));
+          box.appendChild(line);
+        });
+        return box;
+      }
+
+      function renderCompare() {
+        var box = el('div', 'wiz-compare');
+        box.appendChild(el('h3', '', 'Compare'));
+        var row = el('div', 'wiz-compare-row');
+        var picked = (record.compare || []).map(function (id) {
+          return GPU_CATALOG.filter(function (item) { return item.id === id; })[0];
+        }).filter(Boolean);
+        var best = picked.slice().sort(function (a, b) { return gpuScores(b).ai - gpuScores(a).ai; })[0];
+        picked.forEach(function (product) {
+          var scores = gpuScores(product);
+          var card = el('article', 'wiz-gear-card');
+          card.appendChild(el('strong', '', product.model));
+          card.appendChild(el('p', '', product.architecture + ' · ' + product.vram_gb + ' GB'));
+          card.appendChild(el('p', '', 'AI ' + scores.ai + ' · Gaming ' + scores.gaming + ' · Power ' + scores.efficiency));
+          card.appendChild(el('p', '', 'Price not checked'));
+          row.appendChild(card);
+        });
+        box.appendChild(row);
+        if (best) box.appendChild(el('p', '', 'Highest AI score in this comparison: ' + best.model + '. A newer architecture does not replace VRAM.'));
+        var tech = document.createElement('details');
+        var summary = document.createElement('summary');
+        summary.textContent = 'Technical trade study';
+        tech.appendChild(summary);
+        picked.forEach(function (product) {
+          tech.appendChild(el('p', '', product.model + ' · ' + product.architecture + ' · ' + product.vram_gb + ' GB ' + product.memory + ' · ' + product.watts + ' W · ' + product.encoder + ' · vendor PSU ' + product.psu + ' W'));
+        });
+        box.appendChild(tech);
+        var clear = document.createElement('button');
+        clear.type = 'button';
+        clear.className = 'wiz-chip';
+        clear.textContent = 'Clear compare';
+        clear.addEventListener('click', function () { record.compare = []; paint(); });
+        box.appendChild(clear);
+        return box;
+      }
+
+      function renderMarkets(query) {
+        var wrap = el('div', 'wiz-markets');
+        wrap.appendChild(el('h3', '', 'Offers'));
+        record.offerFilter = record.offerFilter || 'all';
+        var filters = el('div', 'wiz-actions');
+        [['all', 'Used okay'], ['new', 'New only'], ['cheapest', 'Cheapest'], ['warranty', 'Best warranty']].forEach(function (pair) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'wiz-chip' + (record.offerFilter === pair[0] ? ' is-on' : '');
+          button.textContent = pair[1];
+          button.addEventListener('mousedown', function (event) { event.preventDefault(); });
+          button.addEventListener('click', function () { record.offerFilter = pair[0]; paint(); });
+          filters.appendChild(button);
+        });
+        wrap.appendChild(filters);
+        var offers = marketOffers(query);
+        if (record.offerFilter === 'cheapest') wrap.appendChild(el('p', '', 'No checked price, so the cheapest seller is unknown.'));
+        else if (record.offerFilter === 'warranty') wrap.appendChild(el('p', '', 'Warranty is not on these offers yet. Read it on the seller page.'));
+        offers.filter(function (offer) {
+          if (record.offerFilter === 'new') return offer.condition === 'new';
+          return true;
+        }).forEach(function (offer) {
+          var line = el('p', 'wiz-offer');
+          line.appendChild(el('span', '', offer.condition === 'new' ? 'New' : 'Used'));
+          var link = document.createElement('a');
+          link.href = offer.url;
+          link.target = '_blank';
+          link.rel = 'noopener';
+          link.textContent = offer.market;
+          line.appendChild(link);
+          line.appendChild(el('span', '', 'Not checked'));
+          wrap.appendChild(line);
+        });
+        return wrap;
       }
 
       function restoreScroll(x, y) {
@@ -3473,6 +3633,99 @@
       if (item.quantity != null && (!isFinite(Number(item.quantity)) || Number(item.quantity) < 1)) return 'An item has a bad quantity.';
     }
     return '';
+  }
+
+  var MARKETS = [
+    { id: 'amazon', name: 'Amazon', condition: 'new', search: 'https://www.amazon.com/s?k=' },
+    { id: 'newegg', name: 'Newegg', condition: 'new', search: 'https://www.newegg.com/p/pl?d=' },
+    { id: 'bh', name: 'B&H', condition: 'new', search: 'https://www.bhphotovideo.com/c/search?q=' },
+    { id: 'bestbuy', name: 'Best Buy', condition: 'new', search: 'https://www.bestbuy.com/site/searchpage.jsp?st=' },
+    { id: 'pcpartpicker', name: 'PCPartPicker', condition: 'new', search: 'https://pcpartpicker.com/search/?q=' },
+    { id: 'jawa', name: 'Jawa', condition: 'used', search: 'https://www.jawa.gg/search?query=' },
+    { id: 'ebay', name: 'eBay', condition: 'used', search: 'https://www.ebay.com/sch/i.html?_nkw=' }
+  ];
+
+  var GPU_CATALOG = [
+    { id: 'rtx-3060-12', vendor: 'NVIDIA', model: 'RTX 3060 12GB', architecture: 'Ampere', generation: 'RTX 30', vram_gb: 12, memory: 'GDDR6', watts: 170, psu: 550, encoder: 'NVENC 7th gen', length_mm: null },
+    { id: 'rtx-3080-10', vendor: 'NVIDIA', model: 'RTX 3080 10GB', architecture: 'Ampere', generation: 'RTX 30', vram_gb: 10, memory: 'GDDR6X', watts: 320, psu: 750, encoder: 'NVENC 7th gen', length_mm: null },
+    { id: 'rtx-3090-24', vendor: 'NVIDIA', model: 'RTX 3090 24GB', architecture: 'Ampere', generation: 'RTX 30', vram_gb: 24, memory: 'GDDR6X', watts: 350, psu: 750, encoder: 'NVENC 7th gen', length_mm: null },
+    { id: 'rtx-4060-8', vendor: 'NVIDIA', model: 'RTX 4060 8GB', architecture: 'Ada Lovelace', generation: 'RTX 40', vram_gb: 8, memory: 'GDDR6', watts: 115, psu: 550, encoder: 'NVENC 8th gen', length_mm: null },
+    { id: 'rtx-4070-12', vendor: 'NVIDIA', model: 'RTX 4070 12GB', architecture: 'Ada Lovelace', generation: 'RTX 40', vram_gb: 12, memory: 'GDDR6X', watts: 200, psu: 650, encoder: 'NVENC 8th gen', length_mm: null },
+    { id: 'rtx-4090-24', vendor: 'NVIDIA', model: 'RTX 4090 24GB', architecture: 'Ada Lovelace', generation: 'RTX 40', vram_gb: 24, memory: 'GDDR6X', watts: 450, psu: 850, encoder: 'NVENC 8th gen', length_mm: null },
+    { id: 'rtx-5070-12', vendor: 'NVIDIA', model: 'RTX 5070 12GB', architecture: 'Blackwell', generation: 'RTX 50', vram_gb: 12, memory: 'GDDR7', watts: 250, psu: 650, encoder: 'NVENC 9th gen', length_mm: null },
+    { id: 'rtx-5070ti-16', vendor: 'NVIDIA', model: 'RTX 5070 Ti 16GB', architecture: 'Blackwell', generation: 'RTX 50', vram_gb: 16, memory: 'GDDR7', watts: 300, psu: 750, encoder: 'NVENC 9th gen', length_mm: null },
+    { id: 'rtx-5080-16', vendor: 'NVIDIA', model: 'RTX 5080 16GB', architecture: 'Blackwell', generation: 'RTX 50', vram_gb: 16, memory: 'GDDR7', watts: 360, psu: 850, encoder: 'NVENC 9th gen', length_mm: 304 },
+    { id: 'rx-6700xt-12', vendor: 'AMD', model: 'RX 6700 XT 12GB', architecture: 'RDNA 2', generation: 'RX 6000', vram_gb: 12, memory: 'GDDR6', watts: 230, psu: 650, encoder: 'AMF', length_mm: null },
+    { id: 'rx-7800xt-16', vendor: 'AMD', model: 'RX 7800 XT 16GB', architecture: 'RDNA 3', generation: 'RX 7000', vram_gb: 16, memory: 'GDDR6', watts: 263, psu: 700, encoder: 'AMF', length_mm: null },
+    { id: 'rx-7900xtx-24', vendor: 'AMD', model: 'RX 7900 XTX 24GB', architecture: 'RDNA 3', generation: 'RX 7000', vram_gb: 24, memory: 'GDDR6', watts: 355, psu: 800, encoder: 'AMF', length_mm: null },
+    { id: 'arc-a770-16', vendor: 'Intel', model: 'Arc A770 16GB', architecture: 'Alchemist', generation: 'Arc A', vram_gb: 16, memory: 'GDDR6', watts: 225, psu: 600, encoder: 'Arc AV1', length_mm: null },
+    { id: 'arc-b580-12', vendor: 'Intel', model: 'Arc B580 12GB', architecture: 'Battlemage', generation: 'Arc B', vram_gb: 12, memory: 'GDDR6', watts: 190, psu: 600, encoder: 'Arc AV1', length_mm: null }
+  ];
+
+  var GPU_GENERATION = { 'Ampere': 3, 'Ada Lovelace': 4, 'Blackwell': 5, 'RDNA 2': 3, 'RDNA 3': 4, 'Alchemist': 3, 'Battlemage': 4 };
+
+  function gpuScores(product) {
+    var gen = GPU_GENERATION[product.architecture] || 0;
+    return {
+      ai: Math.min(99, product.vram_gb * 3 + gen * 2),
+      gaming: Math.min(99, gen * 16 + Math.min(product.vram_gb, 16)),
+      efficiency: Math.max(20, Math.min(95, 110 - Math.round(product.watts / 5)))
+    };
+  }
+
+  function marketOffers(query) {
+    return MARKETS.map(function (market) {
+      return {
+        market: market.name,
+        condition: market.condition,
+        price: null,
+        shipping: null,
+        returns: null,
+        warranty: null,
+        sellerRating: null,
+        stock: null,
+        checked_at: null,
+        url: market.search + encodeURIComponent(query || '')
+      };
+    });
+  }
+
+  function upgradePaths(fromId) {
+    var from = GPU_CATALOG.filter(function (item) { return item.id === fromId; })[0];
+    if (!from) return [];
+    var rest = GPU_CATALOG.filter(function (item) { return item.id !== from.id; });
+    var family = rest.filter(function (item) { return item.vendor === from.vendor; });
+    function gen(item) { return GPU_GENERATION[item.architecture] || 0; }
+    var newer = family.filter(function (item) { return gen(item) > gen(from) && item.vram_gb >= from.vram_gb; });
+    var value = newer.slice().sort(function (a, b) { return a.watts - b.watts; })[0] || null;
+    var balanced = newer.filter(function (item) { return item.architecture === 'Blackwell' && item.vram_gb >= 16; }).sort(function (a, b) { return a.watts - b.watts; })[0] || null;
+    var maxVram = rest.reduce(function (best, item) { return item.vram_gb > best ? item.vram_gb : best; }, 0);
+    var vram = rest.filter(function (item) { return item.vram_gb === maxVram; }).sort(function (a, b) { return a.watts - b.watts; })[0] || null;
+    var performance = family.slice().sort(function (a, b) {
+      return gpuScores(b).gaming - gpuScores(a).gaming || b.watts - a.watts;
+    })[0] || null;
+    return [
+      { role: 'Value', product: value },
+      { role: 'Balanced', product: balanced },
+      { role: 'AI / VRAM', product: vram },
+      { role: 'Performance', product: performance }
+    ].filter(function (row, index, all) {
+      return row.product && all.findIndex(function (other) { return other.product && other.product.id === row.product.id; }) === index;
+    });
+  }
+
+  function gpuSwapImpact(from, to, cpuWatts, psuWatts) {
+    var cpu = Number(cpuWatts) || 0;
+    var supply = psuWatts == null ? null : Number(psuWatts);
+    var need = cpu + to.watts + 150;
+    return {
+      vram: [from.vram_gb, to.vram_gb],
+      watts: [from.watts, to.watts],
+      formulaNeed: need,
+      formulaOk: supply == null ? null : supply >= need,
+      vendorPsu: to.psu,
+      vendorOk: supply == null ? null : supply >= to.psu
+    };
   }
 
   function driveStudy(storageGb, answers) {
@@ -4108,14 +4361,31 @@
       computeKids.push(branch('desktop', 'L3', 'Desktop', [nest('desk-host', 'Host', deskProduct)]));
     }
     if (a.side !== 'mac') {
-      computeKids.push(branch('gpu', 'L3', 'GPU', [
-        nest('card', 'Graphics card', tag(leaf('gpu-pick', 'L5', 'Card', report.hardware.gpuLabel, [
-          note('Why it matters', [report.hardware.games], 'why'),
-          note('Pictures and video', [report.hardware.photos, report.hardware.video], 'compare'),
-          note('Requirements', [report.hardware.models], 'requirements'),
-          asSlot(lessonNote(report, 'gpu', 'GPU classes'), 'compare')
-        ]), Number(a.gpu) ? 'hardware' : 'architecture', Number(a.gpu) ? { group: 'Server', name: 'Graphics card', dollars: null } : null, Number(a.gpu) ? 'need' : 'skip'))
-      ]));
+      var gpuWant = Number(a.gpu) || 0;
+      var gpuPick = !gpuWant ? '' : (gpuWant <= 8 ? 'rtx-4060-8' : (gpuWant <= 12 ? 'rtx-5070-12' : (gpuWant <= 16 ? 'rtx-5070ti-16' : 'rtx-3090-24')));
+      if (gpuWant >= 24 && !hasJob(a, 'ai')) gpuPick = 'rtx-4090-24';
+      function gpuModel(product) {
+        var node = leaf('gpu-' + product.id, 'L5', product.model, product.architecture + ' · ' + product.vram_gb + ' GB ' + product.memory + ' · ' + product.watts + ' W', [
+          note('Why it matters', ['A newer architecture can raise performance per watt, encoding, and features. It does not replace VRAM. A 24 GB older card can still hold a larger local model than a newer 12 GB card.'], 'why')
+        ]);
+        node.product = product;
+        var chosen = product.id === gpuPick;
+        return tag(node, 'hardware', { group: 'Server', name: product.model, dollars: null, qty: 1, productId: product.id }, chosen ? 'recommended' : null);
+      }
+      function gpuFamily(id, title, architecture) {
+        return branch('gpu-' + id, 'L4', title, GPU_CATALOG.filter(function (product) { return product.architecture === architecture; }).map(gpuModel));
+      }
+      var gpuKids = [
+        gpuFamily('ampere', 'Ampere', 'Ampere'),
+        gpuFamily('ada', 'Ada Lovelace', 'Ada Lovelace'),
+        gpuFamily('blackwell', 'Blackwell', 'Blackwell'),
+        gpuFamily('rdna2', 'RDNA 2', 'RDNA 2'),
+        gpuFamily('rdna3', 'RDNA 3', 'RDNA 3'),
+        gpuFamily('alchemist', 'Alchemist', 'Alchemist'),
+        gpuFamily('battlemage', 'Battlemage', 'Battlemage')
+      ];
+      if (!gpuWant) gpuKids.unshift(nest('card', 'No extra card', tag(leaf('gpu-none', 'L5', 'No extra card', 'Use the picture built into the processor, or reach this machine from another screen.', []), 'architecture', null, 'recommended')));
+      computeKids.push(branch('gpu', 'L3', 'GPU', gpuKids));
     }
     var subsystems = [branch('compute', 'L2', 'Compute', computeKids)];
     function layoutNode(name) {
@@ -4317,6 +4587,12 @@
     sizeSwitch: sizeSwitch,
     acceptImport: acceptImport,
     hddCatalog: function () { return HDD_8TB; },
+    gpuCatalog: function () { return GPU_CATALOG; },
+    markets: function () { return MARKETS; },
+    marketOffers: marketOffers,
+    upgradePaths: upgradePaths,
+    gpuSwapImpact: gpuSwapImpact,
+    gpuScores: gpuScores,
     mount: mount
   };
 });

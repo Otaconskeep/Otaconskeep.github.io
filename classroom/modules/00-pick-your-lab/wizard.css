@@ -115,9 +115,18 @@ button.wiz-node.is-on { border-color: var(--accent-bright, var(--accent)); backg
 .wiz-cart-over { color: #e0b040; font-weight: 700; }
 .wiz-budget .is-incomplete { color: #e0b040; }
 .wiz-cart-more { margin-top: 8px; max-height: 40vh; overflow: auto; }
-.wiz-item { border-left: 2px solid #e0b040; }
+.wiz-item { border: 1px solid rgba(224,176,64,.45); border-left: 4px solid #e0b040; background: linear-gradient(180deg, rgba(224,176,64,.08), transparent 90px); padding: 14px 16px 16px; }
+.wiz-badge { display: inline-block; margin: 0 0 6px; padding: 3px 8px; border: 1px solid rgba(67,217,138,.5); border-radius: 999px; letter-spacing: .08em; text-transform: uppercase; font-size: .72rem; color: #43d98a; }
+.wiz-gear-kicker { margin: 0 0 8px; color: #e0b040; letter-spacing: .04em; text-transform: uppercase; font-size: .78rem; }
+.wiz-plate { display: grid; place-items: center; min-height: 92px; margin: 8px 0 12px; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; background: radial-gradient(circle at 50% 40%, rgba(224,176,64,.2), transparent 70%); }
+.wiz-plate strong { font-size: 1.6rem; letter-spacing: .14em; }
+.wiz-note { font-size: .8rem; opacity: .8; }
+.wiz-markets, .wiz-upgrade, .wiz-compare { margin-top: 12px; }
+.wiz-offer { display: flex; gap: 10px; align-items: baseline; }
+.wiz-compare-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+.wiz-gear-card { border: 1px solid rgba(224,176,64,.4); border-radius: 12px; padding: 10px; background: rgba(0,0,0,.15); }
 .wiz-stat { display: grid; grid-template-columns: 8.5rem 1fr auto; gap: 8px; align-items: center; margin: 4px 0; font-size: .85rem; }
-.wiz-bar { display: block; height: 8px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
+.wiz-bar { display: block; height: 10px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
 .wiz-bar i { display: block; height: 100%; background: #43d98a; }
 .wiz-item h3 { margin: 12px 0 4px; }
 .wiz-price { display: flex; gap: 8px; align-items: center; font-size: .85rem; }
