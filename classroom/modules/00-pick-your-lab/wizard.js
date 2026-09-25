@@ -2568,14 +2568,19 @@
           table.appendChild(tr);
         });
         box.appendChild(table);
+        if (study.ideal && study.ideal !== study.decision) box.appendChild(el('p', '', 'Requirements want ' + study.ideal + '. This band can buy ' + study.decision + '.'));
         box.appendChild(el('h3', '', 'Decision: ' + study.decision));
         (study.requirements || []).forEach(function (req) {
           box.appendChild(el('p', '', req.id + '  ' + req.text + '  ' + req.result));
         });
         if (study.confidence) box.appendChild(el('p', '', 'Decision confidence: ' + study.confidence));
         paintLines(box, study.why);
+        if (study.forecast && study.forecast.length) {
+          box.appendChild(el('h3', '', 'If you spend more'));
+          study.forecast.forEach(function (rung) { box.appendChild(el('p', '', rung.line)); });
+        }
         box.appendChild(el('p', '', 'Tradeoff: ' + study.tradeoff));
-        box.appendChild(el('p', '', 'Price checked on the seller page. This page does not invent a dollar amount.'));
+        box.appendChild(el('p', '', study.forecast ? 'The dollars in that ladder are class floors, dated Sep 24, 2026. They are not a live shelf price.' : 'Price checked on the seller page. This page does not invent a dollar amount.'));
         paintLines(box, study.links);
         return box;
       }
@@ -2805,6 +2810,10 @@
           groups[group].forEach(function (line) { card.appendChild(el('p', '', line)); });
         });
         card.appendChild(el('p', '', 'Class-floor total: $' + known));
+        if (root.model && root.model.forecast && root.model.forecast.length) {
+          card.appendChild(el('h3', '', 'If you spend more'));
+          root.model.forecast.forEach(function (rung) { card.appendChild(el('p', '', rung.line)); });
+        }
         if (root.model && root.model.conflict) {
           card.appendChild(el('h3', '', 'Budget conflict'));
           root.model.conflict.lines.forEach(function (line) { card.appendChild(el('p', '', line)); });
@@ -3082,9 +3091,11 @@
       'OPNsense appliance': 200,
       'TP-Link Omada gateway': 150
     };
+    var ceiling = ceilingOf(a.budget);
     rows.forEach(function (row) {
       var rejected = row.vlan === 'Fail' || row.run === 'Fail';
       row.result = rejected ? 'Reject' : 'Qualifies';
+      row.band = (ceiling.max == null || floorOf[row.name] <= ceiling.max) ? 'Fits' : 'Over';
       var score = 0;
       if (!rejected) {
         score = 60;
@@ -3094,14 +3105,19 @@
         if (!needVlan && row.name !== 'ISP router') score -= 30;
       }
       row.score = score;
-      row.cells = [row.name, row.vlan, row.run, row.result, String(score)];
+      row.cells = [row.name, row.vlan, row.run, row.result, row.band, String(score)];
     });
-    var decision = rows.slice().sort(function (a, b) { return b.score - a.score; })[0].name;
+    var ranked = rows.slice().sort(function (left, right) { return right.score - left.score; });
+    var ideal = ranked[0].name;
+    var affordable = ranked.filter(function (row) { return row.score > 0 && row.band === 'Fits'; });
+    var decision = (affordable[0] || ranked[0]).name;
     return {
       title: 'Gateway trade study',
-      columns: ['Candidate', 'VLANs', 'You can run it', 'Result', 'Score'],
+      columns: ['Candidate', 'VLANs', 'You can run it', 'Result', 'This band', 'Score'],
       floor: floorOf[decision],
-      requirement: needVlan ? 'The lab needs separate networks for servers, guests, or smart devices.' : 'One flat house network is enough.',
+      ideal: ideal,
+      idealFloor: floorOf[ideal],
+      requirement: (needVlan ? 'The lab needs separate networks for servers, guests, or smart devices.' : 'One flat house network is enough.') + ' Class floor for the pick in this band: $' + floorOf[decision] + '. The requirements winner, ignoring the band, is ' + ideal + ' at $' + floorOf[ideal] + '.',
       rows: rows,
       decision: decision,
       requirements: [
@@ -3110,9 +3126,12 @@
       ],
       confidence: 'High. The highest score that still passes the mandatory rows wins.',
       why: [
-        'If the house network can stay flat, the ISP router wins because a new gateway is not a requirement.',
-        'If VLANs are required and you can fix a problem, OPNsense wins for a server: you own the rules.',
-        'If VLANs are required and you are new to this, the Dream Machine Pro wins. It is a gateway and a controller in one box. The Cloud Gateway class and an Omada gateway also qualify. Pick between those three by the live price, not by a number this page invents.'
+        'ISP router, class floor $0. It unlocks internet on one network. It does not unlock VLANs, PoE, or a controller. Keep it when the house can stay flat.',
+        'TP-Link Omada, class floor $150. It unlocks VLANs in the Omada app. Buy the Omada switch and the Omada access point later so they share that app. It does not unlock UniFi gear.',
+        'OPNsense, class floor $200. It unlocks VLANs and firewall rules you own. It does not include Wi-Fi or PoE. This rung is only open when you can fix a bad rule. The switch brand then follows the access point, not the firewall.',
+        'UniFi Cloud Gateway, class floor $250. It unlocks a UniFi controller. A UniFi switch and a UniFi access point join the same app. Do not add an Omada switch to that controller.',
+        'UniFi Dream Machine Pro, class floor $350. Same UniFi family, with the gateway and the controller in one box, including IDS/IPS in that class. Pick this over the Cloud Gateway when the band can hold it. Pick the Cloud Gateway or Omada when it cannot.',
+        'Stay in one family. UniFi gateway, UniFi switch, UniFi access point. Or Omada gateway, Omada switch, Omada access point. Mixing the two means two apps.'
       ],
       tradeoff: 'A custom firewall is more flexible. It is also easier to lock yourself out of the house network.',
       links: [
@@ -3185,7 +3204,9 @@
       why: [
         'A managed switch is for separate networks, not only for "one cable, two networks." People, cameras, guests, and the server should not all sit on one flat LAN.',
         'PoE means the switch feeds power down the cable. Add the device watts. The switch total is smaller than the maximum per port times every port. About 15.4 W for 802.3af, about 30 W for 802.3at.',
-        'If PoE and a fast uplink are both wanted, buy the PoE switch for the edge. A 10 GbE link between the server and the NAS can be a later, separate cable. Do not skip PoE to chase 10 GbE.'
+        'If PoE and a fast uplink are both wanted, buy the PoE switch for the edge. A 10 GbE link between the server and the NAS can be a later, separate cable. Do not skip PoE to chase 10 GbE.',
+        'Match the switch brand to the gateway. UniFi switch when the gateway is UniFi. Omada switch when the gateway is Omada. An OPNsense gateway can sit in front of either family. The access point should be that same family, or you will run two controllers.',
+        'Unmanaged is about $20 and unlocks more ports on one network. Managed 1 GbE is about $40 and unlocks VLANs. Managed PoE is about $120 and unlocks power on the cable. Managed 2.5 or 10 GbE is about $250 and unlocks a faster uplink. Those are class floors, not shelf prices.'
       ],
       tradeoff: '10 GbE costs more ports and more power. It is not the default for a house.',
       links: [
@@ -3230,12 +3251,55 @@
     };
   }
 
+  function spendForecast(answers, gateway, net) {
+    var a = answers || {};
+    var ceiling = ceilingOf(a.budget);
+    var max = ceiling.max;
+    function rung(spend, buy, unlocks, open) {
+      var money = max == null || spend <= max;
+      var allowed = open !== false;
+      var note = !allowed ? ' The dollars may fit, but this rung is closed for the reason in the unlock text.' : (money ? ' This band can hold that piece.' : ' This band cannot hold that piece.');
+      return {
+        spend: spend,
+        buy: buy,
+        unlocks: unlocks,
+        fits: money && allowed,
+        line: 'Spend about $' + spend + ' on ' + buy + '. Unlocks: ' + unlocks + note
+      };
+    }
+    var rows = [
+      rung(0, 'the ISP router', 'internet on one network. It does not unlock separate networks for guests, cameras, or the server.'),
+      rung(150, 'a TP-Link Omada gateway', 'VLANs inside the Omada app. An Omada switch and an Omada access point can join that same app later. It does not unlock UniFi gear.'),
+      rung(200, 'an OPNsense appliance', 'VLANs and firewall rules you own. It does not include Wi-Fi or PoE. ' + (a.skill === 'ok' ? 'You can fix a bad rule, so this rung is open.' : 'This rung stays closed until you can fix a bad rule.'), a.skill === 'ok'),
+      rung(250, 'a UniFi Cloud Gateway', 'a UniFi controller. A UniFi switch and a UniFi access point join the same app later.'),
+      rung(350, 'a UniFi Dream Machine Pro', 'the gateway and the UniFi controller in one box, including IDS/IPS in that class. Same family as the Cloud Gateway.')
+    ];
+    var sw = net.floor || 0;
+    rows.push(rung(sw, 'the ' + net.decision + ' switch class', net.decision === 'Managed PoE'
+      ? 'VLAN ports plus power for the access point, about 15.4 W now. Use a UniFi switch with a UniFi gateway, or an Omada switch with an Omada gateway. An OPNsense gateway can sit in front of either.'
+      : 'the ports the study asked for. Match the switch brand to the gateway family so the switch and the access point share one app.'));
+    if (hasJob(a, 'smart')) {
+      rows.push(rung(100, 'a UniFi U6+ class access point', 'Wi-Fi 6, VLAN tagging, and power from the PoE switch. A Wi-Fi 7 U7 class is about $180 and stays closed until the phones you own can use it.'));
+    }
+    var path = (gateway.idealFloor != null ? gateway.idealFloor : gateway.floor) + sw + (hasJob(a, 'smart') ? 100 : 0);
+    rows.push(rung(path, 'the gateway the requirements want, plus the switch' + (hasJob(a, 'smart') ? ', plus the access point' : ''), 'the whole network design: separate networks' + (hasJob(a, 'smart') ? ', powered Wi-Fi, and one controller family' : '') + '. The server is a separate spend on top of this.'));
+    if ((a.role === 'server' || a.role === 'both') && a.budget !== 'have') {
+      var ramFloor = Number(a.ram) >= 64 ? 120 : (Number(a.ram) >= 32 ? 70 : 40);
+      var serverSpend = 100 + 80 + ramFloor + 50 + 60 + 50;
+      rows.push(rung(serverSpend, 'the server class (CPU, board, memory, boot drive, power supply, case)', 'a machine that stays on. It does not unlock VLANs or powered Wi-Fi.'));
+    }
+    return rows;
+  }
+
   function labModel(answers, report) {
     var a = answers || {};
     var raid = raidPlan(a.storage, a);
     var drives = driveStudy(a.storage, a);
     var gateway = gatewayStudy(a);
     var net = switchStudy(a);
+    var forecast = spendForecast(a, gateway, net);
+    gateway.forecast = forecast;
+    net.forecast = forecast;
     var media = (hasJob(a, 'movies') || hasJob(a, 'photos') || hasJob(a, 'video')) ? mediaStudy(a) : null;
     var ceiling = ceilingOf(a.budget);
     var fit = suggestFit(a, raid);
@@ -3270,7 +3334,7 @@
     ].concat(checks);
     if (media) summary.push('Player: ' + media.decision + '.');
     summary.push((raid.disks >= 4 || Number(a.gpu) >= 16) ? 'Build status: open. A compatibility check above is still waiting on a part you choose.' : 'Build status: the decisions that can be made from your answers are made. Prices are still yours to enter.');
-    return { ceiling: ceiling, raid: raid, drives: drives, gateway: gateway, switchPick: net, media: media, fit: fit, conflict: conflict, summary: summary };
+    return { ceiling: ceiling, raid: raid, drives: drives, gateway: gateway, switchPick: net, media: media, fit: fit, forecast: forecast, conflict: conflict, summary: summary };
   }
 
   function labBreakdown(answers, report) {
