@@ -1514,6 +1514,62 @@
     return { tone: tone, lines: lines };
   }
 
+  function gpuClassId(gpu) {
+    var n = Number(gpu);
+    if (!n) return 'none';
+    if (n <= 8) return 'g8';
+    if (n <= 12) return 'g12';
+    if (n <= 16) return 'g16';
+    return 'g24';
+  }
+
+  function suggestFit(answers, raid) {
+    var a = answers || {};
+    if (a.side === 'mac') {
+      return {
+        tone: 'wait',
+        lines: [{ tone: 'wait', text: 'A Mac does not use this PC socket checker. The memory is the unified pool you already picked.' }],
+        cpu: null
+      };
+    }
+    var ramKey = Number(a.ram) >= 96 ? 'd5-96' : (Number(a.ram) >= 64 ? 'd5-64' : (Number(a.ram) >= 32 ? 'd5-32' : 'd4-16'));
+    var ram = byId(PARTS.ram, ramKey);
+    var gpu = byId(PARTS.gpu, gpuClassId(a.gpu));
+    var ddr5 = ram.ram === 'DDR5';
+    var cpu = byId(PARTS.cpu, ddr5 ? (Number(a.ram) >= 64 ? 'r7-7700' : 'r5-7600') : (gpu.id === 'none' ? 'r5-5600g' : 'r5-5600'));
+    var board = byId(PARTS.board, ddr5 ? 'b650' : 'b550-atx');
+    var box = byId(PARTS.case, 'atx');
+    var need = cpu.watts + gpu.watts + 150;
+    var psu = PARTS.psu.slice().sort(function (left, right) { return left.watts - right.watts; }).filter(function (item) {
+      return item.watts >= need + 100;
+    })[0] || PARTS.psu[PARTS.psu.length - 1];
+    var report = checkParts({
+      cpu: cpu.id, board: board.id, ram: ram.id, gpu: gpu.id, psu: psu.id, case: box.id,
+      system: (a.role === 'server' || a.role === 'both') ? 'server' : 'desk'
+    });
+    var disks = (raid && raid.disks) || 1;
+    var extra = [];
+    if (disks >= 4) {
+      extra.push({ tone: 'wait', text: 'Four data disks need four SATA ports, or an HBA in a PCIe slot. This suggestion is an ATX board so that slot has a place. Count the SATA ports on the board page before you skip the HBA.' });
+    } else {
+      extra.push({ tone: 'go', text: disks + ' data disk' + (disks === 1 ? '' : 's') + ' fit the SATA ports on a normal ATX board.' });
+    }
+    var fastNic = Number(a.storage) >= 8000 && (a.role === 'server' || a.role === 'both') && !hasJob(a, 'smart');
+    var slots = (gpu.id === 'none' ? 0 : 1) + (disks >= 4 ? 1 : 0) + (fastNic ? 1 : 0);
+    if (slots >= 3) extra.push({ tone: 'wait', text: 'A graphics card, an HBA, and a faster NIC want three slots. Confirm the board has them before you treat this as a fit.' });
+    else if (gpu.id !== 'none' && disks >= 4) extra.push({ tone: 'wait', text: 'The graphics card and the HBA both want a PCIe slot. An ATX board usually has both. A mini-ITX board does not.' });
+    else extra.push({ tone: 'go', text: 'No graphics card and no HBA are fighting for the same slot.' });
+    if (Number(a.gpu) && Number(a.gpu) < 8) extra.push({ tone: 'wait', text: 'The card you named is smaller than 8 GB. The checker plans the 8 GB class at 200 W so the supply is not too small.' });
+    if (Number(a.ram) >= 128) extra.push({ tone: 'wait', text: '128 GB is larger than the 96 GB kit in this checker. Confirm the board allows it.' });
+    var lines = report.lines.concat(extra);
+    var tone = report.tone;
+    extra.forEach(function (line) {
+      if (line.tone === 'stop') tone = 'stop';
+      else if (line.tone === 'wait' && tone !== 'stop') tone = 'wait';
+    });
+    return { tone: tone, lines: lines, cpu: cpu, board: board, ram: ram, gpu: gpu, psu: psu, case: box };
+  }
+
   function gpuGb(a) {
     var n = Number(a && a.gpu);
     return isFinite(n) ? n : 0;
@@ -2739,7 +2795,10 @@
           if (dollars == null || isNaN(dollars)) unpriced += 1;
           else if (!node.offer.noteOnly) known += dollars;
           var money = node.offer.noteOnly ? 'not required, $0' : (dollars == null || isNaN(dollars) ? 'no class floor' : (typed ? '$' + dollars : 'class floor $' + dollars));
-          groups[group].push(node.offer.name + ': ' + money);
+          var qty = node.offer.qty || 1;
+          var stateWord = node.status === 'over' ? 'over budget' : (node.status === 'need' ? 'pending' : 'selected');
+          var tail = node.offer.noteOnly ? '' : (' ×' + qty + ' · ' + stateWord + ' · ' + (node.offer.retailer || 'PCPartPicker') + ' · ' + (node.offer.checked || 'Sep 24, 2026'));
+          groups[group].push(node.offer.name + ': ' + money + tail);
         });
         Object.keys(groups).forEach(function (group) {
           card.appendChild(el('h3', '', group));
@@ -3083,6 +3142,26 @@
     if (needPoe) decision = 'Managed PoE';
     else if (needVlan && wantFast) decision = 'Managed 2.5 or 10 GbE';
     else if (needVlan) decision = 'Managed 1 GbE';
+    var named = [{ name: 'Uplink to the gateway', poe: false }];
+    if (a.role === 'server' || a.role === 'both') named.push({ name: 'Server', poe: false });
+    if (a.role === 'everyday' || a.role === 'both') named.push({ name: 'Desk computer', poe: false });
+    if (a.role === 'server') named.push({ name: 'The computer you already use to reach the server', poe: false });
+    if (hasJob(a, 'smart')) named.push({ name: 'Access point', poe: true });
+    var poeClients = named.filter(function (item) { return item.poe; }).length;
+    var demand = {
+      ports: named.length,
+      poeClients: poeClients,
+      poeWatts: poeClients * 15.4,
+      spare: 2,
+      lines: [
+        'Named ports: ' + named.length + ' (' + named.map(function (item) { return item.name; }).join(', ') + ').',
+        poeClients
+          ? 'PoE now: about ' + (poeClients * 15.4) + ' W for ' + poeClients + ' access point, at 802.3af (about 15.4 W).'
+          : 'PoE now: none. No access point was requested.',
+        'Cameras are not in this count. You did not say how many. Add about 15.4 W and one port for each camera you later name.',
+        'Buy a switch with at least ' + (named.length + 2) + ' ports so two later devices have a place. That spare is not a claim that you already own them.'
+      ]
+    };
     var switchFloor = { 'Unmanaged': 20, 'Managed 1 GbE': 40, 'Managed PoE': 120, 'Managed 2.5 or 10 GbE': 250 };
     rows.forEach(function (row) {
       var rejected = row.cells[4] === 'Reject';
@@ -3093,12 +3172,13 @@
       title: 'Switch trade study',
       columns: ['Candidate', 'VLANs', 'PoE', 'Speed', 'Result', 'Score'],
       floor: switchFloor[decision],
-      requirement: 'Ports for the machines you named. VLANs if the lab splits networks. PoE if a camera or an access point must be powered by the switch. A faster uplink only if the server and a large pile share the wire.',
+      demand: demand,
+      requirement: demand.lines.join(' '),
       rows: rows,
       decision: decision,
       requirements: [
         { id: 'R1', text: 'VLAN support', result: needVlan ? 'Required' : 'Not required' },
-        { id: 'R2', text: 'PoE for cameras or access points', result: needPoe ? 'Required' : 'Not required' },
+        { id: 'R2', text: 'PoE for the access point you asked for', result: needPoe ? ('Required, about ' + demand.poeWatts + ' W') : 'Not required' },
         { id: 'R3', text: 'Faster than 1 GbE', result: wantFast && !needPoe ? 'Preferred' : 'Not required yet' }
       ],
       confidence: 'High. The smallest class that passes every required row wins.',
@@ -3158,14 +3238,11 @@
     var net = switchStudy(a);
     var media = (hasJob(a, 'movies') || hasJob(a, 'photos') || hasJob(a, 'video')) ? mediaStudy(a) : null;
     var ceiling = ceilingOf(a.budget);
-    var checks = [];
-    checks.push('RAM follows the amount you picked.');
-    if (Number(a.gpu) >= 16) checks.push('A 16 GB or larger card still needs a case that fits its length and a PSU that meets the card page. Read both there.');
-    else checks.push('No large extra card, so GPU clearance is not the blocking check.');
-    if (raid.disks >= 4) checks.push('Four data disks need four SATA ports, or an HBA. Count the ports on the motherboard.');
-    else checks.push('This pile fits the SATA ports on a normal motherboard.');
+    var fit = suggestFit(a, raid);
+    var checks = fit.lines.map(function (line) { return line.text; });
+    checks.push('Fit: ' + (fit.tone === 'go' ? 'the suggested PC parts agree.' : (fit.tone === 'stop' ? 'the suggested PC parts clash.' : 'the suggested PC parts need a closer look.')));
     checks.push('RAID is not a backup. ' + raid.why);
-    if (a.role === 'server' || a.role === 'both' || hasJob(a, 'smart')) checks.push('Gateway: ' + gateway.decision + '. Switch: ' + net.decision + '.');
+    if (a.role === 'server' || a.role === 'both' || hasJob(a, 'smart')) checks.push('Gateway: ' + gateway.decision + '. Switch: ' + net.decision + '. ' + (net.demand ? net.demand.lines[0] : ''));
     var owns = a.budget === 'have';
     var ramFloor = Number(a.ram) >= 64 ? 120 : (Number(a.ram) >= 32 ? 70 : 40);
     var minimum = 0;
@@ -3173,6 +3250,7 @@
     if (a.role === 'server' || a.role === 'both' || hasJob(a, 'smart')) minimum += (gateway.floor || 0) + (net.floor || 0);
     if (hasJob(a, 'smart')) minimum += 100;
     if (raid.disks > 1) minimum += 150 * raid.disks;
+    if (!owns && raid.disks >= 4 && (a.role === 'server' || a.role === 'both')) minimum += 40;
     var conflict = ceiling.max != null && minimum > ceiling.max ? {
       minimum: minimum,
       lines: [
@@ -3192,7 +3270,7 @@
     ].concat(checks);
     if (media) summary.push('Player: ' + media.decision + '.');
     summary.push((raid.disks >= 4 || Number(a.gpu) >= 16) ? 'Build status: open. A compatibility check above is still waiting on a part you choose.' : 'Build status: the decisions that can be made from your answers are made. Prices are still yours to enter.');
-    return { ceiling: ceiling, raid: raid, drives: drives, gateway: gateway, switchPick: net, media: media, conflict: conflict, summary: summary };
+    return { ceiling: ceiling, raid: raid, drives: drives, gateway: gateway, switchPick: net, media: media, fit: fit, conflict: conflict, summary: summary };
   }
 
   function labBreakdown(answers, report) {
@@ -3215,8 +3293,8 @@
       var st = status;
       if (st === 'ready' || st === 'selected') st = (!owns && model.ceiling.max != null && useFloor > model.ceiling.max) ? 'over' : 'selected';
       var offer = st === 'skip'
-        ? { group: 'Server', name: pickTitle, dollars: 0, noteOnly: true }
-        : { group: 'Server', name: pickTitle, dollars: owns ? 0 : null, floor: useFloor };
+        ? { group: 'Server', name: pickTitle, dollars: 0, noteOnly: true, qty: 1 }
+        : { group: 'Server', name: pickTitle, dollars: owns ? 0 : null, floor: useFloor, qty: id === 'datadisks' ? Math.max(1, model.raid.disks) : 1, retailer: 'PCPartPicker', checked: 'Sep 24, 2026' };
       var body = sections || [
         note('Why', [line], 'why'),
         note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/search/?q=' + encodeURIComponent(pickTitle), detail: 'Live price. A class floor is not a shelf price.' }], 'buy')
@@ -3231,24 +3309,24 @@
         osOnServer
           ? nest(pick === 'proxmox' ? 'hypervisor' : 'host', pick === 'proxmox' ? 'Hypervisor' : 'Host', os)
           : nest('host', 'Host', leaf('server-os', 'L5', 'Server system', report.labLine || 'A second computer that stays on.', [])),
-        hw('case', 'Case', 'Case', 'selected', 50, 'Match the board. A Micro-ATX case does not take an E-ATX board.'),
-          hw('board', 'Motherboard', 'Motherboard', 'selected', 80, 'The board must match the CPU socket. Count SATA ports and PCIe slots before a GPU, an HBA, and a fast NIC share it.', [
-            note('Why', ['Socket, RAM generation, SATA count, and PCIe slots are decided here. The parts checker turns red when two picks clash.'], 'why'),
+        hw('case', 'Case', model.fit.case ? model.fit.case.name : 'Case', 'selected', 50, model.fit.case ? model.fit.case.plain : 'Match the board. A Micro-ATX case does not take an E-ATX board.'),
+          hw('board', 'Motherboard', model.fit.board ? model.fit.board.name : 'Motherboard', 'selected', 80, model.fit.board ? model.fit.board.plain : 'The board must match the CPU socket.', [
+            note('Why', ['Socket, RAM generation, SATA count, and PCIe slots are decided here.'].concat(model.fit.lines.map(function (line) { return line.text; })), 'why'),
             { name: 'Check fit', slot: 'compare', lines: ['Six kinds of part. Green fits, red clashes, yellow needs a closer look.'], panel: 'build' },
             note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/', detail: 'Live price. A class floor is not a shelf price.' }], 'buy')
           ]),
-          hw('cpu', 'CPU', '65W class CPU', 'selected', 100, 'A 65W desktop CPU with graphics built in when there is no extra card. The board has to use that socket.'),
+          hw('cpu', 'CPU', model.fit.cpu ? model.fit.cpu.name : '65W class CPU', 'selected', 100, model.fit.cpu ? model.fit.cpu.plain : 'A 65W desktop CPU. The board has to use that socket.'),
           hw('cooler', 'CPU cooler', 'Included cooler', 'skip', 0, 'Use the cooler in the CPU box unless the case is too short for it.'),
-          hw('ram', 'RAM', (a.ram || 16) + ' GB', 'selected', Number(a.ram) >= 64 ? 120 : (Number(a.ram) >= 32 ? 70 : 40), report.hardware.ram),
-          hw('gpubom', 'GPU', Number(a.gpu) ? 'Graphics card' : 'No extra card', Number(a.gpu) ? 'need' : 'skip', 0, report.hardware.gpuLabel),
-          hw('psu', 'PSU', 'Power supply', 'selected', 60, 'Add the CPU watts, the card watts, and about 150 W. The parts checker does this when you name both parts.'),
+          hw('ram', 'RAM', model.fit.ram ? model.fit.ram.name : ((a.ram || 16) + ' GB'), 'selected', Number(a.ram) >= 64 ? 120 : (Number(a.ram) >= 32 ? 70 : 40), model.fit.ram ? model.fit.ram.plain : report.hardware.ram),
+          hw('gpubom', 'GPU', model.fit.gpu ? model.fit.gpu.name : 'No extra card', model.fit.gpu && model.fit.gpu.id !== 'none' ? 'need' : 'skip', 0, model.fit.gpu ? model.fit.gpu.plain : report.hardware.gpuLabel),
+          hw('psu', 'PSU', model.fit.psu ? model.fit.psu.name : 'Power supply', 'selected', 60, model.fit.psu ? model.fit.psu.plain : 'Add the CPU watts, the card watts, and about 150 W.'),
           hw('bootssd', 'Boot drive', 'NVMe boot', 'selected', 50, 'The system lives here. The pile does not.'),
           hw('datadisks', 'Data drives', model.drives.decision, model.raid.disks > 1 ? 'selected' : 'skip', 150 * Math.max(1, model.raid.disks), model.raid.why),
           hw('nic', 'NIC', (model.switchPick.decision.indexOf('10') !== -1 || model.switchPick.decision.indexOf('2.5') !== -1) ? 'Faster NIC' : 'Onboard Ethernet', (model.switchPick.decision.indexOf('10') !== -1 || model.switchPick.decision.indexOf('2.5') !== -1) ? 'need' : 'skip', 0, 'Onboard Ethernet is enough until the switch study asks for more than 1 GbE.'),
           hw('wifi', 'Wi-Fi', 'Not required', 'skip', 0, 'A server should use a cable. Wi-Fi belongs on an access point.'),
           hw('sound', 'Sound', 'Not required', 'skip', 0, 'Not required on this lab box.'),
           hw('fans', 'Fans', 'Case fans', 'need', 0, 'Start with the fans that come with the case.'),
-          hw('hba', 'HBA', model.raid.disks >= 4 ? 'HBA or extra SATA' : 'Not required', model.raid.disks >= 4 ? 'need' : 'skip', model.raid.disks >= 4 ? 40 : 0, 'Four or more SATA disks need four ports, or an HBA. A Micro-ATX board often does not have four.'),
+          hw('hba', 'HBA', model.raid.disks >= 4 ? 'HBA or extra SATA' : 'Not required', model.raid.disks >= 4 ? 'selected' : 'skip', model.raid.disks >= 4 ? 40 : 0, 'Four or more SATA disks need four ports, or an HBA. A Micro-ATX board often does not have four.'),
           nest('ups', 'UPS', tag(leaf('ups-pick', 'L5', 'UPS', 'A short outage should park the disks.', [
             note('Add to build', ['Add it when this machine must stay up through a flicker.'], 'add'),
             note('Skip', ['Skip it only if this machine can go dark without hurting the only copy of the files.'], 'skip')
@@ -3341,8 +3419,9 @@
         var floor = chosen ? (study.floor || 0) : 0;
         var st = 'skip';
         if (chosen) st = (model.ceiling.max != null && floor > model.ceiling.max) ? 'over' : (floor === 0 ? 'selected' : 'selected');
-        var offer = chosen ? { group: 'Networking', name: title, dollars: floor === 0 ? 0 : null, floor: floor } : null;
-        return nest(id, asm, tag(leaf(id + '-pick', 'L5', title, chosen ? 'Highest score that passes the mandatory rows. Class floor $' + floor + '.' : 'Lower score. It stays in the study.', [
+        var offer = chosen ? { group: 'Networking', name: title, dollars: floor === 0 ? 0 : null, floor: floor, qty: 1, retailer: 'PCPartPicker', checked: 'Sep 24, 2026' } : null;
+        var demandText = study.demand ? ' ' + study.demand.lines.join(' ') : '';
+        return nest(id, asm, tag(leaf(id + '-pick', 'L5', title, chosen ? 'Highest score that passes the mandatory rows. Class floor $' + floor + '.' + demandText : 'Lower score. It stays in the study.', [
           { name: 'Trade study', slot: 'study', lines: [], study: study },
           note('Risks', ['Do not forward Proxmox, the NAS, Remote Desktop, or Home Assistant to the internet.'], 'risks')
         ]), 'architecture', offer, st));
