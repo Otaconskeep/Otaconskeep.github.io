@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
-<link rel="stylesheet" href="wizard.css?v=20260925e">
+<link rel="stylesheet" href="wizard.css?v=20260925f">
 </head>
 <body>
 
@@ -62,13 +62,22 @@
  <div class="stamp">LESSON 00<small>click-through · no quiz gate</small></div>
  <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
  <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Build your own lab</h1>
- <p class="lede">Build your lab one layer at a time. Click any block to explore it. Your choices, parts and budget stay with you as you move through the system.</p>
+ <div class="wiz-aid lede">
+  <svg class="wiz-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5zM3 12l9 5 9-5M3 16l9 5 9-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div class="wiz-aid-body">Build your lab one layer at a time. Click any block to explore it. Your choices, parts and budget stay with you as you move through the system.</div>
+ </div>
  </section>
 </div>
 
 <div class="wrap">
  <div id="wiz"></div>
- <p class="meta" style="margin-top:22px;">Words used on purpose: RAM is working memory. Storage is the disk where files live. A GPU is the graphics card. A virtual machine is a pretend computer inside the real one. A parameter is one note an AI model memorized. Bigger models need more memory.</p>
+ <div class="wiz-key" aria-label="Words used on purpose">
+  <div class="wiz-aid"><svg class="wiz-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8h8v8H8zM10 4v4m4-4v4M10 16v4m4-4v4M4 10h4m-4 4h4M16 10h4m-4 4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div class="wiz-aid-body"><strong>RAM</strong> Working memory.</div></div>
+  <div class="wiz-aid"><svg class="wiz-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a8 8 0 1 0 .01 0M12 10a2 2 0 1 0 .01 0" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><div class="wiz-aid-body"><strong>Storage</strong> The disk where files live.</div></div>
+  <div class="wiz-aid"><svg class="wiz-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18v8H3zM8 8V5m4 3V5m4 3V5M7 16v3m10-3v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div class="wiz-aid-body"><strong>GPU</strong> The graphics card.</div></div>
+  <div class="wiz-aid"><svg class="wiz-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5zM3 12l9 5 9-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="wiz-aid-body"><strong>Virtual machine</strong> A computer inside the computer.</div></div>
+  <div class="wiz-aid"><svg class="wiz-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div class="wiz-aid-body"><strong>Parameter</strong> One note an AI model memorized. Bigger models need more memory.</div></div>
+ </div>
 </div>
 
 <footer class="sitefoot">
@@ -78,7 +87,7 @@
  </div>
 </footer>
 <script src="/classroom/classroom.js?v=20260922b"></script>
-<script src="/classroom/modules/00-pick-your-lab/wizard.js?v=20260925e"></script>
+<script src="/classroom/modules/00-pick-your-lab/wizard.js?v=20260925f"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   window.LabWizard.mount(document.getElementById('wiz'));

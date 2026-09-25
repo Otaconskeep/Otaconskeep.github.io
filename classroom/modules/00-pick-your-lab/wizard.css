@@ -10,7 +10,10 @@
 .wiz-hint { margin: 0 0 18px; color: var(--cream-dim); max-width: 42rem; }
 .wiz-choices { display: grid; gap: 10px; }
 .wiz-choice {
-  display: block;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  align-items: center;
   width: 100%;
   text-align: left;
   cursor: pointer;
@@ -20,8 +23,25 @@
   border-radius: 8px;
   padding: 14px 16px;
 }
+.wiz-choice-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: rgba(67, 217, 138, .14); color: #43d98a; }
 .wiz-choice strong { display: block; font-size: 1.05rem; margin-bottom: 4px; }
-.wiz-choice span { display: block; color: var(--cream-dim); font-size: .95rem; line-height: 1.4; }
+.wiz-choice-copy span { display: block; color: var(--cream-dim); font-size: .95rem; line-height: 1.4; }
+.wiz-meter { display: flex; gap: 4px; margin: 0 0 12px; }
+.wiz-meter i { flex: 1; height: 7px; border-radius: 99px; background: rgba(255,255,255,.12); }
+.wiz-meter i.is-done, .wiz-meter i.is-now { background: #43d98a; }
+.wiz-meter i.is-now { box-shadow: 0 0 0 3px rgba(67, 217, 138, .28); }
+.wiz-glyph { width: 22px; height: 22px; flex: 0 0 22px; color: #43d98a; }
+.wiz-aid { display: flex; gap: 10px; align-items: flex-start; margin: 8px 0; }
+.wiz-aid-body { min-width: 0; line-height: 1.45; }
+.wiz-aid.is-incomplete .wiz-glyph, .wiz-aid.wiz-cart-over .wiz-glyph { color: #e0b040; }
+.wiz-tile-mark { display: grid; place-items: center; margin: 2px auto 4px; color: #e0b040; }
+.wiz-result { display: flex; gap: 10px; align-items: flex-start; margin: 8px 0; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(67, 217, 138, .4); background: rgba(67, 217, 138, .06); }
+.wiz-result.is-bad { border-color: rgba(224, 176, 64, .55); background: rgba(224, 176, 64, .06); }
+.wiz-result.is-bad .wiz-glyph { color: #e0b040; }
+.wiz-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.wiz-mini { border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; font-size: .75rem; }
+.wiz-technical { margin: 10px 0; }
+.wiz-key { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-top: 22px; }
 .wiz-choice:hover, .wiz-choice.is-on { border-color: var(--accent); background: var(--surface-2); }
 .wiz-back, .wiz-next { margin: 14px 12px 0 0; }
 .wiz-next:disabled { opacity: .45; cursor: default; }

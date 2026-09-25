@@ -1948,7 +1948,60 @@
       }
     } catch (err) { /* a bad save just starts the questionnaire */ }
 
+    function kindOf(text) {
+      var s = String(text || '').toLowerCase();
+      if (/\$|price|budget|cost|floor|offer|seller|warranty/.test(s)) return 'coin';
+      if (/watt|power|psu|thermal/.test(s)) return 'bolt';
+      if (/gpu|vram|graphics|nvidia|radeon|blackwell|ampere|ada|rdna/.test(s)) return 'gpu';
+      if (/cpu|zen |core|socket|thread/.test(s)) return 'cpu';
+      if (/raid|disk|drive|storage|ssd|hdd|cmr|smr/.test(s)) return 'disk';
+      if (/network|vlan|port|switch|poe|gateway|wifi|cable/.test(s)) return 'net';
+      if (/unknown|warn|over|fail|reject|clash|short|risk/.test(s)) return 'alert';
+      if (/pass|fit|ready|equip|owned|qualif|remain/.test(s)) return 'check';
+      if (/arch|generat|layer|system/.test(s)) return 'layers';
+      return 'mark';
+    }
+
+    function glyph(kind) {
+      var paths = {
+        coin: 'M12 3v18M8 7.5h6a2.5 2.5 0 0 1 0 5H8m0 0h7a2.5 2.5 0 0 1 0 5H8',
+        bolt: 'M13 2 4 14h7l-1 8 9-12h-7l1-8z',
+        gpu: 'M3 8h18v8H3zM8 8V5m4 3V5m4 3V5M7 16v3m10-3v3',
+        cpu: 'M8 8h8v8H8zM10 4v4m4-4v4M10 16v4m4-4v4M4 10h4m-4 4h4M16 10h4m-4 4h4',
+        disk: 'M12 4a8 8 0 1 0 .01 0M12 10a2 2 0 1 0 .01 0',
+        net: 'M4 8h16M4 16h16M8 4v16M16 4v16',
+        alert: 'M12 3 2 21h20L12 3zm0 7v5m0 3h.01',
+        check: 'M4 12l5 5L20 6',
+        layers: 'M12 3 3 8l9 5 9-5-9-5zM3 12l9 5 9-5M3 16l9 5 9-5',
+        mark: 'M12 4v16M4 12h16'
+      };
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('aria-hidden', 'true');
+      svg.setAttribute('class', 'wiz-glyph');
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', paths[kind] || paths.mark);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', 'currentColor');
+      path.setAttribute('stroke-width', '1.8');
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('stroke-linejoin', 'round');
+      svg.appendChild(path);
+      return svg;
+    }
+
     function el(tag, className, text) {
+      var prose = !className || className === 'wiz-hint' || className === 'wiz-node-line' || className === 'wiz-switch' || className === 'is-incomplete' || className === 'wiz-cart-over' || className === 'wiz-cart-total' || className === 'wiz-cart-count' || className === 'wiz-note';
+      if (tag === 'p' && prose) {
+        var row = document.createElement('div');
+        row.className = 'wiz-aid' + (className ? ' ' + className : '');
+        row.appendChild(glyph(kindOf(text)));
+        var body = document.createElement('div');
+        body.className = 'wiz-aid-body';
+        if (text) body.textContent = text;
+        row.appendChild(body);
+        return row;
+      }
       var node = document.createElement(tag);
       if (className) node.className = className;
       if (text) node.textContent = text;
@@ -1961,6 +2014,16 @@
       if (index >= steps.length) return drawResult();
       var step = steps[index];
       var choices = field(step, answers, 'choices') || [];
+      var meter = el('div', 'wiz-meter');
+      meter.setAttribute('role', 'img');
+      meter.setAttribute('aria-label', 'Layer ' + (index + 1) + ' of ' + steps.length);
+      steps.forEach(function (_, stepIndex) {
+        var pip = document.createElement('i');
+        if (stepIndex < index) pip.className = 'is-done';
+        if (stepIndex === index) pip.className = 'is-now';
+        meter.appendChild(pip);
+      });
+      rootEl.appendChild(meter);
       rootEl.appendChild(el('p', 'wiz-progress', 'Layer ' + (index + 1) + ' of ' + steps.length));
       rootEl.appendChild(el('h2', 'wiz-title', field(step, answers, 'title')));
       rootEl.appendChild(el('p', 'wiz-hint', field(step, answers, 'hint') || ''));
@@ -1978,8 +2041,13 @@
           button.classList.add('is-on');
           button.setAttribute('aria-pressed', 'true');
         }
-        button.appendChild(el('strong', '', (on && step.multi ? 'Yes · ' : '') + choice.label));
-        button.appendChild(el('span', '', choice.detail));
+        var mark = el('span', 'wiz-choice-mark');
+        mark.appendChild(glyph(kindOf(choice.label + ' ' + choice.detail)));
+        button.appendChild(mark);
+        var copy = el('span', 'wiz-choice-copy');
+        copy.appendChild(el('strong', '', (on && step.multi ? 'Yes · ' : '') + choice.label));
+        copy.appendChild(el('span', '', choice.detail));
+        button.appendChild(copy);
         button.addEventListener('click', function () {
           if (step.multi) {
             var current = Array.isArray(answers[step.id]) ? answers[step.id].slice() : [];
@@ -2597,6 +2665,34 @@
         box.appendChild(el('p', 'wiz-level', 'Trade study'));
         box.appendChild(el('h2', 'wiz-title', study.title));
         box.appendChild(el('p', '', study.requirement));
+        (study.rows || []).forEach(function (row) {
+          var result = String(row.result || '');
+          var bad = /reject|fail/i.test(result);
+          var card = el('div', 'wiz-result' + (bad ? ' is-bad' : ' is-good'));
+          card.appendChild(glyph(bad ? 'alert' : 'check'));
+          var body = el('div', 'wiz-aid-body');
+          body.appendChild(el('strong', '', row.name || ''));
+          var chips = el('div', 'wiz-chips');
+          [row.cmr, row.nas, row.warranty, result, row.score != null ? String(row.score) : ''].forEach(function (bit) {
+            if (!bit) return;
+            chips.appendChild(el('span', 'wiz-mini', String(bit)));
+          });
+          body.appendChild(chips);
+          if (row.score != null && !isNaN(Number(row.score))) {
+            var track = el('span', 'wiz-bar');
+            var fill = document.createElement('i');
+            fill.style.width = Math.max(0, Math.min(100, Number(row.score))) + '%';
+            track.appendChild(fill);
+            body.appendChild(track);
+          }
+          card.appendChild(body);
+          box.appendChild(card);
+        });
+        var technical = document.createElement('details');
+        technical.className = 'wiz-technical';
+        var summary = document.createElement('summary');
+        summary.textContent = 'Technical trade study';
+        technical.appendChild(summary);
         var table = document.createElement('table');
         table.className = 'wiz-study';
         var head = document.createElement('tr');
@@ -2615,7 +2711,8 @@
           });
           table.appendChild(tr);
         });
-        box.appendChild(table);
+        technical.appendChild(table);
+        box.appendChild(technical);
         if (study.ideal && study.ideal !== study.decision) box.appendChild(el('p', '', 'Requirements want ' + study.ideal + '. This band can buy ' + study.decision + '.'));
         box.appendChild(el('h3', '', 'Decision: ' + study.decision));
         (study.requirements || []).forEach(function (req) {
@@ -2722,6 +2819,9 @@
         tile.type = 'button';
         tile.className = 'wiz-tile' + (onPath ? ' is-on' : '') + (tip ? ' is-tip' : '');
         tile.appendChild(el('span', 'wiz-level', levelStamp(node.level)));
+        var tileMark = el('span', 'wiz-tile-mark');
+        tileMark.appendChild(glyph(kindOf(node.title + ' ' + (node.line || ''))));
+        tile.appendChild(tileMark);
         tile.appendChild(el('strong', '', node.title));
         var statusLabel = { ready: 'In the build', selected: 'Selected', recommended: 'Recommended', over: 'Over budget', need: 'Choose', skip: 'Not required' }[node.status];
         if (itemState(node.id) === 'owned') statusLabel = 'Owned';
@@ -2968,6 +3068,7 @@
         if (budget.status === 'over') card.appendChild(el('p', 'wiz-cart-over', '⚠ $' + (budget.known - budget.ceiling) + ' over the band'));
         Object.keys(settled.groups).forEach(function (group) {
           var row = el('div', 'wiz-cart-row');
+          row.appendChild(glyph(kindOf(group)));
           row.appendChild(el('span', '', group));
           var bucket = settled.groups[group];
           var groupText = bucket.unpriced ? ('$' + bucket.known + ' + ' + bucket.unpriced + ' unpriced') : ('$' + bucket.known);
@@ -3354,6 +3455,7 @@
           return true;
         }).forEach(function (offer) {
           var line = el('p', 'wiz-offer');
+          line.appendChild(glyph('coin'));
           line.appendChild(el('span', '', offer.condition === 'new' ? 'New' : 'Used'));
           var link = document.createElement('a');
           link.href = offer.url;
@@ -3384,8 +3486,8 @@
         var stage = el('div', 'wiz-stage');
         stage.appendChild(renderCol(root, [root.id]));
         layout.appendChild(stage);
-        if (inspected) layout.appendChild(renderItem(inspected));
-        else if (focus) layout.appendChild(renderDrawer(focus));
+        if (focus) layout.appendChild(renderDrawer(focus));
+        else if (inspected) layout.appendChild(renderItem(inspected));
         rootEl.appendChild(layout);
         if (openIds.length > 1) {
           var up = document.createElement('button');
