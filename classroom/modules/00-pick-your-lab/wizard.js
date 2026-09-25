@@ -2524,7 +2524,10 @@
       var cartOpen = false;
       var prices = {};
       var added = {};
+      var owned = {};
       var dropped = {};
+      var inspected = null;
+      var buildName = '';
 
       function paintLines(parent, lines) {
         (lines || []).forEach(function (line) {
@@ -2676,13 +2679,16 @@
         tile.className = 'wiz-tile' + (onPath ? ' is-on' : '') + (tip ? ' is-tip' : '');
         tile.appendChild(el('span', 'wiz-level', levelStamp(node.level)));
         tile.appendChild(el('strong', '', node.title));
-        var statusLabel = { ready: 'In the build', selected: 'Selected', over: 'Over budget', need: 'Choose', skip: 'Not required' }[node.status];
+        var statusLabel = { ready: 'In the build', selected: 'Selected', recommended: 'Recommended', over: 'Over budget', need: 'Choose', skip: 'Not required' }[node.status];
+        if (owned[node.id]) statusLabel = 'Owned';
+        else if (added[node.id]) statusLabel = 'Equipped';
         if (statusLabel) tile.appendChild(el('span', 'wiz-open', statusLabel));
         if (node.level === 'L2' && onPath && openIds.length > 1) tile.appendChild(el('span', 'wiz-open', 'Open'));
         if (node.level === 'L2' && !onPath) tile.appendChild(el('span', 'wiz-cue', 'Explore >'));
         tile.addEventListener('mousedown', function (event) { event.preventDefault(); });
         tile.addEventListener('click', function () {
           focus = null;
+          inspected = node;
           if (samePath(ids, openIds)) {
             if (ids.length > 1) openIds = ids.slice(0, -1);
           } else if (isPrefix(ids, openIds)) {
@@ -2773,16 +2779,113 @@
       }
 
       function onBill(node) {
-        if (!node.offer) return false;
         if (dropped[node.id]) return false;
-        return !!(added[node.id] || node.selected);
+        if (!(added[node.id] || owned[node.id])) return false;
+        if (node.offer && node.offer.noteOnly) return false;
+        return true;
       }
 
       function lineDollars(node) {
+        if (owned[node.id]) return 0;
         if (prices[node.id] != null && prices[node.id] !== '') return Number(prices[node.id]);
         if (node.offer && node.offer.dollars === 0) return 0;
         if (node.offer && node.offer.floor != null) return node.offer.floor;
         return null;
+      }
+
+      function starLine(n) {
+        var full = Math.max(0, Math.min(5, n || 0));
+        return '★★★★★'.slice(0, full) + '☆☆☆☆☆'.slice(0, 5 - full);
+      }
+
+      function itemProfile(node) {
+        var model = root.model || {};
+        var raid = model.raid || {};
+        var floor = node.offer && node.offer.floor != null ? node.offer.floor : (node.offer && node.offer.dollars === 0 ? 0 : null);
+        var base = {
+          role: 'Lab part',
+          blurb: node.line || 'Part of the lab map.',
+          stars: {},
+          requires: [],
+          good: '',
+          bad: '',
+          example: '',
+          floor: floor
+        };
+        var cards = {
+          'RAIDZ2': {
+            role: 'Storage defense',
+            blurb: 'Protects the pile if two drives fail. It spends two disks on that protection.',
+            stars: { Reliability: 5, Capacity: 3, Speed: 3, 'Cost efficiency': 2, 'Beginner friendly': 3 },
+            requires: ['4 or more drives', 'A system that can run ZFS, such as TrueNAS or Proxmox with ZFS'],
+            good: 'Family photos, the only copy of important files, a NAS you cannot easily rebuild.',
+            bad: 'A tiny budget. Two of the disks are protection, not extra space.',
+            example: (raid.layouts || []).filter(function (item) { return item.name === 'RAIDZ2'; }).map(function (item) { return 'Usable: ' + item.usable + '. Failures tolerated: ' + item.loss + '.'; })[0] || ''
+          },
+          'RAIDZ1': {
+            role: 'Storage defense',
+            blurb: 'Survives one dead drive. The second failure during a rebuild takes the pile.',
+            stars: { Reliability: 3, Capacity: 4, Speed: 3, 'Cost efficiency': 4, 'Beginner friendly': 3 },
+            requires: ['3 or more drives'],
+            good: 'A media shelf you can rebuild from the backup.',
+            bad: 'The only copy of files you cannot replace.',
+            example: raid.disks >= 3 ? ('About ' + ((raid.disks - 1) * raid.eachTb) + ' TB usable.') : 'Needs at least 3 disks.'
+          },
+          'Mirror pairs': {
+            role: 'Storage defense',
+            blurb: 'Every disk has a partner. One partner can die. You get half the raw space.',
+            stars: { Reliability: 4, Capacity: 2, Speed: 4, 'Cost efficiency': 3, 'Beginner friendly': 4 },
+            requires: ['2 drives to start'],
+            good: 'A first serious pile. Easy to picture: one disk is the copy of the other.',
+            bad: 'Four disks of movies, where RAIDZ2 keeps more usable space.',
+            example: raid.disks ? ('About ' + ((raid.disks * raid.eachTb) / 2) + ' TB usable from ' + (raid.disks * raid.eachTb) + ' TB raw.') : ''
+          },
+          'No RAID': {
+            role: 'Storage defense',
+            blurb: 'One disk. Fast to understand. A dead disk takes whatever lived only there.',
+            stars: { Reliability: 1, Capacity: 5, Speed: 3, 'Cost efficiency': 5, 'Beginner friendly': 5 },
+            requires: ['The backup branch, if the files matter'],
+            good: 'A system disk, or a pile you already copy somewhere else.',
+            bad: 'The only copy of the photos.',
+            example: 'RAID is not a backup. This layout makes that obvious.'
+          }
+        };
+        var card = cards[node.title] || base;
+        if (node.title === 'Hard drives' || node.title === 'Drive family') {
+          var rows = (model.drives && model.drives.rows) || [];
+          card = {
+            role: 'Bulk storage',
+            blurb: 'The spinning disks that hold the pile. The system stays on an SSD.',
+            stars: { Reliability: 4, Capacity: 5, Speed: 2, 'Cost efficiency': 5, 'Beginner friendly': 3 },
+            requires: ['CMR', 'A NAS workload rating', 'SATA'],
+            good: 'Movies, photos, and backups.',
+            bad: 'Booting the operating system. That belongs on an SSD.',
+            example: rows.map(function (row) { return row.name + ' — ' + row.result + '.'; }).join(' '),
+            candidates: rows
+          };
+        }
+        if (node.title === 'CMR') {
+          card = { role: 'Recording method', blurb: 'Conventional recording. A rebuild can write the disk steadily. This is the kind a NAS wants.', stars: { Reliability: 5, Capacity: 4, Speed: 3, 'Cost efficiency': 4, 'Beginner friendly': 4 }, requires: ['A drive whose spec page says CMR'], good: 'RAID, ZFS, and a file server.', bad: 'Nothing, if you can buy it. Prefer it over SMR for the pile.', example: 'IronWolf, Red Plus, Red Pro, and Exos are CMR.' };
+        }
+        if (node.title === 'SMR') {
+          card = { role: 'Recording method', blurb: 'Shingled recording overlaps tracks. It is cheaper per terabyte and hates a RAID rebuild.', stars: { Reliability: 2, Capacity: 5, Speed: 2, 'Cost efficiency': 4, 'Beginner friendly': 2 }, requires: ['Do not use it for the RAID pile'], good: 'A cold disk you write once and rarely rewrite.', bad: 'A mirror or RAIDZ rebuild. Western Digital has said many plain Red 2 TB to 6 TB drives used SMR.', example: 'Plain WD Red in those sizes fails this lab.' };
+        }
+        if (model.gateway && model.gateway.rows && model.gateway.rows.some(function (row) { return row.name === node.title; })) {
+          var grow = model.gateway.rows.filter(function (row) { return row.name === node.title; })[0];
+          card = {
+            role: 'Network gateway',
+            blurb: node.title + ' scored ' + grow.score + ' against this lab. ' + (node.title === model.gateway.ideal ? 'The requirements want this one.' : (node.title === model.gateway.decision ? 'This band can buy this one.' : 'A lower score, or a closed rung.')),
+            stars: { Routing: Math.round((grow.score || 0) / 20), VLANs: grow.vlan === 'Pass' ? 5 : 1, 'Ease of use': node.title.indexOf('OPNsense') === 0 ? 2 : 4, Expandability: node.title.indexOf('Dream') !== -1 ? 5 : 3, Value: node.title.indexOf('Omada') !== -1 ? 5 : 3 },
+            requires: (model.gateway.requirements || []).map(function (req) { return req.text + ': ' + req.result; }),
+            good: 'Score ' + grow.score + ' in this lab. ' + (node.title === model.gateway.decision ? 'This is the pick that fits the band.' : 'It stays in the study.'),
+            bad: grow.result === 'Reject' ? 'It fails a requirement for this lab.' : 'A class floor is not the price on the shelf today.',
+            example: (model.gateway.rows || []).map(function (row) { return row.name + ' ' + row.score; }).join(' · '),
+            floor: floor
+          };
+        }
+        if (!card.floor && floor != null) card.floor = floor;
+        if (!card.blurb) card.blurb = base.blurb;
+        return card;
       }
 
       function paintBudget() {
@@ -2795,8 +2898,8 @@
         var lines = [];
         walk(root, []).forEach(function (node) {
           if (!onBill(node)) return;
-          if (node.offer.noteOnly) return;
-          var group = node.offer.group || 'Other';
+          if (node.offer && node.offer.noteOnly) return;
+          var group = (node.offer && node.offer.group) || 'Design';
           groups[group] = groups[group] || 0;
           var dollars = lineDollars(node);
           var typed = prices[node.id] != null && prices[node.id] !== '';
@@ -2805,15 +2908,30 @@
           known += amount;
           count += 1;
           var money = (dollars == null || isNaN(dollars)) ? 'no class floor' : (typed ? '$' + dollars : 'class floor $' + dollars);
-          lines.push(group + ' · ' + node.offer.name + ' ×' + (node.offer.qty || 1) + ' · ' + money);
+          lines.push(group + ' · ' + ((node.offer && node.offer.name) || node.title) + ' ×' + ((node.offer && node.offer.qty) || 1) + ' · ' + money);
         });
         var head = el('div', 'wiz-cart-head');
-        head.appendChild(el('p', 'wiz-level', 'Your lab'));
+        head.appendChild(el('p', 'wiz-level', buildName || (root.model && root.model.codename) || 'Your lab'));
         var capText = cap && cap.max != null ? ' / $' + cap.max : '';
         head.appendChild(el('p', 'wiz-cart-total', '$' + known + capText));
         card.appendChild(head);
-        if (cap && cap.max != null && known > cap.max) card.appendChild(el('p', 'wiz-cart-over', '⚠ $' + (known - cap.max) + ' over'));
-        else if (root.model && root.model.conflict) card.appendChild(el('p', 'wiz-cart-over', '⚠ Over this band'));
+        if (cap && cap.max != null) {
+          card.appendChild(el('p', '', 'Remaining $' + (cap.max - known)));
+          if (known > cap.max) card.appendChild(el('p', 'wiz-cart-over', '⚠ $' + (known - cap.max) + ' over'));
+        }
+        if (root.model && root.model.recommended) card.appendChild(el('p', '', 'Recommended build ~$' + root.model.recommended + '. Not charged until you equip a part.'));
+        var stats = labStats();
+        Object.keys(stats).forEach(function (name) {
+          var row = el('div', 'wiz-stat');
+          row.appendChild(el('span', '', name));
+          var track = el('span', 'wiz-bar');
+          var fill = document.createElement('i');
+          fill.style.width = stats[name] + '%';
+          track.appendChild(fill);
+          row.appendChild(track);
+          row.appendChild(el('span', '', String(stats[name])));
+          card.appendChild(row);
+        });
         ['Server', 'Storage', 'Networking', 'Software'].concat(Object.keys(groups)).filter(function (group, index, all) {
           return groups[group] != null && all.indexOf(group) === index;
         }).forEach(function (group) {
@@ -2855,6 +2973,96 @@
         }
       }
 
+      function renderItem(node) {
+        var card = itemProfile(node);
+        var box = el('aside', 'wiz-drawer wiz-item');
+        var close = document.createElement('button');
+        close.type = 'button';
+        close.className = 'btn btn-ghost wiz-back';
+        close.textContent = 'Close';
+        close.addEventListener('mousedown', function (event) { event.preventDefault(); });
+        close.addEventListener('click', function () { inspected = null; paint(); });
+        box.appendChild(close);
+        box.appendChild(el('p', 'wiz-level', card.role));
+        box.appendChild(el('h2', 'wiz-title', node.title));
+        box.appendChild(el('p', '', card.blurb));
+        Object.keys(card.stars || {}).forEach(function (name) {
+          var row = el('div', 'wiz-stat');
+          row.appendChild(el('span', '', name));
+          row.appendChild(el('span', '', starLine(card.stars[name])));
+          box.appendChild(row);
+        });
+        if (card.requires && card.requires.length) {
+          box.appendChild(el('h3', '', 'Requires'));
+          card.requires.forEach(function (line) { box.appendChild(el('p', '', line)); });
+        }
+        if (card.example) box.appendChild(el('p', '', card.example));
+        if (card.good) box.appendChild(el('p', '', 'Good for: ' + card.good));
+        if (card.bad) box.appendChild(el('p', '', 'Bad for: ' + card.bad));
+        if (card.candidates && card.candidates.length) {
+          box.appendChild(el('h3', '', 'Candidates'));
+          card.candidates.forEach(function (row) { box.appendChild(el('p', '', row.name + ' — ' + row.result)); });
+        }
+        var price = card.floor == null ? 'No class floor on this choice. The shelf price stays on the seller page.' : ('Class floor $' + card.floor + ', dated Sep 24, 2026. Amazon, Newegg, and B&H are not filled in here.');
+        box.appendChild(el('p', '', price));
+        var shop = document.createElement('a');
+        shop.href = 'https://pcpartpicker.com/search/?q=' + encodeURIComponent(node.title);
+        shop.target = '_blank';
+        shop.rel = 'noopener';
+        shop.textContent = 'Check PCPartPicker';
+        box.appendChild(shop);
+        var actions = el('div', 'wiz-actions');
+        var add = document.createElement('button');
+        add.type = 'button';
+        add.className = 'wiz-chip';
+        add.textContent = (added[node.id] && !owned[node.id]) ? 'Equipped' : ('Add to build' + (card.floor ? (' — class floor $' + card.floor) : ''));
+        add.addEventListener('mousedown', function (event) { event.preventDefault(); });
+        add.addEventListener('click', function () {
+          owned[node.id] = false;
+          added[node.id] = true;
+          dropped[node.id] = false;
+          paint();
+        });
+        var own = document.createElement('button');
+        own.type = 'button';
+        own.className = 'wiz-chip';
+        own.textContent = owned[node.id] ? 'Owned' : 'I already own this';
+        own.addEventListener('mousedown', function (event) { event.preventDefault(); });
+        own.addEventListener('click', function () {
+          owned[node.id] = true;
+          added[node.id] = true;
+          dropped[node.id] = false;
+          paint();
+        });
+        actions.appendChild(add);
+        actions.appendChild(own);
+        box.appendChild(actions);
+        return box;
+      }
+
+      function labStats() {
+        var rel = 15;
+        var net = 15;
+        var store = 10;
+        var ai = 10;
+        walk(root, []).forEach(function (node) {
+          if (!added[node.id] && !owned[node.id]) return;
+          if (node.title === 'RAIDZ2') rel = 91;
+          else if (node.title === 'Mirror pairs') rel = Math.max(rel, 76);
+          else if (node.title === 'RAIDZ1') rel = Math.max(rel, 70);
+          else if (node.title === 'No RAID') rel = Math.max(rel, 35);
+          if (node.title.indexOf('Dream Machine') !== -1) net = 94;
+          else if (node.title.indexOf('OPNsense') !== -1) net = Math.max(net, 88);
+          else if (node.title.indexOf('Cloud Gateway') !== -1) net = Math.max(net, 84);
+          else if (node.title.indexOf('Omada') !== -1) net = Math.max(net, 79);
+          else if (node.title === 'Managed PoE') net = Math.max(net, 82);
+          else if (node.title === 'ISP router') net = Math.max(net, 43);
+          if (node.offer && node.offer.group === 'Storage') store = Math.max(store, 73);
+          if (node.offer && node.offer.group === 'Server' && hasJob(answers, 'ai')) ai = 65;
+        });
+        return { Reliability: rel, Networking: net, Storage: store, 'AI power': ai };
+      }
+
       function restoreScroll(x, y) {
         var html = document.documentElement;
         var prev = html.style.scrollBehavior;
@@ -2872,7 +3080,8 @@
         var stage = el('div', 'wiz-stage');
         stage.appendChild(renderCol(root, [root.id]));
         layout.appendChild(stage);
-        if (focus) layout.appendChild(renderDrawer(focus));
+        if (inspected) layout.appendChild(renderItem(inspected));
+        else if (focus) layout.appendChild(renderDrawer(focus));
         rootEl.appendChild(layout);
         if (openIds.length > 1) {
           var up = document.createElement('button');
@@ -3378,7 +3587,8 @@
     ].concat(checks);
     if (media) summary.push('Player: ' + media.decision + '.');
     summary.push((raid.disks >= 4 || Number(a.gpu) >= 16) ? 'Build status: open. A compatibility check above is still waiting on a part you choose.' : 'Build status: the decisions that can be made from your answers are made. Prices are still yours to enter.');
-    return { ceiling: ceiling, raid: raid, drives: drives, gateway: gateway, switchPick: net, media: media, fit: fit, forecast: forecast, conflict: conflict, summary: summary };
+    var codename = hasJob(a, 'ai') ? 'Project Rex' : (hasJob(a, 'games') ? 'Project Arsenal' : ((hasJob(a, 'smart') && (a.role === 'server' || a.role === 'both')) ? 'Project Warden' : (hasJob(a, 'files') || hasJob(a, 'movies') ? 'Project Haven' : 'Project Outer Heaven')));
+    return { ceiling: ceiling, raid: raid, drives: drives, gateway: gateway, switchPick: net, media: media, fit: fit, forecast: forecast, conflict: conflict, recommended: minimum, codename: codename, summary: summary };
   }
 
   function characterSheet(tree, answers) {
@@ -3389,7 +3599,7 @@
       var next = ancestors.concat([node]);
       (node.children || []).forEach(function (child) { walk(child, next); });
       if (node.children && node.children.length) return;
-      var equipped = node.status === 'selected' || node.status === 'over' || node.status === 'ready';
+      var equipped = node.status === 'selected' || node.status === 'over' || node.status === 'ready' || node.status === 'recommended';
       var empty = node.status === 'skip' && node.offer && node.offer.noteOnly;
       var open = node.status === 'need' && node.offer;
       if (!equipped && !empty && !open) return;
@@ -3449,7 +3659,7 @@
       var owns = a.budget === 'have';
       var useFloor = owns ? 0 : floor;
       var st = status;
-      if (st === 'ready' || st === 'selected') st = (!owns && model.ceiling.max != null && useFloor > model.ceiling.max) ? 'over' : 'selected';
+      if (st === 'ready' || st === 'selected' || st === 'over') st = 'recommended';
       var offer = st === 'skip'
         ? { group: 'Server', name: pickTitle, dollars: 0, noteOnly: true, qty: 1 }
         : { group: 'Server', name: pickTitle, dollars: owns ? 0 : null, floor: useFloor, qty: id === 'datadisks' ? Math.max(1, model.raid.disks) : 1, retailer: 'PCPartPicker', checked: 'Sep 24, 2026' };
@@ -3514,7 +3724,7 @@
       return nest(name.toLowerCase().replace(/\s+/g, '-'), name, tag(leaf(name.toLowerCase().replace(/\s+/g, '-') + '-pick', 'L5', name, row.usable + '. Failures tolerated: ' + row.loss + '.', [
         note('Why', [model.raid.why], 'why'),
         note('Risks', ['RAID is not a backup. A mirror survives a dead disk. It does not survive a fire, a theft, or a delete.'], 'risks')
-      ]), 'architecture', null, chosen ? 'selected' : 'skip'));
+      ]), 'architecture', null, chosen ? 'recommended' : 'skip'));
     }
     var storageKids = [
       branch('boot', 'L3', 'Boot storage', [
@@ -3535,7 +3745,9 @@
           note('Compare', ['Same house network as the desk. Do not forward the admin page to the internet.'], 'compare'),
           { name: 'Trade study', slot: 'study', lines: [], study: model.drives },
           note('Where to buy it', model.drives.links, 'buy')
-        ]), 'hardware', { group: 'Storage', name: model.drives.decision, dollars: null }, 'need')),
+        ]), 'hardware', { group: 'Storage', name: model.drives.decision, dollars: null }, 'recommended')),
+        nest('cmr', 'CMR', tag(leaf('cmr-pick', 'L5', 'CMR', 'Conventional recording. The kind a rebuild can finish.', [note('Why', ['IronWolf, Red Plus, Red Pro, and Exos are CMR.'], 'why')]), 'architecture', null, 'recommended')),
+        nest('smr', 'SMR', tag(leaf('smr-pick', 'L5', 'SMR', 'Shingled recording. Cheaper, and a poor fit for a RAID rebuild.', [note('Why', ['Plain WD Red in the 2 TB to 6 TB sizes often used SMR. That fails this lab.'], 'why')]), 'architecture', null, 'skip')),
         nest('bulk-ssd', 'SATA SSD', tag(leaf('bulk-ssd-pick', 'L5', 'Bulk SATA SSD', 'Right for a small fast pile. Wrong price per terabyte for movies.', [
           note('Why', ['Pick this only when the pile is small and you want it quiet.'], 'why')
         ]), 'hardware', null, 'skip')),
@@ -3576,7 +3788,7 @@
         var study = id.indexOf('gate') === 0 ? model.gateway : model.switchPick;
         var floor = chosen ? (study.floor || 0) : 0;
         var st = 'skip';
-        if (chosen) st = (model.ceiling.max != null && floor > model.ceiling.max) ? 'over' : (floor === 0 ? 'selected' : 'selected');
+        if (chosen) st = 'recommended';
         var offer = chosen ? { group: 'Networking', name: title, dollars: floor === 0 ? 0 : null, floor: floor, qty: 1, retailer: 'PCPartPicker', checked: 'Sep 24, 2026' } : null;
         var demandText = study.demand ? ' ' + study.demand.lines.join(' ') : '';
         return nest(id, asm, tag(leaf(id + '-pick', 'L5', title, chosen ? 'Highest score that passes the mandatory rows. Class floor $' + floor + '.' + demandText : 'Lower score. It stays in the study.', [
@@ -3602,7 +3814,7 @@
           nest('ap', 'Wi-Fi AP', tag(leaf('ap-pick', 'L5', hasJob(a, 'smart') ? 'UniFi U6+ class' : 'Not required', hasJob(a, 'smart') ? 'One Wi-Fi 6 access point, PoE, VLAN tagging. Wi-Fi 7 is not required until the clients you own can use it. Class floor $100.' : 'The server uses a cable. Do not buy an access point for the server itself.', [
             note('Why', ['Coverage is one ceiling per floor in a normal house. PoE comes from the switch study. Wi-Fi 7 waits until the phones can use it.'], 'why'),
             note('Trade study', ['UniFi U6+ class: Wi-Fi 6, PoE, VLAN, class floor $100. UniFi U7 Pro class: Wi-Fi 7, PoE, VLAN, class floor $180. The U6+ class wins because Wi-Fi 7 is not a requirement yet.'], 'study')
-          ]), hasJob(a, 'smart') ? 'hardware' : 'architecture', hasJob(a, 'smart') ? { group: 'Networking', name: 'UniFi U6+ class', dollars: null, floor: 100 } : { group: 'Networking', name: 'Wi-Fi', dollars: 0, noteOnly: true }, hasJob(a, 'smart') ? ((model.ceiling.max != null && 100 > model.ceiling.max) ? 'over' : 'selected') : 'skip'))
+          ]), hasJob(a, 'smart') ? 'hardware' : 'architecture', hasJob(a, 'smart') ? { group: 'Networking', name: 'UniFi U6+ class', dollars: null, floor: 100 } : { group: 'Networking', name: 'Wi-Fi', dollars: 0, noteOnly: true }, hasJob(a, 'smart') ? 'recommended' : 'skip'))
         ]),
         branch('vlans', 'L3', 'VLANs', [
           nest('vlan-trusted', 'Trusted', tag(leaf('vlan-trusted-pick', 'L5', 'Trusted', 'Phones and the desk. The firewall allows this VLAN to start connections. It does not allow IoT or cameras to start a connection back.', [note('Why', ['Trusted may reach the server. The other VLANs may not reach trusted.'], 'why')]), 'architecture', null, 'selected')),
@@ -3612,8 +3824,8 @@
           nest('vlan-servers', 'Servers', tag(leaf('vlan-servers-pick', 'L5', 'Servers', 'Proxmox and the NAS answer here. Do not publish their admin pages on the WAN.', [note('Why', ['Servers accept connections from trusted. They do not accept new connections from IoT, cameras, or guests.'], 'why')]), 'architecture', null, 'selected'))
         ]),
         branch('cabling', 'L3', 'Cabling', [
-          nest('cat6', 'Cat6', tag(leaf('cat6-pick', 'L5', 'Cat6', 'Enough for 1 GbE in a house. Class floor $15.', [note('Why', ['Cat6 is the default cable.'], 'why')]), 'hardware', { group: 'Networking', name: 'Cat6', dollars: null, floor: 15 }, model.switchPick.decision.indexOf('10') === -1 ? 'selected' : 'skip')),
-          nest('cat6a', 'Cat6a', tag(leaf('cat6a-pick', 'L5', 'Cat6a', 'Use this when a run must carry 10 GbE. Class floor $25.', [note('Why', ['Cat6a is for the fast uplink, not for every phone.'], 'why')]), 'hardware', { group: 'Networking', name: 'Cat6a', dollars: null, floor: 25 }, model.switchPick.decision.indexOf('10') !== -1 ? 'selected' : 'skip')),
+          nest('cat6', 'Cat6', tag(leaf('cat6-pick', 'L5', 'Cat6', 'Enough for 1 GbE in a house. Class floor $15.', [note('Why', ['Cat6 is the default cable.'], 'why')]), 'hardware', { group: 'Networking', name: 'Cat6', dollars: null, floor: 15 }, model.switchPick.decision.indexOf('10') === -1 ? 'recommended' : 'skip')),
+          nest('cat6a', 'Cat6a', tag(leaf('cat6a-pick', 'L5', 'Cat6a', 'Use this when a run must carry 10 GbE. Class floor $25.', [note('Why', ['Cat6a is for the fast uplink, not for every phone.'], 'why')]), 'hardware', { group: 'Networking', name: 'Cat6a', dollars: null, floor: 25 }, model.switchPick.decision.indexOf('10') !== -1 ? 'recommended' : 'skip')),
           nest('fiber', 'Fiber', tag(leaf('fiber-pick', 'L5', 'Fiber or DAC', 'A short DAC between the server and the switch, or fiber when the run is long.', [note('Why', ['This is a later link, not the first cable in the house.'], 'why')]), 'hardware', null, 'skip'))
         ])
       ]));
