@@ -1,0 +1,136 @@
+/* Ask Otaconskeep — site chat widget. Matches the site's codec/terminal
+   aesthetic using the same design tokens as style.css. */
+.keep-chat-launcher {
+ position: fixed;
+ right: 18px;
+ bottom: 18px;
+ z-index: 9999;
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ padding: 12px 18px;
+ background: var(--accent);
+ color: var(--bg);
+ border: none;
+ border-radius: 999px;
+ font-family: 'JetBrains Mono', ui-monospace, monospace;
+ font-size: 0.82rem;
+ font-weight: 600;
+ letter-spacing: 0.02em;
+ cursor: pointer;
+ box-shadow: var(--shadow);
+ transition: background 0.15s ease, transform 0.15s ease;
+}
+.keep-chat-launcher:hover { background: var(--accent-bright); transform: translateY(-1px); }
+.keep-chat-launcher[hidden] { display: none; }
+
+.keep-chat-panel {
+ position: fixed;
+ right: 18px;
+ bottom: 18px;
+ z-index: 9999;
+ width: min(380px, calc(100vw - 36px));
+ height: min(520px, calc(100vh - 36px));
+ background: var(--bg-elevated);
+ border: 1px solid var(--line-bright);
+ border-radius: 8px;
+ box-shadow: var(--shadow);
+ display: flex;
+ flex-direction: column;
+ overflow: hidden;
+ font-family: 'Figtree', sans-serif;
+}
+.keep-chat-panel[hidden] { display: none; }
+
+.keep-chat-head {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 12px 14px;
+ background: var(--surface-2);
+ border-bottom: 1px solid var(--line);
+}
+.keep-chat-head-title {
+ font-family: 'JetBrains Mono', ui-monospace, monospace;
+ font-size: 0.72rem;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--accent-bright);
+}
+.keep-chat-close {
+ background: none;
+ border: none;
+ color: var(--cream-dim);
+ font-size: 1.1rem;
+ line-height: 1;
+ cursor: pointer;
+ padding: 2px 6px;
+}
+.keep-chat-close:hover { color: var(--cream); }
+
+.keep-chat-log {
+ flex: 1;
+ overflow-y: auto;
+ padding: 14px;
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+}
+.keep-chat-msg {
+ max-width: 88%;
+ padding: 8px 11px;
+ border-radius: 6px;
+ font-size: 0.88rem;
+ line-height: 1.45;
+ white-space: pre-wrap;
+}
+.keep-chat-msg.user {
+ align-self: flex-end;
+ background: var(--accent-dim);
+ color: var(--cream);
+}
+.keep-chat-msg.assistant {
+ align-self: flex-start;
+ background: var(--surface);
+ border: 1px solid var(--line);
+ color: var(--cream);
+}
+.keep-chat-msg.assistant a { color: var(--accent-bright); }
+.keep-chat-msg.pending { color: var(--cream-faint); font-style: italic; }
+.keep-chat-msg.error { border-color: var(--danger); color: var(--danger); }
+
+.keep-chat-form {
+ display: flex;
+ gap: 8px;
+ padding: 10px;
+ border-top: 1px solid var(--line);
+ background: var(--surface-2);
+}
+.keep-chat-input {
+ flex: 1;
+ background: var(--surface);
+ border: 1px solid var(--line-bright);
+ border-radius: 4px;
+ color: var(--cream);
+ padding: 8px 10px;
+ font-size: 0.85rem;
+ font-family: 'Figtree', sans-serif;
+}
+.keep-chat-input:focus { outline: 1px solid var(--accent); }
+.keep-chat-send {
+ background: var(--accent);
+ color: var(--bg);
+ border: none;
+ border-radius: 4px;
+ padding: 0 14px;
+ font-weight: 600;
+ font-size: 0.82rem;
+ cursor: pointer;
+}
+.keep-chat-send:disabled { opacity: 0.5; cursor: default; }
+.keep-chat-send:not(:disabled):hover { background: var(--accent-bright); }
+
+@media (max-width: 480px) {
+ .keep-chat-panel { right: 8px; left: 8px; bottom: 8px; width: auto; }
+ .keep-chat-launcher { right: 8px; bottom: 8px; }
+}
