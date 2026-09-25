@@ -1334,11 +1334,11 @@
         { value: 1, label: '1 GB or less', detail: 'A very old card. It shows the desktop. It is not for new games or AI.' },
         { value: 2, label: 'About 2 GB', detail: 'An old card. Old games at low settings. Not a chat-model card.' },
         { value: 4, label: 'About 3 or 4 GB', detail: 'A common older card. Light 1080p games. Still small for AI.' },
-        { value: 6, label: 'About 6 GB', detail: 'A card like a 2060. 1080p games and a small chat model.' },
-        { value: 8, label: 'About 8 GB', detail: 'A common recent card.' },
-        { value: 12, label: 'About 12 GB', detail: 'Room for bigger models and 4K video.' },
-        { value: 16, label: 'About 16 GB', detail: 'Strong for 1440p and mid-size models.' },
-        { value: 24, label: '24 GB or more', detail: 'Games, pictures, and short AI video.' }
+        { value: 6, label: 'About 6 GB', detail: 'RTX 2060 6GB. 1080p games and a small chat model.' },
+        { value: 8, label: 'About 8 GB', detail: 'RTX 5060 8GB or RTX 4060 8GB.' },
+        { value: 12, label: 'About 12 GB', detail: 'RTX 5070 12GB or Arc B580 12GB.' },
+        { value: 16, label: 'About 16 GB', detail: 'RTX 5070 Ti 16GB or RTX 5060 Ti 16GB.' },
+        { value: 24, label: '24 GB or more', detail: 'RTX 3090 24GB, or RTX 4090 24GB when the job is not local AI.' }
       ]
     },
     {
@@ -1403,9 +1403,9 @@
     ],
     board: [
       { id: 'b550', name: 'AMD B550, DDR4, micro-ATX', maker: 'amd', socket: 'AM4', ram: 'DDR4', form: 'matx', plain: 'For Ryzen 5000. Smaller board. DDR4 only.' },
-      { id: 'b550-atx', name: 'AMD B550, DDR4, ATX', maker: 'amd', socket: 'AM4', ram: 'DDR4', form: 'atx', plain: 'Same older AMD socket, more room in a bigger case.' },
+      { id: 'b550-atx', name: 'MSI MAG B550 Tomahawk', maker: 'amd', socket: 'AM4', ram: 'DDR4', form: 'atx', plain: 'AM4, DDR4, ATX. The older socket for a Ryzen 5000 chip. A B550 board does not take a Ryzen 7000 chip.' },
       { id: 'b650m', name: 'AMD B650, DDR5, micro-ATX', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'matx', plain: 'Current AMD socket in a smaller board. DDR5 only.' },
-      { id: 'b650', name: 'AMD B650, DDR5, ATX', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'atx', plain: 'Current AMD socket, full size. DDR5 only.' },
+      { id: 'b650', name: 'Gigabyte B850 Gaming X WiFi6E', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'atx', plain: 'AM5, DDR5, ATX. Linus Tech Tips used this board in the 2026 build. A B650 ATX board is the same socket if this exact one is gone.' },
       { id: 'b650i', name: 'AMD B650, DDR5, mini-ITX', maker: 'amd', socket: 'AM5', ram: 'DDR5', form: 'itx', plain: 'A tiny current AMD board. Read the case page. Tiny cases choke fat cards.' },
       { id: 'b760-d4', name: 'Intel B760, DDR4, micro-ATX', maker: 'intel', socket: 'LGA1700', ram: 'DDR4', form: 'matx', plain: 'Intel socket, older memory. Useful when you already own DDR4.' },
       { id: 'b760-d4-atx', name: 'Intel B760, DDR4, ATX', maker: 'intel', socket: 'LGA1700', ram: 'DDR4', form: 'atx', plain: 'Same Intel DDR4 idea, full size.' },
@@ -1414,19 +1414,19 @@
       { id: 'b760i', name: 'Intel B760, DDR5, mini-ITX', maker: 'intel', socket: 'LGA1700', ram: 'DDR5', form: 'itx', plain: 'A tiny Intel board. DDR5. Check the card length.' }
     ],
     ram: [
-      { id: 'd4-16', name: '16 GB DDR4', ram: 'DDR4', plain: 'Light desk. Tight if you keep many apps open.' },
-      { id: 'd4-32', name: '32 GB DDR4', ram: 'DDR4', plain: 'A calm amount for an older AMD or Intel board.' },
+      { id: 'd4-16', name: 'G.Skill Ripjaws V 16GB DDR4-3600', ram: 'DDR4', plain: '16 GB DDR4, the kit from the 2026 Linus Tech Tips $1,000 build. Two sticks. Tight if you keep many apps open.' },
+      { id: 'd4-32', name: 'G.Skill Ripjaws V 32GB DDR4-3600', ram: 'DDR4', plain: '32 GB DDR4-3600, two sticks. The same Ripjaws line as the 16 GB kit, for an older board.' },
       { id: 'd4-64', name: '64 GB DDR4', ram: 'DDR4', plain: 'For many virtual computers or a heavy editor.' },
-      { id: 'd5-32', name: '32 GB DDR5', ram: 'DDR5', plain: 'A calm amount on a new board.' },
-      { id: 'd5-64', name: '64 GB DDR5', ram: 'DDR5', plain: 'Room for bigger local models or more house apps.' },
+      { id: 'd5-32', name: 'G.Skill Flare X5 32GB DDR5-6000', ram: 'DDR5', plain: '32 GB DDR5-6000 CL30, two sticks. Linus Tech Tips and current board guides use this speed on Ryzen 7000 and 9000.' },
+      { id: 'd5-64', name: 'G.Skill Flare X5 64GB DDR5-6000', ram: 'DDR5', plain: '64 GB DDR5-6000, two sticks. Confirm the board allows 64 GB before you buy it.' },
       { id: 'd5-96', name: '96 GB DDR5', ram: 'DDR5', plain: 'A large kit, often two 48 GB sticks. Confirm the board allows it.' }
     ],
     gpu: [
       { id: 'none', name: 'No extra card', watts: 0, plain: 'Fine only if the processor can make a picture, or this is a server you reach from another screen and you accept no local display.' },
-      { id: 'g8', name: 'About 8 GB card', watts: 200, plain: 'Older and mid games, light picture work. This checker plans 200 W. Read the card page.' },
-      { id: 'g12', name: 'About 12 GB card', watts: 220, plain: 'A strong everyday card. This checker plans 220 W. Read the card page.' },
-      { id: 'g16', name: 'About 16 GB card', watts: 320, plain: 'High settings and heavier picture work. This checker plans 320 W.' },
-      { id: 'g24', name: 'About 24 GB card', watts: 450, plain: 'A very large card. This checker plans 450 W so the power supply is not too small. Read the card page. Real cards differ.' }
+      { id: 'g8', name: 'RTX 5060 8GB', watts: 200, plain: 'The current 8 GB example is the RTX 5060. NVIDIA lists 145 W and a 550 W system. This checker still plans 200 W so the supply is not too small.' },
+      { id: 'g12', name: 'RTX 5070 12GB', watts: 220, plain: 'The current 12 GB example is the RTX 5070. NVIDIA lists 250 W and a 650 W system. This checker plans 220 W for the class. Read the card page before you size the supply to the class number.' },
+      { id: 'g16', name: 'RTX 5070 Ti 16GB', watts: 320, plain: 'The current 16 GB example is the RTX 5070 Ti. NVIDIA lists 300 W and a 750 W system. This checker plans 320 W.' },
+      { id: 'g24', name: 'RTX 3090 24GB', watts: 450, plain: 'The 24 GB example for a local model is the RTX 3090. NVIDIA lists 350 W. This checker plans 450 W so the supply is not too small. A 4090 is the gaming example and draws more.' }
     ],
     ssd: [
       { id: 'ssd-500', name: '500 GB SSD', plain: 'The system and a few apps. Not a movie shelf.' },
@@ -1441,15 +1441,15 @@
     ],
     psu: [
       { id: 'p550', name: '550 W', watts: 550, plain: 'Calm desk, no big card.' },
-      { id: 'p650', name: '650 W', watts: 650, plain: 'A normal card and a normal chip.' },
-      { id: 'p750', name: '750 W', watts: 750, plain: 'Room for a stronger card.' },
-      { id: 'p850', name: '850 W', watts: 850, plain: 'A large card, with air left over.' },
+      { id: 'p650', name: 'MSI MAG A650BN', watts: 650, plain: '650 W. Linus Tech Tips used this unit in the 2026 $1,000 build. Another 650 W unit from a known brand can replace it.' },
+      { id: 'p750', name: 'Seasonic Focus GX-750', watts: 750, plain: '750 W, 80+ Gold. Linus Tech Tips used this unit in the 2026 $2,000 build. Another 750 W Gold unit can replace it.' },
+      { id: 'p850', name: 'Seasonic Focus GX-850', watts: 850, plain: '850 W in the same Focus GX line as the 750 W unit. For a large card. Another 850 W Gold unit can replace it.' },
       { id: 'p1000', name: '1000 W', watts: 1000, plain: 'For a very large card. Still read the card page.' }
     ],
     case: [
       { id: 'itx', name: 'Small ITX case', fits: ['itx'], plain: 'Tiny. A long card often will not fit. Measure.' },
       { id: 'matx', name: 'Micro-ATX case', fits: ['itx', 'matx'], plain: 'Fits the smaller boards. An ATX board will not.' },
-      { id: 'atx', name: 'ATX mid tower', fits: ['itx', 'matx', 'atx'], plain: 'The normal tower. It can hold the smaller boards too.' }
+      { id: 'atx', name: 'Fractal Design North', fits: ['itx', 'matx', 'atx'], plain: 'ATX mid tower. Linus Tech Tips used it in the 2026 build. It holds an ATX board and the smaller boards.' }
     ]
   };
 
@@ -2012,7 +2012,8 @@
         switch: ['M18 34h124v32H18z', 'M32 50h.1', 'M52 50h.1', 'M72 50h.1', 'M92 50h.1', 'M112 50h.1', 'M132 50h.1'],
         ap: ['M80 62v16', 'M58 58a22 22 0 0 1 44 0', 'M42 46a38 38 0 0 1 76 0', 'M80 78h.1'],
         nas: ['M24 18h112v64H24z', 'M36 30h36v24H36z', 'M88 30h36v24H88z', 'M36 62h88'],
-        ups: ['M54 14h52v72H54z', 'M64 28h32', 'M70 48h20v16H70z']
+        ups: ['M54 14h52v72H54z', 'M64 28h32', 'M70 48h20v16H70z'],
+        'case': ['M28 14h104v72H28z', 'M28 28h104', 'M44 40h24v30H44z', 'M80 40h36v8H80z', 'M80 54h28v8H80z']
       };
       var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
       svg.setAttribute('viewBox', '0 0 160 100');
@@ -2865,14 +2866,15 @@
         s = s.toLowerCase();
         if (/rtx|radeon|arc |gpu|graphics|blackwell|ampere|ada|rdna/.test(s)) return 'gpu';
         if (/ryzen|core i|cpu|xeon/.test(s)) return 'cpu';
-        if (/b650|b550|b760|motherboard|board/.test(s)) return 'board';
-        if (/\bram\b|ddr/.test(s)) return 'ram';
-        if (/nvme|ssd/.test(s)) return 'ssd';
+        if (/b650|b550|b760|b850|tomahawk|motherboard|board/.test(s)) return 'board';
+        if (/\bram\b|ddr|ripjaws|flare/.test(s)) return 'ram';
+        if (/nvme|ssd|sn850|990 pro/.test(s)) return 'ssd';
         if (/hdd|ironwolf|red |exos|hard drive|cmr|smr/.test(s)) return 'disk';
-        if (/psu|power supply/.test(s)) return 'psu';
+        if (/psu|power supply|focus gx|a650bn|cx550/.test(s)) return 'psu';
         if (/gateway|opnsense|omada|dream machine|udm/.test(s)) return 'gateway';
         if (/switch|poe/.test(s)) return 'switch';
         if (/u6|access point|wi-fi|wifi/.test(s)) return 'ap';
+        if (/fractal|lancool|phanteks|mid tower|case/.test(s)) return 'case';
         if (/nas|truenas/.test(s)) return 'nas';
         if (/ups/.test(s)) return 'ups';
         return kindOf(s);
@@ -3286,17 +3288,18 @@
         var head = el('header', 'wiz-inspect-head');
         var close = actionButton('wiz-action-tertiary', 'Close', function () { inspected = null; compareOpen = false; upgradeOpen = false; paint(); });
         head.appendChild(close);
-        head.appendChild(el('p', 'wiz-kicker', node.product ? 'Graphics' : card.role));
+        var isGpu = node.product && node.product.vram_gb != null;
+        head.appendChild(el('p', 'wiz-kicker', isGpu ? 'Graphics' : card.role));
         head.appendChild(el('h2', 'wiz-title', node.title));
-        var arch = node.product ? (node.product.vendor + ' · ' + node.product.architecture) : (card.role || '');
+        var arch = isGpu ? (node.product.vendor + ' · ' + node.product.architecture) : (node.product && node.product.architecture ? node.product.architecture : (card.role || ''));
         if (arch) head.appendChild(el('p', 'wiz-badge', arch));
         var mark = stateMark(node);
         if (mark) head.appendChild(el('p', 'wiz-state', mark.mark + ' ' + mark.name));
         var plate = el('div', 'wiz-plate wiz-schematic');
         plate.appendChild(schematic(artKind(node)));
-        if (node.product) plate.appendChild(el('span', 'wiz-hud-line', node.product.vram_gb + ' GB · ' + node.product.watts + ' W'));
+        if (isGpu) plate.appendChild(el('span', 'wiz-hud-line', node.product.vram_gb + ' GB · ' + node.product.watts + ' W'));
         head.appendChild(plate);
-        if (node.product) head.appendChild(el('p', 'wiz-gear-kicker', node.product.generation + ' · ' + node.product.vram_gb + ' GB ' + node.product.memory));
+        if (isGpu) head.appendChild(el('p', 'wiz-gear-kicker', node.product.generation + ' · ' + node.product.vram_gb + ' GB ' + node.product.memory));
         box.appendChild(head);
         var actionable = !!node.kind;
         var verbs = {
@@ -3332,13 +3335,21 @@
         var secondary = el('div', 'wiz-action-row');
         if (node.product) {
           secondary.appendChild(actionButton('wiz-action-secondary', 'Compare', function () {
-            record.compare = record.compare || [];
-            if (record.compare.indexOf(node.product.id) === -1 && record.compare.length < 3) record.compare.push(node.product.id);
+            var parent = null;
+            walk(root, []).forEach(function (item) {
+              (item.children || []).forEach(function (child) {
+                if (child.id === node.id) parent = item;
+              });
+            });
+            var pool = parent ? parent.children.filter(function (child) { return child.product; }) : [];
+            var ordered = pool.filter(function (child) { return child.id === node.id; }).concat(pool.filter(function (child) { return child.id !== node.id; }));
+            if (!ordered.length) ordered = [node];
+            record.compare = ordered.slice(0, 3).map(function (child) { return child.product.id; });
             compareOpen = true;
             inspectorTab = 'compare';
             paint();
           }));
-          secondary.appendChild(actionButton('wiz-action-secondary', 'Upgrade path', function () {
+          if (node.product.vram_gb != null) secondary.appendChild(actionButton('wiz-action-secondary', 'Upgrade path', function () {
             record.upgradeFrom = node.product.id;
             upgradeOpen = true;
             inspectorTab = 'overview';
@@ -3461,11 +3472,13 @@
 
       function workloadLine(node) {
         if (!node.product) return '';
+        if (node.product.vram_gb == null) return node.product.why || node.product.architecture || '';
         return node.product.vram_gb + ' GB is the memory this card can hold for ' + jobPhrase() + '. The bars are a fit estimate from VRAM, generation, and watts. They are not a benchmark.';
       }
 
       function tradeoffLine(node) {
         if (!node.product) return '';
+        if (node.product.vram_gb == null) return node.product.tradeoff || 'The shelf price is not checked. A class floor is not this model’s price.';
         return 'This card draws ' + node.product.watts + ' W. The vendor lists a ' + node.product.psu + ' W system supply. A smaller card uses less power and holds less memory.';
       }
 
@@ -3516,12 +3529,19 @@
 
       function equipProduct(product) {
         var match = null;
+        var parent = null;
         walk(root, []).forEach(function (item) {
-          if (!item.product) return;
-          if (item.product.id === product.id) match = item;
-          else if (itemState(item.id) === 'equipped') commit(item.id, 'skipped');
+          (item.children || []).forEach(function (child) {
+            if (child.product && child.product.id === product.id) {
+              match = child;
+              parent = item;
+            }
+          });
         });
         if (!match) return;
+        (parent.children || []).forEach(function (child) {
+          if (child.id !== match.id && child.product && itemState(child.id) === 'equipped') commit(child.id, 'skipped');
+        });
         pulseId = match.id;
         commit(match.id, 'equipped');
         inspected = match;
@@ -3544,6 +3564,13 @@
         function row(label, text, warn, changed) {
           var line = el('p', 'wiz-impact-row' + (warn ? ' is-warn' : '') + (changed ? ' is-delta' : ''), label + '  ' + text + (warn ? '  Warning' : ''));
           box.appendChild(line);
+        }
+        if (node.product && node.product.vram_gb == null) {
+          row('Model', node.product.model, false, false);
+          if (node.product.architecture) row('Spec', node.product.architecture, false, false);
+          row('Budget', budgetConsequence(node), false, false);
+          box.appendChild(el('p', 'wiz-note', 'The shelf price is not checked. A class floor is not this model’s price.'));
+          return box;
         }
         if (node.product) {
           var current = equippedGpu();
@@ -3598,10 +3625,14 @@
 
       function renderSpecs(node, card) {
         var box = el('div', '');
-        if (node.product) {
+        if (node.product && node.product.vram_gb != null) {
           var p = node.product;
           [p.architecture, p.vram_gb + ' GB ' + p.memory, p.watts + ' W', 'Encoder ' + p.encoder, 'Vendor system power ' + p.psu + ' W'].forEach(function (line) {
             box.appendChild(el('p', '', line));
+          });
+        } else if (node.product) {
+          [node.product.architecture].concat(node.product.facts || []).forEach(function (line) {
+            if (line) box.appendChild(el('p', '', line));
           });
         } else if (node.line) box.appendChild(el('p', '', node.line));
         (card.requires || []).forEach(function (line) { box.appendChild(el('p', '', line)); });
@@ -3654,15 +3685,22 @@
 
       function renderCompare() {
         var box = el('div', 'wiz-workspace');
-        var picked = (record.compare || []).map(function (id) {
-          return GPU_CATALOG.filter(function (item) { return item.id === id; })[0];
-        }).filter(Boolean);
+        function findCompared(id) {
+          var found = null;
+          walk(root, []).forEach(function (item) {
+            if (item.product && item.product.id === id && (!found || item.product.pick)) found = item.product;
+          });
+          if (found && found.pick) return found;
+          var gpu = GPU_CATALOG.filter(function (item) { return item.id === id; })[0];
+          return gpu || found;
+        }
+        var picked = (record.compare || []).map(findCompared).filter(Boolean);
         var bar = el('div', 'wiz-workspace-bar');
         bar.appendChild(el('h2', '', 'Compare'));
         bar.appendChild(actionButton('wiz-action-tertiary', 'Close', function () { compareOpen = false; inspectorTab = 'overview'; paint(); }));
         box.appendChild(bar);
         if (!picked.length) {
-          box.appendChild(el('p', '', 'Add up to three graphics cards from their inspectors.'));
+          box.appendChild(el('p', '', 'Open a named part, then Compare. The workspace holds up to three models from that slot.'));
           return box;
         }
         var aiJob = hasJob(answers, 'ai');
@@ -3670,42 +3708,55 @@
         function by(fn) {
           return picked.slice().sort(fn)[0];
         }
-        var yours = by(function (a, b) {
+        var named = picked.filter(function (item) { return item.pick; })[0];
+        var yours = named || (picked[0] && picked[0].vram_gb == null
+          ? picked[0]
+          : by(function (a, b) {
           if (aiJob) return (b.vram_gb - a.vram_gb) || (gpuScores(b).ai - gpuScores(a).ai) || (a.watts - b.watts);
           if (gameJob) return gpuScores(b).gaming - gpuScores(a).gaming || (b.watts - a.watts);
           return gpuScores(b).efficiency - gpuScores(a).efficiency || (a.watts - b.watts);
-        });
-        var value = by(function (a, b) { return a.watts - b.watts; });
-        var aiWin = by(function (a, b) { return (b.vram_gb - a.vram_gb) || (a.watts - b.watts); });
-        var perf = by(function (a, b) { return gpuScores(b).gaming - gpuScores(a).gaming || (b.watts - a.watts); });
+        }));
+        var gpuSet = picked[0] && picked[0].vram_gb != null;
+        var value = gpuSet ? by(function (a, b) { return a.watts - b.watts; }) : yours;
+        var aiWin = gpuSet ? by(function (a, b) { return (b.vram_gb - a.vram_gb) || (a.watts - b.watts); }) : yours;
+        var perf = gpuSet ? by(function (a, b) { return gpuScores(b).gaming - gpuScores(a).gaming || (b.watts - a.watts); }) : yours;
         var row = el('div', 'wiz-compare-row');
         picked.forEach(function (product) {
-          var scores = gpuScores(product);
+          var scores = product.vram_gb != null ? gpuScores(product) : null;
           var card = el('article', 'wiz-gear-card' + (product.id === yours.id ? ' is-winner' : ''));
-          card.appendChild(schematic('gpu'));
+          card.appendChild(schematic(product.vram_gb != null ? 'gpu' : artKind({ title: product.model })));
           card.appendChild(el('strong', '', product.model));
-          card.appendChild(el('p', 'wiz-hud-line', product.architecture + ' · ' + product.vram_gb + ' GB ' + product.memory));
-          card.appendChild(el('p', 'wiz-hud-line', product.watts + ' W · ' + product.encoder));
+          if (product.vram_gb != null) {
+            card.appendChild(el('p', 'wiz-hud-line', product.architecture + ' · ' + product.vram_gb + ' GB ' + product.memory));
+            card.appendChild(el('p', 'wiz-hud-line', product.watts + ' W · ' + product.encoder));
+            card.appendChild(el('p', 'wiz-note', 'AI fit ' + scores.ai + ' · Gaming fit ' + scores.gaming + ' · Efficiency fit ' + scores.efficiency + '. Not a benchmark.'));
+          } else {
+            card.appendChild(el('p', 'wiz-hud-line', product.architecture || ''));
+            (product.facts || []).forEach(function (fact) {
+              if (fact && fact !== product.architecture) card.appendChild(el('p', 'wiz-hud-line', fact));
+            });
+          }
           card.appendChild(el('p', 'wiz-hud-line', 'Live price not checked'));
-          card.appendChild(el('p', 'wiz-note', 'AI fit ' + scores.ai + ' · Gaming fit ' + scores.gaming + ' · Efficiency fit ' + scores.efficiency + '. Not a benchmark.'));
           var flags = el('div', 'wiz-flags');
           if (product.id === yours.id) flags.appendChild(el('span', 'wiz-chip', 'Your winner'));
-          if (product.id === value.id) flags.appendChild(el('span', 'wiz-chip', 'Value winner'));
-          if (product.id === aiWin.id) flags.appendChild(el('span', 'wiz-chip', 'AI / VRAM winner'));
-          if (product.id === perf.id) flags.appendChild(el('span', 'wiz-chip', 'Performance winner'));
+          if (gpuSet && product.id === value.id) flags.appendChild(el('span', 'wiz-chip', 'Value winner'));
+          if (gpuSet && product.id === aiWin.id) flags.appendChild(el('span', 'wiz-chip', 'AI / VRAM winner'));
+          if (gpuSet && product.id === perf.id) flags.appendChild(el('span', 'wiz-chip', 'Performance winner'));
           card.appendChild(flags);
           row.appendChild(card);
         });
         box.appendChild(row);
         var why = el('section', 'wiz-insight');
         why.appendChild(el('h3', '', 'Why this won'));
-        var reason = aiJob
+        var reason = yours.vram_gb == null || yours.pick
+          ? (yours.model + ' is the named part for this slot. ' + (yours.why || 'The other cards are real models in the same job. The shelf price is not checked.'))
+          : (aiJob
           ? (yours.model + ' is the workload pick: most video memory in this set, then the lower power draw when memory is tied. A newer architecture does not replace VRAM.')
           : (gameJob
             ? (yours.model + ' is the performance pick for the games or video job in this comparison. The fit bars are estimates, not a benchmark.')
-            : (yours.model + ' is the lowest-draw fit in this set. Price is not checked, so value here means watts, not dollars.'));
+            : (yours.model + ' is the lowest-draw fit in this set. Price is not checked, so value here means watts, not dollars.')));
         why.appendChild(el('p', '', reason));
-        if (!aiJob) why.appendChild(el('p', 'wiz-note', 'Value winner is the lowest watt card because no offer has a checked price.'));
+        if (gpuSet && !aiJob) why.appendChild(el('p', 'wiz-note', 'Value winner is the lowest watt card because no offer has a checked price.'));
         box.appendChild(why);
         var tech = document.createElement('details');
         tech.className = 'wiz-technical';
@@ -3713,7 +3764,7 @@
         summary.textContent = 'Technical trade study';
         tech.appendChild(summary);
         picked.forEach(function (product) {
-          tech.appendChild(el('p', '', product.model + ' · ' + product.architecture + ' · ' + product.vram_gb + ' GB ' + product.memory + ' · ' + product.watts + ' W · ' + product.encoder + ' · vendor PSU ' + product.psu + ' W'));
+          tech.appendChild(el('p', 'wiz-hud-line', product.vram_gb != null ? (product.model + ' · ' + product.architecture + ' · ' + product.vram_gb + ' GB ' + product.memory + ' · ' + product.watts + ' W · ' + product.encoder + ' · vendor PSU ' + product.psu + ' W') : (product.model + ' · ' + (product.architecture || ''))));
         });
         box.appendChild(tech);
         box.appendChild(actionButton('wiz-action-tertiary', 'Clear compare', function () { record.compare = []; compareOpen = false; paint(); }));
@@ -4083,10 +4134,15 @@
     { id: 'rx-7800xt-16', vendor: 'AMD', model: 'RX 7800 XT 16GB', architecture: 'RDNA 3', generation: 'RX 7000', vram_gb: 16, memory: 'GDDR6', watts: 263, psu: 700, encoder: 'AMF', length_mm: null },
     { id: 'rx-7900xtx-24', vendor: 'AMD', model: 'RX 7900 XTX 24GB', architecture: 'RDNA 3', generation: 'RX 7000', vram_gb: 24, memory: 'GDDR6', watts: 355, psu: 800, encoder: 'AMF', length_mm: null },
     { id: 'arc-a770-16', vendor: 'Intel', model: 'Arc A770 16GB', architecture: 'Alchemist', generation: 'Arc A', vram_gb: 16, memory: 'GDDR6', watts: 225, psu: 600, encoder: 'Arc AV1', length_mm: null },
-    { id: 'arc-b580-12', vendor: 'Intel', model: 'Arc B580 12GB', architecture: 'Battlemage', generation: 'Arc B', vram_gb: 12, memory: 'GDDR6', watts: 190, psu: 600, encoder: 'Arc AV1', length_mm: null }
+    { id: 'arc-b580-12', vendor: 'Intel', model: 'Arc B580 12GB', architecture: 'Battlemage', generation: 'Arc B', vram_gb: 12, memory: 'GDDR6', watts: 190, psu: 600, encoder: 'Arc AV1', length_mm: null },
+    { id: 'rtx-2060-6', vendor: 'NVIDIA', model: 'RTX 2060 6GB', architecture: 'Turing', generation: 'RTX 20', vram_gb: 6, memory: 'GDDR6', watts: 160, psu: 500, encoder: 'NVENC 6th gen', length_mm: null },
+    { id: 'rtx-5060-8', vendor: 'NVIDIA', model: 'RTX 5060 8GB', architecture: 'Blackwell', generation: 'RTX 50', vram_gb: 8, memory: 'GDDR7', watts: 145, psu: 550, encoder: 'NVENC 9th gen', length_mm: null },
+    { id: 'rtx-5060ti-16', vendor: 'NVIDIA', model: 'RTX 5060 Ti 16GB', architecture: 'Blackwell', generation: 'RTX 50', vram_gb: 16, memory: 'GDDR7', watts: 180, psu: 600, encoder: 'NVENC 9th gen', length_mm: null },
+    { id: 'rx-9070-16', vendor: 'AMD', model: 'RX 9070 16GB', architecture: 'RDNA 4', generation: 'RX 9000', vram_gb: 16, memory: 'GDDR6', watts: 220, psu: 650, encoder: 'AMF', length_mm: null },
+    { id: 'rx-9070xt-16', vendor: 'AMD', model: 'RX 9070 XT 16GB', architecture: 'RDNA 4', generation: 'RX 9000', vram_gb: 16, memory: 'GDDR6', watts: 304, psu: 750, encoder: 'AMF', length_mm: null }
   ];
 
-  var GPU_GENERATION = { 'Ampere': 3, 'Ada Lovelace': 4, 'Blackwell': 5, 'RDNA 2': 3, 'RDNA 3': 4, 'Alchemist': 3, 'Battlemage': 4 };
+  var GPU_GENERATION = { 'Turing': 2, 'Ampere': 3, 'Ada Lovelace': 4, 'Blackwell': 5, 'RDNA 2': 3, 'RDNA 3': 4, 'RDNA 4': 5, 'Alchemist': 3, 'Battlemage': 4 };
 
   function gpuScores(product) {
     var gen = GPU_GENERATION[product.architecture] || 0;
@@ -4121,8 +4177,8 @@
     var family = rest.filter(function (item) { return item.vendor === from.vendor; });
     function gen(item) { return GPU_GENERATION[item.architecture] || 0; }
     var newer = family.filter(function (item) { return gen(item) > gen(from) && item.vram_gb >= from.vram_gb; });
-    var value = newer.slice().sort(function (a, b) { return a.watts - b.watts; })[0] || null;
-    var balanced = newer.filter(function (item) { return item.architecture === 'Blackwell' && item.vram_gb >= 16; }).sort(function (a, b) { return a.watts - b.watts; })[0] || null;
+    var value = newer.filter(function (item) { return item.vram_gb === from.vram_gb; }).sort(function (a, b) { return a.watts - b.watts; })[0] || null;
+    var balanced = newer.filter(function (item) { return item.architecture === 'Blackwell' && item.vram_gb >= 16 && item.watts >= 250; }).sort(function (a, b) { return a.watts - b.watts; })[0] || null;
     var maxVram = rest.reduce(function (best, item) { return item.vram_gb > best ? item.vram_gb : best; }, 0);
     var vram = rest.filter(function (item) { return item.vram_gb === maxVram; }).sort(function (a, b) { return a.watts - b.watts; })[0] || null;
     var performance = family.slice().sort(function (a, b) {
@@ -4749,23 +4805,84 @@
     var computeKids = [];
     var os = osLeaf(report, 'L5');
     var osOnServer = serverPick || a.role === 'server';
+    function decorateSlot(slot, primary, alts) {
+      var main = slot.children && slot.children[0];
+      if (main && primary) {
+        main.product = primary;
+        main.product.pick = true;
+      }
+      (alts || []).forEach(function (alt) {
+        if (main && alt.model === main.title) return;
+        var node = leaf(slot.id + '-' + alt.id, 'L5', alt.model, alt.architecture || '', [
+          note('Why it matters', [alt.why || alt.architecture || 'A named option in this slot.'], 'why'),
+          note('Tradeoff', [alt.tradeoff || 'The shelf price is not checked. A class floor is not this model’s price.'], 'compare')
+        ]);
+        node.product = alt;
+        slot.children.push(tag(node, (main && main.kind) || 'hardware', { group: (main && main.offer && main.offer.group) || 'Server', name: alt.model, dollars: null, qty: 1 }, null));
+      });
+      return slot;
+    }
+    function namedProduct(id, model, architecture, why, tradeoff) {
+      return { id: id, model: model, architecture: architecture, why: why, tradeoff: tradeoff, facts: [architecture] };
+    }
     if (wantServer) {
+      var cpuAlts = model.fit.cpu && model.fit.cpu.socket === 'AM5' ? [
+        namedProduct('r5-9600x', 'AMD Ryzen 5 9600X', 'Zen 5 · AM5 · 6 cores · 65 W', 'Current 2026 budget guides use the 9600X on an AM5 board.', 'It does not fit an AM4 board.'),
+        namedProduct('r7-7800x3d', 'AMD Ryzen 7 7800X3D', 'Zen 4 · AM5 · 8 cores · 120 W', 'Linus Tech Tips used the 7800X3D in the 2026 $2,000 build.', 'It draws more than the 65 W chip. Check the cooler and the supply.')
+      ] : [
+        namedProduct('r7-5700x-alt', 'AMD Ryzen 7 5700X', 'Zen 3 · AM4 · 8 cores · 65 W', 'More AM4 cores when the board is already the older socket.', 'It does not fit an AM5 board, and it does not make a picture by itself.')
+      ];
+      var boardAlts = model.fit.board && model.fit.board.socket === 'AM5' ? [
+        namedProduct('b850-asus', 'ASUS PRIME B850-PLUS WiFi', 'AM5 · DDR5 · ATX', 'A second AM5 ATX board from current 2026 build guides.', 'It still needs DDR5. It does not take a Ryzen 5000 chip.')
+      ] : [
+        namedProduct('b550-tuf', 'ASUS TUF GAMING B550-PLUS', 'AM4 · DDR4 · ATX', 'Another AM4 ATX board if the Tomahawk is gone.', 'It does not take a Ryzen 7000 chip or DDR5.')
+      ];
+      var gpuAlts = {
+        g8: ['rtx-4060-8', 'rtx-2060-6'],
+        g12: ['rtx-4070-12', 'arc-b580-12'],
+        g16: ['rtx-5060ti-16', 'rx-9070xt-16'],
+        g24: ['rtx-4090-24', 'rx-7900xtx-24']
+      }[model.fit.gpu && model.fit.gpu.id] || [];
       computeKids.push(branch('server', 'L3', 'Server', [
         osOnServer
           ? nest(pick === 'proxmox' ? 'hypervisor' : 'host', pick === 'proxmox' ? 'Hypervisor' : 'Host', os)
           : nest('host', 'Host', leaf('server-os', 'L5', 'Server system', report.labLine || 'A second computer that stays on.', [])),
-        req(hw('case', 'Case', model.fit.case ? model.fit.case.name : 'Case', 'selected', 50, model.fit.case ? model.fit.case.plain : 'Match the board. A Micro-ATX case does not take an E-ATX board.'), 'case', true),
-          req(hw('board', 'Motherboard', model.fit.board ? model.fit.board.name : 'Motherboard', 'selected', 80, model.fit.board ? model.fit.board.plain : 'The board must match the CPU socket.', [
+        decorateSlot(req(hw('case', 'Case', model.fit.case ? model.fit.case.name : 'Case', 'selected', 50, model.fit.case ? model.fit.case.plain : 'Match the board. A Micro-ATX case does not take an E-ATX board.'), 'case', true), namedProduct('case-main', model.fit.case ? model.fit.case.name : 'Case', 'ATX mid tower', model.fit.case ? model.fit.case.plain : '', 'A smaller case can block a long card.'), [
+          namedProduct('case-xt', 'Phanteks XT Pro', 'ATX mid tower', 'Linus Tech Tips used this case in the 2026 $1,000 build.', 'Check the card length before you buy a long graphics card.'),
+          namedProduct('case-207', 'Lian Li Lancool 207', 'ATX mid tower', 'Current airflow-case guides keep using the Lancool 207.', 'It is still an ATX case. It does not make a Mini-ITX board into a smaller build.')
+        ]),
+          decorateSlot(req(hw('board', 'Motherboard', model.fit.board ? model.fit.board.name : 'Motherboard', 'selected', 80, model.fit.board ? model.fit.board.plain : 'The board must match the CPU socket.', [
             note('Why', ['Socket, RAM generation, SATA count, and PCIe slots are decided here.'].concat(model.fit.lines.map(function (line) { return line.text; })), 'why'),
             { name: 'Check fit', slot: 'compare', lines: ['Six kinds of part. Green fits, red clashes, yellow needs a closer look.'], panel: 'build' },
             note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/', detail: 'Live price. A class floor is not a shelf price.' }], 'buy')
-          ]), 'motherboard', true),
-          req(hw('cpu', 'CPU', model.fit.cpu ? model.fit.cpu.name : '65W class CPU', 'selected', 100, model.fit.cpu ? model.fit.cpu.plain : 'A 65W desktop CPU. The board has to use that socket.'), 'cpu', true),
-          hw('cooler', 'CPU cooler', 'Included cooler', 'skip', 0, 'Use the cooler in the CPU box unless the case is too short for it.'),
-          req(hw('ram', 'RAM', model.fit.ram ? model.fit.ram.name : ((a.ram || 16) + ' GB'), 'selected', Number(a.ram) >= 64 ? 120 : (Number(a.ram) >= 32 ? 70 : 40), model.fit.ram ? model.fit.ram.plain : report.hardware.ram), 'ram', true),
-          hw('gpubom', 'GPU', model.fit.gpu ? model.fit.gpu.name : 'No extra card', model.fit.gpu && model.fit.gpu.id !== 'none' ? 'need' : 'skip', 0, model.fit.gpu ? model.fit.gpu.plain : report.hardware.gpuLabel),
-          req(hw('psu', 'PSU', model.fit.psu ? model.fit.psu.name : 'Power supply', 'selected', 60, model.fit.psu ? model.fit.psu.plain : 'Add the CPU watts, the card watts, and about 150 W.'), 'psu', true),
-          req(hw('bootssd', 'Boot drive', 'NVMe boot', 'selected', 50, 'The system lives here. The pile does not.'), 'boot', true),
+          ]), 'motherboard', true), namedProduct('board-main', model.fit.board ? model.fit.board.name : 'Motherboard', model.fit.board ? (model.fit.board.socket + ' · ' + model.fit.board.ram) : '', model.fit.board ? model.fit.board.plain : '', 'The socket and the memory type have to match the chip.'), boardAlts),
+          decorateSlot(req(hw('cpu', 'CPU', model.fit.cpu ? model.fit.cpu.name : '65W class CPU', 'selected', 100, model.fit.cpu ? model.fit.cpu.plain : 'A 65W desktop CPU. The board has to use that socket.'), 'cpu', true), namedProduct('cpu-main', model.fit.cpu ? model.fit.cpu.name : 'CPU', model.fit.cpu ? (model.fit.cpu.arch + ' · ' + model.fit.cpu.socket) : '', model.fit.cpu ? model.fit.cpu.plain : '', 'A different socket needs a different board.'), cpuAlts),
+          (function () {
+            var cooler = decorateSlot(hw('cooler', 'CPU cooler', 'Thermalright Peerless Assassin 120 SE', 'need', 0, 'Linus Tech Tips used the Peerless Assassin in the 2026 $1,000 build. A short case can block a tower cooler.'), namedProduct('cooler-pa', 'Thermalright Peerless Assassin 120 SE', '120 mm tower', 'The cooler from the 2026 Linus Tech Tips $1,000 build.', 'Check the case height before you buy a tower.'), [
+              namedProduct('cooler-ps', 'Thermalright Phantom Spirit 120 SE', '120 mm dual tower', 'Linus Tech Tips used the Phantom Spirit in the 2026 $2,000 build.', 'It is taller than a boxed cooler. Measure the case.'),
+              namedProduct('cooler-box', 'Boxed CPU cooler', 'Included with some chips', 'Use this when the processor box includes a cooler and the case is short.', 'A hotter chip, such as the 7800X3D, wants the tower instead.')
+            ]);
+            if (cooler.children && cooler.children[0] && cooler.children[0].offer) {
+              cooler.children[0].offer.dollars = null;
+              delete cooler.children[0].offer.floor;
+            }
+            return cooler;
+          })(),
+          decorateSlot(req(hw('ram', 'RAM', model.fit.ram ? model.fit.ram.name : ((a.ram || 16) + ' GB'), 'selected', Number(a.ram) >= 64 ? 120 : (Number(a.ram) >= 32 ? 70 : 40), model.fit.ram ? model.fit.ram.plain : report.hardware.ram), 'ram', true), namedProduct('ram-main', model.fit.ram ? model.fit.ram.name : 'RAM', model.fit.ram ? model.fit.ram.ram : '', model.fit.ram ? model.fit.ram.plain : '', 'DDR4 and DDR5 do not fit the same board.'), model.fit.ram && model.fit.ram.ram === 'DDR5' ? [namedProduct('ram-64', 'G.Skill Flare X5 64GB DDR5-6000', 'DDR5 · 2x32 GB', 'The same Flare X5 line, when the lab needs more than 32 GB.', 'Confirm the board allows 64 GB before you buy it.')] : [namedProduct('ram-32-d4', 'G.Skill Ripjaws V 32GB DDR4-3600', 'DDR4 · 2x16 GB', 'The same Ripjaws line, doubled, for an older board.', 'It does not fit a DDR5 board.')]),
+          decorateSlot(hw('gpubom', 'GPU', model.fit.gpu ? model.fit.gpu.name : 'No extra card', model.fit.gpu && model.fit.gpu.id !== 'none' ? 'need' : 'skip', 0, model.fit.gpu ? model.fit.gpu.plain : report.hardware.gpuLabel), (function () {
+            var shown = GPU_CATALOG.filter(function (item) { return model.fit.gpu && item.model === model.fit.gpu.name; })[0];
+            return shown ? { id: shown.id, model: shown.model, architecture: shown.architecture, vram_gb: shown.vram_gb, memory: shown.memory, watts: shown.watts, psu: shown.psu, encoder: shown.encoder, vendor: shown.vendor, generation: shown.generation, why: shown.model + ' is the named card for this memory size.' } : null;
+          })(), gpuAlts.map(function (id) {
+            var item = GPU_CATALOG.filter(function (card) { return card.id === id; })[0];
+            return item && { id: item.id, model: item.model, architecture: item.architecture, vram_gb: item.vram_gb, memory: item.memory, watts: item.watts, psu: item.psu, encoder: item.encoder, vendor: item.vendor, generation: item.generation, why: item.model + ' is another real card in this range. The shelf price is not checked.' };
+          }).filter(Boolean)),
+          decorateSlot(req(hw('psu', 'PSU', model.fit.psu ? model.fit.psu.name : 'Power supply', 'selected', 60, model.fit.psu ? model.fit.psu.plain : 'Add the CPU watts, the card watts, and about 150 W.'), 'psu', true), namedProduct('psu-main', model.fit.psu ? model.fit.psu.name : 'Power supply', model.fit.psu ? (model.fit.psu.watts + ' W') : '', model.fit.psu ? model.fit.psu.plain : '', 'A no-name supply is the wrong place to save money.'), [
+            namedProduct('psu-gx750', 'Seasonic Focus GX-750', '750 W · 80+ Gold', 'The unit from the 2026 Linus Tech Tips $2,000 build.', 'Buy it only when the card page asks for about 750 W.'),
+            namedProduct('psu-a650', 'MSI MAG A650BN', '650 W', 'The unit from the 2026 Linus Tech Tips $1,000 build.', 'It is tight for an RTX 5070 Ti. NVIDIA lists 750 W for that card.')
+          ]),
+          decorateSlot(req(hw('bootssd', 'Boot drive', 'WD Black SN850X 1TB', 'selected', 50, 'The system lives here. The pile does not.'), 'boot', true), namedProduct('ssd-sn850', 'WD Black SN850X 1TB', 'NVMe · 1 TB', 'A current PCIe 4.0 boot drive in 2026 build guides.', 'One terabyte is the system, not the movie shelf.'), [
+            namedProduct('ssd-990', 'Samsung 990 Pro 2TB', 'NVMe · 2 TB', 'Linus Tech Tips used a 990 Pro when the build had room for a larger boot drive.', 'The extra terabyte is still not the backup.')
+          ]),
           hw('datadisks', 'Data drives', model.drives.decision, model.raid.disks > 1 ? 'selected' : 'skip', 150, model.raid.why),
           hw('nic', 'NIC', (model.switchPick.decision.indexOf('10') !== -1 || model.switchPick.decision.indexOf('2.5') !== -1) ? 'Faster NIC' : 'Onboard Ethernet', (model.switchPick.decision.indexOf('10') !== -1 || model.switchPick.decision.indexOf('2.5') !== -1) ? 'need' : 'skip', 0, 'Onboard Ethernet is enough until the switch study asks for more than 1 GbE.'),
           hw('wifi', 'Wi-Fi', 'Not required', 'skip', 0, 'A server should use a cable. Wi-Fi belongs on an access point.'),
@@ -4786,7 +4903,7 @@
     }
     if (a.side !== 'mac') {
       var gpuWant = Number(a.gpu) || 0;
-      var gpuPick = !gpuWant ? '' : (gpuWant <= 8 ? 'rtx-4060-8' : (gpuWant <= 12 ? 'rtx-5070-12' : (gpuWant <= 16 ? 'rtx-5070ti-16' : 'rtx-3090-24')));
+      var gpuPick = !gpuWant ? '' : (gpuWant <= 6 ? 'rtx-2060-6' : (gpuWant <= 8 ? 'rtx-5060-8' : (gpuWant <= 12 ? 'rtx-5070-12' : (gpuWant <= 16 ? 'rtx-5070ti-16' : 'rtx-3090-24'))));
       if (gpuWant >= 24 && !hasJob(a, 'ai')) gpuPick = 'rtx-4090-24';
       function gpuModel(product) {
         var node = leaf('gpu-' + product.id, 'L5', product.model, product.architecture + ' · ' + product.vram_gb + ' GB ' + product.memory + ' · ' + product.watts + ' W', [
@@ -4800,11 +4917,13 @@
         return branch('gpu-' + id, 'L4', title, GPU_CATALOG.filter(function (product) { return product.architecture === architecture; }).map(gpuModel));
       }
       var gpuKids = [
+        gpuFamily('turing', 'Turing', 'Turing'),
         gpuFamily('ampere', 'Ampere', 'Ampere'),
         gpuFamily('ada', 'Ada Lovelace', 'Ada Lovelace'),
         gpuFamily('blackwell', 'Blackwell', 'Blackwell'),
         gpuFamily('rdna2', 'RDNA 2', 'RDNA 2'),
         gpuFamily('rdna3', 'RDNA 3', 'RDNA 3'),
+        gpuFamily('rdna4', 'RDNA 4', 'RDNA 4'),
         gpuFamily('alchemist', 'Alchemist', 'Alchemist'),
         gpuFamily('battlemage', 'Battlemage', 'Battlemage')
       ];
@@ -4822,24 +4941,34 @@
     }
     var storageKids = [
       branch('boot', 'L3', 'Boot storage', [
-        nest('nvme', 'NVMe', tag(leaf('boot-nvme', 'L5', 'NVMe boot', wantServer ? 'Counted on the server boot drive. Do not buy a second one for the same machine.' : 'The system and the apps. M.2 is the shape. NVMe is the speed.', [
+        decorateSlot(nest('nvme', 'NVMe', tag(leaf('boot-nvme', 'L5', 'WD Black SN850X 1TB', wantServer ? 'Counted on the server boot drive. Do not buy a second one for the same machine.' : 'The system and the apps. M.2 is the shape. NVMe is the speed.', [
           note('Why', ['The operating system and a player database belong on an SSD.'], 'why'),
           note('Compare', ['Some M.2 slots are SATA, not NVMe. Read the slot before you buy.'], 'compare'),
           note('Where to buy it', [{ name: 'PCPartPicker', href: 'https://pcpartpicker.com/search/?q=NVMe%20SSD', detail: 'Live price.' }], 'buy')
-        ]), 'hardware', wantServer ? null : { group: 'Storage', name: 'NVMe boot', dollars: null, floor: 50 }, wantServer ? 'skip' : 'selected')),
-        nest('sata-boot', 'SATA SSD', tag(leaf('boot-sata', 'L5', 'SATA boot SSD', 'Use this when the board has no NVMe slot.', [
+        ]), 'hardware', wantServer ? null : { group: 'Storage', name: 'WD Black SN850X 1TB', dollars: null, floor: 50 }, wantServer ? 'skip' : 'selected')), namedProduct('ssd-sn850', 'WD Black SN850X 1TB', 'NVMe · 1 TB', 'A current PCIe 4.0 boot drive in 2026 build guides.', 'One terabyte is the system, not the movie shelf.'), [
+          namedProduct('ssd-990', 'Samsung 990 Pro 2TB', 'NVMe · 2 TB', 'Linus Tech Tips used a 990 Pro when the build had room for a larger boot drive.', 'The extra terabyte is still not the backup.')
+        ]),
+        decorateSlot(nest('sata-boot', 'SATA SSD', tag(leaf('boot-sata', 'L5', 'Crucial BX500 1TB', 'Use this when the board has no NVMe slot. Linus Tech Tips used the BX500 in the 2026 $1,000 build.', [
           note('Why', ['SATA SSD still beats a spinning disk for the system.'], 'why')
-        ]), 'hardware', null, 'skip'))
+        ]), 'hardware', null, 'skip')), namedProduct('ssd-bx500', 'Crucial BX500 1TB', 'SATA · 1 TB', 'The SATA boot drive from the 2026 Linus Tech Tips $1,000 build.', 'SATA is slower than NVMe. Fine for the system.'), [])
       ])
     ];
     if (hasJob(a, 'movies') || hasJob(a, 'photos') || hasJob(a, 'files') || hasJob(a, 'video') || Number(a.storage) >= 4000) {
       storageKids.push(branch('bulk', 'L3', 'Bulk storage', [
-        nest('drives', 'Hard drives', tag(leaf('drive-pick', 'L5', 'Drive family', 'CMR disks for the pile. The system stays on the SSD.', [
-          note('Why', ['The NAS holds the large files. The server runs the apps.'], 'why'),
-          note('Compare', ['Same house network as the desk. Do not forward the admin page to the internet.'], 'compare'),
-          { name: 'Trade study', slot: 'study', lines: [], study: model.drives },
-          note('Where to buy it', model.drives.links, 'buy')
-        ]), 'hardware', { group: 'Storage', name: model.drives.decision, dollars: null }, 'recommended')),
+        (function () {
+          var camera = model.drives.decision.indexOf('Purple') !== -1;
+          var mainName = camera ? 'WD Purple 8TB' : 'Seagate IronWolf 8TB';
+          var slot = nest('drives', 'Hard drives', tag(leaf('drive-pick', 'L5', mainName, 'CMR disks for the pile. The system stays on the SSD.', [
+            note('Why', ['The NAS holds the large files. The server runs the apps.'], 'why'),
+            note('Compare', ['Same house network as the desk. Do not forward the admin page to the internet.'], 'compare'),
+            { name: 'Trade study', slot: 'study', lines: [], study: model.drives },
+            note('Where to buy it', model.drives.links, 'buy')
+          ]), 'hardware', { group: 'Storage', name: mainName, dollars: null }, 'recommended'));
+          var alts = HDD_8TB.filter(function (drive) { return drive.workload !== 'desktop'; }).map(function (drive) {
+            return namedProduct(drive.id, drive.brand + ' ' + drive.model, drive.capacity_tb + ' TB · ' + drive.recording + ' · ' + drive.rpm + ' rpm · ' + drive.warranty_years + ' year warranty', drive.model + ' is a named 8 TB disk in the lab catalog. ' + drive.recording + ', ' + drive.workload + '.', drive.workload === 'surveillance' ? 'Purple is for cameras. It is the wrong disk for a ZFS or RAID file shelf.' : 'The shelf price is not checked.');
+          });
+          return decorateSlot(slot, namedProduct(camera ? 'wd84purz' : 'st8000vn004', mainName, camera ? '8 TB · CMR · surveillance' : '8 TB · CMR · NAS', model.drives.decision, 'RAID is not a backup.'), alts);
+        })(),
         nest('cmr', 'CMR', tag(leaf('cmr-pick', 'L5', 'CMR', 'Conventional recording. The kind a rebuild can finish.', [note('Why', ['IronWolf, Red Plus, Red Pro, and Exos are CMR.'], 'why')]), 'architecture', null, 'recommended')),
         nest('smr', 'SMR', tag(leaf('smr-pick', 'L5', 'SMR', 'Shingled recording. Cheaper, and a poor fit for a RAID rebuild.', [note('Why', ['Plain WD Red in the 2 TB to 6 TB sizes often used SMR. That fails this lab.'], 'why')]), 'architecture', null, 'skip')),
         nest('bulk-ssd', 'SATA SSD', tag(leaf('bulk-ssd-pick', 'L5', 'Bulk SATA SSD', 'Right for a small fast pile. Wrong price per terabyte for movies.', [
