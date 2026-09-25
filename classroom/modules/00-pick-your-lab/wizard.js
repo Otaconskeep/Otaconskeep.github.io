@@ -1937,6 +1937,16 @@
     var answers = {};
     var index = 0;
     var labNotes = null;
+    try {
+      var savedLab = localStorage.getItem('otacon-lab-build-v1');
+      if (savedLab) {
+        var savedData = JSON.parse(savedLab);
+        if (savedData && savedData.version === 1 && savedData.answers && typeof savedData.answers === 'object') {
+          answers = savedData.answers;
+          index = 999;
+        }
+      }
+    } catch (err) { /* a bad save just starts the questionnaire */ }
 
     function el(tag, className, text) {
       var node = document.createElement(tag);
@@ -2522,12 +2532,45 @@
       var openIds = [root.id];
       var focus = null;
       var cartOpen = false;
-      var prices = {};
-      var added = {};
-      var owned = {};
-      var dropped = {};
       var inspected = null;
-      var buildName = '';
+      var record = { version: 1, name: '', items: {} };
+      var STORAGE_KEY = 'otacon-lab-build-v1';
+
+      function persist() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, answers: answers, name: record.name, items: record.items }));
+        } catch (err) { /* private mode can refuse storage */ }
+      }
+
+      function restore() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return;
+          var data = JSON.parse(raw);
+          if (!data || data.version !== 1) return;
+          if (JSON.stringify(data.answers) !== JSON.stringify(answers)) return;
+          record.name = data.name || '';
+          record.items = data.items || {};
+        } catch (err) { /* ignore a bad saved blob */ }
+      }
+
+      function commit(id, state, actual) {
+        var prev = record.items[id] || { quantity: 1, actual: null };
+        record.items[id] = {
+          state: state,
+          quantity: prev.quantity || 1,
+          actual: actual !== undefined ? actual : prev.actual
+        };
+        persist();
+      }
+
+      function itemState(id) {
+        var saved = record.items[id];
+        return saved && saved.state ? saved.state : '';
+      }
+
+      restore();
+      persist();
 
       function paintLines(parent, lines) {
         (lines || []).forEach(function (line) {
@@ -2680,8 +2723,9 @@
         tile.appendChild(el('span', 'wiz-level', levelStamp(node.level)));
         tile.appendChild(el('strong', '', node.title));
         var statusLabel = { ready: 'In the build', selected: 'Selected', recommended: 'Recommended', over: 'Over budget', need: 'Choose', skip: 'Not required' }[node.status];
-        if (owned[node.id]) statusLabel = 'Owned';
-        else if (added[node.id]) statusLabel = 'Equipped';
+        if (itemState(node.id) === 'owned') statusLabel = 'Owned';
+        else if (itemState(node.id) === 'equipped') statusLabel = 'Equipped';
+        else if (itemState(node.id) === 'skipped') statusLabel = 'Skipped';
         if (statusLabel) tile.appendChild(el('span', 'wiz-open', statusLabel));
         if (node.level === 'L2' && onPath && openIds.length > 1) tile.appendChild(el('span', 'wiz-open', 'Open'));
         if (node.level === 'L2' && !onPath) tile.appendChild(el('span', 'wiz-cue', 'Explore >'));
@@ -2737,15 +2781,13 @@
         }
         if (tip && node.kind === 'hardware' && node.offer) {
           var bill = el('div', 'wiz-actions');
-          var onBill = !dropped[node.id] && (added[node.id] || node.selected);
+          var onBill = itemState(node.id) === 'equipped' || itemState(node.id) === 'owned';
           var toggle = document.createElement('button');
           toggle.type = 'button';
           toggle.className = 'wiz-chip';
           toggle.textContent = onBill ? 'Remove from build' : 'Add to build';
-          function listed() { return !dropped[node.id] && (added[node.id] || node.selected); }
           toggle.addEventListener('click', function () {
-            if (listed()) { dropped[node.id] = true; added[node.id] = false; }
-            else { dropped[node.id] = false; added[node.id] = true; }
+            commit(node.id, onBill ? 'skipped' : 'equipped');
             paint();
           });
           bill.appendChild(toggle);
@@ -2755,14 +2797,14 @@
           priceInput.min = '0';
           priceInput.step = '0.01';
           priceInput.placeholder = 'Seller page';
-          if (prices[node.id] != null) priceInput.value = prices[node.id];
+          var savedPrice = record.items[node.id] && record.items[node.id].actual;
+          if (savedPrice != null && savedPrice !== '') priceInput.value = savedPrice;
           priceInput.addEventListener('input', function () {
-            prices[node.id] = priceInput.value;
-            if (priceInput.value !== '') {
-              dropped[node.id] = false;
-              added[node.id] = true;
-            }
-            toggle.textContent = listed() ? 'Remove from build' : 'Add to build';
+            var typed = priceInput.value === '' ? null : priceInput.value;
+            var next = itemState(node.id);
+            if (typed != null) next = 'equipped';
+            else if (next !== 'equipped' && next !== 'owned' && next !== 'skipped') next = 'recommended';
+            commit(node.id, next || 'recommended', typed);
             paintBudget();
           });
           priceLabel.appendChild(priceInput);
@@ -2779,18 +2821,10 @@
       }
 
       function onBill(node) {
-        if (dropped[node.id]) return false;
-        if (!(added[node.id] || owned[node.id])) return false;
+        var state = itemState(node.id);
+        if (state !== 'equipped' && state !== 'owned') return false;
         if (node.offer && node.offer.noteOnly) return false;
         return true;
-      }
-
-      function lineDollars(node) {
-        if (owned[node.id]) return 0;
-        if (prices[node.id] != null && prices[node.id] !== '') return Number(prices[node.id]);
-        if (node.offer && node.offer.dollars === 0) return 0;
-        if (node.offer && node.offer.floor != null) return node.offer.floor;
-        return null;
       }
 
       function starLine(n) {
@@ -2891,56 +2925,52 @@
       function paintBudget() {
         var old = rootEl.querySelector('.wiz-budget');
         var card = el('aside', 'wiz-budget');
-        var cap = root.model && root.model.ceiling;
-        var groups = {};
-        var known = 0;
-        var count = 0;
-        var lines = [];
-        walk(root, []).forEach(function (node) {
-          if (!onBill(node)) return;
-          if (node.offer && node.offer.noteOnly) return;
-          var group = (node.offer && node.offer.group) || 'Design';
-          groups[group] = groups[group] || 0;
-          var dollars = lineDollars(node);
-          var typed = prices[node.id] != null && prices[node.id] !== '';
-          var amount = (dollars == null || isNaN(dollars)) ? 0 : dollars;
-          groups[group] += amount;
-          known += amount;
-          count += 1;
-          var money = (dollars == null || isNaN(dollars)) ? 'no class floor' : (typed ? '$' + dollars : 'class floor $' + dollars);
-          lines.push(group + ' · ' + ((node.offer && node.offer.name) || node.title) + ' ×' + ((node.offer && node.offer.qty) || 1) + ' · ' + money);
+        var settled = settleBuild(root, record);
+        var budget = settled.budget;
+        var lines = settled.actualBuild.items.map(function (item) {
+          var money = item.state === 'owned' ? '$0 owned' : (item.actual != null ? '$' + item.actual + ' typed' : (item.kind === 'planning' ? 'class floor $' + item.planning : (item.kind === 'free' || item.kind === 'design' ? '$0' : 'unpriced')));
+          return item.group + ' · ' + item.title + ' ×' + item.quantity + ' · ' + money;
         });
         var head = el('div', 'wiz-cart-head');
-        head.appendChild(el('p', 'wiz-level', buildName || (root.model && root.model.codename) || 'Your lab'));
-        var capText = cap && cap.max != null ? ' / $' + cap.max : '';
-        head.appendChild(el('p', 'wiz-cart-total', '$' + known + capText));
+        head.appendChild(el('p', 'wiz-level', settled.name));
+        var capText = budget.ceiling != null ? ' / $' + budget.ceiling : '';
+        head.appendChild(el('p', 'wiz-cart-total', 'Known $' + budget.known + capText));
         card.appendChild(head);
-        if (cap && cap.max != null) {
-          card.appendChild(el('p', '', 'Remaining $' + (cap.max - known)));
-          if (known > cap.max) card.appendChild(el('p', 'wiz-cart-over', '⚠ $' + (known - cap.max) + ' over'));
-        }
-        if (root.model && root.model.recommended) card.appendChild(el('p', '', 'Recommended build ~$' + root.model.recommended + '. Not charged until you equip a part.'));
-        var stats = labStats();
-        Object.keys(stats).forEach(function (name) {
-          var row = el('div', 'wiz-stat');
-          row.appendChild(el('span', '', name));
-          var track = el('span', 'wiz-bar');
-          var fill = document.createElement('i');
-          fill.style.width = stats[name] + '%';
-          track.appendChild(fill);
-          row.appendChild(track);
-          row.appendChild(el('span', '', String(stats[name])));
-          card.appendChild(row);
+        var nameLabel = el('label', 'wiz-price', 'Build name');
+        var nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.value = record.name || settled.name;
+        nameInput.addEventListener('change', function () {
+          record.name = nameInput.value;
+          persist();
+          paintBudget();
         });
-        ['Server', 'Storage', 'Networking', 'Software'].concat(Object.keys(groups)).filter(function (group, index, all) {
-          return groups[group] != null && all.indexOf(group) === index;
-        }).forEach(function (group) {
+        nameLabel.appendChild(nameInput);
+        card.appendChild(nameLabel);
+        var truth = el('p', budget.status === 'incomplete' ? 'is-incomplete' : '', budget.line);
+        card.appendChild(truth);
+        card.appendChild(el('p', '', 'Unpriced selected items: ' + budget.unpriced));
+        if (budget.estimated != null) card.appendChild(el('p', '', 'Estimated complete build ~$' + budget.estimated + '. Not charged until you equip a part.'));
+        card.appendChild(el('p', '', 'Budget status: ' + budget.status.toUpperCase()));
+        var ready = settled.readiness;
+        var readyRow = el('div', 'wiz-stat');
+        readyRow.appendChild(el('span', '', 'Readiness'));
+        var track = el('span', 'wiz-bar');
+        var fill = document.createElement('i');
+        fill.style.width = ready.percent + '%';
+        track.appendChild(fill);
+        readyRow.appendChild(track);
+        readyRow.appendChild(el('span', '', ready.percent + '%'));
+        card.appendChild(readyRow);
+        if (budget.status === 'over') card.appendChild(el('p', 'wiz-cart-over', '⚠ $' + (budget.known - budget.ceiling) + ' over the band'));
+        Object.keys(settled.groups).forEach(function (group) {
           var row = el('div', 'wiz-cart-row');
           row.appendChild(el('span', '', group));
-          row.appendChild(el('span', '', '$' + groups[group]));
+          row.appendChild(el('span', '', settled.groups[group] === 'incomplete' ? 'unpriced' : ('$' + settled.groups[group])));
           card.appendChild(row);
         });
-        card.appendChild(el('p', 'wiz-cart-count', count + (count === 1 ? ' item selected' : ' items selected')));
+        var count = settled.actualBuild.items.length;
+        card.appendChild(el('p', 'wiz-cart-count', count + (count === 1 ? ' item equipped or owned' : ' items equipped or owned')));
         var view = document.createElement('button');
         view.type = 'button';
         view.className = 'wiz-chip';
@@ -2962,9 +2992,45 @@
             more.appendChild(el('h3', '', 'If you spend more'));
             root.model.forecast.forEach(function (rung) { more.appendChild(el('p', '', rung.line)); });
           }
+          if (ready.missing.length) {
+            more.appendChild(el('h3', '', 'Open required slots'));
+            more.appendChild(el('p', '', ready.missing.join(', ')));
+          }
+          if (ready.unresolved.length) {
+            more.appendChild(el('h3', '', 'Unresolved'));
+            ready.unresolved.forEach(function (line) { more.appendChild(el('p', '', line)); });
+          }
           more.appendChild(el('p', '', 'A class floor is budget math, dated Sep 24, 2026. It does not change when a store changes its price. Type the price you saw to replace it.'));
           card.appendChild(more);
         }
+        var tools = el('div', 'wiz-actions');
+        function tool(label, run) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'wiz-chip';
+          button.textContent = label;
+          button.addEventListener('mousedown', function (event) { event.preventDefault(); });
+          button.addEventListener('click', run);
+          tools.appendChild(button);
+        }
+        tool('Save', function () { persist(); });
+        tool('Load', function () { restore(); paint(); });
+        tool('Reset', function () {
+          record.name = '';
+          record.items = {};
+          try { localStorage.removeItem(STORAGE_KEY); } catch (err) { /* ignore */ }
+          paint();
+        });
+        tool('Export', function () {
+          var blob = new Blob([JSON.stringify({ version: 1, answers: answers, name: record.name, items: record.items }, null, 2)], { type: 'application/json' });
+          var url = URL.createObjectURL(blob);
+          var link = document.createElement('a');
+          link.href = url;
+          link.download = 'lab-build.json';
+          link.click();
+          URL.revokeObjectURL(url);
+        });
+        card.appendChild(tools);
         if (old) rootEl.replaceChild(card, old);
         else {
           var layout = rootEl.querySelector('.wiz-layout');
@@ -3015,52 +3081,25 @@
         var add = document.createElement('button');
         add.type = 'button';
         add.className = 'wiz-chip';
-        add.textContent = (added[node.id] && !owned[node.id]) ? 'Equipped' : ('Add to build' + (card.floor ? (' — class floor $' + card.floor) : ''));
+        add.textContent = itemState(node.id) === 'equipped' ? 'Equipped' : ('Add to build' + (card.floor ? (' — class floor $' + card.floor) : ''));
         add.addEventListener('mousedown', function (event) { event.preventDefault(); });
         add.addEventListener('click', function () {
-          owned[node.id] = false;
-          added[node.id] = true;
-          dropped[node.id] = false;
+          commit(node.id, 'equipped');
           paint();
         });
         var own = document.createElement('button');
         own.type = 'button';
         own.className = 'wiz-chip';
-        own.textContent = owned[node.id] ? 'Owned' : 'I already own this';
+        own.textContent = itemState(node.id) === 'owned' ? 'Owned' : 'I already own this';
         own.addEventListener('mousedown', function (event) { event.preventDefault(); });
         own.addEventListener('click', function () {
-          owned[node.id] = true;
-          added[node.id] = true;
-          dropped[node.id] = false;
+          commit(node.id, 'owned', null);
           paint();
         });
         actions.appendChild(add);
         actions.appendChild(own);
         box.appendChild(actions);
         return box;
-      }
-
-      function labStats() {
-        var rel = 15;
-        var net = 15;
-        var store = 10;
-        var ai = 10;
-        walk(root, []).forEach(function (node) {
-          if (!added[node.id] && !owned[node.id]) return;
-          if (node.title === 'RAIDZ2') rel = 91;
-          else if (node.title === 'Mirror pairs') rel = Math.max(rel, 76);
-          else if (node.title === 'RAIDZ1') rel = Math.max(rel, 70);
-          else if (node.title === 'No RAID') rel = Math.max(rel, 35);
-          if (node.title.indexOf('Dream Machine') !== -1) net = 94;
-          else if (node.title.indexOf('OPNsense') !== -1) net = Math.max(net, 88);
-          else if (node.title.indexOf('Cloud Gateway') !== -1) net = Math.max(net, 84);
-          else if (node.title.indexOf('Omada') !== -1) net = Math.max(net, 79);
-          else if (node.title === 'Managed PoE') net = Math.max(net, 82);
-          else if (node.title === 'ISP router') net = Math.max(net, 43);
-          if (node.offer && node.offer.group === 'Storage') store = Math.max(store, 73);
-          if (node.offer && node.offer.group === 'Server' && hasJob(answers, 'ai')) ai = 65;
-        });
-        return { Reliability: rel, Networking: net, Storage: store, 'AI power': ai };
       }
 
       function restoreScroll(x, y) {
@@ -3103,6 +3142,8 @@
         again.addEventListener('click', function () {
           answers = {};
           index = 0;
+          record = { version: 1, name: '', items: {} };
+          try { localStorage.removeItem(STORAGE_KEY); } catch (err) { /* ignore */ }
           draw();
         });
         rootEl.appendChild(again);
@@ -3599,11 +3640,11 @@
       var next = ancestors.concat([node]);
       (node.children || []).forEach(function (child) { walk(child, next); });
       if (node.children && node.children.length) return;
-      var equipped = node.status === 'selected' || node.status === 'over' || node.status === 'ready' || node.status === 'recommended';
+      var proposed = node.status === 'selected' || node.status === 'over' || node.status === 'ready' || node.status === 'recommended';
       var empty = node.status === 'skip' && node.offer && node.offer.noteOnly;
       var open = node.status === 'need' && node.offer;
-      if (!equipped && !empty && !open) return;
-      if (equipped && !node.offer) {
+      if (!proposed && !empty && !open) return;
+      if (proposed && !node.offer) {
         traits.push(node.title);
         return;
       }
@@ -3638,6 +3679,142 @@
       slots: slots,
       traits: traits,
       priceNote: 'These dollars are class floors dated Sep 24, 2026. They do not change when a store changes its price. The source is the class table in this lesson, not a live feed. Check PCPartPicker, then type the price you saw. That typed price replaces the floor.'
+    };
+  }
+
+  function settleBuild(tree, record) {
+    var stored = (record && record.items) || {};
+    var leaves = [];
+    function visit(node, ancestors) {
+      var kids = node.children || [];
+      if (!kids.length) {
+        leaves.push({ node: node, ancestors: ancestors });
+        return;
+      }
+      kids.forEach(function (child) { visit(child, ancestors.concat([node])); });
+    }
+    if (tree) visit(tree, []);
+
+    function moneyKind(node) {
+      if (!node.offer || node.offer.noteOnly) return 'design';
+      if (node.offer.dollars === 0) return 'free';
+      if (node.offer.floor != null) return 'planning';
+      return 'unpriced';
+    }
+
+    function baseState(node) {
+      if (node.status === 'recommended' || node.status === 'ready' || node.status === 'selected' || node.status === 'over') return 'recommended';
+      return 'skipped';
+    }
+
+    var recommended = [];
+    var actual = [];
+    var known = 0;
+    var unpriced = 0;
+    var groups = {};
+    leaves.forEach(function (row) {
+      var node = row.node;
+      var saved = stored[node.id];
+      var state = saved && saved.state ? saved.state : baseState(node);
+      if (state !== 'recommended' && state !== 'equipped' && state !== 'owned' && state !== 'skipped') state = 'skipped';
+      var entry = {
+        id: node.id,
+        title: node.title,
+        state: state,
+        quantity: saved && saved.quantity ? saved.quantity : 1,
+        ancestors: row.ancestors.map(function (parent) { return parent.id; }),
+        slot: row.ancestors.length ? row.ancestors[row.ancestors.length - 1].title : node.title,
+        group: (node.offer && node.offer.group) || 'Design',
+        kind: moneyKind(node),
+        planning: node.offer && node.offer.floor != null ? node.offer.floor : (node.offer && node.offer.dollars === 0 ? 0 : null),
+        actual: saved && saved.actual != null && saved.actual !== '' && !isNaN(Number(saved.actual)) ? Number(saved.actual) : null
+      };
+      if (state === 'recommended') recommended.push(entry);
+      if (state !== 'equipped' && state !== 'owned') return;
+      actual.push(entry);
+      var amount = null;
+      if (state === 'owned' || entry.kind === 'free' || entry.kind === 'design') amount = 0;
+      else if (entry.actual != null) amount = entry.actual * entry.quantity;
+      else if (entry.kind === 'planning') amount = entry.planning * entry.quantity;
+      if (amount == null) {
+        unpriced += 1;
+        groups[entry.group] = 'incomplete';
+      } else {
+        known += amount;
+        if (groups[entry.group] !== 'incomplete') groups[entry.group] = (groups[entry.group] || 0) + amount;
+      }
+    });
+
+    var cap = tree && tree.model && tree.model.ceiling;
+    var max = cap && cap.max != null ? cap.max : null;
+    var status = unpriced > 0 ? 'incomplete' : (max != null && known > max ? 'over' : 'complete');
+    var noun = unpriced === 1 ? 'item is' : 'items are';
+    var line;
+    if (unpriced > 0 && max != null && known > max) line = 'Known selected cost already passes the band by $' + (known - max) + ', and ' + unpriced + ' selected ' + noun + ' not yet priced.';
+    else if (unpriced > 0 && max != null) line = 'At least $' + (max - known) + ' remains; ' + unpriced + ' selected ' + noun + ' not yet priced.';
+    else if (unpriced > 0) line = 'Final remaining: unknown. ' + unpriced + ' selected ' + noun + ' not yet priced.';
+    else if (max != null) line = 'Known remaining $' + (max - known) + '.';
+    else line = 'This band has no ceiling. Known selected cost $' + known + '.';
+
+    var requiredTitles = { 'Case': 1, 'Motherboard': 1, 'CPU': 1, 'RAM': 1, 'PSU': 1, 'Boot drive': 1, 'Gateway': 1, 'RAID / ZFS': 1 };
+    var slots = [];
+    function collect(node) {
+      if (requiredTitles[node.title] && node.children && node.children.length) slots.push(node);
+      (node.children || []).forEach(collect);
+    }
+    if (tree) collect(tree);
+    var filled = 0;
+    var missing = [];
+    slots.forEach(function (slot) {
+      var ok = actual.some(function (item) { return item.ancestors.indexOf(slot.id) !== -1; });
+      if (ok) filled += 1;
+      else missing.push(slot.title);
+    });
+    var unresolved = [];
+    function findTitle(node, title) {
+      if (!node) return null;
+      if (node.title === title) return node;
+      var kids = node.children || [];
+      for (var i = 0; i < kids.length; i++) {
+        var hit = findTitle(kids[i], title);
+        if (hit) return hit;
+      }
+      return null;
+    }
+    var backup = findTitle(tree, 'Backup');
+    if (backup && !actual.some(function (item) { return item.ancestors.indexOf(backup.id) !== -1; })) unresolved.push('Backup target not equipped');
+    var tone = tree && tree.model && tree.model.fit && tree.model.fit.tone;
+    var checks = [];
+    if (tone === 'stop') {
+      checks.push('Compatibility does not pass.');
+      unresolved.push('Suggested PC parts clash');
+    } else if (tone === 'wait') {
+      checks.push('Compatibility still needs a closer look.');
+      unresolved.push('Compatibility still needs a closer look');
+    } else if (tone === 'go') checks.push('Suggested PC parts agree.');
+    if (unpriced > 0) unresolved.push(unpriced + ' selected ' + (unpriced === 1 ? 'item still needs' : 'items still need') + ' a price');
+    return {
+      version: 1,
+      name: (record && record.name) || (tree && tree.model && tree.model.codename) || 'Your lab',
+      recommendedBuild: { items: recommended },
+      actualBuild: { items: actual },
+      groups: groups,
+      budget: {
+        known: known,
+        unpriced: unpriced,
+        estimated: tree && tree.model ? tree.model.recommended : null,
+        status: status,
+        line: line,
+        ceiling: max
+      },
+      readiness: {
+        percent: slots.length ? Math.round((filled / slots.length) * 100) : 0,
+        filled: filled,
+        required: slots.length,
+        missing: missing,
+        unresolved: unresolved,
+        checks: checks
+      }
     };
   }
 
@@ -3890,6 +4067,10 @@
     var tree = branch('lab', 'L1', 'Your lab', subsystems);
     tree.model = model;
     tree.sheet = characterSheet(tree, a);
+    var settled = settleBuild(tree, { version: 1, name: '', items: {} });
+    tree.recommendedBuild = settled.recommendedBuild;
+    tree.actualBuild = settled.actualBuild;
+    tree.readiness = settled.readiness;
     return tree;
   }
 
@@ -3901,6 +4082,7 @@
     topicBoard: topicBoard,
     checkParts: checkParts,
     labBreakdown: labBreakdown,
+    settleBuild: settleBuild,
     mount: mount
   };
 });
