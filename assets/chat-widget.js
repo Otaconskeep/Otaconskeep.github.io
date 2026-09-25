@@ -66,6 +66,17 @@
  return el;
  }
 
+ function addThinking() {
+ var el = document.createElement('div');
+ el.className = 'keep-chat-thinking';
+ el.innerHTML =
+ '<span>OTACON // ANALYZING</span>' +
+ '<span class="keep-chat-thinking-dots"><span></span><span></span><span></span></span>';
+ log.appendChild(el);
+ log.scrollTop = log.scrollHeight;
+ return el;
+ }
+
  function openPanel() {
  panel.hidden = false;
  launcher.hidden = true;
@@ -92,7 +103,7 @@
  input.value = '';
  input.disabled = true;
  sendBtn.disabled = true;
- var pending = addMsg('assistant', 'Thinking...', 'pending');
+ var pending = addThinking();
 
  fetch(API_URL, {
  method: 'POST',
@@ -101,16 +112,19 @@
  })
  .then(function (res) {
  if (!res.ok) throw new Error('HTTP ' + res.status);
- return res.json();
+ if (!res.body || !res.body.getReader) {
+ // No streaming support (very old browser) -- fall back to a full read.
+ return res.text().then(function (raw) { return streamFallback(raw); });
+ }
+ return streamReply(res.body.getReader());
  })
- .then(function (data) {
- pending.remove();
- if (data.error) throw new Error(data.error);
- addMsg('assistant', data.reply);
- history.push({ role: 'assistant', content: data.reply });
+ .then(function (fullText) {
+ if (fullText != null) history.push({ role: 'assistant', content: fullText });
  })
  .catch(function () {
  pending.remove();
+ var live = doc_lastBubble();
+ if (live) live.remove();
  addMsg('assistant', "Couldn't reach the assistant just now — try again in a moment, or check /faq/.", 'error');
  })
  .finally(function () {
@@ -118,6 +132,66 @@
  sendBtn.disabled = false;
  input.focus();
  });
+
+ function doc_lastBubble() { return log.querySelector('.keep-chat-msg.assistant.streaming'); }
+
+ // Reads the SSE stream from the worker ("data: {...}\n\n", ending
+ // "data: [DONE]\n\n") and grows the reply bubble token by token --
+ // this is the actual "Otacon thinking, then transmitting" feel instead
+ // of a pause-then-dump.
+ function streamReply(reader) {
+ var decoder = new TextDecoder();
+ var buffer = '';
+ var full = '';
+ var bubble = null;
+
+ function pump() {
+ return reader.read().then(function (chunk) {
+ if (chunk.done) return full;
+ buffer += decoder.decode(chunk.value, { stream: true });
+ var events = buffer.split('\n\n');
+ buffer = events.pop(); // last piece may be incomplete, keep for next read
+ for (var i = 0; i < events.length; i++) {
+ var line = events[i].trim();
+ if (!line.startsWith('data:')) continue;
+ var payload = line.slice(5).trim();
+ if (payload === '[DONE]') continue;
+ var parsed;
+ try { parsed = JSON.parse(payload); } catch (e) { continue; }
+ var token = parsed && parsed.response;
+ if (!token) continue;
+ if (!bubble) {
+ pending.remove();
+ bubble = addMsg('assistant', '', 'streaming');
+ }
+ full += token;
+ bubble.innerHTML = renderAssistantText(full);
+ log.scrollTop = log.scrollHeight;
+ }
+ return pump();
+ });
+ }
+
+ return pump().then(function () {
+ if (bubble) bubble.classList.remove('streaming');
+ if (!bubble) { pending.remove(); addMsg('assistant', full || "Sorry, I didn't get a response — try again in a moment."); }
+ return full;
+ });
+ }
+
+ function streamFallback(raw) {
+ pending.remove();
+ var full = '';
+ raw.split('\n\n').forEach(function (block) {
+ var line = block.trim();
+ if (!line.startsWith('data:')) return;
+ var payload = line.slice(5).trim();
+ if (payload === '[DONE]') return;
+ try { full += (JSON.parse(payload).response || ''); } catch (e) {}
+ });
+ addMsg('assistant', full || "Sorry, I didn't get a response — try again in a moment.");
+ return full;
+ }
  });
  }
 
