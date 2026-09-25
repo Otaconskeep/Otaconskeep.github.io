@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06-prowlarr-installation-and-indexer-management: Lab · Classroom</title>
+<meta name="description" content="06-prowlarr-installation-and-indexer-management: Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/11-downloaders/topics/06-prowlarr-installation-and-indexer-management/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M11 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M11 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 06-prowlarr-installation-and-indexer-management: Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Download Clients &amp; Indexers<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain why Prowlarr centralizes indexer definitions for compatible media-management applications.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>A Linux x86_64 or ARM64 host supported by the current Prowlarr Linux release.</li>
+<li>The directory /opt/lab-classroom/class54/ already exists and is writable by the lab user.</li>
+<li>Python 3 is installed and available as python3.</li>
+<li>The host can make HTTPS requests to api.github.com and GitHub release asset endpoints.</li>
+<li>TCP ports 9696 and 18080 are unused on the host.</li>
+<li>The learner understands basic Linux process management, files, directories, ports, and HTTP URLs.</li>
+<li>A graphical browser is available on the same host, or the Prowlarr web interface can be reached through an approved administrative access path.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - A Linux x86_64 or ARM64 host supported by the current Prowlarr Linux release.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>scope_rule</h4><p>Every file created or changed by this lab must remain below /opt/lab-classroom/class54/. Do not substitute a system application directory, a normal user home directory, or another service's data directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Every file created or changed by this lab must remain below /opt/lab-classroom/class54/.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Prepare isolated directories</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Prepare isolated directories</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class54<br />
+mkdir -p app data home tmp cache config state logs mock</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class54
+mkdir -p app data home tmp cache config state logs mock</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The class directory must already exist. The subdirectories provide explicit locations for application, persistent, temporary, and teaching-service files.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The class directory must already exist.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Download the current official Prowlarr release for the host architecture</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Download the current official Prowlarr release for the host architecture</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class54<br />
+cat &gt; download_prowlarr.py &lt;&lt;'PY'<br />
+import hashlib<br />
+import json<br />
+import platform<br />
+import urllib.request<br />
+from pathlib import Path</p>
+<p>root = Path('/opt/lab-classroom/class54')<br />
+api = 'https://api.github.com/repos/Prowlarr/Prowlarr/releases/latest'<br />
+machine = platform.machine().lower()<br />
+architectures = {<br />
+    'x86_64': 'x64',<br />
+    'amd64': 'x64',<br />
+    'aarch64': 'arm64',<br />
+    'arm64': 'arm64'<br />
+}<br />
+if machine not in architectures:<br />
+    raise SystemExit(f'Unsupported lab architecture: {machine}')<br />
+arch = architectures[machine]<br />
+request = urllib.request.Request(api, headers={'User-Agent': 'OtaconsKeep-Homelab-Academy-Class54'})<br />
+with urllib.request.urlopen(request, timeout=30) as response:<br />
+    release_bytes = response.read()<br />
+release = json.loads(release_bytes)<br />
+(root / 'release.json').write_bytes(release_bytes)<br />
+assets = [<br />
+    asset for asset in release.get('assets', [])<br />
+    if asset.get('name', '').lower().endswith(f'linux-core-{arch}.tar.gz')<br />
+    and 'musl' not in asset.get('name', '').lower()<br />
+]<br />
+if len(assets) != 1:<br />
+    names = [asset.get('name', '') for asset in release.get('assets', [])]<br />
+    raise SystemExit(f'Expected one Linux {arch} archive; candidates were: {names}')<br />
+asset = assets[0]<br />
+archive = root / 'prowlarr.tar.gz'<br />
+asset_request = urllib.request.Request(asset['browser_download_url'], headers={'User-Agent': 'OtaconsKeep-Homelab-Academy-Class54'})<br />
+with urllib.request.urlopen(asset_request, timeout=120) as response, archive.open('wb') as output:<br />
+    while True:<br />
+        block = response.read(1024 * 1024)<br />
+        if not block:<br />
+            break<br />
+        output.write(block)<br />
+digest = hashlib.sha256(archive.read_bytes()).hexdigest()<br />
+(root / 'prowlarr.sha256').write_text(f'{digest}  prowlarr.tar.gz\n', encoding='utf-8')<br />
+(root / 'selected-release.txt').write_text(<br />
+    f"tag={release.get('tag_name', '')}\nasset={asset['name']}\nurl={asset['browser_download_url']}\n",<br />
+    encoding='utf-8'<br />
+)<br />
+print((root / 'selected-release.txt').read_text(), end='')<br />
+print((root / 'prowlarr.sha256').read_text(), end='')<br />
+PY<br />
+python3 /opt/lab-classroom/class54/download_prowlarr.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>Python validates HTTPS certificates through its standard TLS configuration. The generated digest is a local audit record, not an independent publisher signature.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Python validates HTTPS certificates through its standard TLS configuration.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Validate archive paths and extract Prowlarr</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Validate archive paths and extract Prowlarr</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class54<br />
+cat &gt; extract_prowlarr.py &lt;&lt;'PY'<br />
+import shutil<br />
+import tarfile<br />
+from pathlib import Path, PurePosixPath</p>
+<p>root = Path('/opt/lab-classroom/class54')<br />
+archive = root / 'prowlarr.tar.gz'<br />
+destination = root / 'app'<br />
+if any(destination.iterdir()):<br />
+    raise SystemExit('The app directory is not empty; preserve or clear it before extraction.')<br />
+with tarfile.open(archive, 'r:gz') as bundle:<br />
+    members = bundle.getmembers()<br />
+    for member in members:<br />
+        path = PurePosixPath(member.name)<br />
+        if path.is_absolute() or '..' in path.parts:<br />
+            raise SystemExit(f'Unsafe archive path: {member.name}')<br />
+        if member.issym() or member.islnk() or member.isdev() or member.isfifo():<br />
+            raise SystemExit(f'Unsupported special archive entry: {member.name}')<br />
+    bundle.extractall(destination, members=members)<br />
+with (root / 'archive-files.txt').open('w', encoding='utf-8') as listing:<br />
+    for member in members:<br />
+        listing.write(member.name + '\n')<br />
+binaries = list(destination.rglob('Prowlarr'))<br />
+if len(binaries) != 1 or not binaries[0].is_file():<br />
+    raise SystemExit(f'Expected exactly one Prowlarr executable; found: {binaries}')<br />
+binaries[0].chmod(binaries[0].stat().st_mode | 0o100)<br />
+(root / 'prowlarr-binary.txt').write_text(str(binaries[0]) + '\n', encoding='utf-8')<br />
+print(binaries[0])<br />
+PY<br />
+python3 /opt/lab-classroom/class54/extract_prowlarr.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class54
+cat &gt; extract_prowlarr.py &lt;&lt;&#x27;PY&#x27;
+import shutil
+import tarfile
+from pathlib import Path, PurePosixPath
+
+root = Path(&#x27;/opt/lab-cl…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The extractor rejects absolute paths, parent traversal, links, devices, and named pipes before extraction.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The extractor rejects absolute paths, parent traversal, links, devices, and named pipes before extraction.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create an isolated Prowlarr launcher</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create an isolated Prowlarr launcher</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class54<br />
+cat &gt; start-prowlarr.sh &lt;&lt;'SH'</p>
+<h1>!/bin/sh</h1>
+<p>set -eu<br />
+ROOT=/opt/lab-classroom/class54<br />
+export HOME="$ROOT/home"<br />
+export TMPDIR="$ROOT/tmp"<br />
+export XDG_CACHE_HOME="$ROOT/cache"<br />
+export XDG_CONFIG_HOME="$ROOT/config"<br />
+export XDG_STATE_HOME="$ROOT/state"<br />
+export DOTNET_CLI_HOME="$ROOT/home"<br />
+BIN=$(cat "$ROOT/prowlarr-binary.txt")<br />
+if [ ! -x "$BIN" ]; then<br />
+  echo "Prowlarr executable is missing or not executable: $BIN" &gt;&amp;2<br />
+  exit 1<br />
+fi<br />
+exec "$BIN" -nobrowser -data="$ROOT/data"<br />
+SH<br />
+chmod u+x /opt/lab-classroom/class54/start-prowlarr.sh<br />
+cd /opt/lab-classroom/class54 &amp;&amp; nohup ./start-prowlarr.sh &gt; ./logs/prowlarr-console.log 2&gt;&amp;1 &amp; echo $! &gt; ./prowlarr.pid<br />
+sleep 8<br />
+python3 -c "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:9696', timeout=10).status)"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>If the final command does not print a successful HTTP status, inspect logs/prowlarr-console.log before continuing.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create and start the local Torznab teaching indexer</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class54<br />
+cat &gt; mock/mock_indexer.py &lt;&lt;'PY'<br />
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer<br />
+from urllib.parse import parse_qs, urlparse<br />
+from datetime import datetime, timezone<br />
+from pathlib import Path</p>
+<p>ROOT = Path('/opt/lab-classroom/class54')<br />
+LOG = ROOT / 'logs' / 'mock-indexer.log'<br />
+CAPS = b'''&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br />
+<caps><br />
+  <server version="1.0" title="Class 54 Teaching Indexer" /><br />
+  <limits max="100" default="25" /><br />
+  <registration available="no" open="no" /><br />
+  <searching><br />
+    <search available="yes" supportedParams="q" /><br />
+    <tv-search available="yes" supportedParams="q,season,ep" /><br />
+    <movie-search available="yes" supportedParams="q,imdbid" /><br />
+  </searching><br />
+  <categories><br />
+    <category id="2000" name="Movies"><br />
+      <subcat id="2040" name="Movies/HD" /><br />
+    </category><br />
+    <category id="5000" name="TV"><br />
+      <subcat id="5040" name="TV/HD" /><br />
+    </category><br />
+  </categories><br />
+</caps><br />
+'''</p>
+<p>def search_xml(query):<br />
+    safe_query = ''.join(ch for ch in query if ch.isalnum() or ch in ' ._-')[:80] or 'Class 54 Test'<br />
+    published = datetime.now(timezone.utc).strftime('%a, %d %b %Y %H:%M:%S +0000')<br />
+    return f'''&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br />
+<rss version="2.0" xmlns:torznab="http://torznab.com/schemas/2015/feed"><br />
+  <channel><br />
+    <title>Class 54 Teaching Indexer</title><br />
+    <description>Synthetic protocol-validation results</description><br />
+    <link>http://127.0.0.1:18080/</link><br />
+    <item><br />
+      <title>{safe_query} Synthetic Result</title><br />
+      <guid isPermaLink="false">class54-synthetic-result-1</guid><br />
+      <link>http://127.0.0.1:18080/download/1.torrent</link><br />
+      <pubDate>{published}</pubDate><br />
+      <size>1048576</size><br />
+      <category>2000</category><br />
+      <torznab:attr name="category" value="2000" /><br />
+      <torznab:attr name="category" value="2040" /><br />
+      <torznab:attr name="seeders" value="10" /><br />
+      <torznab:attr name="peers" value="12" /><br />
+      <torznab:attr name="size" value="1048576" /><br />
+    </item><br />
+  </channel><br />
+</rss><br />
+'''.encode('utf-8')</p>
+<p>class Handler(BaseHTTPRequestHandler):<br />
+    def log_message(self, fmt, *args):<br />
+        with LOG.open('a', encoding='utf-8') as output:<br />
+            output.write('%s %s\n' % (self.log_date_time_string(), fmt % args))</p>
+<pre><code>def do_GET(self):
+    parsed = urlparse(self.path)
+    params = parse_qs(parsed.query)
+    if parsed.path in ('/', '/api') and params.get('t', [''])[0] == 'caps':
+        body = CAPS
+        status = 200
+        content_type = 'application/xml; charset=utf-8'
+    elif parsed.path in ('/', '/api') and params.get('t', [''])[0] in ('search', 'tvsearch', 'movie'):
+        body = search_xml(params.get('q', ['Class 54 Test'])[0])
+        status = 200
+        content_type = 'application/xml; charset=utf-8'
+    elif parsed.path == '/':
+        body = b'Class 54 Torznab teaching indexer\n'
+        status = 200
+        content_type = 'text/plain; charset=utf-8'
+    else:
+        body = b'No payload is provided by this teaching endpoint.\n'
+        status = 404
+        content_type = 'text/plain; charset=utf-8'
+    self.send_response(status)
+    self.send_header('Content-Type', content_type)
+    self.send_header('Content-Length', str(len(body)))
+    self.end_headers()
+    self.wfile.write(body)
+</code></pre>
+<p>server = ThreadingHTTPServer(('127.0.0.1', 18080), Handler)<br />
+server.serve_forever()<br />
+PY<br />
+cd /opt/lab-classroom/class54 &amp;&amp; nohup python3 ./mock/mock_indexer.py &gt; ./logs/mock-console.log 2&gt;&amp;1 &amp; echo $! &gt; ./mock-indexer.pid<br />
+sleep 2<br />
+python3 -c "import urllib.request; u='http://127.0.0.1:18080/api?t=caps'; print(urllib.request.urlopen(u, timeout=5).read().decode())"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The teaching indexer binds only to loopback and returns synthetic XML. Its download URL deliberately returns no payload.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Complete Prowlarr first-run configuration</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Complete Prowlarr first-run configuration</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (commands)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>Open http://127.0.0.1:9696 in a browser. Complete any first-run authentication prompt. Use a unique lab credential and do not reuse a production password. Interface wording can vary by release.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Add the Generic Torznab teaching indexer</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (commands)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>In Prowlarr, open Indexers, choose Add Indexer, and select Generic Torznab. Set the name to Class 54 Teaching Indexer. Set the URL to http://127.0.0.1:18080. If the form displays a separate API Path field, set it to /api. If it expects the path in the URL instead, use http://127.0.0.1:18080/api. Enter mock-key if the form requires an API key. Leave redirect settings disabled, enable the search modes appropriate to the lab, run Test, and save only after the test succeeds.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>8</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 8</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Exercise indexer management</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (commands)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>Open the saved indexer and inspect its detected categories. Perform an interactive search for Class 54 Test. Confirm that a synthetic result appears. Disable the indexer and observe that it is excluded from normal enabled-indexer operations, then enable it again. Review System, Events and System, Log Files to connect interface actions with operational evidence.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>9</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 9</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Observe a controlled failure and recover</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Observe a controlled failure and recover</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class54 &amp;&amp; kill "$(cat mock-indexer.pid)"<br />
+sleep 2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>Run the indexer test again and record the error. This demonstrates a transport failure rather than an authentication or category failure. Restart the teaching indexer with the command from step 5, verify the capabilities URL, and retest the indexer in Prowlarr.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The official release metadata is stored in /opt/lab-classroom/class54/release.json.</li>
+<li>The selected asset details are recorded in /opt/lab-classroom/class54/selected-release.txt.</li>
+<li>The downloaded archive has a local SHA-256 record in /opt/lab-classroom/class54/prowlarr.sha256.</li>
+<li>Exactly one Prowlarr executable is discovered beneath /opt/lab-classroom/class54/app/.</li>
+<li>Prowlarr responds through its web interface on TCP port 9696.</li>
+<li>The teaching indexer returns Torznab capability XML on 127.0.0.1:18080.</li>
+<li>Prowlarr successfully tests and saves the Class 54 Teaching Indexer definition.</li>
+<li>An interactive search returns one clearly labeled synthetic result.</li>
+<li>Stopping the teaching indexer causes a connection-oriented test failure, and restarting it restores a successful test.</li>
+<li>Prowlarr configuration, database, logs, temporary files, and lab artifacts remain below /opt/lab-classroom/class54/.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run: python3 -c "import hashlib,pathlib; p=pathlib.Path('/opt/lab-classroom/class54/prowlarr.tar.gz'); print(hashlib.sha256(p.read_bytes()).hexdigest())" and compare the output with the first field in /opt/lab-classroom/class54/prowlarr.sha256.</li>
+<li>[ ] Run: cat /opt/lab-classroom/class54/prowlarr-binary.txt and confirm that the path begins with /opt/lab-classroom/class54/app/.</li>
+<li>[ ] Run: python3 -c "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:9696', timeout=5).status)" and confirm a successful HTTP response.</li>
+<li>[ ] Run: python3 -c "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:18080/api?t=caps', timeout=5).status)" and confirm status 200.</li>
+<li>[ ] Inspect /opt/lab-classroom/class54/logs/mock-indexer.log and confirm that Prowlarr requested a capability query during its indexer test.</li>
+<li>[ ] In Prowlarr, run Test on Class 54 Teaching Indexer and confirm that the interface reports success.</li>
+<li>[ ] In Prowlarr, perform an interactive search for Class 54 Test and confirm that the result title includes Synthetic Result.</li>
+<li>[ ] In Prowlarr, inspect System, Events and verify that indexer test activity is visible.</li>
+<li>[ ] Run: find /opt/lab-classroom/class54 -maxdepth 2 -type f -print and identify the release metadata, digest, launcher, process identifiers, logs, mock service, and application data.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The release downloader reports an unsupported architecture.</td>
+<td>The host is not x86_64 or ARM64, or platform.machine() returned an architecture not mapped by the lab.</td>
+<td>Use a Prowlarr-supported host architecture and confirm that the matching official Linux core release asset exists. Do not select an asset for a different processor.</td>
+</tr>
+<tr>
+<td>The release API request fails.</td>
+<td>DNS, HTTPS egress, certificate trust, GitHub availability, or API rate limiting prevented the request.</td>
+<td>Verify system time, DNS resolution, trusted certificate configuration, and access to api.github.com. Retry after any API rate limit expires.</td>
+</tr>
+<tr>
+<td>Extraction stops because the app directory is not empty.</td>
+<td>A previous extraction is still present.</td>
+<td>Preserve the existing app directory by moving its contents into a backup subdirectory below /opt/lab-classroom/class54/, recreate an empty app directory, and rerun extraction.</td>
+</tr>
+<tr>
+<td>Prowlarr exits immediately after launch.</td>
+<td>The release does not match the host architecture, a required runtime library is unavailable, the executable bit is missing, or the application cannot use its data directory.</td>
+<td>Inspect logs/prowlarr-console.log, confirm the selected architecture in selected-release.txt, confirm the executable path and permissions, and confirm that every class subdirectory is writable by the lab user.</td>
+</tr>
+<tr>
+<td>The Prowlarr web interface does not answer on port 9696.</td>
+<td>Prowlarr is still starting, exited with an error, or another process already owns the port.</td>
+<td>Inspect the console log and process identifier, wait briefly for first startup, and use the host's standard read-only socket inspection command to identify a port conflict. Stop the unrelated test process only if it is safe and authorized.</td>
+</tr>
+<tr>
+<td>The teaching indexer cannot bind to port 18080.</td>
+<td>Another process already uses 127.0.0.1:18080 or an earlier lab process is still running.</td>
+<td>Check mock-indexer.pid and logs/mock-console.log. Stop the prior class-owned process after confirming its command line, then start the teaching indexer again.</td>
+</tr>
+<tr>
+<td>Prowlarr reports that the Torznab URL is invalid or cannot retrieve capabilities.</td>
+<td>The URL or API path was entered in the wrong field, or the teaching indexer is not running.</td>
+<td>Verify the capabilities URL directly. Use http://127.0.0.1:18080 with API Path /api when fields are separate, or http://127.0.0.1:18080/api when the path belongs in the URL.</td>
+</tr>
+<tr>
+<td>The indexer test succeeds but searches return no results.</td>
+<td>The indexer is disabled, the selected search mode is disabled, requested categories do not overlap, or a filter excludes the synthetic result.</td>
+<td>Enable the indexer, review RSS and search enablement options, inspect categories 2000 and 2040, remove restrictive filters, and search for Class 54 Test.</td>
+</tr>
+<tr>
+<td>Prowlarr reports an authentication problem against the teaching indexer.</td>
+<td>The selected indexer implementation imposes validation not expected by the local service or a required API-key field was left blank.</td>
+<td>Confirm that Generic Torznab was selected and enter mock-key when the form requires an API key. The teaching service accepts the value but does not validate it.</td>
+</tr>
+<tr>
+<td>A connected automation application does not receive an indexer.</td>
+<td>The application connection, sync profile, tag matching, category mapping, or application API credentials are incorrect.</td>
+<td>Test the application connection separately, inspect sync settings and tags, confirm compatible categories, and review Prowlarr events. Application synchronization is conceptually covered here but is not required by this isolated lab.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Use indexers only when their use and indexed material comply with applicable law, provider terms, and organizational policy.<br />
+Treat indexer API keys and application API keys as secrets. Do not place real credentials in screenshots, tickets, shell history, or public repositories.<br />
+Use a unique administrative credential if the first-run interface requires authentication.<br />
+Do not expose this lab instance directly to untrusted networks. The mock indexer intentionally binds only to 127.0.0.1.<br />
+In production, run Prowlarr as a dedicated, unprivileged service identity with access only to its own application data.<br />
+Protect backups because the Prowlarr database can contain endpoints, API keys, operational history, and application connection details.<br />
+A locally generated digest can identify later archive changes but does not establish publisher authenticity by itself.<br />
+Review release notes before production upgrades and retain a restorable backup of the application data directory.<br />
+Avoid enabling broad proxying or bypass behavior merely to make a failing indexer pass; diagnose transport, certificate, authentication, protocol, and rate-limit errors separately.<br />
+The teaching indexer's result is synthetic, and its download endpoint intentionally provides no content.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>stop_services</h4><p>If /opt/lab-classroom/class54/mock-indexer.pid exists, inspect the recorded process and stop it with: cd /opt/lab-classroom/class54 &amp;&amp; kill "$(cat mock-indexer.pid)"<br />
+If /opt/lab-classroom/class54/prowlarr.pid exists, inspect the recorded process and stop it with: cd /opt/lab-classroom/class54 &amp;&amp; kill "$(cat prowlarr.pid)"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>preserve_state</h4><p>Leave the class directory in place to preserve logs, release metadata, the digest, and Prowlarr's database for review.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Leave the class directory in place to preserve logs, release metadata, the digest, and Prowlarr&#x27;s database for review.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>reset_application_state</h4><p>Confirm that the Prowlarr process is stopped.<br />
+Run: cd /opt/lab-classroom/class54 &amp;&amp; mv data data-preserved<br />
+Run: cd /opt/lab-classroom/class54 &amp;&amp; mkdir data<br />
+Start Prowlarr again to create a fresh first-run state while preserving the former data under data-preserved.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Confirm that the Prowlarr process is stopped.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>restore_reset_state</h4><p>Stop Prowlarr.<br />
+Run: cd /opt/lab-classroom/class54 &amp;&amp; mv data data-fresh<br />
+Run: cd /opt/lab-classroom/class54 &amp;&amp; mv data-preserved data<br />
+Start Prowlarr and verify the restored indexer configuration.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

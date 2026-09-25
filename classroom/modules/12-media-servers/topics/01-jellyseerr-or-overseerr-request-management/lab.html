@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01-jellyseerr-or-overseerr-request-management: Lab · Classroom</title>
+<meta name="description" content="01-jellyseerr-or-overseerr-request-management: Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/12-media-servers/topics/01-jellyseerr-or-overseerr-request-management/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M12 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M12 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 01-jellyseerr-or-overseerr-request-management: Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Requests &amp; Media Servers<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain the role of Jellyseerr or Overseerr between users, a media server, and download automation</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Basic familiarity with Docker containers and YAML</li>
+<li>A Linux host or classroom environment with Python 3</li>
+<li>Docker Compose v2 is recommended for Compose validation</li>
+<li>General understanding of a Plex or Jellyfin media library</li>
+<li>Permission to create files under /opt/lab-classroom/class56/</li>
+<li>No production media-server, download-client, or request-manager credentials are required for this lab</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>scope</h4><p>All created or modified filesystem content is confined to /opt/lab-classroom/class56/. The exercise does not start containers, contact TMDB, or modify a production service.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: All created or modified filesystem content is confined to /opt/lab-classroom/class56/.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the isolated workspace</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the isolated workspace</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Create directories for the Compose project and its future application configuration.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create directories for the Compose project and its future application configuration.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>mkdir -p /opt/lab-classroom/class56/config</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: mkdir -p /opt/lab-classroom/class56/config</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create and inspect the Compose model</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create and inspect the Compose model</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Write the following content to /opt/lab-classroom/class56/compose.yaml. The loopback port prevents direct LAN exposure, and the persistent path remains inside the class workspace.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>file</h4><p>/opt/lab-classroom/class56/compose.yaml</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> YAML is the indented text file that describes your services. Spaces matter.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>content</h4><p>services:<br />
+  jellyseerr:<br />
+    image: ${JELLYSEERR_IMAGE:?JELLYSEERR_IMAGE must be set}<br />
+    restart: unless-stopped<br />
+    environment:<br />
+      TZ: ${TZ:?TZ must be set}<br />
+      LOG_LEVEL: info<br />
+    ports:<br />
+      - "127.0.0.1:5055:5055"<br />
+    volumes:<br />
+      - /opt/lab-classroom/class56/config:/app/config</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Provide non-secret Compose interpolation values</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Provide non-secret Compose interpolation values</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Write the following content to /opt/lab-classroom/class56/.env.example. This file intentionally contains no TMDB, media-server, automation, or webhook credential.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A webhook is a secret URL another service can POST to. Treat it like a password.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>file</h4><p>/opt/lab-classroom/class56/.env.example</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: /opt/lab-classroom/class56/.env.example</div>
+ 
+</div></div><div class="cr-lab-path"><h4>content</h4><p>JELLYSEERR_IMAGE=ghcr.io/fallenbagel/jellyseerr:latest<br />
+TZ=Etc/UTC</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Validate the Docker Compose definition</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>If Docker Compose v2 is installed, render the effective model. This validates interpolation and YAML structure without starting a container. If Docker Compose is unavailable, record that limitation and manually inspect the bind address, volume path, image interpolation, and environment interpolation.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class56 &amp;&amp; docker compose --env-file .env.example config</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>success_conditions</h4><p>The rendered service uses the Jellyseerr image reference supplied by .env.example.<br />
+The published address is 127.0.0.1:5055 rather than an all-interface binding.<br />
+The only host volume path is /opt/lab-classroom/class56/config.<br />
+No credential appears in compose.yaml or .env.example.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the intentionally unsafe policy</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the intentionally unsafe policy</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Write the following policy to /opt/lab-classroom/class56/request-policy.json. Do not repair it yet. It is intentionally unacceptable and exists to prove that the validator rejects unsafe settings.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>file</h4><p>/opt/lab-classroom/class56/request-policy.json</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>content</h4><p>{<br />
+  "approval": {<br />
+    "manual_required": false,<br />
+    "auto_approve": true<br />
+  },<br />
+  "roles": {<br />
+    "default": "administrator",<br />
+    "synced_user_role": "administrator"<br />
+  },<br />
+  "limits": {<br />
+    "weekly_requests": 0<br />
+  },<br />
+  "integrations": {<br />
+    "tmdb": {<br />
+      "api_key_source": "missing"<br />
+    },<br />
+    "media_server": {<br />
+      "user_sync": false<br />
+    }<br />
+  },<br />
+  "availability": {<br />
+    "sync_marks_existing": true,<br />
+    "triggers_library_scan": true<br />
+  },<br />
+  "secrets_inline": true<br />
+}</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the policy validator</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the policy validator</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Write the following Python program to /opt/lab-classroom/class56/validate_policy.py. The validator reports every failed control and exits nonzero when any control fails.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Write the following Python program to /opt/lab-classroom/class56/validate_policy.py.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>file</h4><p>/opt/lab-classroom/class56/validate_policy.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: /opt/lab-classroom/class56/validate_policy.py</div>
+ 
+</div></div><div class="cr-lab-path"><h4>content</h4><p>import json<br />
+import pathlib<br />
+import sys</p>
+<p>path = pathlib.Path(sys.argv[1] if len(sys.argv) &gt; 1 else "/opt/lab-classroom/class56/request-policy.json")<br />
+try:<br />
+    policy = json.loads(path.read_text(encoding="utf-8"))<br />
+except Exception as exc:<br />
+    print(f"FAIL: cannot parse {path}: {exc}")<br />
+    raise SystemExit(2)</p>
+<p>checks = [<br />
+    (policy.get("approval", {}).get("manual_required") is True, "manual approval must be required"),<br />
+    (policy.get("approval", {}).get("auto_approve") is False, "automatic approval must be disabled"),<br />
+    (policy.get("roles", {}).get("default") == "requester", "default role must be requester"),<br />
+    (policy.get("roles", {}).get("synced_user_role") == "requester", "synchronized users must default to requester"),<br />
+    (isinstance(policy.get("limits", {}).get("weekly_requests"), int) and not isinstance(policy.get("limits", {}).get("weekly_requests"), bool) and 1 &lt;= policy.get("limits", {}).get("weekly_requests") &lt;= 10, "weekly request limit must be an integer from 1 through 10"),<br />
+    (policy.get("integrations", {}).get("tmdb", {}).get("api_key_source") == "env:TMDB_API_KEY", "TMDB credential source must be env:TMDB_API_KEY"),<br />
+    (policy.get("integrations", {}).get("media_server", {}).get("user_sync") is True, "media-server user synchronization must be enabled"),<br />
+    (policy.get("availability", {}).get("sync_marks_existing") is True, "availability synchronization must mark existing media"),<br />
+    (policy.get("availability", {}).get("triggers_library_scan") is False, "availability synchronization must not be treated as a library-scan trigger"),<br />
+    (policy.get("secrets_inline") is False, "inline secrets must be prohibited")<br />
+]</p>
+<p>failures = [message for passed, message in checks if not passed]<br />
+if failures:<br />
+    for message in failures:<br />
+        print(f"FAIL: {message}")<br />
+    print(f"RESULT: rejected with {len(failures)} policy violation(s)")<br />
+    raise SystemExit(1)</p>
+<p>print("PASS: policy satisfies all classroom controls")</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Prove the unsafe policy fails</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Prove the unsafe policy fails</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Run the validator through a shell condition that treats rejection as the expected result. This is the required negative test.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run the validator through a shell condition that treats rejection as the expected result.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class56 &amp;&amp; if python3 validate_policy.py request-policy.json; then echo 'UNEXPECTED: unsafe policy passed'; exit 1; else echo 'EXPECTED: unsafe policy was rejected'; fi</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>success_conditions</h4><p>The validator prints one or more FAIL lines.<br />
+The shell prints EXPECTED: unsafe policy was rejected.<br />
+The unsafe policy is not mistaken for a deployable configuration.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The validator prints one or more FAIL lines.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>8</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 8</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Repair the policy without copying a golden document</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Repair the policy without copying a golden document</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Edit /opt/lab-classroom/class56/request-policy.json using an editor available in the classroom. Require manual approval, disable automatic approval, assign requester as both the default and synchronized-user role, choose an integer weekly request limit from 1 through 10, set the TMDB credential source to env:TMDB_API_KEY, enable media-server user synchronization, retain availability marking, disable library-scan triggering, and prohibit inline secrets. The range intentionally permits an operator policy decision rather than one fixed answer.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>required_controls</h4><p>approval.manual_required is true<br />
+approval.auto_approve is false<br />
+roles.default is requester<br />
+roles.synced_user_role is requester<br />
+limits.weekly_requests is an integer from 1 through 10<br />
+integrations.tmdb.api_key_source is env:TMDB_API_KEY<br />
+integrations.media_server.user_sync is true<br />
+availability.sync_marks_existing is true<br />
+availability.triggers_library_scan is false<br />
+secrets_inline is false</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>9</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 9</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Validate the repaired policy</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Validate the repaired policy</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Run the validator again. Do not continue until it returns exit status zero.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run the validator again.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class56 &amp;&amp; python3 validate_policy.py request-policy.json<br />
+cd /opt/lab-classroom/class56 &amp;&amp; python3 -m json.tool request-policy.json &gt;/dev/null</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>success_conditions</h4><p>The validator prints PASS: policy satisfies all classroom controls.<br />
+The JSON parser exits successfully.<br />
+No actual API credential has been written into the policy.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The validator prints PASS: policy satisfies all classroom controls.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>10</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 10</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Review first-run operational gates</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Review first-run operational gates</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instructions</h4><p>Before any later deployment, document that a legitimate TMDB credential must be supplied through the supported secret mechanism, the media-server URL and token must be tested, synchronized users must be reviewed for role assignment, libraries must be selected, and availability synchronization must not be confused with the media server's scan operation. Do not place real credentials in the class directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Before any later deployment, document that a legitimate TMDB credential must be supplied through the supported secret mechanism, the media-server URL and tok…</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The workspace contains compose.yaml, .env.example, validate_policy.py, request-policy.json, and an empty or unused config directory.</li>
+<li>Docker Compose validation succeeds when Docker Compose v2 is available, while no Jellyseerr container is started.</li>
+<li>The initial unsafe policy produces a nonzero validator result and multiple explicit policy failures.</li>
+<li>The repaired policy parses as JSON and produces a zero validator result.</li>
+<li>The repaired policy uses requester roles, manual approval, a bounded weekly limit, media-server user synchronization, and environment-based TMDB credential sourcing.</li>
+<li>The repaired policy represents availability synchronization and library scanning as separate operations.</li>
+<li>No real TMDB, media-server, automation, download-client, or webhook credential is stored in the lab files.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A webhook is a secret URL another service can POST to. Treat it like a password.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run <code>test -d /opt/lab-classroom/class56/config &amp;&amp; test -f /opt/lab-classroom/class56/compose.yaml &amp;&amp; test -f /opt/lab-classroom/class56/.env.example &amp;&amp; test -f /opt/lab-classroom/class56/validate_policy.py &amp;&amp; test -f /opt/lab-classroom/class56/request-policy.json</code> and confirm exit status zero.</li>
+<li>[ ] Run <code>cd /opt/lab-classroom/class56 &amp;&amp; docker compose --env-file .env.example config</code> when Docker Compose v2 is available; confirm that interpolation succeeds and the published port begins with 127.0.0.1.</li>
+<li>[ ] For the required negative check, temporarily copy the original unsafe policy content into <code>/opt/lab-classroom/class56/negative-test.json</code>, run <code>cd /opt/lab-classroom/class56 &amp;&amp; python3 validate_policy.py negative-test.json</code>, and confirm a nonzero exit status before deleting only negative-test.json with <code>python3 -c "from pathlib import Path; Path('/opt/lab-classroom/class56/negative-test.json').unlink()"</code>.</li>
+<li>[ ] Run <code>cd /opt/lab-classroom/class56 &amp;&amp; python3 validate_policy.py request-policy.json</code> and confirm the repaired policy prints PASS and exits zero.</li>
+<li>[ ] Run <code>grep -RniE 'api[_-]?key[[:space:]]*[:=][[:space:]]*[^[:space:]]+|token[[:space:]]*[:=][[:space:]]*[^[:space:]]+' /opt/lab-classroom/class56 --exclude=validate_policy.py</code> and manually investigate any match; the policy may name an environment source but must not contain a credential value.</li>
+<li>[ ] After performing rollback, run <code>test ! -e /opt/lab-classroom/class56 &amp;&amp; echo 'ROLLBACK COMPLETE'</code> and confirm that ROLLBACK COMPLETE is printed.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Docker reports that the compose command is unknown.</td>
+<td>Docker Compose v2 is not installed or the environment uses a different Compose invocation.</td>
+<td>Record the missing dependency, perform the documented manual Compose inspection, and install or enable Docker Compose v2 through the platform's approved package-management process before deployment.</td>
+</tr>
+<tr>
+<td>Compose reports that JELLYSEERR_IMAGE or TZ must be set.</td>
+<td>The --env-file .env.example option was omitted, the command was run from another directory, or .env.example was not created correctly.</td>
+<td>Run the command from /opt/lab-classroom/class56 with <code>docker compose --env-file .env.example config</code> and verify the two assignments in .env.example.</td>
+</tr>
+<tr>
+<td>The unsafe policy unexpectedly passes.</td>
+<td>The unsafe file was repaired before the negative test, the wrong file was validated, or the validator was altered.</td>
+<td>Restore the intentionally unsafe content from Step 5, confirm the command names request-policy.json, and compare validate_policy.py with Step 6 before repeating the negative test.</td>
+</tr>
+<tr>
+<td>The repaired policy still fails validation.</td>
+<td>A Boolean was written as a quoted string, a key is misspelled, the request limit is outside the accepted range, or a required nested object is missing.</td>
+<td>Run <code>python3 -m json.tool /opt/lab-classroom/class56/request-policy.json</code>, then compare each reported validator message with the required controls in Step 8.</td>
+</tr>
+<tr>
+<td>Jellyseerr or Overseerr loads but metadata searches fail in a future deployment.</td>
+<td>TMDB authentication is absent, invalid, restricted, or not visible to the application process.</td>
+<td>Obtain a legitimate credential through TMDB, supply it using the application's supported secret mechanism, verify process access without printing the value, and retest metadata search.</td>
+</tr>
+<tr>
+<td>Media-server users do not appear or receive unexpected permissions.</td>
+<td>User synchronization is disabled, media-server authentication failed, or imported users inherited an unsuitable default role.</td>
+<td>Test the media-server connection, enable synchronization, rerun synchronization, and review every imported account with requester as the safe default.</td>
+</tr>
+<tr>
+<td>A downloaded file is not shown as available.</td>
+<td>The file was not imported, the media server has not scanned the correct library path, or availability synchronization has not run after the media-server update.</td>
+<td>Check the automation import first, then the media-server library scan and path mapping, and finally refresh request-manager availability. Do not assume availability synchronization scans storage.</td>
+</tr>
+<tr>
+<td>The rollback verification still finds the class directory.</td>
+<td>The rollback command was not executed, failed due to permissions, or targeted a different path.</td>
+<td>Confirm the exact target is /opt/lab-classroom/class56, rerun the documented Python rollback command with appropriate authorized privileges, and repeat the absence test.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>controls</h4><p>Bind the application port to 127.0.0.1 when access is intended to pass through a reverse proxy or secure tunnel.<br />
+Use TLS and authenticated access for any remote deployment.<br />
+Do not store TMDB, media-server, automation, download-client, or webhook credentials in Compose files, screenshots, source control, or homework submissions.<br />
+Assign requester as the default role for local and synchronized users.<br />
+Restrict approval and administrative rights to designated operators.<br />
+Apply bounded request limits to reduce accidental or abusive request volume.<br />
+Review imported users after synchronization and disable stale accounts.<br />
+Grant the request manager only the downstream API permissions it requires.<br />
+Treat webhook URLs as secrets because they may embed authentication tokens.<br />
+Back up application configuration before upgrades and pin a reviewed image version or digest for production instead of relying indefinitely on a floating tag.<br />
+Keep download clients and automation APIs off untrusted networks and do not expose them merely because the request interface is user-facing.<br />
+Review logs for request denials, approval changes, failed API authentication, synchronization failures, and unexpected administrator assignments.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A webhook is a secret URL another service can POST to. Treat it like a password.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>secret_handling</h4><p>The classroom policy records only the source name env:TMDB_API_KEY. It does not require or permit a real credential in the class directory. Production operators should use the application's documented secret mechanism, a protected environment injection method, or an approved secret manager and should verify file permissions and backup handling.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>identity_note</h4><p>Media-server user synchronization creates or associates request-manager identities, but authorization remains a separate decision. Newly synchronized users should not become administrators automatically.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>scope</h4><p>Remove the complete class workspace and every artifact created by the lab. This does not affect a container because the lab never starts one.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Remove the complete class workspace and every artifact created by the lab.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>file_list</h4><p>/opt/lab-classroom/class56/compose.yaml<br />
+/opt/lab-classroom/class56/.env.example<br />
+/opt/lab-classroom/class56/request-policy.json<br />
+/opt/lab-classroom/class56/validate_policy.py<br />
+/opt/lab-classroom/class56/negative-test.json if it remains from verification<br />
+/opt/lab-classroom/class56/homework.json if created<br />
+/opt/lab-classroom/class56/config/<br />
+/opt/lab-classroom/class56/</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> YAML is the indented text file that describes your services. Spaces matter.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>precheck_commands</h4><p>test -d /opt/lab-classroom/class56 &amp;&amp; find /opt/lab-classroom/class56 -maxdepth 3 -print</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: test -d /opt/lab-classroom/class56 &amp;&amp; find /opt/lab-classroom/class56 -maxdepth 3 -print</div>
+ 
+</div></div><div class="cr-prose-block"><h4>rollback_commands</h4><p>python3 -c "import shutil; shutil.rmtree('/opt/lab-classroom/class56')"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 -c &quot;import shutil; shutil.rmtree(&#x27;/opt/lab-classroom/class56&#x27;)&quot;</div>
+ 
+</div></div><div class="cr-prose-block"><h4>postcheck_commands</h4><p>test ! -e /opt/lab-classroom/class56 &amp;&amp; echo 'ROLLBACK COMPLETE'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: test !</div>
+ 
+</div></div><div class="cr-prose-block"><h4>expected_postcheck</h4><p>The postcheck prints ROLLBACK COMPLETE and returns exit status zero.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The postcheck prints ROLLBACK COMPLETE and returns exit status zero.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

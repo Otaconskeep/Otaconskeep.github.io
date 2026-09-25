@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02-download-categories-paths-and-arr-integration: Lab · Classroom</title>
+<meta name="description" content="02-download-categories-paths-and-arr-integration: Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/11-downloaders/topics/02-download-categories-paths-and-arr-integration/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M11 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M11 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 02-download-categories-paths-and-arr-integration: Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Download Clients &amp; Indexers<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain how an ARR application assigns a download category when submitting a job to a download client.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Basic familiarity with Sonarr or Radarr terminology.</li>
+<li>Basic command-line navigation and file inspection skills.</li>
+<li>An understanding of files, directories, mounts, and absolute paths.</li>
+<li>Permission to create files beneath /opt/lab-classroom/class50/.</li>
+<li>No running download client or ARR application is required because the lab uses isolated mock configuration files.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>scope</h4><p>This simulation creates mock downloader and ARR configuration files, a sample completed download, and a hardlinked library import. Every created or modified object remains beneath /opt/lab-classroom/class50/.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: This simulation creates mock downloader and ARR configuration files, a sample completed download, and a hardlinked library import.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the isolated classroom layout</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the isolated classroom layout</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>mkdir -p /opt/lab-classroom/class50/active/config /opt/lab-classroom/class50/active/data/downloads/incomplete /opt/lab-classroom/class50/active/data/downloads/complete/tv /opt/lab-classroom/class50/active/data/downloads/complete/movies /opt/lab-classroom/class50/active/data/media/tv/DemoSeries/Season-01 /opt/lab-classroom/class50/active/data/media/movies</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: mkdir -p /opt/lab-classroom/class50/active/config /opt/lab-classroom/class50/active/data/downloads/incomplete /opt/lab-classroom/class50/active/data/download…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The active directory acts as the complete lab environment. Downloads and media share the active/data parent while remaining operationally separate.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The active directory acts as the complete lab environment.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create a mock download-client configuration</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create a mock download-client configuration</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>printf '%s\n' '{' '  "name": "mock-downloader",' '  "default_incomplete_path": "/opt/lab-classroom/class50/active/data/downloads/incomplete",' '  "categories": {' '    "tv": "/opt/lab-classroom/class50/active/data/downloads/complete/tv",' '    "movies": "/opt/lab-classroom/class50/active/data/downloads/complete/movies"' '  }' '}' &gt; /opt/lab-classroom/class50/active/config/downloader.json</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The tv and movies categories route completed data to distinct staging directories.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create a mock Sonarr integration configuration</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create a mock Sonarr integration configuration</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>printf '%s\n' '{' '  "application": "Sonarr",' '  "download_client_host": "mock-downloader",' '  "category": "tv",' '  "completed_download_handling": true,' '  "reported_download_path": "/opt/lab-classroom/class50/active/data/downloads/complete/tv",' '  "library_root": "/opt/lab-classroom/class50/active/data/media/tv",' '  "remote_path_mappings": []' '}' &gt; /opt/lab-classroom/class50/active/config/sonarr.json</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>No remote path mapping is present because the mock downloader and Sonarr configuration use the same absolute path.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: No remote path mapping is present because the mock downloader and Sonarr configuration use the same absolute path.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Validate category and path separation</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 - &lt;&lt;'PY'<br />
+import json<br />
+from pathlib import Path<br />
+base = Path('/opt/lab-classroom/class50/active/config')<br />
+downloader = json.loads((base / 'downloader.json').read_text())<br />
+sonarr = json.loads((base / 'sonarr.json').read_text())<br />
+category = sonarr['category']<br />
+reported = sonarr['reported_download_path']<br />
+library = sonarr['library_root']<br />
+assert category in downloader['categories'], 'ARR category is absent from downloader configuration'<br />
+assert downloader['categories'][category] == reported, 'Category path and reported path disagree'<br />
+assert reported != library, 'Download path and library root must be separate'<br />
+assert sonarr['completed_download_handling'] is True, 'Completed Download Handling is disabled'<br />
+assert sonarr['remote_path_mappings'] == [], 'A mapping is unnecessary in this shared namespace'<br />
+print('Category match: PASS')<br />
+print('Shared path namespace: PASS')<br />
+print('Download/library separation: PASS')<br />
+print('Unnecessary mapping absent: PASS')<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The validator checks the relationships among the category, completed path, library root, and mapping list.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create a simulated completed download</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create a simulated completed download</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>printf '%s\n' 'Class 50 simulated media payload' &gt; /opt/lab-classroom/class50/active/data/downloads/complete/tv/DemoSeries.S01E01.mkv</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: printf &#x27;%s\n&#x27; &#x27;Class 50 simulated media payload&#x27; &gt; /opt/lab-classroom/class50/active/data/downloads/complete/tv/DemoSeries.S01E01.mkv</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The file is harmless text with a media-style filename. It represents a completed downloader payload.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The file is harmless text with a media-style filename.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Simulate a hardlink import</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>ln /opt/lab-classroom/class50/active/data/downloads/complete/tv/DemoSeries.S01E01.mkv /opt/lab-classroom/class50/active/data/media/tv/DemoSeries/Season-01/DemoSeries-S01E01.mkv</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: ln /opt/lab-classroom/class50/active/data/downloads/complete/tv/DemoSeries.S01E01.mkv /opt/lab-classroom/class50/active/data/media/tv/DemoSeries/Season-01/De…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The library receives an organized name while the downloader path remains available. The two names reference one underlying file.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The library receives an organized name while the downloader path remains available.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Verify the import relationship</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Verify the import relationship</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>stat -c '%d:%i %h %n' /opt/lab-classroom/class50/active/data/downloads/complete/tv/DemoSeries.S01E01.mkv /opt/lab-classroom/class50/active/data/media/tv/DemoSeries/Season-01/DemoSeries-S01E01.mkv</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: stat -c &#x27;%d:%i %h %n&#x27; /opt/lab-classroom/class50/active/data/downloads/complete/tv/DemoSeries.S01E01.mkv /opt/lab-classroom/class50/active/data/media/tv/Demo…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>Matching device and inode values prove that the entries are hardlinks. A link count of two confirms that two names reference the file.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>8</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 8</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Inspect the completed classroom tree</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inspect the completed classroom tree</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>find /opt/lab-classroom/class50/active -maxdepth 8 -print</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: find /opt/lab-classroom/class50/active -maxdepth 8 -print</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The output should show separate configuration, download, and library locations under the single permitted lab root.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The output should show separate configuration, download, and library locations under the single permitted lab root.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The downloader configuration contains separate tv and movies categories.</li>
+<li>The Sonarr category is tv and matches a category defined by the downloader.</li>
+<li>The mock completed-download path differs from the Sonarr library root.</li>
+<li>The validator prints four PASS lines and exits without an assertion error.</li>
+<li>The simulated source file remains in the completed tv directory.</li>
+<li>The organized library filename appears beneath data/media/tv/DemoSeries/Season-01.</li>
+<li>The source and library entries have matching device and inode values and each reports a link count of two.</li>
+<li>No remote path mapping is configured because both mock applications use the same path namespace.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run: python3 -m json.tool /opt/lab-classroom/class50/active/config/downloader.json</li>
+<li>[ ] Run: python3 -m json.tool /opt/lab-classroom/class50/active/config/sonarr.json</li>
+<li>[ ] Run: find /opt/lab-classroom/class50/active/data/downloads/complete -type f -print</li>
+<li>[ ] Run: find /opt/lab-classroom/class50/active/data/media -type f -print</li>
+<li>[ ] Run: stat -c '%d:%i %h %n' /opt/lab-classroom/class50/active/data/downloads/complete/tv/DemoSeries.S01E01.mkv /opt/lab-classroom/class50/active/data/media/tv/DemoSeries/Season-01/DemoSeries-S01E01.mkv</li>
+<li>[ ] Confirm that both stat records begin with the same device and inode pair.</li>
+<li>[ ] Confirm that the download source and library destination are separate pathnames.</li>
+<li>[ ] Confirm that every lab artifact is beneath /opt/lab-classroom/class50/.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The validator reports that the ARR category is absent from the downloader configuration.</td>
+<td>The category configured in Sonarr does not exactly match a downloader category.</td>
+<td>Make category spelling and case consistent. For this lab, both configurations must use tv.</td>
+</tr>
+<tr>
+<td>The validator reports that the category path and reported path disagree.</td>
+<td>The downloader routes the category to one directory while the mock ARR configuration expects another.</td>
+<td>Set the reported path to the exact category destination or correct the downloader category destination.</td>
+</tr>
+<tr>
+<td>The hardlink command reports that the destination already exists.</td>
+<td>The import step was run more than once in the same active lab directory.</td>
+<td>Use the rollback procedure to archive the active directory, then rerun the lab from step 1.</td>
+</tr>
+<tr>
+<td>The hardlink command reports an invalid cross-device link.</td>
+<td>The source and destination resolve to different filesystems.</td>
+<td>Place downloads and media on one filesystem when hardlinks are required, or accept a copy-based import. In the prescribed lab layout, both locations should be under the same active/data tree.</td>
+</tr>
+<tr>
+<td>A real ARR application reports that the completed path does not exist.</td>
+<td>ARR cannot see the path reported by the download client, often because container mounts or path namespaces differ.</td>
+<td>First align the storage mounts and internal paths. If the different path names are intentional and point to the same storage, add a host-specific remote path mapping.</td>
+</tr>
+<tr>
+<td>ARR can see a completed file but cannot import it.</td>
+<td>The ARR service identity lacks read access to the download or write access to the library.</td>
+<td>Align service users and groups, directory ownership, and inherited permissions according to the platform. Avoid granting unrestricted access as a shortcut.</td>
+</tr>
+<tr>
+<td>A torrent import consumes approximately another file's worth of allocated storage.</td>
+<td>ARR copied the file instead of creating a hardlink, often because the locations are on different filesystems or are exposed as unrelated mounts.</td>
+<td>Check ARR logs, compare filesystem device identifiers, and redesign mounts so downloads and media share a common storage parent if hardlinking is desired.</td>
+</tr>
+<tr>
+<td>Files appear directly in the final library before ARR imports them.</td>
+<td>The downloader's category destination was incorrectly set to the ARR library root.</td>
+<td>Restore a dedicated download staging directory and keep the library root exclusively under ARR management.</td>
+</tr>
+<tr>
+<td>The configuration file cannot be parsed as JSON.</td>
+<td>A command was copied incompletely or the file was manually edited with invalid punctuation.</td>
+<td>Archive the active lab using the rollback procedure and recreate the configuration from the documented steps.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Grant the downloader write access only to its download workspace and any directories specifically required by its operation.<br />
+Grant Sonarr or Radarr read access to completed downloads and write access to their intended library roots.<br />
+Use a shared service group or equivalent access-control design instead of broad world-writable permissions.<br />
+Do not expose downloader or ARR administrative interfaces directly to untrusted networks.<br />
+Store downloader credentials and API keys in protected application secrets rather than lesson files or public configuration repositories.<br />
+Treat downloaded content as untrusted input. ARR import automation does not establish that a file is safe.<br />
+Keep download staging directories separate from media libraries so incomplete and unmanaged files are not served accidentally.<br />
+A remote path mapping is not an access-control feature and cannot compensate for missing mounts or insufficient permissions.<br />
+Review service logs for paths and filenames that may reveal private library information before sharing diagnostics.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>goal</h4><p>Deactivate the lab without deleting its evidence and without changing anything outside the permitted class directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Deactivate the lab without deleting its evidence and without changing anything outside the permitted class directory.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>commands</h4><p>mkdir -p /opt/lab-classroom/class50/rollback-state<br />
+mv /opt/lab-classroom/class50/active /opt/lab-classroom/class50/rollback-state/active-class50</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: mkdir -p /opt/lab-classroom/class50/rollback-state
+mv /opt/lab-classroom/class50/active /opt/lab-classroom/class50/rollback-state/active-class50</div>
+ 
+</div></div><div class="cr-prose-block"><h4>result</h4><p>The active lab path is removed from service by moving it into a retained rollback-state directory. All artifacts remain available for review beneath /opt/lab-classroom/class50/.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The active lab path is removed from service by moving it into a retained rollback-state directory.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>rerun_note</h4><p>After rollback, step 1 can create a new active directory. If active-class50 already exists in rollback-state, rename that retained directory to another unique name within /opt/lab-classroom/class50/ before repeating the rollback.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: After rollback, step 1 can create a new active directory.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>
