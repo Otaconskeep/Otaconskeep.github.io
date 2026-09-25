@@ -96,6 +96,17 @@ button.wiz-node.is-on { border-color: var(--accent-bright, var(--accent)); backg
   border-bottom-left-radius: 10px;
 }
 .wiz-level { font-family: 'JetBrains Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-bright); font-size: .72rem; margin: 0 0 8px; }
+.wiz-sheet { border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin: 0 0 16px; text-align: left; background: var(--surface); }
+.wiz-sheet h2 { margin: 0; font-size: 1.5rem; }
+.wiz-sheet-name { margin: 4px 0 12px; }
+.wiz-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 8px; }
+.wiz-slot { border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; min-width: 0; }
+.wiz-slot span { display: block; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: #43d98a; }
+.wiz-slot strong { display: block; margin: 4px 0; }
+.wiz-slot em { display: block; font-style: normal; font-size: .85rem; }
+.wiz-slot.is-over { border-color: #e0b040; }
+.wiz-slot.is-empty, .wiz-slot.is-open { opacity: .72; }
+.wiz-sheet-source { margin: 12px 0 0; }
 .wiz-budget { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 0 0 16px auto; max-width: 320px; text-align: left; background: var(--surface); }
 .wiz-budget h3 { margin: 10px 0 4px; font-size: .95rem; }
 .wiz-budget p { margin: 4px 0; }

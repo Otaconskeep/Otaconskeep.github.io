@@ -2783,6 +2783,7 @@
       }
 
       function paintBudget() {
+        renderSheet();
         var old = rootEl.querySelector('.wiz-budget');
         var card = el('aside', 'wiz-budget');
         var cap = root.model && root.model.ceiling;
@@ -2820,7 +2821,7 @@
         } else if (cap && cap.max != null && unpriced === 0) {
           card.appendChild(el('p', '', 'Remaining in the band: $' + (cap.max - known)));
         }
-        card.appendChild(el('p', '', 'A class floor is budget math, dated Sep 24, 2026. It is not a live shelf price. Type the price you saw to replace it.'));
+        card.appendChild(el('p', '', 'A class floor is budget math, dated Sep 24, 2026. It does not change when a store changes its price. Type the price you saw to replace it.'));
         var view = document.createElement('button');
         view.type = 'button';
         view.className = 'wiz-chip';
@@ -2831,7 +2832,37 @@
         });
         card.appendChild(view);
         if (old) rootEl.replaceChild(card, old);
-        else rootEl.insertBefore(card, rootEl.firstChild);
+        else {
+          var layout = rootEl.querySelector('.wiz-layout');
+          if (layout) rootEl.insertBefore(card, layout);
+          else rootEl.insertBefore(card, rootEl.firstChild);
+        }
+      }
+
+      function renderSheet() {
+        var old = rootEl.querySelector('.wiz-sheet');
+        var sheet = root.sheet;
+        if (!sheet) return;
+        var box = el('section', 'wiz-sheet');
+        box.appendChild(el('p', 'wiz-level', 'Recommended build'));
+        box.appendChild(el('h2', '', sheet.klass));
+        box.appendChild(el('p', 'wiz-sheet-name', sheet.name));
+        var grid = el('div', 'wiz-slots');
+        sheet.slots.forEach(function (slot) {
+          var typed = prices[slot.id] != null && prices[slot.id] !== '';
+          var cell = el('div', 'wiz-slot' + (slot.status === 'over' ? ' is-over' : '') + (slot.noteOnly ? ' is-empty' : '') + (slot.status === 'need' ? ' is-open' : ''));
+          cell.appendChild(el('span', '', slot.slot));
+          cell.appendChild(el('strong', '', slot.item));
+          var money = slot.noteOnly ? 'Not equipped · $0' : (typed ? ('$' + prices[slot.id] + ' · price you saw') : (slot.floor == null ? 'No class floor yet' : ('Class floor $' + slot.floor + (slot.qty > 1 ? ' ×' + slot.qty : ''))));
+          var mark = slot.status === 'over' ? 'Locked by this band' : (slot.status === 'need' ? 'Open slot' : (slot.noteOnly ? 'Left empty on purpose' : 'Equipped'));
+          cell.appendChild(el('em', '', money + ' · ' + mark));
+          grid.appendChild(cell);
+        });
+        box.appendChild(grid);
+        if (sheet.traits && sheet.traits.length) box.appendChild(el('p', '', 'Passives: ' + sheet.traits.join(' · ')));
+        box.appendChild(el('p', 'wiz-sheet-source', sheet.priceNote));
+        if (old) rootEl.replaceChild(box, old);
+        else rootEl.insertBefore(box, rootEl.firstChild);
       }
 
       function paint() {
@@ -3337,6 +3368,56 @@
     return { ceiling: ceiling, raid: raid, drives: drives, gateway: gateway, switchPick: net, media: media, fit: fit, forecast: forecast, conflict: conflict, summary: summary };
   }
 
+  function characterSheet(tree, answers) {
+    var a = answers || {};
+    var slots = [];
+    var traits = [];
+    function walk(node, ancestors) {
+      var next = ancestors.concat([node]);
+      (node.children || []).forEach(function (child) { walk(child, next); });
+      if (node.children && node.children.length) return;
+      var equipped = node.status === 'selected' || node.status === 'over' || node.status === 'ready';
+      var empty = node.status === 'skip' && node.offer && node.offer.noteOnly;
+      var open = node.status === 'need' && node.offer;
+      if (!equipped && !empty && !open) return;
+      if (equipped && !node.offer) {
+        traits.push(node.title);
+        return;
+      }
+      var l2 = ancestors.filter(function (item) { return item.level === 'L2'; }).pop();
+      var l3 = ancestors.filter(function (item) { return item.level === 'L3'; }).pop();
+      var l4 = ancestors.filter(function (item) { return item.level === 'L4'; }).pop();
+      var slot = (l2 && l2.title === 'Network' && l3) ? l3.title : (l4 ? l4.title : node.title);
+      var floor = null;
+      if (node.offer) {
+        if (node.offer.dollars === 0) floor = 0;
+        else if (node.offer.floor != null) floor = node.offer.floor;
+      }
+      slots.push({
+        id: node.id,
+        slot: slot,
+        item: node.title,
+        group: (node.offer && node.offer.group) || 'Design',
+        qty: (node.offer && node.offer.qty) || 1,
+        floor: floor,
+        noteOnly: !!(node.offer && node.offer.noteOnly),
+        status: node.status
+      });
+    }
+    walk(tree, []);
+    var cpu = slots.filter(function (slot) { return slot.slot === 'CPU'; })[0];
+    var gate = slots.filter(function (slot) { return slot.slot === 'Gateway'; })[0];
+    var klass = a.role === 'server' ? 'Closet server' : (a.role === 'both' ? 'One-box lab' : 'Desk');
+    var signature = [cpu && cpu.item, gate && gate.item].filter(Boolean).join(' · ');
+    return {
+      klass: klass,
+      name: signature || klass,
+      slots: slots,
+      traits: traits,
+      priceNote: 'These dollars are class floors dated Sep 24, 2026. They do not change when a store changes its price. The source is the class table in this lesson, not a live feed. Check PCPartPicker, then type the price you saw. That typed price replaces the floor.'
+    };
+  }
+
   function labBreakdown(answers, report) {
     var a = answers || {};
     report = report || explain(a);
@@ -3583,6 +3664,7 @@
     }
     var tree = branch('lab', 'L1', 'Your lab', subsystems);
     tree.model = model;
+    tree.sheet = characterSheet(tree, a);
     return tree;
   }
 
