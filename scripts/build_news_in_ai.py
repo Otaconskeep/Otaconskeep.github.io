@@ -93,6 +93,23 @@ def og_image(url: str) -> str:
     return ''
 
 
+_SOCIAL_LANES = {'Reddit', 'Lemmy', 'Bluesky', 'Hacker News', 'Social'}
+
+
+def is_social(row: dict) -> bool:
+    return str(row.get('kind') or '') == 'social' or str(row.get('lane') or '') in _SOCIAL_LANES
+
+
+def social_blurb(summary: str) -> str:
+    text = summary or ''
+    text = re.sub(r'\s*submitted by\s+/\w+\S*.*$', '', text, flags=re.I).strip()
+    text = re.sub(r'\s*submitted by\s+\S+\s+to\s+.*$', '', text, flags=re.I).strip()
+    text = re.sub(r'\s*\[link\]\s*\[comments\]\s*$', '', text, flags=re.I).strip()
+    if text.lower().startswith('social from ') or text.lower().startswith('submitted by '):
+        return ''
+    return text
+
+
 def lane(item: dict) -> str:
     kind = str(item.get('kind') or '')
     source = str(item.get('source') or '').lower()
@@ -612,6 +629,9 @@ def save_visuals(rows: list[dict], folder: Path) -> None:
     folder.mkdir(parents=True, exist_ok=True)
 
     def one(row: dict) -> None:
+        if is_social(row):
+            row['file'] = ''
+            return
         existing = str(row.get('file') or '')
         if existing:
             path = folder.parent / existing if not existing.startswith('media/') else folder / Path(existing).name
@@ -674,12 +694,26 @@ def cards(rows: list[dict]) -> str:
     blocks = []
     for row in rows:
         cats = '|'.join(row.get('categories') or [])
+        title = html.escape(row['title'])
+        url = html.escape(row['url'])
+        if is_social(row):
+            blurb = social_blurb(str(row.get('summary') or ''))
+            body = f'<p>{html.escape(blurb)}</p>' if blurb else ''
+            blocks.append(
+                f'<article class="story story-social" data-cats="{html.escape(cats)}">'
+                '<div class="story-copy">'
+                f'<p class="social-mark">{html.escape(row["lane"])} · {html.escape(row["source"])}</p>'
+                f'<h2><a href="{url}" target="_blank" rel="noopener">{title}</a></h2>'
+                f'{body}'
+                '</div></article>'
+            )
+            continue
         blocks.append(
             f'<article class="story" data-cats="{html.escape(cats)}">'
             f'{visual(row)}'
             '<div class="story-copy">'
             f'<p class="news-kicker">{html.escape(row["lane"])} · {html.escape(row["source"])}</p>'
-            f'<h2><a href="{html.escape(row["url"])}" target="_blank" rel="noopener">{html.escape(row["title"])}</a></h2>'
+            f'<h2><a href="{url}" target="_blank" rel="noopener">{title}</a></h2>'
             f'<p>{html.escape(row["summary"])}</p>'
             '</div></article>'
         )
@@ -825,6 +859,19 @@ def page(rows: list[dict], when: str) -> str:
 .story-fallback span {{
   color:var(--cream); font-weight:700; font-size:1rem; line-height:1.3;
 }}
+.story-social {{
+  border-left: 3px solid var(--accent);
+  background:
+    linear-gradient(180deg, rgba(22, 168, 147, .16), transparent 88px),
+    var(--surface);
+}}
+.story-social .story-copy {{ padding: 18px 16px 18px; }}
+.social-mark {{
+  margin: 0 0 10px; color: var(--accent-bright);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+}}
+.story-social h2 {{ font-size: 1.2rem; line-height: 1.35; }}
 .story[hidden] {{ display:none; }}
 .resource-list {{
   list-style:none; padding:0; margin:0 0 28px;
