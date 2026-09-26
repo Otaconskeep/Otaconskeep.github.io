@@ -39,6 +39,13 @@
  font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
 }
 .eco-card p, .diff-card p, .path-card span { color:var(--cream-dim); }
+.eco-card p.eco-kicker .eco-free {
+ color:#04140e;
+ background:linear-gradient(135deg, #2fe08a 0%, #18b86a 100%);
+ border-radius:3px;
+ padding:0.12em 0.45em;
+ font-weight:700;
+}
 .path-card { color:var(--cream); text-decoration:none; display:block; }
 .path-card:hover { border-color: var(--accent); }
 .eng-count {
@@ -156,13 +163,13 @@
  <h2>Build, learn, prove, and follow</h2>
  <div class="eco-grid">
  <article class="eco-card">
- <p class="eco-kicker">Foundation · Free</p>
+ <p class="eco-kicker">Foundation · <span class="eco-free">Free</span></p>
  <h3>Otacon Lite</h3>
  <p>Build persistent local AI agents.</p>
  <a href="/otacon/">Learn more →</a>
  </article>
  <article class="eco-card">
- <p class="eco-kicker">Orchestration · Free</p>
+ <p class="eco-kicker">Orchestration · <span class="eco-free">Free</span></p>
  <h3>KeepRoute</h3>
  <p>Keep AI missions alive across models.</p>
  <a href="/keeproute/">Learn more →</a>
@@ -180,13 +187,13 @@
  <a href="/expansion/">Learn more →</a>
  </article>
  <article class="eco-card">
- <p class="eco-kicker">Labs · Free</p>
+ <p class="eco-kicker">Labs · <span class="eco-free">Free</span></p>
  <h3>AI9</h3>
  <p>GPU manga colorization.</p>
  <a href="/ai9/">Learn more →</a>
  </article>
  <article class="eco-card">
- <p class="eco-kicker">Learn · Free</p>
+ <p class="eco-kicker">Learn · <span class="eco-free">Free</span></p>
  <h3>Classroom</h3>
  <p>Homelab Academy: the infrastructure under the Keep.</p>
  <a href="/classroom/">Enter Classroom →</a>
