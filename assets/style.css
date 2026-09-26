@@ -969,6 +969,15 @@ td.num { font-variant-numeric: tabular-nums; font-family: 'JetBrains Mono', mono
  color: var(--cream-dim);
 }
 .treebox strong { color: var(--accent-bright); }
+.keep-diagram-figure {
+ background: var(--bg-elevated);
+ border: 1px solid var(--line);
+ border-radius: 8px;
+ padding: 20px;
+ margin: 0;
+ overflow-x: auto;
+}
+.keep-diagram-figure svg { display: block; min-width: 560px; }
 .diagram-caption {
  font-size: 0.82rem;
  color: var(--cream-faint);
