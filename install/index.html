@@ -353,7 +353,7 @@
  <details class="manual-step" open>
  <summary><span class="manual-step-num">1</span> Only if Guided Setup won’t run</summary>
  <div class="manual-step-body">
- <p>Most Windows users should use the <strong>Download</strong> button on the left. Use this path only when you need to set up WSL yourself.</p>
+ <p>Most Windows users should use the <strong>Download</strong> button on the left. Use this path only when you need to set up WSL yourself. The full WSL and Linux manual, with the errors, is <a href="#lite-wsl-linux-manual">Method 3</a>.</p>
  <button type="button" class="manual-next">Next · Step 2 →</button>
  </div>
  </details>
@@ -402,8 +402,233 @@
  </details>
  </div>
  </div>
-</div>
 
+ <div class="os-card os-card-manual" id="lite-wsl-linux-manual" style="margin-top:16px;">
+ <span class="manual-col-tag">Method 3</span>
+ <p class="os-label">WSL or Linux manual, including the errors</p>
+ <p class="os-hint">Use this when you are installing OtaconsKeep Lite by hand on Ubuntu in WSL, or on an Ubuntu/Debian PC. The script is saved to a file first so you can read it before it runs. Supported releases: Ubuntu 22.04, Ubuntu 24.04, Debian 12.</p>
+ <div class="os-chooser" role="tablist" aria-label="WSL or Linux" data-os-chooser>
+ <button type="button" class="os-chooser-btn is-active" data-os-target="wsl" role="tab" aria-selected="true">Windows · WSL<span class="os-choice-sub">Ubuntu inside Windows</span></button>
+ <button type="button" class="os-chooser-btn" data-os-target="linux" role="tab" aria-selected="false">Ubuntu / Debian PC<span class="os-choice-sub">A real Linux machine</span></button>
+ </div>
+
+ <div class="os-path is-active" data-os-path="wsl">
+ <div class="manual-steps" data-manual-accordion>
+ <details class="manual-step" open>
+ <summary><span class="manual-step-num">1</span> Check Windows before WSL</summary>
+ <div class="manual-step-body">
+ <ul>
+ <li>Windows 10 (version 2004 or later) or Windows 11.</li>
+ <li>You can approve an Administrator prompt.</li>
+ <li>About 20 GB free on the Windows drive. The installer later refuses if the Ubuntu home filesystem has under 8 GB free.</li>
+ <li>Leave virtualization enabled. If WSL says the virtual machine platform cannot start, turn virtualization on in the PC's BIOS/UEFI, then retry.</li>
+ </ul>
+ <button type="button" class="manual-next">Next · Step 2 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">2</span> Install Ubuntu for WSL</summary>
+ <div class="manual-step-body">
+ <p>Open <strong>PowerShell as Administrator</strong> and run:</p>
+ <pre class="baby-code mono">wsl --install -d Ubuntu
+wsl --set-default-version 2
+wsl --status</pre>
+ <ol class="step-actions">
+ <li>Restart when Windows asks. That reboot is the WSL feature, not a failed install.</li>
+ <li>Open <strong>Ubuntu</strong> from the Start menu. Do not continue in PowerShell.</li>
+ <li>Create a username and a password you will remember. The password is invisible while you type. You need it for <span class="mono">sudo</span>.</li>
+ </ol>
+ <p>If <span class="mono">wsl --status</span> shows version 1, run <span class="mono">wsl --set-version Ubuntu 2</span> and open Ubuntu again.</p>
+ <button type="button" class="manual-next">Next · Step 3 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">3</span> Prove this window is Ubuntu</summary>
+ <div class="manual-step-body">
+ <pre class="baby-code mono">cat /etc/os-release</pre>
+ <p>You want Ubuntu 22.04 or 24.04. If this command is not found, you are still in PowerShell or Command Prompt.</p>
+ <button type="button" class="manual-next">Next · Step 4 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">4</span> Check memory, disk, and apt</summary>
+ <div class="manual-step-body">
+ <pre class="baby-code mono">free -h
+df -h "$HOME"</pre>
+ <ul>
+ <li>Under 4 GB RAM or under 8 GB free: the installer stops.</li>
+ <li>8 GB RAM and 20 GB free is the comfortable size, because the chat model is large.</li>
+ </ul>
+ <p>If apt later says it cannot get a lock, close any Ubuntu update window. From Windows PowerShell run <span class="mono">wsl --shutdown</span>, reopen Ubuntu, and continue.</p>
+ <button type="button" class="manual-next">Next · Step 5 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">5</span> Save the installer, then run it</summary>
+ <div class="manual-step-body">
+ <p>Still inside Ubuntu, as your normal user (not root):</p>
+ <div class="codebox">
+ <code id="lite-wsl-sh">curl -fsSL -o "$HOME/install_otacon.sh" https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh
+bash "$HOME/install_otacon.sh"</code>
+ <button class="copy-btn" data-copy-target="lite-wsl-sh">Copy</button>
+ </div>
+ <p>You can open <span class="mono">install_otacon.sh</span> in a text editor before the second line. When sudo asks, type the Ubuntu password. Nothing appears as you type.</p>
+ <p>Tight disk: skip the chat model and the voice trainer, then add them later:</p>
+ <pre class="baby-code mono">OTACON_INSTALL_DEFAULT_MODEL=0 OTACON_INSTALL_VOICE_TRAINER=0 bash "$HOME/install_otacon.sh"</pre>
+ <p>First run is often 15–45 minutes. Leave the window open. Rerunning the same command is the recovery, not a second product.</p>
+ <button type="button" class="manual-next">Next · Step 6 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">6</span> Open Otacon</summary>
+ <div class="manual-step-body">
+ <div class="install-success" style="margin-top:0;">
+ <p class="success-kicker">Finish line</p>
+ <h4>http://127.0.0.1:5757</h4>
+ <p>Open that address in the Windows browser. Bookmark it. It is only this PC.</p>
+ </div>
+ <p class="os-hint">Logs from this run: <span class="mono">~/.config/otacon/logs/</span> inside Ubuntu. Service: <span class="mono">otacon.service</span>.</p>
+ </div>
+ </details>
+ </div>
+ </div>
+
+ <div class="os-path" data-os-path="linux">
+ <div class="manual-steps" data-manual-accordion>
+ <details class="manual-step" open>
+ <summary><span class="manual-step-num">1</span> Check the machine</summary>
+ <div class="manual-step-body">
+ <ul>
+ <li>Ubuntu 22.04, Ubuntu 24.04, or Debian 12. Desktop or server.</li>
+ <li>Your user can use <span class="mono">sudo</span>.</li>
+ <li>4 GB RAM minimum, 8 GB comfortable. 8 GB free minimum, 20 GB comfortable.</li>
+ </ul>
+ <pre class="baby-code mono">cat /etc/os-release
+free -h
+df -h "$HOME"</pre>
+ <button type="button" class="manual-next">Next · Step 2 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">2</span> Open a terminal on that machine</summary>
+ <div class="manual-step-body">
+ <p>Use the machine's own terminal, or SSH into it. Do not run this from Windows PowerShell unless you are inside <span class="mono">wsl</span>. The WSL tab is the Windows path.</p>
+ <button type="button" class="manual-next">Next · Step 3 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">3</span> Save the installer, then run it</summary>
+ <div class="manual-step-body">
+ <div class="codebox">
+ <code id="lite-linux-sh">curl -fsSL -o "$HOME/install_otacon.sh" https://raw.githubusercontent.com/Otaconskeep/otacons-ai-ecosystem/main/install_otacon.sh
+bash "$HOME/install_otacon.sh"</code>
+ <button class="copy-btn" data-copy-target="lite-linux-sh">Copy</button>
+ </div>
+ <p>Run it as your normal user. sudo will ask for the Linux password for packages only. If apt cannot get a lock, wait for the other update to finish or reboot, then rerun.</p>
+ <p>Skip the large chat model when disk is tight:</p>
+ <pre class="baby-code mono">OTACON_INSTALL_DEFAULT_MODEL=0 OTACON_INSTALL_VOICE_TRAINER=0 bash "$HOME/install_otacon.sh"</pre>
+ <button type="button" class="manual-next">Next · Step 4 →</button>
+ </div>
+ </details>
+ <details class="manual-step">
+ <summary><span class="manual-step-num">4</span> Open Otacon</summary>
+ <div class="manual-step-body">
+ <div class="install-success" style="margin-top:0;">
+ <p class="success-kicker">Finish line</p>
+ <h4>http://127.0.0.1:5757</h4>
+ <p>On this machine, that address is Otacon. Check <span class="mono">systemctl status otacon --no-pager</span> if it does not load.</p>
+ </div>
+ </div>
+ </details>
+ </div>
+ </div>
+
+ <details class="install-help-block" style="margin-top:12px;">
+ <summary>If it stops, match the message</summary>
+ <div class="install-help-inner">
+ 
+ <h5>Wrong window or wrong Linux</h5>
+ <details class="baby-error"><summary>This terminal isn't running Ubuntu or Debian</summary>
+ <div class="baby-error-body"><ol>
+ <li>You pasted the command into PowerShell, Command Prompt, or Git Bash. Those are not the installer window.</li>
+ <li>Open the <strong>Ubuntu</strong> app from the Start menu, or a terminal on the Ubuntu/Debian machine, and run it there.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>Unsupported OS / not Ubuntu 22.04, 24.04, or Debian 12</summary>
+ <div class="baby-error-body"><ol>
+ <li>Check with <span class="mono">cat /etc/os-release</span>.</li>
+ <li>Those three releases are the supported ones. Other distros, including other Ubuntu versions, stop on purpose.</li>
+ <li><span class="mono">OTACON_ALLOW_UNSUPPORTED_OS=1</span> continues anyway. Core's web UI may still fail. Treat that as unsupported, not as a fix.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>sudo: password is invisible, or sudo is missing</summary>
+ <div class="baby-error-body"><ol>
+ <li>The password is your Ubuntu/Linux password. Nothing appears while you type. Press Enter.</li>
+ <li>Do not run the whole installer as <span class="mono">sudo bash</span>. Run it as your normal user. It asks for sudo only for system packages.</li>
+ <li>If the message says sudo isn't available, install sudo as root, or run the privileged phase as root. Do not grant NOPASSWD to all commands.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>user phase must not run as root</summary>
+ <div class="baby-error-body"><ol>
+ <li>You started the script with sudo or as root. File ownership would be wrong.</li>
+ <li>Close it. Open a normal user shell and run <span class="mono">bash</span> on the script again.</li>
+ </ol></div></details>
+
+ <h5>Packages stuck</h5>
+ <details class="baby-error"><summary>apt/dpkg is locked, or "Could not get lock"</summary>
+ <div class="baby-error-body"><ol>
+ <li>Another update is running (Ubuntu Software or unattended-upgrades). Wait for it to finish.</li>
+ <li>On WSL, from Windows PowerShell run <span class="mono">wsl --shutdown</span>, reopen Ubuntu, and rerun the installer.</li>
+ <li>On a Linux PC, reboot if the lock does not clear, then rerun.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>dpkg was interrupted / apt-get -f install failed</summary>
+ <div class="baby-error-body"><ol>
+ <li>The installer tries <span class="mono">sudo dpkg --configure -a</span> and <span class="mono">sudo apt-get -f install -y</span> by itself.</li>
+ <li>If it still stops, the log names the package. Fix that package, then rerun the same installer. It is safe to run again.</li>
+ <li>Repair log: <span class="mono">~/.config/otacon/logs/</span></li>
+ </ol></div></details>
+ <details class="baby-error"><summary>A step timed out</summary>
+ <div class="baby-error-body"><ol>
+ <li>Usually apt mirrors, GitHub, or a sudo prompt nobody answered.</li>
+ <li>Fix the network, then rerun the same command. The log path is printed in the error.</li>
+ </ol></div></details>
+
+ <h5>Disk, memory, and GitHub</h5>
+ <details class="baby-error"><summary>Preflight failed (RAM / disk / network)</summary>
+ <div class="baby-error-body"><ol>
+ <li>Under 4 GB RAM or under 8 GB free in your home filesystem stops the install. 8 GB RAM and 20 GB free is the comfortable size. The chat model is the large part.</li>
+ <li>Free space, or rerun with <span class="mono">OTACON_INSTALL_DEFAULT_MODEL=0</span> to skip the chat-model download. Voice trainer can be skipped with <span class="mono">OTACON_INSTALL_VOICE_TRAINER=0</span>.</li>
+ <li>If Windows can open GitHub but Ubuntu cannot, they are not the same network. Turn the VPN off, run <span class="mono">wsl --shutdown</span> from PowerShell, reopen Ubuntu, and test <span class="mono">getent hosts github.com</span>.</li>
+ <li>On Windows 11, if that name still does not resolve, create <span class="mono">%UserProfile%\.wslconfig</span> with <span class="mono">[wsl2]</span> and <span class="mono">dnsTunneling=true</span>, run <span class="mono">wsl --shutdown</span>, and try again.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>git fetch failed / cannot reach github.com</summary>
+ <div class="baby-error-body"><ol>
+ <li>This is the Linux or WSL network, not proof that Lite is missing.</li>
+ <li>Same recovery as the preflight network failure above. Then rerun.</li>
+ </ol></div></details>
+
+ <h5>The page does not open</h5>
+ <details class="baby-error"><summary>127.0.0.1:5757 is blank or refused</summary>
+ <div class="baby-error-body"><ol>
+ <li>Wait until the installer finishes. A blank page during download is normal.</li>
+ <li>From Ubuntu: <span class="mono">systemctl status otacon --no-pager</span> and <span class="mono">sudo journalctl -u otacon -n 80 --no-pager</span>.</li>
+ <li>If <span class="mono">systemctl</span> says systemd is not running, add this to <span class="mono">/etc/wsl.conf</span> and then run <span class="mono">wsl --shutdown</span> from Windows:</li>
+ </ol>
+ <pre class="baby-code mono">[boot]
+systemd=true</pre>
+ <ol start="4">
+ <li>Port 5757 already in use is usually a previous Otacon. The installer restarts <span class="mono">otacon.service</span>. Use the journal if it does not come back.</li>
+ <li>Open <span class="mono">http://127.0.0.1:5757</span> from the Windows browser too. Do not publish that port on your router.</li>
+ </ol></div></details>
+ <details class="baby-error"><summary>nvidia-smi failed, or Codec says no GPU</summary>
+ <div class="baby-error-body"><ol>
+ <li>Core still installs. Spoken voice (Piper) can run on CPU.</li>
+ <li>Genome Voice Trainer is optional and needs an NVIDIA GPU visible inside Linux.</li>
+ <li>If Windows <span class="mono">nvidia-smi</span> works and Ubuntu's does not: update the NVIDIA driver on Windows, reopen Ubuntu. On the guided Windows path, <span class="mono">Fix-Otacon-GPU.bat</span> is the repair.</li>
+ </ol></div></details>
+
+ <p class="os-hint" style="margin-top:12px;">The same command is safe to run again. Install log: <span class="mono">~/.config/otacon/logs/</span>. Still stuck: <a href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>.</p>
+ </div>
+ </details>
+ </div>
+</div>
 
  <div class="install-panel is-free" id="install-ai9">
  <span class="free-sticker" aria-label="Free">FREE</span>
@@ -560,7 +785,7 @@
  </div>
  <div class="os-card">
  <p class="os-label">Read first</p>
- <p class="os-hint">Honest fresh-PC notes, what is READY vs optional: <a href="/expansion/">full Expansion status</a>. Setup bat: <a href="/downloads/OtaconExpansion-Setup.bat" download>Download Expansion Setup</a>.</p>
+ <p class="os-hint">Honest fresh-PC notes, what is READY vs optional: <a href="/expansion/">full Expansion status</a>. Setup bat: <a href="/downloads/OtaconExpansion-Setup.bat" download>Download Expansion Setup</a>. WSL or Linux, including the errors: <a href="/expansion/#expansion-wsl-linux-manual">Expansion manual</a> and the same steps on <a href="/premium/#premium-wsl-linux-manual">Member HQ</a>.</p>
  </div>
  </div>
  </div>
