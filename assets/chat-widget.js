@@ -27,15 +27,21 @@
  var launcher = document.createElement('button');
  launcher.className = 'keep-chat-launcher';
  launcher.type = 'button';
- launcher.setAttribute('aria-label', 'Ask about Otaconskeep');
- launcher.textContent = 'Ask Otaconskeep';
+ launcher.setAttribute('aria-label', 'Ask the Keep — AI chatbot');
+ launcher.innerHTML =
+ '<img class="keep-chat-avatar" src="/assets/img/otacon-chat-avatar.png" alt="" aria-hidden="true">' +
+ '<span>Ask the Keep</span>';
 
  var panel = document.createElement('div');
  panel.className = 'keep-chat-panel';
  panel.hidden = true;
  panel.innerHTML =
  '<div class="keep-chat-head">' +
- '<span class="keep-chat-head-title">Ask Otaconskeep</span>' +
+ '<img class="keep-chat-avatar keep-chat-avatar-head" src="/assets/img/otacon-chat-avatar.png" alt="" aria-hidden="true">' +
+ '<span class="keep-chat-head-text">' +
+ '<span class="keep-chat-head-title">Ask the Keep</span>' +
+ '<span class="keep-chat-head-badge">AI Chatbot — not a real person</span>' +
+ '</span>' +
  '<button type="button" class="keep-chat-close" aria-label="Close chat">✕</button>' +
  '</div>' +
  '<div class="keep-chat-log" role="log" aria-live="polite"></div>' +
