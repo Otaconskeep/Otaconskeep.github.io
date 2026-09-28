@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://otaconskeep.github.io/foxdie/">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOXDIE: Automated Media Library Integrity: Otaconskeep</title>
+<meta name="description" content="FOXDIE is a Keep Blueprint automation module. It scans a self-hosted media library, safely fixes what it can be certain about, and holds the rest for a human, with a permanent, reversible-only deletion path. Real architecture, real safety model, real setup notes.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Otaconskeep">
+<meta property="og:title" content="FOXDIE: Automated Media Library Integrity">
+<meta property="og:description" content="A Keep Blueprint automation module. Safely fixes what it's certain about, holds the rest for a human, never deletes without a reversible hold.">
+<meta property="og:url" content="https://otaconskeep.github.io/foxdie/">
+<meta property="og:image" content="https://otaconskeep.github.io/assets/img/keep/foxdie.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FOXDIE: Automated Media Library Integrity">
+<meta name="twitter:description" content="A Keep Blueprint automation module. Safely fixes what it's certain about, holds the rest for a human, never deletes without a reversible hold.">
+<meta name="twitter:image" content="https://otaconskeep.github.io/assets/img/keep/foxdie.webp">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="/assets/chat-widget.css">
+<style>
+ .foxdie-shot { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; margin: 28px 0 8px; background: var(--surface-2); }
+ .foxdie-shot img { display: block; width: 100%; height: auto; }
+ .foxdie-shot figcaption { padding: 10px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--cream-faint); border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>FILE // FOXDIE MEDIA INTEGRITY</span>
+ <span>TIER // KEEP BLUEPRINT · REFERENCE</span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/foxdie/">FOXDIE</a>
+ </div>
+ </div>
+ <a href="/classroom/">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">Keep Blueprint<small>reference, not a standalone download</small></div>
+ <p class="eyebrow" style="margin-top: 18px;">Engineering Case Study // Media Integrity Automation</p>
+ <h1 class="display" style="font-size: clamp(2.4rem, 6vw, 4rem);">FOXDIE</h1>
+ <p class="lede">A module that watches a self-hosted media library, safely fixes what it can be certain about, and holds everything else for a human. The hard rule underneath it: nothing is ever permanently deleted without a 24-hour reversible window first. This page explains the architecture, the reasoning behind each decision, the safety model, and how to set it up on your own Keep-tier deployment.</p>
+ <div class="btn-row" style="margin-top: 26px;">
+ <a class="btn btn-primary" href="#setup">Setup instructions</a>
+ <a class="btn btn-ghost" href="#safety">Safety model</a>
+ <a class="btn btn-ghost" href="/engineering/">Engineering evidence</a>
+ </div>
+ <figure class="foxdie-shot">
+ <img src="../assets/img/keep/foxdie.webp" width="1760" height="1026" alt="FOXDIE status panel inside the Keep, showing scan findings, triage verdicts, and the deletion hold queue" loading="eager">
+ <figcaption>FOXDIE's panel inside the Keep. Findings, triage verdicts, and the reversible hold queue, all in one place.</figcaption>
+ </figure>
+ </section>
+</div>
+
+<div class="wrap">
+ <div class="info-note" style="margin: 24px 0;">
+ <strong>Requires an existing Keep-tier deployment.</strong> FOXDIE is a module inside otacon-executor, not standalone software. It assumes you already run otacon-executor plus a Radarr/Sonarr media stack. It is <em>not</em> part of the free <a href="/otacon/">Otacon Core</a> install, which covers identity, memory, chat, and voice only, with no media library management. If that isn't your setup, this page is still worth reading as a real example of how the Keep's automation-authority model works in practice, and why it draws the lines it draws.
+ </div>
+</div>
+
+<div class="wrap">
+ <section id="problem">
+ <p class="tag">Why this exists</p>
+ <h2>Self-hosted media libraries rot quietly</h2>
+ <p class="intro">Over months of requests, imports, and manual cleanup, a real library accumulates download-client leftovers, orphaned files, and duplicate copies. The one that actually costs you something is <strong>complete downloads that never got extracted</strong>: real movies and shows sitting as raw archive volumes because the automation that should have unpacked them failed, or never ran at all. Someone has to look at this periodically. Doing it by hand doesn't scale past a certain library size, and a script that "cleans up" on its own and guesses wrong will delete something you needed. FOXDIE takes the middle path on purpose: automate the part that's genuinely safe, and hand you a short, honest list for the part that isn't.</p>
+ </section>
+</div>
+
+<div class="wrap">
+ <section id="pipeline">
+ <p class="tag">Architecture</p>
+ <h2>Scan, classify, triage, self-fix, human review, deletion</h2>
+ <div class="flow">
+ <span class="node">Scan (read-only)</span><span class="arrow">→</span>
+ <span class="node">Classify</span><span class="arrow">→</span>
+ <span class="node">Triage</span><span class="arrow">→</span>
+ <span class="node">Self-fix</span><span class="arrow">→</span>
+ <span class="node">Human review (if held)</span>
+ </div>
+ <p class="intro" style="margin-top:18px;">The only step that permanently deletes anything is <strong>deletion finalization</strong>, and it's deliberately kept separate from everything above it. Items triage marks are quarantined and placed on a 24-hour reversible hold first. Only if nobody reverses that hold does a later, independent sweep step remove the item for good. Every other stage in the pipeline (scan, classify, triage, self-fix) either only reads the library, or only takes an action that can still be undone. Splitting "decide" from "act permanently" into two separate steps, with a mandatory waiting period between them, is the whole safety model in one sentence.</p>
+ <div class="today-panel" style="margin-top:22px;">
+ <p class="kicker">What each stage actually does, and why it's shaped this way</p>
+ <ul class="today-list">
+ <li><span class="ok">✓</span> <strong>Scan.</strong> A read-only pass over the library. It never moves or deletes anything, on purpose: the same scan results feed both the automated decisions below and the human review queue, so they need to be trustworthy on their own, independent of what happens next.</li>
+ <li><span class="ok">✓</span> <strong>Classify.</strong> Every finding gets a category, and for identity questions (is this really the movie the folder says it is), a confidence score. Classification is separate from decision-making so the scoring logic can be tested and audited on its own.</li>
+ <li><span class="ok">✓</span> <strong>Triage.</strong> The decision step. It reviews every classified finding and either marks it onto the reversible deletion hold, or holds it for a human. Only two narrow categories ever qualify for the first path. Every item gets a logged verdict either way; nothing is ever silently dropped or forgotten.</li>
+ <li><span class="ok">✓</span> <strong>Self-fix.</strong> Extracts real movies and shows sitting unextracted as raw archive volumes, verifies a real video file resulted from the extraction, then leaves it for the normal *arr import scan to pick up. It never deletes the source archive itself. Leftover archive parts go through the same 24-hour hold as everything else, not a shortcut.</li>
+ <li><span class="ok">✓</span> <strong>Human review.</strong> Where anything triage or self-fix couldn't be confident about ends up. For most real hygiene findings, corrupt files, unmanaged files, and wrong-type files especially, landing here every single time is the intended outcome, not a shortcoming to fix later.</li>
+ <li><span class="ok">✓</span> <strong>Deletion finalization.</strong> The only permanent-delete path in the whole system. It runs on its own short interval, acts only on items triage already marked, and only after the 24-hour hold has fully elapsed with no reversal.</li>
+ </ul>
+ </div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section id="safety">
+ <p class="tag">Safety Model</p>
+ <h2>What's automatic, and what's protected</h2>
+ <p class="intro">FOXDIE doesn't have its own permission system. It uses the same authority model as every other autonomous agent in the Keep, because a second, module-specific set of rules would just be another place for a gap to hide. That shared model draws one hard line: a short, explicit list of actions and domains that are never automatic, no matter how confident the system claims to be.</p>
+ <div class="tablewrap">
+ <table>
+ <thead><tr><th>Always automatic (safe, reversible)</th><th>Always stops for a human</th></tr></thead>
+ <tbody>
+ <tr><td>Inspect and classify every file in scope</td><td>Corrupt, unmanaged, or wrong-type findings outside two narrow, verified-safe categories</td></tr>
+ <tr><td>Dismiss known false positives, with a logged reason</td><td>Any folder with more than one candidate archive set (ambiguous, never guessed at)</td></tr>
+ <tr><td>Attempt known-safe archive repairs (extract and verify, never deletes the source)</td><td>Archive extraction failures, such as non-standard volume naming</td></tr>
+ <tr><td>Mark two narrow hygiene categories onto the 24-hour reversible hold</td><td>Low-confidence identity candidates with no verified duplicate (could be a unique file)</td></tr>
+ <tr><td>Resolve collision anomalies through an explicit quality-score tiebreak</td><td>Permanent deletion itself, until a 24-hour hold expires untouched</td></tr>
+ <tr><td>Report findings</td><td>Anything matching the hard-blocked list below</td></tr>
+ </tbody>
+ </table>
+ </div>
+ <p class="intro" style="margin-top:18px;"><strong>Hard-blocked, system-wide, not specific to FOXDIE:</strong> never automatic under any circumstance are destructive filesystem operations at the system level (delete, overwrite, wipe, truncate, purge, format), and anything touching credentials, authentication, DNS, firewall rules, or finance. FOXDIE's own deletion path is built to satisfy this even though "remove a file" sounds like it should qualify on its own: it never performs a bare delete. Everything goes through the 24-hour reversible hold first, every time, with no exception path.</p>
+ <div class="info-note" style="margin-top:18px;">From the module's own decision-policy notes, written after a real incident: checking 74 "possible junk" findings by hand found that 59 of them were actually complete, legitimate downloads that the scanner's narrow video-format check simply didn't recognize as valid. Deleting those on scanner confidence alone would have destroyed real, finished downloads. That single incident is why identity-uncertain and quality-uncertain findings are never auto-deleted, at any confidence level, full stop.</div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section id="schedule">
+ <p class="tag">Default Schedule</p>
+ <h2>Scan, then decide, then act: three separate clocks, on purpose</h2>
+ <div class="tablewrap">
+ <table>
+ <thead><tr><th>Time</th><th>Step</th><th>Why then</th></tr></thead>
+ <tbody>
+ <tr><td class="mono">3:00 AM</td><td>Scan</td><td>Read-only and short, so it runs on the shared internal scheduler alongside other quick daily jobs without slowing anything down</td></tr>
+ <tr><td class="mono">3:10 AM</td><td>Triage</td><td>Enough of a gap for the scan to have finished and its review queue to be built; runs on its own dedicated schedule rather than the shared one, explained below</td></tr>
+ <tr><td class="mono">3:25 AM</td><td>Self-fix</td><td>Scheduled after triage so the day's decisions are recorded in the log before any action runs, keeping the daily record easy to read in order</td></tr>
+ <tr><td class="mono">Every 30 minutes</td><td>Deletion finalization (sweep)</td><td>Runs often because it only ever acts on items whose 24-hour hold has already fully elapsed. There's nothing time-sensitive about checking frequently, and checking often means nothing sits finished-but-unswept for long</td></tr>
+ </tbody>
+ </table>
+ </div>
+ <p class="intro" style="margin-top:16px;"><strong>Why triage and self-fix get their own schedule instead of sharing the same internal scheduler as everything else:</strong> the shared job scheduler polls on a short interval and runs each due job in sequence, in the same process. That works fine for jobs that finish in seconds. Triage and self-fix can take several minutes on a large library. Running a multi-minute job inside that shared, single-threaded loop would stall every other unrelated scheduled task, reminders, alarms, and backups included, for the whole duration of the run. Giving the slow jobs their own independent trigger avoids that entirely. It's a small, unglamorous architectural choice, and it's the kind of thing that quietly matters a lot once something actually depends on it.</p>
+ </section>
+</div>
+
+<div class="wrap">
+ <section id="verify">
+ <p class="tag">Verification</p>
+ <h2>"The files exist" is not the same claim as "it's running"</h2>
+ <p class="intro">This is the single lesson behind the whole page: a route, a module, and a scheduled job can all be individually correct, and the feature as a whole can still do nothing, because nothing ever actually invoked the working parts, or because a dependency the code expects turned out to be silently missing from the running environment. So FOXDIE's health check doesn't stop at confirming the code is present. It confirms each stage actually produced a fresh result recently.</p>
+ <div class="codebox">
+ <code id="verify-cmd">curl -s http://localhost:5757/foxdie/status | python3 -m json.tool</code>
+ <button class="copy-btn" data-copy-target="verify-cmd">Copy</button>
+ </div>
+ <p class="intro" style="margin-top:14px;">This returns whether the module loaded, whether the archive-extraction dependency is actually present rather than just declared in a build file somewhere, and separately for scan, triage, self-fix, and sweep, whether each one produced a result inside its expected freshness window. A stale or missing result fails the check, even if every individual route still returns a normal response when called by hand.</p>
+ </section>
+</div>
+
+<div class="wrap">
+ <section id="setup">
+ <p class="tag">Setup // For an existing Keep-tier deployment</p>
+ <h2>Enable and verify FOXDIE</h2>
+ <p class="intro">This assumes otacon-executor is already running with the <span class="mono">foxdie</span> package present in the image. The script below configures the three pieces that have to work together (the archive-extraction dependency, the daily job chain, and the deletion-finalization sweep), then proves each one actually ran, rather than just confirming it's configured.</p>
+ <div class="codebox">
+ <code id="setup-cmd">curl -fsSL https://otaconskeep.github.io/downloads/install-foxdie.sh -o install-foxdie.sh && chmod +x install-foxdie.sh && ./install-foxdie.sh</code>
+ <button class="copy-btn" data-copy-target="setup-cmd">Copy</button>
+ </div>
+ <p class="os-hint" style="margin-top:10px;">Safe to re-run any time. Every step checks the current state first and skips whatever is already correct. To check without changing anything, add <span class="mono">--verify-only</span>. Full source is on <a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">GitHub</a>.</p>
+ <div class="install-pill-row" style="margin-top:16px;" aria-label="Setup trust signals">
+ <span class="install-pill ok">Idempotent</span>
+ <span class="install-pill ok">No destructive steps</span>
+ <span class="install-pill ok">Verifies before claiming success</span>
+ <span class="install-pill ok">Pass/fail per check</span>
+ </div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section id="troubleshooting">
+ <p class="tag">Troubleshooting</p>
+ <h2>What actually goes wrong, and how to fix it</h2>
+ <div class="tablewrap">
+ <table>
+ <thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead>
+ <tbody>
+ <tr><td>Triage logic exists and works fine when called by hand, but nothing changes day to day</td><td>The code is correct, but nothing ever schedules it. Writing a feature isn't the same thing as wiring it into the schedule</td><td>Run the setup script above. It adds the missing schedule entry and triggers one real run to prove it works</td></tr>
+ <tr><td>A dependency was added to the build file, but the feature that needs it still fails</td><td>The running container predates the change. Editing a build file has no effect on an instance that's already running</td><td>Install the dependency live in the running container, which the setup script does automatically, then rebuild the image so a future restart doesn't lose it again</td></tr>
+ <tr><td>Archive extraction fails on one specific multi-volume set</td><td>Some release groups don't follow the standard multi-volume naming convention the extraction tool expects, so it can't find the next volume on its own</td><td>Not automated, on purpose. This needs a human to either extract manually or confirm that a rename is safe. Renaming real files based on a guess is exactly the kind of action this system refuses to take unattended</td></tr>
+ <tr><td>An old alert still says "review required" long after the review actually happened</td><td>The review step didn't post a follow-up record when it finished, so the board never reflected the outcome</td><td>Fixed in this build. The triage step now always posts a follow-up record, whether something was marked for deletion or not</td></tr>
+ <tr><td>General "the code looks right but it doesn't work"</td><td>Image or dependency drift: a build file changed since the running container was last built</td><td>Compare the container's creation time against the build file's last-changed time, and rebuild if the container predates it</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section id="uninstall">
+ <p class="tag">Disable / Uninstall</p>
+ <h2>Turning it off</h2>
+ <p class="intro">FOXDIE's code has no separate on/off switch. Disabling it means stopping the schedule, not removing the module itself.</p>
+ <div class="codebox">
+ <code id="uninstall-cmd">./install-foxdie.sh --uninstall</code>
+ <button class="copy-btn" data-copy-target="uninstall-cmd">Copy</button>
+ </div>
+ <p class="intro" style="margin-top:14px;">This removes only the scheduled entries the setup script itself added. Because nothing FOXDIE does is destructive by default, there's no separate "undo everything" step needed. Anything still inside its 24-hour hold can be reversed individually, regardless of whether the schedule is currently active.</p>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">Engineering Lessons</p>
+ <h2>Two reusable failure patterns</h2>
+ <p class="intro">These are preserved here because they generalize well beyond this one module. Worth checking for in any new automation before calling it finished.</p>
+ <div class="tablewrap">
+ <table>
+ <thead><tr><th>Pattern</th><th>What it looks like</th><th>How to catch it</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Built but never active</strong></td><td>A working capability exists (a route, tested logic, a safe-by-design policy) but nothing ever invokes it. Every individual piece is correct; the feature as a whole does nothing.</td><td>A status check that proves recent, successful execution, not just that the code or route exists.</td></tr>
+ <tr><td><strong>Dependency or image drift</strong></td><td>A dependency gets added to a build file, but the running instance predates that change, so the feature silently fails despite the source code being correct.</td><td>A runtime check for the actual binary or package's presence, plus comparing the running instance's build time against the build file's last-changed time.</td></tr>
+ </tbody>
+ </table>
+ </div>
+ <p class="intro" style="margin-top:16px;">The full write-up, including a real example from the day this module's automation gaps were found and closed, lives on <a href="/engineering/">the Engineering evidence page</a>.</p>
+ </section>
+</div>
+
+<footer>
+ <div class="wrap">
+ <span>FOXDIE. Keep Blueprint reference module. Designed &amp; Engineered by Antonio G. Garcia.</span>
+ <span><a href="https://github.com/Otaconskeep/otacons-ai-ecosystem" target="_blank" rel="noopener">github.com/Otaconskeep/otacons-ai-ecosystem</a></span>
+ </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script defer src="/assets/chat-widget.js"></script>
+</body>
+</html>
