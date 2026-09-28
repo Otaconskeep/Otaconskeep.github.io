@@ -40,6 +40,7 @@ def clean(raw: str) -> str:
     text = text.split('<', 1)[0]
     text = re.split(r'\shttps?://', text, maxsplit=1)[0]
     text = re.sub(r'\s+', ' ', text).strip(' |-')
+    text = text.replace(' — ', ' - ').replace('—', '-')
     return text
 
 

@@ -54,19 +54,19 @@ Downloaded content remains untrusted even when the transfer itself completed suc
 
 ## Required reading
 
-- qBittorrent Wiki: Web UI documentation and authentication behavior — https://github.com/qbittorrent/qBittorrent/wiki/Web-UI
-- qBittorrent Wiki: Explanation of options in qBittorrent — https://github.com/qbittorrent/qBittorrent/wiki/Explanation-of-Options-in-qBittorrent
-- Podman documentation for rootless operation — https://docs.podman.io/en/latest/markdown/podman.1.html#rootless-mode
-- LinuxServer.io qBittorrent image documentation — https://docs.linuxserver.io/images/docker-qbittorrent/
+- qBittorrent Wiki: Web UI documentation and authentication behavior - https://github.com/qbittorrent/qBittorrent/wiki/Web-UI
+- qBittorrent Wiki: Explanation of options in qBittorrent - https://github.com/qbittorrent/qBittorrent/wiki/Explanation-of-Options-in-qBittorrent
+- Podman documentation for rootless operation - https://docs.podman.io/en/latest/markdown/podman.1.html#rootless-mode
+- LinuxServer.io qBittorrent image documentation - https://docs.linuxserver.io/images/docker-qbittorrent/
 - Review your network's acceptable-use policy and the copyright rules applicable to your location before transferring content.
 
 ## References
 
-- qBittorrent official website — https://www.qbittorrent.org/
-- qBittorrent Wiki: Web UI — https://github.com/qbittorrent/qBittorrent/wiki/Web-UI
-- qBittorrent Wiki: Explanation of Options — https://github.com/qbittorrent/qBittorrent/wiki/Explanation-of-Options-in-qBittorrent
-- qBittorrent GitHub repository — https://github.com/qbittorrent/qBittorrent
-- LinuxServer.io qBittorrent image documentation — https://docs.linuxserver.io/images/docker-qbittorrent/
-- Podman command documentation — https://docs.podman.io/en/latest/markdown/podman.1.html
-- Podman run documentation — https://docs.podman.io/en/latest/markdown/podman-run.1.html
-- Podman rootless-mode documentation — https://docs.podman.io/en/latest/markdown/podman.1.html#rootless-mode
+- qBittorrent official website - https://www.qbittorrent.org/
+- qBittorrent Wiki: Web UI - https://github.com/qbittorrent/qBittorrent/wiki/Web-UI
+- qBittorrent Wiki: Explanation of Options - https://github.com/qbittorrent/qBittorrent/wiki/Explanation-of-Options-in-qBittorrent
+- qBittorrent GitHub repository - https://github.com/qbittorrent/qBittorrent
+- LinuxServer.io qBittorrent image documentation - https://docs.linuxserver.io/images/docker-qbittorrent/
+- Podman command documentation - https://docs.podman.io/en/latest/markdown/podman.1.html
+- Podman run documentation - https://docs.podman.io/en/latest/markdown/podman-run.1.html
+- Podman rootless-mode documentation - https://docs.podman.io/en/latest/markdown/podman.1.html#rootless-mode

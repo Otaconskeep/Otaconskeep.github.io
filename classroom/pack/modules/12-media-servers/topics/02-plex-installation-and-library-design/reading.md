@@ -121,20 +121,20 @@ Do not start the staged project inside the classroom because the runtime would c
 
 ## Required reading
 
-- Plex Support: Naming and Organizing Your Movie Media Files — https://support.plex.tv/articles/naming-and-organizing-your-movie-media-files/
-- Plex Support: Naming and Organizing Your TV Show Files — https://support.plex.tv/articles/naming-and-organizing-your-tv-show-files/
-- Plex Support: What Network Ports Do I Need to Allow Through My Firewall? — https://support.plex.tv/articles/200931138-troubleshooting-remote-access/
-- Docker documentation: Bind mounts — https://docs.docker.com/engine/storage/bind-mounts/
-- Compose Specification — https://compose-spec.io/
+- Plex Support: Naming and Organizing Your Movie Media Files - https://support.plex.tv/articles/naming-and-organizing-your-movie-media-files/
+- Plex Support: Naming and Organizing Your TV Show Files - https://support.plex.tv/articles/naming-and-organizing-your-tv-show-files/
+- Plex Support: What Network Ports Do I Need to Allow Through My Firewall? - https://support.plex.tv/articles/200931138-troubleshooting-remote-access/
+- Docker documentation: Bind mounts - https://docs.docker.com/engine/storage/bind-mounts/
+- Compose Specification - https://compose-spec.io/
 
 ## References
 
-- Plex Support: Naming and Organizing Your Movie Media Files — https://support.plex.tv/articles/naming-and-organizing-your-movie-media-files/
-- Plex Support: Naming and Organizing Your TV Show Files — https://support.plex.tv/articles/naming-and-organizing-your-tv-show-files/
-- Plex Support: Adding Music Media From Folders — https://support.plex.tv/articles/200265296-adding-music-media-from-folders/
-- Plex Support: Remote Access — https://support.plex.tv/articles/200289506-remote-access/
-- Plex Support: Troubleshooting Remote Access — https://support.plex.tv/articles/200931138-troubleshooting-remote-access/
-- Plex Docker image repository — https://github.com/plexinc/pms-docker
-- Docker documentation: Bind mounts — https://docs.docker.com/engine/storage/bind-mounts/
-- Docker documentation: Compose file reference — https://docs.docker.com/reference/compose-file/
-- Compose Specification — https://compose-spec.io/
+- Plex Support: Naming and Organizing Your Movie Media Files - https://support.plex.tv/articles/naming-and-organizing-your-movie-media-files/
+- Plex Support: Naming and Organizing Your TV Show Files - https://support.plex.tv/articles/naming-and-organizing-your-tv-show-files/
+- Plex Support: Adding Music Media From Folders - https://support.plex.tv/articles/200265296-adding-music-media-from-folders/
+- Plex Support: Remote Access - https://support.plex.tv/articles/200289506-remote-access/
+- Plex Support: Troubleshooting Remote Access - https://support.plex.tv/articles/200931138-troubleshooting-remote-access/
+- Plex Docker image repository - https://github.com/plexinc/pms-docker
+- Docker documentation: Bind mounts - https://docs.docker.com/engine/storage/bind-mounts/
+- Docker documentation: Compose file reference - https://docs.docker.com/reference/compose-file/
+- Compose Specification - https://compose-spec.io/

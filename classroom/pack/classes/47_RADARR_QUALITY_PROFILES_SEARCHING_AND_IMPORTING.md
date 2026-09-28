@@ -46,10 +46,10 @@ Teach students how Radarr uses quality profiles, release metadata, custom format
 
 ## Required reading
 
-- Servarr Wiki: Radarr overview — https://wiki.servarr.com/radarr
-- Servarr Wiki: Radarr settings — https://wiki.servarr.com/radarr/settings
-- Servarr Wiki: Radarr library and movie management — https://wiki.servarr.com/radarr/library
-- Servarr Wiki: Radarr FAQ — https://wiki.servarr.com/radarr/faq
+- Servarr Wiki: Radarr overview - https://wiki.servarr.com/radarr
+- Servarr Wiki: Radarr settings - https://wiki.servarr.com/radarr/settings
+- Servarr Wiki: Radarr library and movie management - https://wiki.servarr.com/radarr/library
+- Servarr Wiki: Radarr FAQ - https://wiki.servarr.com/radarr/faq
 
 ## Prior-knowledge check
 
@@ -455,13 +455,13 @@ Begin by showing the pipeline from a Radarr movie entry to an organized library 
 
 ## References
 
-- Radarr project site — https://radarr.video/
-- Radarr source repository — https://github.com/Radarr/Radarr
-- Servarr Wiki: Radarr — https://wiki.servarr.com/radarr
-- Servarr Wiki: Radarr Settings — https://wiki.servarr.com/radarr/settings
-- Servarr Wiki: Radarr Library — https://wiki.servarr.com/radarr/library
-- Servarr Wiki: Radarr FAQ — https://wiki.servarr.com/radarr/faq
-- Servarr Wiki: Docker Guide — https://wiki.servarr.com/docker-guide
+- Radarr project site - https://radarr.video/
+- Radarr source repository - https://github.com/Radarr/Radarr
+- Servarr Wiki: Radarr - https://wiki.servarr.com/radarr
+- Servarr Wiki: Radarr Settings - https://wiki.servarr.com/radarr/settings
+- Servarr Wiki: Radarr Library - https://wiki.servarr.com/radarr/library
+- Servarr Wiki: Radarr FAQ - https://wiki.servarr.com/radarr/faq
+- Servarr Wiki: Docker Guide - https://wiki.servarr.com/docker-guide
 
 ## Mastery gate
 

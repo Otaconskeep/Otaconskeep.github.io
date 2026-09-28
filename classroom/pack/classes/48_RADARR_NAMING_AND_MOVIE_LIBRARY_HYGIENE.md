@@ -481,11 +481,11 @@ For production work, record the current settings and every proposed path. Test o
 
 ## References
 
-- Radarr Wiki — Settings: https://wiki.servarr.com/radarr/settings
-- Radarr Wiki — Radarr documentation index: https://wiki.servarr.com/radarr
-- TRaSH Guides — Radarr recommended naming scheme: https://trash-guides.info/Radarr/Radarr-recommended-naming-scheme/
-- Python documentation — pathlib: https://docs.python.org/3/library/pathlib.html
-- Unicode Standard Annex #15 — Unicode Normalization Forms: https://unicode.org/reports/tr15/
+- Radarr Wiki - Settings: https://wiki.servarr.com/radarr/settings
+- Radarr Wiki - Radarr documentation index: https://wiki.servarr.com/radarr
+- TRaSH Guides - Radarr recommended naming scheme: https://trash-guides.info/Radarr/Radarr-recommended-naming-scheme/
+- Python documentation - pathlib: https://docs.python.org/3/library/pathlib.html
+- Unicode Standard Annex #15 - Unicode Normalization Forms: https://unicode.org/reports/tr15/
 
 ## Mastery gate
 

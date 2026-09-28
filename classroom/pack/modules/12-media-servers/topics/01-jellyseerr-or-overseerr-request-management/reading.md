@@ -94,19 +94,19 @@ Reverse proxy to the loopback-bound application port
 
 ## Required reading
 
-- Docker Docs: Compose file reference — https://docs.docker.com/reference/compose-file/
-- Docker Docs: Interpolation and environment variables in Compose — https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/
-- Jellyseerr documentation — https://docs.jellyseerr.dev/
-- Jellyseerr GitHub repository — https://github.com/Fallenbagel/jellyseerr
-- Overseerr documentation — https://docs.overseerr.dev/
-- The Movie Database API documentation — https://developer.themoviedb.org/docs/getting-started
+- Docker Docs: Compose file reference - https://docs.docker.com/reference/compose-file/
+- Docker Docs: Interpolation and environment variables in Compose - https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/
+- Jellyseerr documentation - https://docs.jellyseerr.dev/
+- Jellyseerr GitHub repository - https://github.com/Fallenbagel/jellyseerr
+- Overseerr documentation - https://docs.overseerr.dev/
+- The Movie Database API documentation - https://developer.themoviedb.org/docs/getting-started
 
 ## References
 
-- Jellyseerr documentation — https://docs.jellyseerr.dev/
-- Jellyseerr GitHub repository — https://github.com/Fallenbagel/jellyseerr
-- Overseerr documentation — https://docs.overseerr.dev/
-- Overseerr GitHub repository — https://github.com/sct/overseerr
-- Docker Compose file reference — https://docs.docker.com/reference/compose-file/
-- Docker Compose environment variable interpolation — https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/
-- TMDB API documentation — https://developer.themoviedb.org/docs/getting-started
+- Jellyseerr documentation - https://docs.jellyseerr.dev/
+- Jellyseerr GitHub repository - https://github.com/Fallenbagel/jellyseerr
+- Overseerr documentation - https://docs.overseerr.dev/
+- Overseerr GitHub repository - https://github.com/sct/overseerr
+- Docker Compose file reference - https://docs.docker.com/reference/compose-file/
+- Docker Compose environment variable interpolation - https://docs.docker.com/compose/how-tos/environment-variables/variable-interpolation/
+- TMDB API documentation - https://developer.themoviedb.org/docs/getting-started
