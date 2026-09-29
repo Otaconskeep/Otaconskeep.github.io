@@ -64,10 +64,10 @@ Download directories are staging areas controlled by the downloader. Library roo
 
 ## Required reading
 
-- Sonarr Wiki: Download Clients — https://wiki.servarr.com/sonarr/settings#download-clients
-- Radarr Wiki: Download Clients — https://wiki.servarr.com/radarr/settings#download-clients
-- Sonarr Wiki: Docker Guide — https://wiki.servarr.com/docker-guide
-- TRaSH Guides: Hardlinks and Instant Moves — https://trash-guides.info/File-and-Folder-Structure/Hardlinks-and-Instant-Moves/
+- Sonarr Wiki: Download Clients - https://wiki.servarr.com/sonarr/settings#download-clients
+- Radarr Wiki: Download Clients - https://wiki.servarr.com/radarr/settings#download-clients
+- Sonarr Wiki: Docker Guide - https://wiki.servarr.com/docker-guide
+- TRaSH Guides: Hardlinks and Instant Moves - https://trash-guides.info/File-and-Folder-Structure/Hardlinks-and-Instant-Moves/
 
 ## References
 

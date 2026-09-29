@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linux - From Desktop to Homelab · Otaconskeep Classroom</title>
+<meta name="description" content="A free 16-module Linux course: from 'what is a distro' through the CLI, desktop Linux, gaming, power-user workflows, networking, Docker, and Proxmox. Module 01 is live now.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Otaconskeep">
+<meta property="og:title" content="Linux - From Desktop to Homelab">
+<meta property="og:description" content="Linux isn't one operating system you learn. It's a set of common foundations, with different distributions making different choices for different jobs. A free 16-module course.">
+<meta property="og:url" content="https://otaconskeep.github.io/classroom/linux-course/">
+<meta property="og:image" content="https://otaconskeep.github.io/classroom/visuals/icons/linux/00-module-hero.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Linux - From Desktop to Homelab">
+<meta name="twitter:description" content="A free 16-module Linux course. Module 01 is live: What the Hell Is Linux?">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/linux-course/">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css">
+<link rel="stylesheet" href="/assets/chat-widget.css">
+<style>
+.lnx-hero-badge{display:flex;align-items:center;gap:18px;margin-bottom:10px;}
+.lnx-hero-badge img{width:64px;height:64px;flex:none;}
+.lnx-lede-quote{border-left:3px solid var(--accent-bright);padding:10px 0 10px 18px;margin:18px 0 0;color:var(--cream);font-size:1.05rem;font-style:italic;}
+.lnx-mod-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px;}
+@media (max-width:900px){.lnx-mod-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (max-width:560px){.lnx-mod-grid{grid-template-columns:1fr;}}
+.lnx-mod-card{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--cream);}
+.lnx-mod-card:hover{border-color:var(--accent-dim);}
+.lnx-mod-card .n{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.1em;color:var(--cream-faint);}
+.lnx-mod-card.live .n{color:var(--accent-bright);}
+.lnx-mod-card h3{margin:0;font-size:.92rem;line-height:1.35;}
+.lnx-mod-card .unit{font-size:.72rem;color:var(--cream-faint);}
+.lnx-mod-card.locked{opacity:.55;}
+.lnx-mod-card.locked h3{color:var(--cream-dim);}
+.lnx-badge-live{display:inline-block;background:linear-gradient(135deg,#2fe08a 0%,#18b86a 100%);color:#04140e;font-weight:700;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-top:2px;}
+.lnx-flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--cream-dim);}
+.lnx-flow span.step{border:1px solid var(--line);border-radius:6px;padding:6px 12px;}
+.lnx-flow span.arrow{color:var(--cream-faint);}
+</style>
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // LINUX - DESKTOP TO HOMELAB</span>
+ <span>NEW COURSE<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Linux course">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/linux-course/" class="is-active">Linux: Desktop to Homelab</a>
+ <a href="/classroom/linux-course/modules/01-what-is-linux/">Module 01</a>
+ <a href="#modules">Roadmap</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="lnx-hero-badge">
+  <img src="/classroom/visuals/icons/linux/00-module-hero.svg" alt="">
+  <div class="stamp">FREE COURSE<small>16 modules · beginner → intermediate</small></div>
+ </div>
+ <p class="eyebrow">Otaconskeep Classroom</p>
+ <h1 class="display" style="font-size:clamp(2rem,6vw,3.6rem);">Linux - From Desktop to Homelab</h1>
+ <p class="lede">Linux isn't one operating system you learn. It's a set of common foundations, with different distributions making different choices for different jobs.</p>
+ <p class="lnx-lede-quote">End goal: comfortably choose a distro, use the terminal, administer a Linux machine, troubleshoot it, and understand why Mint, Bazzite, Omarchy, Ubuntu/Debian, and Proxmox can all be "Linux" while serving very different purposes.</p>
+ <div class="btn-row" style="margin-top:26px;">
+  <a class="btn btn-primary" href="/classroom/linux-course/modules/01-what-is-linux/">Start Module 01 - What the Hell Is Linux?</a>
+  <a class="btn btn-ghost" href="#modules">Full roadmap</a>
+  <a class="btn btn-ghost" href="/classroom/">Otaconskeep Classroom</a>
+ </div>
+ <p class="meta" style="margin-top:18px;">Prerequisites: basically none · Module 01 is live now, Modules 02–16 are on the way</p>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">00 // The path</p>
+ <h2>Beginner questions in, homelab operator out</h2>
+ <p class="intro">Every later module reuses what an earlier one taught. By the time you reach Proxmox in Module 15, you already know exactly what's underneath it - because it's Debian, and you learned Debian nine modules earlier.</p>
+ <div class="lnx-flow">
+  <span class="step">Linux basics</span><span class="arrow">→</span>
+  <span class="step">CLI</span><span class="arrow">→</span>
+  <span class="step">Distro choice</span><span class="arrow">→</span>
+  <span class="step">Desktop</span><span class="arrow">→</span>
+  <span class="step">Gaming</span><span class="arrow">→</span>
+  <span class="step">Power user</span><span class="arrow">→</span>
+  <span class="step">Networking / storage</span><span class="arrow">→</span>
+  <span class="step">Services</span><span class="arrow">→</span>
+  <span class="step">Docker</span><span class="arrow">→</span>
+  <span class="step">Proxmox</span><span class="arrow">→</span>
+  <span class="step">Your own homelab</span>
+ </div>
+ </section>
+</div>
+
+<div class="wrap" id="modules">
+ <section>
+ <p class="tag">01 // Modules</p>
+ <h2>16 modules + final project</h2>
+ <p class="intro">Module 01 is fully built and live. The rest of the roadmap is locked in and shipping module by module - check back, or follow along on <a href="/news/">Otaconskeep News</a>.</p>
+ <div class="lnx-mod-grid">
+
+  <a class="lnx-mod-card live" href="/classroom/linux-course/modules/01-what-is-linux/">
+   <span class="n">MODULE 01</span>
+   <h3>What the Hell Is Linux?</h3>
+   <span class="unit">Kernel, distros, GNU, package managers, release models</span>
+   <span class="lnx-badge-live">Live</span>
+  </a>
+
+  <div class="lnx-mod-card locked"><span class="n">MODULE 02</span><h3>Choosing the Right Distro</h3><span class="unit">Best for what, not "what's best"</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 03</span><h3>Your First Linux Machine</h3><span class="unit">Build a VM, first terminal commands</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 04</span><h3>Linux CLI Boot Camp</h3><span class="unit">Navigation, files, search, permissions</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 05</span><h3>The Linux Filesystem</h3><span class="unit">/etc, /var, /usr, /home, /mnt</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 06</span><h3>Installing Software</h3><span class="unit">apt, dnf, pacman, Flatpak, AUR</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 07</span><h3>Linux Mint: the Easy Desktop</h3><span class="unit">Cinnamon, Timeshift, migration</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 08</span><h3>Bazzite: Gaming Machine</h3><span class="unit">Steam, Proton, Atomic desktops</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 09</span><h3>Arch: Now You Actually Learn Linux</h3><span class="unit">Pacman, AUR, the Wiki</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 10</span><h3>Omarchy: Power-User Workstation</h3><span class="unit">Hyprland, keyboard-driven desktop</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 11</span><h3>Linux Services &amp; systemd</h3><span class="unit">systemctl, journalctl</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 12</span><h3>Linux Networking</h3><span class="unit">IP, DNS, ports, SSH, troubleshooting</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 13</span><h3>Storage, Disks &amp; Mounts</h3><span class="unit">Partitions, fstab, ZFS/Btrfs</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 14</span><h3>Linux + Docker</h3><span class="unit">Compose, containers, volumes</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 15</span><h3>Proxmox: Linux Becomes the Infrastructure</h3><span class="unit">VMs, LXC, passthrough, HA</span></div>
+  <div class="lnx-mod-card locked"><span class="n">MODULE 16</span><h3>Troubleshooting Linux</h3><span class="unit">Broken machines, progressively fewer hints</span></div>
+  <div class="lnx-mod-card locked"><span class="n">FINAL PROJECT</span><h3>Build Your Own Linux Lab</h3><span class="unit">Proxmox → VM → Docker → app, start to finish</span></div>
+
+ </div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">02 // Start now</p>
+ <h2>Module 01 is ready</h2>
+ <p class="intro">Ten short lessons, a kernel/distro tree diagram, a distro comparison table, and the "I want&hellip;" picker that the rest of the course builds on.</p>
+ <div class="btn-row">
+  <a class="btn btn-primary" href="/classroom/linux-course/modules/01-what-is-linux/">Open Module 01</a>
+  <a class="btn btn-ghost" href="/classroom/">Back to Classroom</a>
+ </div>
+ </section>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Linux - From Desktop to Homelab</span>
+ <span><a href="/classroom/">Classroom home</a> · <a href="https://github.com/Otaconskeep/otaconskeep-site">GitHub</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js"></script>
+<script defer src="/assets/chat-widget.js"></script>
+</body></html>

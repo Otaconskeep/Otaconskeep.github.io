@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 01: What the Hell Is Linux? · Linux - Desktop to Homelab · Otaconskeep Classroom</title>
+<meta name="description" content="Module 01 of Linux - Desktop to Homelab: the kernel/distro tree, GNU/Linux, desktop environments, package managers, release models, and how to actually choose a distro.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Otaconskeep">
+<meta property="og:title" content="Module 01: What the Hell Is Linux?">
+<meta property="og:description" content="Linux isn't one operating system you learn - it's a set of common foundations, with different distributions making different choices for different jobs. Module 01 of a free Linux course: Desktop to Homelab.">
+<meta property="og:url" content="https://otaconskeep.github.io/classroom/linux-course/modules/01-what-is-linux/">
+<meta property="og:image" content="https://otaconskeep.github.io/classroom/visuals/icons/linux/00-module-hero.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Module 01: What the Hell Is Linux?">
+<meta name="twitter:description" content="A free Linux course that goes from 'what is a distro' to running your own Proxmox homelab.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/linux-course/modules/01-what-is-linux/">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css">
+<link rel="stylesheet" href="/assets/chat-widget.css">
+<style>
+.lnx-hero-badge{display:flex;align-items:center;gap:18px;margin-bottom:10px;}
+.lnx-hero-badge img{width:64px;height:64px;flex:none;}
+.lnx-lede-quote{border-left:3px solid var(--accent-bright);padding:10px 0 10px 18px;margin:18px 0 0;color:var(--cream);font-size:1.05rem;font-style:italic;}
+.lnx-diagram-wrap{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px 18px 18px;overflow-x:auto;}
+.lnx-diagram-wrap svg{display:block;margin:0 auto;min-width:640px;}
+.lnx-node rect{fill:var(--surface-2);stroke:var(--line-bright);stroke-width:1.5;}
+.lnx-node.k rect{fill:rgba(57,230,200,.1);stroke:var(--accent-bright);}
+.lnx-node text{fill:var(--cream);font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;}
+.lnx-node .sub{fill:var(--cream-faint);font-size:11px;font-weight:500;}
+.lnx-edge{stroke:var(--line-bright);stroke-width:1.5;fill:none;}
+.lnx-lesson-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px;}
+@media (max-width:760px){.lnx-lesson-grid{grid-template-columns:1fr;}}
+.lnx-lesson-card{display:flex;gap:14px;border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:16px;}
+.lnx-lesson-card img{width:56px;height:56px;flex:none;}
+.lnx-lesson-card h3{font-size:.98rem;margin:0 0 6px;color:var(--cream);}
+.lnx-lesson-card .lnx-num{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.1em;color:var(--accent-bright);display:block;margin-bottom:4px;}
+.lnx-lesson-card p{margin:0;color:var(--cream-dim);font-size:.88rem;line-height:1.55;}
+.lnx-want-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px;}
+@media (max-width:900px){.lnx-want-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (max-width:600px){.lnx-want-grid{grid-template-columns:1fr;}}
+.lnx-want-card{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:16px;text-align:center;}
+.lnx-want-card .emoji{font-size:1.8rem;display:block;margin-bottom:8px;}
+.lnx-want-card .want{color:var(--cream-dim);font-size:.85rem;margin:0 0 10px;min-height:2.6em;}
+.lnx-want-card img{width:56px;height:56px;margin:0 auto 8px;display:block;}
+.lnx-want-card strong{display:block;color:var(--cream);font-size:1rem;}
+.lnx-table-wrap{overflow-x:auto;margin-top:18px;}
+.lnx-table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:640px;}
+.lnx-table th,.lnx-table td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+.lnx-table th{background:var(--surface-2);color:var(--accent-bright);font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;}
+.lnx-table td{color:var(--cream-dim);}
+.lnx-table td strong{color:var(--cream);}
+.lnx-roadmap{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+.lnx-roadmap span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:.8rem;color:var(--cream-faint);font-family:'JetBrains Mono',monospace;}
+.lnx-roadmap span.now{border-color:var(--accent-bright);color:var(--accent-bright);background:rgba(57,230,200,.08);}
+</style>
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // LINUX - DESKTOP TO HOMELAB</span>
+ <span>MODULE 01<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Linux course">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/linux-course/" class="is-active">Linux: Desktop to Homelab</a>
+ <a href="#lessons">Lessons</a>
+ <a href="#tree">Distro tree</a>
+ <a href="#pick">Pick a distro</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="lnx-hero-badge">
+  <img src="/classroom/visuals/icons/linux/00-module-hero.svg" alt="">
+  <div class="stamp">MODULE 01<small>10 lessons · Linux: Desktop to Homelab</small></div>
+ </div>
+ <p class="eyebrow">Otaconskeep Classroom · New free course</p>
+ <h1 class="display" style="font-size:clamp(1.9rem,5.5vw,3.2rem);">What the Hell Is Linux?</h1>
+ <p class="lede">Linux isn't one operating system you learn. It's a set of common foundations, with different distributions making different choices for different jobs.</p>
+ <p class="lnx-lede-quote">That single idea explains why Mint, Ubuntu, Fedora, Bazzite, Arch, Omarchy, and Proxmox can all honestly call themselves "Linux" while solving completely different problems - and it's the idea this whole course is built around.</p>
+ <div class="btn-row" style="margin-top:26px;">
+  <a class="btn btn-primary" href="#lessons">Start the 10 lessons</a>
+  <a class="btn btn-ghost" href="/classroom/linux-course/">Course roadmap</a>
+  <a class="btn btn-ghost" href="#pick">Which Linux should I use?</a>
+ </div>
+ <p class="meta" style="margin-top:18px;">Beginner · No prerequisites · Part of <strong>Linux - From Desktop to Homelab</strong> (16 modules, Module 01 live now)</p>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">00 // Why start here</p>
+ <h2>Most people never learn what a "distro" actually is</h2>
+ <p class="intro">They just get told "install Ubuntu" or "install Mint" and never find out why there are 500 other options, or why a tutorial written for Fedora breaks on Debian. This module fixes that in ten short lessons - no terminal required yet. By the end you'll be able to look at any distro's homepage and immediately place it on the map: what it's built on, who it's for, and what it trades away to get there.</p>
+ <div class="cr-callout tip"><strong>End goal of the full course:</strong> comfortably choose a distro, use the terminal, administer a Linux machine, troubleshoot it, and understand why Mint, Bazzite, Omarchy, Ubuntu/Debian, and Proxmox can all be "Linux" while serving very different purposes.</div>
+ </section>
+</div>
+
+<div class="wrap" id="tree">
+ <section>
+ <p class="tag">01 // The big picture</p>
+ <h2>One kernel. Hundreds of distributions.</h2>
+ <p class="intro">Every distribution you'll ever hear about - Mint, Ubuntu, Proxmox, Arch, Omarchy, Fedora, Bazzite - sits on top of the same Linux kernel. What makes them different isn't the engine, it's everything built around it: the package manager, the default apps, the release cadence, the desktop, and the project's actual goal.</p>
+ <div class="lnx-diagram-wrap">
+ <svg viewBox="0 0 1200 560" role="img" aria-label="Diagram: Linux kernel at the top, branching to Debian, Arch, and Fedora, which branch further into Ubuntu, Proxmox, Omarchy, and Bazzite, with Linux Mint under Ubuntu">
+  <path class="lnx-edge" d="M600,96 C600,140 320,140 320,180"/>
+  <path class="lnx-edge" d="M600,96 L600,180"/>
+  <path class="lnx-edge" d="M600,96 C600,140 880,140 880,180"/>
+  <path class="lnx-edge" d="M280,256 C280,300 180,300 180,336"/>
+  <path class="lnx-edge" d="M280,256 C280,300 380,300 380,336"/>
+  <path class="lnx-edge" d="M180,412 L180,448"/>
+  <path class="lnx-edge" d="M600,256 L600,336"/>
+  <path class="lnx-edge" d="M880,256 L880,336"/>
+  <g class="lnx-node k">
+   <rect x="500" y="52" width="200" height="46" rx="8"/>
+   <text x="600" y="80" text-anchor="middle">LINUX KERNEL</text>
+  </g>
+  <g class="lnx-node">
+   <rect x="190" y="180" width="180" height="76" rx="8"/>
+   <text x="280" y="212" text-anchor="middle">Debian</text>
+   <text class="sub" x="280" y="234" text-anchor="middle">stability-first base</text>
+  </g>
+  <g class="lnx-node">
+   <rect x="510" y="180" width="180" height="76" rx="8"/>
+   <text x="600" y="212" text-anchor="middle">Arch</text>
+   <text class="sub" x="600" y="234" text-anchor="middle">rolling, build-it-yourself</text>
+  </g>
+  <g class="lnx-node">
+   <rect x="790" y="180" width="180" height="76" rx="8"/>
+   <text x="880" y="212" text-anchor="middle">Fedora</text>
+   <text class="sub" x="880" y="234" text-anchor="middle">upstream-first, fast cadence</text>
+  </g>
+  <g class="lnx-node">
+   <rect x="90" y="336" width="180" height="76" rx="8"/>
+   <text x="180" y="368" text-anchor="middle">Ubuntu</text>
+   <text class="sub" x="180" y="390" text-anchor="middle">broad ecosystem</text>
+  </g>
+  <g class="lnx-node">
+   <rect x="290" y="336" width="180" height="76" rx="8"/>
+   <text x="380" y="368" text-anchor="middle">Proxmox VE</text>
+   <text class="sub" x="380" y="390" text-anchor="middle">virtualization host</text>
+  </g>
+  <g class="lnx-node">
+   <rect x="510" y="336" width="180" height="76" rx="8"/>
+   <text x="600" y="368" text-anchor="middle">Omarchy</text>
+   <text class="sub" x="600" y="390" text-anchor="middle">Hyprland, keyboard-first</text>
+  </g>
+  <g class="lnx-node">
+   <rect x="790" y="336" width="180" height="76" rx="8"/>
+   <text x="880" y="368" text-anchor="middle">Bazzite</text>
+   <text class="sub" x="880" y="390" text-anchor="middle">Atomic, gaming-ready</text>
+  </g>
+  <g class="lnx-node k">
+   <rect x="90" y="448" width="180" height="76" rx="8"/>
+   <text x="180" y="480" text-anchor="middle">Linux Mint</text>
+   <text class="sub" x="180" y="502" text-anchor="middle">beginner desktop</text>
+  </g>
+ </svg>
+ </div>
+ <p class="intro" style="margin-top:14px;">This isn't a strict "reskin" tree - it's a map of inheritance: what base a project builds on, which repositories it draws from, and which desktop and goals it wraps around that base. Lesson 3 unpacks exactly how that inheritance works.</p>
+ </section>
+</div>
+
+<div class="wrap" id="lessons">
+ <section>
+ <p class="tag">02 // The 10 lessons</p>
+ <h2>Lesson-by-lesson</h2>
+ <p class="intro">Every lesson is short, plain-language, and builds toward the same skill: being able to explain <em>why</em> a distro exists, not just its name.</p>
+ <div class="lnx-lesson-grid">
+
+  <div class="lnx-lesson-card">
+   <img src="/classroom/visuals/icons/linux/lesson-01-icon.svg" alt="">
+   <div><span class="lnx-num">Lesson 1</span><h3>What is Linux?</h3>
+   <p>Linux is a free, open-source <strong>kernel</strong> - the core program that talks to your hardware, manages memory, and decides which process gets the CPU next. On its own it's not something you "use"; it's the engine everything else sits on top of.</p></div>
+  </div>
+
+  <div class="lnx-lesson-card">
+   <img src="/classroom/visuals/icons/linux/lesson-02-icon.svg" alt="">
+   <div><span class="lnx-num">Lesson 2</span><h3>Kernel vs. operating system vs. distribution</h3>
+   <p>Kernel → the engine. Operating system → kernel + the tools needed to actually do anything (shell, libraries, init system). Distribution → a complete, ready-to-install package of an OS, curated by a specific project with its own defaults and philosophy.</p></div>
+  </div>
+
+  <div class="lnx-lesson-card">
+   <img src="/classroom/visuals/icons/linux/lesson-03-icon.svg" alt="">
+   <div><span class="lnx-num">Lesson 3</span><h3>Why are there 500 Linux distributions?</h3>
+   <p>Because the kernel and most of the software underneath are free to take and rebuild. Projects fork a base, add their own package manager or desktop, target a specific audience (gamers, servers, beginners, tinkerers), and ship it under a new name. That's the whole tree from Lesson 1, explained.</p></div>
+  </div>
+
+  <div class="lnx-lesson-card">
+   <img src="/classroom/visuals/icons/linux/lesson-04-icon.svg" alt="">
+   <div><span class="lnx-num">Lesson 4</span><h3>GNU/Linux and open source</h3>
+   <p>Most of the command-line tools and libraries around the Linux kernel come from the GNU Project - which is why purists say "GNU/Linux." Open source means the source code is public, so anyone can inspect it, modify it, and redistribute it, which is the entire reason so many distros can exist in the first place.</p></div>
+  </div>
+
+  <div class="lnx-lesson-card">
+   <img src="/classroom/visuals/icons/linux/lesson-05-icon.svg" alt="">
+   <div><span class="lnx-num">Lesson 5</span><h3>Linux vs. Windows vs. macOS</h3>
+   <p>Windows and macOS are closed, vendor-controlled, and built for a single "one true way" experience. Linux is open, and it hands you the choice of kernel config, desktop, package manager, and philosophy - more control, more responsibility, and a steeper (but optional) learning curve.</p></div>
+  </div>
+
+  <div class="lnx-lesson-card">
+   <img src="/classroom/visuals/icons/linux/lesson-06-icon.svg" alt="">
+   <div><span class="lnx-num">Lesson 6</span><h3>Desktop environment vs. distro</h3>
+   <p>The distro is the whole package; the desktop environment (Cinnamon, GNOME, KDE, Hyprland) is just the visual/window-management layer on top of it. The same distro can often run several different desktops - and the same desktop can show up on totally unrelated distros.</p></div>
+  </div>
+
+  <div class="lnx-lesson-card">
+   <img src="/classroom/visuals/icons/linux/lesson-07-icon.svg" alt="">
+   <div><span class="lnx-num">Lesson 7</span><h3>Package manager vs. app store</h3>
+   <p>An app store is a curated storefront. A package manager (<code>apt</code>, <code>dnf</code>, <code>pacman</code>) installs software from repositories and automatically resolves every dependency that software needs - which is why install commands differ by distro family, and why you usually can't just double-click a <code>setup.exe</code>.</p></div>
+  </div>
+
+  <div class="lnx-lesson-card">
+   <img src="/classroom/visuals/icons/linux/lesson-08-icon.svg" alt="">
+   <div><span class="lnx-num">Lesson 8</span><h3>Rolling release vs. fixed release</h3>
+   <p>Fixed-release distros (Ubuntu, Debian, Fedora) ship big versions on a schedule and hold packages steady in between. Rolling-release distros (Arch, Omarchy) push updates continuously, so you're always close to the newest software - at the cost of things occasionally breaking without warning.</p></div>
+  </div>
+
+  <div class="lnx-lesson-card">
+   <img src="/classroom/visuals/icons/linux/lesson-09-icon.svg" alt="">
+   <div><span class="lnx-num">Lesson 9</span><h3>Stable vs. bleeding edge</h3>
+   <p>"Stable" doesn't mean "doesn't crash" - it means packages are frozen and heavily tested before they ship, which is exactly what you want on a server. "Bleeding edge" trades that safety for the newest kernels, drivers, and features, which is exactly what you want on a daily gaming or dev desktop.</p></div>
+  </div>
+
+  <div class="lnx-lesson-card">
+   <img src="/classroom/visuals/icons/linux/lesson-10-icon.svg" alt="">
+   <div><span class="lnx-num">Lesson 10</span><h3>Which Linux should I actually use?</h3>
+   <p>Wrong question. The right question is "best for what?" - a beginner desktop, a gaming rig, a dependable server, a keyboard-driven workstation, a learning project, or a homelab hypervisor all have different right answers. See the picker below.</p></div>
+  </div>
+
+ </div>
+ </section>
+</div>
+
+<div class="wrap" id="pick">
+ <section>
+ <p class="tag">03 // Distro Explorer</p>
+ <h2>I want&hellip;</h2>
+ <p class="intro">This is the mental model the rest of the course is built on. Pick your goal, not a "best" distro - there isn't one.</p>
+ <div class="lnx-want-grid">
+
+  <div class="lnx-want-card">
+   <span class="emoji">🪟</span>
+   <p class="want">Something familiar, coming from Windows</p>
+   <img src="/classroom/visuals/icons/linux/distro-mint-icon.svg" alt=""><strong>Linux Mint</strong>
+  </div>
+
+  <div class="lnx-want-card">
+   <span class="emoji">🌐</span>
+   <p class="want">General Linux, broad compatibility</p>
+   <img src="/classroom/visuals/icons/linux/distro-ubuntu-icon.svg" alt=""><strong>Ubuntu</strong>
+  </div>
+
+  <div class="lnx-want-card">
+   <span class="emoji">🖥️</span>
+   <p class="want">A dependable server</p>
+   <img src="/classroom/visuals/icons/linux/distro-debian-icon.svg" alt=""><strong>Debian</strong>
+  </div>
+
+  <div class="lnx-want-card">
+   <span class="emoji">⚙️</span>
+   <p class="want">A modern workstation, newer tech without going full Arch</p>
+   <img src="/classroom/visuals/icons/linux/distro-fedora-icon.svg" alt=""><strong>Fedora</strong>
+  </div>
+
+  <div class="lnx-want-card">
+   <span class="emoji">🎮</span>
+   <p class="want">A gaming PC / console-style build</p>
+   <img src="/classroom/visuals/icons/linux/distro-bazzite-icon.svg" alt=""><strong>Bazzite</strong>
+  </div>
+
+  <div class="lnx-want-card">
+   <span class="emoji">🧠</span>
+   <p class="want">To understand and configure everything myself</p>
+   <img src="/classroom/visuals/icons/linux/distro-arch-icon.svg" alt=""><strong>Arch</strong>
+  </div>
+
+  <div class="lnx-want-card">
+   <span class="emoji">⌨️</span>
+   <p class="want">A slick, keyboard-driven workflow</p>
+   <img src="/classroom/visuals/icons/linux/distro-omarchy-icon.svg" alt=""><strong>Omarchy</strong>
+  </div>
+
+  <div class="lnx-want-card">
+   <span class="emoji">🏠</span>
+   <p class="want">A virtualization / homelab server</p>
+   <img src="/classroom/visuals/icons/linux/distro-proxmox-icon.svg" alt=""><strong>Proxmox VE</strong>
+  </div>
+
+ </div>
+
+ <div class="lnx-table-wrap">
+ <table class="lnx-table">
+ <thead><tr><th>Distro</th><th>Great for</th><th>Main benefit</th><th>Tradeoff</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Linux Mint</strong></td><td>Beginners / Windows converts</td><td>Familiar, stable desktop</td><td>Less cutting-edge</td></tr>
+ <tr><td><strong>Ubuntu</strong></td><td>General Linux / broad compatibility</td><td>Huge ecosystem</td><td>More opinionated packaging choices</td></tr>
+ <tr><td><strong>Debian</strong></td><td>Servers / stability</td><td>Conservative and dependable</td><td>Older packages</td></tr>
+ <tr><td><strong>Fedora</strong></td><td>Modern Linux workstation</td><td>Newer tech without going full Arch</td><td>Faster release cadence</td></tr>
+ <tr><td><strong>Bazzite</strong></td><td>Gaming / console PC</td><td>Gaming-ready Atomic desktop</td><td>Different system-management model</td></tr>
+ <tr><td><strong>Arch</strong></td><td>Learning / customization</td><td>Maximum control</td><td>You maintain more yourself</td></tr>
+ <tr><td><strong>Omarchy</strong></td><td>Keyboard-driven power users</td><td>Curated Arch + Hyprland workflow</td><td>Steeper learning curve</td></tr>
+ <tr><td><strong>Proxmox VE</strong></td><td>Homelab / server virtualization</td><td>VMs + containers + management</td><td>Not intended as your normal desktop OS</td></tr>
+ </tbody>
+ </table>
+ </div>
+ <div class="cr-callout tip" style="margin-top:16px;"><strong>The takeaway:</strong> Mint isn't worse than Bazzite. Bazzite isn't better than Mint. They're solving different problems for different people - and now you know which problem is yours.</div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">04 // Where this course goes</p>
+ <h2>Linux basics → CLI → distro choice → desktop → gaming → power user → networking/storage → services → Docker → Proxmox → your own homelab</h2>
+ <div class="lnx-roadmap">
+  <span class="now">Module 01 - What the Hell Is Linux? ✅ live</span>
+  <span>Module 02 - Choosing the right distro</span>
+  <span>Module 03 - Your first Linux machine</span>
+  <span>Module 04 - CLI boot camp</span>
+  <span>Module 05 - The filesystem</span>
+  <span>Module 06 - Installing software</span>
+  <span>Module 07 - Linux Mint: the easy desktop</span>
+  <span>Module 08 - Bazzite: gaming machine</span>
+  <span>Module 09 - Arch: now you actually learn Linux</span>
+  <span>Module 10 - Omarchy: the power-user workstation</span>
+  <span>Module 11 - Services &amp; systemd</span>
+  <span>Module 12 - Networking</span>
+  <span>Module 13 - Storage, disks &amp; mounts</span>
+  <span>Module 14 - Linux + Docker</span>
+  <span>Module 15 - Proxmox: Linux becomes the infrastructure</span>
+  <span>Module 16 - Troubleshooting Linux</span>
+  <span>Final project - Build your own Linux lab</span>
+ </div>
+ <div class="btn-row" style="margin-top:22px;">
+  <a class="btn btn-primary" href="/classroom/linux-course/">See the full course roadmap</a>
+  <a class="btn btn-ghost" href="/classroom/">Back to Classroom</a>
+ </div>
+ </section>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Linux - From Desktop to Homelab · Module 01</span>
+ <span><a href="/classroom/">Classroom home</a> · <a href="https://github.com/Otaconskeep/otaconskeep-site">GitHub</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js"></script>
+<script defer src="/assets/chat-widget.js"></script>
+</body></html>

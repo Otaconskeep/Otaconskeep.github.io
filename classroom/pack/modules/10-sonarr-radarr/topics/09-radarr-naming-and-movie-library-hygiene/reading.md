@@ -96,8 +96,8 @@ Use only tokens confirmed by the naming preview in the installed Radarr version;
 
 ## References
 
-- Radarr Wiki — Settings: https://wiki.servarr.com/radarr/settings
-- Radarr Wiki — Radarr documentation index: https://wiki.servarr.com/radarr
-- TRaSH Guides — Radarr recommended naming scheme: https://trash-guides.info/Radarr/Radarr-recommended-naming-scheme/
-- Python documentation — pathlib: https://docs.python.org/3/library/pathlib.html
-- Unicode Standard Annex #15 — Unicode Normalization Forms: https://unicode.org/reports/tr15/
+- Radarr Wiki - Settings: https://wiki.servarr.com/radarr/settings
+- Radarr Wiki - Radarr documentation index: https://wiki.servarr.com/radarr
+- TRaSH Guides - Radarr recommended naming scheme: https://trash-guides.info/Radarr/Radarr-recommended-naming-scheme/
+- Python documentation - pathlib: https://docs.python.org/3/library/pathlib.html
+- Unicode Standard Annex #15 - Unicode Normalization Forms: https://unicode.org/reports/tr15/
