@@ -54,19 +54,20 @@
  <a href="/classroom/">Learn</a>
  <a href="/engineering/">Engineering</a>
  <a href="/about/">About</a>
+ <a href="/donate/">Donate</a>
  <a href="/install/" class="discord">Get Otacon</a>
  </div></div>
 </nav>
 
 <div class="wrap">
  <section class="hero flush">
- <div class="stamp premium">Otacon Expansion<small>premium · v1.3.1</small></div>
+ <div class="stamp premium">Otacon Expansion<small>free · v1.3.1</small></div>
  <p class="eyebrow" style="margin-top: 18px;">Product // Multi-Agent &amp; Emotional-State Layer · Release v1.3.1</p>
  <h1 class="display" style="font-size: clamp(2.6rem, 7vw, 4.5rem);">Otacon Expansion</h1>
- <p class="lede">A five-agent roster with real hierarchy, a live mood and relationship engine, <strong>Culture Learning</strong> (Aria advances then teaches the crew), a <a href="#rex-business">standing REX business cycle</a>, and command-center surfaces, installed on top of <a href="/otacon/">Otacon Core</a>, licensed separately. Core stays free forever. Expansion is the one paid layer above it. <strong>Fresh PC truth:</strong> Aria + Deck/Codec install today; Genome Voice Trainer and Video Studio are optional and need GPU / Docker (or existing Comfy), not READY on every machine out of the box.</p>
+ <p class="lede">A five-agent roster with real hierarchy, a live mood and relationship engine, <strong>Culture Learning</strong> (Aria advances then teaches the crew), a <a href="#rex-business">standing REX business cycle</a>, and command-center surfaces, installed on top of <a href="/otacon/">Otacon Core</a>. Free forever, same as Core. <strong>Fresh PC truth:</strong> Aria + Deck/Codec install today; Genome Voice Trainer and Video Studio are optional and need GPU / Docker (or existing Comfy), not READY on every machine out of the box.</p>
  <div class="btn-row" style="margin-top: 26px;">
  <a class="btn btn-primary" href="/downloads/OtaconExpansion-Setup.bat" download style="background: var(--premium); border-color: var(--premium); color: #150f24;">Download Expansion Setup &rarr;</a>
- <a class="btn btn-ghost" href="/premium/">Member HQ / license</a>
+ <a class="btn btn-ghost" href="/donate/">Support the build</a>
  </div>
  <div class="btn-row" style="margin-top: 10px;">
  <a class="btn btn-ghost" href="/downloads/">All downloads</a>
@@ -153,7 +154,7 @@
  <strong>VECTOR</strong> <strong>LEDGER</strong> <strong>MUSE</strong> <strong>SENTRY</strong>
  War Room Intel Board Video Studio Home Automation
  (systems) (records) (creative) (security)</div>
- <p class="diagram-caption">REX Board and Dossier stay Keep-wide rather than single-owner: every agent files into REX, every agent gets a dossier. Premium Expansion (v1.3.2+) also ships the KeepRoute / OmniRoute &rarr; <strong>global learning &rarr; world-model &rarr; REX proposal</strong> loop. Point KeepRoute at Expansion with <span class="mono">OTACON_EXPANSION_URL</span>. See <a href="/keeproute/#rex-learning">KeepRoute · REX learning</a>.</p>
+ <p class="diagram-caption">REX Board and Dossier stay Keep-wide rather than single-owner: every agent files into REX, every agent gets a dossier. Expansion (v1.3.2+) also ships the KeepRoute / OmniRoute &rarr; <strong>global learning &rarr; world-model &rarr; REX proposal</strong> loop. Point KeepRoute at Expansion with <span class="mono">OTACON_EXPANSION_URL</span>. See <a href="/keeproute/#rex-learning">KeepRoute · REX learning</a>.</p>
  </section>
 </div>
 
@@ -320,7 +321,7 @@
  </tbody>
  </table>
  </div>
- <div class="info-note">No credential in this system ever authenticates against Antonio's own accounts or infrastructure. Every integration runs on credentials the installing user generates and stores themselves. The Expansion license is the only paid line item anywhere in this stack: every model and every bundled service is free and self-hosted.</div>
+ <div class="info-note">No credential in this system ever authenticates against Antonio's own accounts or infrastructure. Every integration runs on credentials the installing user generates and stores themselves. Every model and every bundled service in this stack is free and self-hosted.</div>
  </section>
 </div>
 
@@ -371,7 +372,7 @@
  <details class="baby-error"><summary>SmartScreen / UAC</summary>
  <div class="baby-error-body"><ol><li>More info → Run anyway. Click Yes.</li></ol></div></details>
  <details class="baby-error"><summary>Surfaces still locked</summary>
- <div class="baby-error-body"><ol><li>License entitlement is separate: check <a href="/premium/">Premium</a>, hard-refresh :5757.</li></ol></div></details>
+ <div class="baby-error-body"><ol><li>Surfaces unlock once the Expansion roster finishes installing, no license needed. Confirm the install actually completed, then hard-refresh :5757.</li></ol></div></details>
  </div>
  </details>
  </div>
@@ -381,7 +382,7 @@
  <div class="os-card os-card-manual" id="expansion-wsl-linux-manual" style="margin-top:16px;">
  <span class="manual-col-tag">WSL / Linux</span>
  <p class="os-label">Expansion manual for WSL or Linux, including the errors</p>
- <p class="os-hint">Lite must already answer on port 5757. This does not grant the $1 seat. Antonio issues that seat in Member HQ. These steps install the Expansion layer inside the same Ubuntu that is already running Lite.</p>
+ <p class="os-hint">Lite must already answer on port 5757. These steps install the Expansion layer inside the same Ubuntu that is already running Lite.</p>
  <div class="os-chooser" role="tablist" aria-label="Expansion on WSL or Linux" data-os-chooser>
  <button type="button" class="os-chooser-btn is-active" data-os-target="wsl" role="tab" aria-selected="true">Windows · WSL<span class="os-choice-sub">Same Ubuntu as Lite</span></button>
  <button type="button" class="os-chooser-btn" data-os-target="linux" role="tab" aria-selected="false">Ubuntu / Debian PC<span class="os-choice-sub">Same machine as Lite</span></button>
@@ -410,11 +411,11 @@ bash "$HOME/install_otacon_expansion.sh"</code>
  </div>
  </details>
  <details class="manual-step">
- <summary><span class="manual-step-num">3</span> Restart and confirm the seat</summary>
+ <summary><span class="manual-step-num">3</span> Restart and confirm</summary>
  <div class="manual-step-body">
  <pre class="baby-code mono">sudo systemctl restart otacon
 systemctl status otacon --no-pager</pre>
- <p>Hard-refresh <span class="mono">http://127.0.0.1:5757</span>. Locked premium rooms mean the license seat is not on yet. That is separate from this installer. Check <a href="/premium/">Member HQ</a>.</p>
+ <p>Hard-refresh <span class="mono">http://127.0.0.1:5757</span>. Locked rooms mean the Expansion roster has not finished installing, no license needed. That is separate from this installer.</p>
  </div>
  </details>
  </div>
@@ -445,7 +446,7 @@ bash "$HOME/install_otacon_expansion.sh"</code>
  <summary><span class="manual-step-num">3</span> Restart Otacon</summary>
  <div class="manual-step-body">
  <pre class="baby-code mono">sudo systemctl restart otacon</pre>
- <p>Hard-refresh the browser. A successful script with locked rooms still needs the Member HQ seat.</p>
+ <p>Hard-refresh the browser. Locked rooms after a successful script mean the roster install has not finished yet, no license needed.</p>
  </div>
  </details>
  </div>
@@ -550,8 +551,8 @@ systemd=true</pre>
  </ol></div></details>
  <details class="baby-error"><summary>Surfaces stay locked after a successful install</summary>
  <div class="baby-error-body"><ol>
- <li>The installer does not grant the $1 seat. War Room and the other premium rails stay locked until entitlement is on.</li>
- <li>Confirm the seat in <a href="/premium/">Member HQ</a>, restart with <span class="mono">sudo systemctl restart otacon</span>, then hard-refresh <span class="mono">:5757</span>.</li>
+ <li>No license or seat is required. War Room and the other Expansion rails unlock once the roster install actually finishes.</li>
+ <li>Restart with <span class="mono">sudo systemctl restart otacon</span>, then hard-refresh <span class="mono">:5757</span>.</li>
  <li>Optional pieces (Genome Voice Trainer, Video Studio) can stay off without a GPU or Docker. The roster can still be installed.</li>
  </ol></div></details>
  <details class="baby-error"><summary>Low disk for video packs</summary>
@@ -588,12 +589,12 @@ systemd=true</pre>
  <tbody>
  <tr><td><strong>OtaconsKeep Lite</strong></td><td>Free &middot; open source &middot; self-hosted</td><td>Install today</td><td>Free</td></tr>
  <tr><td><strong>KeepRoute</strong></td><td>Mission-state routing · public install on the KeepRoute page</td><td>1.0 stable</td><td>Free</td></tr>
- <tr><td><strong>Premium / Expansion</strong></td><td>Licensed · Available now · requires Lite · GPU/creative sidecars optional</td><td>Licensed members</td><td>One-time donation · $1</td></tr>
+ <tr><td><strong>Expansion</strong></td><td>Available now · requires Lite · GPU/creative sidecars optional</td><td>Install today</td><td>Free</td></tr>
  <tr><td><strong>Keep Blueprint</strong></td><td>The full private reference environment Expansion is built from</td><td>Reference only</td><td>Not offered publicly</td></tr>
  </tbody>
  </table>
  </div>
- <p class="intro" style="margin-top: 18px;">Core has no license key or artificial limit today and never will. Expansion adds a real, separately-licensed layer on top of it: it does not cripple, gate, or take anything away from Core.</p>
+ <p class="intro" style="margin-top: 18px;">Core has no license key or artificial limit today and never will. Expansion is a free layer on top of it: it does not cripple, gate, or take anything away from Core.</p>
  <div class="btn-row">
  <a class="btn btn-ghost" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">&#128172; Ask in Discord</a>
  <a class="btn btn-ghost" href="/otacon/">&larr; Back to Otacon Core</a>
