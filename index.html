@@ -46,43 +46,85 @@
  padding:0.12em 0.45em;
  font-weight:700;
 }
-/* Systems map: L1 system → L2 domains → L3 nodes → L4 leaves (all expanded) */
-.kt-wrap{background:var(--bg-elevated);border:1px solid var(--line);border-radius:8px;padding:18px 18px 14px;overflow-x:auto;}
-.kt-sys{display:flex;flex-direction:column;gap:12px;min-width:min(100%,720px);}
-.kt-l1{
- border:1px solid var(--accent-bright);border-radius:8px;padding:14px 16px;
- background:linear-gradient(160deg,rgba(57,230,200,.12),rgba(57,230,200,.02));
+/* Fivetran-style hierarchical schema diagram (all levels visible) */
+.kt-wrap{
+ background:#eef3f8;
+ border:1px solid #c9d6e4;
+ border-radius:10px;
+ padding:22px 18px 16px;
+ overflow-x:auto;
+ color:#1a2433;
+ background-image:
+  linear-gradient(rgba(70,120,180,.08) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(70,120,180,.08) 1px, transparent 1px);
+ background-size:24px 24px;
 }
-.kt-l1 .lvl{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-bright);margin-bottom:4px;}
-.kt-l1 .n{display:block;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.35rem;color:var(--cream);text-transform:uppercase;letter-spacing:.04em;}
-.kt-l1 .s{display:block;margin-top:4px;color:var(--cream-dim);font-size:.9rem;max-width:62ch;}
-.kt-domains{display:flex;flex-direction:column;gap:10px;padding-left:10px;border-left:2px solid rgba(57,230,200,.35);margin-left:6px;}
-.kt-l2{
- border:1px solid var(--line-bright);border-radius:8px;background:var(--surface,var(--bg-elevated));padding:12px 12px 10px;
+.kt-wrap .diagram-caption{color:#5a6b7d;font-style:normal;}
+.schema-title{
+ margin:0 0 18px; text-align:center;
+ font-family:'Bricolage Grotesque',sans-serif; font-weight:800;
+ font-size:clamp(1.4rem,3vw,1.9rem); color:#0f1724; letter-spacing:-.02em;
 }
-.kt-l2-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;margin-bottom:10px;}
-.kt-l2-head .lvl{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-bright);}
-.kt-l2-head .n{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.95rem;color:var(--cream);}
-.kt-l2-head .s{font-size:.78rem;color:var(--cream-faint);flex:1 1 12rem;}
-.kt-l3-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;}
-.kt-node{
- border:1px solid var(--line);border-radius:6px;padding:10px 11px;background:rgba(0,0,0,.18);
- text-align:left;color:var(--cream);text-decoration:none;display:block;
+.schema-tree{position:relative; min-width:920px; padding-bottom:8px;}
+.schema-root-row{display:flex; justify-content:center; margin-bottom:8px;}
+.schema-l2-row{
+ display:grid;
+ grid-template-columns:repeat(4, minmax(200px, 1fr));
+ gap:14px 16px;
+ position:relative;
+ z-index:1;
 }
-a.kt-node{border-color:rgba(57,230,200,.45);}
-a.kt-node:hover{background:rgba(57,230,200,.06);border-color:var(--accent-bright);}
-a.kt-node .n::after{content:" ↗";color:var(--accent-bright);font-size:.8em;}
-.kt-node .lvl{display:block;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-faint);margin-bottom:2px;}
-.kt-node .n{display:block;font-family:'JetBrains Mono',monospace;font-size:.82rem;font-weight:650;color:var(--cream);}
-.kt-node .s{display:block;font-size:.72rem;color:var(--cream-faint);margin-top:3px;line-height:1.35;}
-.kt-l4{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
-.kt-leaf{
- font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.02em;
- border:1px solid var(--line);border-radius:999px;padding:3px 8px;color:var(--cream-dim);background:rgba(0,0,0,.22);
+@media (max-width:980px){
+ .schema-tree{min-width:680px;}
+ .schema-l2-row{grid-template-columns:repeat(2, minmax(200px, 1fr));}
 }
-.kt-leaf .t{color:var(--cream-faint);margin-left:4px;font-size:.62rem;}
-.kt-legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin:0 0 4px;font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-faint);}
-.kt-legend b{color:var(--accent-bright);font-weight:600;}
+.schema-lines{
+ position:absolute; inset:0; width:100%; height:100%;
+ pointer-events:none; z-index:0; overflow:visible;
+}
+.schema-table{
+ border:1.5px solid #2b3a4f;
+ border-radius:6px;
+ background:#fff;
+ box-shadow:0 8px 24px rgba(20,40,70,.08);
+ overflow:hidden;
+ text-align:left;
+}
+.schema-table.is-root{
+ width:min(320px, 90%);
+ border-color:#1f6feb;
+ box-shadow:0 10px 28px rgba(31,111,235,.18);
+}
+.schema-table .hd{
+ padding:9px 12px;
+ font-family:'JetBrains Mono',monospace;
+ font-size:.78rem; font-weight:700; letter-spacing:.04em;
+ text-transform:uppercase; color:#fff;
+ background:#1f6feb;
+}
+.schema-table.is-root .hd{background:#0b4db8; font-size:.86rem;}
+.schema-table .hd .lvl{
+ opacity:.8; font-weight:600; margin-right:6px; letter-spacing:.1em; font-size:.66rem;
+}
+.schema-table .bd{padding:0;}
+.schema-table .field{
+ display:block; padding:7px 12px;
+ border-top:1px solid #d8e1ec;
+ font-family:'JetBrains Mono',monospace; font-size:.72rem; color:#243246;
+ text-decoration:none; background:#fff;
+}
+.schema-table .field:hover{background:#f3f8ff; color:#0b4db8;}
+.schema-table .field .sub{
+ display:block; margin-top:2px; color:#6a7c90; font-size:.64rem; font-weight:500;
+ text-transform:none; letter-spacing:0;
+}
+.schema-table .field.is-plain{color:#405166;}
+.schema-key{
+ margin:10px 0 0;
+ font-family:'JetBrains Mono',monospace; font-size:.66rem;
+ letter-spacing:.06em; text-transform:uppercase; color:#5a6b7d; text-align:center;
+}
+.schema-key b{color:#0b4db8;}
 .path-card { color:var(--cream); text-decoration:none; display:block; }
 .path-card:hover { border-color: var(--accent); }
 .eng-count {
@@ -170,170 +212,170 @@ a.kt-node .n::after{content:" ↗";color:var(--accent-bright);font-size:.8em;}
  <p class="tag">What is a Keep?</p>
  <h2>One private system, not one chatbot</h2>
  <p class="intro">A Keep is agents, tools, and services on hardware you control. KeepRoute keeps the work alive when a model changes. You already own the machine it runs on.</p>
- <figure class="keep-diagram-figure kt-wrap" style="overflow-x:visible;">
- <p class="kt-legend"><b>L1</b> system · <b>L2</b> domain · <b>L3</b> node · <b>L4</b> leaf · all levels expanded</p>
- <div class="kt-sys" id="kt-sys" aria-label="Otaconskeep systems map"></div>
+ <figure class="keep-diagram-figure kt-wrap" style="overflow-x:auto;">
+ <p class="schema-title">Keep schema.</p>
+ <div class="schema-tree" id="kt-sys" aria-label="Otaconskeep Keep schema"></div>
+ <p class="schema-key"><b>L1</b> root table · <b>L2</b> child tables · <b>L3</b> fields · lines = owns / reports</p>
 <script>
 (function(){
- /* Systems hierarchy: L1 Your Keep → L2 domains → L3 nodes → optional L4 leaves. Fully expanded; no drill. */
- var KEEP = {
-  label: 'Your Keep',
-  s: 'Otaconskeep as one private system: agents, command surfaces, services, routers, social craft, and engines on hardware you control.',
-  domains: [
-   {
-    label: 'AI Agent Products',
-    s: 'Shipable layers you install',
-    nodes: [
-     {label:'Otacon Lite', href:'/otacon/', s:'Chat, memory, voice foundation'},
-     {label:'KeepRoute', href:'/keeproute/', s:'Provider fallback + mission continuity'},
-     {label:'Keep Desk', href:'/keepdesk/', s:'Computer-using teammates on your workstation'},
-     {label:'Expansion', href:'/expansion/', s:'5-agent hierarchy + REX loop'}
-    ]
-   },
-   {
-    label: 'Command Surfaces',
-    s: 'Monolith / rooms operators live in',
-    nodes: [
-     {label:'Command Deck', href:'/keepdesk/', s:'Briefing, jobs, LIVE browser, Why'},
-     {label:'Codec', s:'Voice + personnel channel'},
-     {label:'Dashboard', s:'Coordinator home (Aria)'},
-     {label:'War Room', s:'Situation / ops view'},
-     {label:'Engineering', href:'/engineering/', s:'Requirements, V&V, evidence'},
-     {label:'Classroom', href:'/classroom/', s:'Homelab Academy curriculum'}
-    ]
-   },
-   {
-    label: 'Service Stack',
-    s: 'Homelab services the Keep operates',
-    nodes: [
-     {label:'Media', s:'Library + acquisition', leaves:[
-      {label:'Plex', s:'server'}, {label:'Radarr', s:'movies'}, {label:'Sonarr', s:'TV'}, {label:'Prowlarr', s:'indexers'}
-     ]},
-     {label:'Requests', s:'Ask → approve → acquire', leaves:[
-      {label:'Doplarr', s:'Discord bridge'}, {label:'Seerr', s:'request UI'}
-     ]},
-     {label:'FOXDIE', href:'/foxdie/', s:'Library integrity + reversible fixes'},
-     {label:'Home + Automation', s:'House + workflows', leaves:[
-      {label:'Home Assistant', s:'smart home'}, {label:'n8n', s:'automation'}
-     ]},
-     {label:'Creative Pipeline', s:'Generate + direct', leaves:[
-      {label:'Video Studio', s:'GPU gen'}, {label:'The Director', s:'orchestration'}
-     ]},
-     {label:'Search', s:'Private meta-search', leaves:[{label:'SearXNG', s:'LAN search'}]},
-     {label:'AI9', href:'/ai9/', s:'GPU manga colorizer'}
-    ]
-   },
-   {
-    label: 'Capability Router',
-    s: 'Where work runs',
-    nodes: [
-     {label:'Local GPU', s:'Ollama / Comfy / heavy jobs on Keep silicon'},
-     {label:'Remote Workers', s:'Offload when the local node is busy'},
-     {label:'Other Nodes', s:'LAN peers and lab hosts'}
-    ]
-   },
-   {
-    label: 'Communication',
-    s: 'How humans and bots reach the Keep',
-    nodes: [
-     {label:'SSH', s:'Operator remote shell'},
-     {label:'TLS', s:'Encrypted fronts for exposed services'},
-     {label:'Discord', s:'Chat, requests, notifications'},
-     {label:'Doplarr', s:'Discord → Sonarr/Radarr bridge'},
-     {label:'n8n', s:'Webhooks + workflow I/O'}
-    ]
-   },
-   {
-    label: 'Social & Relationships',
-    s: 'How the crew speaks and relates',
-    nodes: [
-     {label:'Culture Learning', href:'/expansion/', s:'Aria absorbs craft → teaches the roster'},
-     {label:'Mood / relationship engine', s:'Standing social state across agents'},
-     {label:'Codec voices', s:'Personnel voice archive on the channel'},
-     {label:'Discord presence', s:'Human-facing social surface'}
-    ]
-   },
-   {
-    label: 'Engines',
-    s: 'Loops that keep the system moving',
-    nodes: [
-     {label:'REX business cycle', href:'/expansion/#rex-business', s:'Draft → review → propose → gate'},
-     {label:'KeepRoute → learning → world-model', href:'/keeproute/#rex-learning', s:'Mission continuity into REX proposals'},
-     {label:'FOXDIE integrity loop', href:'/foxdie/', s:'Scan → report → reversible repair'},
-     {label:'Job / worker queue', href:'/keepdesk/', s:'Desk bots drain work (serial today)'}
-    ]
-   },
-   {
-    label: 'Agent Roster',
-    s: 'Command hierarchy: Aria rank 1, specialists report up',
-    nodes: [
-     {label:'Aria', s:'Command coordinator · Dashboard + Codec'},
-     {label:'Vector', s:'Systems & infrastructure → Aria'},
-     {label:'Ledger', s:'Data & continuity → Aria'},
-     {label:'Muse', s:'Creative & media → Aria'},
-     {label:'Sentry', s:'Security & operations → Aria'},
-     {label:'Full roster', href:'/expansion/#roster', s:'Expansion page detail'}
-    ]
-   }
-  ]
- };
+ /* Hierarchical schema diagram (Fivetran-style): root table → child tables with field rows. All levels visible. */
+ var ROOT = { label: 'YOUR_KEEP', note: 'L1 system · Otaconskeep monolith' };
+ var TABLES = [
+  {label:'AI_AGENT_PRODUCTS', color:'#0b4db8', fields:[
+   {n:'otacon_lite', href:'/otacon/', note:'chat · memory · voice'},
+   {n:'keeproute', href:'/keeproute/', note:'mission continuity'},
+   {n:'keep_desk', href:'/keepdesk/', note:'computer-use teammates'},
+   {n:'expansion', href:'/expansion/', note:'5-agent hierarchy + REX'}
+  ]},
+  {label:'COMMAND_SURFACES', color:'#155e75', fields:[
+   {n:'command_deck', href:'/keepdesk/', note:'briefing · LIVE · Why'},
+   {n:'codec', note:'voice + personnel channel'},
+   {n:'dashboard', note:'Aria coordinator home'},
+   {n:'war_room', note:'situation / ops view'},
+   {n:'engineering', href:'/engineering/', note:'V&V evidence'},
+   {n:'classroom', href:'/classroom/', note:'Homelab Academy'}
+  ]},
+  {label:'SERVICE_STACK', color:'#9a3412', fields:[
+   {n:'media', note:'plex · radarr · sonarr · prowlarr'},
+   {n:'requests', note:'doplarr · seerr'},
+   {n:'foxdie', href:'/foxdie/', note:'library integrity'},
+   {n:'home_automation', note:'home_assistant · n8n'},
+   {n:'creative_pipeline', note:'video_studio · director'},
+   {n:'search', note:'searxng'},
+   {n:'ai9', href:'/ai9/', note:'GPU manga colorizer'}
+  ]},
+  {label:'CAPABILITY_ROUTER', color:'#6d28d9', fields:[
+   {n:'local_gpu', note:'ollama · comfy · heavy jobs'},
+   {n:'remote_workers', note:'offload when local is busy'},
+   {n:'other_nodes', note:'LAN peers / lab hosts'}
+  ]},
+  {label:'COMMUNICATION', color:'#047857', fields:[
+   {n:'ssh', note:'operator remote shell'},
+   {n:'tls', note:'encrypted service fronts'},
+   {n:'discord', note:'chat · requests · alerts'},
+   {n:'doplarr', note:'discord → sonarr/radarr'},
+   {n:'n8n', note:'webhooks · workflow I/O'}
+  ]},
+  {label:'SOCIAL_RELATIONSHIPS', color:'#be185d', fields:[
+   {n:'culture_learning', href:'/expansion/', note:'Aria teaches the crew'},
+   {n:'mood_engine', note:'standing social state'},
+   {n:'codec_voices', note:'personnel voice archive'},
+   {n:'discord_presence', note:'human-facing social surface'}
+  ]},
+  {label:'ENGINES', color:'#b45309', fields:[
+   {n:'rex_cycle', href:'/expansion/#rex-business', note:'draft → review → gate'},
+   {n:'keeproute_learning', href:'/keeproute/#rex-learning', note:'mission → world-model → REX'},
+   {n:'foxdie_loop', href:'/foxdie/', note:'scan → repair'},
+   {n:'job_queue', href:'/keepdesk/', note:'serial worker drain'}
+  ]},
+  {label:'AGENT_ROSTER', color:'#1d4ed8', fields:[
+   {n:'aria', note:'rank 1 · command coordinator'},
+   {n:'vector', note:'systems → aria'},
+   {n:'ledger', note:'data → aria'},
+   {n:'muse', note:'creative → aria'},
+   {n:'sentry', note:'security → aria'},
+   {n:'full_roster', href:'/expansion/#roster', note:'expansion detail'}
+  ]}
+ ];
 
- function el(tag, cls, text){
-  var n = document.createElement(tag);
-  if (cls) n.className = cls;
-  if (text != null) n.textContent = text;
-  return n;
+ function tableEl(spec, isRoot){
+  var t = document.createElement('div');
+  t.className = 'schema-table' + (isRoot ? ' is-root' : '');
+  t.dataset.schemaNode = '1';
+  var hd = document.createElement('div');
+  hd.className = 'hd';
+  if (spec.color) hd.style.background = spec.color;
+  hd.innerHTML = '<span class="lvl">' + (isRoot ? 'L1' : 'L2') + '</span>' + spec.label;
+  t.appendChild(hd);
+  var bd = document.createElement('div');
+  bd.className = 'bd';
+  if (isRoot){
+   var f = document.createElement('div');
+   f.className = 'field is-plain';
+   f.textContent = spec.note || 'system root';
+   bd.appendChild(f);
+  } else {
+   (spec.fields || []).forEach(function(field){
+    var row = field.href ? document.createElement('a') : document.createElement('div');
+    row.className = 'field';
+    if (field.href) row.href = field.href;
+    row.appendChild(document.createTextNode(field.n));
+    if (field.note){
+     var sub = document.createElement('span');
+     sub.className = 'sub';
+     sub.textContent = 'L3 · ' + field.note;
+     row.appendChild(sub);
+    }
+    bd.appendChild(row);
+   });
+  }
+  t.appendChild(bd);
+  return t;
+ }
+
+ function drawLines(tree, rootEl, childEls){
+  var svg = tree.querySelector('svg.schema-lines');
+  if (!svg){
+   svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+   svg.classList.add('schema-lines');
+   tree.insertBefore(svg, tree.firstChild);
+  }
+  var tr = tree.getBoundingClientRect();
+  svg.setAttribute('width', tree.scrollWidth);
+  svg.setAttribute('height', tree.scrollHeight);
+  svg.style.width = tree.scrollWidth + 'px';
+  svg.style.height = tree.scrollHeight + 'px';
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  defs.innerHTML = '<marker id="schema-arrow" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#334155"/></marker>';
+  svg.appendChild(defs);
+  var rr = rootEl.getBoundingClientRect();
+  var x0 = rr.left + rr.width/2 - tr.left + tree.scrollLeft;
+  var y0 = rr.bottom - tr.top;
+  var busY = y0 + 18;
+  childEls.forEach(function(child, i){
+   var cr = child.getBoundingClientRect();
+   var x1 = cr.left + cr.width/2 - tr.left + tree.scrollLeft;
+   var y1 = cr.top - tr.top;
+   var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+   var d = 'M ' + x0 + ' ' + y0 + ' V ' + busY + ' H ' + x1 + ' V ' + y1;
+   path.setAttribute('d', d);
+   path.setAttribute('fill', 'none');
+   path.setAttribute('stroke', '#334155');
+   path.setAttribute('stroke-width', '1.6');
+   path.setAttribute('marker-end', 'url(#schema-arrow)');
+   svg.appendChild(path);
+  });
  }
 
  function render(){
-  var root = document.getElementById('kt-sys');
-  root.innerHTML = '';
+  var tree = document.getElementById('kt-sys');
+  tree.innerHTML = '';
+  var rootRow = document.createElement('div');
+  rootRow.className = 'schema-root-row';
+  var rootEl = tableEl(ROOT, true);
+  rootRow.appendChild(rootEl);
+  tree.appendChild(rootRow);
 
-  var l1 = el('div', 'kt-l1');
-  l1.appendChild(el('span', 'lvl', 'L1 · System'));
-  l1.appendChild(el('span', 'n', KEEP.label));
-  l1.appendChild(el('span', 's', KEEP.s));
-  root.appendChild(l1);
-
-  var domains = el('div', 'kt-domains');
-  KEEP.domains.forEach(function(d){
-   var box = el('section', 'kt-l2');
-   var head = el('div', 'kt-l2-head');
-   head.appendChild(el('span', 'lvl', 'L2'));
-   head.appendChild(el('span', 'n', d.label));
-   head.appendChild(el('span', 's', d.s || ''));
-   box.appendChild(head);
-
-   var row = el('div', 'kt-l3-row');
-   (d.nodes || []).forEach(function(node){
-    var card = node.href ? el('a', 'kt-node') : el('div', 'kt-node');
-    if (node.href) card.href = node.href;
-    card.appendChild(el('span', 'lvl', 'L3'));
-    card.appendChild(el('span', 'n', node.label));
-    if (node.s) card.appendChild(el('span', 's', node.s));
-    if (node.leaves && node.leaves.length){
-     var l4 = el('div', 'kt-l4');
-     node.leaves.forEach(function(leaf){
-      var chip = el('span', 'kt-leaf', leaf.label);
-      if (leaf.s){
-       var t = el('span', 't', '· ' + leaf.s);
-       chip.appendChild(t);
-      }
-      l4.appendChild(chip);
-     });
-     card.appendChild(l4);
-    }
-    row.appendChild(card);
-   });
-   box.appendChild(row);
-   domains.appendChild(box);
+  var l2 = document.createElement('div');
+  l2.className = 'schema-l2-row';
+  var childEls = [];
+  TABLES.forEach(function(spec){
+   var t = tableEl(spec, false);
+   l2.appendChild(t);
+   childEls.push(t);
   });
-  root.appendChild(domains);
+  tree.appendChild(l2);
+
+  requestAnimationFrame(function(){
+   drawLines(tree, rootEl, childEls);
+   window.addEventListener('resize', function(){ drawLines(tree, rootEl, childEls); });
+  });
  }
  render();
 })();
 </script>
- <figcaption class="diagram-caption">Full systems map of the Keep: L1 is the system, L2 domains, L3 nodes, L4 leaves under a node. Nothing is hidden behind a click — links with ↗ open the page.</figcaption>
+ <figcaption class="diagram-caption">Hierarchical Keep schema: one root system table, child domain tables, L3 services as fields. Same pattern as a database schema diagram — every relationship is on the board.</figcaption>
  </figure>
 
  </section>
