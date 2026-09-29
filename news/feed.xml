@@ -5,10 +5,17 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-09-29T13:34:11Z</lastBuildDate>
 <item>
+<title>llama.cpp b11265</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11265</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11265</guid>
+<pubDate>2026-09-29T23:27:19Z</pubDate>
+<description><![CDATA[Article · llama.cpp. vulkan: MOE aware mat_mul_id tile selection ( #29182 ) mut_mul_id selected its matmul tile with total token count. For MoE dispatch grid the true N per workgroup is per-expert rows. At pp128 on Sarvam 30B that is 6, not 128, so the picker took the l-tile for ~6 live rows. Most wo]]></description>
+</item>
+<item>
 <title>llama.cpp b11264</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11264</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11264</guid>
-<pubDate>2026-09-29T23:00:04Z</pubDate>
+<pubDate>2026-09-29T23:00:58Z</pubDate>
 <description><![CDATA[Article · llama.cpp. ggml : fix c++ odr by properly using GGML_COMMON_DECL_CPP ( #29504 ) fix c++ odr by properly using GGML_COMMON_DECL_CPP using actual field rather than macro Co-authored-by: Georgi Gerganov ggerganov@gmail.com Co-authored-by: XZiar xziar@xziar.xziar Co-authored-by: Georgi Gerganov]]></description>
 </item>
 <item>
@@ -2007,6 +2014,13 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>2026-09-26T07:01:03-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -3526,13 +3540,6 @@
 <description><![CDATA[Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef]]></description>
 </item>
 <item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
-</item>
-<item>
 <title>LocalAI v4.8.2</title>
 <link>https://github.com/mudler/LocalAI/releases/tag/v4.8.2</link>
 <guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/v4.8.2</guid>
@@ -3817,7 +3824,7 @@
 <link>https://blawg.pages.dev/ollama-vs-llama-server</link>
 <guid isPermaLink="true">https://blawg.pages.dev/ollama-vs-llama-server</guid>
 <pubDate>Sun, 12 Jul 2026 12:22:17 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News · llama.cpp. Article URL:]]></description>
 </item>
 <item>
 <title>Rebuilding My Homelab with Compose, Ruby, IPv6, and No Kubernetes</title>
