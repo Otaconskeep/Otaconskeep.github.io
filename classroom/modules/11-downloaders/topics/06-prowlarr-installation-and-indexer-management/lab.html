@@ -74,14 +74,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Download Clients &amp; Indexers<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain why Prowlarr centralizes indexer definitions for compatible media-management applications.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain why Prowlarr centralizes indexer definitions for compatible media-management applications.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>A Linux x86_64 or ARM64 host supported by the current Prowlarr Linux release.</li>
 <li>The directory /opt/lab-classroom/class54/ already exists and is writable by the lab user.</li>
 <li>Python 3 is installed and available as python3.</li>
@@ -565,14 +558,7 @@ sleep 2</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The official release metadata is stored in /opt/lab-classroom/class54/release.json.</li>
 <li>The selected asset details are recorded in /opt/lab-classroom/class54/selected-release.txt.</li>
 <li>The downloaded archive has a local SHA-256 record in /opt/lab-classroom/class54/prowlarr.sha256.</li>
@@ -590,14 +576,7 @@ sleep 2</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: python3 -c "import hashlib,pathlib; p=pathlib.Path('/opt/lab-classroom/class54/prowlarr.tar.gz'); print(hashlib.sha256(p.read_bytes()).hexdigest())" and compare the output with the first field in /opt/lab-classroom/class54/prowlarr.sha256.</li>
 <li>[ ] Run: cat /opt/lab-classroom/class54/prowlarr-binary.txt and confirm that the path begins with /opt/lab-classroom/class54/app/.</li>
 <li>[ ] Run: python3 -c "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:9696', timeout=5).status)" and confirm a successful HTTP response.</li>
@@ -688,14 +667,7 @@ sleep 2</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Use indexers only when their use and indexed material comply with applicable law, provider terms, and organizational policy.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><p>Use indexers only when their use and indexed material comply with applicable law, provider terms, and organizational policy.<br />
 Treat indexer API keys and application API keys as secrets. Do not place real credentials in screenshots, tickets, shell history, or public repositories.<br />
 Use a unique administrative credential if the first-run interface requires authentication.<br />
 Do not expose this lab instance directly to untrusted networks. The mock indexer intentionally binds only to 127.0.0.1.<br />
@@ -711,14 +683,7 @@ The teaching indexer's result is synthetic, and its download endpoint intentiona
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>stop_services</h4><p>If /opt/lab-classroom/class54/mock-indexer.pid exists, inspect the recorded process and stop it with: cd /opt/lab-classroom/class54 &amp;&amp; kill "$(cat mock-indexer.pid)"<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>stop_services</h4><p>If /opt/lab-classroom/class54/mock-indexer.pid exists, inspect the recorded process and stop it with: cd /opt/lab-classroom/class54 &amp;&amp; kill "$(cat mock-indexer.pid)"<br />
 If /opt/lab-classroom/class54/prowlarr.pid exists, inspect the recorded process and stop it with: cd /opt/lab-classroom/class54 &amp;&amp; kill "$(cat prowlarr.pid)"</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>

@@ -77,14 +77,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the difference between a quality definition, quality profile, custom format, and release score.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the difference between a quality definition, quality profile, custom format, and release score.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Completion of introductory Sonarr configuration and series-management lessons.</li>
 <li>Basic understanding of seasons, episode numbering, release names, and video resolutions.</li>
 <li>Ability to run shell commands and read JSON files.</li>
@@ -421,14 +414,7 @@ Why should an operator use interactive search before weakening a quality profile
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The class directory contains config, downloads, library, reports, and rollback subdirectories.</li>
 <li>The Northstar WEBDL-1080p candidate is accepted with a custom-format score of 25.</li>
 <li>The Atlas WEBDL-1080p candidate is accepted with a custom-format score of 75 and selected over Northstar.</li>
@@ -446,14 +432,7 @@ Why should an operator use interactive search before weakening a quality profile
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: cat /opt/lab-classroom/class42/reports/search-decision.txt</li>
 <li>[ ] Confirm the final line is: SELECT Atlas.Harbor.Lights.S01E03.1080p.WEB-DL.DDP5.1.HEVC</li>
 <li>[ ] Run: cat /opt/lab-classroom/class42/reports/import-manifest.json</li>
@@ -532,14 +511,7 @@ Why should an operator use interactive search before weakening a quality profile
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Run Sonarr and the download client as dedicated service identities rather than as an unrestricted administrative account.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><p>Run Sonarr and the download client as dedicated service identities rather than as an unrestricted administrative account.<br />
 Grant Sonarr only the access needed to read completed downloads and manage the intended library roots.<br />
 Do not grant a download client unrestricted write access to the organized media library when Sonarr is responsible for imports.<br />
 Treat release names, archive contents, subtitle files, and indexer metadata as untrusted input.<br />
@@ -555,14 +527,7 @@ Retain logs long enough to trace grab, download, and import events, while protec
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>scope</h4><p>The lesson does not alter a live Sonarr instance. Rollback returns the sandbox to its pre-import state while preserving generated evidence inside the same class directory.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>scope</h4><p>The lesson does not alter a live Sonarr instance. Rollback returns the sandbox to its pre-import state while preserving generated evidence inside the same class directory.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

@@ -86,14 +86,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: this setting tells an operator what someone called an image, not exactly which content ran.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>An image is an immutable template assembled from content-addressed layers and configuration. A container adds a writable runtime layer and process state. A registry stores and distributes image manifests and blobs. A repository groups related images, while a tag is a mutable name inside that repository.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-prose-block"><p>An image is an immutable template assembled from content-addressed layers and configuration. A container adds a writable runtime layer and process state. A registry stores and distributes image manifests and blobs. A repository groups related images, while a tag is a mutable name inside that repository.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -156,39 +149,18 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: An operator records this setting, deploys it, and later recreates the container.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Image Supply Path</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Image Supply Path</h3></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
 flowchart LR<br />
   S[Source] --&gt; B[Build]<br />
   B --&gt; M[Manifest + layers]<br />
   M --&gt; R[Registry]<br />
   R --&gt; P[Policy check]<br />
   P --&gt; H[Homelab host]</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
-<p>The trust decision spans the entire path; pulling successfully proves availability, not trust.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 2: Name Versus Identity</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+<p>The trust decision spans the entire path; pulling successfully proves availability, not trust.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 2: Name Versus Identity</h3></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
 flowchart TD<br />
   T[Tag: app:1.4] --&gt;|can be reassigned| D1[Digest A]<br />
   T -. later .-&gt; D2[Digest B]<br />
-  P[app@sha256:Digest-A] --&gt;|fixed identity| D1</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+  P[app@sha256:Digest-A] --&gt;|fixed identity| D1</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-prose-block"><ul>
 <li>Treat registries and build pipelines as supply-chain trust boundaries.</li>
 <li>Never expose <code>/var/run/docker.sock</code> to an untrusted container.</li>
 <li>Prefer immutable digests for promoted deployments while preserving a human-readable tag in documentation.</li>
@@ -210,14 +182,7 @@ flowchart TD<br />
 </div></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
 docker ps -a --filter ancestor=academy-c28:1.0<br />
 docker image rm academy-c28:1.0</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
-<p>Preserve <code>/opt/lab-classroom/class28/</code> until evidence is graded; remove it later only with an explicitly reviewed path.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Open with two containers using the same tag but different digests. Animate the tag moving between fingerprints. Demonstrate the network-free build, inspect the image ID and labels, then close with the rule: tags communicate intent; digests preserve identity; provenance supports trust.</p><div class="cr-help">
+<p>Preserve <code>/opt/lab-classroom/class28/</code> until evidence is graded; remove it later only with an explicitly reviewed path.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-prose-block"><p>Open with two containers using the same tag but different digests. Animate the tag moving between fingerprints. Demonstrate the network-free build, inspect the image ID and labels, then close with the rule: tags communicate intent; digests preserve identity; provenance supports trust.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

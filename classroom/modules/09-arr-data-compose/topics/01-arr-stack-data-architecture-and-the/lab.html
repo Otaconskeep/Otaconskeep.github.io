@@ -77,14 +77,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> ARR Data Model &amp; Compose<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain why download and media paths should share one visible /data namespace.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain why download and media paths should share one visible /data namespace.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Basic Linux shell navigation and file inspection skills</li>
 <li>A conceptual understanding of containers, bind mounts, and persistent application configuration</li>
 <li>Familiarity with Sonarr or Radarr terminology such as root folder, download client, category, and import</li>
@@ -333,14 +326,7 @@ find /opt/lab-classroom/class34/data -type f -exec stat -c 'device=%d inode=%i l
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The directory /opt/lab-classroom/class34/data contains separate torrents, usenet, and media branches.</li>
 <li>The directories /opt/lab-classroom/class34/config/sonarr and /opt/lab-classroom/class34/config/radarr exist outside the data branch.</li>
 <li>The path-contract file assigns Sonarr to /data/media/tv and Radarr to /data/media/movies.</li>
@@ -356,14 +342,7 @@ find /opt/lab-classroom/class34/data -type f -exec stat -c 'device=%d inode=%i l
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: test -d /opt/lab-classroom/class34/data/torrents/movies &amp;&amp; echo PASS-torrent-directory</li>
 <li>[ ] Run: test -d /opt/lab-classroom/class34/data/media/movies &amp;&amp; echo PASS-movie-directory</li>
 <li>[ ] Run: test -d /opt/lab-classroom/class34/config/sonarr &amp;&amp; echo PASS-config-separation</li>
@@ -445,14 +424,7 @@ find /opt/lab-classroom/class34/data -type f -exec stat -c 'device=%d inode=%i l
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Grant each service only the access required by its role.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Grant each service only the access required by its role.<br />
 Keep application databases and credentials in dedicated configuration locations rather than in the shared media tree.<br />
 Use a deliberate shared group for applications that must collaborate on downloads and imports.<br />
 Prefer read-only library access for media servers that do not need to write beside media.<br />
@@ -487,14 +459,7 @@ Back up application configuration independently from replaceable download data a
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Before enabling automated deletion, test imports with synthetic files and confirm the source-retention behavior for torrents and the move behavior for Usenet.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>scope</h4><p>Rollback removes only artifacts created inside /opt/lab-classroom/class34/ and does not affect any production path.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>scope</h4><p>Rollback removes only artifacts created inside /opt/lab-classroom/class34/ and does not affect any production path.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

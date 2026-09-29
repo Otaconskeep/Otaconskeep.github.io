@@ -76,14 +76,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Linux Foundations<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Identify file descriptors 0, 1, and 2 as standard input, standard output, and standard error</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Identify file descriptors 0, 1, and 2 as standard input, standard output, and standard error</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Ability to open a terminal and run basic Linux commands</li>
 <li>Familiarity with paths, files, directories, and command arguments</li>
 <li>Basic use of cat, grep, sort, and wc</li>
@@ -322,14 +315,7 @@ Inspect the source with: cat services.csv</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: find /opt/lab-classroom/class17 -maxdepth 1 -type f -printf &#x27;%f\n&#x27; | LC_ALL=C sort</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>services.csv contains five comma-separated service records.</li>
 <li>service-line-count.txt contains the number 5 without a filename.</li>
 <li>active-name-counts.txt reports one dns record, one metrics record, and two web records.</li>
@@ -349,14 +335,7 @@ Inspect the source with: cat services.csv</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: test "$(cat /opt/lab-classroom/class17/service-line-count.txt)" = "5" &amp;&amp; printf 'PASS: source line count\n'</li>
 <li>[ ] Run: test "$(cat /opt/lab-classroom/class17/active-count.txt)" = "4" &amp;&amp; printf 'PASS: active count\n'</li>
 <li>[ ] Run: awk '$2 == "dns" &amp;&amp; $1 == 1 { dns=1 } $2 == "metrics" &amp;&amp; $1 == 1 { metrics=1 } $2 == "web" &amp;&amp; $1 == 2 { web=1 } END { exit !(dns &amp;&amp; metrics &amp;&amp; web) }' /opt/lab-classroom/class17/active-name-counts.txt &amp;&amp; printf 'PASS: active names\n'</li>
@@ -437,14 +416,7 @@ Inspect the source with: cat services.csv</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Treat every redirection destination as a write operation and verify its complete path before execution.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Treat every redirection destination as a write operation and verify its complete path before execution.<br />
 Keep untrusted data out of shell code. Pipe data as data rather than constructing commands from it.<br />
 Do not record credentials, tokens, private keys, or other secrets with tee or diagnostic redirections.<br />
 Quote variable expansions used as filenames so whitespace and wildcard characters are not reinterpreted by the shell.<br />
@@ -465,14 +437,7 @@ Use pipefail in Bash automation when the success of every pipeline stage is requ
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: All persistent writes in this lesson are confined to /opt/lab-classroom/class17/.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>precheck</h4><p>Review the files before removal with: find /opt/lab-classroom/class17 -maxdepth 1 -type f -printf '%f\n' | LC_ALL=C sort</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>precheck</h4><p>Review the files before removal with: find /opt/lab-classroom/class17 -maxdepth 1 -type f -printf '%f\n' | LC_ALL=C sort</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

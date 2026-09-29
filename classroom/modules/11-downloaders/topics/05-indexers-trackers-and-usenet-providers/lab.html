@@ -74,14 +74,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Download Clients &amp; Indexers<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Differentiate a Usenet indexer, Usenet provider, torrent indexer, BitTorrent tracker, download client, and automation application.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Differentiate a Usenet indexer, Usenet provider, torrent indexer, BitTorrent tracker, download client, and automation application.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Basic understanding of client-server networking and HTTPS</li>
 <li>Basic familiarity with JSON configuration files</li>
 <li>Ability to run shell commands and Python 3</li>
@@ -362,14 +355,7 @@ source = root / &#x27;catalog.…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Make one reversible edit inside catalog.json, such as changing the synthetic tracker transport from https to http, rerun the evaluator, and observe that its …</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The evaluator reports that it wrote four classified records.</li>
 <li>The generated recommendations.json file contains two discovery records, one transfer-infrastructure record, and one peer-coordination record.</li>
 <li>The Usenet indexer record depends on both a Usenet provider and a Usenet download client.</li>
@@ -385,14 +371,7 @@ source = root / &#x27;catalog.…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: python3 -m json.tool /opt/lab-classroom/class53/catalog.json</li>
 <li>[ ] Run: python3 -m json.tool /opt/lab-classroom/class53/output/recommendations.json</li>
 <li>[ ] Run: python3 -c "import json; from pathlib import Path; d=json.loads(Path('/opt/lab-classroom/class53/output/recommendations.json').read_text()); print([(x['role'], x['purpose'], x['status']) for x in d])"</li>
@@ -472,14 +451,7 @@ source = root / &#x27;catalog.…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>credential_handling</h4><p>Store indexer, provider, and client API secrets in the application's secret mechanism rather than in shared examples or source control.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>credential_handling</h4><p>Store indexer, provider, and client API secrets in the application's secret mechanism rather than in shared examples or source control.<br />
 Use different credentials for different trust boundaries when the service supports that model.<br />
 Rotate any credential exposed in logs, screenshots, shell history, or support bundles.<br />
 Redact query strings and headers because some APIs place tokens in URLs or authorization headers.</p><div class="cr-help">
@@ -523,14 +495,7 @@ Treat imported archives, media containers, subtitles, scripts, and metadata as u
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The lab uses fictional records, performs no network operations, contains no real credentials, and confines all mutations to /opt/lab-classroom/class53/.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>purpose</h4><p>Remove only the files and directories created by this class.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>purpose</h4><p>Remove only the files and directories created by this class.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

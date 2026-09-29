@@ -74,14 +74,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Download Clients &amp; Indexers<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain why an application bound to a VPN address is not automatically protected after that address or interface disappears.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain why an application bound to a VPN address is not automatically protected after that address or interface disappears.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Comfort reading IP addresses, interface names, routing decisions, and transport-layer socket concepts.</li>
 <li>Basic understanding of VPN tunnels and the difference between a tunnel endpoint and traffic carried inside the tunnel.</li>
 <li>Ability to run Python 3 and basic shell commands.</li>
@@ -345,14 +338,7 @@ All persistent lab mutations must remain under /opt/lab-classroom/class51/.</p><
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The script creates /opt/lab-classroom/class51/report.json.</li>
 <li>The report states that it is a simulation and not evidence about the host network.</li>
 <li>The report evaluates exactly six modeled scenarios.</li>
@@ -370,14 +356,7 @@ All persistent lab mutations must remain under /opt/lab-classroom/class51/.</p><
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: test -f /opt/lab-classroom/class51/report.json &amp;&amp; echo REPORT_PRESENT</li>
 <li>[ ] Run: python3 -c "import json; p='/opt/lab-classroom/class51/report.json'; d=json.load(open(p)); assert d['scenario_count']==6; assert d['passing_scenarios']==['healthy']; print('SCENARIO_SUMMARY_OK')"</li>
 <li>[ ] Run: python3 -c "import json; p='/opt/lab-classroom/class51/report.json'; d=json.load(open(p)); m={x['name']:x for x in d['results']}; assert m['wildcard_binding']['failed_checks']==['application_bound_to_vpn_address']; print('BIND_TEST_OK')"</li>
@@ -458,14 +437,7 @@ All persistent lab mutations must remain under /opt/lab-classroom/class51/.</p><
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>A connected VPN indicator is not proof that all traffic uses the VPN.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><p>A connected VPN indicator is not proof that all traffic uses the VPN.<br />
 Never deploy a new kill switch remotely without console or out-of-band recovery access.<br />
 Use an allowlist for the VPN control plane instead of allowing arbitrary uplink traffic.<br />
 Account for endpoint address changes when a VPN provider uses hostnames or rotating addresses.<br />
@@ -483,14 +455,7 @@ Use documentation address ranges in examples and never assume an example address
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>lab_rollback</h4><p>Stop any editor or Python process using files beneath /opt/lab-classroom/class51/.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>lab_rollback</h4><p>Stop any editor or Python process using files beneath /opt/lab-classroom/class51/.<br />
 Delete /opt/lab-classroom/class51/policy_lab.py if the classroom requires individual artifact removal.<br />
 Delete /opt/lab-classroom/class51/report.json if the classroom requires individual artifact removal.<br />
 Remove /opt/lab-classroom/class51/ only after confirming it contains no files that must be retained.<br />

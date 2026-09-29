@@ -74,14 +74,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the difference between a movie folder format and a movie file format in Radarr.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the difference between a movie folder format and a movie file format in Radarr.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Basic familiarity with Radarr movies, root folders, and the Media Management settings page</li>
 <li>Ability to run shell and Python 3 commands on a Linux host</li>
 <li>Understanding of files, directories, extensions, hard links, and symbolic links</li>
@@ -443,14 +436,7 @@ managed = {item[&#x27;source&#x27;] for item…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph, triggers, nodes, and how data flows between them.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The directory /opt/lab-classroom/class48/ contains a synthetic library, manifest, audit program, and reports.</li>
 <li>The inventory lists six synthetic primary movie files and two sidecar files.</li>
 <li>The naming audit reports six records and states that no media paths were renamed.</li>
@@ -466,14 +452,7 @@ managed = {item[&#x27;source&#x27;] for item…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - The directory /opt/lab-classroom/class48/ contains a synthetic library, manifest, audit program, and reports.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run <code>test -f /opt/lab-classroom/class48/reports/naming-audit.csv &amp;&amp; echo PASS</code> and confirm that PASS is printed.</li>
 <li>[ ] Run <code>cat /opt/lab-classroom/class48/reports/summary.txt</code> and confirm that it ends with <code>No media paths were renamed.</code></li>
 <li>[ ] Run <code>grep -c '^' /opt/lab-classroom/class48/reports/naming-audit.csv</code> and confirm that the result is 7: one header and six data rows.</li>
@@ -551,14 +530,7 @@ managed = {item[&#x27;source&#x27;] for item…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Run Radarr with a dedicated service identity rather than an interactive administrator identity.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Run Radarr with a dedicated service identity rather than an interactive administrator identity.<br />
 Grant the service only the access required for configured download and media paths.<br />
 Do not expose Radarr directly to an untrusted network; place remote access behind an authenticated and maintained access layer.<br />
 Protect API keys because they permit automation clients to query or change Radarr.<br />
@@ -589,14 +561,7 @@ Preserve a source-to-destination mapping and verify downstream applications befo
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Library paths can reveal viewing interests and household information.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>lab</h4><p>The audit itself does not rename fixture media, so no media rollback is required.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>lab</h4><p>The audit itself does not rename fixture media, so no media rollback is required.<br />
 To preserve an earlier report before rerunning the audit, move it within the lab workspace using <code>mv /opt/lab-classroom/class48/reports/naming-audit.csv /opt/lab-classroom/class48/backups/naming-audit-before-rerun.csv</code>.<br />
 Rerun the fixture setup if a synthetic source file was accidentally changed; all resulting writes remain under /opt/lab-classroom/class48/.</p><div class="cr-help">
  <div class="cr-actions">

@@ -86,14 +86,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A manual mount can work today and disappear after reboot.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Mounting attaches a filesystem source to a directory. The mountpoint's previous visible contents are hidden while the mount is active. Active state is visible through <code>findmnt</code> and <code>/proc/self/mountinfo</code>; persistent intent is commonly declared in <code>/etc/fstab</code>.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-prose-block"><p>Mounting attaches a filesystem source to a directory. The mountpoint's previous visible contents are hidden while the mount is active. Active state is visible through <code>findmnt</code> and <code>/proc/self/mountinfo</code>; persistent intent is commonly declared in <code>/etc/fstab</code>.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -151,14 +144,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A session id lets you resume the same AI conversation later, like continuing a chat instead of starting over.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Mount Decision</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Mount Decision</h3></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
 flowchart LR<br />
   U[UUID or other source] --&gt; F[fstab intent]<br />
   F --&gt; M[mount operation]<br />
@@ -177,14 +163,7 @@ flowchart LR<br />
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
  <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
-</div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-prose-block"><ul>
 <li>Use the narrowest options compatible with the workload.</li>
 <li>Network mounts carry credential, trust, and availability concerns beyond local filesystems.</li>
 <li>Never paste secrets directly into broadly readable mount configuration.</li>
@@ -206,14 +185,7 @@ flowchart LR<br />
 </div></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
 LAB=/opt/lab-classroom/class32<br />
 test -f "$LAB/fstab.staged" &amp;&amp; rm -- "$LAB/fstab.staged"</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
-<p>Real rollback: restore the timestamped known-good <code>/etc/fstab</code>, validate it, unmount only the affected noncritical mount when safe, and reboot only with recovery access and an approved window.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Show a device name changing while a UUID remains attached to the intended filesystem. Build the six-field row visually, run staged verification, and emphasize that the lesson never edits <code>/etc/fstab</code> or performs a real mount.</p><div class="cr-help">
+<p>Real rollback: restore the timestamped known-good <code>/etc/fstab</code>, validate it, unmount only the affected noncritical mount when safe, and reboot only with recovery access and an approved window.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-prose-block"><p>Show a device name changing while a UUID remains attached to the intended filesystem. Build the six-field row visually, run staged verification, and emphasize that the lesson never edits <code>/etc/fstab</code> or performs a real mount.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

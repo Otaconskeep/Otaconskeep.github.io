@@ -76,14 +76,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Network Operations<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the difference between a package repository, package metadata, dependency resolver, transaction engine, installed-package database, and running services.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the difference between a package repository, package metadata, dependency resolver, transaction engine, installed-package database, and running services.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Comfort using a Linux shell and reading command output</li>
 <li>Basic understanding of files, directories, processes, services, and repositories</li>
 <li>A Debian, Ubuntu, Fedora, Rocky Linux, AlmaLinux, RHEL-compatible, or Alpine Linux host</li>
@@ -404,14 +397,7 @@ cat &quot;$ROOT/maintenance-checklist…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Stop after review.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>/opt/lab-classroom/class22/package-inventory.tsv exists, is non-empty, and contains normalized package-name and installed-version records.</li>
 <li>/opt/lab-classroom/class22/package-count.txt exists, is non-empty, and records the number of inventory rows.</li>
 <li>/opt/lab-classroom/class22/package-policy.txt exists, is non-empty, and identifies the detected package family plus repository or policy information.</li>
@@ -430,14 +416,7 @@ cat &quot;$ROOT/maintenance-checklist…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] ROOT=/opt/lab-classroom/class22; test -s "$ROOT/package-inventory.tsv" &amp;&amp; echo 'PASS: package-inventory.tsv exists and is non-empty' || echo 'FAIL: package-inventory.tsv missing or empty'</li>
 <li>[ ] ROOT=/opt/lab-classroom/class22; test -s "$ROOT/package-count.txt" &amp;&amp; grep -Eq '^installed_package_records[[:space:]]+[0-9]+$' "$ROOT/package-count.txt" &amp;&amp; echo 'PASS: package-count.txt exists, is non-empty, and has a numeric count' || echo 'FAIL: package-count.txt is missing or malformed'</li>
 <li>[ ] ROOT=/opt/lab-classroom/class22; test -s "$ROOT/package-policy.txt" &amp;&amp; grep -q '^PACKAGE_FAMILY=' "$ROOT/package-policy.txt" &amp;&amp; echo 'PASS: package-policy.txt exists, is non-empty, and identifies a package family' || echo 'FAIL: package-policy.txt is missing or malformed'</li>
@@ -525,14 +504,7 @@ cat &quot;$ROOT/maintenance-checklist…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Use only repositories and signing keys approved for the host; transport encryption does not replace repository signature validation.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><p>Use only repositories and signing keys approved for the host; transport encryption does not replace repository signature validation.<br />
 Do not convert a simulation command into a real transaction during the lesson.<br />
 Do not use privilege elevation simply to suppress a simulation lock or permission error.<br />
 Treat third-party repositories as part of the software supply chain and review their ownership, release channel, signing-key lifecycle, and priority.<br />
@@ -548,14 +520,7 @@ Avoid exposing package inventories publicly because they can reveal software ver
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>lesson_artifact_cleanup</h4><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>lesson_artifact_cleanup</h4><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

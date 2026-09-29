@@ -76,14 +76,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Network Operations<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Apply a layered troubleshooting workflow from local state through application response</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Apply a layered troubleshooting workflow from local state through application response</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Comfort using a Linux shell and reading command output</li>
 <li>Basic understanding of IPv4 addresses, TCP, UDP, ports, and DNS</li>
 <li>A Linux host or virtual machine with sudo access</li>
@@ -393,14 +386,7 @@ cat "$LAB/conclusion.txt"</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The conclusion should connect each claim to collected evidence and should not claim that external networking was tested.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The loopback interface is present and the route lookup for 127.0.0.1 selects the local loopback path.</li>
 <li>localhost resolves to at least one loopback address through the host name-service configuration.</li>
 <li>The request to 127.0.0.1:18081 fails because no lab listener exists on that port.</li>
@@ -415,14 +401,7 @@ cat "$LAB/conclusion.txt"</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run <code>test -f /opt/lab-classroom/class26/site/health.txt &amp;&amp; printf 'health file present\n'</code> and confirm the success message.</li>
 <li>[ ] Run <code>ss -lnt '( sport = :18080 )'</code> and confirm that 127.0.0.1:18080 is in the LISTEN state.</li>
 <li>[ ] Run <code>curl --fail --silent --show-error --max-time 4 http://127.0.0.1:18080/health.txt</code> and confirm that the output is exactly class26-ok.</li>
@@ -500,14 +479,7 @@ cat "$LAB/conclusion.txt"</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Use read-only observations before corrective actions.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Use read-only observations before corrective actions.<br />
 Bind the training service to 127.0.0.1 so it is not intentionally exposed through non-loopback interfaces.<br />
 Use explicit connection and total time limits for client probes.<br />
 Probe only systems and ports for which authorization has been granted.<br />
@@ -541,14 +513,7 @@ Avoid changing routing, resolver settings, interface state, or security policy d
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>goal</h4><p>Stop only the lab-owned Python process and remove only the class 26 workspace.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>goal</h4><p>Stop only the lab-owned Python process and remove only the class 26 workspace.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

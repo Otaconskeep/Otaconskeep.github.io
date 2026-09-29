@@ -77,14 +77,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> ARR Data Model &amp; Compose<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the role of a Compose file and how it differs from an individual docker run command.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the role of a Compose file and how it differs from an individual docker run command.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Completion of an introductory Docker lesson covering images, containers, ports, bind mounts, and container logs.</li>
 <li>A Linux host or virtual machine with Docker Engine installed and running.</li>
 <li>Docker Compose v2 available through the docker compose command.</li>
@@ -403,14 +396,7 @@ docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml ps</p><div 
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: With an unchanged model, Compose should retain the existing desired project state instead of creating a second independently named stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The Compose model validates without a YAML or model error.</li>
 <li>The class36 project contains one web container and one client container.</li>
 <li>The web service becomes healthy after its HTTP health check succeeds.</li>
@@ -426,14 +412,7 @@ docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml ps</p><div 
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml config --quiet; a zero exit status and no validation message indicate that the model is valid.</li>
 <li>[ ] Run docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml ps; web and client should be running, and web should eventually report healthy.</li>
 <li>[ ] Run docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml exec -T client wget -qO- http://web/; the response should contain the Class 36 page.</li>
@@ -511,14 +490,7 @@ docker compose -p class36 -f /opt/lab-classroom/class36/compose.yaml ps</p><div 
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>The published port is bound to 127.0.0.1, preventing direct exposure on external host interfaces. Remote access should be added only through an intentional, authenticated ingress design.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><p>The published port is bound to 127.0.0.1, preventing direct exposure on external host interfaces. Remote access should be added only through an intentional, authenticated ingress design.<br />
 The site file is mounted read-only so the web container cannot modify the host copy through that mount.<br />
 Both services use no-new-privileges to prevent processes from gaining additional privileges through set-user-ID or set-group-ID executables.<br />
 The client has no published port and is reachable only through its attached Docker network and administrative Docker access.<br />
@@ -534,14 +506,7 @@ Application health checks establish availability signals, not application authen
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>goal</h4><p>Remove the class36 runtime resources while preserving the lesson files for review or reuse.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>goal</h4><p>Remove the class36 runtime resources while preserving the lesson files for review or reuse.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

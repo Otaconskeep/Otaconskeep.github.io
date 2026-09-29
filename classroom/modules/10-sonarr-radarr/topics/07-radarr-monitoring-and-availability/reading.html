@@ -177,14 +177,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
  
-</div><p>The laboratory architecture consists of a Python mock service bound to 127.0.0.1:8787, a state file under /opt/lab-classroom/class46/, and a Python synthetic monitor. The mock service reads state.txt for each request. In the available state it returns HTTP 200 with a small JSON document. In the unavailable state it returns HTTP 503. In the slow state it delays the response before returning HTTP 200. The monitor performs three observations, records status and latency, calculates observed availability, writes report.json, and exits unsuccessfully if any observation fails or if the maximum observed latency exceeds the classroom policy. In production, the equivalent design would combine a host or container check, an HTTP probe, Radarr health observations, dependency checks for indexers and download clients, storage checks, and monitoring from a trusted remote location.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div><p>The laboratory architecture consists of a Python mock service bound to 127.0.0.1:8787, a state file under /opt/lab-classroom/class46/, and a Python synthetic monitor. The mock service reads state.txt for each request. In the available state it returns HTTP 200 with a small JSON document. In the unavailable state it returns HTTP 503. In the slow state it delays the response before returning HTTP 200. The monitor performs three observations, records status and latency, calculates observed availability, writes report.json, and exits unsuccessfully if any observation fails or if the maximum observed latency exceeds the classroom policy. In production, the equivalent design would combine a host or container check, an HTTP probe, Radarr health observations, dependency checks for indexers and download clients, storage checks, and monitoring from a trusted remote location.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-prose-block"><ul>
 <li>Radarr Wiki: System and health-check documentation at https://wiki.servarr.com/radarr</li>
 <li>Prometheus documentation: Instrumentation practices at https://prometheus.io/docs/practices/instrumentation/</li>
 <li>IETF RFC 9110: HTTP Semantics at https://www.rfc-editor.org/rfc/rfc9110</li>
@@ -196,14 +189,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-prose-block"><ul>
 <li>Radarr project documentation: https://wiki.servarr.com/radarr</li>
 <li>Radarr source repository: https://github.com/Radarr/Radarr</li>
 <li>Prometheus instrumentation practices: https://prometheus.io/docs/practices/instrumentation/</li>

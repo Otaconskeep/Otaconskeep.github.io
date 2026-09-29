@@ -77,14 +77,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> ARR Data Model &amp; Compose<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain why a configuration archive alone is not a complete recovery strategy.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain why a configuration archive alone is not a complete recovery strategy.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Comfort using a Linux shell and absolute paths.</li>
 <li>Basic understanding of files, directories, archives, and checksums.</li>
 <li>Ability to read simple JSON and INI configuration formats.</li>
@@ -240,14 +233,7 @@ find "$BASE" -maxdepth 3 -type f -print | sort</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The original configuration passes semantic validation with listen_port set to 8080, workers set to 4, and an approved log level.</li>
 <li>The backup package contains config/app.json, config/service.ini, BACKUP_INFO.txt, and MANIFEST.sha256.</li>
 <li>The archive checksum reports an OK result before extraction.</li>
@@ -265,14 +251,7 @@ find "$BASE" -maxdepth 3 -type f -print | sort</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run <code>sha256sum -c /opt/lab-classroom/class39/attempt1/backups/config-backup-v1.tar.gz.sha256</code>; the archive must report OK.</li>
 <li>[ ] Run <code>tar -tzf /opt/lab-classroom/class39/attempt1/backups/config-backup-v1.tar.gz</code>; confirm that the two configuration files, metadata file, and manifest are listed.</li>
 <li>[ ] Run <code>cd /opt/lab-classroom/class39/attempt1 &amp;&amp; sha256sum -c restore/candidate/MANIFEST.sha256</code>; both active configuration files must report OK after promotion.</li>
@@ -351,14 +330,7 @@ find "$BASE" -maxdepth 3 -type f -print | sort</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Treat configuration backups as sensitive because they may contain credentials, tokens, private endpoints, account names, and topology information.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Treat configuration backups as sensitive because they may contain credentials, tokens, private endpoints, account names, and topology information.<br />
 Grant backup creation, retrieval, and restoration rights separately when operational roles permit.<br />
 Protect archive checksums or manifests independently; integrity data stored beside a writable archive does not prevent coordinated replacement.<br />
 Use signed manifests, independently controlled storage, or immutable retention for higher-assurance recovery.<br />
@@ -392,14 +364,7 @@ Test recovered configuration against a compatible application version before act
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Maintain multiple recovery generations and at least one independently controlled copy so that corruption, operator mistakes, or compromise of the primary hos…</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>when_to_use</h4><p>Use rollback if post-promotion validation fails, if an application rejects the recovered configuration, or if the recovered version does not match the deployed application.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>when_to_use</h4><p>Use rollback if post-promotion validation fails, if an application rejects the recovered configuration, or if the recovered version does not match the deployed application.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

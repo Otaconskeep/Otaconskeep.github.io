@@ -74,14 +74,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain why a running Radarr process does not prove that movie automation is working</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain why a running Radarr process does not prove that movie automation is working</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Completion of introductory Radarr deployment and configuration lessons</li>
 <li>Basic familiarity with Linux processes, HTTP status codes, JSON, and shell commands</li>
 <li>Python 3 installed on the lab host</li>
@@ -233,14 +226,7 @@ Confirm the final report is healthy and contains three successful observations. 
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The mock service listens only on 127.0.0.1:8787 and responds to the /ping path.</li>
 <li>The available state produces three HTTP 200 observations and a healthy report.</li>
 <li>The unavailable state produces HTTP 503 observations, zero successful checks, and a nonzero monitor exit status.</li>
@@ -254,14 +240,7 @@ Confirm the final report is healthy and contains three successful observations. 
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run test -s /opt/lab-classroom/class46/server.pid &amp;&amp; kill -0 "$(cat /opt/lab-classroom/class46/server.pid)" to confirm that the recorded process is running.</li>
 <li>[ ] Run python3 -c "import json; r=json.load(open('/opt/lab-classroom/class46/report.json', encoding='utf-8')); assert r['target'] == 'http://127.0.0.1:8787/ping'" to confirm the intended target.</li>
 <li>[ ] Run python3 -c "import json; r=json.load(open('/opt/lab-classroom/class46/report.json', encoding='utf-8')); assert len(r['checks']) == 3" to confirm the sample count.</li>
@@ -328,14 +307,7 @@ Confirm the final report is healthy and contains three successful observations. 
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>The mock service binds only to 127.0.0.1 and is not intended to accept remote connections.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><p>The mock service binds only to 127.0.0.1 and is not intended to accept remote connections.<br />
 Do not expose a Radarr administrative interface to an untrusted network merely to support monitoring.<br />
 Keep production authentication material out of command history, scripts, monitoring labels, reports, and alert messages.<br />
 Use the least privilege needed by a production monitoring integration and restrict who can read its configuration.<br />
@@ -348,14 +320,7 @@ Monitor storage capacity and write access without performing destructive test wr
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph, triggers, nodes, and how data flows between them.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Restore the mock service state by running: printf '%s\n' 'available' &gt; /opt/lab-classroom/class46/state.txt<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><p>Restore the mock service state by running: printf '%s\n' 'available' &gt; /opt/lab-classroom/class46/state.txt<br />
 Stop only the recorded lab process by running: test -s /opt/lab-classroom/class46/server.pid &amp;&amp; kill "$(cat /opt/lab-classroom/class46/server.pid)"<br />
 Confirm the recorded process has stopped by running: if kill -0 "$(cat /opt/lab-classroom/class46/server.pid)" 2&gt;/dev/null; then echo 'lab process still running'; else echo 'lab process stopped'; fi<br />
 Leave the scripts, logs, state, identifier, and report in /opt/lab-classroom/class46/ for instructor review. No production Radarr files or services require restoration because the lab did not modify them.</p><div class="cr-help">

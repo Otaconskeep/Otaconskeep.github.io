@@ -74,14 +74,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Download Clients &amp; Indexers<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> medium<br />
-<strong>Objective:</strong> Explain the separation between the qBittorrent process, Web UI, peer protocol, configuration, and download storage.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the separation between the qBittorrent process, Web UI, peer protocol, configuration, and download storage.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>A Linux host with rootless Podman already installed and working.</li>
 <li>A user account permitted to run Podman without elevated privileges.</li>
 <li>At least 2 GB of free space under /opt/lab-classroom/class49/ for container storage, configuration, and test data.</li>
@@ -373,14 +366,7 @@ find "$LAB/downloads" -maxdepth 2 -type d -print</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Optionally add only a clearly authorized torrent, such as a torrent published by a Linux distribution for its own installation image.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>Podman image, runtime, event, configuration, and download state created by the lab resides beneath /opt/lab-classroom/class49/.</li>
 <li>The class49-qbittorrent container remains in a running state after initial startup and restart.</li>
 <li>The Web UI responds at http://127.0.0.1:8080 and requires authentication.</li>
@@ -398,14 +384,7 @@ find "$LAB/downloads" -maxdepth 2 -type d -print</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run <code>. /opt/lab-classroom/class49/env.sh; p49podman ps --filter name=class49-qbittorrent</code> and confirm the container status is Up.</li>
 <li>[ ] Run <code>. /opt/lab-classroom/class49/env.sh; p49podman port class49-qbittorrent</code> and confirm the host-side addresses begin with 127.0.0.1.</li>
 <li>[ ] Run <code>ss -lnt | grep ':8080 '</code> and verify the listening address is 127.0.0.1 rather than 0.0.0.0 or an externally reachable host address.</li>
@@ -497,14 +476,7 @@ find "$LAB/downloads" -maxdepth 2 -type d -print</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>controls</h4><p>Run Podman rootlessly and run qBittorrent as the invoking user's numeric identity.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>controls</h4><p>Run Podman rootlessly and run qBittorrent as the invoking user's numeric identity.<br />
 Drop all container capabilities and apply the no-new-privileges security option.<br />
 Publish the Web UI only on 127.0.0.1.<br />
 Publish the initial peer listener only on 127.0.0.1.<br />
@@ -546,14 +518,7 @@ Only download or distribute content for which you have authorization.</p><div cl
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Do not change the Web UI publication to 0.0.0.0 merely for convenience.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>preserve_data_procedure</h4><p>Source the environment with <code>. /opt/lab-classroom/class49/env.sh</code>.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>preserve_data_procedure</h4><p>Source the environment with <code>. /opt/lab-classroom/class49/env.sh</code>.<br />
 Stop the application with <code>p49podman stop class49-qbittorrent</code>.<br />
 If recreation is required, remove only the container object with <code>p49podman rm --force class49-qbittorrent</code>.<br />
 Leave /opt/lab-classroom/class49/config/ and /opt/lab-classroom/class49/downloads/ intact.<br />

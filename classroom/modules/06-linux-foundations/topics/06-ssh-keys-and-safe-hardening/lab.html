@@ -76,14 +76,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Linux Foundations<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the different roles of an SSH private key and public key.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the different roles of an SSH private key and public key.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Comfort using a Linux shell and reading command output.</li>
 <li>Permission to create files under /opt/lab-classroom/class21/.</li>
 <li>The OpenSSH client tools, including ssh-keygen, must already be installed.</li>
@@ -350,14 +343,7 @@ gr…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: if command -v sshd &gt;/dev/null 2&gt;&amp;1; then sudo sshd -t -f /opt/lab-classroom/class21/sshd_config; elif [ -x /usr/sbin/sshd ]; then sudo /usr/sbin/sshd -t -f /…</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The workspace resolves to /opt/lab-classroom/class21 and has mode 700.</li>
 <li>The key-generation operation creates class21_ed25519 and class21_ed25519.pub only inside the lab workspace.</li>
 <li>The private key reports mode 600, while the public key may report mode 600 because it was created under a restrictive umask.</li>
@@ -374,14 +360,7 @@ gr…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - The workspace resolves to /opt/lab-classroom/class21 and has mode 700.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run test "$(realpath /opt/lab-classroom/class21)" = /opt/lab-classroom/class21 and confirm an exit status of zero.</li>
 <li>[ ] Run test "$(stat -c %a /opt/lab-classroom/class21)" = 700 and confirm an exit status of zero.</li>
 <li>[ ] Run test "$(stat -c %a /opt/lab-classroom/class21/class21_ed25519)" = 600 and confirm an exit status of zero.</li>
@@ -463,14 +442,7 @@ gr…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>key_protection</h4><p>Never share or upload the private-key file.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>key_protection</h4><p>Never share or upload the private-key file.<br />
 Use a strong, unique passphrase and an approved agent with explicit lifetime or confirmation controls where available.<br />
 Use separate identities for unrelated environments and administrative roles.<br />
 Remove obsolete public keys promptly and inventory fingerprints rather than relying on comments.<br />
@@ -508,14 +480,7 @@ A successful syntax test does not prove that an account, key, network path, or r
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>lab_effect</h4><p>The lab creates only an isolated directory, a training key pair, comparison files, an authorization fixture, and a daemon-policy fixture. It does not activate any SSH setting.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>lab_effect</h4><p>The lab creates only an isolated directory, a training key pair, comparison files, an authorization fixture, and a daemon-policy fixture. It does not activate any SSH setting.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

@@ -76,14 +76,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Linux Foundations<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> medium<br />
-<strong>Objective:</strong> Distinguish programs, processes, threads, jobs, services, and systemd units</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Distinguish programs, processes, threads, jobs, services, and systemd units</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Comfort using a Linux shell and basic command-line utilities</li>
 <li>Ability to use sudo for creating the class laboratory directory</li>
 <li>Basic understanding of files, users, permissions, and shell scripts</li>
@@ -372,14 +365,7 @@ UNIT=$(systemctl list-units --type=service --state=running --no-legend --no-page
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: test &quot;$(ps -p 1 -o comm=)&quot; = &quot;systemd&quot; &amp;&amp; printf &#x27;systemd is PID 1.\n&#x27; || printf &#x27;This environment does not expose systemd as PID 1.\n&#x27;
 UNIT=$(systemctl list…</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The laboratory directory resolves exactly to /opt/lab-classroom/class19.</li>
 <li>The worker's PID file and the launching shell's recorded PID contain the same value.</li>
 <li>ps and /proc expose the worker's PID, parent, owner, state, and command line.</li>
@@ -395,14 +381,7 @@ UNIT=$(systemctl list…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: test "$(realpath /opt/lab-classroom/class19)" = "/opt/lab-classroom/class19" &amp;&amp; echo PASS</li>
 <li>[ ] Run: grep -q 'received SIGHUP' /opt/lab-classroom/class19/events.log &amp;&amp; echo PASS</li>
 <li>[ ] Run: grep -q 'received termination request' /opt/lab-classroom/class19/events.log &amp;&amp; echo PASS</li>
@@ -481,14 +460,7 @@ UNIT=$(systemctl list…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Verify process identity, owner, and command line immediately before sending a signal.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Verify process identity, owner, and command line immediately before sending a signal.<br />
 Treat PID files as hints rather than durable identity because PIDs can be reused.<br />
 Signal only processes created for the lab; never experiment on authentication, storage, networking, monitoring, or orchestration services.<br />
 Prefer SIGTERM and bounded waiting so applications have an opportunity to clean up.<br />
@@ -516,14 +488,7 @@ Consider cgroup membership when diagnosing services with multiple processes.</p>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: All persistent lab artifacts are confined to /opt/lab-classroom/class19/.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>process_cleanup</h4><p>Check whether a recorded PID still exists and verify that its command line points to /opt/lab-classroom/class19/worker.sh.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>process_cleanup</h4><p>Check whether a recorded PID still exists and verify that its command line points to /opt/lab-classroom/class19/worker.sh.<br />
 Send SIGTERM only to a verified surviving lab worker and wait for it to exit.<br />
 If a verified lab worker remains unresponsive, review the controlled SIGKILL warning before escalation.</p><div class="cr-help">
  <div class="cr-actions">

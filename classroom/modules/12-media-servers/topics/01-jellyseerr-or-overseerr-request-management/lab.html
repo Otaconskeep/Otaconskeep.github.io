@@ -74,14 +74,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Requests &amp; Media Servers<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the role of Jellyseerr or Overseerr between users, a media server, and download automation</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the role of Jellyseerr or Overseerr between users, a media server, and download automation</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Basic familiarity with Docker containers and YAML</li>
 <li>A Linux host or classroom environment with Python 3</li>
 <li>Docker Compose v2 is recommended for Compose validation</li>
@@ -518,14 +511,7 @@ No actual API credential has been written into the policy.</p><div class="cr-hel
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Before any later deployment, document that a legitimate TMDB credential must be supplied through the supported secret mechanism, the media-server URL and tok…</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The workspace contains compose.yaml, .env.example, validate_policy.py, request-policy.json, and an empty or unused config directory.</li>
 <li>Docker Compose validation succeeds when Docker Compose v2 is available, while no Jellyseerr container is started.</li>
 <li>The initial unsafe policy produces a nonzero validator result and multiple explicit policy failures.</li>
@@ -540,14 +526,7 @@ No actual API credential has been written into the policy.</p><div class="cr-hel
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A webhook is a secret URL another service can POST to. Treat it like a password.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run <code>test -d /opt/lab-classroom/class56/config &amp;&amp; test -f /opt/lab-classroom/class56/compose.yaml &amp;&amp; test -f /opt/lab-classroom/class56/.env.example &amp;&amp; test -f /opt/lab-classroom/class56/validate_policy.py &amp;&amp; test -f /opt/lab-classroom/class56/request-policy.json</code> and confirm exit status zero.</li>
 <li>[ ] Run <code>cd /opt/lab-classroom/class56 &amp;&amp; docker compose --env-file .env.example config</code> when Docker Compose v2 is available; confirm that interpolation succeeds and the published port begins with 127.0.0.1.</li>
 <li>[ ] For the required negative check, temporarily copy the original unsafe policy content into <code>/opt/lab-classroom/class56/negative-test.json</code>, run <code>cd /opt/lab-classroom/class56 &amp;&amp; python3 validate_policy.py negative-test.json</code>, and confirm a nonzero exit status before deleting only negative-test.json with <code>python3 -c "from pathlib import Path; Path('/opt/lab-classroom/class56/negative-test.json').unlink()"</code>.</li>
@@ -625,14 +604,7 @@ No actual API credential has been written into the policy.</p><div class="cr-hel
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>controls</h4><p>Bind the application port to 127.0.0.1 when access is intended to pass through a reverse proxy or secure tunnel.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>controls</h4><p>Bind the application port to 127.0.0.1 when access is intended to pass through a reverse proxy or secure tunnel.<br />
 Use TLS and authenticated access for any remote deployment.<br />
 Do not store TMDB, media-server, automation, download-client, or webhook credentials in Compose files, screenshots, source control, or homework submissions.<br />
 Assign requester as the default role for local and synchronized users.<br />
@@ -664,14 +636,7 @@ Review logs for request denials, approval changes, failed API authentication, sy
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>scope</h4><p>Remove the complete class workspace and every artifact created by the lab. This does not affect a container because the lab never starts one.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>scope</h4><p>Remove the complete class workspace and every artifact created by the lab. This does not affect a container because the lab never starts one.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

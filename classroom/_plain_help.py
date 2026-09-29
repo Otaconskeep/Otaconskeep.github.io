@@ -223,6 +223,13 @@ KIND_PLAIN = {
 
 # Keyword rules for lab / prose steps → plain words
 STEP_RULES: list[tuple[re.Pattern[str], str]] = [
+    # Must precede the generic VirtualBox "host key" rule below: an SSH host
+    # key (server identity fingerprint) is a completely different concept
+    # from VirtualBox's Host Key (a keyboard shortcut), and matching order
+    # here is first-match-wins, so the more specific SSH context has to come
+    # first or every SSH host-key mention gets the wrong explanation.
+    (re.compile(r"\bssh\b.{0,80}\bhost key\b|\bhost key\b.{0,80}\bssh\b|\bknown_hosts\b|\btrust the host key\b|\bhost key fingerprint\b", re.I | re.S),
+     "An SSH host key is the server's cryptographic identity. Trusting it on first connect confirms you're talking to the same machine next time, not an impostor."),
     (re.compile(r"\bVirtualBox\b|\bExtension Pack\b", re.I), "VirtualBox is a free Type 2 hypervisor, an app on your normal OS that creates guest computers."),
     (re.compile(r"\bProxmox\b", re.I), "Proxmox is a Type 1 hypervisor you install on dedicated hardware and manage in a web browser."),
     (re.compile(r"\bType\s*[12]\b|\bhypervisor\b", re.I), "A hypervisor creates and runs virtual machines. Type 2 sits on your OS; Type 1 sits on the hardware."),
@@ -286,10 +293,9 @@ def plain_for_section(h2: str, kind: str) -> tuple[str, str]:
     for k, v in SECTION_PLAIN.items():
         if k in key or key in k:
             return v
-    return KIND_PLAIN.get(kind, (
-        "Read this block, then try the next action. If you feel stuck, tap What this means.",
-        "",
-    ))
+    # No curated section or kind match: say nothing rather than render a box
+    # whose own content is "tap What this means" while already inside one.
+    return KIND_PLAIN.get(kind, ("", ""))
 
 
 def plain_for_step(text: str) -> str:
@@ -315,12 +321,12 @@ def plain_for_paragraph(text: str) -> str:
     for pat, mean in STEP_RULES:
         if pat.search(t):
             return mean
-    # Soften dense first sentence
-    first = re.split(r"(?<=[.!?])\s+", t)[0]
-    first = re.sub(r"`[^`]+`", "this setting", first)
-    if len(first) > 160:
-        first = first[:157] + "…"
-    return f"Big idea: {first}"
+    # No keyword rule matched: previously fell back to echoing the first
+    # sentence back as "Big idea: <sentence>", which produced boxes like
+    # "Big idea: Open your laptop." that add no information over the prose
+    # itself. Say nothing instead; callers either drop the box entirely or
+    # fall back to plain_for_step(), which gives an actionable instruction.
+    return ""
 
 
 def extract_numbered_steps(md: str, *, min_steps: int = 1) -> list[str] | None:

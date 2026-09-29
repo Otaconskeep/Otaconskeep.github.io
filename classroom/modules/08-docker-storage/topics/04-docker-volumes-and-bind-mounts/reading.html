@@ -86,14 +86,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Containers are replaceable; application data often is not.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>The writable layer belongs to one container and should hold disposable runtime changes. A named volume is managed through Docker and can be attached to replacement containers. A bind mount maps an explicit host path, which is useful for configuration or operator-managed datasets but couples the workload to host layout and permissions. A tmpfs mount stores ephemeral data in memory and disappears when the container stops.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-prose-block"><p>The writable layer belongs to one container and should hold disposable runtime changes. A named volume is managed through Docker and can be attached to replacement containers. A bind mount maps an explicit host path, which is useful for configuration or operator-managed datasets but couples the workload to host layout and permissions. A tmpfs mount stores ephemeral data in memory and disappears when the container stops.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -140,38 +133,17 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A container writes configuration to this setting without a mount.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Storage Lifetimes</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Storage Lifetimes</h3></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
 flowchart LR<br />
   I[Image layers] --&gt;|read-only template| C[Container]<br />
   W[Writable layer] --&gt;|deleted with container| C<br />
   V[Named volume] --&gt;|survives replacement| C<br />
-  B[Host bind path] --&gt;|host-coupled| C</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 2: Selection Guide</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+  B[Host bind path] --&gt;|host-coupled| C</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 2: Selection Guide</h3></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
 flowchart TD<br />
   D{Must data persist?} --&gt;|No| T[Writable layer or tmpfs]<br />
   D --&gt;|Yes| H{Must operator manage a known host path?}<br />
   H --&gt;|No| V[Named volume]<br />
-  H --&gt;|Yes| B[Bind mount, narrow and preferably read-only]</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+  H --&gt;|Yes| B[Bind mount, narrow and preferably read-only]</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-prose-block"><ul>
 <li>Never mount the Docker socket for convenience.</li>
 <li>Avoid broad host mounts such as <code>/</code>, <code>/etc</code>, or a user's entire home directory.</li>
 <li>Use <code>:ro</code> when writes are unnecessary.</li>
@@ -194,14 +166,7 @@ flowchart TD<br />
 docker ps -a --filter volume=academy-c30 --filter volume=academy-c30-restore<br />
 docker volume inspect academy-c30 academy-c30-restore<br />
 docker volume rm academy-c30 academy-c30-restore</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
-<p>If either inspection shows unexpected data or dependencies, stop instead of deleting it.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Visually remove a container while its named volume remains, then attach the restored volume to a replacement container. Contrast that with a narrow read-only bind mount. Close on: persistence is a design decision; backup is proven only by restoration.</p><div class="cr-help">
+<p>If either inspection shows unexpected data or dependencies, stop instead of deleting it.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-prose-block"><p>Visually remove a container while its named volume remains, then attach the restored volume to a replacement container. Contrast that with a narrow read-only bind mount. Close on: persistence is a design decision; backup is proven only by restoration.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

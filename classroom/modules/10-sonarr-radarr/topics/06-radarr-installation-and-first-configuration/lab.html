@@ -77,14 +77,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain Radarr's role in a media automation architecture</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain Radarr's role in a media automation architecture</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>A Linux homelab host with Docker Engine and the Docker Compose plugin already installed</li>
 <li>Permission to run Docker commands without changing host-wide configuration</li>
 <li>A web browser that can reach the homelab host on TCP port 7878</li>
@@ -477,14 +470,7 @@ docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/la
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A root folder is the shelf where finished files should live.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The Compose model resolves without a YAML or interpolation error.</li>
 <li>The class45-radarr container is running and publishes the selected host port to container port 7878.</li>
 <li>The Radarr web interface is reachable from the learner's browser.</li>
@@ -500,14 +486,7 @@ docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/la
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A root folder is the shelf where finished files should live.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/lab-classroom/class45/.env -f /opt/lab-classroom/class45/compose.yaml ps</li>
 <li>[ ] Confirm that class45-radarr is listed as running and that the displayed port mapping ends in container port 7878.</li>
 <li>[ ] Run: docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/lab-classroom/class45/.env -f /opt/lab-classroom/class45/compose.yaml logs --tail 100 radarr</li>
@@ -588,14 +567,7 @@ docker compose --project-directory /opt/lab-classroom/class45 --env-file /opt/la
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Keep the Radarr administrative interface on a trusted management network and do not publish it directly to the public internet.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><p>Keep the Radarr administrative interface on a trusted management network and do not publish it directly to the public internet.<br />
 Enable authentication during first configuration and use a unique, strong password.<br />
 Treat the Radarr API key as a secret because it authorizes programmatic control of the application.<br />
 Grant the container identity write access only to the configuration, intended library, and staging directories it requires.<br />
@@ -611,14 +583,7 @@ Do not point this classroom instance at an existing production movie library.</p
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> An API key is a password apps use to talk to each other. Keep it private.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>goal</h4><p>Stop Radarr and disable accidental relaunch while preserving all classroom data for inspection or later recovery.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>goal</h4><p>Stop Radarr and disable accidental relaunch while preserving all classroom data for inspection or later recovery.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

@@ -86,14 +86,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Every process has effective numeric user and group identities plus supplementary groups. Files have numeric owner/group, mode bits, and possibly ACL entries. On a bind mount, the same host inode is evaluated against the container process's numeric identity. A username inside <code>/etc/passwd</code> is only a label for a number.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-prose-block"><p>Every process has effective numeric user and group identities plus supplementary groups. Files have numeric owner/group, mode bits, and possibly ACL entries. On a bind mount, the same host inode is evaluated against the container process's numeric identity. A username inside <code>/etc/passwd</code> is only a label for a number.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -150,39 +143,18 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Access Evaluation</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Access Evaluation</h3></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
 flowchart LR<br />
   P[Process UID/GIDs] --&gt; K[Kernel access check]<br />
   F[File owner/mode/ACL] --&gt; K<br />
   M[Mount flags + security policy] --&gt; K<br />
-  K --&gt; A{Allow or deny}</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 2: Diagnostic Funnel</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+  K --&gt; A{Allow or deny}</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 2: Diagnostic Funnel</h3></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
 flowchart TD<br />
   X[Permission denied] --&gt; I[Identify numeric process identity]<br />
   I --&gt; O[Inspect numeric path ownership]<br />
   O --&gt; C[Check mode + ACL mask]<br />
   C --&gt; M[Check mount/security policy]<br />
-  M --&gt; T[Test narrow correction]</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+  M --&gt; T[Test narrow correction]</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-prose-block"><ul>
 <li>Prefer non-root container processes and the smallest required access.</li>
 <li>Avoid recursive <code>chown</code> on large or shared datasets without an inventory and rollback plan.</li>
 <li>Do not use world-writable permissions as a diagnostic shortcut.</li>
@@ -205,14 +177,7 @@ flowchart TD<br />
 </div></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
 LAB=/opt/lab-classroom/class33<br />
 test -d "$LAB/shared" &amp;&amp; test "$LAB" = /opt/lab-classroom/class33 &amp;&amp; rm -f -- "$LAB/shared/matching.txt" "$LAB/shared/denied.txt" "$LAB/shared/host.txt"<br />
-rmdir -- "$LAB/shared" 2&gt;/dev/null || true</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Put a UID number above a host process and a container process while hiding their usernames. Reveal that matching names have different numbers. Demonstrate one allowed and one denied write, then show the diagnostic funnel and reject <code>777</code> as a shortcut.</p><div class="cr-help">
+rmdir -- "$LAB/shared" 2&gt;/dev/null || true</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-prose-block"><p>Put a UID number above a host process and a container process while hiding their usernames. Reveal that matching names have different numbers. Demonstrate one allowed and one denied write, then show the diagnostic funnel and reject <code>777</code> as a shortcut.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

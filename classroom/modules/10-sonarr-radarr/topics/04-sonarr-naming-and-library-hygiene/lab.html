@@ -77,14 +77,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain how Sonarr turns parsed release information into season folders and episode filenames.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain how Sonarr turns parsed release information into season folders and episode filenames.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Basic familiarity with Sonarr series, episodes, root folders, and download clients.</li>
 <li>Ability to run shell commands and read file paths.</li>
 <li>Understanding that the download directory and the final media library serve different purposes.</li>
@@ -314,14 +307,7 @@ root = Path(&#x27;/opt/lab-classroom/class…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: printf &#x27;%s\n&#x27; &#x27;Manual review completed only after inspecting Sonarr naming previews; no production setting was changed by this lab.&#x27; &gt; /opt/lab-classroom/cla…</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The inventory lists one source fixture under downloads, four video fixtures under the simulated library, one subtitle fixture, and generated report files as the exercise progresses.</li>
 <li>The audit marks the conventionally named S01E01 file as TOKEN_VISIBLE.</li>
 <li>The audit marks episode2.mkv and sample.mkv as NO_STANDARD_EPISODE_TOKEN.</li>
@@ -336,14 +322,7 @@ root = Path(&#x27;/opt/lab-classroom/class…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - The inventory lists one source fixture under downloads, four video fixtures under the simulated library, one subtitle fixture, and generated report files a…</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: test -f /opt/lab-classroom/class43/reports/audit.txt &amp;&amp; echo PASS</li>
 <li>[ ] Run: grep -F 'DUPLICATE_IDENTITY S01E01' /opt/lab-classroom/class43/reports/audit.txt</li>
 <li>[ ] Run: grep -F 'episode2.mkv | NO_STANDARD_EPISODE_TOKEN' /opt/lab-classroom/class43/reports/audit.txt</li>
@@ -418,14 +397,7 @@ root = Path(&#x27;/opt/lab-classroom/class…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Grant Sonarr only the access required to read completed downloads and manage its designated library roots.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Grant Sonarr only the access required to read completed downloads and manage its designated library roots.<br />
 Do not expose incomplete-download directories to media-server scanners or untrusted users.<br />
 Use consistent service identities or shared groups rather than globally writable media directories.<br />
 Treat filenames as untrusted input because release names can contain awkward characters and should never be interpolated unsafely into shell commands.<br />
@@ -451,14 +423,7 @@ Record the approved naming policy and date.</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>lab_cleanup</h4><p>Remove only the classroom exercise contents with a bounded Python cleanup, then recreate the empty class directory if the course runner expects it to remain.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>lab_cleanup</h4><p>Remove only the classroom exercise contents with a bounded Python cleanup, then recreate the empty class directory if the course runner expects it to remain.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

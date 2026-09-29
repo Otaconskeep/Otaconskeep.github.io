@@ -76,14 +76,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Network Operations<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Describe the separate responsibilities of DNS, DHCP, and NAT</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Describe the separate responsibilities of DNS, DHCP, and NAT</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Basic familiarity with IPv4 addresses, subnet masks, default gateways, and private address space</li>
 <li>Ability to run shell commands and Python 3</li>
 <li>Permission to create and remove files under /opt/lab-classroom/class24/</li>
@@ -231,14 +224,7 @@ The documentation-only addresses 198.51.100.0/24 and 203.0.113.0/24 are used to 
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 -m json.tool /opt/lab-classroom/class24/results.json</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The simulator reports the client network as 192.168.24.0/24.</li>
 <li>The DNS query for nas.lab.home.arpa returns an A record containing 192.168.24.10 with a TTL of 300.</li>
 <li>client-a receives 192.168.24.100 and client-b receives 192.168.24.101.</li>
@@ -253,14 +239,7 @@ The documentation-only addresses 198.51.100.0/24 and 203.0.113.0/24 are used to 
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run <code>python3 /opt/lab-classroom/class24/simulator.py</code> again and confirm that the output is unchanged, demonstrating deterministic allocation.</li>
 <li>[ ] Run <code>python3 -m json.tool /opt/lab-classroom/class24/results.json</code> and confirm that the file contains dns_query, leases, lease_events, and nat_table sections.</li>
 <li>[ ] Run <code>python3 -c 'import json, pathlib; d=json.loads(pathlib.Path("/opt/lab-classroom/class24/results.json").read_text()); print(d["dns_query"]["answer"])'</code> and confirm that the value is 192.168.24.10.</li>
@@ -338,14 +317,7 @@ The documentation-only addresses 198.51.100.0/24 and 203.0.113.0/24 are used to 
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Treat DHCP as a trusted infrastructure service. An unauthorized DHCP server can supply a hostile gateway or resolver and redirect client traffic.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><p>Treat DHCP as a trusted infrastructure service. An unauthorized DHCP server can supply a hostile gateway or resolver and redirect client traffic.<br />
 Use network segmentation and infrastructure access controls to limit which interfaces or segments may originate server-side DHCP responses.<br />
 Protect DNS administration because altered records can redirect users even when IP routing remains healthy.<br />
 Restrict recursive DNS service to intended clients to reduce abuse and unintended resource consumption.<br />
@@ -361,14 +333,7 @@ The lab uses documentation-only external address ranges and does not send networ
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>scope</h4><p>Remove only the class directory created for this lesson.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>scope</h4><p>Remove only the class directory created for this lesson.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

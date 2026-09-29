@@ -74,14 +74,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Requests &amp; Media Servers<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the roles of Plex configuration, transcode, and media storage.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the roles of Plex configuration, transcode, and media storage.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Comfort using a Linux shell and reading YAML.</li>
 <li>Basic understanding of containers, bind mounts, TCP ports, users, groups, and file permissions.</li>
 <li>A pre-created, writable /opt/lab-classroom/class57/ directory.</li>
@@ -489,14 +482,7 @@ find /opt/lab-classroom/class57/ -maxdepth 5 -print</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph, triggers, nodes, and how data flows between them.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The directories config, transcode, media/movies, media/tv, media/music, and docs exist beneath /opt/lab-classroom/class57/.</li>
 <li>The staged compose.yaml publishes only TCP port 32400.</li>
 <li>The configuration and transcode mounts are read-write because Plex must update them.</li>
@@ -512,14 +498,7 @@ find /opt/lab-classroom/class57/ -maxdepth 5 -print</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: python3 -c "from pathlib import Path; p=Path('/opt/lab-classroom/class57').resolve(); assert str(p) == '/opt/lab-classroom/class57'; print('root verified')"</li>
 <li>[ ] Run: test -f /opt/lab-classroom/class57/compose.yaml &amp;&amp; echo 'compose file present'</li>
 <li>[ ] Run: test -f /opt/lab-classroom/class57/docs/deployment-checklist.txt &amp;&amp; echo 'checklist present'</li>
@@ -599,14 +578,7 @@ find /opt/lab-classroom/class57/ -maxdepth 5 -print</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Run Plex with a dedicated, non-administrative identity and verify numeric UID and GID behavior.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Run Plex with a dedicated, non-administrative identity and verify numeric UID and GID behavior.<br />
 Mount source media read-only unless a documented workflow absolutely requires writes.<br />
 Treat the configuration directory as sensitive because it contains server state and may contain tokens.<br />
 Never commit claim tokens, account credentials, or exported configuration archives to source control.<br />
@@ -643,14 +615,7 @@ Keep Plex configuration backups protected because watch history, library metadat
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>normal_state</h4><p>The lab starts no service, so rollback does not require stopping Plex or removing container-runtime resources.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>normal_state</h4><p>The lab starts no service, so rollback does not require stopping Plex or removing container-runtime resources.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

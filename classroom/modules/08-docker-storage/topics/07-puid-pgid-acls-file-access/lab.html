@@ -138,14 +138,7 @@ stat -c 'uid=%u gid=%g mode=%a path=%n' &quot;$LAB/shared&quot; &quot;$LAB/share
 test -f &quot;$LAB/shared/matching.txt&quot; &amp;&amp; echo &#x27;PASS: matching numeric identity wrote&#x27;
 test !</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-prose-block"><ul>
 <li>Prefer non-root container processes and the smallest required access.</li>
 <li>Avoid recursive <code>chown</code> on large or shared datasets without an inventory and rollback plan.</li>
 <li>Do not use world-writable permissions as a diagnostic shortcut.</li>

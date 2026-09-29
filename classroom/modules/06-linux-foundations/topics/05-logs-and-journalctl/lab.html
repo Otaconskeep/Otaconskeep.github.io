@@ -76,14 +76,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Linux Foundations<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the relationship between applications, systemd units, systemd-journald, and journalctl.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the relationship between applications, systemd units, systemd-journald, and journalctl.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Basic Linux command-line navigation</li>
 <li>Familiarity with services and systemd units</li>
 <li>A Linux host or virtual machine using systemd and systemd-journald</li>
@@ -370,14 +363,7 @@ Do the manifest permissions prevent access by group and other users?</p><div cla
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> An ISO is the install disc as a file. Attach it to the VM like inserting an installer DVD.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>boots.txt contains the boot entries visible to the current account; the number of entries depends on retention and access.</li>
 <li>recent-current-boot.log contains no more than 100 accessible records from the current boot.</li>
 <li>warnings-current-boot.log contains only accessible current-boot records at warning priority or more severe, or it is empty when no records match.</li>
@@ -394,14 +380,7 @@ Do the manifest permissions prevent access by group and other users?</p><div cla
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: test -s /opt/lab-classroom/class20/boots.txt &amp;&amp; echo 'Boot listing captured'; if this fails, inspect access and journal availability.</li>
 <li>[ ] Run: test -f /opt/lab-classroom/class20/recent-current-boot.log &amp;&amp; echo 'Current-boot export exists'.</li>
 <li>[ ] Run: test -f /opt/lab-classroom/class20/warnings-current-boot.log &amp;&amp; echo 'Priority-filtered export exists'; zero length is permitted.</li>
@@ -486,14 +465,7 @@ Do the manifest permissions prevent access by group and other users?</p><div cla
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Journal records may expose usernames, hostnames, network addresses, process arguments, authentication activity, application data, and operational details.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Journal records may expose usernames, hostnames, network addresses, process arguments, authentication activity, application data, and operational details.<br />
 Use the least privilege required to inspect relevant records.<br />
 Do not broaden journal or evidence-file permissions merely to avoid an access-control error.<br />
 Keep exported evidence inside /opt/lab-classroom/class20/ and use a restrictive umask.<br />
@@ -520,14 +492,7 @@ Do not perform journal rotation, vacuuming, retention changes, or service restar
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Record the exact query, boot scope, and collection time when preserving evidence.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>scope</h4><p>Rollback removes only evidence files created by this lesson and does not alter the system journal.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>scope</h4><p>Rollback removes only evidence files created by this lesson and does not alter the system journal.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

@@ -76,14 +76,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Network Operations<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Distinguish an IP address, a transport protocol, and a port number</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Distinguish an IP address, a transport protocol, and a port number</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Basic command-line navigation and process management</li>
 <li>A Linux host or virtual machine with Python 3.9 or newer</li>
 <li>A writable directory already provisioned at /opt/lab-classroom/class25/</li>
@@ -309,14 +302,7 @@ Restore destination_port to 18080 and rerun the evaluator to confirm the origina
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The TCP listener reports that it is ready on 127.0.0.1:18080, and the TCP client prints ACK:hello-tcp.</li>
 <li>The UDP listener reports that it is ready on 127.0.0.1:15353, and the UDP client prints ACK:hello-udp.</li>
 <li>The listener logs show loopback peers and the application messages sent by the clients.</li>
@@ -334,14 +320,7 @@ Restore destination_port to 18080 and rerun the evaluator to confirm the origina
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run: python3 -m py_compile /opt/lab-classroom/class25/listener.py /opt/lab-classroom/class25/probe.py /opt/lab-classroom/class25/evaluate.py</li>
 <li>[ ] Run: python3 -m json.tool /opt/lab-classroom/class25/policy.json</li>
 <li>[ ] Run: grep '^READY tcp 127.0.0.1:18080' /opt/lab-classroom/class25/tcp.log</li>
@@ -416,14 +395,7 @@ Restore destination_port to 18080 and rerun the evaluator to confirm the origina
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Bind test services to loopback unless remote reachability is explicitly required.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Bind test services to loopback unless remote reachability is explicitly required.<br />
 Treat protocol and port as a pair; allowing TCP does not automatically allow UDP on the same number.<br />
 Prefer narrow source networks and specific destination ports over broad allowances.<br />
 Use a default-deny ingress posture when operational requirements and recovery procedures support it.<br />
@@ -458,14 +430,7 @@ Maintain an independent recovery path before changing a remote system's real net
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Use only non-sensitive test strings.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>goal</h4><p>Stop any remaining classroom listener and remove only artifacts created under the class directory.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>goal</h4><p>Stop any remaining classroom listener and remove only artifacts created under the class directory.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

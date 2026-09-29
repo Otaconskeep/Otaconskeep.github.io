@@ -48,7 +48,16 @@ Working backward produces the modules:
 | 3: Home Assistant | foundations, automations, secure remote | Entities, automations, and secure remote access |
 | 4: Local voice | architecture, Whisper/Piper, private speaker | Stage-by-stage local STT/TTS to private speaker |
 | 5: Workflow automation | n8n guarded automation | n8n digests and approval-gated agent actions |
+| 6: Linux Foundations | filesystem, shell pipes, users/permissions, processes/systemd, logs, SSH hardening | Operate and secure a Linux host from the command line, not just click through a GUI |
+| 7: Network Operations | package management and safe system updates | Keep a Linux host patched without breaking the services running on it |
+| 8: Docker, Storage & Permissions | Docker engine internals, images/registries, container lifecycle, volumes/bind mounts, disks/partitions/fstab, PUID/PGID/ACLs | Explain why a container can or can't see a file, not just restart it and hope |
+| 9: ARR Data Model & Compose | the shared `/data` model across ARR services | Lay out storage so Sonarr/Radarr/downloaders agree on paths instead of silently duplicating files |
+| 10: Sonarr & Radarr | installation, first configuration, and the rest of the ARR automation chain | Stand up TV/movie automation on a data model that won't need rebuilding later |
+| 11: Download Clients & Indexers | qBittorrent, SABnzbd, VPN binding and leak verification, indexers/trackers, Prowlarr | Get content in safely: authorized sources, verified VPN, indexers wired to the rest of the stack |
+| 12: Requests & Media Servers | Jellyseerr/Overseerr request management | Let household members request media without touching the admin tools |
 | Capstone | Final | End-to-end verification matrix |
+
+Modules 6 through 12 extend the same backward-design chain as Modules 1 through 5: each one still starts from a stated capability and works backward to lessons, not the other way around. See the [Modules page](/classroom/modules/) for the current topic-by-topic breakdown of each.
 
 ## Module learning cycle
 

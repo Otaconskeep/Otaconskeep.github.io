@@ -131,14 +131,7 @@ docker ps -a --filter label=academy.class=29 --format '{{.Names}} {{.Status}}'
 
 Expected: created before start, running briefly, then exited with code 0; the inspected controls match the requested limits.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-prose-block"><ul>
 <li>Resource limits reduce availability risk but do not replace least privilege.</li>
 <li>Avoid <code>--privileged</code>, broad capabilities, host PID namespace, and Docker socket mounts.</li>
 <li>Validate restart behavior so failures do not become invisible loops.</li>

@@ -291,6 +291,23 @@ def write(path: Path, text: str) -> None:
     print("wrote", path.relative_to(SITE))
 
 
+def topic_display_title(tdir: Path) -> str:
+    """Human title for a topic, e.g. 'Virtual machines & Proxmox', not the
+    raw directory slug ('01-virtualization'). Read from lesson.md's own H1
+    ('# Lesson NN.NN: Title'), since that title is already hand-authored and
+    consistent across every topic. Falls back to a prettified slug only if
+    lesson.md is missing or doesn't match the expected format, so a template
+    change here can never regress to an empty title."""
+    lesson_md = tdir / "lesson.md"
+    if lesson_md.is_file():
+        content = lesson_md.read_text().strip()
+        first_line = content.splitlines()[0] if content else ""
+        m = re.match(r"#\s*Lesson\s+[\d.]+:\s*(.+?)\s*$", first_line)
+        if m:
+            return m.group(1)
+    return re.sub(r"^\d+-", "", tdir.name).replace("-", " ").strip().capitalize()
+
+
 def pager(prev, next_):
     left = f'<a href="{prev[0]}">← {H.escape(prev[1])}</a>' if prev else "<span></span>"
     right = f'<a href="{next_[0]}">{H.escape(next_[1])} →</a>' if next_ else "<span></span>"
@@ -814,7 +831,7 @@ def gen_modules():
                 continue
             tb = f"/classroom/modules/{slug}/topics/{tdir.name}/"
             topic_blocks.append(
-                f'<div class="cr-box"><h3>{H.escape(tdir.name)}</h3>'
+                f'<div class="cr-box"><h3>{H.escape(topic_display_title(tdir))}</h3>'
                 f'<ol class="cr-class-list">'
                 f'<li><a href="{tb}reading.html"><strong>Reading</strong></a>: Learn</li>'
                 f'<li><a href="{tb}lesson.html"><strong>Lesson</strong></a>: Feynman required</li>'
@@ -887,6 +904,7 @@ def gen_modules():
             tout = out / "topics" / tdir.name
             tout.mkdir(parents=True)
             topic_base = f"/classroom/modules/{slug}/topics/{tdir.name}/"
+            topic_title = topic_display_title(tdir)
             acts = [
                 ("reading", "Reading", "Learn: instruction, vocabulary, worked example."),
                 ("lesson", "Lesson", "Orient, prior check, guided practice, required Feynman, reflect."),
@@ -900,7 +918,7 @@ def gen_modules():
                 gen_activity_page(
                     tdir / f"{act}.md",
                     tout / f"{act}.html",
-                    f"{tdir.name}: {label}",
+                    f"{topic_title}: {label}",
                     f"M{int(num)} {label.upper()}",
                     f"{topic_base}{act}.html",
                     act,
@@ -918,7 +936,7 @@ def gen_modules():
 <div class="wrap">
  <section class="hero flush">
  <p class="tag">Module {int(num)} / Topic</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4vw,2.4rem);">{H.escape(tdir.name)}</h1>
+ <h1 class="display" style="font-size:clamp(1.6rem,4vw,2.4rem);">{H.escape(topic_title)}</h1>
  <p class="lede">Complete in order: Reading then Lesson (Feynman) then Lab then Homework then Quiz.</p>
  </section>
 </div>
@@ -927,7 +945,7 @@ def gen_modules():
  {pager((f"/classroom/modules/{slug}/", "Module hub"), ("reading.html", "Reading"))}
 </div>
 """
-            write(tout / "index.html", wrap(f"{tdir.name} · Classroom", tdir.name, topic_base, "TOPIC", tbody))
+            write(tout / "index.html", wrap(f"{topic_title} · Classroom", topic_title, topic_base, "TOPIC", tbody))
 
     print("modules published")
 
@@ -970,6 +988,10 @@ def class_to_module_redirects():
 
 def _class_count() -> int:
     return len(CLASS_META)
+
+
+def _module_count() -> int:
+    return len(MODULE_DIRS)
 
 
 def gen_hub():
@@ -1027,14 +1049,22 @@ Classes 8–10  Home Assistant + secure remote access
 Classes 11–13 Local voice → private smart speaker
 Class 14       n8n automation → guarded Keep Agent
 Class 15       IPv4 addressing → mask, gateway, usable hosts
+→ Module 6   Linux Foundations (shell, permissions, systemd, SSH)
+→ Module 7   Network Operations (patching a live host safely)
+→ Module 8   Docker, Storage & Permissions (volumes, fstab, PUID/PGID)
+→ Module 9   ARR Data Model & Compose (a /data layout that scales)
+→ Module 10  Sonarr & Radarr
+→ Module 11  Download Clients & Indexers (qBittorrent, SABnzbd, Prowlarr, VPN)
+→ Module 12  Requests & Media Servers (Jellyseerr/Overseerr)
 → FINAL CAPSTONE verification matrix</pre>
+ <p class="intro" style="margin-top:12px;">Exact class numbering inside Modules 6 through 12 changes as topics are added; the <a href="modules/">Modules page</a> is the current source of truth, not this diagram.</p>
  </section>
 </div>
 
 <div class="wrap">
  <section>
  <p class="tag">02 // Modules</p>
- <h2>Five modules with readings, labs, homework, quizzes</h2>
+ <h2>{_module_count()} modules with readings, labs, homework, quizzes</h2>
  <p class="intro">Each topic is split into Reading (Learn), Lesson with <strong>required Feynman</strong>, Lab (Practice), Homework (Apply), and Quiz (Test). Modules close with project, module quiz, exam, and remediation.</p>
  <div class="btn-row" style="margin-top:18px;">
   <a class="btn btn-primary" href="modules/">Open modules</a>

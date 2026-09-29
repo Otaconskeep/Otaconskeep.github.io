@@ -86,14 +86,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>A disk is the underlying block device. A partition table describes subdivisions. A partition is a block-device region. A filesystem organizes files and metadata inside a block device or image. A mount attaches a filesystem to the directory tree. Linux can also use LVM, RAID, encryption, network filesystems, and datasets, so not every stack is simply disk → partition → filesystem.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-prose-block"><p>A disk is the underlying block device. A partition table describes subdivisions. A partition is a block-device region. A filesystem organizes files and metadata inside a block device or image. A mount attaches a filesystem to the directory tree. Linux can also use LVM, RAID, encryption, network filesystems, and datasets, so not every stack is simply disk → partition → filesystem.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -149,39 +142,18 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Storage Stack</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Storage Stack</h3></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
 flowchart TD<br />
   D[Disk / virtual block device] --&gt; P[Partition or volume]<br />
   P --&gt; F[Filesystem]<br />
   F --&gt; M[Mounted directory]<br />
-  M --&gt; A[Application data]</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 2: Choose the Evidence Tool</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+  M --&gt; A[Application data]</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 2: Choose the Evidence Tool</h3></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
 flowchart LR<br />
   Q{Question} --&gt;|Topology| L[lsblk]<br />
   Q --&gt;|Identity| B[blkid]<br />
   Q --&gt;|Active mounts| F[findmnt]<br />
   Q --&gt;|Free space| D[df]<br />
-  Q --&gt;|Device health| S[SMART/NVMe tool]</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+  Q --&gt;|Device health| S[SMART/NVMe tool]</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-prose-block"><ul>
 <li>Storage inventories can reveal infrastructure identifiers; redact before publishing.</li>
 <li>Untrusted removable media may contain hostile filesystems; mount with policy-appropriate restrictions and avoid automatic execution.</li>
 <li>Encryption protects data at rest only when keys and recovery materials are managed securely.</li>
@@ -202,14 +174,7 @@ flowchart LR<br />
 </div></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
 LAB=/opt/lab-classroom/class31<br />
 test -f "$LAB/academy-c31.img" &amp;&amp; test ! -b "$LAB/academy-c31.img" &amp;&amp; rm -- "$LAB/academy-c31.img"<br />
-test ! -e "$LAB/academy-c31.img" &amp;&amp; echo 'PASS: lab image removed'</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>Start with <code>/mnt/media</code> and peel backward through mount, filesystem, partition, and disk. Put a red boundary around <code>/dev/*</code>, then demonstrate the safe image-file filesystem. End by matching each diagnostic question to its evidence tool.</p><div class="cr-help">
+test ! -e "$LAB/academy-c31.img" &amp;&amp; echo 'PASS: lab image removed'</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-prose-block"><p>Start with <code>/mnt/media</code> and peel backward through mount, filesystem, partition, and disk. Put a red boundary around <code>/dev/*</code>, then demonstrate the safe image-file filesystem. End by matching each diagnostic question to its evidence tool.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

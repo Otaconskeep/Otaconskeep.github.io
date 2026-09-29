@@ -74,14 +74,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Download Clients &amp; Indexers<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Describe the roles of a Usenet provider, an indexer, an NZB file, and SABnzbd.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Describe the roles of a Usenet provider, an indexer, an NZB file, and SABnzbd.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Basic Linux command-line navigation</li>
 <li>Familiarity with TCP ports, DNS names, and TLS</li>
 <li>Basic understanding of file ownership and directory permissions</li>
@@ -378,14 +371,7 @@ chmod 0750 /opt/lab-classroom/class52/validate.py</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Confirm that configuration and NZB files are not world-readable, the intended directory hierarchy exists, and every validation check is true.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The directory /opt/lab-classroom/class52/incomplete exists separately from /opt/lab-classroom/class52/complete.</li>
 <li>The completed tree contains documents, audio, and video category directories.</li>
 <li>The policy binds management access to 127.0.0.1, requires authentication, and requires provider TLS on port 563.</li>
@@ -400,14 +386,7 @@ chmod 0750 /opt/lab-classroom/class52/validate.py</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run <code>python3 /opt/lab-classroom/class52/validate.py</code>; it must exit with status 0 and display "overall_pass": true.</li>
 <li>[ ] Run <code>python3 -m json.tool /opt/lab-classroom/class52/reports/validation.json</code>; it must print valid JSON without an error.</li>
 <li>[ ] Run <code>test /opt/lab-classroom/class52/incomplete != /opt/lab-classroom/class52/complete</code>; it must exit with status 0.</li>
@@ -486,14 +465,7 @@ chmod 0750 /opt/lab-classroom/class52/validate.py</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Use provider-supported TLS and certificate validation so credentials and article requests are not sent in cleartext.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Use provider-supported TLS and certificate validation so credentials and article requests are not sent in cleartext.<br />
 Keep the SABnzbd interface on loopback or a trusted management network unless a properly authenticated encrypted gateway is required.<br />
 Require authentication even on a private network; private addressing alone is not an authorization mechanism.<br />
 Treat full-access and NZB-submission API keys as different secrets when the installed SABnzbd version supports distinct capabilities.<br />
@@ -532,14 +504,7 @@ Download only content the operator is legally permitted to access and retain.</p
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Successful PAR2 verification or archive extraction establishes file integrity, not trustworthiness or legality.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>impact</h4><p>Rollback removes only the files and subdirectories created beneath /opt/lab-classroom/class52 while preserving the class52 directory itself.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>impact</h4><p>Rollback removes only the files and subdirectories created beneath /opt/lab-classroom/class52 while preserving the class52 directory itself.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

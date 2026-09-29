@@ -55,6 +55,12 @@ egrep -c '(vmx|svm)' /proc/cpuinfo
 # Result should be > 0. Also useful:
 lscpu | egrep 'Virtualization|Hypervisor|Flags'
 ```
+`/proc/cpuinfo` is Linux-only. On Intel Macs, check instead:
+```bash
+sysctl kern.hv_support
+# 1 means the CPU/firmware supports virtualization
+```
+Apple Silicon Macs don't use VT-x/AMD-V at all; skip this check and use Apple's own Virtualization framework or UTM instead of VirtualBox.
 :::
 
 3. **Download the Proxmox ISO and write the USB.**
@@ -254,6 +260,7 @@ Get-CimInstance Win32_Processor | Select-Object VirtualizationFirmwareEnabled
 ```bash
 egrep -c '(vmx|svm)' /proc/cpuinfo
 ```
+`/proc/cpuinfo` is Linux-only. On an Intel Mac, use `sysctl kern.hv_support` instead (expect `1`); Apple Silicon Macs skip this check entirely, they don't have VT-x/AMD-V.
 :::
 
 2. **Install VirtualBox and confirm the CLI works.**

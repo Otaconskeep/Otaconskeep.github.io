@@ -49,4 +49,6 @@ Unlock rule: **retrieval target + Feynman + independent practice + practical gat
 | 5 | Classes 11–13 (Gate 4) |
 | 6 | Class 14 + Capstone + Final reflection |
 
+Weeks 1 through 6 above are the original core path (Modules 1 through 5). The curriculum has since grown to 12 modules. Modules 6 through 12 (Linux Foundations, Network Operations, Docker/Storage/Permissions, ARR Data Model & Compose, Sonarr & Radarr, Download Clients & Indexers, and Requests & Media Servers) continue at the same 2 to 4 hours per class, roughly one module per 1 to 2 weeks pace. Exact topic counts and current class numbering live on the [Modules page](/classroom/modules/), since that list grows as topics are added; this page won't try to re-print a number that goes stale the next time a module gains a topic.
+
 Adjust to your pace; mastery beats calendar.

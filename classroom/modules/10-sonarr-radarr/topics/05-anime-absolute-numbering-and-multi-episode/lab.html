@@ -77,14 +77,7 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the difference between absolute, season-based, aired, DVD, and metadata-provider episode orderings.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the difference between absolute, season-based, aired, DVD, and metadata-provider episode orderings.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
 <li>Completion of a basic media-library naming lesson or equivalent familiarity with series, season, and episode folders.</li>
 <li>Ability to run shell commands and read simple regular expressions.</li>
 <li>Python 3 available on the lab host.</li>
@@ -367,14 +360,7 @@ find /opt/lab-classroom/class44/library -type f -size +0c -print</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The final command should print nothing because all mock media files are zero bytes.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
 <li>The incoming directory contains four untouched mock source files.</li>
 <li>The normalization report marks the two already season-based names with KEEP.</li>
 <li>The report proposes that absolute episode 003 become S01E03.</li>
@@ -390,14 +376,7 @@ find /opt/lab-classroom/class44/library -type f -size +0c -print</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - The incoming directory contains four untouched mock source files.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] Run <code>test -f '/opt/lab-classroom/class44/library/Star Harbor/Season 00/Star Harbor - S00E01 - Prologue [BD-1080p].mkv'</code> and confirm an exit status of zero.</li>
 <li>[ ] Run <code>test -f '/opt/lab-classroom/class44/library/Star Harbor/Season 01/Star Harbor - S01E01-E02 - Twin Arrival [WEB-1080p].mkv'</code> and confirm an exit status of zero.</li>
 <li>[ ] Run <code>test -f '/opt/lab-classroom/class44/library/Star Harbor/Season 01/Star Harbor - S01E03 - Beacon [WEB-1080p].mkv'</code> and confirm an exit status of zero.</li>
@@ -478,14 +457,7 @@ find /opt/lab-classroom/class44/library -type f -size +0c -print</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>principles</h4><p>Keep acquisition, staging, and production library paths separate.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Keep acquisition, staging, and production library paths separate.<br />
 Treat filenames and downloaded sidecar metadata as untrusted input.<br />
 Preview all parser and rename operations before enabling automatic organization.<br />
 Grant automation accounts write access only to directories they must manage.<br />
@@ -518,14 +490,7 @@ Do not test numbering changes directly against the only copy of a media collecti
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A successful filename parse does not prove the file contains the claimed episode.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><h4>precondition</h4><p>Confirm that the resolved target is exactly /opt/lab-classroom/class44 and inspect its contents before deletion.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>precondition</h4><p>Confirm that the resolved target is exactly /opt/lab-classroom/class44 and inspect its contents before deletion.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

@@ -86,14 +86,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Deliverables</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ol>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Deliverables</h3></div><div class="cr-prose-block"><ol>
 <li><strong>Lab tree</strong> under <code>/opt/lab-classroom/module06-project/</code> with <code>configs/</code>, <code>logs/</code>, <code>bin/</code>.</li>
 <li><strong>Pipeline</strong> that filters ERROR lines from a sample log into <code>logs/errors.txt</code> using grep|tee and reports a count.</li>
 <li><strong>Identity</strong>: a lab group and two lab users; shared directory mode proving group-read without world-write (no 777).</li>
@@ -107,14 +100,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification checklist</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification checklist</h3></div><div class="cr-prose-block"><ul>
 <li>[ ] <code>realpath</code> shows all artifacts under <code>/opt/lab-classroom/module06-project</code></li>
 <li>[ ] Pipeline evidence file exists and count matches ERROR lines</li>
 <li>[ ] <code>namei -l</code> shows non-777 shared directory ownership</li>
@@ -128,26 +114,12 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
 systemctl --user disable --now module06-heartbeat.service 2&gt;/dev/null || true<br />
 rm -f ~/.config/systemd/user/module06-heartbeat.service<br />
 systemctl --user daemon-reload<br />
 rm -rf /opt/lab-classroom/module06-project</p>
-<h1>remove any lab-only users/groups you created for this project</h1></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
- <div class="cr-actions">
-  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
-  
- </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
- 
-</div><div class="cr-prose-block"><p>No production paths. No <code>chmod 777</code>. No private keys committed. No sshd changes without console.</p><div class="cr-help">
+<h1>remove any lab-only users/groups you created for this project</h1></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><p>No production paths. No <code>chmod 777</code>. No private keys committed. No sshd changes without console.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
