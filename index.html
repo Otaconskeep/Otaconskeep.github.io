@@ -46,85 +46,91 @@
  padding:0.12em 0.45em;
  font-weight:700;
 }
-/* Fivetran-style hierarchical schema diagram (all levels visible) */
+/* Hierarchical schema: transparent, site tokens, L3 as own cascaded blocks */
 .kt-wrap{
- background:#eef3f8;
- border:1px solid #c9d6e4;
- border-radius:10px;
- padding:22px 18px 16px;
+ background:transparent;
+ border:1px solid var(--line);
+ border-radius:8px;
+ padding:18px 14px 12px;
  overflow-x:auto;
- color:#1a2433;
- background-image:
-  linear-gradient(rgba(70,120,180,.08) 1px, transparent 1px),
-  linear-gradient(90deg, rgba(70,120,180,.08) 1px, transparent 1px);
- background-size:24px 24px;
 }
-.kt-wrap .diagram-caption{color:#5a6b7d;font-style:normal;}
-.schema-title{
- margin:0 0 18px; text-align:center;
- font-family:'Bricolage Grotesque',sans-serif; font-weight:800;
- font-size:clamp(1.4rem,3vw,1.9rem); color:#0f1724; letter-spacing:-.02em;
+.kt-wrap.keep-diagram-figure{
+ background:transparent;
+ box-shadow:none;
 }
-.schema-tree{position:relative; min-width:920px; padding-bottom:8px;}
-.schema-root-row{display:flex; justify-content:center; margin-bottom:8px;}
-.schema-l2-row{
+.schema-tree{position:relative; min-width:980px; padding:4px 4px 10px;}
+.schema-root-row{display:flex; justify-content:center; margin-bottom:28px; position:relative; z-index:1;}
+.schema-branches{
  display:grid;
- grid-template-columns:repeat(4, minmax(200px, 1fr));
- gap:14px 16px;
+ grid-template-columns:repeat(4, minmax(210px, 1fr));
+ gap:22px 18px;
  position:relative;
  z-index:1;
 }
 @media (max-width:980px){
- .schema-tree{min-width:680px;}
- .schema-l2-row{grid-template-columns:repeat(2, minmax(200px, 1fr));}
+ .schema-tree{min-width:700px;}
+ .schema-branches{grid-template-columns:repeat(2, minmax(210px, 1fr));}
+}
+.schema-branch{display:flex; flex-direction:column; align-items:stretch; gap:0;}
+.schema-l3-cascade{
+ display:flex; flex-direction:column; align-items:stretch; gap:10px;
+ margin-top:16px; padding-top:2px;
 }
 .schema-lines{
  position:absolute; inset:0; width:100%; height:100%;
  pointer-events:none; z-index:0; overflow:visible;
 }
 .schema-table{
- border:1.5px solid #2b3a4f;
+ border:1px solid var(--line-bright);
  border-radius:6px;
- background:#fff;
- box-shadow:0 8px 24px rgba(20,40,70,.08);
- overflow:hidden;
+ background:var(--surface);
  text-align:left;
+ overflow:hidden;
 }
 .schema-table.is-root{
- width:min(320px, 90%);
- border-color:#1f6feb;
- box-shadow:0 10px 28px rgba(31,111,235,.18);
+ width:min(300px, 92%);
+ border-color:var(--accent);
 }
+.schema-table.is-l2{border-color:rgba(57,230,200,.35);}
+.schema-table.is-l3{background:rgba(0,0,0,.18); border-color:var(--line);}
+a.schema-table.is-l3{display:block; text-decoration:none; color:inherit;}
+a.schema-table.is-l3:hover{border-color:var(--accent-bright); background:rgba(57,230,200,.06);}
 .schema-table .hd{
  padding:9px 12px;
  font-family:'JetBrains Mono',monospace;
- font-size:.78rem; font-weight:700; letter-spacing:.04em;
- text-transform:uppercase; color:#fff;
- background:#1f6feb;
+ font-size:.74rem; font-weight:700; letter-spacing:.06em;
+ text-transform:uppercase; color:var(--cream);
+ background:rgba(57,230,200,.1);
+ border-bottom:1px solid var(--line);
 }
-.schema-table.is-root .hd{background:#0b4db8; font-size:.86rem;}
+.schema-table.is-root .hd{
+ background:rgba(57,230,200,.16);
+ color:var(--accent-bright);
+ font-size:.82rem;
+}
+.schema-table.is-l3 .hd{
+ padding:8px 10px;
+ font-size:.7rem;
+ background:transparent;
+ border-bottom:none;
+ color:var(--cream);
+}
 .schema-table .hd .lvl{
- opacity:.8; font-weight:600; margin-right:6px; letter-spacing:.1em; font-size:.66rem;
+ color:var(--accent-bright); font-weight:600; margin-right:6px;
+ letter-spacing:.1em; font-size:.62rem;
 }
 .schema-table .bd{padding:0;}
 .schema-table .field{
- display:block; padding:7px 12px;
- border-top:1px solid #d8e1ec;
- font-family:'JetBrains Mono',monospace; font-size:.72rem; color:#243246;
- text-decoration:none; background:#fff;
+ display:block; padding:8px 12px;
+ border-top:1px solid var(--line);
+ font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--cream-dim);
 }
-.schema-table .field:hover{background:#f3f8ff; color:#0b4db8;}
-.schema-table .field .sub{
- display:block; margin-top:2px; color:#6a7c90; font-size:.64rem; font-weight:500;
- text-transform:none; letter-spacing:0;
+.schema-table.is-l3 .field{
+ border-top:1px solid var(--line);
+ padding:6px 10px 9px;
+ color:var(--cream-faint); font-size:.66rem; line-height:1.35;
 }
-.schema-table .field.is-plain{color:#405166;}
-.schema-key{
- margin:10px 0 0;
- font-family:'JetBrains Mono',monospace; font-size:.66rem;
- letter-spacing:.06em; text-transform:uppercase; color:#5a6b7d; text-align:center;
-}
-.schema-key b{color:#0b4db8;}
+.schema-table.is-root .field{color:var(--cream-dim);}
 .path-card { color:var(--cream); text-decoration:none; display:block; }
 .path-card:hover { border-color: var(--accent); }
 .eng-count {
@@ -213,21 +219,19 @@
  <h2>One private system, not one chatbot</h2>
  <p class="intro">A Keep is agents, tools, and services on hardware you control. KeepRoute keeps the work alive when a model changes. You already own the machine it runs on.</p>
  <figure class="keep-diagram-figure kt-wrap" style="overflow-x:auto;">
- <p class="schema-title">Keep schema.</p>
- <div class="schema-tree" id="kt-sys" aria-label="Otaconskeep Keep schema"></div>
- <p class="schema-key"><b>L1</b> root table · <b>L2</b> child tables · <b>L3</b> fields · lines = owns / reports</p>
+ <div class="schema-tree" id="kt-sys" aria-label="Otaconskeep hierarchy"></div>
 <script>
 (function(){
- /* Hierarchical schema diagram (Fivetran-style): root table → child tables with field rows. All levels visible. */
- var ROOT = { label: 'YOUR_KEEP', note: 'L1 system · Otaconskeep monolith' };
- var TABLES = [
-  {label:'AI_AGENT_PRODUCTS', color:'#0b4db8', fields:[
+ /* Hierarchical model: L1 root → L2 domain blocks → L3 cascaded as own blocks. Site-matched, transparent. */
+ var ROOT = { label: 'YOUR_KEEP', note: 'Otaconskeep monolith · system root' };
+ var BRANCHES = [
+  {label:'AI_AGENT_PRODUCTS', children:[
    {n:'otacon_lite', href:'/otacon/', note:'chat · memory · voice'},
    {n:'keeproute', href:'/keeproute/', note:'mission continuity'},
    {n:'keep_desk', href:'/keepdesk/', note:'computer-use teammates'},
    {n:'expansion', href:'/expansion/', note:'5-agent hierarchy + REX'}
   ]},
-  {label:'COMMAND_SURFACES', color:'#155e75', fields:[
+  {label:'COMMAND_SURFACES', children:[
    {n:'command_deck', href:'/keepdesk/', note:'briefing · LIVE · Why'},
    {n:'codec', note:'voice + personnel channel'},
    {n:'dashboard', note:'Aria coordinator home'},
@@ -235,7 +239,7 @@
    {n:'engineering', href:'/engineering/', note:'V&V evidence'},
    {n:'classroom', href:'/classroom/', note:'Homelab Academy'}
   ]},
-  {label:'SERVICE_STACK', color:'#9a3412', fields:[
+  {label:'SERVICE_STACK', children:[
    {n:'media', note:'plex · radarr · sonarr · prowlarr'},
    {n:'requests', note:'doplarr · seerr'},
    {n:'foxdie', href:'/foxdie/', note:'library integrity'},
@@ -244,31 +248,31 @@
    {n:'search', note:'searxng'},
    {n:'ai9', href:'/ai9/', note:'GPU manga colorizer'}
   ]},
-  {label:'CAPABILITY_ROUTER', color:'#6d28d9', fields:[
+  {label:'CAPABILITY_ROUTER', children:[
    {n:'local_gpu', note:'ollama · comfy · heavy jobs'},
    {n:'remote_workers', note:'offload when local is busy'},
    {n:'other_nodes', note:'LAN peers / lab hosts'}
   ]},
-  {label:'COMMUNICATION', color:'#047857', fields:[
+  {label:'COMMUNICATION', children:[
    {n:'ssh', note:'operator remote shell'},
    {n:'tls', note:'encrypted service fronts'},
    {n:'discord', note:'chat · requests · alerts'},
    {n:'doplarr', note:'discord → sonarr/radarr'},
    {n:'n8n', note:'webhooks · workflow I/O'}
   ]},
-  {label:'SOCIAL_RELATIONSHIPS', color:'#be185d', fields:[
+  {label:'SOCIAL_RELATIONSHIPS', children:[
    {n:'culture_learning', href:'/expansion/', note:'Aria teaches the crew'},
    {n:'mood_engine', note:'standing social state'},
    {n:'codec_voices', note:'personnel voice archive'},
    {n:'discord_presence', note:'human-facing social surface'}
   ]},
-  {label:'ENGINES', color:'#b45309', fields:[
+  {label:'ENGINES', children:[
    {n:'rex_cycle', href:'/expansion/#rex-business', note:'draft → review → gate'},
    {n:'keeproute_learning', href:'/keeproute/#rex-learning', note:'mission → world-model → REX'},
    {n:'foxdie_loop', href:'/foxdie/', note:'scan → repair'},
    {n:'job_queue', href:'/keepdesk/', note:'serial worker drain'}
   ]},
-  {label:'AGENT_ROSTER', color:'#1d4ed8', fields:[
+  {label:'AGENT_ROSTER', children:[
    {n:'aria', note:'rank 1 · command coordinator'},
    {n:'vector', note:'systems → aria'},
    {n:'ledger', note:'data → aria'},
@@ -278,42 +282,28 @@
   ]}
  ];
 
- function tableEl(spec, isRoot){
-  var t = document.createElement('div');
-  t.className = 'schema-table' + (isRoot ? ' is-root' : '');
-  t.dataset.schemaNode = '1';
+ function block(level, title, note, href){
+  var t = href ? document.createElement('a') : document.createElement('div');
+  t.className = 'schema-table is-' + level;
+  if (href) t.href = href;
+  t.dataset.schemaNode = level;
   var hd = document.createElement('div');
   hd.className = 'hd';
-  if (spec.color) hd.style.background = spec.color;
-  hd.innerHTML = '<span class="lvl">' + (isRoot ? 'L1' : 'L2') + '</span>' + spec.label;
+  hd.innerHTML = '<span class="lvl">' + level.toUpperCase() + '</span>' + title;
   t.appendChild(hd);
-  var bd = document.createElement('div');
-  bd.className = 'bd';
-  if (isRoot){
+  if (note){
+   var bd = document.createElement('div');
+   bd.className = 'bd';
    var f = document.createElement('div');
-   f.className = 'field is-plain';
-   f.textContent = spec.note || 'system root';
+   f.className = 'field';
+   f.textContent = note;
    bd.appendChild(f);
-  } else {
-   (spec.fields || []).forEach(function(field){
-    var row = field.href ? document.createElement('a') : document.createElement('div');
-    row.className = 'field';
-    if (field.href) row.href = field.href;
-    row.appendChild(document.createTextNode(field.n));
-    if (field.note){
-     var sub = document.createElement('span');
-     sub.className = 'sub';
-     sub.textContent = 'L3 · ' + field.note;
-     row.appendChild(sub);
-    }
-    bd.appendChild(row);
-   });
+   t.appendChild(bd);
   }
-  t.appendChild(bd);
   return t;
  }
 
- function drawLines(tree, rootEl, childEls){
+ function drawLines(tree, pairs){
   var svg = tree.querySelector('svg.schema-lines');
   if (!svg){
    svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -321,28 +311,28 @@
    tree.insertBefore(svg, tree.firstChild);
   }
   var tr = tree.getBoundingClientRect();
-  svg.setAttribute('width', tree.scrollWidth);
-  svg.setAttribute('height', tree.scrollHeight);
-  svg.style.width = tree.scrollWidth + 'px';
-  svg.style.height = tree.scrollHeight + 'px';
+  var w = tree.scrollWidth, h = tree.scrollHeight;
+  svg.setAttribute('width', w);
+  svg.setAttribute('height', h);
+  svg.style.width = w + 'px';
+  svg.style.height = h + 'px';
   while (svg.firstChild) svg.removeChild(svg.firstChild);
   var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-  defs.innerHTML = '<marker id="schema-arrow" markerWidth="8" markerHeight="8" refX="4" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#334155"/></marker>';
+  defs.innerHTML = '<marker id="schema-arrow" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 Z" fill="rgba(57,230,200,.75)"/></marker>';
   svg.appendChild(defs);
-  var rr = rootEl.getBoundingClientRect();
-  var x0 = rr.left + rr.width/2 - tr.left + tree.scrollLeft;
-  var y0 = rr.bottom - tr.top;
-  var busY = y0 + 18;
-  childEls.forEach(function(child, i){
-   var cr = child.getBoundingClientRect();
-   var x1 = cr.left + cr.width/2 - tr.left + tree.scrollLeft;
-   var y1 = cr.top - tr.top;
+  pairs.forEach(function(pair){
+   var a = pair[0].getBoundingClientRect();
+   var b = pair[1].getBoundingClientRect();
+   var x0 = a.left + a.width/2 - tr.left + tree.scrollLeft;
+   var y0 = a.bottom - tr.top;
+   var x1 = b.left + b.width/2 - tr.left + tree.scrollLeft;
+   var y1 = b.top - tr.top;
+   var mid = y0 + Math.max(10, (y1 - y0) / 2);
    var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-   var d = 'M ' + x0 + ' ' + y0 + ' V ' + busY + ' H ' + x1 + ' V ' + y1;
-   path.setAttribute('d', d);
+   path.setAttribute('d', 'M ' + x0 + ' ' + y0 + ' V ' + mid + ' H ' + x1 + ' V ' + y1);
    path.setAttribute('fill', 'none');
-   path.setAttribute('stroke', '#334155');
-   path.setAttribute('stroke-width', '1.6');
+   path.setAttribute('stroke', 'rgba(57,230,200,.45)');
+   path.setAttribute('stroke-width', '1.4');
    path.setAttribute('marker-end', 'url(#schema-arrow)');
    svg.appendChild(path);
   });
@@ -351,31 +341,45 @@
  function render(){
   var tree = document.getElementById('kt-sys');
   tree.innerHTML = '';
+  var pairs = [];
+
   var rootRow = document.createElement('div');
   rootRow.className = 'schema-root-row';
-  var rootEl = tableEl(ROOT, true);
+  var rootEl = block('root', ROOT.label, ROOT.note);
   rootRow.appendChild(rootEl);
   tree.appendChild(rootRow);
 
-  var l2 = document.createElement('div');
-  l2.className = 'schema-l2-row';
-  var childEls = [];
-  TABLES.forEach(function(spec){
-   var t = tableEl(spec, false);
-   l2.appendChild(t);
-   childEls.push(t);
-  });
-  tree.appendChild(l2);
+  var branches = document.createElement('div');
+  branches.className = 'schema-branches';
+  BRANCHES.forEach(function(br){
+   var col = document.createElement('div');
+   col.className = 'schema-branch';
+   var l2 = block('l2', br.label, null);
+   col.appendChild(l2);
+   pairs.push([rootEl, l2]);
 
+   var cascade = document.createElement('div');
+   cascade.className = 'schema-l3-cascade';
+   (br.children || []).forEach(function(child){
+    var l3 = block('l3', child.n, child.note, child.href);
+    cascade.appendChild(l3);
+    pairs.push([l2, l3]);
+   });
+   col.appendChild(cascade);
+   branches.appendChild(col);
+  });
+  tree.appendChild(branches);
+
+  function relayout(){ drawLines(tree, pairs); }
   requestAnimationFrame(function(){
-   drawLines(tree, rootEl, childEls);
-   window.addEventListener('resize', function(){ drawLines(tree, rootEl, childEls); });
+   relayout();
+   window.addEventListener('resize', relayout);
   });
  }
  render();
 })();
 </script>
- <figcaption class="diagram-caption">Hierarchical Keep schema: one root system table, child domain tables, L3 services as fields. Same pattern as a database schema diagram — every relationship is on the board.</figcaption>
+ <figcaption class="diagram-caption">L1 system → L2 domains → L3 services as their own blocks. The whole Keep hierarchy is on the board.</figcaption>
  </figure>
 
  </section>
