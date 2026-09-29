@@ -91,8 +91,9 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; overflow-wrap: break-word; }
 }
 .brand {
  display: flex;
- flex-direction: column;
- line-height: 1.2;
+ flex-direction: row;
+ align-items: center;
+ gap: 8px;
  font-family: 'Bricolage Grotesque', sans-serif;
  font-weight: 800;
  letter-spacing: 0.04em;
@@ -102,6 +103,18 @@ h1, h2, h3, h4 { margin: 0; font-weight: 800; overflow-wrap: break-word; }
  text-decoration: none;
 }
 .brand:hover { color: var(--accent-bright); }
+.brand-avatar {
+ width: 36px;
+ height: 36px;
+ object-fit: contain;
+ object-position: bottom;
+ flex-shrink: 0;
+}
+.brand-text {
+ display: flex;
+ flex-direction: column;
+ line-height: 1.2;
+}
 .brand-byline {
  font-family: 'JetBrains Mono', ui-monospace, monospace;
  font-weight: 500;
