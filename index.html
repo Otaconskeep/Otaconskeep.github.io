@@ -196,6 +196,21 @@
     {label:'Local GPU', s:'Models'},
     {label:'Remote', s:'Workers'},
     {label:'Other', s:'Nodes'}
+   ]},
+   {id:'comms', label:'Communication', s:'SSH, TLS, Discord, Doplarr, n8n', children:[
+    {label:'SSH', s:'Operator remote access to the Keep'},
+    {label:'TLS', s:'Encrypted transport for every exposed service'},
+    {label:'Discord', s:'Bot interface: chat, requests, notifications'},
+    {label:'Doplarr', s:'Discord to Sonarr/Radarr request bridge'},
+    {label:'n8n', s:'Webhook and workflow automation interface'}
+   ]},
+   {id:'roster', label:'Agent Roster', s:'Aria, Vector, Ledger, Muse, Sentry', children:[
+    {label:'Aria', s:'Command Coordinator, rank 1: synthesizes and delegates'},
+    {label:'Vector', s:'Systems & Infrastructure, reports to Aria'},
+    {label:'Ledger', s:'Data & Continuity, reports to Aria'},
+    {label:'Muse', s:'Creative & Media Curation, reports to Aria'},
+    {label:'Sentry', s:'Security & Operations, reports to Aria'},
+    {label:'Full roster', href:'/expansion/#roster', s:'Open the Expansion page'}
    ]}
   ]}
  ]};
