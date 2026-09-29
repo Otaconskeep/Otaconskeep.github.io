@@ -23,9 +23,9 @@ BANKS = Path(
     or '/mnt/data/docker/volumes/otacon-executor_otacon-data/_data/learning/category_banks.json'
 )
 SITE = 'https://otaconskeep.github.io'
-PAGE = f'{SITE}/news/'
-FEED = f'{SITE}/news/feed.xml'
-ARCHIVE = ROOT / 'news' / 'archive.json'
+PAGE = f'{SITE}/news/ai-homelab/'
+FEED = f'{SITE}/news/ai-homelab/feed.xml'
+ARCHIVE = ROOT / 'news' / 'ai-homelab' / 'archive.json'
 MIN_STORIES = 200
 
 
@@ -542,11 +542,11 @@ def harvest_page(html_text: str, published: str = '') -> list[dict]:
 
 def harvest_history(archive: dict) -> int:
     added = 0
-    current = ROOT / 'news' / 'index.html'
+    current = ROOT / 'news' / 'ai-homelab' / 'index.html'
     if current.is_file():
         added += merge_rows(archive, harvest_page(current.read_text(encoding='utf-8', errors='replace')))
     log = subprocess.run(
-        ['git', 'log', '--format=%H%x09%cI', '--', 'news/index.html'],
+        ['git', 'log', '--follow', '--format=%H%x09%cI', '--', 'news/ai-homelab/index.html'],
         cwd=ROOT, text=True, capture_output=True, check=False,
     )
     for line in log.stdout.splitlines():
@@ -554,9 +554,14 @@ def harvest_history(archive: dict) -> int:
             continue
         sha, published = line.split('\t', 1)
         show = subprocess.run(
-            ['git', 'show', f'{sha}:news/index.html'],
+            ['git', 'show', f'{sha}:news/ai-homelab/index.html'],
             cwd=ROOT, text=True, capture_output=True, check=False,
         )
+        if show.returncode != 0:
+            show = subprocess.run(
+                ['git', 'show', f'{sha}:news/index.html'],
+                cwd=ROOT, text=True, capture_output=True, check=False,
+            )
         if show.returncode != 0:
             continue
         added += merge_rows(archive, harvest_page(show.stdout, published))
@@ -799,16 +804,16 @@ def page(rows: list[dict], when: str) -> str:
 <head>
 <meta charset="UTF-8">
 <link rel="canonical" href="{PAGE}">
-<link rel="alternate" type="application/rss+xml" title="News in AI" href="{FEED}">
+<link rel="alternate" type="application/rss+xml" title="AI & Homelab News" href="{FEED}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>News in AI · Otaconskeep</title>
-<meta name="description" content="News in AI for people running it at home. Self-hosting, local models, videos, Reddit, and social. Updated from the Keep.">
+<title>AI &amp; Homelab News · Otaconskeep</title>
+<meta name="description" content="AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social. Updated from the Keep.">
 <meta name="robots" content="index,follow">
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/style.css?v=20260920i">
+<link rel="stylesheet" href="/assets/style.css?v=20260929e">
 <style>
 .news-list {{
   display:grid; grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -898,17 +903,16 @@ def page(rows: list[dict], when: str) -> str:
 
 <div class="filebar">
  <div class="wrap">
- <span>FILE // NEWS-IN-AI</span>
+ <span>FILE // AI-HOMELAB-NEWS</span>
  <span>HOME CURRENT · {html.escape(dated.upper())}</span>
  </div>
 </div>
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/">Otaconskeep</a>
+ <a class="brand" href="/">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
- <a href="/news/" aria-current="page">News</a>
  <a href="/">Home</a>
  <a href="/#ecosystem">Platform</a>
  <div class="navdrop">
@@ -924,14 +928,23 @@ def page(rows: list[dict], when: str) -> str:
  <a href="/classroom/">Learn</a>
  <a href="/engineering/">Engineering</a>
  <a href="/about/">About</a>
- <a class="discord" href="/install/">Get Otacon</a>
+ <a href="/news/" aria-current="page">News</a>
+ <a href="/donate/">Donate</a>
+ <a href="/install/" class="discord">Get Otacon</a>
  </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="News">
+ <div class="wrap">
+ <a href="/news/">News</a>
+ <a href="/news/ai-homelab/" aria-current="page">AI &amp; Homelab</a>
+ <a href="/news/systems-engineering/">Systems Engineering</a>
+ </div>
 </nav>
 
 <div class="wrap">
  <section class="hero flush">
  <p class="eyebrow">Home Current · {html.escape(dated)}</p>
- <h1 class="display" style="font-size: clamp(2.4rem, 6vw, 4.4rem);">News in AI</h1>
+ <h1 class="display" style="font-size: clamp(2.4rem, 6vw, 4.4rem);">AI &amp; Homelab News</h1>
  <p class="lede">For people running it at home. Self-hosting, local models, videos, Reddit, and social. New stories are added. Older ones stay, with the newest first. Takeover headlines and “they think it will” predictions stay out.</p>
  <div class="btn-row" style="margin-top: 22px;">
  <a class="btn btn-primary" href="{FEED}">Subscribe with RSS</a>
@@ -984,7 +997,7 @@ def page(rows: list[dict], when: str) -> str:
   }});
 }})();
 </script>
-<script src="../assets/site.js"></script>
+<script src="/assets/site.js"></script>
 </body>
 </html>
 '''
@@ -994,9 +1007,9 @@ def feed(rows: list[dict], when: str) -> str:
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<rss version="2.0"><channel>',
-        '<title>News in AI</title>',
+        '<title>AI &amp; Homelab News</title>',
         f'<link>{PAGE}</link>',
-        '<description>News in AI for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>',
+        '<description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>',
         f'<lastBuildDate>{html.escape(when or stamp(""))}</lastBuildDate>',
     ]
     for row in rows:
@@ -1025,7 +1038,7 @@ def main() -> None:
     edition, when = load_items()
     if len(edition) < 1:
         raise SystemExit('Home Current edition is empty')
-    out = ROOT / 'news'
+    out = ROOT / 'news' / 'ai-homelab'
     out.mkdir(parents=True, exist_ok=True)
     archive = load_archive()
     kept_history = harvest_history(archive)
