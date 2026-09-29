@@ -1034,6 +1034,77 @@ def feed(rows: list[dict], when: str) -> str:
     return '\n'.join(lines) + '\n'
 
 
+NEWS_HUB_HTML = """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://otaconskeep.github.io/news/">
+<link rel="alternate" type="application/rss+xml" title="AI & Homelab News" href="https://otaconskeep.github.io/news/ai-homelab/feed.xml">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News · Otaconskeep</title>
+<meta name="description" content="News from the Keep: AI and homelab for people running it at home, plus systems engineering when it ships.">
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=20260929e">
+<style>
+.news-hub{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:8px 0 48px}
+@media (max-width:860px){.news-hub{grid-template-columns:1fr}}
+.news-hub .resource{border:1px solid var(--line);background:var(--surface);padding:18px 16px 16px}
+.news-hub .resource a.title{color:var(--cream);font-weight:700;font-size:1.15rem;text-decoration:none}
+.news-hub .resource a.title:hover{color:var(--accent-bright)}
+.news-hub .resource span{display:block;margin:6px 0 10px;color:var(--accent-bright);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.news-hub .resource p{margin:0 0 14px;color:var(--cream-dim)}
+</style>
+</head>
+<body>
+<div class="filebar"><div class="wrap"><span>FILE // NEWS</span><span>OTACONSKEEP // EDITIONS</span></div></div>
+<nav class="topnav"><div class="wrap">
+<a class="brand" href="/">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></a>
+<button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+<div class="navlinks">
+<a href="/">Home</a><a href="/#ecosystem">Platform</a>
+<div class="navdrop"><a href="/#ecosystem">Products</a><div class="navdrop-menu">
+<a href="/otacon/">Otacon Lite</a><a href="/keeproute/">KeepRoute</a><a href="/keepdesk/">Keep Desk</a><a href="/expansion/">Expansion</a><a href="/ai9/">AI9</a>
+</div></div>
+<a href="/classroom/">Learn</a><a href="/engineering/">Engineering</a><a href="/about/">About</a>
+<a href="/news/" aria-current="page">News</a><a href="/donate/">Donate</a>
+<a href="/install/" class="discord">Get Otacon</a>
+</div></div></nav>
+<nav class="cr-subnav" aria-label="News"><div class="wrap">
+<a href="/news/" aria-current="page">News</a>
+<a href="/news/ai-homelab/">AI &amp; Homelab</a>
+<a href="/news/systems-engineering/">Systems Engineering</a>
+</div></nav>
+<div class="wrap">
+<section class="hero flush">
+<p class="eyebrow">From the Keep</p>
+<h1 class="display" style="font-size: clamp(2.4rem, 6vw, 4.4rem);">News</h1>
+<p class="lede">Editions for people running AI and a lab at home. Pick a desk, or open the live AI &amp; Homelab feed.</p>
+<div class="btn-row" style="margin-top: 22px;">
+<a class="btn btn-primary" href="/news/ai-homelab/">Open AI &amp; Homelab News</a>
+<a class="btn btn-ghost" href="/news/ai-homelab/feed.xml">Subscribe with RSS</a>
+</div>
+</section>
+<div class="news-hub">
+<article class="resource"><span>Live</span>
+<a class="title" href="/news/ai-homelab/">AI &amp; Homelab</a>
+<p>Self-hosting, local models, videos, Reddit, and social. Updated from the Keep.</p>
+<a class="btn btn-ghost" href="/news/ai-homelab/">Read the edition</a></article>
+<article class="resource"><span>Next desk</span>
+<a class="title" href="/news/systems-engineering/">Systems Engineering</a>
+<p>Verification, requirements, and engineering notes from the Keep. Page ships when the first edition is ready.</p>
+<a class="btn btn-ghost" href="/engineering/">Engineering portal</a></article>
+</div>
+</div>
+<script src="/assets/site.js"></script>
+</body>
+</html>
+"""
+
+
 def main() -> None:
     edition, when = load_items()
     if len(edition) < 1:
@@ -1057,7 +1128,15 @@ def main() -> None:
     save_visuals(rows, out / 'media')
     save_archive(archive)
     (out / 'index.html').write_text(page(rows, when), encoding='utf-8')
-    (out / 'feed.xml').write_text(feed(rows, when), encoding='utf-8')
+    feed_xml = feed(rows, when)
+    (out / 'feed.xml').write_text(feed_xml, encoding='utf-8')
+    # Keep /news/ itself online: publishers write under /news/ai-homelab/.
+    hub = ROOT / 'news'
+    hub.mkdir(parents=True, exist_ok=True)
+    (hub / 'feed.xml').write_text(feed_xml, encoding='utf-8')
+    hub_index = hub / 'index.html'
+    if not hub_index.exists():
+        hub_index.write_text(NEWS_HUB_HTML, encoding='utf-8')
     print(f'wrote {len(rows)} stories')
 
 
