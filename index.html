@@ -159,41 +159,43 @@
  <div class="kt-grid" id="kt-grid"></div>
 <script>
 (function(){
- var KEEP_TREE = {label:'Your Keep', children:[
-  {id:'agents', label:'AI Agent Products', children:[
-   {label:'Otacon Lite', href:'/otacon/', s:'Chat, Memory, Voice'},
-   {label:'KeepRoute', href:'/keeproute/', s:'Provider fallback, Mission control'},
-   {label:'Keep Desk', href:'/keepdesk/', s:'Computer-use, Local agents'},
-   {label:'Expansion', href:'/expansion/', s:'5-agent hierarchy, REX'}
-  ]},
-  {id:'services', label:'Service Stack', children:[
-   {label:'Media', s:'Plex, *arr stack', children:[
-    {label:'Plex', s:'Media server'},
-    {label:'Radarr', s:'Movie automation'},
-    {label:'Sonarr', s:'TV automation'},
-    {label:'Prowlarr', s:'Indexer management'}
+ var KEEP_TREE = {label:'Otaconskeep', children:[
+  {label:'Your Keep', s:'Agents, services, and the router that ties them together', children:[
+   {id:'agents', label:'AI Agent Products', s:'Otacon Lite, KeepRoute, Keep Desk, Expansion', children:[
+    {label:'Otacon Lite', href:'/otacon/', s:'Chat, Memory, Voice'},
+    {label:'KeepRoute', href:'/keeproute/', s:'Provider fallback, Mission control'},
+    {label:'Keep Desk', href:'/keepdesk/', s:'Computer-use, Local agents'},
+    {label:'Expansion', href:'/expansion/', s:'5-agent hierarchy, REX'}
    ]},
-   {label:'Requests', s:'Doplarr, Seerr', children:[
-    {label:'Doplarr', s:'Discord request bot'},
-    {label:'Seerr', s:'Request + approval UI'}
+   {id:'services', label:'Service Stack', s:'Media, Requests, FOXDIE, Home + Automation, Creative Pipeline, Search', children:[
+    {label:'Media', s:'Plex, *arr stack', children:[
+     {label:'Plex', s:'Media server'},
+     {label:'Radarr', s:'Movie automation'},
+     {label:'Sonarr', s:'TV automation'},
+     {label:'Prowlarr', s:'Indexer management'}
+    ]},
+    {label:'Requests', s:'Doplarr, Seerr', children:[
+     {label:'Doplarr', s:'Discord request bot'},
+     {label:'Seerr', s:'Request + approval UI'}
+    ]},
+    {label:'FOXDIE', href:'/foxdie/', s:'Integrity scan, Auto-fix'},
+    {label:'Home + Automation', s:'Home Assistant, n8n', children:[
+     {label:'Home Assistant', s:'Smart home platform'},
+     {label:'n8n', s:'Workflow automation'}
+    ]},
+    {label:'Creative Pipeline', s:'Video Studio, The Director', children:[
+     {label:'Video Studio', s:'Generation pipeline'},
+     {label:'The Director', s:'Creative orchestration'}
+    ]},
+    {label:'Search', s:'SearXNG', children:[
+     {label:'SearXNG', s:'Private meta-search'}
+    ]}
    ]},
-   {label:'FOXDIE', href:'/foxdie/', s:'Integrity scan, Auto-fix'},
-   {label:'Home + Automation', s:'Home Assistant, n8n', children:[
-    {label:'Home Assistant', s:'Smart home platform'},
-    {label:'n8n', s:'Workflow automation'}
-   ]},
-   {label:'Creative Pipeline', s:'Video Studio, The Director', children:[
-    {label:'Video Studio', s:'Generation pipeline'},
-    {label:'The Director', s:'Creative orchestration'}
-   ]},
-   {label:'Search', s:'SearXNG', children:[
-    {label:'SearXNG', s:'Private meta-search'}
+   {id:'router', label:'Capability Router', s:'Local GPU, Remote Workers, Other Nodes', children:[
+    {label:'Local GPU', s:'Models'},
+    {label:'Remote', s:'Workers'},
+    {label:'Other', s:'Nodes'}
    ]}
-  ]},
-  {id:'router', label:'Capability Router', children:[
-   {label:'Local GPU', s:'Models'},
-   {label:'Remote', s:'Workers'},
-   {label:'Other', s:'Nodes'}
   ]}
  ]};
 
