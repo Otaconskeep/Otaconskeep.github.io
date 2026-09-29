@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- keepdesk-build 20260920k-watch-deck -->
+<!-- keepdesk-build 20260929-honest-gaps -->
 
 <html lang="en">
 <head>
@@ -242,6 +242,9 @@ docker compose up -d --build
  <li><strong>Not zero-ops</strong>, you run Docker, Ollama, and disk backups.</li>
  <li><strong>Amazon SPAs still bite</strong>, shopping stages now require <code class="mono">browser_navigate</code> first (no web_research-only theater; hollow shortlists blocked). Bot walls / SPA choke can still need retries or human takeover.</li>
  <li><strong>LIVE honesty</strong>, idle parks on NO SIGNAL on purpose; active shopping must leave park onto real product pages.</li>
+ <li><strong>Authenticated sessions are PARTIAL</strong> (matrix <code class="mono">BROW-07</code> / <code class="mono">BROW-08</code>), fixture cookies persist; live SaaS human-auth takeover and resume are not solid enough yet to claim unattended “leave it logged in and walk away.”</li>
+ <li><strong>Not true parallel bots yet</strong> (matrix <code class="mono">D-02</code>), several bots can own jobs, but one worker drains the queue serially. Concurrent computer-use like cloud Muse/Grok multi-task is still a gap.</li>
+ <li><strong>L6 endurance is unproven</strong>, L5-prod critical gates PASS; the 12h/24h unattended tier (<code class="mono">BROW-L6</code>) is still IN PROGRESS, so “runs a day alone” is not a claim yet.</li>
  </ul>
  </section>
 </div>
@@ -252,7 +255,7 @@ docker compose up -d --build
  <h2 class="kd-h2">Quick answers</h2>
  <details class="kd-faq"><summary>Is Keep Desk free?</summary><p>Yes. Running locally has no cloud LLM bill, and the repo, install instructions, and compose wiring are public, no seat, no license key.</p></details>
  <details class="kd-faq"><summary>Does it phone home to OpenAI or xAI?</summary><p>No. Local Ollama only; cloud LLM endpoints are refused.</p></details>
- <details class="kd-faq" id="claimable-score"><summary>What does 91.6% mean?</summary><p><strong>91.6%</strong> is an internal weighted <em>claimable requirements</em> score (critical gates PASS on Keep Desk’s own matrix). It is <strong>not</strong> a completion bar for OtaconsKeep overall, and not “91.6% as good as Grok.” Day-to-day feel is a separate estimate (~75% once you count model quality, mobile, and connectors).</p></details>
+ <details class="kd-faq" id="claimable-score"><summary>What does 91.6% mean?</summary><p><strong>91.6%</strong> is an internal weighted <em>claimable requirements</em> score (critical gates PASS on Keep Desk’s own matrix in <code class="mono">Otaconskeep/keep-desk</code>). It is <strong>not</strong> a completion bar for OtaconsKeep overall, and not “91.6% as good as Grok.” Self-estimate is ~68% Grok feature-parity and ~85% for this lab’s actual use case; day-to-day feel is lower once you count model quality, mobile, connectors, serial workers, and L6 endurance still in progress.</p></details>
  <details class="kd-faq"><summary>Why was LIVE stuck on NO SIGNAL during shopping?</summary><p>Earlier builds nudged <code class="mono">web_research</code> first, so Amazon jobs never moved the browser. Fixed: shopping/homelab stages must <code class="mono">browser_navigate</code> before finish; empty shortlists are rejected.</p></details>
  <details class="kd-faq"><summary>Can it buy things with my card?</summary><p>Treat purchases as dangerous. Research is in scope; production spending needs human approval and external gates.</p></details>
  <details class="kd-faq"><summary>Who built this?</summary><p>Antonio G. Garcia, <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">Otaconskeep</a>.</p></details>
