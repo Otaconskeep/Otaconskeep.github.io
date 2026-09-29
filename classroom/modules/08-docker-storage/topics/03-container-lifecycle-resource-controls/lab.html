@@ -116,7 +116,7 @@ docker inspect academy-c29 --format 'state={{.State.Status}} exit={{.State.ExitC
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Authorized non-production Docker host with internet access only if this setting is not cached.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Authorized non-production Docker host with internet access only if this setting is not cached.</div>
  
 </div></div><div class="cr-prose-block"><h4>Verification checkpoints</h4><pre><code class="language-bash">grep -F 'memory=67108864' &quot;$LAB/before-start.txt&quot;
 grep -F 'pids=64' &quot;$LAB/before-start.txt&quot;
@@ -142,7 +142,7 @@ Expected: created before start, running briefly, then exited with code 0; the in
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Resource limits reduce availability risk but do not replace least privilege.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Resource limits reduce availability risk but do not replace least privilege.</div>
  
 </div></div><div class="cr-prose-block"><p>Rollback:</p><div class="cr-help">
  <div class="cr-actions">

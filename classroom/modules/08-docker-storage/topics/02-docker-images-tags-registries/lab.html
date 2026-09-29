@@ -114,7 +114,7 @@ docker image ls --no-trunc academy-c28:1.0
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Use a non-production Docker host.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Use a non-production Docker host.</div>
  
 </div></div><div class="cr-prose-block"><h4>Verification checkpoints</h4><pre><code class="language-bash">test -s &quot;$LAB/image-inspect.json&quot; &amp;&amp; echo 'PASS: inspection captured'
 docker image inspect academy-c28:1.0 --format '{{ index .Config.Labels &quot;org.opencontainers.image.title&quot; }}'
@@ -138,7 +138,7 @@ sha256sum &quot;$LAB/Dockerfile&quot; &quot;$LAB/proof.txt&quot; | tee &quot;$LA
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Treat registries and build pipelines as supply-chain trust boundaries.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Treat registries and build pipelines as supply-chain trust boundaries.</div>
  
 </div></div><div class="cr-prose-block"><p>Rollback removes only the labeled lab image after confirming no dependent container exists:</p><div class="cr-help">
  <div class="cr-actions">
