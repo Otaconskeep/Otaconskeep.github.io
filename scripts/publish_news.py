@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Publish News in AI when the Keep's Home Current edition changes.
+"""Publish every news desk when the Keep's editions change.
 
-The public page is a built snapshot. This rebuilds it from the live edition
-and pushes GitHub Pages. It commits only news/.
+Builds AI & Homelab, Systems Engineering, and the News hub (which reads
+both desks' archives for its latest-story previews) in that order, then
+commits and pushes whatever under news/ actually changed. It commits
+only news/.
 """
 from __future__ import annotations
 
@@ -20,6 +22,8 @@ ENV = {
     'GIT_COMMITTER_EMAIL': '230031249+Otaconskeep@users.noreply.github.com',
 }
 
+BUILDERS = ('build_news_in_ai.py', 'build_news_se.py', 'build_news_hub.py')
+
 
 def git(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
@@ -33,16 +37,18 @@ def git(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
 
 
 def main() -> int:
-    build = subprocess.run(
-        [sys.executable, str(ROOT / 'scripts' / 'build_news_in_ai.py')],
-        cwd=ROOT,
-        text=True,
-        capture_output=True,
-    )
-    sys.stdout.write(build.stdout)
-    sys.stderr.write(build.stderr)
-    if build.returncode != 0:
-        return build.returncode
+    for script in BUILDERS:
+        build = subprocess.run(
+            [sys.executable, str(ROOT / 'scripts' / script)],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+        )
+        sys.stdout.write(build.stdout)
+        sys.stderr.write(build.stderr)
+        if build.returncode != 0:
+            print(f'{script} failed, stopping')
+            return build.returncode
 
     names = git('status', '--porcelain', '--', 'news').stdout.splitlines()
     paths = []
@@ -58,7 +64,7 @@ def main() -> int:
     commit = git(
         'commit',
         '-m',
-        'Publish the latest News in AI edition.\n\nThe Keep refreshed Home Current, so the public page follows it.',
+        'Publish the latest news editions.\n\nThe Keep refreshed its editions, so the public pages follow.',
         check=False,
     )
     sys.stdout.write(commit.stdout)

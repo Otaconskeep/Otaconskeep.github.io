@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <link rel="canonical" href="https://otaconskeep.github.io/news/">
 <link rel="alternate" type="application/rss+xml" title="AI & Homelab News" href="https://otaconskeep.github.io/news/ai-homelab/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="Systems Engineering News" href="https://otaconskeep.github.io/news/systems-engineering/feed.xml">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>News · Otaconskeep</title>
-<meta name="description" content="News from the Keep: AI and homelab for people running it at home, plus systems engineering when it ships.">
+<title>News &middot; Otaconskeep</title>
+<meta name="description" content="News from the Keep: AI and homelab for people running it at home, plus systems engineering.">
 <meta name="robots" content="index,follow">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,6 +35,18 @@
   font-size:.72rem; letter-spacing:.08em; text-transform:uppercase;
 }
 .news-hub .resource p { margin:0 0 14px; color:var(--cream-dim); }
+.news-hub-preview {
+  border-top:1px solid var(--line); padding-top:12px; margin-top:2px;
+}
+.news-hub-preview-tag {
+  display:block; margin:0 0 6px; color:var(--cream-faint);
+  font-family:'JetBrains Mono', ui-monospace, monospace;
+  font-size:.68rem; letter-spacing:.06em; text-transform:uppercase;
+}
+.news-hub-preview-title {
+  color:var(--cream); font-weight:600; font-size:.94rem; text-decoration:none; line-height:1.4;
+}
+.news-hub-preview-title:hover { color:var(--accent-bright); }
 </style>
 </head>
 <body>
@@ -82,26 +95,12 @@
  <section class="hero flush">
  <p class="eyebrow">From the Keep</p>
  <h1 class="display" style="font-size: clamp(2.4rem, 6vw, 4.4rem);">News</h1>
- <p class="lede">Editions for people running AI and a lab at home. Pick a desk, or open the live AI &amp; Homelab feed.</p>
- <div class="btn-row" style="margin-top: 22px;">
- <a class="btn btn-primary" href="/news/ai-homelab/">Open AI &amp; Homelab News</a>
- <a class="btn btn-ghost" href="/news/ai-homelab/feed.xml">Subscribe with RSS</a>
- </div>
+ <p class="lede">Editions for people running AI, a lab, and systems engineering work. Pick a desk.</p>
  </section>
 
  <div class="news-hub">
-  <article class="resource">
-   <span>Live</span>
-   <a class="title" href="/news/ai-homelab/">AI &amp; Homelab</a>
-   <p>Self-hosting, local models, videos, Reddit, and social. Updated from the Keep.</p>
-   <a class="btn btn-ghost" href="/news/ai-homelab/">Read the edition</a>
-  </article>
-  <article class="resource">
-   <span>Next desk</span>
-   <a class="title" href="/news/systems-engineering/">Systems Engineering</a>
-   <p>Verification, requirements, and engineering notes from the Keep. Page ships when the first edition is ready.</p>
-   <a class="btn btn-ghost" href="/engineering/">Engineering portal</a>
-  </article>
+  <article class="resource"><span>Live</span><a class="title" href="/news/ai-homelab/">AI &amp; Homelab</a><p>Self-hosting, local models, videos, Reddit, and social. Updated from the Keep.</p><div class="news-hub-preview"><span class="news-hub-preview-tag">Latest &middot; llama.cpp</span><a class="news-hub-preview-title" href="https://github.com/ggml-org/llama.cpp/releases/tag/b11258" target="_blank" rel="noopener">llama.cpp b11258</a></div><div class="btn-row" style="margin-top:12px;"><a class="btn btn-ghost" href="/news/ai-homelab/">See more stories</a></div></article>
+  <article class="resource"><span>Live</span><a class="title" href="/news/systems-engineering/">Systems Engineering</a><p>Requirements, architecture, MBSE, verification and validation. Updated from the Keep.</p><div class="news-hub-preview"><span class="news-hub-preview-tag">Latest &middot; Hacker News · requirements engineering</span><a class="news-hub-preview-title" href="https://cacm.acm.org/news/leveraging-requirements-engineering-for-ai-coding-tool-success/" target="_blank" rel="noopener">Leveraging Requirements Engineering for AI Coding Tool Success</a></div><div class="btn-row" style="margin-top:12px;"><a class="btn btn-ghost" href="/news/systems-engineering/">See more stories</a></div></article>
  </div>
 </div>
 <script src="/assets/site.js"></script>
