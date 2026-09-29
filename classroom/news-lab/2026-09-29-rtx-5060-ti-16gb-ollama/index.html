@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RTX 5060 Ti 16GB Ollama Model Guide · News Lab · Otaconskeep</title>
+<meta name="description" content="Deep analysis answering an r/ollama hardware question: which local models to run on an RTX 5060 Ti 16GB with a Ryzen 7 7700X and 32GB DDR5 for coding, learning, reasoning, and design work.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Otaconskeep">
+<meta property="og:title" content="RTX 5060 Ti 16GB: Realistic Ollama Model Stack">
+<meta property="og:description" content="A thorough answer to the r/ollama question about which local models fit a 5060 Ti 16GB for coding, learning, reasoning, and design generation.">
+<meta property="og:url" content="https://otaconskeep.github.io/classroom/news-lab/2026-09-29-rtx-5060-ti-16gb-ollama/">
+<meta property="og:image" content="https://otaconskeep.github.io/assets/img/keep/war-room-1.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RTX 5060 Ti 16GB: Realistic Ollama Model Stack">
+<meta name="twitter:description" content="Which local models actually fit a 5060 Ti 16GB — and which ones waste your time.">
+<meta name="twitter:image" content="https://otaconskeep.github.io/assets/img/keep/war-room-1.webp">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/news-lab/2026-09-29-rtx-5060-ti-16gb-ollama/">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=20260929e">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260924v">
+<link rel="stylesheet" href="/assets/chat-widget.css?v=20260929b">
+<style>
+.lab-toc {
+  border:1px solid var(--line); background:var(--surface); padding:16px 18px; margin: 0 0 28px;
+}
+.lab-toc p { margin:0 0 10px; color:var(--accent-bright); font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; }
+.lab-toc ol { margin:0; padding-left:1.2rem; color:var(--cream-dim); }
+.lab-toc li { margin:.35rem 0; }
+.lab-toc a { color:var(--cream); text-decoration:none; }
+.lab-toc a:hover { color:var(--accent-bright); }
+.lab-table-wrap { overflow-x:auto; margin: 14px 0 22px; border:1px solid var(--line); }
+.lab-table-wrap table { width:100%; border-collapse:collapse; font-size:.92rem; }
+.lab-table-wrap th, .lab-table-wrap td {
+  padding:10px 12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top;
+}
+.lab-table-wrap th {
+  background:rgba(0,0,0,.25); color:var(--accent-bright);
+  font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase;
+}
+.lab-table-wrap td { color:var(--cream-dim); }
+.lab-table-wrap code { font-size:.86em; }
+.lab-pull {
+  border-left:3px solid var(--accent); background:rgba(22,168,147,.08);
+  padding:14px 16px; margin: 18px 0; color:var(--cream);
+}
+.lab-pull strong { color:var(--accent-bright); }
+.lab-cmd {
+  display:block; white-space:pre-wrap; word-break:break-word;
+  font-family:'JetBrains Mono',monospace; font-size:.84rem; line-height:1.55;
+  background:#0d1210; border:1px solid var(--line); padding:14px 16px; margin: 12px 0 18px; color:#c9f7ea;
+}
+.lab-grid {
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin: 16px 0 24px;
+}
+@media (max-width:860px){ .lab-grid { grid-template-columns:1fr; } }
+.lab-card {
+  border:1px solid var(--line); background:var(--surface); padding:16px 16px 14px;
+}
+.lab-card h3 { margin:0 0 8px; font-size:1.05rem; }
+.lab-card p { margin:0; color:var(--cream-dim); }
+.lab-card .kicker {
+  margin:0 0 8px; color:var(--accent-bright);
+  font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
+}
+.lab-sources { list-style:none; padding:0; margin:0 0 24px; }
+.lab-sources li {
+  border:1px solid var(--line); background:var(--surface); padding:12px 14px; margin:0 0 10px;
+}
+.lab-sources a { color:var(--cream); font-weight:650; text-decoration:none; }
+.lab-sources a:hover { color:var(--accent-bright); }
+.lab-sources span {
+  display:block; margin:4px 0 0; color:var(--cream-dim); font-size:.9rem;
+}
+</style>
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // NEWS LAB</span>
+ <span>2026-09-29 · LOCAL MODELS<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/foxdie/">FOXDIE</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/news/">News</a>
+ <a href="/donate/">Donate</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Classroom</a>
+ <a href="/classroom/news-lab/">News Lab</a>
+ <a href="/classroom/homelab/">Homelab</a>
+ <a href="/news/ai-homelab/">AI &amp; Homelab News</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">News Lab<small>community question → deep analysis</small></div>
+ <p class="eyebrow" style="margin-top:18px;">r/ollama · hardware reality check · September 29, 2026</p>
+ <h1 class="display" style="font-size:clamp(2.1rem,5.5vw,3.5rem);">RTX 5060 Ti 16GB: the Ollama stack that actually fits</h1>
+ <p class="lede">A thorough answer to mr_akhil’s question: which local models are realistic on a 5060 Ti 16GB, Ryzen 7 7700X, 32GB DDR5, Windows 11 machine for coding, learning AI/ML, reasoning, and design work.</p>
+ <div class="btn-row" style="margin-top:22px;">
+ <a class="btn btn-primary" href="#verdict">Jump to verdict</a>
+ <a class="btn btn-ghost" href="#pull-list">Copy the pull list</a>
+ <a class="btn btn-ghost" href="#designs">Design generation</a>
+ <a class="btn btn-ghost" href="#sources">Sources</a>
+ </div>
+ <p class="meta" style="margin-top:18px;">Prompt: community post · Status: published analysis · Scope: single-GPU Ollama on 16GB GDDR7</p>
+ </section>
+</div>
+
+<div class="wrap">
+ <nav class="lab-toc" aria-label="On this page">
+  <p>On this page</p>
+  <ol>
+   <li><a href="#prompt">The question we are solving</a></li>
+   <li><a href="#physics">What 16GB really buys you</a></li>
+   <li><a href="#verdict">Short verdict</a></li>
+   <li><a href="#matrix">Model matrix by use case</a></li>
+   <li><a href="#coding">Coding / software development</a></li>
+   <li><a href="#learning">Learning AI/ML</a></li>
+   <li><a href="#reasoning">General reasoning and Q&amp;A</a></li>
+   <li><a href="#designs">Generate designs (honest split)</a></li>
+   <li><a href="#windows">Windows 11 setup that matters</a></li>
+   <li><a href="#pull-list">Starter pull list</a></li>
+   <li><a href="#anti">What not to chase</a></li>
+   <li><a href="#sources">Primary sources</a></li>
+  </ol>
+ </nav>
+
+ <section id="prompt">
+  <p class="tag">01 // The prompt</p>
+  <h2>The question we are solving</h2>
+  <p class="intro">A poster on <strong>r/ollama</strong> asked for realistic local model recommendations for this exact box:</p>
+  <div class="lab-table-wrap">
+   <table>
+    <thead><tr><th>Spec</th><th>Value</th><th>What it means for Ollama</th></tr></thead>
+    <tbody>
+     <tr><td>GPU</td><td>RTX 5060 Ti 16GB</td><td>16GB GDDR7 · ~448 GB/s · Blackwell. Capacity sets model class; bandwidth sets tok/s.</td></tr>
+     <tr><td>CPU</td><td>Ryzen 7 7700X</td><td>Fine for prompt prep and light offload. Do not plan interactive chat on CPU layers.</td></tr>
+     <tr><td>RAM</td><td>32GB DDR5-6000</td><td>Comfortable OS + browser + one resident model. Not a license to spill 30B dense weights into RAM daily.</td></tr>
+     <tr><td>Storage</td><td>1TB Gen4 NVMe</td><td>Plenty for a curated stack. Still budget disk — each 14B Q4 is ~9GB; a fat MoE pull can be 14–20GB.</td></tr>
+     <tr><td>OS</td><td>Windows 11</td><td>Ollama works well. Keep NVIDIA drivers current for Blackwell (570+ class).</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>Goals stated: coding, learning AI/ML, general reasoning/Q&amp;A, and generating designs. Those are four different workloads. Treating them as one “best model” question is how people end up with a slow 27B that feels worse than a fast 14B.</p>
+ </section>
+
+ <section id="physics">
+  <p class="tag">02 // Constraints</p>
+  <h2>What 16GB really buys you</h2>
+  <div class="lab-pull">
+   <strong>Rule of thumb:</strong> keep weights + KV cache fully in VRAM. The moment layers spill to system RAM, interactive speed collapses. On this card, that means a practical dense ceiling around <strong>14B at Q4/Q5</strong> with real context, or a <strong>20B-class MoE</strong> that only activates a few billion parameters per token.
+  </div>
+  <p>Hardware Corner’s 2026 suite on this exact SKU (Ollama / Blackwell-optimized path on Windows) is the cleanest public benchmark set we are citing:</p>
+  <div class="lab-table-wrap">
+   <table>
+    <thead><tr><th>Model</th><th>Quant</th><th>~Gen @ 16k</th><th>~Gen @ longer</th><th>Notes</th></tr></thead>
+    <tbody>
+     <tr><td>Qwen3 8B</td><td>Q4_K</td><td>51.4 t/s</td><td>25.8 t/s @ 64k</td><td>Fast generalist / teaching box</td></tr>
+     <tr><td>Qwen3 14B</td><td>Q4_K</td><td>32.9 t/s</td><td>25.9 t/s @ 32k</td><td>Dense sweet spot for this card</td></tr>
+     <tr><td>gpt-oss 20B</td><td>MXFP4</td><td>82.4 t/s</td><td>43.8 t/s @ 128k</td><td>MoE flagship that still fits</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>Why gpt-oss looks “faster than a smaller dense model”: mixture-of-experts. You pay for ~20B on disk/VRAM, but only a few billion activate per token, so decode behaves like a much smaller network. That is why several September 2026 coding-agent guides put <code>gpt-oss:20b</code> at the top of the 16GB tier.</p>
+  <p>Community findings on the same card also report strong Unsloth Qwen3-Coder-30B quants with careful KV settings — but those are stretch builds, not the default Ollama tag (<code>qwen3-coder:30b</code> is listed at ~19GB). For a first stack, stay inside models that load 100% GPU on <code>ollama ps</code>.</p>
+ </section>
+
+ <section id="verdict">
+  <p class="tag">03 // Verdict</p>
+  <h2>Short verdict</h2>
+  <div class="lab-grid">
+   <div class="lab-card">
+    <p class="kicker">Daily driver</p>
+    <h3><code>qwen3:14b</code></h3>
+    <p>~9.3GB weights. Best all-around dense model for reasoning, explanations, and mixed coding chat. Leaves room for context on 16GB.</p>
+   </div>
+   <div class="lab-card">
+    <p class="kicker">Coding agent / tools</p>
+    <h3><code>gpt-oss:20b</code></h3>
+    <p>~14GB MXFP4. Strongest clean 16GB agent pick: tool calling, long context, high tok/s because it is MoE.</p>
+   </div>
+   <div class="lab-card">
+    <p class="kicker">Dedicated coder chat</p>
+    <h3><code>qwen2.5-coder:14b</code></h3>
+    <p>~9.0GB. Still excellent for edits, explanations, Continue/Aider-style single-file and multi-file chat without agent loops.</p>
+   </div>
+   <div class="lab-card">
+    <p class="kicker">Explicit reasoning</p>
+    <h3><code>deepseek-r1:14b</code></h3>
+    <p>~9.0GB. Use when you want visible chain-of-thought for math, algorithms, or ML homework — expect longer answers.</p>
+   </div>
+   <div class="lab-card">
+    <p class="kicker">Vision / multimodal</p>
+    <h3><code>gemma3:12b</code></h3>
+    <p>~8.1GB with image+text. <code>gemma3:27b</code> at ~17GB is too tight for real context on this card.</p>
+   </div>
+   <div class="lab-card">
+    <p class="kicker">Designs</p>
+    <h3>Not Ollama — ComfyUI</h3>
+    <p>Use SDXL freely and FLUX.1-dev in FP8/GGUF on this GPU. Keep image gen off the LLM VRAM budget unless you unload first.</p>
+   </div>
+  </div>
+ </section>
+
+ <section id="matrix">
+  <p class="tag">04 // Matrix</p>
+  <h2>Model matrix by use case</h2>
+  <div class="lab-table-wrap">
+   <table>
+    <thead><tr><th>Use case</th><th>Pull</th><th>~Disk</th><th>Why this one</th><th>Skip / careful</th></tr></thead>
+    <tbody>
+     <tr>
+      <td>General Q&amp;A / reasoning</td>
+      <td><code>qwen3:14b</code></td>
+      <td>9.3GB</td>
+      <td>Dense quality + headroom for 16–32k context</td>
+      <td><code>qwen3:32b</code> (~20GB) — will spill</td>
+     </tr>
+     <tr>
+      <td>Coding chat / refactors</td>
+      <td><code>qwen2.5-coder:14b</code></td>
+      <td>9.0GB</td>
+      <td>Code-tuned 14B that stays fully resident</td>
+      <td><code>qwen2.5-coder:32b</code> (~20GB)</td>
+     </tr>
+     <tr>
+      <td>Agentic coding (tools, loops)</td>
+      <td><code>gpt-oss:20b</code></td>
+      <td>14GB</td>
+      <td>MoE + tools + 128k window; fits 16GB</td>
+      <td>Stock <code>qwen3-coder:30b</code> (~19GB)</td>
+     </tr>
+     <tr>
+      <td>Learning / CoT homework</td>
+      <td><code>deepseek-r1:14b</code></td>
+      <td>9.0GB</td>
+      <td>Reasoning traces you can study</td>
+      <td><code>deepseek-r1:32b</code> on one 16GB card</td>
+     </tr>
+     <tr>
+      <td>Fast “always on” helper</td>
+      <td><code>qwen3:8b</code> or <code>llama3.1:8b</code></td>
+      <td>~5GB</td>
+      <td>50+ t/s class; great for autocomplete-ish chat</td>
+      <td>Nothing — these are cheap wins</td>
+     </tr>
+     <tr>
+      <td>Screenshots / diagrams in chat</td>
+      <td><code>gemma3:12b</code></td>
+      <td>8.1GB</td>
+      <td>Vision + text without blowing VRAM</td>
+      <td><code>gemma3:27b</code> (~17GB)</td>
+     </tr>
+     <tr>
+      <td>UI / art / mockups</td>
+      <td>ComfyUI + SDXL / FLUX FP8</td>
+      <td>varies</td>
+      <td>This card is strong for image gen; Ollama is the wrong tool</td>
+      <td>Trying to force image models through Ollama chat</td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+ </section>
+
+ <section id="coding">
+  <p class="tag">05 // Coding</p>
+  <h2>Coding / software development</h2>
+  <p>Split coding into two jobs:</p>
+  <ol>
+   <li><strong>Chat coding</strong> — explain a function, draft a module, review a diff, write tests.</li>
+   <li><strong>Agent coding</strong> — tools, multi-step edits, “open the repo and fix it” loops (Continue, Cline, OpenCode, Claude Code via Ollama launchers).</li>
+  </ol>
+  <p>For chat coding, <code>qwen2.5-coder:14b</code> is still the practical daily driver on 16GB: code-specialized, ~9GB, responsive. Pair it with Open WebUI or Continue pointed at <code>http://127.0.0.1:11434</code>.</p>
+  <p>For agent coding, prefer <code>gpt-oss:20b</code>. Multiple September 2026 VRAM-tier guides converge on it for 16GB because MXFP4 MoE keeps ~20B-class capability inside the card while leaving just enough for context — especially with an 8-bit KV cache. Raise context deliberately:</p>
+  <code class="lab-cmd"># PowerShell (current user) — then restart the Ollama app / service
+[System.Environment]::SetEnvironmentVariable("OLLAMA_CONTEXT_LENGTH", "64000", "User")
+[System.Environment]::SetEnvironmentVariable("OLLAMA_KV_CACHE_TYPE", "q8_0", "User")
+[System.Environment]::SetEnvironmentVariable("OLLAMA_FLASH_ATTENTION", "1", "User")</code>
+  <p>After load, confirm with <code>ollama ps</code> that the model is 100% on GPU. If you see heavy CPU / RAM residency, drop context or switch back to a 14B dense model. A slower fully-resident 14B beats a half-offloaded “smarter” 30B for real editing.</p>
+  <p>Optional stretch later: Unsloth Qwen3-Coder-30B at aggressive UD quants (community 5060 Ti reports). Treat that as an experiment after the starter stack is stable — not day one.</p>
+ </section>
+
+ <section id="learning">
+  <p class="tag">06 // Learning</p>
+  <h2>Learning AI/ML</h2>
+  <p>For learning, optimize for <em>explanations you can check</em>, not leaderboard bragging rights.</p>
+  <ul>
+   <li><code>qwen3:14b</code> — default tutor for concepts, pseudocode, paper walkthroughs, “why does this gradient explode?”</li>
+   <li><code>deepseek-r1:14b</code> — when you want to watch a reasoning trace (math proofs, algorithm design, debugging a training loop).</li>
+   <li><code>qwen3:8b</code> — keep loaded while you also run Jupyter / PyTorch experiments so VRAM stays free for training tiny models or embeddings.</li>
+  </ul>
+  <p>With 16GB you can also do small fine-tunes and LoRA experiments in other tools (Unsloth / PyTorch), but that is a different session from Ollama chat. Unload Ollama models before training so you do not fight yourself for VRAM.</p>
+  <div class="cr-callout tip"><strong>Study habit that works locally:</strong> ask the 14B for an explanation, then force it to produce a five-question quiz and a wrong-answer trap. Local models are free — use volume.</div>
+ </section>
+
+ <section id="reasoning">
+  <p class="tag">07 // Reasoning</p>
+  <h2>General reasoning and Q&amp;A</h2>
+  <p><code>qwen3:14b</code> is the default here. On this GPU it sits around the low-30s tok/s at 16k context in published benches — snappy enough that you will actually use it instead of bouncing back to the cloud for every question.</p>
+  <p>When a problem is hard (multi-hop logic, contest math, careful code reasoning), switch to <code>deepseek-r1:14b</code> or raise reasoning effort on <code>gpt-oss:20b</code> if your client exposes that knob. Expect longer generations; that is the point.</p>
+  <p>Do not use 70B “just to see.” At Q4 a 70B wants roughly 40GB+ of weight memory. Your 32GB system RAM will thrash, and the experience will falsely convince you local models are useless.</p>
+ </section>
+
+ <section id="designs">
+  <p class="tag">08 // Designs</p>
+  <h2>Generate designs — the honest split</h2>
+  <p>“Generate designs” is where a lot of Ollama threads go wrong. Ollama is a <strong>language / multimodal chat</strong> runtime. It can brainstorm UX copy, SVG sketches, CSS, and critique screenshots (<code>gemma3:12b</code>). It is not where you generate polished product art, posters, or UI mockup images at FLUX quality.</p>
+  <div class="lab-grid">
+   <div class="lab-card">
+    <p class="kicker">Inside Ollama</p>
+    <h3>Design thinking</h3>
+    <p>Wireframes in ASCII/SVG, design-system tokens, accessibility reviews, prompt engineering for an image tool, and screenshot critique with <code>gemma3:12b</code>.</p>
+   </div>
+   <div class="lab-card">
+    <p class="kicker">Beside Ollama</p>
+    <h3>Image generation</h3>
+    <p>ComfyUI on the same 5060 Ti 16GB: SDXL is comfortable; FLUX.1-dev in FP8/GGUF is the 2026 local quality tier this card was built to handle.</p>
+   </div>
+  </div>
+  <p>Operational tip: do not leave a 14GB LLM resident and also try to sample FLUX. Unload with <code>ollama stop &lt;model&gt;</code> (or quit the Ollama app) before heavy ComfyUI runs. One GPU, two jobs — serialize them.</p>
+ </section>
+
+ <section id="windows">
+  <p class="tag">09 // Windows</p>
+  <h2>Windows 11 setup that matters</h2>
+  <ol>
+   <li>Install current Game Ready / Studio drivers with Blackwell support (570+ class).</li>
+   <li>Install Ollama from the official Windows build; confirm <code>ollama --version</code>.</li>
+   <li>Pull only the starter set below — do not mirror the entire library onto a 1TB drive.</li>
+   <li>Set context + KV env vars (see Coding section), restart Ollama.</li>
+   <li>Smoke test: <code>ollama run qwen3:14b "Write a Python function that binary-searches a sorted list."</code></li>
+   <li>Check residency: <code>ollama ps</code> and Task Manager → GPU → dedicated memory.</li>
+   <li>Point Continue / Open WebUI / your editor at <code>http://127.0.0.1:11434</code>.</li>
+  </ol>
+  <p>Ryzen 7 7700X + DDR5-6000 is a strong host for prompt processing. You will not feel CPU-bound on 8B/14B resident models. You <em>will</em> feel it if you offload a 27B/32B. Trust the tok/s cliff.</p>
+ </section>
+
+ <section id="pull-list">
+  <p class="tag">10 // Starter kit</p>
+  <h2>Starter pull list</h2>
+  <p>Copy this as a first weekend stack (~45GB worst case if you pull everything). You can live on the first three.</p>
+  <code class="lab-cmd">ollama pull qwen3:14b
+ollama pull qwen2.5-coder:14b
+ollama pull gpt-oss:20b
+ollama pull deepseek-r1:14b
+ollama pull gemma3:12b
+ollama pull qwen3:8b</code>
+  <p>Suggested defaults in your UI profiles:</p>
+  <ul>
+   <li><strong>General</strong> → <code>qwen3:14b</code></li>
+   <li><strong>Code</strong> → <code>qwen2.5-coder:14b</code> (chat) / <code>gpt-oss:20b</code> (agents)</li>
+   <li><strong>Hard problems</strong> → <code>deepseek-r1:14b</code></li>
+   <li><strong>Images in chat</strong> → <code>gemma3:12b</code></li>
+   <li><strong>Fast</strong> → <code>qwen3:8b</code></li>
+  </ul>
+ </section>
+
+ <section id="anti">
+  <p class="tag">11 // Anti-patterns</p>
+  <h2>What not to chase on this box</h2>
+  <ul>
+   <li><strong>Dense 27B/32B at Q4 as a daily driver.</strong> Weights alone ~17–20GB. Context then loses. Speed dies.</li>
+   <li><strong>Stock <code>qwen3-coder:30b</code> (~19GB)</strong> as the “must have coder.” Stretch Unsloth quants exist; the library default does not fit cleanly with useful context.</li>
+   <li><strong><code>gemma3:27b</code> (~17GB)</strong> for multimodal. Prefer 12B.</li>
+   <li><strong>Assuming 32GB RAM saves you.</strong> RAM offload is a demo, not a workflow.</li>
+   <li><strong>One model for designs + code + chat forever.</strong> Specialize; unload between image and LLM sessions.</li>
+   <li><strong>Default 4k context for agents.</strong> Raise context, then verify VRAM — do not assume the default is enough for repo work.</li>
+  </ul>
+ </section>
+
+ <section id="sources">
+  <p class="tag">12 // Sources</p>
+  <h2>Primary sources this analysis leans on</h2>
+  <ul class="lab-sources">
+   <li><a href="https://www.hardware-corner.net/gpu-llm-benchmarks/rtx-5060-ti-16gb/" target="_blank" rel="noopener">Hardware Corner — RTX 5060 Ti 16GB LLM benchmarks</a><span>Measured Qwen3 8B/14B and gpt-oss 20B tok/s across context lengths (2026 suite).</span></li>
+   <li><a href="https://ollama.com/library/gpt-oss" target="_blank" rel="noopener">Ollama library — gpt-oss</a><span>20B MXFP4 size (~14GB), 128k context, agent features.</span></li>
+   <li><a href="https://ollama.com/library/qwen3" target="_blank" rel="noopener">Ollama library — qwen3</a><span>14B ~9.3GB tag sizes used in the pull list.</span></li>
+   <li><a href="https://ollama.com/library/qwen2.5-coder" target="_blank" rel="noopener">Ollama library — qwen2.5-coder</a><span>14B coder ~9.0GB; 32B listed at ~20GB (above this card).</span></li>
+   <li><a href="https://ollama.com/library/gemma3" target="_blank" rel="noopener">Ollama library — gemma3</a><span>12B multimodal ~8.1GB; 27B ~17GB.</span></li>
+   <li><a href="https://ollama.com/library/deepseek-r1" target="_blank" rel="noopener">Ollama library — deepseek-r1</a><span>14B distill for explicit reasoning traces.</span></li>
+   <li><a href="https://www.agenticwire.news/article/best-ollama-model-for-coding" target="_blank" rel="noopener">AgenticWire — best Ollama coding models by VRAM (Sep 2026)</a><span>16GB tier guidance favoring gpt-oss:20b for agents.</span></li>
+   <li><a href="https://localaimaster.com/vram/best-ollama-models-16gb-vram" target="_blank" rel="noopener">LocalAIMaster — best Ollama models for 16GB VRAM</a><span>Independent 16GB tier shortlist aligning on gpt-oss + Qwen3 14B.</span></li>
+   <li><a href="https://www.reddit.com/r/LocalLLaMA/comments/1ryze51/rtx_5060_ti_16gb_local_llm_findings_30b_still/" target="_blank" rel="noopener">r/LocalLLaMA — 5060 Ti 16GB findings (30B stretch path)</a><span>Community Unsloth Qwen3-Coder-30B results; useful as advanced context, not the starter kit.</span></li>
+  </ul>
+  <p class="meta">Community prompt referenced: r/ollama post by mr_akhil asking for Ollama recommendations on RTX 5060 Ti 16GB / 7700X / 32GB DDR5 / Windows 11 for coding, learning, reasoning, and design generation. This page is the Keep’s worked answer, not a reprint of Reddit comments.</p>
+ </section>
+
+ <section>
+  <p class="tag">Close</p>
+  <h2>Bottom line</h2>
+  <p class="intro">On a 5060 Ti 16GB, win by staying fully on-GPU: <strong>qwen3:14b</strong> for thinking, <strong>qwen2.5-coder:14b</strong> for code chat, <strong>gpt-oss:20b</strong> for agents, <strong>deepseek-r1:14b</strong> when you need visible reasoning, <strong>gemma3:12b</strong> for screenshots, and <strong>ComfyUI</strong> for real design images. Everything else is optional stretch gear.</p>
+  <div class="btn-row" style="margin-top:18px;">
+   <a class="btn btn-primary" href="/classroom/news-lab/">Back to News Lab</a>
+   <a class="btn btn-ghost" href="/news/ai-homelab/">AI &amp; Homelab News</a>
+   <a class="btn btn-ghost" href="/classroom/">Classroom</a>
+  </div>
+ </section>
+</div>
+
+<script src="/assets/site.js"></script>
+</body>
+</html>
