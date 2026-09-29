@@ -57,23 +57,37 @@ def desk_card(desk: dict) -> str:
         story_title = html.escape(str(top.get('title') or '')[:140])
         story_url = html.escape(str(top.get('url') or ''))
         story_source = html.escape(str(top.get('source') or ''))
+        video = str(top.get('video') or '')
+        file_img = str(top.get('file') or '')
+        image = str(top.get('image') or '')
+        if video:
+            thumb = f'<img class="news-hub-thumb" src="https://i.ytimg.com/vi/{html.escape(video)}/hqdefault.jpg" alt="" loading="lazy">'
+        elif file_img:
+            thumb = f'<img class="news-hub-thumb" src="{html.escape(file_img)}" alt="" loading="lazy">'
+        elif image:
+            thumb = f'<img class="news-hub-thumb" src="{html.escape(image)}" alt="" loading="lazy">'
+        else:
+            thumb = f'<div class="news-hub-thumb news-hub-thumb-fallback"><span>{story_source}</span></div>'
         preview = (
-            '<div class="news-hub-preview">'
+            '<a class="news-hub-preview" href="' + story_url + '" target="_blank" rel="noopener">'
+            f'{thumb}'
+            '<span class="news-hub-preview-body">'
             f'<span class="news-hub-preview-tag">Latest &middot; {story_source}</span>'
-            f'<a class="news-hub-preview-title" href="{story_url}" target="_blank" rel="noopener">{story_title}</a>'
-            '</div>'
+            f'<span class="news-hub-preview-title">{story_title}</span>'
+            '</span>'
+            '</a>'
         )
     else:
         kicker = 'Next desk'
-        preview = '<div class="news-hub-preview"><span class="news-hub-preview-tag">Page ships when the first edition is ready.</span></div>'
+        preview = '<div class="news-hub-preview news-hub-preview-empty"><span class="news-hub-preview-tag">Page ships when the first edition is ready.</span></div>'
     return (
         '<article class="resource">'
         f'<span>{html.escape(kicker)}</span>'
         f'<a class="title" href="/news/{slug}/">{title}</a>'
         f'<p>{html.escape(desc)}</p>'
         f'{preview}'
-        '<div class="btn-row" style="margin-top:12px;">'
-        f'<a class="btn btn-ghost" href="/news/{slug}/">See more stories</a>'
+        '<div class="btn-row" style="margin-top:14px;">'
+        f'<a class="btn btn-primary" href="/news/{slug}/">See more stories &rarr;</a>'
         '</div>'
         '</article>'
     )
@@ -119,17 +133,35 @@ def page() -> str:
 }}
 .news-hub .resource p {{ margin:0 0 14px; color:var(--cream-dim); }}
 .news-hub-preview {{
+  display:flex; gap:12px; align-items:flex-start;
   border-top:1px solid var(--line); padding-top:12px; margin-top:2px;
+  text-decoration:none;
 }}
+.news-hub-preview-empty {{ display:block; }}
+.news-hub-thumb {{
+  flex:none; width:88px; height:66px; object-fit:cover;
+  background:#000; border-radius:4px;
+}}
+.news-hub-thumb-fallback {{
+  display:flex; align-items:center; padding:6px;
+  background:linear-gradient(160deg, #1c1915, #3a2a18);
+  overflow:hidden;
+}}
+.news-hub-thumb-fallback span {{
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+  overflow:hidden; color:var(--cream); font-weight:700;
+  font-size:.62rem; line-height:1.3;
+}}
+.news-hub-preview-body {{ display:flex; flex-direction:column; min-width:0; }}
 .news-hub-preview-tag {{
   display:block; margin:0 0 6px; color:var(--cream-faint);
   font-family:'JetBrains Mono', ui-monospace, monospace;
   font-size:.68rem; letter-spacing:.06em; text-transform:uppercase;
 }}
 .news-hub-preview-title {{
-  color:var(--cream); font-weight:600; font-size:.94rem; text-decoration:none; line-height:1.4;
+  color:var(--cream); font-weight:600; font-size:.94rem; line-height:1.4;
 }}
-.news-hub-preview-title:hover {{ color:var(--accent-bright); }}
+.news-hub-preview:hover .news-hub-preview-title {{ color:var(--accent-bright); }}
 </style>
 </head>
 <body>
