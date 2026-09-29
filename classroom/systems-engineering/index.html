@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Systems Engineering Academy &middot; Otaconskeep Classroom</title>
+<meta name="description" content="A free 26-course Systems Engineering Academy built on ISO/IEC/IEEE 15288, INCOSE/SEBoK, IISE, and SysML v2: requirements, architecture, VCRM, risk, reliability, SysML modeling, and a full capstone from stakeholder need to verification evidence.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Otaconskeep">
+<meta property="og:title" content="Systems Engineering Academy">
+<meta property="og:description" content="Foundations, Practicing Systems Engineer, and MBSE / Advanced Analysis: a real systems-engineering curriculum, not a handful of disconnected classes. SE-101 is live now.">
+<meta property="og:url" content="https://otaconskeep.github.io/classroom/systems-engineering/">
+<meta property="og:image" content="https://otaconskeep.github.io/assets/img/keep/war-room-1.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Systems Engineering Academy">
+<meta name="twitter:description" content="A free 26-course Systems Engineering curriculum. SE-101 is live: Systems Engineering Fundamentals.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/systems-engineering/">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css">
+<link rel="stylesheet" href="/assets/chat-widget.css">
+<style>
+.se-lede-quote{border-left:3px solid var(--accent-bright);padding:10px 0 10px 18px;margin:18px 0 0;color:var(--cream);font-size:1.05rem;font-style:italic;}
+.se-flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--cream-dim);}
+.se-flow span.step{border:1px solid var(--line);border-radius:6px;padding:6px 12px;}
+.se-flow span.arrow{color:var(--cream-faint);}
+.se-path-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px;}
+@media (max-width:860px){.se-path-grid{grid-template-columns:1fr;}}
+.se-path-card{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:18px;}
+.se-path-card .n{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.1em;color:var(--accent-bright);}
+.se-path-card h3{margin:8px 0 8px;font-size:1.1rem;color:var(--cream);}
+.se-path-card p{margin:0;color:var(--cream-dim);font-size:.88rem;line-height:1.55;}
+.se-mod-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px;}
+@media (max-width:900px){.se-mod-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (max-width:560px){.se-mod-grid{grid-template-columns:1fr;}}
+.se-mod-card{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--cream);}
+.se-mod-card:hover{border-color:var(--accent-dim);}
+.se-mod-card .n{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.1em;color:var(--cream-faint);}
+.se-mod-card.live .n{color:var(--accent-bright);}
+.se-mod-card h3{margin:0;font-size:.92rem;line-height:1.35;}
+.se-mod-card .unit{font-size:.72rem;color:var(--cream-faint);}
+.se-mod-card .builds{font-size:.72rem;color:var(--cream-dim);border-top:1px solid var(--line);padding-top:6px;margin-top:2px;}
+.se-mod-card.locked{opacity:.6;}
+.se-mod-card.locked h3{color:var(--cream-dim);}
+.se-badge-live{display:inline-block;background:linear-gradient(135deg,#2fe08a 0%,#18b86a 100%);color:#04140e;font-weight:700;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-top:2px;}
+.se-vcrm-chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--cream-dim);}
+.se-vcrm-chain span.step{border:1px solid var(--line-bright);border-radius:6px;padding:6px 10px;color:var(--cream);}
+.se-vcrm-chain span.arrow{color:var(--cream-faint);}
+</style>
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // SYSTEMS ENGINEERING ACADEMY</span>
+ <span>NEW TRACK<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/foxdie/">FOXDIE</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Systems Engineering Academy">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/systems-engineering/" class="is-active">Systems Engineering</a>
+ <a href="/classroom/systems-engineering/modules/se-101-fundamentals/">SE-101</a>
+ <a href="#paths">Paths</a>
+ <a href="#courses">All courses</a>
+ <a href="#vcrm">Why VCRM matters</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">FREE ACADEMY<small>26 courses &middot; beginner to capstone</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Otaconskeep Classroom</p>
+ <h1 class="display" style="font-size:clamp(2rem,6vw,3.6rem);">Systems Engineering Academy</h1>
+ <p class="lede">A real systems-engineering curriculum, not a handful of disconnected classes. Built around ISO/IEC/IEEE 15288, INCOSE/SEBoK, IISE's body of knowledge, and SysML v2.</p>
+ <p class="se-lede-quote">Need &rarr; Requirement &rarr; Architecture &rarr; Design &rarr; Verification Requirement &rarr; VCRM &rarr; Test &rarr; Evidence &rarr; Acceptance. That chain is taught once, then reused in every single course.</p>
+ <div class="btn-row" style="margin-top:26px;">
+  <a class="btn btn-primary" href="/classroom/systems-engineering/modules/se-101-fundamentals/">Start SE-101: Systems Engineering Fundamentals</a>
+  <a class="btn btn-ghost" href="#courses">Full course catalog</a>
+  <a class="btn btn-ghost" href="/classroom/">Otaconskeep Classroom</a>
+ </div>
+ <p class="meta" style="margin-top:18px;">Prerequisites: none for SE-101. SE-101 is live now, the remaining 25 courses are syllabus-complete and shipping course by course</p>
+ </section>
+</div>
+
+<div class="wrap">
+ <section id="paths">
+ <p class="tag">00 // Three paths, one spine</p>
+ <h2>Foundations, then Practicing Systems Engineer, then MBSE / Advanced Analysis</h2>
+ <p class="intro">Every course sits on a single 20-course spine (SE-101 through SE-120), plus a six-course SysML deep dive for the modeling and analysis path. You do not have to take all three paths (Foundations alone is a complete, useful grounding), but each later path assumes the one before it.</p>
+ <div class="se-path-grid">
+  <div class="se-path-card">
+   <span class="n">PATH 1</span>
+   <h3>Foundations</h3>
+   <p>SE-101 through SE-108. What a system is, the life cycle, requirements, traceability, verification and validation with a full VCRM, risk management, architecture, and interfaces. Everything downstream depends on this path.</p>
+  </div>
+  <div class="se-path-card">
+   <span class="n">PATH 2</span>
+   <h3>Practicing Systems Engineer</h3>
+   <p>SE-111, SE-113 through SE-120. Trade studies, reliability and safety analysis, integration and test, technical management, systems of systems, digital engineering, the wider Industrial and Systems Engineering body of knowledge, and the capstone.</p>
+  </div>
+  <div class="se-path-card">
+   <span class="n">PATH 3</span>
+   <h3>MBSE / Advanced Analysis</h3>
+   <p>SE-109, SE-110, and SE-112, expanded into the full SysML I through VI sequence plus a real Engineering Data and Variable Analysis course. One model, built across six courses, instead of a throwaway diagram in a single lecture.</p>
+  </div>
+ </div>
+ </section>
+</div>
+
+<div class="wrap" id="vcrm">
+ <section>
+ <p class="tag">01 // The idea everything else hangs on</p>
+ <h2>The Verification Cross-Reference Matrix</h2>
+ <p class="intro">A VCRM maps every requirement to the method and level used to verify it: inspection, analysis, demonstration, or test. It connects the requirement to a test level, a responsible party, and a specific test identification. This is not taught as one spreadsheet in one class: it is the spine of the whole Foundations path.</p>
+ <div class="se-vcrm-chain">
+  <span class="step">Need</span><span class="arrow">&rarr;</span>
+  <span class="step">Requirement</span><span class="arrow">&rarr;</span>
+  <span class="step">Architecture</span><span class="arrow">&rarr;</span>
+  <span class="step">Design</span><span class="arrow">&rarr;</span>
+  <span class="step">Verification Requirement</span><span class="arrow">&rarr;</span>
+  <span class="step">VCRM</span><span class="arrow">&rarr;</span>
+  <span class="step">Test</span><span class="arrow">&rarr;</span>
+  <span class="step">Evidence</span><span class="arrow">&rarr;</span>
+  <span class="step">Acceptance</span>
+ </div>
+ <div class="cr-callout tip" style="margin-top:16px;"><strong>Where you build it:</strong> SE-105 (Verification &amp; Validation + VCRM) introduces the full matrix. SE-120 (Capstone) is where your own VCRM has to actually hold up against a real test plan.</div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">02 // The spine</p>
+ <h2>Need &rarr; requirement &rarr; architecture &rarr; model &rarr; verification &rarr; a professional package</h2>
+ <div class="se-flow">
+  <span class="step">CONOPS</span><span class="arrow">&rarr;</span>
+  <span class="step">Stakeholder needs</span><span class="arrow">&rarr;</span>
+  <span class="step">Requirements</span><span class="arrow">&rarr;</span>
+  <span class="step">RTM</span><span class="arrow">&rarr;</span>
+  <span class="step">Architecture</span><span class="arrow">&rarr;</span>
+  <span class="step">SysML model</span><span class="arrow">&rarr;</span>
+  <span class="step">Interfaces</span><span class="arrow">&rarr;</span>
+  <span class="step">Risk / FMEA</span><span class="arrow">&rarr;</span>
+  <span class="step">Trade study</span><span class="arrow">&rarr;</span>
+  <span class="step">VCRM</span><span class="arrow">&rarr;</span>
+  <span class="step">Test plan</span><span class="arrow">&rarr;</span>
+  <span class="step">Verification results</span><span class="arrow">&rarr;</span>
+  <span class="step">Capstone package</span>
+ </div>
+ <p class="intro" style="margin-top:16px;">The capstone system is a fictional disaster-response autonomous drone. By SE-120 you have produced, piece by piece across the whole Academy, a miniature real Systems Engineering Technical Data Package: CONOPS through verification evidence.</p>
+ </section>
+</div>
+
+<div class="wrap" id="courses">
+ <section>
+ <p class="tag">03 // Path 1: Foundations</p>
+ <h2>SE-101 through SE-108</h2>
+ <p class="intro">SE-101 is fully built and live. The rest of the catalog below is syllabus-complete: topics and student deliverables are locked in, and courses ship one at a time.</p>
+ <div class="se-mod-grid">
+
+  <a class="se-mod-card live" href="/classroom/systems-engineering/modules/se-101-fundamentals/">
+   <span class="n">SE-101</span>
+   <h3>Systems Engineering Fundamentals</h3>
+   <span class="unit">Systems, boundaries, stakeholders, decomposition, emergent behavior</span>
+   <span class="builds">Builds: a system context diagram</span>
+   <span class="se-badge-live">Live</span>
+  </a>
+
+  <div class="se-mod-card locked"><span class="n">SE-102</span><h3>System Life Cycle</h3><span class="unit">Concept to retirement, the V-model, technical reviews</span><span class="builds">Builds: a complete lifecycle plan</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-103</span><h3>Requirements Engineering</h3><span class="unit">Stakeholder needs, shall statements, derived requirements</span><span class="builds">Builds: a System Requirements Specification</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-104</span><h3>Requirements Traceability</h3><span class="unit">Parent/child requirements, allocation, orphan requirements</span><span class="builds">Builds: a Requirements Traceability Matrix</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-105</span><h3>Verification &amp; Validation + VCRM</h3><span class="unit">Inspection, analysis, demonstration, test, acceptance evidence</span><span class="builds">Builds: a full VCRM</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-106</span><h3>Risk &amp; Opportunity Management</h3><span class="unit">Probability x consequence, risk registers, mitigation</span><span class="builds">Builds: a risk register + mitigation plan</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-107</span><h3>System Architecture</h3><span class="unit">Functional, logical, and physical architecture, allocation</span><span class="builds">Builds: a system architecture</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-108</span><h3>Interfaces &amp; Integration</h3><span class="unit">ICDs, interface requirements, N-squared diagrams</span><span class="builds">Builds: an Interface Control Document</span></div>
+
+ </div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">04 // Path 2: Practicing Systems Engineer</p>
+ <h2>SE-111, SE-113 through SE-120</h2>
+ <div class="se-mod-grid">
+
+  <div class="se-mod-card locked"><span class="n">SE-111</span><h3>Trade Studies &amp; Decision Analysis</h3><span class="unit">Weighting, normalization, utility functions, Pugh matrices</span><span class="builds">Builds: a defensible trade study</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-113</span><h3>Reliability, Maintainability &amp; Availability</h3><span class="unit">MTBF, MTTR, redundancy, reliability block diagrams</span><span class="builds">Builds: a RAM analysis</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-114</span><h3>Failure &amp; Safety Analysis</h3><span class="unit">FMEA/FMECA, fault trees, hazards, root cause</span><span class="builds">Builds: an FMEA + fault tree</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-115</span><h3>Integration, Test &amp; Evaluation</h3><span class="unit">Test planning, TRR, anomaly handling, qualification</span><span class="builds">Builds: a system test plan</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-116</span><h3>Technical Management</h3><span class="unit">Configuration management, baselines, change control</span><span class="builds">Builds: an engineering management plan</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-117</span><h3>Systems of Systems</h3><span class="unit">Emergence, interoperability, evolutionary development</span><span class="builds">Builds: an SoS architecture</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-118</span><h3>Digital Engineering</h3><span class="unit">Digital thread, authoritative sources of truth</span><span class="builds">Builds: a digital engineering workflow</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-119</span><h3>Industrial &amp; Systems Engineering</h3><span class="unit">Operations research, optimization, human factors</span><span class="builds">Builds: a process optimization study</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-120</span><h3>Systems Engineering Capstone</h3><span class="unit">Stakeholder need through verification, end to end</span><span class="builds">Builds: a complete engineering package</span></div>
+
+ </div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">05 // Path 3: MBSE / Advanced Analysis</p>
+ <h2>SE-109, SE-110, SE-112, and SysML I through VI</h2>
+ <p class="intro">SysML v2 is a real, formally published OMG standard, not a footnote, so it gets six courses instead of one. Students build a single model across all six rather than throwing each one away. SE-112 gets the same treatment for data: a real progression from scatter plots to Design of Experiments, not "make a heatmap and call it insight."</p>
+ <div class="se-mod-grid">
+
+  <div class="se-mod-card locked"><span class="n">SE-109</span><h3>SysML &amp; MBSE Fundamentals</h3><span class="unit">Requirements, structure, behavior, model organization</span><span class="builds">Builds: your first system model</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-110</span><h3>SysML v2</h3><span class="unit">Parts, actions, states, KerML basics, model querying</span><span class="builds">Builds: a SysML v2 model</span></div>
+  <div class="se-mod-card locked"><span class="n">SE-112</span><h3>Engineering Data &amp; Variable Analysis</h3><span class="unit">Correlation, covariance, regression, sensitivity, DOE, PCA</span><span class="builds">Builds: a variable-analysis report</span></div>
+  <div class="se-mod-card locked"><span class="n">SysML I</span><h3>Modeling Fundamentals</h3><span class="unit">System boundaries, packages, relationships, model thinking</span></div>
+  <div class="se-mod-card locked"><span class="n">SysML II</span><h3>Structure</h3><span class="unit">Parts, decomposition, interfaces, ports, connections</span></div>
+  <div class="se-mod-card locked"><span class="n">SysML III</span><h3>Behavior</h3><span class="unit">Actions, states, sequences, system behavior</span></div>
+  <div class="se-mod-card locked"><span class="n">SysML IV</span><h3>Requirements &amp; Traceability</h3><span class="unit">Requirements through architecture through verification</span></div>
+  <div class="se-mod-card locked"><span class="n">SysML V</span><h3>Analysis &amp; Parametrics</h3><span class="unit">Engineering values, constraints, analysis</span></div>
+  <div class="se-mod-card locked"><span class="n">SysML VI</span><h3>SysML v2 &amp; Digital Engineering</h3><span class="unit">Textual syntax, APIs, KerML, the digital thread</span></div>
+
+ </div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">06 // What else is woven in</p>
+ <h2>The subjects that live inside these courses, not bolted on top</h2>
+ <p class="intro">Functional analysis and decomposition, ConOps, stakeholder and mission analysis, MOE/MOP/KPP/TPM, architecture frameworks, configuration management and baselines, human systems integration, safety and quality engineering, operations research, simulation and Monte Carlo analysis, technical reviews (SRR, PDR, CDR, TRR, SVR), configuration audits, and MBSE/digital-twin practice all show up where they belong in the sequence above, rather than as a single disconnected lecture.</p>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">07 // Start now</p>
+ <h2>SE-101 is ready</h2>
+ <p class="intro">A system context diagram, a worked example, and the same Learn &rarr; Practice &rarr; Explain &rarr; Master cycle the rest of Otaconskeep Classroom uses, applied to systems engineering for the first time.</p>
+ <div class="btn-row">
+  <a class="btn btn-primary" href="/classroom/systems-engineering/modules/se-101-fundamentals/">Open SE-101</a>
+  <a class="btn btn-ghost" href="/classroom/">Back to Classroom</a>
+ </div>
+ </section>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom &middot; Systems Engineering Academy</span>
+ <span><a href="/classroom/">Classroom home</a> &middot; <a href="https://github.com/Otaconskeep/otaconskeep-site">GitHub</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js"></script>
+<script defer src="/assets/chat-widget.js"></script>
+</body></html>

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SE-101: Systems Engineering Fundamentals &middot; Otaconskeep Classroom</title>
+<meta name="description" content="SE-101 of the Systems Engineering Academy: what a system is, system boundaries, the system-of-interest, stakeholders, decomposition, emergent behavior, and technical management. Builds a real system context diagram.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Otaconskeep">
+<meta property="og:title" content="SE-101: Systems Engineering Fundamentals">
+<meta property="og:description" content="What is a system, where its boundary sits, who its stakeholders are, and why the whole behaves differently than the sum of its parts. The first course of a free 26-course Systems Engineering Academy.">
+<meta property="og:url" content="https://otaconskeep.github.io/classroom/systems-engineering/modules/se-101-fundamentals/">
+<meta property="og:image" content="https://otaconskeep.github.io/assets/img/keep/war-room-1.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SE-101: Systems Engineering Fundamentals">
+<meta name="twitter:description" content="Free course: what a system is, its boundary, its stakeholders, and how to draw a real system context diagram.">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/systems-engineering/modules/se-101-fundamentals/">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css">
+<link rel="stylesheet" href="/assets/chat-widget.css">
+<style>
+.se-diagram-wrap{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;overflow-x:auto;}
+.se-diagram-wrap svg{display:block;margin:0 auto;min-width:640px;}
+.se-lesson-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px;}
+@media (max-width:760px){.se-lesson-grid{grid-template-columns:1fr;}}
+.se-lesson-card{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:16px;}
+.se-lesson-card h3{font-size:.98rem;margin:0 0 6px;color:var(--cream);}
+.se-num{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.1em;color:var(--accent-bright);display:block;margin-bottom:4px;}
+.se-lesson-card p{margin:0;color:var(--cream-dim);font-size:.88rem;line-height:1.55;}
+.se-table-wrap{overflow-x:auto;margin-top:18px;}
+.se-table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:640px;}
+.se-table th,.se-table td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+.se-table th{background:var(--surface-2);color:var(--accent-bright);font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;}
+.se-table td{color:var(--cream-dim);}
+.se-table td strong{color:var(--cream);}
+.se-roadmap{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+.se-roadmap span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:.8rem;color:var(--cream-faint);font-family:'JetBrains Mono',monospace;}
+.se-roadmap span.now{border-color:var(--accent-bright);color:var(--accent-bright);background:rgba(57,230,200,.08);}
+.se-feynman{border:1px dashed var(--line-bright);border-radius:var(--radius);padding:16px 18px;margin-top:18px;}
+.se-feynman h4{margin:0 0 8px;color:var(--accent-bright);font-size:.9rem;}
+.se-feynman ol{margin:0;padding-left:20px;color:var(--cream-dim);font-size:.9rem;line-height:1.7;}
+</style>
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // SYSTEMS ENGINEERING ACADEMY</span>
+ <span>SE-101<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/news/">News</a>
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/foxdie/">FOXDIE</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Systems Engineering Academy">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/systems-engineering/" class="is-active">Systems Engineering</a>
+ <a href="#lessons">Lessons</a>
+ <a href="#context">Context diagram</a>
+ <a href="#classify">Practice</a>
+ <a href="#feynman">Feynman teach-back</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">SE-101<small>8 lessons &middot; Systems Engineering Academy &middot; Foundations path</small></div>
+ <p class="eyebrow">Otaconskeep Classroom &middot; New free course</p>
+ <h1 class="display" style="font-size:clamp(1.9rem,5.5vw,3.2rem);">Systems Engineering Fundamentals</h1>
+ <p class="lede">Before requirements, architecture, or a single line of a SysML model, a systems engineer has to be able to answer one question clearly: where does the system end and the rest of the world begin?</p>
+ <p class="se-lede-quote" style="border-left:3px solid var(--accent-bright);padding:10px 0 10px 18px;margin:18px 0 0;color:var(--cream);font-size:1.05rem;font-style:italic;">Every later course in this Academy assumes you can draw a system boundary, name its stakeholders, and explain why the system does things none of its parts do alone. That is the entire content of SE-101.</p>
+ <div class="btn-row" style="margin-top:26px;">
+  <a class="btn btn-primary" href="#lessons">Start the 8 lessons</a>
+  <a class="btn btn-ghost" href="/classroom/systems-engineering/">Course roadmap</a>
+  <a class="btn btn-ghost" href="#context">See the worked example</a>
+ </div>
+ <p class="meta" style="margin-top:18px;">Beginner &middot; No prerequisites &middot; Part of <strong>Systems Engineering Academy</strong> (26 courses, SE-101 live now)</p>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">00 // Why start here</p>
+ <h2>Most engineering mistakes are boundary mistakes</h2>
+ <p class="intro">A huge share of real project failures trace back to someone quietly assuming the wrong system boundary: a requirement written against the wrong system-of-interest, a risk owned by nobody because it lived in the gap between two teams' boundaries, an interface nobody tested because each side assumed the other owned it. This course fixes that at the root, before any of the more advanced Academy courses build on top of it.</p>
+ <div class="cr-callout tip"><strong>End goal of this course:</strong> given any real system, correctly identify its boundary, its system-of-interest, its stakeholders, and its emergent behaviors, then represent all of that in a single system context diagram.</div>
+ </section>
+</div>
+
+<div class="wrap" id="context">
+ <section>
+ <p class="tag">01 // Worked example</p>
+ <h2>One system, six external entities, one diagram</h2>
+ <p class="intro">The Systems Engineering Academy capstone (SE-120) is a disaster-response autonomous drone system. Every course in the Academy reuses this same example so the running case study accumulates instead of resetting every lesson. Here is the system context diagram SE-101 teaches you to build: the system-of-interest in the center, every external entity it exchanges something with around it, and a labeled interface on every connection.</p>
+ <div class="se-diagram-wrap">
+<svg viewBox="0 0 1100 560" role="img" aria-label="System context diagram: the disaster-response drone system at the center, connected to six external entities, ground control operator, GPS and satellite navigation, weather data service, communications network, disaster response command center, and the search target, each over a labeled interface." xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;"><rect x="0.0" y="0.0" width="1100.0" height="560.0" rx="0" fill="#0e131b" stroke="#0e131b" stroke-width="1.3"/><rect x="180.0" y="40.0" width="220.0" height="64.0" rx="6" fill="#121926" stroke="#2d3e56" stroke-width="1.3"/><text x="290.0" y="64.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">Ground Control</text><text x="290.0" y="80.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">Operator</text><rect x="224.6" y="114.0" width="130.8" height="18" fill="#0e131b"/><text x="290.0" y="128.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="9.5" font-weight="500" fill="#8ea0b6">commands, mission plan</text><rect x="700.0" y="40.0" width="220.0" height="64.0" rx="6" fill="#121926" stroke="#2d3e56" stroke-width="1.3"/><text x="810.0" y="64.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">Disaster Response</text><text x="810.0" y="80.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">Command Center</text><rect x="755.4" y="114.0" width="109.2" height="18" fill="#0e131b"/><text x="810.0" y="128.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="9.5" font-weight="500" fill="#8ea0b6">search assignments</text><line x1="290.0" y1="134.0" x2="290.0" y2="201.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><line x1="810.0" y1="134.0" x2="810.0" y2="201.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><line x1="290.0" y1="201.0" x2="810.0" y2="201.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><line x1="550.0" y1="201.0" x2="550.0" y2="225.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><rect x="180.0" y="456.0" width="220.0" height="64.0" rx="6" fill="#121926" stroke="#2d3e56" stroke-width="1.3"/><text x="290.0" y="480.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">Search Target</text><text x="290.0" y="496.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">(victim / hazard)</text><rect x="238.1" y="426.0" width="103.8" height="18" fill="#0e131b"/><text x="290.0" y="440.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="9.5" font-weight="500" fill="#8ea0b6">sensor detections</text><line x1="290.0" y1="456.0" x2="290.0" y2="359.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><rect x="700.0" y="456.0" width="220.0" height="64.0" rx="6" fill="#121926" stroke="#2d3e56" stroke-width="1.3"/><text x="810.0" y="480.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">GPS / Satellite</text><text x="810.0" y="496.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">Navigation</text><rect x="771.6" y="426.0" width="76.8" height="18" fill="#0e131b"/><text x="810.0" y="440.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="9.5" font-weight="500" fill="#8ea0b6">position fix</text><line x1="810.0" y1="456.0" x2="810.0" y2="359.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><line x1="290.0" y1="359.0" x2="810.0" y2="359.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><line x1="550.0" y1="359.0" x2="550.0" y2="335.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><rect x="40.0" y="243.0" width="200.0" height="74.0" rx="6" fill="#121926" stroke="#2d3e56" stroke-width="1.3"/><text x="140.0" y="272.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">Weather Data</text><text x="140.0" y="288.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">Service</text><line x1="240.0" y1="280.0" x2="370.0" y2="280.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><rect x="255.8" y="254.0" width="98.4" height="18" fill="#0e131b"/><text x="305.0" y="268.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="9.5" font-weight="500" fill="#8ea0b6">wind, visibility</text><line x1="370.0" y1="280.0" x2="400.0" y2="280.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><rect x="860.0" y="243.0" width="200.0" height="74.0" rx="6" fill="#121926" stroke="#2d3e56" stroke-width="1.3"/><text x="960.0" y="272.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">Communications</text><text x="960.0" y="288.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" font-weight="600" fill="#e4edf5">Network</text><line x1="860.0" y1="280.0" x2="730.0" y2="280.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><rect x="745.8" y="254.0" width="98.4" height="18" fill="#0e131b"/><text x="795.0" y="268.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="9.5" font-weight="500" fill="#8ea0b6">telemetry, video</text><line x1="730.0" y1="280.0" x2="700.0" y2="280.0" stroke="#2d3e56" stroke-width="1.3" stroke-dasharray="4 3"/><rect x="400.0" y="225.0" width="300.0" height="110.0" rx="6" fill="#121926" stroke="#39e6c8" stroke-width="1.8"/><text x="550.0" y="266.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14" font-weight="700" fill="#39e6c8">DISASTER-RESPONSE</text><text x="550.0" y="288.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14" font-weight="700" fill="#39e6c8">DRONE SYSTEM</text><text x="550.0" y="312.0" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="10.5" font-weight="500" fill="#8ea0b6">(system of interest)</text></svg>
+ </div>
+ <p class="intro" style="margin-top:14px;">Notice what the diagram does not show: no internal parts, no wiring, no software modules. A system context diagram deliberately treats the system-of-interest as a black box. Its whole job is to nail down the boundary and every interface crossing it, before anyone starts designing what is inside.</p>
+ </section>
+</div>
+
+<div class="wrap" id="lessons">
+ <section>
+ <p class="tag">02 // The 8 lessons</p>
+ <h2>Lesson by lesson</h2>
+ <p class="intro">Every lesson is short and plain-language, and builds toward the same skill: correctly drawing the line between "the system" and "everything else."</p>
+ <div class="se-lesson-grid">
+
+  <div class="se-lesson-card">
+   <span class="se-num">Lesson 1</span><h3>What is a system?</h3>
+   <p>A system is a set of interacting elements organized to achieve a purpose that no single element achieves alone. A drone airframe is not a system by that definition. A drone plus its flight controller, sensors, and ground link, working together to search a disaster zone, is.</p>
+  </div>
+
+  <div class="se-lesson-card">
+   <span class="se-num">Lesson 2</span><h3>The system boundary and the system-of-interest</h3>
+   <p>The system-of-interest (SOI) is whichever system you have currently chosen to engineer. Its boundary is the line separating what you control and design from everything you do not. Move the boundary and you change what counts as an interface versus what counts as internal design.</p>
+  </div>
+
+  <div class="se-lesson-card">
+   <span class="se-num">Lesson 3</span><h3>Stakeholders</h3>
+   <p>Anyone with a legitimate interest in the system: the operator flying it, the command center relying on its reports, the regulator setting airspace rules, the maintainer who has to service it. Missing a stakeholder early means discovering a requirement late, usually after money has already been spent.</p>
+  </div>
+
+  <div class="se-lesson-card">
+   <span class="se-num">Lesson 4</span><h3>Environment and enabling systems</h3>
+   <p>The environment is everything outside the boundary that the system must operate within, weather, terrain, airspace rules. An enabling system supports the system-of-interest without being part of its mission, a charging station or a training simulator, for example.</p>
+  </div>
+
+  <div class="se-lesson-card">
+   <span class="se-num">Lesson 5</span><h3>Decomposition: systems, subsystems, components</h3>
+   <p>Once a boundary is set, the inside can be broken down: system, subsystem, component, part. Decomposition only makes sense relative to a boundary that has already been agreed on, which is why Lessons 1 and 2 come first.</p>
+  </div>
+
+  <div class="se-lesson-card">
+   <span class="se-num">Lesson 6</span><h3>Emergent behavior</h3>
+   <p>A property that exists at the system level but not at any component level: a drone swarm's search coverage pattern is not a property of any single drone. Emergent behavior is why testing components in isolation is never sufficient on its own.</p>
+  </div>
+
+  <div class="se-lesson-card">
+   <span class="se-num">Lesson 7</span><h3>Technical management, briefly</h3>
+   <p>Someone has to keep the boundary, the stakeholder list, and the interfaces from silently drifting as a project runs. Technical management is introduced here at the concept level; SE-116 comes back and builds the real toolset, baselines, configuration control, and change management.</p>
+  </div>
+
+  <div class="se-lesson-card">
+   <span class="se-num">Lesson 8</span><h3>Building your own system context diagram</h3>
+   <p>The capstone lesson: pick a system, name its system-of-interest, list every external entity it exchanges something with, and draw the diagram. This is the exact skill SE-105 assumes you already have when it introduces the VCRM.</p>
+  </div>
+
+ </div>
+ </section>
+</div>
+
+<div class="wrap" id="classify">
+ <section>
+ <p class="tag">03 // Practice</p>
+ <h2>System, component, or environment?</h2>
+ <p class="intro">The single most common beginner mistake is calling something "part of the system" when it is really an external entity, or the reverse. Work through each row and decide before checking the answer column.</p>
+ <div class="se-table-wrap">
+ <table class="se-table">
+ <thead><tr><th>Item</th><th>Classification</th><th>Why</th></tr></thead>
+ <tbody>
+ <tr><td><strong>The drone's flight controller</strong></td><td>Component (inside the boundary)</td><td>It is designed, built, and owned as part of the drone system itself.</td></tr>
+ <tr><td><strong>GPS satellites</strong></td><td>External entity</td><td>The system depends on their signal but has no control over them; they exist and operate independently.</td></tr>
+ <tr><td><strong>Wind and visibility conditions</strong></td><td>Environment</td><td>Not a system at all, a condition the system must operate within and be designed to tolerate.</td></tr>
+ <tr><td><strong>The ground control software</strong></td><td>Depends on the boundary you drew</td><td>If the SOI is "the drone," ground control is external. If the SOI is "the whole drone program," ground control is a subsystem inside it. This is exactly why Lesson 2 matters.</td></tr>
+ <tr><td><strong>A charging dock the drone returns to</strong></td><td>Enabling system</td><td>Supports the mission without performing it. Needed for the system to operate, but not part of the search-and-report function.</td></tr>
+ </tbody>
+ </table>
+ </div>
+ <div class="cr-callout tip" style="margin-top:16px;"><strong>The takeaway:</strong> "Is X part of the system?" is not answerable until you can point to exactly where the boundary is. Draw the boundary first, classify second, never the other way around.</div>
+ </section>
+</div>
+
+<div class="wrap" id="feynman">
+ <section>
+ <p class="tag">04 // Feynman teach-back (required)</p>
+ <h2>Explain it before you move on</h2>
+ <div class="se-feynman">
+  <h4>Do not skip this. "I get it" without explaining it does not count as mastery.</h4>
+  <ol>
+   <li><strong>Explain:</strong> in your own words, what is a system-of-interest, and why does its boundary matter?</li>
+   <li><strong>Simplify:</strong> explain the same idea to a 12-year-old, without using the word "system."</li>
+   <li><strong>Example:</strong> pick something from your own life (a household, a sports team, a kitchen) and identify its boundary, its stakeholders, and one emergent behavior.</li>
+   <li><strong>Weak spot:</strong> which part was hardest to explain cleanly? That is where your understanding is thinnest.</li>
+   <li><strong>Retry:</strong> go back to that lesson, re-read it, then rewrite a clearer explanation.</li>
+  </ol>
+ </div>
+ </section>
+</div>
+
+<div class="wrap">
+ <section>
+ <p class="tag">05 // Where this course goes</p>
+ <h2>SE-101 &rarr; SE-102 &rarr; SE-103 &rarr; SE-104 &rarr; SE-105 (VCRM) &rarr; SE-106 &rarr; SE-107 &rarr; SE-108</h2>
+ <div class="se-roadmap">
+  <span class="now">SE-101: Systems Engineering Fundamentals &check; live</span>
+  <span>SE-102: System Life Cycle</span>
+  <span>SE-103: Requirements Engineering</span>
+  <span>SE-104: Requirements Traceability</span>
+  <span>SE-105: Verification &amp; Validation + VCRM</span>
+  <span>SE-106: Risk &amp; Opportunity Management</span>
+  <span>SE-107: System Architecture</span>
+  <span>SE-108: Interfaces &amp; Integration</span>
+ </div>
+ <div class="btn-row" style="margin-top:22px;">
+  <a class="btn btn-primary" href="/classroom/systems-engineering/">See the full 26-course roadmap</a>
+  <a class="btn btn-ghost" href="/classroom/">Back to Classroom</a>
+ </div>
+ </section>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom &middot; Systems Engineering Academy &middot; SE-101</span>
+ <span><a href="/classroom/">Classroom home</a> &middot; <a href="https://github.com/Otaconskeep/otaconskeep-site">GitHub</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js"></script>
+<script defer src="/assets/chat-widget.js"></script>
+</body></html>
