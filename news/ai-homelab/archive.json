@@ -438,10 +438,10 @@
       "url": "https://phunky.cafe/my-homelab-got-hacked/",
       "title": "My Homelab Got Hacked – A Postmortem",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · homelab",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-26T07:01:03-07:00",
+      "published": "Mon, 10 Aug 2026 23:04:18 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -11525,7 +11525,7 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11254",
       "title": "llama.cpp b11254",
-      "summary": "ggml : collect all input tensors into graph_inputs ( #29634 ) graph_inputs was populated while splitting the graph, so it only contained the inputs that are used as srcs of some node. With pipeline parallelism (n_copies > 1), each graph input contributes n_copies leafs to graph_c",
+      "summary": "ggml : collect all input tensors into graph_inputs (",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
@@ -12099,6 +12099,40 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11264",
+      "title": "llama.cpp b11264",
+      "summary": "ggml : fix c++ odr by properly using GGML_COMMON_DECL_CPP ( #29504 ) fix c++ odr by properly using GGML_COMMON_DECL_CPP using actual field rather than macro Co-authored-by: Georgi Gerganov ggerganov@gmail.com Co-authored-by: XZiar xziar@xziar.xziar Co-authored-by: Georgi Gerganov",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-09-29T23:00:04Z",
+      "added_at": "2026-09-29T23:00:04Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11263",
+      "title": "llama.cpp b11263",
+      "summary": "vocab : keep NORMAL in PLaMo-2 and PLaMo-3 ( #29580 ) vocab : keep NORMAL in PLaMo-2 and PLaMo-3 The PLaMo-2 and PLaMo-3 vocabularies mark as NORMAL. Current EOG token heuristic matched it by text and added its attribute to CONTROL. Skip this heuristic for the PLAMO2 vocab type s",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-09-29T22:35:47Z",
+      "added_at": "2026-09-29T23:00:04Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
