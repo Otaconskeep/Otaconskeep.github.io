@@ -438,10 +438,10 @@
       "url": "https://phunky.cafe/my-homelab-got-hacked/",
       "title": "My Homelab Got Hacked – A Postmortem",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · homelab",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-26T07:01:03-07:00",
+      "published": "Mon, 10 Aug 2026 23:04:18 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -13204,6 +13204,23 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11292",
+      "title": "llama.cpp b11292",
+      "summary": "cpu: accept BF16 in src1 of mul_mat ( #28937 ) cpu: accept BF16 in src1 of mul_mat ggml_conv_1d_dw builds its im2col in F32 when the kernel is BF16, then calls ggml_mul_mat(im2col, kernel), which puts F32 in src0 and BF16 in src1. The CPU backend refused that combination, so it w",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-09-30T16:21:56Z",
+      "added_at": "2026-09-30T16:30:05Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
