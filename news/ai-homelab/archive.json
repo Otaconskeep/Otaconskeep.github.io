@@ -1014,7 +1014,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-23T11:17:55-07:00",
+      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1032,7 +1032,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-24T07:26:37-07:00",
+      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -2113,7 +2113,7 @@
       "url": "https://blawg.pages.dev/ollama-vs-llama-server",
       "title": "Ollama vs. Llama.cpp – Quick Benchmark",
       "summary": "Article URL:",
-      "source": "Hacker News · llama.cpp",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
       "published": "Sun, 12 Jul 2026 12:22:17 +0000",
@@ -12864,6 +12864,23 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11275",
+      "title": "llama.cpp b11275",
+      "summary": "gguf : reject tensor size that wraps after padding ( #26979 ) GGML_PAD(nbytes, alignment) wraps to 0 when nbytes is within (alignment - 1) of SIZE_MAX, which silently bypassed the size overflow guard in gguf_init_from_reader. Reject the tensor before padding when nbytes + (alignm",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-09-30T08:29:38Z",
+      "added_at": "2026-09-30T08:30:05Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
