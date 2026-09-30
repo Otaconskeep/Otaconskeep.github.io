@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "catalog": "otaconskeep-ollama-catalog",
+  "parser": "keep-library-html-1",
+  "source": "https://ollama.com/library",
+  "userAgent": "OtaconskeepCatalog/1.0 (public library snapshot; +https://otaconskeep.github.io/ollama-catalog/)",
+  "startedAt": "2026-09-30T12:14:12.425352Z",
+  "fetchedAt": "2026-09-30T12:17:22.130496Z",
+  "libraryHttp": 200,
+  "libraryBytes": 822002,
+  "librarySha256": "061fe32754d7ceaab17ec04758f83eabb58e57f355ba3b4a02d717332231dbd7",
+  "familyCount": 240,
+  "variantCount": 7384,
+  "tagPagesOk": 240,
+  "tagPageFailures": [],
+  "capabilityFamilyCounts": {
+    "embedding": 12,
+    "tools": 92,
+    "vision": 39,
+    "thinking": 42,
+    "cloud": 16,
+    "audio": 1
+  },
+  "rules": {
+    "vramFit": "A tag fits a VRAM budget when it is not a cloud tag and its listed download size is at most 0.75 of that budget. Download size is the number printed on the tag page. It is not a measured VRAM figure. KV cache and runtime overhead are extra, so this is a shortlist, not a guarantee. Cloud tags are those whose tag contains \"cloud\".",
+    "headroom": 0.75,
+    "sizeParse": "Printed labels use decimal K/M/G/T (1000). 9.3GB is stored as 9.3, not as measured bytes.",
+    "quantHint": "Parsed from the tag name only. Most default tags omit quantization and are marked unspecified.",
+    "pulls": "Pull counts are the abbreviated figures on the library card (1.2M means 1200000), not an exact counter.",
+    "pagination": "The index and tag pages had no next-page link. If Ollama adds paging, the parser refuses the snapshot.",
+    "cloud": "Cloud is decided from the tag name. A family-level cloud badge does not mark local tags as cloud."
+  },
+  "vramFit": {
+    "8": {
+      "budgetGb": 8,
+      "maxListedSizeGb": 6.0,
+      "matchingTags": 3647,
+      "sample": [
+        "all-minilm:latest",
+        "all-minilm:l12",
+        "all-minilm:l6",
+        "all-minilm:v2",
+        "all-minilm:22m",
+        "all-minilm:33m",
+        "all-minilm:22m-l6-v2-fp16",
+        "all-minilm:33m-l12-v2-fp16"
+      ]
+    },
+    "12": {
+      "budgetGb": 12,
+      "maxListedSizeGb": 9.0,
+      "matchingTags": 4563,
+      "sample": [
+        "all-minilm:latest",
+        "all-minilm:l12",
+        "all-minilm:l6",
+        "all-minilm:v2",
+        "all-minilm:22m",
+        "all-minilm:33m",
+        "all-minilm:22m-l6-v2-fp16",
+        "all-minilm:33m-l12-v2-fp16"
+      ]
+    },
+    "16": {
+      "budgetGb": 16,
+      "maxListedSizeGb": 12.0,
+      "matchingTags": 4920,
+      "sample": [
+        "all-minilm:latest",
+        "all-minilm:l12",
+        "all-minilm:l6",
+        "all-minilm:v2",
+        "all-minilm:22m",
+        "all-minilm:33m",
+        "all-minilm:22m-l6-v2-fp16",
+        "all-minilm:33m-l12-v2-fp16"
+      ]
+    },
+    "24": {
+      "budgetGb": 24,
+      "maxListedSizeGb": 18.0,
+      "matchingTags": 5444,
+      "sample": [
+        "all-minilm:latest",
+        "all-minilm:l12",
+        "all-minilm:l6",
+        "all-minilm:v2",
+        "all-minilm:22m",
+        "all-minilm:33m",
+        "all-minilm:22m-l6-v2-fp16",
+        "all-minilm:33m-l12-v2-fp16"
+      ]
+    },
+    "32": {
+      "budgetGb": 32,
+      "maxListedSizeGb": 24.0,
+      "matchingTags": 5874,
+      "sample": [
+        "alfred:latest",
+        "alfred:40b",
+        "alfred:40b-1023-q4_0",
+        "all-minilm:latest",
+        "all-minilm:l12",
+        "all-minilm:l6",
+        "all-minilm:v2",
+        "all-minilm:22m"
+      ]
+    }
+  },
+  "examples": {
+    "firstFamily": "alfred",
+    "toolsFamilies": 92,
+    "visionFamilies": 39,
+    "thinkingFamilies": 42,
+    "embeddingFamilies": 12
+  }
+}

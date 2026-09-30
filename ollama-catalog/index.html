@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ollama model catalog · Otaconskeep</title>
+<meta name="description" content="Searchable catalog of the public Ollama library. Filter by capability, listed download size, context, and a documented VRAM shortlist. Scraped with a saved evidence file.">
+<meta property="og:title" content="Ollama model catalog · Otaconskeep">
+<meta property="og:description" content="Filter the Ollama library by tools, vision, size, and a VRAM budget. Every count is checked against a scrape evidence file.">
+<meta property="og:url" content="https://otaconskeep.github.io/ollama-catalog/">
+<meta property="og:image" content="https://otaconskeep.github.io/assets/img/keep/war-room-1.webp">
+<link rel="canonical" href="https://otaconskeep.github.io/ollama-catalog/">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=20260929e">
+<style>
+.oc-evidence { border:1px solid var(--line); background:var(--surface); padding:14px 16px; margin:0 0 18px; }
+.oc-evidence p { margin:0 0 8px; color:var(--cream-dim); }
+.oc-evidence p:last-child { margin:0; }
+.oc-evidence.is-ok { border-color: var(--accent-dim); }
+.oc-evidence.is-bad { border-color:#8a3b32; }
+.oc-evidence strong { color:var(--cream); }
+.oc-bar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:0 0 12px; }
+.oc-bar input[type="search"], .oc-bar select {
+  background:var(--surface); color:var(--cream); border:1px solid var(--line); padding:8px 10px;
+  font:inherit; min-height:40px;
+}
+.oc-bar input[type="search"] { flex:1 1 220px; }
+.oc-chip, .oc-bar button, .oc-sort, .oc-link {
+  background:var(--surface); color:var(--cream); border:1px solid var(--line);
+  font:inherit; padding:8px 12px; cursor:pointer;
+}
+.oc-chip.is-on, .oc-bar button.is-on { background:var(--accent); color:#04140e; border-color:var(--accent); }
+.oc-chips { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
+.oc-table-wrap { overflow:auto; border:1px solid var(--line); background:var(--surface); max-height:70vh; }
+.oc-table-wrap table { width:100%; border-collapse:collapse; font-size:.92rem; }
+.oc-table-wrap th, .oc-table-wrap td { padding:8px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+.oc-table-wrap th { position:sticky; top:0; background:#17202f; z-index:1; }
+.oc-sort, .oc-link { background:transparent; padding:0; border:0; color:var(--accent-bright); }
+.oc-desc { max-width:420px; color:var(--cream-dim); white-space:normal; }
+.oc-num { font-variant-numeric:tabular-nums; font-family:'JetBrains Mono', monospace; font-size:.82rem; white-space:nowrap; }
+.oc-badge { display:inline-block; margin:0 4px 4px 0; padding:2px 6px; border:1px solid var(--line); font-size:.75rem; color:var(--accent-bright); }
+.oc-muted, .oc-empty { color:var(--cream-dim); }
+.oc-empty { padding:18px; }
+.oc-check { display:flex; align-items:center; gap:8px; color:var(--cream-dim); }
+</style>
+</head>
+<body>
+<div class="filebar">
+ <div class="wrap">
+ <span>FILE // OLLAMA CATALOG</span>
+ <span>SCRAPED LIBRARY · EVIDENCE CHECKED</span>
+ </div>
+</div>
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/foxdie/">FOXDIE</a>
+ </div>
+ </div>
+ <a href="/classroom/">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/news/">News</a>
+ <a href="/donate/">Donate</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Catalog">
+ <div class="wrap">
+ <a href="/ollama-catalog/" aria-current="page">Ollama catalog</a>
+ <a href="/classroom/news-lab/2026-09-29-rtx-5060-ti-16gb-ollama/">5060 Ti lab</a>
+ <a href="/classroom/">Classroom</a>
+ <a href="/news/ai-homelab/">AI &amp; Homelab</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <p class="eyebrow">Local models · public library snapshot</p>
+ <h1 class="display" style="font-size:clamp(2.1rem,5.5vw,3.4rem);">Ollama catalog</h1>
+ <p class="lede">Search the public Ollama library by capability, download size, context, and a VRAM budget. The Keep scrapes the library HTML itself. The counts on this page are recomputed in the browser and checked against <a href="data/evidence.json">evidence.json</a>.</p>
+ <p class="meta" id="oc-status">Loading snapshot…</p>
+ </section>
+
+ <div id="oc-evidence" class="oc-evidence">Loading evidence…</div>
+
+ <div class="oc-bar" role="toolbar" aria-label="Catalog filters">
+  <button type="button" data-view="tags" class="is-on">Tags</button>
+  <button type="button" data-view="families">Families</button>
+  <input id="oc-search" type="search" placeholder="Search name, capability, description" aria-label="Search catalog">
+  <label class="oc-check"><input id="oc-local" type="checkbox" checked> Local tags only</label>
+  <label class="oc-check">Context
+   <select id="oc-context" aria-label="Minimum context">
+    <option value="0">Any context</option>
+    <option value="8192">≥ 8K</option>
+    <option value="16384">≥ 16K</option>
+    <option value="32768">≥ 32K</option>
+    <option value="65536">≥ 64K</option>
+    <option value="131072">≥ 128K</option>
+   </select>
+  </label>
+  <button type="button" id="oc-reset">Reset</button>
+ </div>
+ <div class="oc-bar" aria-label="VRAM budget">
+  <span class="oc-muted">VRAM shortlist</span>
+  <button type="button" data-budget="8">8 GB</button>
+  <button type="button" data-budget="12">12 GB</button>
+  <button type="button" data-budget="16" class="is-on">16 GB</button>
+  <button type="button" data-budget="24">24 GB</button>
+  <button type="button" data-budget="32">32 GB</button>
+ </div>
+ <div id="oc-caps" class="oc-chips" aria-label="Capabilities"></div>
+
+ <p class="meta" id="oc-count" style="margin-top:0;">—</p>
+ <div id="oc-table" class="oc-table-wrap" tabindex="0"></div>
+ <div class="oc-bar" style="margin-top:12px;">
+  <button type="button" id="oc-prev">Previous</button>
+  <span id="oc-page" class="oc-muted">Page 1</span>
+  <button type="button" id="oc-next">Next</button>
+ </div>
+
+ <section>
+  <p class="tag">Method</p>
+  <h2>What this is, and what it is not</h2>
+  <p>The catalog is a static snapshot. <code>scrape.py</code> downloads <a href="https://ollama.com/library">ollama.com/library</a>, then each family’s tags page, and writes <code>data/models.json</code> plus <code>data/evidence.json</code>. There is no Ollama API key and no account.</p>
+  <p>A tag is on the VRAM shortlist when it is not a cloud tag and its <em>listed download size</em> is at most 75% of the budget you pick. 16 GB therefore keeps tags at 12 GB or under. That leaves room for a KV cache. It is not a measurement of VRAM, and a model can still run out of memory at a long context.</p>
+  <p>Quant hints are read from the tag name. Most default tags, such as <code>qwen3:14b</code>, do not print a quant, so they stay <code>unspecified</code>. Pull counts are the rounded figures on the library cards.</p>
+  <p>For a worked hardware answer on a 16 GB RTX 5060 Ti, use the <a href="/classroom/news-lab/2026-09-29-rtx-5060-ti-16gb-ollama/">5060 Ti Ollama lab</a>. This catalog is the filter. That lab is the recommendation.</p>
+ </section>
+</div>
+<script src="/assets/site.js"></script>
+<script src="catalog.js"></script>
+</body>
+</html>
