@@ -1014,7 +1014,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
+      "published": "2026-09-23T11:17:55-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1032,7 +1032,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
+      "published": "2026-09-24T07:26:37-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -10966,7 +10966,7 @@
     {
       "url": "https://lemmy.world/post/52486918",
       "title": "Phishing / spam detection with local LLMs?",
-      "summary": "submitted by avidamoeba to selfhosted 23 points | 17 comments I’ve tried giving screenshots of phishing emails to a local Qwen instance and so far it always correctly detected it as scam, even points out the exact elements that it based its judgement on. Sending screenshots to it",
+      "summary": "submitted by avidamoeba to selfhosted 23 points | 19 comments I’ve tried giving screenshots of phishing emails to a local Qwen instance and so far it always correctly detected it as scam, even points out the exact elements that it based its judgement on. Sending screenshots to it",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -13476,6 +13476,23 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11295",
+      "title": "llama.cpp b11295",
+      "summary": "ci : fix Models Backend Check by shortening the hrm_text fixture ( #29744 ) The fixture recycles its two blocks over 8 cache slots, so the fp16 error builds up past the 1e-4 NMSE bound on the Vulkan T4 and WebGPU jobs of Models Backend. Two l-cycles keep every branch of the cycle",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-09-30T18:53:11Z",
+      "added_at": "2026-09-30T19:00:06Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
