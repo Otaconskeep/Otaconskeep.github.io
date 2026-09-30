@@ -5,11 +5,53 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-09-29T13:34:11Z</lastBuildDate>
 <item>
+<title>Ollama v0.35.0</title>
+<link>https://github.com/ollama/ollama/releases/tag/v0.35.0</link>
+<guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.35.0</guid>
+<pubDate>2026-09-29T23:56:54Z</pubDate>
+<description><![CDATA[Article · Ollama. Decision models Ollama now supports decision models through /v1/systemone , based on TypeSafe’s Jev API . Decision models return choices, probabilities, and scores instead of text. Use them for tasks such as ticket triage, model routing, and content classification. Available mode]]></description>
+</item>
+<item>
+<title>llama.cpp b11266</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11266</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11266</guid>
+<pubDate>2026-09-29T23:54:46Z</pubDate>
+<description><![CDATA[Article · llama.cpp. vulkan : Load F32 A matrix 2 at a time when its 2-aligned ( #29254 ) It turns out Intel doesn&#x27;t particularly like loading F32s one at a time and we already have the _2aliagned load logic in mul_mat_vec, so here we use it. While we do already check all the requirements to load ele]]></description>
+</item>
+<item>
+<title>Qwen-family LLMs are quietly becoming the backbone of modern audio models; One chart for the architectures of 100+ audio models</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wtpntt/qwenfamily_llms_are_quietly_becoming_the_backbone/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wtpntt/qwenfamily_llms_are_quietly_becoming_the_backbone/</guid>
+<pubDate>2026-09-29T23:35:16+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I started mapping the building blocks shared across all the models in audio.cpp. The result ended up being more interesting than I expected. Qwen has become by far the most common language backbone in this collection: 32 audio model families use a Qwen-family architecture, and 20]]></description>
+</item>
+<item>
 <title>llama.cpp b11265</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11265</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11265</guid>
 <pubDate>2026-09-29T23:27:19Z</pubDate>
 <description><![CDATA[Article · llama.cpp. vulkan: MOE aware mat_mul_id tile selection ( #29182 ) mut_mul_id selected its matmul tile with total token count. For MoE dispatch grid the true N per workgroup is per-expert rows. At pp128 on Sarvam 30B that is 6, not 128, so the picker took the l-tile for ~6 live rows. Most wo]]></description>
+</item>
+<item>
+<title>Are you worried about a potential ban of Chinese open weight models?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wtp9x4/are_you_worried_about_a_potential_ban_of_chinese/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wtp9x4/are_you_worried_about_a_potential_ban_of_chinese/</guid>
+<pubDate>2026-09-29T23:17:54+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Anthropic released the GLM article today. Trump is getting very involved. Do you foresee Chinese open weight models getting banned soon? submitted by /u/writesfw [link] [comments]]]></description>
+</item>
+<item>
+<title>Sherry&#x27;s 3:4 ternary format (1.375 bits per weight) running on WebGPU: a 1.6 MB model that plays Connect Four as well as its 7.8 MB int8 version</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wtp8h5/sherrys_34_ternary_format_1375_bits_per_weight/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wtp8h5/sherrys_34_ternary_format_1375_bits_per_weight/</guid>
+<pubDate>2026-09-29T23:16:05+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Not an LLM, but the ternary findings should carry over, and we hadn&#x27;t seen Sherry-style 3:4 weights run in a browser before. Disclosure: this is our work at Precisit, everything is MIT. What it is A 7.4M-parameter one-pass scorer (the jevlike family): the board goes in, one score]]></description>
+</item>
+<item>
+<title>AMD boosting AI/LLM performance for Radeon iGPUs as much as 18~23% with Linux 7.4</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wtp87p/amd_boosting_aillm_performance_for_radeon_igpus/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wtp87p/amd_boosting_aillm_performance_for_radeon_igpus/</guid>
+<pubDate>2026-09-29T23:15:45+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/Fcking_Chuck [link] [comments]]]></description>
 </item>
 <item>
 <title>llama.cpp b11264</title>
@@ -24,6 +66,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11263</guid>
 <pubDate>2026-09-29T22:35:47Z</pubDate>
 <description><![CDATA[Article · llama.cpp. vocab : keep NORMAL in PLaMo-2 and PLaMo-3 ( #29580 ) vocab : keep NORMAL in PLaMo-2 and PLaMo-3 The PLaMo-2 and PLaMo-3 vocabularies mark as NORMAL. Current EOG token heuristic matched it by text and added its attribute to CONTROL. Skip this heuristic for the PLAMO2 vocab type s]]></description>
+</item>
+<item>
+<title>Any good harness or tools for helping students?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wtnhte/any_good_harness_or_tools_for_helping_students/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wtnhte/any_good_harness_or_tools_for_helping_students/</guid>
+<pubDate>2026-09-29T21:59:43+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. What FOSS/self-hosted tools or AI tools have you found genuinely helpful for students? Also interested in anything non-AI that has helped with studying, notes, organization, research, etc. Curious what you guys actually use or found useful. (written fully by human) submitted by /]]></description>
 </item>
 <item>
 <title>llama.cpp b11262</title>
@@ -395,13 +444,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11243</guid>
 <pubDate>2026-09-29T03:00:14Z</pubDate>
 <description><![CDATA[Article · llama.cpp. ci : update the oneAPI toolkit to 2026.1 ( #29273 ) ci : update the oneAPI toolkit to 2026.1 oneDNN is removed from Intel Deep Learning Essentials in 2026.0, so staying on the deep-learning-essentials path would silently lose oneDNN support when the toolkit version is updated. Sw]]></description>
-</item>
-<item>
-<title>Ollama v0.35.0</title>
-<link>https://github.com/ollama/ollama/releases/tag/v0.35.0</link>
-<guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.35.0</guid>
-<pubDate>2026-09-29T01:54:15Z</pubDate>
-<description><![CDATA[Article · Ollama. Decision models Ollama now supports decision models through /v1/systemone , based on TypeSafe’s Jev API . Decision models return choices, probabilities, and scores instead of text. Use them for tasks such as ticket triage, model routing, and content classification. Available mode]]></description>
 </item>
 <item>
 <title>First few days of qwen3.8-flash-next on 4x R9700 - it&#x27;s been really interesting so far</title>
