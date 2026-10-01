@@ -76,7 +76,8 @@ def main() -> int:
     sys.stderr.write(fetch.stderr)
     if fetch.returncode != 0:
         return fetch.returncode
-    rebase = git('rebase', 'origin/main', check=False)
+    # Other work in this checkout must not block the news push.
+    rebase = git('rebase', '--autostash', 'origin/main', check=False)
     sys.stdout.write(rebase.stdout)
     sys.stderr.write(rebase.stderr)
     if rebase.returncode != 0:

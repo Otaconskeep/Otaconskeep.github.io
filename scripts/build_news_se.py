@@ -28,6 +28,8 @@ PAGE = f'{SITE}/news/systems-engineering/'
 FEED = f'{SITE}/news/systems-engineering/feed.xml'
 ARCHIVE = ROOT / 'news' / 'systems-engineering' / 'archive.json'
 MIN_STORIES = 12
+NEW_VISUALS = int(os.environ.get('NEWS_NEW_VISUALS', '48'))
+NEW_SCREENSHOTS = int(os.environ.get('NEWS_NEW_SCREENSHOTS', '12'))
 
 
 def clean(raw: str) -> str:
@@ -551,41 +553,68 @@ def media_stem(url: str) -> str:
     return hashlib.sha256(norm_key(url).encode()).hexdigest()[:16]
 
 
-def save_visuals(rows: list[dict], folder: Path) -> None:
-    """Keep pictures already on disk. Download only a missing thumbnail."""
-    folder.mkdir(parents=True, exist_ok=True)
+def cached_file(row: dict, folder: Path) -> str:
+    """Return media/name when this story's picture is already on disk."""
+    existing = str(row.get('file') or '')
+    if existing.startswith('media/'):
+        path = folder / Path(existing).name
+        if path.is_file() and path.stat().st_size > 4000:
+            return f'media/{path.name}'
+    stem = folder / media_stem(str(row.get('url') or ''))
+    for ext in ('.jpg', '.png', '.webp', '.gif'):
+        path = stem.with_suffix(ext)
+        if path.is_file() and path.stat().st_size > 4000:
+            return f'media/{path.name}'
+    return ''
 
-    def one(row: dict) -> None:
+
+def save_visuals(rows: list[dict], folder: Path) -> None:
+    """Keep pictures already on disk. Fill missing previews for the newest stories."""
+    folder.mkdir(parents=True, exist_ok=True)
+    pending: list[dict] = []
+    for row in rows:
         if is_social(row):
             row['file'] = ''
-            return
-        existing = str(row.get('file') or '')
-        if existing:
-            path = folder.parent / existing if not existing.startswith('media/') else folder / Path(existing).name
-            if existing.startswith('media/'):
-                path = folder / Path(existing).name
-            if path.is_file() and path.stat().st_size > 4000:
-                row['file'] = f'media/{path.name}'
-                return
+            continue
+        found = cached_file(row, folder)
+        if found:
+            row['file'] = found
+            continue
+        row['file'] = ''
+        if len(pending) < NEW_VISUALS:
+            pending.append(row)
+
+    def pull_remote(row: dict) -> None:
         stem = folder / media_stem(str(row.get('url') or ''))
-        for ext in ('.jpg', '.png', '.webp', '.gif'):
-            path = stem.with_suffix(ext)
-            if path.is_file() and path.stat().st_size > 4000:
-                row['file'] = f'media/{path.name}'
-                return
-        name = ''
         image = str(row.get('image') or '')
-        if image:
-            name = download_image(image, stem)
+        if not image:
+            image = og_image(str(row.get('url') or ''))
+            if image:
+                row['image'] = image
+        name = download_image(image, stem) if image else ''
         if not name and row.get('video'):
             name = download_image(
                 f'https://i.ytimg.com/vi/{row["video"]}/hqdefault.jpg',
                 stem,
             )
-        row['file'] = f'media/{name}' if name else ''
+        if name:
+            row['file'] = f'media/{name}'
 
-    with ThreadPoolExecutor(max_workers=12) as pool:
-        list(pool.map(one, rows))
+    if pending:
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            list(pool.map(pull_remote, pending))
+
+    shots = [row for row in pending if not row.get('file')][:NEW_SCREENSHOTS]
+
+    def shoot(row: dict) -> None:
+        stem = folder / media_stem(str(row.get('url') or ''))
+        name = screenshot(str(row.get('url') or ''), stem)
+        if name:
+            row['file'] = f'media/{name}'
+
+    if shots:
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            list(pool.map(shoot, shots))
 
 
 def visual(row: dict) -> str:
