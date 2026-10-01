@@ -403,7 +403,7 @@
     {
       "url": "https://www.youtube.com/watch?v=K2IGHj7KQoM",
       "title": "Are Local Models Finally Good Enough?",
-      "summary": "Video from Techno Tim.",
+      "summary": "I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video ",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -414,6 +414,7 @@
       "video": "K2IGHj7KQoM",
       "categories": [
         "local-models",
+        "homelab",
         "video"
       ]
     },
@@ -454,7 +455,7 @@
     {
       "url": "https://www.youtube.com/watch?v=7I0pjHC4U7I",
       "title": "I'm starting a homelab festival (you're invited)",
-      "summary": "Video from Jeff Geerling.",
+      "summary": "REGISTER NOW!",
       "source": "Jeff Geerling",
       "kind": "youtube",
       "lane": "Video",
@@ -471,7 +472,7 @@
     {
       "url": "https://www.youtube.com/watch?v=8NFV6duMKQA",
       "title": "What Is an NPU Actually Good For?",
-      "summary": "Video from Techno Tim.",
+      "summary": "What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -488,7 +489,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qyGbkEtjJ90",
       "title": "Answering your Homelab Questions!",
-      "summary": "Video from Wolfgang's Channel.",
+      "summary": "Click this link",
       "source": "Wolfgang's Channel",
       "kind": "youtube",
       "lane": "Video",
@@ -1011,10 +1012,10 @@
       "url": "https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/",
       "title": "Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · self-hosted",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-23T11:17:55-07:00",
+      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -2113,7 +2114,7 @@
       "url": "https://blawg.pages.dev/ollama-vs-llama-server",
       "title": "Ollama vs. Llama.cpp – Quick Benchmark",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · llama.cpp",
       "kind": "social",
       "lane": "Hacker News",
       "published": "Sun, 12 Jul 2026 12:22:17 +0000",
@@ -13884,6 +13885,91 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11308",
+      "title": "llama.cpp b11308",
+      "summary": "args: fix cli download mmproj arg ( #28977 ) tests: add tests for cli download arg parsing args: fix cli download mmproj arg Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-01T01:09:18Z",
+      "added_at": "2026-10-01T01:30:05Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wuk9so/least_to_most_expensive_somewhat_modern_gpus_with/",
+      "title": "Least to most expensive (Somewhat modern) GPU's with 32gb of vram (Under $1600) Based on ebay listings",
+      "summary": "I was researching prices on ebay and fed claude a bunch of images of listings. I had it make a chart and thought it would be useful to share. submitted by /u/Rombodawg [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-09-30T23:36:12+00:00",
+      "added_at": "2026-10-01T01:30:05Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wukf5d/ai_ceo_interviews_2026/",
+      "title": "AI CEO Interviews (2026)",
+      "summary": "submitted by /u/LambdaHominem [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-09-30T23:43:15+00:00",
+      "added_at": "2026-10-01T01:30:05Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wujph3/two_openweights_releases_victoria_qwen38flashnext/",
+      "title": "Two open-weights releases: Victoria (Qwen3.8-Flash-Next with 44% of experts cut, 70% Terminal-Bench 2.1, GGUF included) and Maple (a Canada-first fine-tune)",
+      "summary": "We had a Dell B300 in the lab for a few weeks and used it to create two fine tunes of Qwen Flash Next. Victoria (coding and agents) Qwen3.8-Flash-Next cut down by 44% using a paper / technique called REAP: 512 down to 288 per layer. Retrained at 4-bit (NVFP4) afterwards, so it's ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-09-30T23:10:03+00:00",
+      "added_at": "2026-10-01T01:30:05Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wuk9f1/best_local_model_for_blender_and_game_dev/",
+      "title": "Best local model for Blender and game dev?",
+      "summary": "I have been looking at some local models, but even the smartest ones like GLM5.3 Flash and DSv4 Flash have a hard time creating coherent models in Blender and placing them logically in game engines. Is this something that local models are just too dumb still to do good job at? su",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-09-30T23:35:41+00:00",
+      "added_at": "2026-10-01T01:30:05Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
