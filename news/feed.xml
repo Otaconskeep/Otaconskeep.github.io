@@ -3,12 +3,19 @@
 <title>AI &amp; Homelab News</title>
 <link>https://otaconskeep.github.io/news/ai-homelab/</link>
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
-<lastBuildDate>2026-10-02T13:33:19Z</lastBuildDate>
+<lastBuildDate>2026-10-03T01:58:42Z</lastBuildDate>
+<item>
+<title>llama.cpp b11366</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11366</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11366</guid>
+<pubDate>2026-10-03T01:58:45Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2553159a4f32c996.png" alt=""><p>Article · llama.cpp. ggml-quants : avoid invalid rounding in qkx3 scale search ( #29817 ) ggml-quants : avoid invalid rounding in qkx3 scale search The imatrix scale search can produce an infinite, NaN, or otherwise out-of-range value when the fitted minimum collapses to the maximum or makes the rang</p>]]></description>
+</item>
 <item>
 <title>llama.cpp b11365</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11365</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11365</guid>
-<pubDate>2026-10-03T01:29:53Z</pubDate>
+<pubDate>2026-10-03T01:32:19Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1330b3896a02c463.png" alt=""><p>Article · llama.cpp. ggml-cpu : fix soft_max_back wrong output when dst aliases src1 ( #27096 ) ggml-cpu : fix soft_max_back wrong output when dst aliases src1 GGML_OP_SOFT_MAX_BACK is listed in ggml_op_can_inplace, so the graph allocator may assign dst to alias either src0 (dy) or src1 (y). The resu</p>]]></description>
 </item>
 <item>
@@ -103,6 +110,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Hey guys, Last time I tested Qwen3.8-Flash-Next on its own. This time I put three Qwen3.8 checkpoints through the same 10 tests on the same RTX PRO 6000: RadixArk/Qwen3.8-27B-NVFP4 (dense) orcarouter/Qwen3.8-27B-Uncensored-NVFP4 (dense, uncensored fine-tune) RadixArk/Qwen3.8-Flas]]></description>
 </item>
 <item>
+<title>Local model choice: why is (not) that hard</title>
+<link>https://www.reddit.com/r/LocalLLM/comments/1ww5poz/local_model_choice_why_is_not_that_hard/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLM/comments/1ww5poz/local_model_choice_why_is_not_that_hard/</guid>
+<pubDate>2026-10-02T21:26:54+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLM. TL;DR - ≥32 GB VRAM → Qwen3.8-27B , Q4 (NVFP4 / Q4_K_XL / IQ4_XS) - Otherwise → Qwen3.8-Flash-Next on Strata , Q4 or IQ3 depending on your total RAM + VRAM For the past few weeks I&#x27;ve been deep into local models: testing everything I could get my hands on, reading up on which h]]></description>
+</item>
+<item>
 <title>Buying RTX 5090 At Micro Center Reportedly Now Requires Paperwork, Including A No-Export Declaration</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1ww4hne/buying_rtx_5090_at_micro_center_reportedly_now/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1ww4hne/buying_rtx_5090_at_micro_center_reportedly_now/</guid>
@@ -164,6 +178,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1ww0u1r/should_we_plead_opensource_labs_to_still_produce/</guid>
 <pubDate>2026-10-02T18:10:04+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. The results are in, no thinking / instruct mode for new models degrade performance more than on old models such as 3.6 vs 3.8, where 3.6 takes the lead on several coding benches in instruct mode. I would ask the labs to still nicely focus on instruct mode also still, there a prob]]></description>
+</item>
+<item>
+<title>NVIDIA Announces DGX Spark 64GB: A 1-PetaFLOP Grace Blackwell Desktop for Local AI Agents, Fine-Tuning, and Inference</title>
+<link>https://www.marktechpost.com/2026/10/02/nvidia-announces-dgx-spark-64gb-a-1-petaflop-grace-blackwell-desktop-for-local-ai-agents-fine-tuning-and-inference/</link>
+<guid isPermaLink="true">https://www.marktechpost.com/2026/10/02/nvidia-announces-dgx-spark-64gb-a-1-petaflop-grace-blackwell-desktop-for-local-ai-agents-fine-tuning-and-inference/</guid>
+<pubDate>Fri, 02 Oct 2026 18:04:56 +0000</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5cb16ab1735295d6.png" alt=""><p>Article · MarkTechPost. NVIDIA announced a new 64GB configuration of DGX Spark - from Acer, ASUS, Dell, Gigabyte, HP and MSI - its GB10-powered desktop AI system. It gives developers a way to start with one system for local models and agents, then cluster two 64GB units for 128GB of memory across the cl</p>]]></description>
 </item>
 <item>
 <title>New Architecture from Percepta: Spotlight - separating intelligence from memory, allowing knowledge and skills to grow without changing the model&#x27;s weights.</title>
@@ -234,6 +255,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wvxl4n/qwen3827bhumanlikechat_20_texts_like_a_human_now/</guid>
 <pubDate>2026-10-02T16:00:50+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Last month I posted a Qwen3.8-27B LoRA that makes it talk like a person instead of an assistant. It got a lot more attention than I expected: 700+ upvotes, 248 comments and 44k downloads since. I read every comment. People really don&#x27;t like assistant speak, so its tone of voice r]]></description>
+</item>
+<item>
+<title>Qwen3.8-Flash-Next on 12GB VRAM - 65 t/s</title>
+<link>https://www.reddit.com/r/LocalLLM/comments/1wvxak1/qwen38flashnext_on_12gb_vram_65_ts/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLM/comments/1wvxak1/qwen38flashnext_on_12gb_vram_65_ts/</guid>
+<pubDate>2026-10-02T15:49:04+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLM. submitted by]]></description>
 </item>
 <item>
 <title>llama.cpp b11349</title>
@@ -390,6 +418,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. It’s been a long time since the last models came out. I notice they are selling GLM on the site, and I wonder if they are developing something, given the long silence. submitted by /u/LegacyRemaster [link] [comments]]]></description>
 </item>
 <item>
+<title>How can you be 100% sure local LLM apps aren&#x27;t sending your data anywhere?</title>
+<link>https://www.reddit.com/r/LocalLLM/comments/1wvpjtu/how_can_you_be_100_sure_local_llm_apps_arent/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLM/comments/1wvpjtu/how_can_you_be_100_sure_local_llm_apps_arent/</guid>
+<pubDate>2026-10-02T09:42:31+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLM. I run models offline with apps like LM Studio and Ollama. The whole point for me is privacy. But how do I actually know nothing leaves my machine? The model file is just weights, but the app around it could phone home. Is there a way to verify this for sure? What do you do? submi]]></description>
+</item>
+<item>
 <title>Have you tried generating video with muse 1.3 free on opencode ?</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wvpjoi/have_you_tried_generating_video_with_muse_13_free/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wvpjoi/have_you_tried_generating_video_with_muse_13_free/</guid>
@@ -458,6 +493,13 @@
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/stable</guid>
 <pubDate>2026-10-02T07:28:48Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · n8n. 2.41.6 (2026-10-02) Bug Fixes core: Keep the task runner running on an unhandled promise rejection ( #40092 ) ( d719c87 )</p>]]></description>
+</item>
+<item>
+<title>AWS Strands Labs Releases Strands Decider 2B: An Open Source Decision Model That Picks Options in About 115 ms</title>
+<link>https://www.marktechpost.com/2026/10/01/aws-strands-labs-releases-strands-decider-2b/</link>
+<guid isPermaLink="true">https://www.marktechpost.com/2026/10/01/aws-strands-labs-releases-strands-decider-2b/</guid>
+<pubDate>Fri, 02 Oct 2026 06:35:00 +0000</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d61eea5724ccd87b.png" alt=""><p>Article · MarkTechPost. AWS&#x27;s Strands Agents team released Strands Decider 2B, an Apache-2.0 decision model built on Qwen3.5-2B-Base. It returns choices, yes/no probabilities and scores with calibrated confidence in one forward pass, never text. It runs at a 115 ms median on an RTX 3090 and scores 0.723</p>]]></description>
 </item>
 <item>
 <title>Model weight inferencing</title>
@@ -2830,7 +2872,7 @@
 <link>https://lemmy.world/post/52486918</link>
 <guid isPermaLink="true">https://lemmy.world/post/52486918</guid>
 <pubDate>Mon, 28 Sep 2026 21:57:20 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by avidamoeba to selfhosted 24 points | 20 comments I’ve tried giving screenshots of phishing emails to a local Qwen instance and so far it always correctly detected it as scam, even points out the exact elements that it based its judgement on. Sending screenshots to it]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by avidamoeba to selfhosted 24 points | 21 comments I’ve tried giving screenshots of phishing emails to a local Qwen instance and so far it always correctly detected it as scam, even points out the exact elements that it based its judgement on. Sending screenshots to it]]></description>
 </item>
 <item>
 <title>3D/2D Text Visualisation</title>
@@ -5059,6 +5101,13 @@
 <description><![CDATA[Social · Sigmoid #localllama. l being done with a local AI, a variant of a Qwen3.8-27B model, on a 3090. Short version: with MINUTES of conversation and discussion, I will have a normalized database of all of my cats veterinary records *AND* a pipeline for ingesting those records *AND]]></description>
 </item>
 <item>
+<title>Answering your Homelab Questions!</title>
+<link>https://www.youtube.com/watch?v=qyGbkEtjJ90</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=qyGbkEtjJ90</guid>
+<pubDate>2026-09-23T11:17:55-07:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f9691e4596ea9a3e.jpg" alt=""><p>Video · Wolfgang&#x27;s Channel. Click this link</p>]]></description>
+</item>
+<item>
 <title>old model: Qwen3.6-35B-A3B-BUDGET-GGUF</title>
 <link>https://lemmy.ml/post/52990361</link>
 <guid isPermaLink="true">https://lemmy.ml/post/52990361</guid>
@@ -5078,13 +5127,6 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
-</item>
-<item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>this is not even a competition at this point ... this is embarrassing</title>
@@ -5127,6 +5169,20 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11138</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3a1c6ee8349fc30f.png" alt=""><p>Article · llama.cpp. jinja : parse unary +/- before variables ( #29244</p>]]></description>
+</item>
+<item>
+<title>Are Local Models Finally Good Enough?</title>
+<link>https://www.youtube.com/watch?v=K2IGHj7KQoM</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=K2IGHj7KQoM</guid>
+<pubDate>2026-09-23T10:55:29-07:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01.jpg" alt=""><p>Video · Techno Tim. I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video</p>]]></description>
+</item>
+<item>
+<title>What Is an NPU Actually Good For?</title>
+<link>https://www.youtube.com/watch?v=8NFV6duMKQA</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=8NFV6duMKQA</guid>
+<pubDate>2026-09-23T10:55:29-07:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/322193c3ccae5516.jpg" alt=""><p>Video · Techno Tim. What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se</p>]]></description>
 </item>
 <item>
 <title>MiMo-V3 is getting a new architecture. The core of it, HySparse2, is out today.</title>
@@ -5414,6 +5470,13 @@
 <guid isPermaLink="true">https://github.com/immich-app/immich/releases/tag/v3.2.1</guid>
 <pubDate>2026-09-14T18:24:25Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
+</item>
+<item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.1rc0</title>
@@ -5750,13 +5813,6 @@
 <guid isPermaLink="true">https://github.com/murerkinn/bookshelf</guid>
 <pubDate>Mon, 24 Aug 2026 23:00:37 +0000</pubDate>
 <description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
-</item>
-<item>
-<title>What Is an NPU Actually Good For?</title>
-<link>https://www.youtube.com/watch?v=8NFV6duMKQA</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=8NFV6duMKQA</guid>
-<pubDate>2026-08-22T16:12:28+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/322193c3ccae5516.jpg" alt=""><p>Video · Techno Tim. Video from Techno Tim.</p>]]></description>
 </item>
 <item>
 <title>Building an (almost) fully self-hosted, sandboxed, agentic software factory</title>
@@ -6162,7 +6218,7 @@
 <link>https://blawg.pages.dev/ollama-vs-llama-server</link>
 <guid isPermaLink="true">https://blawg.pages.dev/ollama-vs-llama-server</guid>
 <pubDate>Sun, 12 Jul 2026 12:22:17 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News · llama.cpp. Article URL:]]></description>
 </item>
 <item>
 <title>Rebuilding My Homelab with Compose, Ruby, IPv6, and No Kubernetes</title>
@@ -6627,13 +6683,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/12.png" alt=""><p>Article · text-generation-webui. Changes Redesigned chat composer : Taller input area with the paperclip and message-action buttons pinned to the bottom, similar to Gemini and DeepSeek. Smooth scroll animation when sending a new message : Inspired by Gemini&#x27;s chat UI. Electron improvements : Persist window bound</p>]]></description>
 </item>
 <item>
-<title>Are Local Models Finally Good Enough?</title>
-<link>https://www.youtube.com/watch?v=K2IGHj7KQoM</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=K2IGHj7KQoM</guid>
-<pubDate>2026-05-18T15:00:34+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01.jpg" alt=""><p>Video · Techno Tim. Video from Techno Tim.</p>]]></description>
-</item>
-<item>
 <title>EverShelf - The AI-Powered, Self-Hosted Inventory Brain for Your Kitchen</title>
 <link>https://noted.lol/evershelf/</link>
 <guid isPermaLink="true">https://noted.lol/evershelf/</guid>
@@ -7010,13 +7059,6 @@
 <guid isPermaLink="true">https://www.youtube.com/watch?v=hpC4qjWu_aY</guid>
 <pubDate>2025-07-23T11:10:52+00:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5228efb548ec02bc.jpg" alt=""><p>Video · Yannic Kilcher. Video from Yannic Kilcher.</p>]]></description>
-</item>
-<item>
-<title>Answering your Homelab Questions!</title>
-<link>https://www.youtube.com/watch?v=qyGbkEtjJ90</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=qyGbkEtjJ90</guid>
-<pubDate>2025-06-29T10:46:20+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f9691e4596ea9a3e.jpg" alt=""><p>Video · Wolfgang&#x27;s Channel. Click this link</p>]]></description>
 </item>
 <item>
 <title>What&#x27;s in my Homelab Rack?</title>
