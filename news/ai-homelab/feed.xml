@@ -5,11 +5,39 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-03T04:04:54Z</lastBuildDate>
 <item>
+<title>I tried building a small RAG search node for Qwen3.8 27B using a fake AliExpress Mini PC... and Intel sent me back to 2018.</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wwgsas/i_tried_building_a_small_rag_search_node_for/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wwgsas/i_tried_building_a_small_rag_search_node_for/</guid>
+<pubDate>2026-10-03T07:08:14+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I love Qwen3.8 27B so much that I decided to show my gratitude to the Alibaba ecosystem by building a dedicated RAG/search node using a cheap Mini PC from AliExpress. Turns out, my ecosystem loyalty got rewarded with an absolute masterpiece of fraud: Promised: Intel N150 + DDR4/D]]></description>
+</item>
+<item>
+<title>LiquidAI/LFM2.5-Encoder 250M/350M</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wwgns1/liquidailfm25encoder_250m350m/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wwgns1/liquidailfm25encoder_250m350m/</guid>
+<pubDate>2026-10-03T07:00:51+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. LFM2.5-Encoder-350M is a multilingual bidirectional encoder built on the LFM2 architecture - a larger encoder for maximum downstream quality. It is a masked language model with full bidirectional attention, designed to be fine-tuned into task-specific models (classification, toke]]></description>
+</item>
+<item>
+<title>Qwen3.8-Flash-Next 177B running at 11–15 tok/s on a single RTX 5070 12GB + 32GB RAM DDR4</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wwggwt/qwen38flashnext_177b_running_at_1115_toks_on_a/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wwggwt/qwen38flashnext_177b_running_at_1115_toks_on_a/</guid>
+<pubDate>2026-10-03T06:49:25+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Benchmarking an LLM here with a NVIDIA RTX 5070 12 GB VRAM here I had been working on a llama.cpp based expert streaming setup for Qwen3.8-Flash-Next 177B (UD-IQ3_XXS) on Windows. Benchmark is about 11.5 tok/s, up from roughly 7 tok/s on the inherited setup. In normal conversatio]]></description>
+</item>
+<item>
 <title>llama.cpp b11370</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11370</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11370</guid>
 <pubDate>2026-10-03T06:27:05Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3e3a82382d4ba1a6.png" alt=""><p>Article · llama.cpp. CUDA: fuse shared experts into MMVQ ( #29184 ) CUDA: fuse shared experts into MMVQ check if buffer is null move stride_col_dst to fusion args Website:</p>]]></description>
+</item>
+<item>
+<title>qwen4exp : halve the indexer score memory by ServeurpersoCom · Pull Request #29825 · ggml-org/llama.cpp</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wwfyv6/qwen4exp_halve_the_indexer_score_memory_by/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wwfyv6/qwen4exp_halve_the_indexer_score_memory_by/</guid>
+<pubDate>2026-10-03T06:18:34+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Qwen Flash Next now uses less VRAM submitted by /u/jacek2023 [link] [comments]]]></description>
 </item>
 <item>
 <title>MiniPC to run a LLM w/ voice assistant - Best small LLM?</title>
@@ -185,6 +213,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1ww6wvo/ive_ended_up_with_an_ai_lab_in_a_public_community/</guid>
 <pubDate>2026-10-02T22:18:29+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Looking for some ideas from people who know a lot more about this than I do. We&#x27;ve got funding for a small AI lab in a public further education college in Ireland (roughly community college in the US). The hardware is reasonably decent. The goal is to give students useful skills]]></description>
+</item>
+<item>
+<title>v0.31.0: [Misc] Add Transformers version upper bound in requirements (#59614)</title>
+<link>https://github.com/vllm-project/vllm/releases/tag/v0.31.0</link>
+<guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.31.0</guid>
+<pubDate>2026-10-02T22:18:12Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9668af85ed2e1acf.png" alt=""><p>Article · vLLM. Signed-off-by: Isotr0py Isotr0py@outlook.com Co-authored-by: Harry Mellor 19981378+hmellor@users.noreply.github.com (cherry picked from commit 58b3298 )</p>]]></description>
 </item>
 <item>
 <title>v0.31.0rc5: [Misc] Add Transformers version upper bound in requirements (#59614)</title>
@@ -4688,13 +4723,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
 </item>
 <item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>2026-09-25T20:30:45-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
-</item>
-<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -5234,13 +5262,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>this is not even a competition at this point ... this is embarrassing</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wnzlav/this_is_not_even_a_competition_at_this_point_this/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wnzlav/this_is_not_even_a_competition_at_this_point_this/</guid>
@@ -5570,6 +5591,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -5638,6 +5666,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
