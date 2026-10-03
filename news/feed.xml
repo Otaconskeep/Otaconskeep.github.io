@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-03T04:04:54Z</lastBuildDate>
 <item>
+<title>llama.cpp b11375</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11375</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11375</guid>
+<pubDate>2026-10-03T12:40:04Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9cf469a02c5a0aef.png" alt=""><p>Article · llama.cpp. graph: gather the recurrent states once so the reserve covers every split ( #29856 ) build_rs gathered the extra states (n_rs - n_seqs rows) with their own get_rows. The worst-case reserve has n_rs == n_seqs, so that node was sized at zero rows, and any ubatch whose cells are not</p>]]></description>
+</item>
+<item>
+<title>LibreDB Studio: open-source, free, self-hosted SQL IDE that runs in your browser, for 46 databases</title>
+<link>https://noted.lol/libredb-studio/</link>
+<guid isPermaLink="true">https://noted.lol/libredb-studio/</guid>
+<pubDate>Sat, 03 Oct 2026 12:37:09 GMT</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/55014281a8db832b.webp" alt=""><p>Article · noted.lol. LibreDB Studio is a free, open-source database editor that runs in Docker, letting you securely manage your databases directly from your browser without exposing ports, opening SSH tunnels, or installing additional software.</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11374</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11374</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11374</guid>
@@ -12,11 +26,32 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d57f531c7227c316.png" alt=""><p>Article · llama.cpp. ggml-openvino: update to 2026.4.1, optimize performance, expand ops, improve device listing. ( #29852 ) ggml-openvino : Qwen3.5 MoE perf ( #312 ) Squash of ravi9#312 : ggml-openvino: add detailed inference profiling (Yu, Zijun) ggml-openvino: use remote output tensors by default</p>]]></description>
 </item>
 <item>
+<title>FP8/BF16 users seeing someone run IQ1_S</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wwl9jf/fp8bf16_users_seeing_someone_run_iq1_s/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wwl9jf/fp8bf16_users_seeing_someone_run_iq1_s/</guid>
+<pubDate>2026-10-03T11:47:17+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+</item>
+<item>
+<title>Aleph-Alpha/Kolibri-1 · Hugging Face - 78B parameters. 3.46B active. Up to 1M tokens of context - Apache 2.0</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wwl7y6/alephalphakolibri1_hugging_face_78b_parameters/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wwl7y6/alephalphakolibri1_hugging_face_78b_parameters/</guid>
+<pubDate>2026-10-03T11:44:42+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. From Aleph Alpha on 𝕏:]]></description>
+</item>
+<item>
 <title>llama.cpp b11372</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11372</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11372</guid>
 <pubDate>2026-10-03T11:28:05Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0ec64ac228dd9330.png" alt=""><p>Article · llama.cpp. qwen4exp : halve the indexer score memory ( #29825 ) qwen4exp : halve the indexer score memory The indexer scored all heads in one product and rectified a copy of it, so two [n_pool, n_idx_h, n_tokens] f32 tensors were live at once, the largest buffers of the graph at long contex</p>]]></description>
+</item>
+<item>
+<title>Anyworld, a self-hosted multiplayer text RPG where a local LLM is the Dungeon Master</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wwkudj/anyworld_a_selfhosted_multiplayer_text_rpg_where/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wwkudj/anyworld_a_selfhosted_multiplayer_text_rpg_where/</guid>
+<pubDate>2026-10-03T11:22:44+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hey everyone, I’ve been working on a game called Anyworld. It’s a browser-based multiplayer (single player also supported) text adventure inspired by the early days of AI Dungeon, especially its browser-based free version AI Dungeon 2. The setup is pretty straightforward: one per]]></description>
 </item>
 <item>
 <title>Thanks to Strata I have quit 27b for Qwen Flash (24gb VRAM plus 64gb ram)</title>
