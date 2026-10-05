@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-05T04:04:40Z</lastBuildDate>
 <item>
+<title>llama.cpp b11413</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11413</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11413</guid>
+<pubDate>2026-10-05T11:07:34Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e700cccf8e408613.png" alt=""><p>Article · llama.cpp. vulkan: sparse flash attention for quantized K/V ( #29639 ) vulkan: sparse flash attention for quantized K/V Assisted-by: Claude vulkan: single-scan sparse FA index compaction The compaction ran one workgroup per mask row and walked the row in BLOCK_SIZE chunks, with a workgroup</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11412</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11412</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11412</guid>
@@ -47,18 +54,18 @@
 <description><![CDATA[Reddit · r/homelab. I&#x27;ve been running a Terramaster F2-424 NAS using the built in TOS for my Plex Server for a while, but after a lot of annoyance with the software along the way, as well as a LOT of annoyance and frustration with it as I&#x27;ve been trying to find out why the server just suddenly isn&#x27;t]]></description>
 </item>
 <item>
+<title>llama.cpp b11414</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11414</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11414</guid>
+<pubDate>2026-10-05T08:38:26Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f6163190b26d1f5b.png" alt=""><p>Article · llama.cpp. vulkan: fix stale prealloc_y reuse across flash attention and soft_ma…</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11408</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11408</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11408</guid>
 <pubDate>2026-10-05T08:37:59Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3bc52993114bf83f.png" alt=""><p>Article · llama.cpp. ggml-cpu : add Q8_0 IME1 matrix kernel for SpacemiT X60 ( #28479 ) ggml-cpu : add Q8_0 IME1 matrix kernel for SpacemiT X60 On the SpacemiT X60, IME matrix acceleration only covered Q4_0/Q4_1/Q4_K. Q8_0 had no IME1 kernel, and since the SpacemiT build sets GGML_CPU_REPACK=OFF ther</p>]]></description>
-</item>
-<item>
-<title>b11413: vulkan: sparse flash attention for quantized K/V (#29639)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11413</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11413</guid>
-<pubDate>2026-10-05T08:37:54Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e700cccf8e408613.png" alt=""><p>Article · llama.cpp. vulkan: sparse flash attention for quantized K/V Assisted-by: Claude vulkan: single-scan sparse FA index compaction The compaction ran one workgroup per mask row and walked the row in BLOCK_SIZE chunks, with a workgroup scan per chunk. For decode that is one workgroup doing KV/10</p>]]></description>
 </item>
 <item>
 <title>DecisionTune 1.0: a 395M encoder that picks from your options offline, about 10 ms per short decision on MLX (Apache-2.0)</title>
@@ -6081,13 +6088,6 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>2026-09-26T07:01:03-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -6648,13 +6648,6 @@
 <description><![CDATA[Reddit · r/ollama. I&#x27;m in a position where I didn&#x27;t mean to go down this AI rabbit hole... I was looking into mental cognitions and how the mind is made up and learned that my old RTX 5k could run small models. So that led me to running a dual boot Win/Linux and getting another RTX 8K. I&#x27;ve been us]]></description>
 </item>
 <item>
-<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
-<link>https://chatoss.ai</link>
-<guid isPermaLink="true">https://chatoss.ai</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
-</item>
-<item>
 <title>Compare 12 self-hosted Deep Research systems: GPT Researcher, Onyx, Open WebUI, Khoj, Vane and more. Architectures, local LLM, RAG, licenses.</title>
 <link>https://techhub.social/@ros/117325481287155039</link>
 <guid isPermaLink="true">https://techhub.social/@ros/117325481287155039</guid>
@@ -6695,13 +6688,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11157</guid>
 <pubDate>2026-09-24T07:26:37-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
-</item>
-<item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
@@ -7180,6 +7166,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.0</guid>
@@ -7516,6 +7509,13 @@
 <description><![CDATA[Reddit · r/comfyui. I&#x27;ve come to the realization that my life is busy enough that we could use at least one more moderator on this subreddit. Please consider this a formal request for nominations. Rather than just picking someone myself, I’d like input from the community. If there’s someone here who]]></description>
 </item>
 <item>
+<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
+<link>https://chatoss.ai</link>
+<guid isPermaLink="true">https://chatoss.ai</guid>
+<pubDate>Tue, 18 Aug 2026 20:42:19 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
+</item>
+<item>
 <title>Self hosted email continues to steeply decline</title>
 <link>https://labs.ripe.net/author/artem-berezin/two-providers-a-stubborn-plateau-and-a-very-long-tail-email-in-the-tranco-top-1m/</link>
 <guid isPermaLink="true">https://labs.ripe.net/author/artem-berezin/two-providers-a-stubborn-plateau-and-a-very-long-tail-email-in-the-tranco-top-1m/</guid>
@@ -7598,6 +7598,13 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
+</item>
+<item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
