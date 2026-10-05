@@ -438,10 +438,10 @@
       "url": "https://phunky.cafe/my-homelab-got-hacked/",
       "title": "My Homelab Got Hacked – A Postmortem",
       "summary": "Article URL:",
-      "source": "Hacker News · homelab",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Mon, 10 Aug 2026 23:04:18 +0000",
+      "published": "2026-09-26T07:01:03-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -574,7 +574,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Tue, 18 Aug 2026 20:42:19 +0000",
+      "published": "2026-09-24T07:26:37-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1014,7 +1014,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
+      "published": "2026-09-23T11:17:55-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1032,7 +1032,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
+      "published": "2026-09-24T07:26:37-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -19810,7 +19810,7 @@
     {
       "url": "https://lemmy.world/post/52697411",
       "title": "Local Mastodon Instance",
-      "summary": "submitted by voster99 to selfhosted 22 points | 15 comments Hi everyone! I’m looking to run a Mastodon instance on a home server, entirely within LAN, without owning a domain. It does not need to interact with other Mastodon instances, but users on the local server should still b",
+      "summary": "submitted by voster99 to selfhosted 23 points | 15 comments Hi everyone! I’m looking to run a Mastodon instance on a home server, entirely within LAN, without owning a domain. It does not need to interact with other Mastodon instances, but users on the local server should still b",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -21661,11 +21661,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11411",
       "title": "llama.cpp b11411",
-      "summary": "kv-cache: fix restoring mismatched KV cache rotation by saving exact …",
+      "summary": "kv-cache: fix restoring mismatched KV cache rotation by saving exact rotation metadata ( #28498 ) kv-cache: save exact KV rotation metadata, reject restoring mismatched rotation tests : move the state rotation test to test-save-load-state the test is now part of the save/load tes",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-05T08:27:30Z",
+      "published": "2026-10-05T10:08:49Z",
       "added_at": "2026-10-05T09:00:10Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/ef3be305c79b3c87.png",
@@ -21944,6 +21944,57 @@
       "video": "",
       "categories": [
         "local-models",
+        "homelab",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11413",
+      "title": "b11413: vulkan: sparse flash attention for quantized K/V (#29639)",
+      "summary": "vulkan: sparse flash attention for quantized K/V Assisted-by: Claude vulkan: single-scan sparse FA index compaction The compaction ran one workgroup per mask row and walked the row in BLOCK_SIZE chunks, with a workgroup scan per chunk. For decode that is one workgroup doing KV/10",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-05T08:37:54Z",
+      "added_at": "2026-10-05T10:30:09Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/e700cccf8e408613.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11412",
+      "title": "b11412: llama : fix unexpected graph reallocation in the k-pool models (#29958)",
+      "summary": "llama : fix unexpected graph reallocation in the k-pool models Both k-pool models built a graph shape that depends on state the full-context reserve cannot know: qwen4exp branched on inp->cache_safe, which turns false as soon as llama_memory_seq_cp shares cells (e.g. batched-benc",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-05T08:36:25Z",
+      "added_at": "2026-10-05T10:30:09Z",
+      "image": "https://opengraph.githubassets.com/b70b2950d840073116c07486255e9632fd9c6894cbebba91fd6c5567164fb170/ggml-org/llama.cpp/releases/tag/b11412",
+      "file": "media/ddc3b820b972f5ae.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/selfhosted/comments/1wy4t8p/feedback_wanted_puzzlarium_a_localfirst/",
+      "title": "[Feedback wanted] Puzzlarium - a local-first, optionally self-hosted jigsaw puzzle collection app",
+      "summary": "There is no public release or hosted service to promote yet - I am looking for early architectural feedback. Hi everyone, I am prototyping Puzzlarium, an AGPL-3.0 jigsaw puzzle collection app. It is for cataloguing physical puzzle boxes, not for solving puzzles online. The direct",
+      "source": "r/selfhosted",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-05T10:11:53+00:00",
+      "added_at": "2026-10-05T10:30:10Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
         "homelab",
         "communities"
       ]
