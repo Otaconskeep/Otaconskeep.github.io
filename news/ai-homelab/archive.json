@@ -306,11 +306,11 @@
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/stable",
       "title": "stable",
-      "summary": "2.41.6 (2026-10-02) Bug Fixes core: Keep the task runner running on an unhandled promise rejection ( #40092 ) ( d719c87 )",
+      "summary": "2.41.7 (2026-10-05) Bug Fixes API: Let global members grant variable scopes to API keys ( #40151 ) ( cc25c71 ) Features editor: Show Gateway credits promotions on community nodes ( #40109 ) ( a509d92 )",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-02T07:28:48Z",
+      "published": "2026-10-05T07:27:29Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "media/19.png",
@@ -438,10 +438,10 @@
       "url": "https://phunky.cafe/my-homelab-got-hacked/",
       "title": "My Homelab Got Hacked – A Postmortem",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · homelab",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-26T07:01:03-07:00",
+      "published": "Mon, 10 Aug 2026 23:04:18 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -587,11 +587,11 @@
     {
       "url": "https://github.com/OtoDock/oto-dock",
       "title": "Show HN: Self-hosted company OS, Claude Code and Codex agents in departments",
-      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many",
-      "source": "Hacker News",
+      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many ",
+      "source": "Hacker News · self-hosted",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-25T20:30:45-07:00",
+      "published": "Wed, 09 Sep 2026 17:57:55 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -672,11 +672,11 @@
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/beta",
       "title": "beta",
-      "summary": "2.42.2 (2026-10-01) Bug Fixes core: Stop waiting on Bull job.finished() for queued executions ( #39945 ) ( c7841e5 )",
+      "summary": "2.42.3 (2026-10-05) Bug Fixes API: Let global members grant variable scopes to API keys ( #40150 ) ( d09b8a1 ) core: Keep the task runner running on an unhandled promise rejection ( #40091 ) ( 50f2e96 ) Features editor: Show Gateway credits promotions on community nodes ( #40108 ",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-01T08:09:32Z",
+      "published": "2026-10-05T07:24:03Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://opengraph.githubassets.com/e9d9f05b13f547b1c080b1d16028ce9f87c686e48e865def71f7b17721568d04/n8n-io/n8n/releases/tag/beta",
       "file": "media/f195a5e647d31823.png",
@@ -1011,10 +1011,10 @@
       "url": "https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/",
       "title": "Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · self-hosted",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-23T11:17:55-07:00",
+      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -21525,11 +21525,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11405",
       "title": "llama.cpp b11405",
-      "summary": "cuda: tile the lightning indexer over keys and tokens for 4 heads ( #2 …",
+      "summary": "cuda: tile the lightning indexer over keys and tokens for 4 heads ( #29901 ) cuda: tile the lightning indexer over keys and tokens for 4 heads With too few heads for a wmma tile, a block scores 64 keys against 8 tokens: the keys are staged once in half precision, the queries one ",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-05T06:39:47Z",
+      "published": "2026-10-05T07:08:58Z",
       "added_at": "2026-10-05T07:00:09Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/2d1ba5f9cd87f735.png",
@@ -21554,6 +21554,57 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11406",
+      "title": "llama.cpp b11406",
+      "summary": "webgpu: add MMVQ support for Q1_0/Q5_0/Q5_1/Q3_K/Q5_K/Q6_K/MXFP4 ( #29 …",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-05T06:56:45Z",
+      "added_at": "2026-10-05T07:30:09Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/87329ec6bcf74e76.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.42.3",
+      "title": "n8n@2.42.3",
+      "summary": "2.42.3 (2026-10-05) Bug Fixes API: Let global members grant variable scopes to API keys ( #40150 ) ( d09b8a1 ) core: Keep the task runner running on an unhandled promise rejection ( #40091 ) ( 50f2e96 ) Features editor: Show Gateway credits promotions on community nodes ( #40108 ",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-05T07:26:35Z",
+      "added_at": "2026-10-05T07:30:41Z",
+      "image": "https://opengraph.githubassets.com/a6485f0f807115793411a41ea672a5c3fad9e31d90f319a19a5de318bf22637b/n8n-io/n8n/releases/tag/n8n%402.42.3",
+      "file": "media/3dc432543757e612.png",
+      "video": "",
+      "categories": [
+        "home-automation",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.41.7",
+      "title": "n8n@2.41.7",
+      "summary": "2.41.7 (2026-10-05) Bug Fixes API: Let global members grant variable scopes to API keys ( #40151 ) ( cc25c71 ) Features editor: Show Gateway credits promotions on community nodes ( #40109 ) ( a509d92 )",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-05T07:30:08Z",
+      "added_at": "2026-10-05T07:30:41Z",
+      "image": "https://opengraph.githubassets.com/9e5a1393ebd40fa86dc5e4f389834481ed927ca439037fcbe20646e4e6dba0ad/n8n-io/n8n/releases/tag/n8n%402.41.7",
+      "file": "media/6c6b2915fde6cd91.png",
+      "video": "",
+      "categories": [
+        "home-automation",
+        "releases"
       ]
     }
   ]
