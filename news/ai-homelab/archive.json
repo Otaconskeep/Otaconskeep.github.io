@@ -489,11 +489,11 @@
     {
       "url": "https://www.youtube.com/watch?v=qyGbkEtjJ90",
       "title": "Answering your Homelab Questions!",
-      "summary": "Click this link",
+      "summary": "Video from Wolfgang's Channel.",
       "source": "Wolfgang's Channel",
       "kind": "youtube",
       "lane": "Video",
-      "published": "2026-09-23T11:17:55-07:00",
+      "published": "2025-06-29T10:46:20+00:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://i.ytimg.com/vi/qyGbkEtjJ90/hqdefault.jpg",
       "file": "media/f9691e4596ea9a3e.jpg",
@@ -21406,12 +21406,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11403",
-      "title": "b11403: CUDA: use MMVF for thin f16/bf16 mul_mat at small batch size (#29633)",
-      "summary": "CUDA: use MMVF for thin f16/bf16 mul_mat at small batch size Signed-off-by: ynankani ynankani@nvidia.com adjust kernel selection logic Signed-off-by: ynankani ynankani@nvidia.com Co-authored-by: Johannes Gäßler johannesg@5d6.de",
+      "title": "llama.cpp b11403",
+      "summary": "CUDA: use MMVF for thin f16/bf16 mul_mat at small batch size ( #29633 ) CUDA: use MMVF for thin f16/bf16 mul_mat at small batch size Signed-off-by: ynankani ynankani@nvidia.com adjust kernel selection logic Signed-off-by: ynankani ynankani@nvidia.com Co-authored-by: Johannes Gäßl",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-05T04:56:50Z",
+      "published": "2026-10-05T05:24:41Z",
       "added_at": "2026-10-05T05:00:09Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/836ad8a0cd9c59a8.png",
@@ -21487,6 +21487,23 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11404",
+      "title": "b11404: metal : few-row MMA mat-mul (#29869)",
+      "summary": "metal : few-row MMA mat-mul and batched copies for speculative decoding Speculative decoding verifies a few draft tokens per step. Without the tensor API, Metal ran these mat-muls with the mat-vec kernels, whose time grows with every src1 row, so DFlash2 decoding on an M3 Ultra w",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-05T05:29:13Z",
+      "added_at": "2026-10-05T05:30:09Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/13fc07cf0aa925c6.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
