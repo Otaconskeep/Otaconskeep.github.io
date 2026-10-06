@@ -5,11 +5,39 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-06T04:01:40Z</lastBuildDate>
 <item>
-<title>b11435: llama: fix k-pool scatter data race on shared sequences (#29994)</title>
+<title>llama.cpp b11435</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11435</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11435</guid>
-<pubDate>2026-10-06T05:41:57Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/324c195f44298cdc.png" alt=""><p>Article · llama.cpp. llama: re-pool each shared k-pool rep once With shared cells every pool is re-pooled, and since the pooled keys are always scattered, the pools a seq_cp shares between sequences wrote the same rep row from several scatter entries, a data race on the CPU backend. Mark each rep onc</p>]]></description>
+<pubDate>2026-10-06T06:18:34Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/324c195f44298cdc.png" alt=""><p>Article · llama.cpp. llama: fix k-pool scatter data race on shared sequences ( #29994 ) llama: re-pool each shared k-pool rep once With shared cells every pool is re-pooled, and since the pooled keys are always scattered, the pools a seq_cp shares between sequences wrote the same rep row from several</p>]]></description>
+</item>
+<item>
+<title>Overclocking DDR5 For Faster MoE Prefill and Decode</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wyuvul/overclocking_ddr5_for_faster_moe_prefill_and/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wyuvul/overclocking_ddr5_for_faster_moe_prefill_and/</guid>
+<pubDate>2026-10-06T05:51:42+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. With llama.cpp using a customized SYCL backend on Intel B70 (32GB), overclocking my DDR5 memory gave modest gains for MoE models which do not fit in VRAM . Both PP and TG increased after overclocking DDR5. I&#x27;ve never been one to overclock my system, but on the advice of my agent,]]></description>
+</item>
+<item>
+<title>Why 38% of AI Agent container escapes didn&#x27;t need kernel 0-days: Analysis of 109 empirical incidents (Open Dataset + Defense Harness)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wyur2p/why_38_of_ai_agent_container_escapes_didnt_need/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wyur2p/why_38_of_ai_agent_container_escapes_didnt_need/</guid>
+<pubDate>2026-10-06T05:43:30+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Over the past several months, we conducted an empirical post-mortem investigation into 109 autonomous AI agent security incidents (cataloged with 193 falsification criteria across tool-use and multi-agent systems). One of the most striking patterns in the dataset: In 38% of conta]]></description>
+</item>
+<item>
+<title>We’re using GLM-5.3 Flash instead of frontier models on a massive production codebase</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wyuqha/were_using_glm53_flash_instead_of_frontier_models/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wyuqha/were_using_glm53_flash_instead_of_frontier_models/</guid>
+<pubDate>2026-10-06T05:42:30+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. At my company, we’re using GLM-5.3 Flash internally for software engineering work, and I’ve been genuinely impressed by it. I work in a very large production environment with projects totaling **millions of lines of code**, and we’re not relying on frontier models for this workfl]]></description>
+</item>
+<item>
+<title>unsloth/Qwen3.8-Flash-Next-GGUF is being updated</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wyuoht/unslothqwen38flashnextgguf_is_being_updated/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wyuoht/unslothqwen38flashnextgguf_is_being_updated/</guid>
+<pubDate>2026-10-06T05:39:02+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Looks like Unsloth is updating]]></description>
 </item>
 <item>
 <title>Western open-source AI Reflection finally shows up</title>
@@ -24,6 +52,13 @@
 <guid isPermaLink="true">https://github.com/paperless-ngx/paperless-ngx/releases/tag/v3.3.0</guid>
 <pubDate>2026-10-06T04:10:14Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5ec8e07e71502db2.png" alt=""><p>Article · Paperless-ngx. paperless-ngx 3.3.0 Features / Enhancements Enhancement: more control over suggestion requests @shamoon ( #14258 ) Chorehancement: set manifest CORS for credentials @shamoon ( #14307 ) Enhancement: include Django admin with 2FA @shamoon ( #14270 ) Feature: propagate resolved secr</p>]]></description>
+</item>
+<item>
+<title>Memoria 1.0.0 - a local, model-agnostic memory system for LLMs</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wyt020/memoria_100_a_local_modelagnostic_memory_system/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wyt020/memoria_100_a_local_modelagnostic_memory_system/</guid>
+<pubDate>2026-10-06T04:01:23+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I’ve been building this for a long fucking time, and tonight I finally released Memoria 1.0.0. I built it because I actually wanted to use it. I wanted a real memory layer for local LLM applications that didn’t depend on a specific model, a cloud service, or an API key. Memoria i]]></description>
 </item>
 <item>
 <title>NVIDIA board member Mark Stevens sold $946.63M in NVIDIA (NVDA) shares in September</title>
@@ -6795,13 +6830,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
 </item>
 <item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>2026-09-25T20:30:45-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
-</item>
-<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -7215,13 +7243,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -7306,13 +7327,6 @@
 <description><![CDATA[Social · Sigmoid #localllama. l being done with a local AI, a variant of a Qwen3.8-27B model, on a 3090. Short version: with MINUTES of conversation and discussion, I will have a normalized database of all of my cats veterinary records *AND* a pipeline for ingesting those records *AND]]></description>
 </item>
 <item>
-<title>Answering your Homelab Questions!</title>
-<link>https://www.youtube.com/watch?v=qyGbkEtjJ90</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=qyGbkEtjJ90</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f9691e4596ea9a3e.jpg" alt=""><p>Video · Wolfgang&#x27;s Channel. Click this link</p>]]></description>
-</item>
-<item>
 <title>old model: Qwen3.6-35B-A3B-BUDGET-GGUF</title>
 <link>https://lemmy.ml/post/52990361</link>
 <guid isPermaLink="true">https://lemmy.ml/post/52990361</guid>
@@ -7332,13 +7346,6 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
-</item>
-<item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>this is not even a competition at this point ... this is embarrassing</title>
@@ -7684,6 +7691,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -7719,6 +7733,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.0</guid>
@@ -7752,6 +7773,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
@@ -8423,7 +8451,7 @@
 <link>https://blawg.pages.dev/ollama-vs-llama-server</link>
 <guid isPermaLink="true">https://blawg.pages.dev/ollama-vs-llama-server</guid>
 <pubDate>Sun, 12 Jul 2026 12:22:17 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · llama.cpp. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>Rebuilding My Homelab with Compose, Ruby, IPv6, and No Kubernetes</title>
@@ -9278,6 +9306,13 @@
 <guid isPermaLink="true">https://www.youtube.com/watch?v=hpC4qjWu_aY</guid>
 <pubDate>2025-07-23T11:10:52+00:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5228efb548ec02bc.jpg" alt=""><p>Video · Yannic Kilcher. Video from Yannic Kilcher.</p>]]></description>
+</item>
+<item>
+<title>Answering your Homelab Questions!</title>
+<link>https://www.youtube.com/watch?v=qyGbkEtjJ90</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=qyGbkEtjJ90</guid>
+<pubDate>2025-06-29T10:46:20+00:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f9691e4596ea9a3e.jpg" alt=""><p>Video · Wolfgang&#x27;s Channel. Video from Wolfgang&#x27;s Channel.</p>]]></description>
 </item>
 <item>
 <title>What&#x27;s in my Homelab Rack?</title>
