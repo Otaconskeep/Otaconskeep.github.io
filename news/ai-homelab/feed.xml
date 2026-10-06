@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-06T04:01:40Z</lastBuildDate>
 <item>
+<title>llama.cpp b11436</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11436</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11436</guid>
+<pubDate>2026-10-06T09:43:57Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9c31c15969a0389f.png" alt=""><p>Article · llama.cpp. ggml-openvino: fix CI tests; fix GPU regressions. ( #30037 ) ggml-openvino: skip unselected graph branches and support DUP Upstream #29622 adds a mixed token/embd branch to every input embedding graph through ggml_build_forward_select(). Its nodes are not flagged for compute, but</p>]]></description>
+</item>
+<item>
+<title>Noted 3.0.98</title>
+<link>https://noted.lol/noted-3-0-98/</link>
+<guid isPermaLink="true">https://noted.lol/noted-3-0-98/</guid>
+<pubDate>Tue, 06 Oct 2026 09:35:04 GMT</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/86de789c3e4c09de.jpg" alt=""><p>Article · noted.lol. A small update to the new Updates feed. Fixed #update posts not appearing correctly when other internal tags were also attached Improved the feed filtering Kept update posts hidden from normal site search and indexing Nothing major, just a cleanup pass to make the new feed behave</p>]]></description>
+</item>
+<item>
 <title>Updates now a thing...</title>
 <link>https://noted.lol/updates-now-a-thing/</link>
 <guid isPermaLink="true">https://noted.lol/updates-now-a-thing/</guid>
@@ -17,6 +31,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wyx2w9/closedform_trajectory_weight_surgery_transferring/</guid>
 <pubDate>2026-10-06T08:15:02+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Standard distillation usually means burning weeks of compute and billions of tokens hoping the student model eventually mimics the teacher. We wanted to see what happens if you skip backprop entirely and treat transfer as a closed-form trajectory matching problem between layers.]]></description>
+</item>
+<item>
+<title>b11438: test-llama-archs : initialize backends before generating models (#30034)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11438</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11438</guid>
+<pubDate>2026-10-06T07:49:52Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ad21292e8cbac729.png" alt=""><p>Article · llama.cpp. With GGML_BACKEND_DL=ON, backends must be loaded explicitly before creating models. Assisted-by: Codex</p>]]></description>
 </item>
 <item>
 <title>stable</title>
@@ -45,13 +66,6 @@
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/beta</guid>
 <pubDate>2026-10-06T07:24:27Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f195a5e647d31823.png" alt=""><p>Article · n8n. 2.43.0 (2026-10-06) Bug Fixes Agent Node: Remove outdated tutorial tip callout ( #35505 ) ( 53b84d2 ) ai-builder: Treat a blank folder path as no folder in the build tool ( #40116 ) ( b7071c9 ) Align From AI button with parameter inputs ( #40152 ) ( 9675fc9 ) API: Emit valid sche</p>]]></description>
-</item>
-<item>
-<title>b11436: ggml-openvino: fix CI tests; fix GPU regressions. (#30037)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11436</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11436</guid>
-<pubDate>2026-10-06T06:57:04Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9c31c15969a0389f.png" alt=""><p>Article · llama.cpp. ggml-openvino: skip unselected graph branches and support DUP Upstream #29622 adds a mixed token/embd branch to every input embedding graph through ggml_build_forward_select(). Its nodes are not flagged for compute, but the backend translated them anyway, and the DUP in that bran</p>]]></description>
 </item>
 <item>
 <title>vLLM v0.31.0</title>
@@ -7285,6 +7299,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -7759,13 +7780,6 @@
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/proto-v0.1.0</guid>
 <pubDate>2026-09-11T08:30:05Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
-</item>
-<item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0</title>
