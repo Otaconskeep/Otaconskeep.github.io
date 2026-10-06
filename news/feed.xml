@@ -3,7 +3,28 @@
 <title>AI &amp; Homelab News</title>
 <link>https://otaconskeep.github.io/news/ai-homelab/</link>
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
-<lastBuildDate>2026-10-06T04:01:40Z</lastBuildDate>
+<lastBuildDate>2026-10-06T13:35:26Z</lastBuildDate>
+<item>
+<title>Q (@qtnx_) on X - Mistral Large 4 is still doing RL runs, keep seeing improvements (vs preview version). Release at the end of the month</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wz2y2v/q_qtnx_on_x_mistral_large_4_is_still_doing_rl/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wz2y2v/q_qtnx_on_x_mistral_large_4_is_still_doing_rl/</guid>
+<pubDate>2026-10-06T13:42:57+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/DerpSenpai [link] [comments]]]></description>
+</item>
+<item>
+<title>Mistral releasing new open weights model &quot;Le Chonk&quot;</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wz2x69/mistral_releasing_new_open_weights_model_le_chonk/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wz2x69/mistral_releasing_new_open_weights_model_le_chonk/</guid>
+<pubDate>2026-10-06T13:41:48+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. LeChonk-1T-A49B Weights to be released by the end of the month. This probably means the fat kitten is dead. Also: gotta love the release movie. submitted by /u/wapswaps [link] [comments]]]></description>
+</item>
+<item>
+<title>Introducing Mistral Large 4 (Preview)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wz2x2l/introducing_mistral_large_4_preview/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wz2x2l/introducing_mistral_large_4_preview/</guid>
+<pubDate>2026-10-06T13:41:41+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/Few_Painter_5588 [link] [comments]]]></description>
+</item>
 <item>
 <title>Le Chonk strikes back.</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wz2lte/le_chonk_strikes_back/</link>
@@ -33,6 +54,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ba2513f06d0c08b1.png" alt=""><p>Article · llama.cpp. llama : re-reserve the sched when the nextn extraction flags change ( #30020 ) The speculative MTP init enables NextN extraction on the target and draft contexts after both were created and their schedulers reserved. With unmasked extraction the trunk graph keeps every token thro</p>]]></description>
 </item>
 <item>
+<title>Lossless JIT weight decompression on GPU: 4.19x faster inference on a 6GB laptop RTX 4050, zero precision loss</title>
+<link>https://www.reddit.com/r/LocalLLM/comments/1wz26ti/lossless_jit_weight_decompression_on_gpu_419x/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLM/comments/1wz26ti/lossless_jit_weight_decompression_on_gpu_419x/</guid>
+<pubDate>2026-10-06T13:09:35+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLM. Most &quot;make LLMs faster&quot; tricks quantize the weights: round bf16 down to int4/int8, lose some precision, read fewer bytes, go faster. That&#x27;s not what this is. I built a GPU inference engine where the weights stay bit-exact bf16 - identical to the original safetensors - but are sto]]></description>
+</item>
+<item>
 <title>Meet Mistral Large 4, aka Le Chonk.</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wz24v1/meet_mistral_large_4_aka_le_chonk/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wz24v1/meet_mistral_large_4_aka_le_chonk/</guid>
@@ -54,6 +82,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3a87aae1754d59e7.png" alt=""><p>Article · llama.cpp. ggml: refactor selective expert copying to user code ( #29943 ) ggml: refactor selective expert copying to user code tests: enroll two models into selective expert copy test tests: use deepseek2 as test model improve comment in ggml-backend.h Co-authored-by: Georgi Gerganov ggerg</p>]]></description>
 </item>
 <item>
+<title>requesting suggestiin for models for comparison benchmark</title>
+<link>https://lemmy.ml/post/53650740</link>
+<guid isPermaLink="true">https://lemmy.ml/post/53650740</guid>
+<pubDate>Tue, 06 Oct 2026 12:19:59 +0000</pubDate>
+<description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
+</item>
+<item>
 <title>llama.cpp b11444</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11444</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11444</guid>
@@ -66,6 +101,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wz00vv/microsoft_confirms_openai_has_been_using_looped/</guid>
 <pubDate>2026-10-06T11:21:30+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Microsoft confirms on publicly accessible web page that OpenAI has been using Looped Transformers in the GPT-6 series, proving The Information&#x27;s reporting was correct all along. GPT-6.1 Sol uses 2 inference passes, with a passing mention of &quot;instead of three&quot;. For those confused]]></description>
+</item>
+<item>
+<title>Story time: Qwen3.8-Flash-Next on my Strix Halo laptop vs Claude Opus 5.5 on the same feature</title>
+<link>https://www.reddit.com/r/LocalLLM/comments/1wyztgo/story_time_qwen38flashnext_on_my_strix_halo/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLM/comments/1wyztgo/story_time_qwen38flashnext_on_my_strix_halo/</guid>
+<pubDate>2026-10-06T11:09:24+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLM. For the last few weeks most of my coding has been done locally with Qwen3.8-Flash-Next, so I gave it and Opus 5.5 the same high complexity feature to build on LlamaStash (a complex and large Rust project) and compared the results. Setup : ASUS ROG Flow Z13 (Strix Halo, 128GB), Fl]]></description>
 </item>
 <item>
 <title>Story time: Qwen3.8-Flash-Next on my Strix Halo laptop vs Claude Opus 5.5 on the same feature</title>
@@ -208,6 +250,20 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f195a5e647d31823.png" alt=""><p>Article · n8n. 2.43.0 (2026-10-06) Bug Fixes Agent Node: Remove outdated tutorial tip callout ( #35505 ) ( 53b84d2 ) ai-builder: Treat a blank folder path as no folder in the build tool ( #40116 ) ( b7071c9 ) Align From AI button with parameter inputs ( #40152 ) ( 9675fc9 ) API: Emit valid sche</p>]]></description>
 </item>
 <item>
+<title>backup/allozaur-ui-shell-polish: ui : polish the shell</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/backup%2Fallozaur-ui-shell-polish</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/backup%2Fallozaur-ui-shell-polish</guid>
+<pubDate>2026-10-06T07:07:16Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9147822bee29861b.png" alt=""><p>Article · llama.cpp. The secondary button gets its own look back and the chat add button its own light surface. Pressable elements get a pointer cursor again, the font rendering smooths on the app shell, the root layout resolves its props probe through the providers&#x27; api url, and the agent skills sta</p>]]></description>
+</item>
+<item>
+<title>backup/allozaur-ui-models-manager: test : give the switch test an open chat</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/backup%2Fallozaur-ui-models-manager</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/backup%2Fallozaur-ui-models-manager</guid>
+<pubDate>2026-10-06T07:07:09Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f5854c0fe878c199.png" alt=""><p>Article · llama.cpp. The pane offers &quot;Use in this chat&quot; only when a chat is open, so without one the test looked for a button that was never there. Assisted-by: pi (zai-org/GLM-5.3-Flash)</p>]]></description>
+</item>
+<item>
 <title>vLLM v0.31.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.31.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.31.0</guid>
@@ -297,6 +353,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wyrzow/nvidia_board_member_mark_stevens_sold_94663m_in/</guid>
 <pubDate>2026-10-06T03:06:50+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. NVIDIA board member Mark Stevens has executed a massive series of stock sales. SEC regulatory filings reveal that Stevens sold approximately $946.63 million worth of Nvidia (NVDA) common stock over three distinct waves. He sold ~13.3% of his total NVDA position.]]></description>
+</item>
+<item>
+<title>Self-hosting a 35B MoE for a 20-person team on one desktop box: what it took and what it does (all open source)</title>
+<link>https://www.reddit.com/r/LocalLLM/comments/1wyruu5/selfhosting_a_35b_moe_for_a_20person_team_on_one/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLM/comments/1wyruu5/selfhosting_a_35b_moe_for_a_20person_team_on_one/</guid>
+<pubDate>2026-10-06T02:59:54+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLM. Reddit from r/LocalLLM.]]></description>
 </item>
 <item>
 <title>When will we get another good American open weights model?</title>
@@ -7026,6 +7089,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
 </item>
 <item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>2026-09-25T20:30:45-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
+</item>
+<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -7884,7 +7954,7 @@
 <link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
 <guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
 <pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.1rc0</title>
@@ -7962,13 +8032,6 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
-</item>
-<item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
