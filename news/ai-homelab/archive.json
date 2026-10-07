@@ -25791,11 +25791,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11475",
       "title": "llama.cpp b11475",
-      "summary": "metal : fix MUL_MAT+ADD fusion when the residual is itself a MUL_MAT …",
+      "summary": "metal : fix MUL_MAT+ADD fusion when the residual is itself a MUL_MAT ( #30100 ) metal : fix MUL_MAT+ADD fusion when the residual is itself a MUL_MAT ggml_metal_op_mul_mat_mma picks the residual of a fused MUL_MAT+ADD as \"the ADD operand whose op is not MUL_MAT\". When both operand",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-07T13:41:50Z",
+      "published": "2026-10-07T14:28:59Z",
       "added_at": "2026-10-07T14:00:11Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/d01ebd3c72db89b9.png",
@@ -26188,6 +26188,40 @@
       "lane": "Reddit",
       "published": "2026-10-06T20:41:20+00:00",
       "added_at": "2026-10-07T14:00:12Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11476",
+      "title": "b11476: metal : few-row MMA mat-mul for the remaining src0 types (#30065)",
+      "summary": "The generic few-row MMA kernel works for any type with a 16-weight dequantizer, so it now also takes BF16, Q1_0, Q2_0, MXFP4, Q2_K, Q3_K, TQ2_0 and the IQ types. Each type starts at the row count where it beats the current kernels on an M3 Ultra: 5 rows for TQ2_0, 4 for BF16, 3 f",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-07T13:49:37Z",
+      "added_at": "2026-10-07T14:30:11Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/d73ba1c5ca7dc0b3.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wzvs45/local_qwen_38_27b_vs_deepseek_flash_api_is_local/",
+      "title": "Local Qwen 3.8 27B vs DeepSeek Flash API: Is local good enough?",
+      "summary": "Running a model on your own machine used to be a privacy story with a quality tax. On this generation that trade has narrowed to where we can state it plainly: for daily work, the local model is good enough. We measured it - 25 paired tasks across four workloads, same prompts, on",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-07T12:54:55+00:00",
+      "added_at": "2026-10-07T14:30:12Z",
       "image": "",
       "file": "",
       "video": "",

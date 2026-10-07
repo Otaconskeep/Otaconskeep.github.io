@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-07T13:35:43Z</lastBuildDate>
 <item>
+<title>llama.cpp b11475</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11475</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11475</guid>
+<pubDate>2026-10-07T14:28:59Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d01ebd3c72db89b9.png" alt=""><p>Article · llama.cpp. metal : fix MUL_MAT+ADD fusion when the residual is itself a MUL_MAT ( #30100 ) metal : fix MUL_MAT+ADD fusion when the residual is itself a MUL_MAT ggml_metal_op_mul_mat_mma picks the residual of a fused MUL_MAT+ADD as &quot;the ADD operand whose op is not MUL_MAT&quot;. When both operand</p>]]></description>
+</item>
+<item>
 <title>FluxKleinAllInOne Workflow</title>
 <link>https://www.reddit.com/r/comfyui/comments/1wzx73p/fluxkleinallinone_workflow/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/comfyui/comments/1wzx73p/fluxkleinallinone_workflow/</guid>
@@ -12,18 +19,18 @@
 <description><![CDATA[Reddit · r/comfyui. ​ This is the Workflow I use daily and for most purposes. It handles most tasks that occur on my daily basis. Maybe it can be helpful to some of you. Its key feature are image generation, manipulation via references, in- and outpainting in a compact workflow with helpful options.]]></description>
 </item>
 <item>
+<title>b11476: metal : few-row MMA mat-mul for the remaining src0 types (#30065)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11476</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11476</guid>
+<pubDate>2026-10-07T13:49:37Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d73ba1c5ca7dc0b3.png" alt=""><p>Article · llama.cpp. The generic few-row MMA kernel works for any type with a 16-weight dequantizer, so it now also takes BF16, Q1_0, Q2_0, MXFP4, Q2_K, Q3_K, TQ2_0 and the IQ types. Each type starts at the row count where it beats the current kernels on an M3 Ultra: 5 rows for TQ2_0, 4 for BF16, 3 f</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11474</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11474</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11474</guid>
 <pubDate>2026-10-07T13:45:57Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/037c9a6eec7a37f3.png" alt=""><p>Article · llama.cpp. feat: add GLM5Next MTP, optimize ( #29928 ) llama : add GLM5-Next NextN (MTP) graph Build the GLM5-Next multi-token-prediction head as graph_mtp: the NextN block embeds enorm(tok)+hnorm(h) through eh_proj, runs one plain DSA layer and the shared lm_head, reusing the trunk&#x27;s build</p>]]></description>
-</item>
-<item>
-<title>llama.cpp b11475</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11475</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11475</guid>
-<pubDate>2026-10-07T13:41:50Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d01ebd3c72db89b9.png" alt=""><p>Article · llama.cpp. metal : fix MUL_MAT+ADD fusion when the residual is itself a MUL_MAT …</p>]]></description>
 </item>
 <item>
 <title>Trying a middle ground between the node graph and App Mode: easier to read, easier to iterate?</title>
@@ -59,6 +66,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/comfyui/comments/1wzvual/no_longer_able_to_save_workflows_export_works_fine/</guid>
 <pubDate>2026-10-07T12:57:41+00:00</pubDate>
 <description><![CDATA[Reddit · r/comfyui. As subject. If I try to save (or save as) on a workflow... I get the following: Error storing user data file &#x27;workflows/MMO Screens + Video - Klein True /MMO Screens &amp; Video (Klein True /MMO Screens Video.json&#x27;: 500 Internal Server Error I&#x27;ve no idea why the workflow name has now]]></description>
+</item>
+<item>
+<title>Local Qwen 3.8 27B vs DeepSeek Flash API: Is local good enough?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1wzvs45/local_qwen_38_27b_vs_deepseek_flash_api_is_local/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wzvs45/local_qwen_38_27b_vs_deepseek_flash_api_is_local/</guid>
+<pubDate>2026-10-07T12:54:55+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Running a model on your own machine used to be a privacy story with a quality tax. On this generation that trade has narrowed to where we can state it plainly: for daily work, the local model is good enough. We measured it - 25 paired tasks across four workloads, same prompts, on]]></description>
 </item>
 <item>
 <title>I kept losing track of how my ComfyUI images were generated, so I built GenTrace - a local generation history logger</title>
