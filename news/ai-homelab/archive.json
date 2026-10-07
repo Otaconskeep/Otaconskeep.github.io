@@ -25435,7 +25435,7 @@
     {
       "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wzq2ts/single_3090_qwen_27b_user_considering_buying/",
       "title": "Single 3090 Qwen 27B user, considering buying 128GB of RAM because of the hype",
-      "summary": "My current setup: - single 3090 running turboderp/Qwen3.8-27B-exl3:SC_5.00bpw_H6_V6 - ~150k context, ~60t/s, unknown prefill because I didn't benchmark it (but it is ok) - Intel 12400 CPU with 32GB DDR4 RAM All the hype around strata makes me consider buying 128GB of 6000MHz DDR5",
+      "summary": "My current setup: - single 3090 running turboderp/Qwen3.8-27B-exl3:SC_5.00bpw_H6_V6 - ~150k context, ~70t/s, unknown prefill because I didn't benchmark it (but it is ok) - Intel 12400 CPU with 32GB DDR4 RAM All the hype around strata makes me consider buying 128GB of 6000MHz DDR5",
       "source": "r/LocalLLaMA",
       "kind": "social",
       "lane": "Reddit",
@@ -25464,6 +25464,57 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wzs1t5/imagetext_retrieval_with_embeddinggemma_2s_vision/",
+      "title": "Image-text retrieval with EmbeddingGemma 2's vision tower, running in the browser on WebGPU",
+      "summary": "EmbeddingGemma 2 came out this week. It maps images and text into one 768-dim space, so you can search photos by describing them. I ported its text and vision towers to ruNNtime, a WebGPU inference library in TypeScript, and made a small photo gallery where search runs entirely o",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-07T09:26:05+00:00",
+      "added_at": "2026-10-07T10:00:15Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wzqyfl/i_retrained_the_dflash_2_drafter_for_ternary/",
+      "title": "I re-trained the DFlash 2 drafter for Ternary Bonsai 2 27B: 2.2x on an L4 (3.2x on code edits with ngram lookup), 1.5x on a Mac, 1.2x in Chrome",
+      "summary": "PrismML's Ternary Bonsai 2 27B fits a 24 GB card or Mac, but decodes at ~30 tok/s on an L4 and ~21 on an M4 Pro. z-lab's DFlash 2 drafter was trained on bf16 Qwen3.8-27B, so it guesses worse on the ternary model. I fine-tuned it on 1.5M tokens of Bonsai 2's own greedy output. Dra",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-07T08:13:23+00:00",
+      "added_at": "2026-10-07T10:00:15Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1wzrft2/how_good_was_the_2019_mac_pro/",
+      "title": "How good was the 2019 Mac Pro?",
+      "summary": "Consider this: a widely available machine, up to 1.5TB of system RAM, room for 4 passively cooled GPUs with 128GB of VRAM, in desktop or rack format. That machine was released in 2019, then discontinued in favor of one that had only a max of 192GB shared memory. This would be the",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-07T08:46:11+00:00",
+      "added_at": "2026-10-07T10:00:15Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
