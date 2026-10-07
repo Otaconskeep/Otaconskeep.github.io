@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-07T13:35:43Z</lastBuildDate>
 <item>
+<title>llama.cpp b11476</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11476</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11476</guid>
+<pubDate>2026-10-07T14:59:08Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d73ba1c5ca7dc0b3.png" alt=""><p>Article · llama.cpp. metal : few-row MMA mat-mul for the remaining src0 types ( #30065 ) The generic few-row MMA kernel works for any type with a 16-weight dequantizer, so it now also takes BF16, Q1_0, Q2_0, MXFP4, Q2_K, Q3_K, TQ2_0 and the IQ types. Each type starts at the row count where it beats t</p>]]></description>
+</item>
+<item>
+<title>b11477: llama: share the nextn tensor flags between models (#30097)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11477</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11477</guid>
+<pubDate>2026-10-07T14:30:00Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e5f8df0d727db32b.png" alt=""><p>Article · llama.cpp. llama: share the nextn tensor flags between models Follow-up of the TODO in glm5-next: move the trunk-only and MTP-only detection that each model copied into a nextn_flags helper of llama_model_base. It probes the first trunk layer and the first NextN layer, and adds TENSOR_SKIP</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11475</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11475</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11475</guid>
@@ -17,13 +31,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/comfyui/comments/1wzx73p/fluxkleinallinone_workflow/</guid>
 <pubDate>2026-10-07T13:56:06+00:00</pubDate>
 <description><![CDATA[Reddit · r/comfyui. ​ This is the Workflow I use daily and for most purposes. It handles most tasks that occur on my daily basis. Maybe it can be helpful to some of you. Its key feature are image generation, manipulation via references, in- and outpainting in a compact workflow with helpful options.]]></description>
-</item>
-<item>
-<title>b11476: metal : few-row MMA mat-mul for the remaining src0 types (#30065)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11476</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11476</guid>
-<pubDate>2026-10-07T13:49:37Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d73ba1c5ca7dc0b3.png" alt=""><p>Article · llama.cpp. The generic few-row MMA kernel works for any type with a 16-weight dequantizer, so it now also takes BF16, Q1_0, Q2_0, MXFP4, Q2_K, Q3_K, TQ2_0 and the IQ types. Each type starts at the row count where it beats the current kernels on an M3 Ultra: 5 rows for TQ2_0, 4 for BF16, 3 f</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b11474</title>
@@ -8328,13 +8335,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -8438,13 +8438,6 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
-</item>
-<item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>ComfyUI v0.36.0</title>
@@ -8776,6 +8769,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -8809,6 +8809,13 @@
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/proto-v0.1.0</guid>
 <pubDate>2026-09-11T08:30:05Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
+</item>
+<item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0</title>
@@ -9522,7 +9529,7 @@
 <link>https://blawg.pages.dev/ollama-vs-llama-server</link>
 <guid isPermaLink="true">https://blawg.pages.dev/ollama-vs-llama-server</guid>
 <pubDate>Sun, 12 Jul 2026 12:22:17 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · llama.cpp. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>Rebuilding My Homelab with Compose, Ruby, IPv6, and No Kubernetes</title>
