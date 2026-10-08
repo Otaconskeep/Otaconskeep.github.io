@@ -27545,11 +27545,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11496",
       "title": "llama.cpp b11496",
-      "summary": "sycl: stage bulk uploads (model loading) through a pinned ring buffer…",
+      "summary": "sycl: stage bulk uploads (model loading) through a pinned ring buffer ( #29608 ) Co-authored-by: cwriter cwriter@localhost Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-08T06:30:00Z",
+      "published": "2026-10-08T10:13:59Z",
       "added_at": "2026-10-08T10:00:12Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/09fc469989a7ddff.png",
@@ -27908,6 +27908,108 @@
       "lane": "Reddit",
       "published": "2026-10-07T15:47:00+00:00",
       "added_at": "2026-10-08T10:00:13Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11497",
+      "title": "b11497: sycl: fuse the delta-net alpha gate (add + unary + mul) (#29687)",
+      "summary": "sycl: fuse the delta-net alpha gate (add + unary + mul) tests: cover the fused add + unary + mul chain sycl: give the fused alpha gate a flat path and pin the node skip",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-08T06:45:21Z",
+      "added_at": "2026-10-08T10:30:12Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/7be8c83d8170829d.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x0n4pt/last_week_some_of_south_koreas_biggest_banks_were/",
+      "title": "Last week some of South Korea's biggest banks were hit by a cyberattack. We now know the entire hack may have been done by a single person. He used a combined stack of an open-sour",
+      "summary": "CrowdStrike report:",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-08T10:11:02+00:00",
+      "added_at": "2026-10-08T10:30:13Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x0m3ff/ggmlcuda_assign_four_gdn_state_columns_per_warp/",
+      "title": "ggml-cuda: assign four GDN state columns per warp by SongXiaoXi · Pull Request #30087 · ggml-org/llama.cpp",
+      "summary": "Another day, another Qwen 3.x speedup (prompt processing this time). Soon your Qwen will read your entire project before you can blink! test master t/s PR t/s change pp512 3075.24 3243.60 +5.5% pp4096 3059.87 3221.08 +5.3% tg128 47.62 47.67 +0.1% submitted by /u/jacek2023 [link] ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-08T09:04:13+00:00",
+      "added_at": "2026-10-08T10:30:13Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x0mn7x/saluki_27b_96_of_qwen_38s_performance_at_17_the/",
+      "title": "Saluki 27B: \"96% of Qwen 3.8’s performance at ~1/7 the size\"",
+      "summary": "anyone has feedback about this one? submitted by /u/paf1138 [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-08T09:40:36+00:00",
+      "added_at": "2026-10-08T10:30:13Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x0ms0m/running_an_llmdriven_town_with_800_persistent/",
+      "title": "Running an LLM-driven town with 800+ persistent agents: concurrency, context caching, and inference costs",
+      "summary": "I spent the past year independently building Slow Vale, an LLM-driven life simulation. The Chinese server now has 800+ AI residents sharing one continuously running city. This is an engineering write-up about concurrent decisions, dynamic action spaces, context caching, and the o",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-08T09:49:11+00:00",
+      "added_at": "2026-10-08T10:30:13Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x0n7pj/best_current_r9700_inference_engine/",
+      "title": "Best current R9700 inference engine?",
+      "summary": "There are way too many forks to keep track of, so I've gotten lost. As far as I can tell, Radiance VLLM is best for models that fit in GPUs while some form of llama.cpp is probably best for MOE RAM-spill? My specific current goal is to run GLM5.3-Flash over 6 R9700s + system RAM ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-08T10:16:10+00:00",
+      "added_at": "2026-10-08T10:30:13Z",
       "image": "",
       "file": "",
       "video": "",
