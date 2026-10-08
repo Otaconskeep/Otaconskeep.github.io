@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-08T13:34:59Z</lastBuildDate>
 <item>
+<title>Immich Keeps Getting Better, but Don&#x27;t Forget Your Backups</title>
+<link>https://noted.lol/immich-photo-backups/</link>
+<guid isPermaLink="true">https://noted.lol/immich-photo-backups/</guid>
+<pubDate>Thu, 08 Oct 2026 10:50:25 -0400</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/cf31e432070f4e42.png" alt=""><p>Article · noted.lol. Immich&#x27;s latest update brings improvements to photo sharing and management. But if you&#x27;re using it to store your family&#x27;s photos, there&#x27;s something important you shouldn&#x27;t overlook: your backups.</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b11505</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11505</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11505</guid>
+<pubDate>2026-10-08T14:41:06Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e1f52aa5c9ca5917.png" alt=""><p>Article · llama.cpp. vulkan : fix TOP_K for +inf/NaN inputs and k = 1 on negative values ( #30107 ) The bucket search in topk_nary_search.comp started from the range [0, 0xFF800000), which ends just below the ordered-uint mapping of +inf, so +inf and NaN were never counted. A workgroup block with few</p>]]></description>
+</item>
+<item>
 <title>Image model for landing page design</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x0s965/image_model_for_landing_page_design/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x0s965/image_model_for_landing_page_design/</guid>
@@ -110,18 +124,18 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Disclosure: I&#x27;m a researcher at Hirundo, the company that made this. Happy to answer anything. Qwen ships with the CCP&#x27;s political alignment trained in. Ask Qwen3.6 what happened on June 4, 1989 and it says &quot;I don&#x27;t know what you are referring to.&quot; A system prompt doesn&#x27;t reliabl]]></description>
 </item>
 <item>
+<title>b11506: server : preserve context checkpoints across slot save/restore (#26004)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11506</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11506</guid>
+<pubDate>2026-10-08T10:18:20Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b8d4fc972195dba2.png" alt=""><p>Article · llama.cpp. server : preserve context checkpoints across slot save/restore Append the checkpoints after the packed server_tokens payload added in #26640 and count them in n_written / n_read, so a restored slot can still roll back to a checkpoint instead of re-processing the whole prompt. ser</p>]]></description>
+</item>
+<item>
 <title>Best current R9700 inference engine?</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x0n7pj/best_current_r9700_inference_engine/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x0n7pj/best_current_r9700_inference_engine/</guid>
 <pubDate>2026-10-08T10:16:10+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. There are way too many forks to keep track of, so I&#x27;ve gotten lost. As far as I can tell, Radiance VLLM is best for models that fit in GPUs while some form of llama.cpp is probably best for MOE RAM-spill? My specific current goal is to run GLM5.3-Flash over 6 R9700s + system RAM]]></description>
-</item>
-<item>
-<title>llama.cpp b11505</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11505</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11505</guid>
-<pubDate>2026-10-08T10:14:35Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e1f52aa5c9ca5917.png" alt=""><p>Article · llama.cpp. vulkan : fix TOP_K for +inf/NaN inputs and k = 1 on negative values (…</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b11496</title>
@@ -8573,6 +8587,13 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>2026-09-26T07:01:03-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -9175,6 +9196,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -9651,13 +9679,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
 </item>
 <item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.0</guid>
@@ -10083,13 +10104,6 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
-</item>
-<item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>

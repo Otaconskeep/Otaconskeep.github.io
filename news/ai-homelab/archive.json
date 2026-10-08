@@ -438,10 +438,10 @@
       "url": "https://phunky.cafe/my-homelab-got-hacked/",
       "title": "My Homelab Got Hacked – A Postmortem",
       "summary": "Article URL:",
-      "source": "Hacker News · homelab",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Mon, 10 Aug 2026 23:04:18 +0000",
+      "published": "2026-09-26T07:01:03-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1033,7 +1033,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
+      "published": "2026-09-24T07:26:37-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -28174,11 +28174,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11505",
       "title": "llama.cpp b11505",
-      "summary": "vulkan : fix TOP_K for +inf/NaN inputs and k = 1 on negative values (…",
+      "summary": "vulkan : fix TOP_K for +inf/NaN inputs and k = 1 on negative values ( #30107 ) The bucket search in topk_nary_search.comp started from the range [0, 0xFF800000), which ends just below the ordered-uint mapping of +inf, so +inf and NaN were never counted. A workgroup block with few",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-08T10:14:35Z",
+      "published": "2026-10-08T14:41:06Z",
       "added_at": "2026-10-08T14:30:12Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/e1f52aa5c9ca5917.png",
@@ -28305,6 +28305,39 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11506",
+      "title": "b11506: server : preserve context checkpoints across slot save/restore (#26004)",
+      "summary": "server : preserve context checkpoints across slot save/restore Append the checkpoints after the packed server_tokens payload added in #26640 and count them in n_written / n_read, so a restored slot can still roll back to a checkpoint instead of re-processing the whole prompt. ser",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-08T10:18:20Z",
+      "added_at": "2026-10-08T15:00:12Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/b8d4fc972195dba2.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://noted.lol/immich-photo-backups/",
+      "title": "Immich Keeps Getting Better, but Don't Forget Your Backups",
+      "summary": "Immich's latest update brings improvements to photo sharing and management. But if you're using it to store your family's photos, there's something important you shouldn't overlook: your backups.",
+      "source": "noted.lol",
+      "kind": "article",
+      "lane": "Article",
+      "published": "Thu, 08 Oct 2026 10:50:25 -0400",
+      "added_at": "2026-10-08T15:00:26Z",
+      "image": "https://noted.lol/content/images/size/w1200/2026/10/immich-3-3-0-photo-backup-security.png",
+      "file": "media/cf31e432070f4e42.png",
+      "video": "",
+      "categories": [
+        "homelab"
       ]
     }
   ]
