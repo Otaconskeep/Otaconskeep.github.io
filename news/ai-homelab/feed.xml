@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-08T04:03:47Z</lastBuildDate>
 <item>
+<title>llama.cpp b11491</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11491</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11491</guid>
+<pubDate>2026-10-08T06:40:21Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/420734bb3fbbefb9.png" alt=""><p>Article · llama.cpp. sycl: remove duplicate block-size defines from op headers ( #29507 ) All were duplicates of the values in ggml/src/ggml-sycl/presets.hpp Website:</p>]]></description>
+</item>
+<item>
 <title>What are people using instead of TEI when one GPU has to serve both an embedder and a reranker?</title>
 <link>https://www.reddit.com/r/selfhosted/comments/1x0jn0o/what_are_people_using_instead_of_tei_when_one_gpu/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/selfhosted/comments/1x0jn0o/what_are_people_using_instead_of_tei_when_one_gpu/</guid>
@@ -12,11 +19,32 @@
 <description><![CDATA[Reddit · r/selfhosted. Running a basic retrieve-then-rerank setup and the annoying part is TEI being one model per container. So the embedder and the reranker are two separate deployments on two GPUs, both barely used, because an encoder does its thing in a few ms and then sits idle. Trying to work out]]></description>
 </item>
 <item>
-<title>b11491: sycl: remove duplicate block-size defines from op headers (#29507)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11491</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11491</guid>
-<pubDate>2026-10-08T05:39:25Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/420734bb3fbbefb9.png" alt=""><p>Article · llama.cpp. All were duplicates of the values in ggml/src/ggml-sycl/presets.hpp</p>]]></description>
+<title>Cloudflare Clef Experience</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x0jhna/cloudflare_clef_experience/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x0jhna/cloudflare_clef_experience/</guid>
+<pubDate>2026-10-08T06:16:41+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Using llama.cpp 0.6.0 and bartowski&#x27;s Q4_K_M quant for Cloudflare Clef Running the basic example: curl]]></description>
+</item>
+<item>
+<title>Can any open-weight models handle a decomp/recomp project yet?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x0iygt/can_any_openweight_models_handle_a_decomprecomp/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x0iygt/can_any_openweight_models_handle_a_decomprecomp/</guid>
+<pubDate>2026-10-08T05:44:23+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Opus5.5, Sol6.1, Fable, and Astra have all proven they can and the scene has exploded this past week. Part of that is from the tools and feedback loops maturing though. Are any open weight models (at all, so including K3, GLM5.3, Qwen3.8-Max, and Mimo-2.6) able to do this? Can th]]></description>
+</item>
+<item>
+<title>DeepSeek V4.1 Flash beat Haiku 5.5 as my research sub-agent and title model (small eval)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x0ixh6/deepseek_v41_flash_beat_haiku_55_as_my_research/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x0ixh6/deepseek_v41_flash_beat_haiku_55_as_my_research/</guid>
+<pubDate>2026-10-08T05:42:42+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I ran Haiku 5.5 to see if it could replace DeepSeek V4.1 Flash in two small jobs in my app. It didn&#x27;t. Small eval, but maybe useful for someone. GPU poor here (M2 Max, 32GB), so DeepSeek runs through OpenRouter with a minimum of 8-bit precision, sorted by throughput. Most runs la]]></description>
+</item>
+<item>
+<title>b11493: sycl: add grouped MoE XMX GEMM (#29245)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11493</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11493</guid>
+<pubDate>2026-10-08T05:41:13Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d6f0701af17c757c.png" alt=""><p>Article · llama.cpp. Co-authored-by: cwriter cwriter@localhost</p>]]></description>
 </item>
 <item>
 <title>Perplexity AI Releases pplx-embed-v2-late: A 0.6B Edge Model and a 9B Model Scoring 92.4% on MADQA</title>
@@ -254,7 +282,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x07qlh/qwen_38_flashnext_on_64gb_ram_16gb_vram_worth_it/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x07qlh/qwen_38_flashnext_on_64gb_ram_16gb_vram_worth_it/</guid>
 <pubDate>2026-10-07T20:43:17+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. 4080 16GB, 64GB RAM. Currently on 3.6 35B-A3B (Unsloth quant, fits fully in VRAM) and happy with it. Anyone tried Flash-Next at Q2/Q3 on a similar setup? Worth the switch, or should I stay put? Asking before committing to a 30GB+ download. submitted by /u/msalsas [link] [comments]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. 5080 16GB, 64GB RAM. Currently on 3.6 35B-A3B (Unsloth quant, fits fully in VRAM) and happy with it. Anyone tried Flash-Next at Q2/Q3 on a similar setup? Worth the switch, or should I stay put? Asking before committing to a 30GB+ download. submitted by /u/msalsas [link] [comments]]></description>
 </item>
 <item>
 <title>Anthropic Releases Claude Haiku 5.5: A Small Model With 1M Context Priced at $0.10 per Million Input Tokens</title>
@@ -8139,11 +8167,11 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
-<title>I&#x27;m starting a homelab festival (you&#x27;re invited)</title>
-<link>https://www.youtube.com/watch?v=7I0pjHC4U7I</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=7I0pjHC4U7I</guid>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
 <pubDate>2026-09-26T07:01:03-07:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4bfe6bb1f1622204.jpg" alt=""><p>Video · Jeff Geerling. REGISTER NOW!</p>]]></description>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
@@ -8482,6 +8510,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. We hosted Kev 4B (Jared Palmer&#x27;s Apache-2.0 fine-tune of Qwen3.5-4B) and ran it side by side with Jev on the same endpoint to see how it compares. We built a fresh set of 362 items published after both models shipped (new arXiv papers, Stack Exchange questions, GitHub issues), wi]]></description>
 </item>
 <item>
+<title>I&#x27;m starting a homelab festival (you&#x27;re invited)</title>
+<link>https://www.youtube.com/watch?v=7I0pjHC4U7I</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=7I0pjHC4U7I</guid>
+<pubDate>2026-09-25T15:00:38+00:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4bfe6bb1f1622204.jpg" alt=""><p>Video · Jeff Geerling. Video from Jeff Geerling.</p>]]></description>
+</item>
+<item>
 <title>Armbian for Amlogic, Rockchip, and Allwinner devices brings Linux to a wide range of TV boxes, including models without official support. Replace A</title>
 <link>https://mastodon.social/@xabd/117331608471365193</link>
 <guid isPermaLink="true">https://mastodon.social/@xabd/117331608471365193</guid>
@@ -8741,6 +8776,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -8825,13 +8867,6 @@
 <description><![CDATA[Social · Sigmoid #localllama. l being done with a local AI, a variant of a Qwen3.8-27B model, on a 3090. Short version: with MINUTES of conversation and discussion, I will have a normalized database of all of my cats veterinary records *AND* a pipeline for ingesting those records *AND]]></description>
 </item>
 <item>
-<title>Answering your Homelab Questions!</title>
-<link>https://www.youtube.com/watch?v=qyGbkEtjJ90</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=qyGbkEtjJ90</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f9691e4596ea9a3e.jpg" alt=""><p>Video · Wolfgang&#x27;s Channel. Click this link</p>]]></description>
-</item>
-<item>
 <title>ComfyUI v0.37.0</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.37.0</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.37.0</guid>
@@ -8858,6 +8893,13 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
+</item>
+<item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>2026-09-23T11:17:55-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>ComfyUI v0.36.0</title>
@@ -8907,20 +8949,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11138</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3a1c6ee8349fc30f.png" alt=""><p>Article · llama.cpp. jinja : parse unary +/- before variables ( #29244</p>]]></description>
-</item>
-<item>
-<title>Are Local Models Finally Good Enough?</title>
-<link>https://www.youtube.com/watch?v=K2IGHj7KQoM</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=K2IGHj7KQoM</guid>
-<pubDate>2026-09-23T10:55:29-07:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01.jpg" alt=""><p>Video · Techno Tim. I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video</p>]]></description>
-</item>
-<item>
-<title>What Is an NPU Actually Good For?</title>
-<link>https://www.youtube.com/watch?v=8NFV6duMKQA</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=8NFV6duMKQA</guid>
-<pubDate>2026-09-23T10:55:29-07:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/322193c3ccae5516.jpg" alt=""><p>Video · Techno Tim. What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se</p>]]></description>
 </item>
 <item>
 <title>MiMo-V3 is getting a new architecture. The core of it, HySparse2, is out today.</title>
@@ -9196,13 +9224,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -9236,13 +9257,6 @@
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/proto-v0.1.0</guid>
 <pubDate>2026-09-11T08:30:05Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
-</item>
-<item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0</title>
@@ -9546,6 +9560,13 @@
 <description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
 </item>
 <item>
+<title>What Is an NPU Actually Good For?</title>
+<link>https://www.youtube.com/watch?v=8NFV6duMKQA</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=8NFV6duMKQA</guid>
+<pubDate>2026-08-22T16:12:28+00:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/322193c3ccae5516.jpg" alt=""><p>Video · Techno Tim. Video from Techno Tim.</p>]]></description>
+</item>
+<item>
 <title>Building an (almost) fully self-hosted, sandboxed, agentic software factory</title>
 <link>https://blog.jakesaunders.dev/building-an-almost-fully-self-hosted-sandboxed-agentic-software-factory/</link>
 <guid isPermaLink="true">https://blog.jakesaunders.dev/building-an-almost-fully-self-hosted-sandboxed-agentic-software-factory/</guid>
@@ -9663,13 +9684,6 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
-</item>
-<item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
@@ -10428,6 +10442,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/12.png" alt=""><p>Article · text-generation-webui. Changes Redesigned chat composer : Taller input area with the paperclip and message-action buttons pinned to the bottom, similar to Gemini and DeepSeek. Smooth scroll animation when sending a new message : Inspired by Gemini&#x27;s chat UI. Electron improvements : Persist window bound</p>]]></description>
 </item>
 <item>
+<title>Are Local Models Finally Good Enough?</title>
+<link>https://www.youtube.com/watch?v=K2IGHj7KQoM</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=K2IGHj7KQoM</guid>
+<pubDate>2026-05-18T15:00:34+00:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01.jpg" alt=""><p>Video · Techno Tim. Video from Techno Tim.</p>]]></description>
+</item>
+<item>
 <title>EverShelf - The AI-Powered, Self-Hosted Inventory Brain for Your Kitchen</title>
 <link>https://noted.lol/evershelf/</link>
 <guid isPermaLink="true">https://noted.lol/evershelf/</guid>
@@ -10909,6 +10930,13 @@
 <guid isPermaLink="true">https://www.youtube.com/watch?v=hpC4qjWu_aY</guid>
 <pubDate>2025-07-23T11:10:52+00:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5228efb548ec02bc.jpg" alt=""><p>Video · Yannic Kilcher. Video from Yannic Kilcher.</p>]]></description>
+</item>
+<item>
+<title>Answering your Homelab Questions!</title>
+<link>https://www.youtube.com/watch?v=qyGbkEtjJ90</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=qyGbkEtjJ90</guid>
+<pubDate>2025-06-29T10:46:20+00:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f9691e4596ea9a3e.jpg" alt=""><p>Video · Wolfgang&#x27;s Channel. Video from Wolfgang&#x27;s Channel.</p>]]></description>
 </item>
 <item>
 <title>What&#x27;s in my Homelab Rack?</title>
