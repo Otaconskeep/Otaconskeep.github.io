@@ -28597,12 +28597,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11513",
-      "title": "b11513: CUDA: improve top-k algorithm selection (#28713)",
-      "summary": "CUDA: radix top-k for large row counts Replaces CUB's per-row DeviceTopKKernel with a grid-over-rows radix select, gated on GGML_CUDA_TOPK_RADIX_MIN_ROWS. On qwen4exp at 34,816 tokens this cuts top-k from 1,671,253 launches / 5,761.8 ms to 2,329 / 941.8 ms. CUDA: select the TOP_K",
+      "title": "llama.cpp b11513",
+      "summary": "CUDA: improve top-k algorithm selection ( #28713 ) CUDA: radix top-k for large row counts Replaces CUB's per-row DeviceTopKKernel with a grid-over-rows radix select, gated on GGML_CUDA_TOPK_RADIX_MIN_ROWS. On qwen4exp at 34,816 tokens this cuts top-k from 1,671,253 launches / 5,7",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-08T16:34:27Z",
+      "published": "2026-10-08T19:22:06Z",
       "added_at": "2026-10-08T18:00:12Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/6aeb8b84935c1b40.png",
@@ -28711,6 +28711,23 @@
       "video": "",
       "categories": [
         "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/selfhosted/comments/1x0z15r/isnad_an_opensource_selfhosted_tool_for/",
+      "title": "ISNAD: An open-source, self-hosted tool for tamper-evident AI audit logging (EU AI Act Art 12 ready)",
+      "summary": "Hey everyone, I've been working on a tool called ISNAD for the self-hosted community. It's an open-source (Apache-2.0) engine that creates a locked, cryptographically signed record of an AI's answer-showing who or what handled it at each step. The goal is to provide \"proof of cus",
+      "source": "r/selfhosted",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-08T18:41:52+00:00",
+      "added_at": "2026-10-08T19:30:14Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "homelab",
         "communities"
       ]
     }
