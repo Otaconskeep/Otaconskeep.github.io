@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-09T13:35:50Z</lastBuildDate>
 <item>
+<title>llama.cpp b11529</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11529</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11529</guid>
+<pubDate>2026-10-09T15:18:11Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8a4ab5f0ec8c098c.png" alt=""><p>Article · llama.cpp. ggml: fix OOB write in ggml_acc with negative offset ( #30135 ) ggml_acc_impl narrowed a size_t offset to int32_t without checking that it fits, so a large offset could truncate to a negative int32_t. The forward then sign-extended it to a huge size_t and the bounds assertion wra</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11528</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11528</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11528</guid>
@@ -12,11 +19,25 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9308aba785591388.png" alt=""><p>Article · llama.cpp. meta : handle host views ( #30217 ) meta : handle views of tensors allocated on the host A view shares the memory of its view_src, so ggml-alloc never allocates a view in the buffer of the split it lands in - the scheduler copies the source into the split and the ops that use the</p>]]></description>
 </item>
 <item>
+<title>Qwen3.8-Flash-Next-GSQ-RCO (IQ3_S): ~20-30 tok/sec decode &amp; 300-90k tok/sec prefill on 12GB VRAM + 32GB RAM + NVME</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x1mzsg/qwen38flashnextgsqrco_iq3_s_2030_toksec_decode/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x1mzsg/qwen38flashnextgsqrco_iq3_s_2030_toksec_decode/</guid>
+<pubDate>2026-10-09T14:34:14+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I got Qwen3.8-Flash-Next-GSQ-RCO-Abliterated running at IQ3_S with just 12GB VRAM and 32GB system RAM, achieving 20-30 tok/sec decode (Q2 achieves 39-45 tok/s) &amp; 300 to ~90 thousand tok/sec prefill @ 131k context, on a custom fork of Strata. This fork has tonnes of architectural]]></description>
+</item>
+<item>
 <title>llama.cpp b11527</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11527</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11527</guid>
 <pubDate>2026-10-09T14:22:28Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/246bb8855cd834ce.png" alt=""><p>Article · llama.cpp. webgpu: use 2D workgroup dispatch for all the ops which use 1D dispatch (e.g., rms_norm) ( #30219 ) remove 1D workgroups dispatching formatting Website:</p>]]></description>
+</item>
+<item>
+<title>b11530: llama: keep the backend sampling graph static across ubatches (#30223)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11530</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11530</guid>
+<pubDate>2026-10-09T14:20:25Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e717d115bc50b825.png" alt=""><p>Article · llama.cpp. The reserve builds n_outputs_max_per_seq sampling chains per sampler, while a decode built one per output row, so the graph changed its topology after the reserve and GGML_SCHED_NO_REALLOC builds aborted on the next same sized graph. Every sampler now builds n_outputs_max_per_seq</p>]]></description>
 </item>
 <item>
 <title>Qwen-Image-2.1-Turbo just officially published</title>
@@ -52,13 +73,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11526</guid>
 <pubDate>2026-10-09T13:57:56Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5c87647e87d8e9ae.png" alt=""><p>Article · llama.cpp. vulkan: fix rms_norm workgroup count overflow ( #30145 ) Website:</p>]]></description>
-</item>
-<item>
-<title>b11529: ggml: fix OOB write in ggml_acc with negative offset (#30135)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11529</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11529</guid>
-<pubDate>2026-10-09T13:57:33Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8a4ab5f0ec8c098c.png" alt=""><p>Article · llama.cpp. ggml_acc_impl narrowed a size_t offset to int32_t without checking that it fits, so a large offset could truncate to a negative int32_t. The forward then sign-extended it to a huge size_t and the bounds assertion wrapped, allowing an OOB write below the dst buffer. Check the offs</p>]]></description>
 </item>
 <item>
 <title>How to extract text from 150+ images</title>
@@ -9469,13 +9483,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
 </item>
 <item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>2026-09-25T20:30:45-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
-</item>
-<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -9896,13 +9903,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -10013,13 +10013,6 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
-</item>
-<item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>ComfyUI v0.36.0</title>
@@ -10344,6 +10337,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -10379,6 +10379,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.0</guid>
@@ -10405,6 +10412,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
@@ -11083,7 +11097,7 @@
 <link>https://blawg.pages.dev/ollama-vs-llama-server</link>
 <guid isPermaLink="true">https://blawg.pages.dev/ollama-vs-llama-server</guid>
 <pubDate>Sun, 12 Jul 2026 12:22:17 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · llama.cpp. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>Rebuilding My Homelab with Compose, Ruby, IPv6, and No Kubernetes</title>
