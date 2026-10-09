@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-09T13:35:50Z</lastBuildDate>
 <item>
+<title>llama.cpp b11527</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11527</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11527</guid>
+<pubDate>2026-10-09T14:22:28Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/246bb8855cd834ce.png" alt=""><p>Article · llama.cpp. webgpu: use 2D workgroup dispatch for all the ops which use 1D dispatch (e.g., rms_norm) ( #30219 ) remove 1D workgroups dispatching formatting Website:</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11526</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11526</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11526</guid>
@@ -12,11 +19,32 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5c87647e87d8e9ae.png" alt=""><p>Article · llama.cpp. vulkan: fix rms_norm workgroup count overflow ( #30145 ) Website:</p>]]></description>
 </item>
 <item>
-<title>llama.cpp b11527</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11527</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11527</guid>
-<pubDate>2026-10-09T13:00:37Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/246bb8855cd834ce.png" alt=""><p>Article · llama.cpp. webgpu: use 2D workgroup dispatch for all the ops which use 1D dispat…</p>]]></description>
+<title>Qwen/Qwen-Image-2.1-Turbo · Hugging Face</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x1ldef/qwenqwenimage21turbo_hugging_face/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x1ldef/qwenqwenimage21turbo_hugging_face/</guid>
+<pubDate>2026-10-09T13:28:14+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/chocofoxy [link] [comments]]]></description>
+</item>
+<item>
+<title>Epyc inference rigs</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x1ld3q/epyc_inference_rigs/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x1ld3q/epyc_inference_rigs/</guid>
+<pubDate>2026-10-09T13:27:55+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I posted on here a while back asking for advice on upgrading to an Epyc system. Thanks to all who commented. I’ve taken the plunge and ordered: - Epyc 7443 CPU (24 cores, 48 threads, 128 lanes) - H12SSL-NT-B motherboard (the variant with two 10Gb Ethernet ports) - 256GB 2666MHz 2]]></description>
+</item>
+<item>
+<title>Qwen-Image-2.1-Turbo released!</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x1lclx/qwenimage21turbo_released/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x1lclx/qwenimage21turbo_released/</guid>
+<pubDate>2026-10-09T13:27:18+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Qwen-Image-2.1-Turbo, create and edit images in just 8 denoising steps! Open weights now available! Built on Qwen-Image-2.1, Turbo is an accelerated checkpoint on the same 7B visual generation architecture. Fewer steps does not mean lower quality: it still generates strong 2K ima]]></description>
+</item>
+<item>
+<title>b11528: meta : handle host views (#30217)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11528</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11528</guid>
+<pubDate>2026-10-09T13:01:04Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9308aba785591388.png" alt=""><p>Article · llama.cpp. meta : handle views of tensors allocated on the host A view shares the memory of its view_src, so ggml-alloc never allocates a view in the buffer of the split it lands in - the scheduler copies the source into the split and the ops that use the view read that copy. The view node</p>]]></description>
 </item>
 <item>
 <title>Need help: inserting furniture into room photos at true size without seams or distortion</title>
@@ -40,11 +68,25 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2c18a7d32d7141c3.png" alt=""><p>Article · selfh.st. The Princess and the (Photo)Pea</p>]]></description>
 </item>
 <item>
+<title>rtx 4090 + huawei atlas duo for qwen flash next ?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x1jlek/rtx_4090_huawei_atlas_duo_for_qwen_flash_next/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x1jlek/rtx_4090_huawei_atlas_duo_for_qwen_flash_next/</guid>
+<pubDate>2026-10-09T12:05:05+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I have rtx 4090 and 64 gb of ddr4 ram. This is enough to fit smaller quants of qfn, but I found them not great and switched back to qwen3.8. However, there are option that bother me a lot, buy huawei atlas duo, thats another 96 gb of ram thats twice faster than system ram and ano]]></description>
+</item>
+<item>
 <title>A Very Strange GPU Stall Situation</title>
 <link>https://www.reddit.com/r/comfyui/comments/1x1jkfq/a_very_strange_gpu_stall_situation/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/comfyui/comments/1x1jkfq/a_very_strange_gpu_stall_situation/</guid>
 <pubDate>2026-10-09T12:03:46+00:00</pubDate>
 <description><![CDATA[Reddit · r/comfyui. Hardware Config: RTX 5090 Windforce 128GB DDR5 (Running at 3600MHz cause AM5 struggles with 4-slot DDR5 speeds) Ryzen 7 7800X3D Crucial Gen5 SSD Model Config: Minimax Ref2V int8 Pruned Qwen VL int8 CK Attention Comfy run on WSL Ubuntu with cu13 Mode: Ref2VA 5 Reference Images (2K]]></description>
+</item>
+<item>
+<title>tencent/Youtu-Parsing-Omni · Hugging Face</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x1jk9z/tencentyoutuparsingomni_hugging_face/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x1jk9z/tencentyoutuparsingomni_hugging_face/</guid>
+<pubDate>2026-10-09T12:03:32+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Youtu-Parsing-Omni is a compact (5B) omni-modal parsing model. Given a single input - a document page, a natural image, a chart / flowchart, a geometry figure, an audio clip or an audio-visual video - it produces one structured JSON envelope that covers both perception (layout el]]></description>
 </item>
 <item>
 <title>Portainer 3.0 Is Coming: What Docker Users Need to Know</title>
@@ -9196,13 +9238,6 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>2026-09-26T07:01:03-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -9383,13 +9418,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11193</guid>
 <pubDate>2026-09-26T03:33:14Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
-</item>
-<item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>2026-09-25T20:30:45-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
@@ -9931,13 +9959,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>ComfyUI v0.36.0</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</guid>
@@ -10260,6 +10281,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -10321,6 +10349,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
@@ -10715,6 +10750,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
+</item>
+<item>
 <title>LocalAI v4.8.2</title>
 <link>https://github.com/mudler/LocalAI/releases/tag/v4.8.2</link>
 <guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/v4.8.2</guid>
@@ -10999,7 +11041,7 @@
 <link>https://blawg.pages.dev/ollama-vs-llama-server</link>
 <guid isPermaLink="true">https://blawg.pages.dev/ollama-vs-llama-server</guid>
 <pubDate>Sun, 12 Jul 2026 12:22:17 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News · llama.cpp. Article URL:]]></description>
 </item>
 <item>
 <title>Rebuilding My Homelab with Compose, Ruby, IPv6, and No Kubernetes</title>
