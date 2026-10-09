@@ -587,11 +587,11 @@
     {
       "url": "https://github.com/OtoDock/oto-dock",
       "title": "Show HN: Self-hosted company OS, Claude Code and Codex agents in departments",
-      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many",
-      "source": "Hacker News",
+      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many ",
+      "source": "Hacker News · self-hosted",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-25T20:30:45-07:00",
+      "published": "Wed, 09 Sep 2026 17:57:55 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1011,7 +1011,7 @@
       "url": "https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/",
       "title": "Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · self-hosted",
       "kind": "social",
       "lane": "Hacker News",
       "published": "Mon, 14 Sep 2026 13:59:09 +0000",
@@ -2113,7 +2113,7 @@
       "url": "https://blawg.pages.dev/ollama-vs-llama-server",
       "title": "Ollama vs. Llama.cpp – Quick Benchmark",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · llama.cpp",
       "kind": "social",
       "lane": "Hacker News",
       "published": "Sun, 12 Jul 2026 12:22:17 +0000",
@@ -30158,12 +30158,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11533",
-      "title": "b11533: opencl: fix kernel compilation for a6x GPUs (#30176)",
-      "summary": "opencl: skip kernel_cpy_f32_f32_pack on A6X to avoid shader compiler crash The A6x compiler backend found in iot device with a623 (E031.50.31.01) cannot handle kernels with a large number of arguments. Skip this kernel for A6x to avoid compiler crash opencl: A6X constant-fold wor",
+      "title": "llama.cpp b11533",
+      "summary": "opencl: fix kernel compilation for a6x GPUs ( #30176 ) opencl: skip kernel_cpy_f32_f32_pack on A6X to avoid shader compiler crash The A6x compiler backend found in iot device with a623 (E031.50.31.01) cannot handle kernels with a large number of arguments. Skip this kernel for A6",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-09T16:19:20Z",
+      "published": "2026-10-09T17:45:58Z",
       "added_at": "2026-10-09T17:30:12Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/9b969da080efdf9f.png",
@@ -30187,6 +30187,74 @@
       "video": "",
       "categories": [
         "homelab"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11534",
+      "title": "b11534: CUDA: Remove redundant CUDA copies after SSM_SCAN (#29807)",
+      "summary": "CUDA: fuse copy of updated state snapshots into recurrent cache with ssm_scan CUDA: remove redundant cuda copies with K==1 (non spec-dec) scenario as well",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-09T16:23:28Z",
+      "added_at": "2026-10-09T18:00:12Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/8d6b25abb26bdbb6.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x1owzm/github_googleaiedgemldrift_gpuaccelerated_aiml/",
+      "title": "GitHub - google-ai-edge/ml-drift: GPU-Accelerated AI/ML Inference",
+      "summary": "Blog Post : ML Drift: Next-Gen GPU AI/ML Inference at the Edge - Google Developers Blog The Google AI Edge Team is excited to announce the open-source release of ML Drift , our high-performance, cross-platform, on-device GPU compute engine specifically built for on-device AI/ML i",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-09T15:50:37+00:00",
+      "added_at": "2026-10-09T18:00:13Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x1rk4o/openais_math_findings_built_on_stolen_user_data/",
+      "title": "OpenAI's math findings built on stolen user data",
+      "summary": "submitted by /u/CuTe_M0nitor [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-09T17:32:13+00:00",
+      "added_at": "2026-10-09T18:00:13Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x1rwof/glm_53_flash_opensource_the_top_of_artificial/",
+      "title": "GLM 5.3 Flash opensource @ the top of Artificial Analysis Cyber Index over Claude.",
+      "summary": "It seems Dario's \"too powerful for you users\" strategy is paying off: we have two open models at the top of the leaderboard, surpassing every single model from Anthropic. Open source prevails. Even Mistral Large 4 is better! submitted by /u/LegacyRemaster [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-09T17:45:37+00:00",
+      "added_at": "2026-10-09T18:00:13Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
