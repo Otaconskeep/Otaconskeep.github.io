@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-09T04:03:07Z</lastBuildDate>
 <item>
+<title>llama.cpp b11523</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11523</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11523</guid>
+<pubDate>2026-10-09T11:00:09Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1d108a11bc33f28a.png" alt=""><p>Article · llama.cpp. ci: fix Models Backend webgpu by supporting GGML_OP_DUP ( #30216 ) The mixed batch path of PR-29622 writes the token rows with set_rows into a dup of the embeddings. WebGPU did not support DUP, so the dup ran on the CPU while the set_rows writing into it was scheduled on WebGPU,</p>]]></description>
+</item>
+<item>
+<title>b11524: musa: drop mp_21 from the default architectures (#30203)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11524</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11524</guid>
+<pubDate>2026-10-09T10:51:24Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f82d4af7e53a9943.png" alt=""><p>Article · llama.cpp. musa: drop mp_21 from the default architectures Signed-off-by: Xiaodong Ye xiaodong.ye@mthreads.com Address review comments Signed-off-by: Xiaodong Ye xiaodong.ye@mthreads.com Address review comments Signed-off-by: Xiaodong Ye xiaodong.ye@mthreads.com Signed-off-by: Xiaodong Ye x</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11521</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11521</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11521</guid>
@@ -9686,13 +9700,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>ComfyUI v0.36.0</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</guid>
@@ -10013,6 +10020,13 @@
 <guid isPermaLink="true">https://github.com/immich-app/immich/releases/tag/v3.2.1</guid>
 <pubDate>2026-09-14T18:24:25Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
+</item>
+<item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.1rc0</title>
