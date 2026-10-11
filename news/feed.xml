@@ -5,11 +5,11 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-11T04:06:04Z</lastBuildDate>
 <item>
-<title>b11553: server: add component tests (#30312)</title>
+<title>llama.cpp b11553</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11553</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11553</guid>
-<pubDate>2026-10-11T10:51:07Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9fb40bfab34a893d.png" alt=""><p>Article · llama.cpp. server: add component tests nits add codeowners</p>]]></description>
+<pubDate>2026-10-11T11:20:18Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9fb40bfab34a893d.png" alt=""><p>Article · llama.cpp. server: add component tests ( #30312 ) server: add component tests nits add codeowners Website:</p>]]></description>
 </item>
 <item>
 <title>LiteLLM v1.104.3</title>
@@ -17,6 +17,13 @@
 <guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.104.3</guid>
 <pubDate>2026-10-11T10:37:40Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/12912829e45a6a2a.png" alt=""><p>Article · LiteLLM. Verify Docker Image Signature All LiteLLM Docker images are signed with cosign . Every release is signed with the same key introduced in commit 0112e53 . Verify using the pinned commit hash (recommended): A commit hash is cryptographically immutable, so this is the strongest way</p>]]></description>
+</item>
+<item>
+<title>I trained a 102M recursive BitNet-v2 model from scratch: 64K context, trained on less than 5B tokens</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x34nyx/i_trained_a_102m_recursive_bitnetv2_model_from/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x34nyx/i_trained_a_102m_recursive_bitnetv2_model_from/</guid>
+<pubDate>2026-10-11T10:19:08+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. DISCLAIMER: the post and the model card was made with the assist of AI. Hiya, I’m releasing Recursive BitNet N-Gram 102M, a small experiment combining ternary weights, shared transformer layers, and hashed n-gram embeddings, trained with a whooping budget of 100€ Weights, inferen]]></description>
 </item>
 <item>
 <title>LiteLLM v1.105.0</title>
@@ -44,7 +51,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x32vhx/psa_deepseek_v41_flash_habitually_exfiltrates_api/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x32vhx/psa_deepseek_v41_flash_habitually_exfiltrates_api/</guid>
 <pubDate>2026-10-11T08:29:02+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. Logs attached. I know OpenRouter is not local, but considering people do run DeepSeek v4.1 Flash locally, I thought this was a matter you all might need to hear. We were running a DeepSWE variant on DeepSeek v4.1 Flash using the standard Pier sandbox. Out of all the 15 models we]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. EDIT: since people keep calling it out, this is API key abuse but not exfiltration. Seems like both Harbor and Pier (sandboxes used in almost every Software Engineering benchmark) expose the Openrouter endpoint and API key to models, even though they block the rest of the interne]]></description>
 </item>
 <item>
 <title>What setup do you use, which harness? and how do you customize it to run qwen 3.8 flash next swift with a high context length and a reasonable amount of tok/sec?</title>
@@ -10316,13 +10323,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
 </item>
 <item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>2026-09-25T20:30:45-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
-</item>
-<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -10741,6 +10741,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11157</guid>
 <pubDate>2026-09-24T07:26:37-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
+</item>
+<item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
@@ -11181,7 +11188,7 @@
 <link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
 <guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
 <pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.1rc0</title>
@@ -11219,13 +11226,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
 </item>
 <item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.0</guid>
@@ -11252,6 +11252,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
