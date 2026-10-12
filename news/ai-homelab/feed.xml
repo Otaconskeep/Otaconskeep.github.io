@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-12T13:35:08Z</lastBuildDate>
 <item>
+<title>b11577: model: fix vllm d3 multi seq case (#30408)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11577</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11577</guid>
+<pubDate>2026-10-12T22:23:01Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8fd6c3da352d70f0.png" alt=""><p>Article · llama.cpp. model: fix vllm d3 multi seq case add TODO</p>]]></description>
+</item>
+<item>
+<title>Size of AI models. What we mean by &quot;Large&quot;?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x4f80v/size_of_ai_models_what_we_mean_by_large/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x4f80v/size_of_ai_models_what_we_mean_by_large/</guid>
+<pubDate>2026-10-12T21:57:43+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. What is &#x27;Small&#x27;, what is &#x27;Large&#x27;? We&#x27;re still over the place, years later we still can&#x27;t reach consensus, causing endless confusion, so in infinite wisdom and generosity I took it upon myself to fix it. I&#x27;ve arbitrary decided from this day forth we shall all follow this table: Ti]]></description>
+</item>
+<item>
 <title>Is using AI for doing security work on my homelab a good idea or even feasible?</title>
 <link>https://www.reddit.com/r/selfhosted/comments/1x4evh7/is_using_ai_for_doing_security_work_on_my_homelab/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/selfhosted/comments/1x4evh7/is_using_ai_for_doing_security_work_on_my_homelab/</guid>
@@ -19,11 +33,25 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f903fa4c66226278.png" alt=""><p>Article · llama.cpp. graph: pad the KV dimension of the no-cache attention to 256 ( #30416 ) The no-cache path builds a [n_tokens, n_tokens] mask and passes K and V unpadded, so FLASH_ATTN_EXT sees K-&gt;ne[1] == n_tokens. The CUDA kernels for head size 512 require a multiple of FATTN_KQ_STRIDE, so the</p>]]></description>
 </item>
 <item>
+<title>Explore DNA with DeepMind’s AlphaGenome and in-browser MedGemma 1.5 4B via WebGPU</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x4ec7b/explore_dna_with_deepminds_alphagenome_and/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x4ec7b/explore_dna_with_deepminds_alphagenome_and/</guid>
+<pubDate>2026-10-12T21:20:33+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hey everyone, Sharing an educational tool called AskCyph Health Explorer to explore how single-letter DNA mutations lead to disease, how they alter 3D anatomy, inheritance probabilities, and available treatments. To make it interactive while protecting user privacy, the architect]]></description>
+</item>
+<item>
 <title>llama.cpp b11575</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11575</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11575</guid>
 <pubDate>2026-10-12T20:45:59Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/25f24cd8cd45bad9.png" alt=""><p>Article · llama.cpp. metal: fix metal tensor kernel_mul_mm error for large tensor ( #28748 ) metal: fix metal tensor kernel_mul_mm error for large tensor Assisted-by: Codex Update ggml/src/ggml-metal/kernels/mul_mm.metal Co-authored-by: YiChen Lv 63285796+forforever73@users.noreply.github.com Co-auth</p>]]></description>
+</item>
+<item>
+<title>llama.cpp optimizations for specific hardware and models</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x4cwiy/llamacpp_optimizations_for_specific_hardware_and/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x4cwiy/llamacpp_optimizations_for_specific_hardware_and/</guid>
+<pubDate>2026-10-12T20:24:57+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I&#x27;ve made a few posts recently, just talking about the hardware I&#x27;ve got and the model I use. Pair of P100s, Unsloth Qwen3.6 35b A3B UD Q4 K XL . There&#x27;s been a ton of talk of model and hardware specific inference engines showing crazy performance numbers on models and hardware t]]></description>
 </item>
 <item>
 <title>Paperless-ngx v3.3.1</title>
@@ -11058,6 +11086,13 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>2026-09-26T07:01:03-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -11238,13 +11273,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11193</guid>
 <pubDate>2026-09-26T03:33:14Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
-</item>
-<item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>2026-09-25T20:30:45-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
@@ -11793,13 +11821,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>ComfyUI v0.36.0</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</guid>
@@ -12122,6 +12143,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -12183,6 +12211,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
@@ -12568,13 +12603,6 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
-</item>
-<item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
