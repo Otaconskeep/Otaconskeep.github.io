@@ -34309,6 +34309,23 @@
         "homelab",
         "releases"
       ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11576",
+      "title": "b11576: graph: pad the KV dimension of the no-cache attention to 256 (#30416)",
+      "summary": "The no-cache path builds a [n_tokens, n_tokens] mask and passes K and V unpadded, so FLASH_ATTN_EXT sees K->ne[1] == n_tokens. The CUDA kernels for head size 512 require a multiple of FATTN_KQ_STRIDE, so the op falls back to the CPU for most lengths, and the -fa auto probe (1 tok",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-12T21:00:27Z",
+      "added_at": "2026-10-12T21:30:15Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/f903fa4c66226278.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
     }
   ]
 }

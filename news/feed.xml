@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-12T13:35:08Z</lastBuildDate>
 <item>
+<title>b11576: graph: pad the KV dimension of the no-cache attention to 256 (#30416)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11576</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11576</guid>
+<pubDate>2026-10-12T21:00:27Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f903fa4c66226278.png" alt=""><p>Article · llama.cpp. The no-cache path builds a [n_tokens, n_tokens] mask and passes K and V unpadded, so FLASH_ATTN_EXT sees K-&gt;ne[1] == n_tokens. The CUDA kernels for head size 512 require a multiple of FATTN_KQ_STRIDE, so the op falls back to the CPU for most lengths, and the -fa auto probe (1 tok</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11575</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11575</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11575</guid>
