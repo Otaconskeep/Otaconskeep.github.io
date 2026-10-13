@@ -438,10 +438,10 @@
       "url": "https://phunky.cafe/my-homelab-got-hacked/",
       "title": "My Homelab Got Hacked – A Postmortem",
       "summary": "Article URL:",
-      "source": "Hacker News · homelab",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Mon, 10 Aug 2026 23:04:18 +0000",
+      "published": "2026-09-26T07:01:03-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1032,7 +1032,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
+      "published": "2026-09-24T07:26:37-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -35944,12 +35944,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11598",
-      "title": "b11598: model: load YaRN beta metadata for laguna models (#30331)",
-      "summary": "Assisted-by: Codex Co-authored-by: Adam Caldwell accaldwell@users.noreply.github.com",
+      "title": "llama.cpp b11598",
+      "summary": "model: load YaRN beta metadata for laguna models ( #30331 ) Assisted-by: Codex Co-authored-by: Adam Caldwell accaldwell@users.noreply.github.com Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-13T14:18:01Z",
+      "published": "2026-10-13T20:40:10Z",
       "added_at": "2026-10-13T20:30:21Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/b3047042ec64cdc7.png",
@@ -35975,6 +35975,40 @@
         "local-models",
         "homelab",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11600",
+      "title": "b11600: graph: pad the KQ bias of the no-cache attention (#30446)",
+      "summary": "The no-cache attention pads K, V and the mask to 256, but T5 also adds a relative position bias of [n_tokens, n_tokens], so the add with KQ fails unless n_tokens divides the padded width. Pad the bias with zeros up to the KV dimension of the mask, like K and V.",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-13T14:34:10Z",
+      "added_at": "2026-10-13T21:00:21Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/d9be917439ae8646.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11599",
+      "title": "b11599: llama : do not map foreign ranges into a backend buffer (#30405)",
+      "summary": "llama : do not map foreign ranges into a backend buffer A buffer created from a host pointer pins everything that it wraps. When several contexts share the same file (lazy tensors, MoE tensors kept on the CPU with -cmoe), the single buffer that spans the first and the last tensor",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-13T14:28:15Z",
+      "added_at": "2026-10-13T21:00:21Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/cfa14935e06b790e.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]

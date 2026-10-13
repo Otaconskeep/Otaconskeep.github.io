@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-13T13:36:28Z</lastBuildDate>
 <item>
+<title>llama.cpp b11598</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11598</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11598</guid>
+<pubDate>2026-10-13T20:40:10Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b3047042ec64cdc7.png" alt=""><p>Article · llama.cpp. model: load YaRN beta metadata for laguna models ( #30331 ) Assisted-by: Codex Co-authored-by: Adam Caldwell accaldwell@users.noreply.github.com Website:</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11597</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11597</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11597</guid>
@@ -117,18 +124,25 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Here is how i serve 40 people (10 of them developers) with local AI services. n8n for automatisation whisper and Vexa AI, a bot joins Teams and makes transcripts, n8n later extracts decisions and todos OpenWebUI, ChatGPT-like webinterface for everyone, most agentic features are d]]></description>
 </item>
 <item>
+<title>b11600: graph: pad the KQ bias of the no-cache attention (#30446)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11600</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11600</guid>
+<pubDate>2026-10-13T14:34:10Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d9be917439ae8646.png" alt=""><p>Article · llama.cpp. The no-cache attention pads K, V and the mask to 256, but T5 also adds a relative position bias of [n_tokens, n_tokens], so the add with KQ fails unless n_tokens divides the padded width. Pad the bias with zeros up to the KV dimension of the mask, like K and V.</p>]]></description>
+</item>
+<item>
+<title>b11599: llama : do not map foreign ranges into a backend buffer (#30405)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11599</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11599</guid>
+<pubDate>2026-10-13T14:28:15Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/cfa14935e06b790e.png" alt=""><p>Article · llama.cpp. llama : do not map foreign ranges into a backend buffer A buffer created from a host pointer pins everything that it wraps. When several contexts share the same file (lazy tensors, MoE tensors kept on the CPU with -cmoe), the single buffer that spans the first and the last tensor</p>]]></description>
+</item>
+<item>
 <title>Netflix’s documentary of Huggingface discussion</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x4y1eq/netflixs_documentary_of_huggingface_discussion/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x4y1eq/netflixs_documentary_of_huggingface_discussion/</guid>
 <pubDate>2026-10-13T14:24:21+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. It just popped on my feed. I watched the teaser in the Netflix app and a few things jumped out The constant use of anthromorphism using terms like altruism and sacrifice when in engineering literally there are terms like kill, killall, pkill for terminating processes, therefore o]]></description>
-</item>
-<item>
-<title>b11598: model: load YaRN beta metadata for laguna models (#30331)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11598</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11598</guid>
-<pubDate>2026-10-13T14:18:01Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b3047042ec64cdc7.png" alt=""><p>Article · llama.cpp. Assisted-by: Codex Co-authored-by: Adam Caldwell accaldwell@users.noreply.github.com</p>]]></description>
 </item>
 <item>
 <title>Ideas on 4x RX7900xt + 1x RTX3060 (92GB VRAM) + 64GB Ram</title>
@@ -11730,6 +11744,13 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>2026-09-26T07:01:03-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -12339,6 +12360,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -12815,13 +12843,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
 </item>
 <item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.0</guid>
@@ -13240,13 +13261,6 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
-</item>
-<item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
