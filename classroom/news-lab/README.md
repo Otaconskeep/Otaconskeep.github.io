@@ -8,7 +8,6 @@ primary sources, publication dates, and practical homelab/AI/self-host relevance
 
 | Date | Lab | Path |
 |---|---|---|
-| 2026-10-13 | AI answer box in a private search engine | [`2026-10-13-ai-answer-box/`](./2026-10-13-ai-answer-box/) |
 | 2026-09-29 | RTX 5060 Ti 16GB Ollama model stack | [`2026-09-29-rtx-5060-ti-16gb-ollama/`](./2026-09-29-rtx-5060-ti-16gb-ollama/) |
 
 Index: [`index.html`](./index.html)

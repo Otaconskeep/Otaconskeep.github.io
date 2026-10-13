@@ -3,25 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Answer Box in a Private Search Engine · News Lab · Otaconskeep</title>
+<title>Otaconskeep Search · Free · Private search with a local AI answer box</title>
 <meta name="description" content="How Otaconskeep added a local, cited AI answer box to SearXNG. Tutorial and measured write-up: Ollama, the five-result prompt, timings on an RTX 3090, and the case where the box should refuse.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Otaconskeep">
 <meta property="og:title" content="I Built an AI Answer Box Into My Search Engine">
 <meta property="og:description" content="A private SearXNG page that answers from the top five results, cites them, and stays on a local model. Tutorial, timings, and one honest limitation.">
-<meta property="og:url" content="https://otaconskeep.github.io/classroom/news-lab/2026-10-13-ai-answer-box/">
-<meta property="og:image" content="https://otaconskeep.github.io/classroom/news-lab/2026-10-13-ai-answer-box/media/with-results.png">
+<meta property="og:url" content="https://otaconskeep.github.io/search/">
+<meta property="og:image" content="https://otaconskeep.github.io/search/media/with-results.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="I Built an AI Answer Box Into My Search Engine">
 <meta name="twitter:description" content="Local Ollama, SearXNG, citations, and the measurements from one RTX 3090 take.">
-<meta name="twitter:image" content="https://otaconskeep.github.io/classroom/news-lab/2026-10-13-ai-answer-box/media/with-results.png">
-<link rel="canonical" href="https://otaconskeep.github.io/classroom/news-lab/2026-10-13-ai-answer-box/">
+<meta name="twitter:image" content="https://otaconskeep.github.io/search/media/with-results.png">
+<link rel="canonical" href="https://otaconskeep.github.io/search/">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css?v=20260929e">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260924v">
 <link rel="stylesheet" href="/assets/chat-widget.css?v=20260929b">
 <style>
 .lab-toc {
@@ -88,8 +87,8 @@
 
 <div class="filebar">
  <div class="wrap">
- <span>CLASSROOM // NEWS LAB</span>
- <span>2026-10-13 · PRIVATE SEARCH<span class="blink"></span></span>
+ <span>PRODUCT // OTACONSKEEP SEARCH</span>
+ <span>FREE<span class="blink"></span></span>
  </div>
 </div>
 
@@ -109,9 +108,10 @@
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
  <a href="/foxdie/">FOXDIE</a>
+ <a href="/search/" aria-current="page">Private Search</a>
  </div>
  </div>
- <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/classroom/">Learn</a>
  <a href="/engineering/">Engineering</a>
  <a href="/about/">About</a>
  <a href="/news/">News</a>
@@ -119,19 +119,11 @@
  <a href="/install/" class="discord">Get Otacon</a>
  </div></div>
 </nav>
-<nav class="cr-subnav" aria-label="Classroom">
- <div class="wrap">
- <a href="/classroom/">Classroom</a>
- <a href="/classroom/news-lab/">News Lab</a>
- <a href="/classroom/homelab/">Homelab</a>
- <a href="/news/ai-homelab/">AI &amp; Homelab News</a>
- </div>
-</nav>
 
 <div class="wrap">
  <section class="hero flush">
- <div class="stamp">News Lab<small>tutorial · measured write-up</small></div>
- <p class="eyebrow" style="margin-top:18px">Otaconskeep · SearXNG · local Ollama · October 13, 2026</p>
+ <div class="stamp">Product<small>free</small></div>
+ <p class="eyebrow" style="margin-top:18px">Products · Private search · Free</p>
  <h1 class="display" style="font-size:clamp(2.1rem,5.5vw,3.5rem);">I built an AI answer box into my search engine</h1>
  <p class="lede">A private search page that still shows the results, and writes a short answer that has to name which of those results it used. The model never sees the open web. It sees five snippets.</p>
  <div class="btn-row" style="margin-top:22px;">
@@ -347,8 +339,8 @@ docker compose up -d</code>
   <p class="intro">A local model is quick and unaccountable. A search page is accountable and slow to read. The useful object is the card that can only talk about the five results in front of you, shows how many seconds that took, and is willing to say the pages do not contain the answer.</p>
   <p>Next for this Keep is a tighter homepage, and a habit of opening the cited page before trusting the sentence. The box is a reader. It is not a second source.</p>
   <div class="btn-row" style="margin-top:18px;">
-   <a class="btn btn-primary" href="/classroom/news-lab/">Back to News Lab</a>
-   <a class="btn btn-ghost" href="/classroom/">Classroom</a>
+   <a class="btn btn-primary" href="/#ecosystem">Back to Products</a>
+   <a class="btn btn-ghost" href="/">Otaconskeep</a>
    <a class="btn btn-ghost" href="/ollama-catalog/">Ollama catalog</a>
   </div>
   <p class="meta" style="margin-top:18px;">Antonio G. Garcia · Otaconskeep · October 13, 2026</p>
