@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Answer Box in a Private Search Engine · News Lab · Otaconskeep</title>
+<meta name="description" content="How Otaconskeep added a local, cited AI answer box to SearXNG. Tutorial and measured write-up: Ollama, the five-result prompt, timings on an RTX 3090, and the case where the box should refuse.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Otaconskeep">
+<meta property="og:title" content="I Built an AI Answer Box Into My Search Engine">
+<meta property="og:description" content="A private SearXNG page that answers from the top five results, cites them, and stays on a local model. Tutorial, timings, and one honest limitation.">
+<meta property="og:url" content="https://otaconskeep.github.io/classroom/news-lab/2026-10-13-ai-answer-box/">
+<meta property="og:image" content="https://otaconskeep.github.io/classroom/news-lab/2026-10-13-ai-answer-box/media/with-results.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="I Built an AI Answer Box Into My Search Engine">
+<meta name="twitter:description" content="Local Ollama, SearXNG, citations, and the measurements from one RTX 3090 take.">
+<meta name="twitter:image" content="https://otaconskeep.github.io/classroom/news-lab/2026-10-13-ai-answer-box/media/with-results.png">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/news-lab/2026-10-13-ai-answer-box/">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=20260929e">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260924v">
+<link rel="stylesheet" href="/assets/chat-widget.css?v=20260929b">
+<style>
+.lab-toc {
+  border:1px solid var(--line); background:var(--surface); padding:16px 18px; margin: 0 0 28px;
+}
+.lab-toc p { margin:0 0 10px; color:var(--accent-bright); font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; }
+.lab-toc ol { margin:0; padding-left:1.2rem; color:var(--cream-dim); }
+.lab-toc li { margin:.35rem 0; }
+.lab-toc a { color:var(--cream); text-decoration:none; }
+.lab-toc a:hover { color:var(--accent-bright); }
+.lab-table-wrap { overflow-x:auto; margin: 14px 0 22px; border:1px solid var(--line); }
+.lab-table-wrap table { width:100%; border-collapse:collapse; font-size:.92rem; }
+.lab-table-wrap th, .lab-table-wrap td {
+  padding:10px 12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top;
+}
+.lab-table-wrap th {
+  background:rgba(0,0,0,.25); color:var(--accent-bright);
+  font-family:'JetBrains Mono',monospace; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase;
+}
+.lab-table-wrap td { color:var(--cream-dim); }
+.lab-table-wrap code { font-size:.86em; }
+.lab-pull {
+  border-left:3px solid var(--accent); background:rgba(22,168,147,.08);
+  padding:14px 16px; margin: 18px 0; color:var(--cream);
+}
+.lab-pull strong { color:var(--accent-bright); }
+.lab-cmd {
+  display:block; white-space:pre-wrap; word-break:break-word;
+  font-family:'JetBrains Mono',monospace; font-size:.84rem; line-height:1.55;
+  background:#0d1210; border:1px solid var(--line); padding:14px 16px; margin: 12px 0 18px; color:#c9f7ea;
+}
+.lab-grid {
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin: 16px 0 24px;
+}
+@media (max-width:860px){ .lab-grid { grid-template-columns:1fr; } }
+.lab-card {
+  border:1px solid var(--line); background:var(--surface); padding:16px 16px 14px;
+}
+.lab-card h3 { margin:0 0 8px; font-size:1.05rem; }
+.lab-card p { margin:0; color:var(--cream-dim); }
+.lab-card .kicker {
+  margin:0 0 8px; color:var(--accent-bright);
+  font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
+}
+.lab-shot { margin: 16px 0 22px; }
+.lab-shot img { width:100%; height:auto; border:1px solid var(--line); background:#101114; }
+.lab-shot figcaption { margin-top:8px; color:var(--cream-dim); font-size:.9rem; }
+.lab-sources { list-style:none; padding:0; margin:0 0 24px; }
+.lab-sources li {
+  border:1px solid var(--line); background:var(--surface); padding:12px 14px; margin:0 0 10px;
+}
+.lab-sources a { color:var(--cream); font-weight:650; text-decoration:none; }
+.lab-sources a:hover { color:var(--accent-bright); }
+.lab-sources span { display:block; margin:4px 0 0; color:var(--cream-dim); font-size:.9rem; }
+.lab-flow {
+  display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin: 14px 0 22px;
+  font-family:'JetBrains Mono',monospace; font-size:.82rem; color:var(--cream);
+}
+.lab-flow span.step { border:1px solid var(--line); background:var(--surface); border-radius:6px; padding:8px 12px; }
+.lab-flow span.arrow { color:var(--accent-bright); }
+</style>
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // NEWS LAB</span>
+ <span>2026-10-13 · PRIVATE SEARCH<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/foxdie/">FOXDIE</a>
+ </div>
+ </div>
+ <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/news/">News</a>
+ <a href="/donate/">Donate</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Classroom</a>
+ <a href="/classroom/news-lab/">News Lab</a>
+ <a href="/classroom/homelab/">Homelab</a>
+ <a href="/news/ai-homelab/">AI &amp; Homelab News</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">News Lab<small>tutorial · measured write-up</small></div>
+ <p class="eyebrow" style="margin-top:18px">Otaconskeep · SearXNG · local Ollama · October 13, 2026</p>
+ <h1 class="display" style="font-size:clamp(2.1rem,5.5vw,3.5rem);">I built an AI answer box into my search engine</h1>
+ <p class="lede">A private search page that still shows the results, and writes a short answer that has to name which of those results it used. The model never sees the open web. It sees five snippets.</p>
+ <div class="btn-row" style="margin-top:22px;">
+ <a class="btn btn-primary" href="#tutorial">Build it</a>
+ <a class="btn btn-ghost" href="#measured">See the timings</a>
+ <a class="btn btn-ghost" href="#compare">Same question, two ways</a>
+ <a class="btn btn-ghost" href="#files">Download the files</a>
+ </div>
+ <p class="meta" style="margin-top:18px;">Designed by Antonio G. Garcia · This page has the method and the measurements. It does not include hostnames, keys, or a VPN status URL.</p>
+ </section>
+</div>
+
+<div class="wrap">
+ <nav class="lab-toc" aria-label="On this page">
+  <p>On this page</p>
+  <ol>
+   <li><a href="#why">Why a results page is not an answer</a></li>
+   <li><a href="#architecture">How the answer is made</a></li>
+   <li><a href="#prompt">What actually gets sent</a></li>
+   <li><a href="#compare">The same question, with and without search</a></li>
+   <li><a href="#useful">A real fix, not a guess</a></li>
+   <li><a href="#measured">What this take cost</a></li>
+   <li><a href="#limit">When the results do not know</a></li>
+   <li><a href="#privacy">Privacy, and what is still not private</a></li>
+   <li><a href="#tutorial">Tutorial</a></li>
+   <li><a href="#files">Files</a></li>
+  </ol>
+ </nav>
+
+ <section id="why">
+  <p class="tag">01 // The problem</p>
+  <h2>Why a results page is not an answer</h2>
+  <p class="intro">Ordinary search makes you open tabs until one of them says the thing you needed. A local model with no search answers immediately, from whatever it already memorized, and there is nothing to check.</p>
+  <div class="lab-grid">
+   <article class="lab-card">
+    <p class="kicker">Search alone</p>
+    <h3>Ten links, no sentence</h3>
+    <p>The useful page is often result two or four. Ambiguous words also drag in pages that share a verb and nothing else. You can see them. You still have to read them.</p>
+   </article>
+   <article class="lab-card">
+    <p class="kicker">Offline model alone</p>
+    <h3>Fast, and uncited</h3>
+    <p>Ask about this week and the model answers from memory. If that memory is old, it will name the wrong person and miss the incident. There is no source chip to click.</p>
+   </article>
+  </div>
+  <div class="lab-pull"><strong>The box in the middle:</strong> SearXNG still fetches. Ollama only reads the top five titles, links, and snippets already on the page. Every sentence has to point at one of those numbers, or the box is supposed to say the results do not answer.</div>
+ </section>
+
+ <section id="architecture">
+  <p class="tag">02 // Architecture</p>
+  <h2>Browser, search, five results, local model</h2>
+  <div class="lab-flow" aria-label="Answer path">
+   <span class="step">Browser</span><span class="arrow">→</span>
+   <span class="step">SearXNG</span><span class="arrow">→</span>
+   <span class="step">Top 5 results</span><span class="arrow">→</span>
+   <span class="step">Ollama</span><span class="arrow">→</span>
+   <span class="step">Cited answer</span>
+  </div>
+  <figure class="lab-shot">
+   <img src="media/architecture.png" alt="Diagram: the question stays in the browser, SearXNG fetches, Ollama only sees five results, and the answer cites them.">
+   <figcaption>The question stays on this box. SearXNG fetches. The model only sees five results.</figcaption>
+  </figure>
+  <p>On this Keep the results page is branded Otaconskeep: dark simple theme, the wordmark in place of the stock SearXNG logo, and a card titled <strong>Keep AI answer</strong>. The card’s chip shows the model name and the seconds from results landing to the last token.</p>
+ </section>
+
+ <section id="prompt">
+  <p class="tag">03 // The prompt</p>
+  <h2>Five snippets. A cite-or-admit rule.</h2>
+  <figure class="lab-shot">
+   <img src="media/prompt.png" alt="The five rules sent to Ollama: trimmed question, top five title URL and snippet, two to four sentences with citations, only those numbers, and admit when the results do not answer.">
+   <figcaption>That list is the whole prompt. The open web is not attached.</figcaption>
+  </figure>
+  <ol>
+   <li>The question, trimmed to 300 characters.</li>
+   <li>The top 5 results: title, URL, and the snippet already on the page.</li>
+   <li>Write 2 to 4 sentences, under 90 words. After each one, cite the result number, like <code>[2]</code>.</li>
+   <li>Use only those numbers. No extra sources. No URL dump.</li>
+   <li>If those results do not answer it, say so.</li>
+  </ol>
+  <p>The browser posts that package to <code>/ok/ai</code> on the same origin. The plugin streams tokens back as NDJSON. Cross-site requests are rejected. If Ollama is down, the card says the local model is not reachable. It does not fall over to a cloud model.</p>
+ </section>
+
+ <section id="compare">
+  <p class="tag">04 // Side by side</p>
+  <h2>The same question, with and without search</h2>
+  <p class="intro">Question: what did the British prime minister say about Iran this week? Same model both times, <code>gpt-oss:20b</code>, thinking set low.</p>
+  <figure class="lab-shot">
+   <img src="media/offline.png" alt="Offline Ollama answer in 0.9 seconds naming Rishi Sunak and a nuclear deal, with no citation and no mention of RAF Fairford.">
+   <figcaption>No results. 0.9 seconds. It named Rishi Sunak and a nuclear-deal line. It never mentioned RAF Fairford. There is nothing to check.</figcaption>
+  </figure>
+  <figure class="lab-shot">
+   <img src="media/with-results.png" alt="Otaconskeep search results with a Keep AI answer that cites The Hill and The Independent, and leaves the unrelated medical pages uncited.">
+   <figcaption>With the top five results. 2.2 seconds. The card cites The Hill and The Independent. It does not cite the medical pages the word “did” also returned.</figcaption>
+  </figure>
+  <figure class="lab-shot">
+   <img src="media/compare.png" alt="Two columns comparing the uncited memory answer with the cited search answer for the same question.">
+   <figcaption>Check the claim against the sources it named, not against the other results on the page.</figcaption>
+  </figure>
+  <p>The word “did” pulled in unrelated medical and product pages. They sat in the five. The answer did not use them. The cited headlines are the ones that actually discuss the incident. That is the difference search integration is supposed to make: a sentence you can click back to, and a refusal to treat every hit as support.</p>
+ </section>
+
+ <section id="useful">
+  <p class="tag">05 // A practical search</p>
+  <h2>A real Ollama error, tied to a source</h2>
+  <p>The second search was <code>how to fix ollama llama runner process has terminated</code>. This is the kind of question a results page usually answers with a video, a blog, and two GitHub issues, and leaves you to merge them.</p>
+  <figure class="lab-shot">
+   <img src="media/fix.png" alt="Keep AI answer for the llama runner terminated error, citing a YouTube fix and a write-up, with the timer at 3.1 seconds.">
+   <figcaption>3.1 seconds. The fix is tied to sources on the page, including the YouTube walkthrough and the localaimaster write-up.</figcaption>
+  </figure>
+ </section>
+
+ <section id="measured">
+  <p class="tag">06 // Performance</p>
+  <h2>This take, on this machine</h2>
+  <figure class="lab-shot">
+   <img src="media/timings.png" alt="Timing card: gpt-oss 20B on an RTX 3090, 13.7 of 24 GB in use, model resident 12.9 GB, with waits of 0.9, 2.2, 3.1, and 1.2 seconds.">
+   <figcaption>Not a benchmark. The 3090 was already holding the model.</figcaption>
+  </figure>
+  <div class="lab-table-wrap">
+   <table>
+    <thead><tr><th>Run</th><th>Wait</th><th>What the card did</th></tr></thead>
+    <tbody>
+     <tr><td>No search results</td><td>0.9s</td><td>Answered from memory. No citation.</td></tr>
+     <tr><td>Prime minister, with results</td><td>2.2s</td><td>Cited The Hill and The Independent.</td></tr>
+     <tr><td>Ollama crash, with results</td><td>3.1s</td><td>Cited the pages that describe the fix.</td></tr>
+     <tr><td>Serial number the results do not have</td><td>1.2s</td><td>Said the results do not contain it.</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p>Model: <code>gpt-oss:20b</code>. GPU: NVIDIA GeForce RTX 3090, 24 GB. During the take, about 13.7 GB was in use and the resident model was about 12.9 GB. The chip on the card is results-landing to the last token. Search itself returned in about a second, which is the separate “response time” line on the results page.</p>
+  <p>Another model tag can sit on the same Ollama host. The answer box uses the model named in <code>OK_AI_MODEL</code>. Confirm the running tag with <code>ollama ps</code> before you quote a number.</p>
+ </section>
+
+ <section id="limit">
+  <p class="tag">07 // One limitation</p>
+  <h2>Poor results, and a box that should admit it</h2>
+  <p class="intro">Query: what is the serial number of this RTX 3090. The hits are generic how-tos and forum threads about finding a GPU serial. None of them are this machine.</p>
+  <figure class="lab-shot">
+   <img src="media/limit.png" alt="The answer box says the search results do not provide the serial number for that specific RTX 3090. Timer reads 1.2 seconds.">
+   <figcaption>1.2 seconds. The pages are generic how-tos. The box says they do not have this GPU’s serial.</figcaption>
+  </figure>
+  <p>That refusal is the behavior you want. A nearby how-to is not a serial number. The same rule covers a dead Ollama: the card shows “The local model is not reachable right now.” It does not invent an answer while the model is down.</p>
+  <div class="lab-pull"><strong>What still fails:</strong> if the top five snippets are wrong, the citation will point at a wrong page with confidence. Citing a bad source is better than hiding it, and it is still a bad answer. Read the page the number links to.</div>
+ </section>
+
+ <section id="privacy">
+  <p class="tag">08 // Privacy</p>
+  <h2>Local inference is not the same as a private query</h2>
+  <p>The model call stays on your machine. The search call does not. SearXNG asks the engines you enabled, so those providers still see the query and the exit IP of whatever path you gave them.</p>
+  <ul>
+   <li><strong>POST, locked.</strong> The query stays out of the address bar and the history URL.</li>
+   <li><strong>No referrer, and frames denied.</strong> Result clicks do not advertise your search page. The page refuses to be framed.</li>
+   <li><strong>Image proxy on.</strong> Thumbnails are fetched by the server, not by the browser talking to the image host directly.</li>
+   <li><strong>Autocomplete off.</strong> Keystrokes are not sent until you submit.</li>
+   <li><strong>Public metrics off, and the instance is not a public SearXNG.</strong></li>
+   <li><strong>Tracker parameters stripped</strong> by the stock tracker-removal plugin.</li>
+   <li><strong>Outbound search can leave through a VPN.</strong> The results page can show a status pill for that. The check URL is part of your own network. It is not in the files on this page.</li>
+  </ul>
+  <p>Generate a new SearXNG secret with <code>openssl rand -hex 32</code>. Keep it in your env file or your local settings, not in a screenshot and not in a commit.</p>
+ </section>
+
+ <section id="tutorial">
+  <p class="tag">09 // Tutorial</p>
+  <h2>Build the Otaconskeep answer box</h2>
+  <p class="intro">You need Docker, a running Ollama, and a model that already fits on your GPU. This Keep used <code>gpt-oss:20b</code>. Use another tag if that one does not fit. The card will print whatever <code>OK_AI_MODEL</code> is set to.</p>
+
+  <h3>1. Pull a model you can actually hold</h3>
+  <code class="lab-cmd">ollama pull gpt-oss:20b
+ollama ps</code>
+  <p><code>ollama ps</code> should show that tag resident on the GPU before you time a search. A silent router in front of Ollama can swap models. Talk to the Ollama you think you are talking to.</p>
+
+  <h3>2. Start SearXNG with the plugin mounted</h3>
+  <p>Put <a href="files/docker-compose.yml">docker-compose.yml</a>, <a href="files/otacon_ai.py">otacon_ai.py</a>, and <a href="files/ok_ai_card.html">ok_ai_card.html</a> in one directory. Copy <a href="files/settings.example.yml">settings.example.yml</a> to <code>searxng/settings.yml</code> and replace both secret placeholders. Inside the container, <code>127.0.0.1</code> is the container, so <code>OK_AI_OLLAMA</code> has to be an address the container can route to the host. On a typical Linux Docker bridge that is <code>http://172.17.0.1:11434</code>. Change it if your host listens elsewhere.</p>
+  <code class="lab-cmd">openssl rand -hex 32
+# paste that value into SEARXNG_SECRET and server.secret_key
+docker compose up -d</code>
+
+  <h3>3. Turn the plugin on in settings</h3>
+  <p>On current SearXNG, a <code>plugins:</code> map replaces the default plugin map. It does not merge. The example file lists the stock plugins this Keep keeps, plus <code>searx.plugins.otacon_ai.SXNGPlugin</code>. An old <code>enabled_plugins:</code> list does nothing on this image.</p>
+  <p><code>brand.public_instances</code> is a string. An empty string hides the public-instance list. The boolean <code>false</code> fails to load.</p>
+  <p>The locks in <code>preferences.lock</code> stop a cookie from turning safe search, autocomplete, the image proxy, POST, or the query-in-title flag back off.</p>
+
+  <h3>4. Include the card in the results template</h3>
+  <p>Mount <code>ok_ai_card.html</code> at <code>searx/templates/simple/ok_ai_card.html</code>, which the example compose file already does. In the theme <code>base.html</code>, inside the results area, add:</p>
+  <code class="lab-cmd">{% include 'simple/ok_ai_card.html' %}</code>
+  <p>SearXNG caches templates. Restart the container after a template or settings change. The card reads the top result articles already in the page, posts <code>{q, results}</code> to <code>/ok/ai</code>, and turns <code>[2]</code> into a button that links to result 2. Hovering a citation outlines that result.</p>
+  <p>The results logo text in this Keep is the word Otaconskeep, set in the search template, with <code>general.instance_name</code> set to the same name. The homepage clock, lock line, and photo headlines are a separate template on the same instance. They use the same dark theme. They are not required for the answer card to run.</p>
+
+  <h3>5. Prove it with three searches</h3>
+  <ol>
+   <li>Ask one current-events question with Ollama alone, then the same question in search. The second answer should cite pages that are actually about it.</li>
+   <li>Ask how to fix a real error you have hit, and click the citation.</li>
+   <li>Ask for a fact the results cannot contain, such as the serial number of the GPU in front of you. The card should say the results do not have it.</li>
+  </ol>
+  <p>Read the chip. That number is the wait you felt, on the model that was loaded.</p>
+ </section>
+
+ <section id="files">
+  <p class="tag">10 // Files</p>
+  <h2>What you can copy</h2>
+  <ul class="lab-sources">
+   <li><a href="files/otacon_ai.py">otacon_ai.py</a><span>The plugin. Five results, the cite-or-admit prompt, a same-origin POST, and a local Ollama stream.</span></li>
+   <li><a href="files/ok_ai_card.html">ok_ai_card.html</a><span>The Keep AI answer card. Include it from the results template.</span></li>
+   <li><a href="files/docker-compose.yml">docker-compose.yml</a><span>SearXNG with the plugin and the card mounted. Replace the secret before you start it.</span></li>
+   <li><a href="files/settings.example.yml">settings.example.yml</a><span>Otaconskeep instance name, POST, image proxy, no referrer, metrics off, and the plugin map.</span></li>
+  </ul>
+  <div class="lab-pull"><strong>Left off this page on purpose:</strong> the real secret, the host address, and the URL of the VPN status check. Copy the pattern. Generate your own secret. Point Ollama at your own host.</div>
+ </section>
+
+ <section>
+  <p class="tag">Close</p>
+  <h2>What the build taught</h2>
+  <p class="intro">A local model is quick and unaccountable. A search page is accountable and slow to read. The useful object is the card that can only talk about the five results in front of you, shows how many seconds that took, and is willing to say the pages do not contain the answer.</p>
+  <p>Next for this Keep is a tighter homepage, and a habit of opening the cited page before trusting the sentence. The box is a reader. It is not a second source.</p>
+  <div class="btn-row" style="margin-top:18px;">
+   <a class="btn btn-primary" href="/classroom/news-lab/">Back to News Lab</a>
+   <a class="btn btn-ghost" href="/classroom/">Classroom</a>
+   <a class="btn btn-ghost" href="/ollama-catalog/">Ollama catalog</a>
+  </div>
+  <p class="meta" style="margin-top:18px;">Antonio G. Garcia · Otaconskeep · October 13, 2026</p>
+ </section>
+</div>
+
+<script src="/assets/site.js"></script>
+<script defer src="/assets/chat-widget.js?v=20260929c"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+# Public example. Replace the secret before you start the container.
+# Generate one with: openssl rand -hex 32
+# From inside the container, 127.0.0.1 is the container itself.
+# Point OK_AI_OLLAMA at the host that is actually running Ollama.
+services:
+  searxng:
+    image: searxng/searxng:latest
+    container_name: searxng
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./searxng:/etc/searxng:rw
+      - ./otacon_ai.py:/usr/local/searxng/searx/plugins/otacon_ai.py:ro
+      - ./ok_ai_card.html:/usr/local/searxng/searx/templates/simple/ok_ai_card.html:ro
+    environment:
+      - SEARXNG_BASE_URL=http://127.0.0.1:8080/
+      - SEARXNG_SECRET=replace-with-openssl-rand-hex-32
+      - OK_AI_OLLAMA=http://172.17.0.1:11434
+      - OK_AI_MODEL=gpt-oss:20b
+      - OK_AI_THINK=low
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID

@@ -1,0 +1,87 @@
+{% if endpoint == 'results' %}
+<style>
+.okai{--ok-bg:#121318;--ok-line:rgba(255,255,255,.08);--ok-dim:#8d8f98;--ok-ink:#ececf0;--ok-acc:#9fb4ff;
+ position:relative;margin:0 0 22px;padding:18px 20px 16px;border-radius:16px;background:
+ linear-gradient(var(--ok-bg),var(--ok-bg)) padding-box,
+ linear-gradient(135deg,rgba(159,180,255,.45),rgba(255,255,255,.06) 40%,rgba(255,255,255,.04) 70%,rgba(159,180,255,.25)) border-box;
+ border:1px solid transparent;font-family:"Liberation Sans","DejaVu Sans",sans-serif;color:var(--ok-ink);overflow:hidden}
+.okai::before{content:"";position:absolute;inset:-40% -10% auto auto;width:320px;height:220px;
+ background:radial-gradient(closest-side,rgba(159,180,255,.10),transparent);pointer-events:none}
+.okai-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.okai-mark{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;
+ background:linear-gradient(135deg,#2a3150,#171a24);border:1px solid rgba(159,180,255,.35)}
+.okai-mark i{width:7px;height:7px;border-radius:50%;background:var(--ok-acc);box-shadow:0 0 10px var(--ok-acc)}
+.okai.is-live .okai-mark i{animation:okpulse 1.1s ease-in-out infinite}
+@keyframes okpulse{50%{transform:scale(.55);opacity:.55}}
+.okai-title{font-size:13px;font-weight:650;letter-spacing:.02em}
+.okai-sub{font-size:12px;color:var(--ok-dim)}
+.okai-chip{margin-left:auto;font-size:11px;color:var(--ok-dim);border:1px solid var(--ok-line);border-radius:999px;padding:3px 9px;font-variant-numeric:tabular-nums}
+.okai-body{font-size:15.5px;line-height:1.62;letter-spacing:-.003em;min-height:3.2em}
+.okai-body .okai-caret{display:inline-block;width:7px;height:1.05em;vertical-align:-2px;margin-left:2px;background:var(--ok-acc);border-radius:2px;animation:okblink .9s steps(2) infinite}
+@keyframes okblink{50%{opacity:0}}
+.okai-shim{display:block;height:11px;border-radius:6px;margin:8px 0;background:linear-gradient(90deg,#1b1d24,#262934,#1b1d24);background-size:200% 100%;animation:okshim 1.2s linear infinite}
+@keyframes okshim{to{background-position:-200% 0}}
+a.okai-cite,a.okai-cite:visited{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 4px;margin:0 1px;border-radius:6px;
+ font-size:11px;font-weight:700;line-height:1;vertical-align:2px;text-decoration:none;color:#0f1117;background:var(--ok-acc);transition:transform .12s}
+a.okai-cite:hover{transform:translateY(-1px);background:#c9d4ff}
+.okai-src{display:flex;flex-wrap:nowrap;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid var(--ok-line)}
+a.okai-s,a.okai-s:visited{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:7px;padding:6px 8px 6px 6px;border-radius:10px;text-decoration:none;
+ background:rgba(255,255,255,.035);border:1px solid var(--ok-line);color:#c8c9d0;font-size:12px}
+a.okai-s:hover{border-color:rgba(159,180,255,.4);color:#fff}
+.okai-s b{flex:none;display:grid;place-items:center;min-width:18px;height:18px;border-radius:6px;background:#232634;color:var(--ok-acc);font-size:11px}
+.okai-s span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.okai-s.is-used b{background:var(--ok-acc);color:#0f1117}
+article.result.okai-hl{outline:1px solid rgba(159,180,255,.5);outline-offset:6px;border-radius:10px;transition:outline-color .2s}
+/* results header: logo never covered */
+body.results_endpoint #search_header{display:grid!important;grid-template-columns:auto minmax(0,1fr)!important;column-gap:24px!important;align-items:center}
+body.results_endpoint #search_logo{grid-column:1;grid-row:1;min-width:0!important;width:auto!important;padding-right:0!important;position:relative;z-index:2}
+body.results_endpoint #search_logo .ok-logo{white-space:nowrap;font-size:17px}
+body.results_endpoint #search_view{grid-column:2;grid-row:1;min-width:0;max-width:720px}
+body.results_endpoint #search_header .categories,body.results_endpoint #search_header #categories{grid-column:2;grid-row:2}
+</style>
+<script>
+(function(){
+function host(u){try{return new URL(u).hostname.replace(/^www\./,'')}catch(e){return u}}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function start(){
+ var urls=document.getElementById('urls'); var qi=document.getElementById('q');
+ if(!urls||!qi||!qi.value.trim())return;
+ var arts=[].slice.call(urls.querySelectorAll('article.result')).filter(function(a){return a.querySelector('a.url_header')}).slice(0,5);
+ if(arts.length<2)return;
+ var src=arts.map(function(a,i){a.id=a.id||('okr'+(i+1));var h=a.querySelector('h3');var p=a.querySelector('p.content');
+  return{url:a.querySelector('a.url_header').href,title:h?h.textContent.trim():'',snippet:p?p.textContent.trim():'',el:a}});
+ var card=document.createElement('section');card.className='okai is-live';card.setAttribute('aria-live','polite');
+ card.innerHTML='<div class="okai-head"><span class="okai-mark"><i></i></span><div><div class="okai-title">Keep AI answer</div>'+
+  '<div class="okai-sub">Written on this server from the top '+src.length+' results</div></div><span class="okai-chip">reading sources\u2026</span></div>'+
+  '<div class="okai-body"><span class="okai-shim" style="width:92%"></span><span class="okai-shim" style="width:78%"></span><span class="okai-shim" style="width:55%"></span></div>'+
+  '<div class="okai-src">'+src.map(function(s,i){return '<a class="okai-s" data-n="'+(i+1)+'" href="'+esc(s.url)+'" title="'+esc(s.title)+'"><b>'+(i+1)+'</b><span>'+esc(host(s.url))+'</span></a>'}).join('')+'</div>';
+ urls.insertBefore(card,urls.firstChild);
+ var body=card.querySelector('.okai-body'),chip=card.querySelector('.okai-chip'),txt='',t0=performance.now();
+ var pend='',fin=null,timer=null;
+ function tick(){if(timer)return;timer=setInterval(function(){
+  if(pend){var n=Math.max(3,Math.ceil(pend.length/40));txt+=pend.slice(0,n);pend=pend.slice(n);render(false)}
+  else if(fin){clearInterval(timer);timer=null;render(true);card.classList.remove('is-live');
+   chip.textContent=fin.model.split(':')[0]+' \u00b7 local \u00b7 '+((performance.now()-t0)/1000).toFixed(1)+'s';fin=null}
+  else{clearInterval(timer);timer=null}},16)}
+ function render(done){
+  var h=esc(txt).replace(/\[(\d)\]/g,function(m,n){n=+n;if(n<1||n>src.length)return'';
+   card.querySelector('.okai-s[data-n="'+n+'"]').classList.add('is-used');
+   return '<a class="okai-cite" data-n="'+n+'" href="'+esc(src[n-1].url)+'" title="'+esc(src[n-1].title)+'">'+n+'</a>'});
+  body.innerHTML=h+(done?'':'<span class="okai-caret"></span>');}
+ card.addEventListener('mouseover',function(e){var c=e.target.closest('[data-n]');src.forEach(function(s,i){s.el.classList.toggle('okai-hl',!!c&&+c.dataset.n===i+1)})});
+ card.addEventListener('mouseleave',function(){src.forEach(function(s){s.el.classList.remove('okai-hl')})});
+ fetch('/ok/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q:qi.value.trim(),results:src.map(function(s){return{url:s.url,title:s.title,snippet:s.snippet}})})})
+ .then(function(r){var rd=r.body.getReader(),dec=new TextDecoder(),buf='';
+  function pump(){return rd.read().then(function(x){if(x.done)return;buf+=dec.decode(x.value,{stream:true});var ls=buf.split('\n');buf=ls.pop();
+   ls.forEach(function(l){if(!l)return;var j=JSON.parse(l);
+    if(j.t){if(!pend&&!txt)chip.textContent='writing\u2026';pend+=j.t;tick()}
+    if(j.error){body.textContent=j.error;card.classList.remove('is-live')}
+    if(j.done){fin=j;tick()}});
+   return pump()})}
+  return pump()})
+ .catch(function(){body.textContent='The local model is not reachable right now.';card.classList.remove('is-live')});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();
+</script>
+{% endif %}

@@ -1,0 +1,111 @@
+# Public example for an Otaconskeep-branded private SearXNG.
+# secret_key must be your own long random string. Do not reuse a published one.
+# A plugins: map replaces the whole default plugin set. List the ones you still want.
+use_default_settings: true
+
+general:
+  instance_name: "Otaconskeep"
+  debug: false
+  privacypolicy_url: false
+  contact_url: false
+  donation_url: false
+  enable_metrics: false
+
+search:
+  safe_search: 1
+  autocomplete: ""
+  default_lang: "en"
+  formats:
+    - html
+    - json
+
+server:
+  secret_key: "replace-with-openssl-rand-hex-32"
+  limiter: false
+  public_instance: false
+  image_proxy: true
+  method: "POST"
+  port: 8080
+  bind_address: "0.0.0.0"
+  default_http_headers:
+    X-Content-Type-Options: nosniff
+    X-Download-Options: noopen
+    X-Robots-Tag: noindex, nofollow
+    Referrer-Policy: no-referrer
+    X-Frame-Options: DENY
+    Permissions-Policy: "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+
+ui:
+  static_use_hash: true
+  default_theme: simple
+  query_in_title: false
+  center_alignment: false
+  results_on_new_tab: false
+  theme_args:
+    simple_style: black
+
+preferences:
+  lock:
+    - safesearch
+    - autocomplete
+    - image_proxy
+    - method
+    - query_in_title
+
+brand:
+  public_instances: ""
+  wiki_url: ""
+
+plugins:
+  searx.plugins.otacon_ai.SXNGPlugin:
+    active: true
+  searx.plugins.calculator.SXNGPlugin:
+    active: true
+  searx.plugins.hash_plugin.SXNGPlugin:
+    active: true
+  searx.plugins.self_info.SXNGPlugin:
+    active: true
+  searx.plugins.unit_converter.SXNGPlugin:
+    active: true
+  searx.plugins.hostnames.SXNGPlugin:
+    active: true
+  searx.plugins.time_zone.SXNGPlugin:
+    active: true
+  searx.plugins.oa_doi_rewrite.SXNGPlugin:
+    active: true
+  searx.plugins.tracker_url_remover.SXNGPlugin:
+    active: true
+  searx.plugins.infinite_scroll.SXNGPlugin:
+    active: false
+  searx.plugins.tor_check.SXNGPlugin:
+    active: false
+
+engines:
+  - name: google
+    engine: google
+    shortcut: g
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+  - name: bing
+    engine: bing
+    shortcut: b
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: w
+  - name: wikidata
+    engine: wikidata
+    shortcut: wd
+  - name: stackoverflow
+    engine: stackexchange
+    shortcut: so
+    categories: it
+  - name: github
+    engine: github
+    shortcut: gh
+  - name: brave
+    engine: brave
+    shortcut: br
+  - name: qwant
+    engine: qwant
+    shortcut: qw
