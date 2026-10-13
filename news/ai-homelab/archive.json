@@ -403,18 +403,17 @@
     {
       "url": "https://www.youtube.com/watch?v=K2IGHj7KQoM",
       "title": "Are Local Models Finally Good Enough?",
-      "summary": "I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video",
+      "summary": "Video from Techno Tim.",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
-      "published": "2026-09-23T10:55:29-07:00",
+      "published": "2026-05-18T15:00:34+00:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://i.ytimg.com/vi/K2IGHj7KQoM/hqdefault.jpg",
       "file": "media/01.jpg",
       "video": "K2IGHj7KQoM",
       "categories": [
         "local-models",
-        "homelab",
         "video"
       ]
     },
@@ -455,7 +454,7 @@
     {
       "url": "https://www.youtube.com/watch?v=7I0pjHC4U7I",
       "title": "I'm starting a homelab festival (you're invited)",
-      "summary": "REGISTER NOW!",
+      "summary": "Video from Jeff Geerling.",
       "source": "Jeff Geerling",
       "kind": "youtube",
       "lane": "Video",
@@ -472,7 +471,7 @@
     {
       "url": "https://www.youtube.com/watch?v=8NFV6duMKQA",
       "title": "What Is an NPU Actually Good For?",
-      "summary": "What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se",
+      "summary": "Video from Techno Tim.",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -489,7 +488,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qyGbkEtjJ90",
       "title": "Answering your Homelab Questions!",
-      "summary": "Click this link",
+      "summary": "Video from Wolfgang's Channel.",
       "source": "Wolfgang's Channel",
       "kind": "youtube",
       "lane": "Video",
@@ -22564,7 +22563,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qxfNTcPl70w",
       "title": "I Made My Local AI Pick Its Own Model",
-      "summary": "I wanted my local AI to choose the right model automatically instead of making me pick between speed and capability for every request. I test NVIDIA Switchyard for local AI model routing with Nemotron 3.5 Lightning on an RTX 3090 and DeepSeek V4 Flash across two GX10s. I cover St",
+      "summary": "Video from Techno Tim.",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -34416,7 +34415,7 @@
     {
       "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x4g90u/intel_crescent_island_gpu_gets_dseries_name/",
       "title": "Intel \"Crescent Island\" GPU Gets D-Series Name, Supports Up to 480 GB of LPDDR5X",
-      "summary": "The newly named D-Series GPU features a total of 32 Xe3P cores, 256 XMX engines, 32 MB of unified L2 cache, and up to 480 GB of LPDDR5X memory. Intel rates it for up to 1.3 PetaFLOPS of FP8 performance, with support for formats ranging from FP4 to FP64. ---- No cost estimates cur",
+      "summary": "The newly named D-Series GPU has up to 480GB of LPDDR5X memory, 1.5TB/s of memory bandwidth Intel rates it for up to 1.3 PetaFLOPS of FP8 performance, with support for formats ranging from FP4 to FP64. It features a total of 32 Xe3P cores, 256 XMX engines, 32 MB of unified L2 cac",
       "source": "r/LocalLLaMA",
       "kind": "social",
       "lane": "Reddit",
@@ -34427,6 +34426,58 @@
       "video": "",
       "categories": [
         "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x4h1c2/qwen_38_flash_next_q3_s_benchmark_creation/",
+      "title": "Qwen 3.8 Flash Next Q3 S - Benchmark creation",
+      "summary": "After running a benchmark test on Exo in Opencode and being amazed by the result, I thought I'd try other models on Opencode. Many were surprisingly terrible. Especially some mid level models. Earlier posts:",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-12T23:18:32+00:00",
+      "added_at": "2026-10-13T00:30:18Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x4fp3r/lecture_building_a_gpu_compiler_from_scratch/",
+      "title": "Lecture: Building a GPU Compiler From Scratch. Lowering PyTorch Graphs to CUDA via Multi-Level IRs (GPU_MODE video + article)",
+      "summary": "Reddit from r/LocalLLaMA.",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-12T22:18:03+00:00",
+      "added_at": "2026-10-13T00:30:18Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x4h9k4/how_to_get_more_performance_from_dual_a100_80gb/",
+      "title": "How to get more performance from dual A100 80GB?",
+      "summary": "Dual A100X PCIe (link at Gen4 x8, weird DPU cards) in a 2U EPYC 7402P box, 256GB DDR4. Proxmox with the GPU's passed through to debian 13, 610.43.02 drivers. llama.cpp, qwen3.8 flash next UD-Q4_K_XL, Q8_0 MTP head, draft max 2, mmproj enabled. -sm layer -fa on --parallel 7 --ctx-",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-12T23:29:11+00:00",
+      "added_at": "2026-10-13T00:30:18Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "homelab",
         "communities"
       ]
     }
