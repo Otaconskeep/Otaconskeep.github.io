@@ -438,10 +438,10 @@
       "url": "https://phunky.cafe/my-homelab-got-hacked/",
       "title": "My Homelab Got Hacked – A Postmortem",
       "summary": "Article URL:",
-      "source": "Hacker News · homelab",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Mon, 10 Aug 2026 23:04:18 +0000",
+      "published": "2026-09-26T07:01:03-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -587,11 +587,11 @@
     {
       "url": "https://github.com/OtoDock/oto-dock",
       "title": "Show HN: Self-hosted company OS, Claude Code and Codex agents in departments",
-      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many ",
-      "source": "Hacker News · self-hosted",
+      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Wed, 09 Sep 2026 17:57:55 +0000",
+      "published": "2026-09-25T20:30:45-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1011,10 +1011,10 @@
       "url": "https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/",
       "title": "Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama",
       "summary": "Article URL:",
-      "source": "Hacker News · self-hosted",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
+      "published": "2026-09-23T11:17:55-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1032,7 +1032,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
+      "published": "2026-09-24T07:26:37-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -37320,11 +37320,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11617",
       "title": "llama.cpp b11617",
-      "summary": "vulkan: fix compile error ( #30495 )",
+      "summary": "vulkan: fix compile error ( #30495 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-14T06:06:09Z",
+      "published": "2026-10-14T12:57:34Z",
       "added_at": "2026-10-14T12:00:21Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/b2d7068daec65810.png",
@@ -37332,6 +37332,91 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11618",
+      "title": "b11618: HIP: use 64-row MMQ tiles for some quant types on RDNA3.5 (#28195)",
+      "summary": "The RDNA3.5 config table selects a 64-row / 128-thread tile up to J=32 and a 128-row / 256-thread tile above that. On gfx115x the smaller tile leaves enough LDS free for a second workgroup per CU, while the larger one does not. Extend the 64-row tile to the (type, J) pairs where ",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-14T06:10:29Z",
+      "added_at": "2026-10-14T13:00:23Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/c2180bb2edfaf92e.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x5pjv7/the_ai_race_chinas_openweight_models_trail_us/",
+      "title": "The AI race: China's open-weight models trail US closed models by just 7 months",
+      "summary": "Source: whatmodel.sh , an open source AI leaderboard I built (and launched here yesterday). Every point comes from published benchmark results: 22,113 of them across 987 benchmarks, from 1,011 sources, each one linked to where it was published. This chart uses data for the text m",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-14T12:10:53+00:00",
+      "added_at": "2026-10-14T13:00:25Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x5pao2/i_built_bitrun_a_standalone_runner_for_1bit_llms/",
+      "title": "I built BitRun: A standalone runner for 1-bit LLMs (100–127 t/s on Apple Silicon & 40–45 t/s on PC CPUs with zero compile)",
+      "summary": "I built BitRun because I wanted to run 1-bit ternary LLMs on ordinary laptops without melting my battery, spinning up a dedicated GPU, or wrestling with complex build environments. Right now, BitRun gives you 98 to 127 tokens/sec on an Apple M4 Pro CPU and 40 to 45 tokens/sec on ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-14T11:58:34+00:00",
+      "added_at": "2026-10-14T13:00:25Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x5oqiy/web_search_for_a_17b_model_running_fully_on_a/",
+      "title": "Web search for a 1.7B model running fully on a phone, no search API and no backend (open source)",
+      "summary": "We just shipped web search in Private Mind, our open source app for running LLMs locally on iOS and Android. The video is the whole pitch: Qwen 3 1.7B with web off makes up Apple's September event, with web on it gets it right and cites 5 pages. The fun constraint is that a 1.7B ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-14T11:28:43+00:00",
+      "added_at": "2026-10-14T13:00:25Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x5qd8l/rumor_is_that_zen_6_will_replace_the_igpu_with_an/",
+      "title": "Rumor is that Zen 6 will replace the iGPU with an NPU on desktop processors",
+      "summary": "Can anyone think of a good use for this if it ends up being true? Unless the workload can somehow be split between the NPU and a dedicated GPU, I suspect it'll only be able to run small models. submitted by /u/BombTime1010 [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-14T12:50:01+00:00",
+      "added_at": "2026-10-14T13:00:25Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]

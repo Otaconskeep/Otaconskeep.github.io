@@ -5,6 +5,41 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-14T04:04:31Z</lastBuildDate>
 <item>
+<title>llama.cpp b11617</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11617</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11617</guid>
+<pubDate>2026-10-14T12:57:34Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b2d7068daec65810.png" alt=""><p>Article · llama.cpp. vulkan: fix compile error ( #30495 ) Website:</p>]]></description>
+</item>
+<item>
+<title>Rumor is that Zen 6 will replace the iGPU with an NPU on desktop processors</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x5qd8l/rumor_is_that_zen_6_will_replace_the_igpu_with_an/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x5qd8l/rumor_is_that_zen_6_will_replace_the_igpu_with_an/</guid>
+<pubDate>2026-10-14T12:50:01+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Can anyone think of a good use for this if it ends up being true? Unless the workload can somehow be split between the NPU and a dedicated GPU, I suspect it&#x27;ll only be able to run small models. submitted by /u/BombTime1010 [link] [comments]]]></description>
+</item>
+<item>
+<title>The AI race: China&#x27;s open-weight models trail US closed models by just 7 months</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x5pjv7/the_ai_race_chinas_openweight_models_trail_us/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x5pjv7/the_ai_race_chinas_openweight_models_trail_us/</guid>
+<pubDate>2026-10-14T12:10:53+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Source: whatmodel.sh , an open source AI leaderboard I built (and launched here yesterday). Every point comes from published benchmark results: 22,113 of them across 987 benchmarks, from 1,011 sources, each one linked to where it was published. This chart uses data for the text m]]></description>
+</item>
+<item>
+<title>I built BitRun: A standalone runner for 1-bit LLMs (100–127 t/s on Apple Silicon &amp; 40–45 t/s on PC CPUs with zero compile)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x5pao2/i_built_bitrun_a_standalone_runner_for_1bit_llms/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x5pao2/i_built_bitrun_a_standalone_runner_for_1bit_llms/</guid>
+<pubDate>2026-10-14T11:58:34+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I built BitRun because I wanted to run 1-bit ternary LLMs on ordinary laptops without melting my battery, spinning up a dedicated GPU, or wrestling with complex build environments. Right now, BitRun gives you 98 to 127 tokens/sec on an Apple M4 Pro CPU and 40 to 45 tokens/sec on]]></description>
+</item>
+<item>
+<title>Web search for a 1.7B model running fully on a phone, no search API and no backend (open source)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x5oqiy/web_search_for_a_17b_model_running_fully_on_a/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x5oqiy/web_search_for_a_17b_model_running_fully_on_a/</guid>
+<pubDate>2026-10-14T11:28:43+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. We just shipped web search in Private Mind, our open source app for running LLMs locally on iOS and Android. The video is the whole pitch: Qwen 3 1.7B with web off makes up Apple&#x27;s September event, with web on it gets it right and cites 5 pages. The fun constraint is that a 1.7B]]></description>
+</item>
+<item>
 <title>common : add --spec-draft-n-ubatch by ggerganov · Pull Request #30459 · ggml-org/llama.cpp</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x5odh2/common_add_specdraftnubatch_by_ggerganov_pull/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x5odh2/common_add_specdraftnubatch_by_ggerganov_pull/</guid>
@@ -96,18 +131,18 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. RTX 5090, once a consumer gaming card, is now on smugglers’ menu alongside cigarettes&quot; title=&quot;So this is how they do it --&gt; RTX 5090, once a consumer gaming card, is now on smugglers’ menu alongside cigarettes&quot; /&gt; submitted by /u/chemist_slime [link] [comments]]]></description>
 </item>
 <item>
+<title>b11618: HIP: use 64-row MMQ tiles for some quant types on RDNA3.5 (#28195)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11618</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11618</guid>
+<pubDate>2026-10-14T06:10:29Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c2180bb2edfaf92e.png" alt=""><p>Article · llama.cpp. The RDNA3.5 config table selects a 64-row / 128-thread tile up to J=32 and a 128-row / 256-thread tile above that. On gfx115x the smaller tile leaves enough LDS free for a second workgroup per CU, while the larger one does not. Extend the 64-row tile to the (type, J) pairs where</p>]]></description>
+</item>
+<item>
 <title>NVIDIA&#x27;s Run:AI is now apparently under Apache-2.0 license.</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x5jnbf/nvidias_runai_is_now_apparently_under_apache20/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x5jnbf/nvidias_runai_is_now_apparently_under_apache20/</guid>
 <pubDate>2026-10-14T06:07:37+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/Ps3Dave [link] [comments]]]></description>
-</item>
-<item>
-<title>llama.cpp b11617</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11617</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11617</guid>
-<pubDate>2026-10-14T06:06:09Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b2d7068daec65810.png" alt=""><p>Article · llama.cpp. vulkan: fix compile error ( #30495 )</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b11614</title>
@@ -12297,6 +12332,13 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>2026-09-26T07:01:03-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -12477,6 +12519,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11193</guid>
 <pubDate>2026-09-26T03:33:14Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>2026-09-25T20:30:45-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
@@ -12899,6 +12948,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -13009,6 +13065,13 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
+</item>
+<item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>2026-09-23T11:17:55-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>ComfyUI v0.36.0</title>
@@ -13333,13 +13396,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -13375,13 +13431,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
 </item>
 <item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.0</guid>
@@ -13408,13 +13457,6 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
-</item>
-<item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
@@ -13807,13 +13849,6 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
-</item>
-<item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
