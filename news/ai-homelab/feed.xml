@@ -3,7 +3,21 @@
 <title>AI &amp; Homelab News</title>
 <link>https://otaconskeep.github.io/news/ai-homelab/</link>
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
-<lastBuildDate>2026-10-14T13:33:02Z</lastBuildDate>
+<lastBuildDate>2026-10-15T03:43:16Z</lastBuildDate>
+<item>
+<title>llama.cpp b11635</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11635</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11635</guid>
+<pubDate>2026-10-15T04:00:19Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/798dd4e62a4a5403.png" alt=""><p>Article · llama.cpp. ggml-cpu : keep the FP16-&gt;FP32 lookup table on x86 with F16C ( #30342 ) ( #30343 ) ggml-cpu : keep the FP16-&gt;FP32 lookup table on x86 with F16C ( #30342 ) #30270 routed both scalar conversions through F16C. For FP16-&gt;FP32, Clang 20.1.8 lowers the intrinsic to a vpinsrw merging in</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b11633</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11633</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11633</guid>
+<pubDate>2026-10-15T03:41:25Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/cd37e28fc8a53d4d.png" alt=""><p>Article · llama.cpp. ggml-cpu : size set_rows conversion buffer for all threads ( #30454 ) ggml-cpu : size set_rows conversion buffer for all threads SET_ROWS is planned with n_tasks = 1, but every thread runs it and uses its own row of the F16 -&gt; F32 conversion buffer, so threads &gt; 0 wrote past the</p>]]></description>
+</item>
 <item>
 <title>llama.cpp b11632</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11632</link>
@@ -159,6 +173,13 @@
 <description><![CDATA[Reddit · r/comfyui. If you&#x27;ve chained H3 clips into a longer video, you&#x27;ve probably seen it: every continuation copies the last clip&#x27;s flaws and adds a few more. By clip 5–10, faces look crunchy, etched and over-sharpened. I spent the last few weeks (with a community compute grant) training a LoRA t]]></description>
 </item>
 <item>
+<title>inclusionAI/Ling-3.1-flash 560b-a25b</title>
+<link>https://lemmus.org/post/26136235</link>
+<guid isPermaLink="true">https://lemmus.org/post/26136235</guid>
+<pubDate>Wed, 14 Oct 2026 20:00:04 +0000</pubDate>
+<description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
+</item>
+<item>
 <title>RTX 5090 now listed as “Not Carried” by Microcenter</title>
 <link>https://www.reddit.com/r/comfyui/comments/1x61cjm/rtx_5090_now_listed_as_not_carried_by_microcenter/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/comfyui/comments/1x61cjm/rtx_5090_now_listed_as_not_carried_by_microcenter/</guid>
@@ -250,6 +271,13 @@
 <description><![CDATA[Reddit · r/comfyui. Fish Audio Drama 3 , converted for the native ComfyUI nodes of ComfyUI-Drama3 : a 35B text-to-speech model for voice cloning, dialogue and inline cues such as [sighs] or [whispers] , running on cards from 8 GB . 90% of the model is routed experts and each audio frame uses only 8]]></description>
 </item>
 <item>
+<title>little upgrade</title>
+<link>https://www.reddit.com/r/homelab/comments/1x5yla9/little_upgrade/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/homelab/comments/1x5yla9/little_upgrade/</guid>
+<pubDate>2026-10-14T18:11:24+00:00</pubDate>
+<description><![CDATA[Reddit · r/homelab. from a 16gb gen8 microserver to 2 dl380 gen9 (one my dads with 192gb of ram and one mine w]]></description>
+</item>
+<item>
 <title>Is 12GB enough for minimax h3 (with latest comfyUI improvements fast-disk, dynamic-vram)</title>
 <link>https://www.reddit.com/r/comfyui/comments/1x5ydzc/is_12gb_enough_for_minimax_h3_with_latest_comfyui/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/comfyui/comments/1x5ydzc/is_12gb_enough_for_minimax_h3_with_latest_comfyui/</guid>
@@ -334,6 +362,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Hello! We&#x27;ve been busy at Telperion with a lot of experimental research (more coming soon). Today, we&#x27;re announcing the release of our latent attention variants of Qwen3.8-27B. Our latent attention variants (quants calibrated to FP8 KV cache) compress the KV cache by 4×, enabling]]></description>
 </item>
 <item>
+<title>b11636: sycl: IQ3 code reorder (#29107)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11636</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11636</guid>
+<pubDate>2026-10-14T16:41:23Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c1f975e922220e7e.png" alt=""><p>Article · llama.cpp. sycl: persistent IQ3_S/IQ3_XXS weight reorder for SYCL decode and prefill Add persistent reordered weight layouts for IQ3_S and IQ3_XXS. Weights are reordered once at load time; the reordered MMVQ dot products then walk dense super-blocks with dp4a and SWAR sign expansion instead</p>]]></description>
+</item>
+<item>
 <title>I used Magic The Gathering as inspiration for how to organize agent skills</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x5vwx7/i_used_magic_the_gathering_as_inspiration_for_how/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x5vwx7/i_used_magic_the_gathering_as_inspiration_for_how/</guid>
@@ -409,13 +444,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x5ulu3/ling31flash_is_now_open_source_560b_total/</guid>
 <pubDate>2026-10-14T15:42:14+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
-</item>
-<item>
-<title>b11633: ggml-cpu : size set_rows conversion buffer for all threads (#30454)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11633</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11633</guid>
-<pubDate>2026-10-14T15:31:53Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/cd37e28fc8a53d4d.png" alt=""><p>Article · llama.cpp. ggml-cpu : size set_rows conversion buffer for all threads SET_ROWS is planned with n_tasks = 1, but every thread runs it and uses its own row of the F16 -&gt; F32 conversion buffer, so threads &gt; 0 wrote past the work buffer when the graph had another multi-threaded op. move set_row</p>]]></description>
 </item>
 <item>
 <title>inclusionAI/Ling-3.1-flash · Hugging Face</title>
@@ -1970,6 +1998,13 @@
 <guid isPermaLink="true">https://www.youtube.com/watch?v=Bjifz55TTPI</guid>
 <pubDate>2026-10-12T14:19:35+00:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/09cf4ded6c9a7181.jpg" alt=""><p>Video · NetworkChuck. Video from NetworkChuck.</p>]]></description>
+</item>
+<item>
+<title>🥳 Giveaway r/homelab x UptimeRobot. 10 Winners</title>
+<link>https://www.reddit.com/r/homelab/comments/1x42o8d/giveaway_rhomelab_x_uptimerobot_10_winners/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/homelab/comments/1x42o8d/giveaway_rhomelab_x_uptimerobot_10_winners/</guid>
+<pubDate>2026-10-12T14:01:36+00:00</pubDate>
+<description><![CDATA[Reddit · r/homelab. Hey r/homelab ! We&#x27;re UptimeRobot , and we&#x27;ve teamed up with the mods to run a giveaway for this community, with a prize pool of 10 monitoring plans, including a year of our Scale plan worth $888. Anyone who&#x27;s worked in creating a homelab has a story! Now&#x27;s your chance to share i]]></description>
 </item>
 <item>
 <title>llama.cpp b11571</title>
@@ -12885,6 +12920,13 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>2026-09-26T07:01:03-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -13065,6 +13107,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11193</guid>
 <pubDate>2026-09-26T03:33:14Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>2026-09-25T20:30:45-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
@@ -13417,13 +13466,6 @@
 <description><![CDATA[Reddit · r/LocalLLM. Reddit from r/LocalLLM.]]></description>
 </item>
 <item>
-<title>Announcement: New Rules &amp; Processes on Software Projects</title>
-<link>https://www.reddit.com/r/homelab/comments/1ty58af/announcement_new_rules_processes_on_software/</link>
-<guid isPermaLink="true">https://www.reddit.com/r/homelab/comments/1ty58af/announcement_new_rules_processes_on_software/</guid>
-<pubDate>2026-09-24T07:36:22-07:00</pubDate>
-<description><![CDATA[Reddit · r/homelab. I would like to thank everyone for their feedback in the recent post &amp; poll where we asked for feedback on how to slow the deluge of &quot;I made X, because Y&quot; type posts in r/homelab , most of which are AI generated and/or spam. While we felt that that the initial plan we shared was]]></description>
-</item>
-<item>
 <title>My on-the-go homelab 😅</title>
 <link>https://www.reddit.com/r/homelab/comments/1wovylz/my_onthego_homelab/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/homelab/comments/1wovylz/my_onthego_homelab/</guid>
@@ -13443,13 +13485,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp39fo/noob_question/</guid>
 <pubDate>2026-09-24T14:32:10+00:00</pubDate>
 <description><![CDATA[Reddit · r/ollama. I&#x27;m in a position where I didn&#x27;t mean to go down this AI rabbit hole... I was looking into mental cognitions and how the mind is made up and learned that my old RTX 5k could run small models. So that led me to running a dual boot Win/Linux and getting another RTX 8K. I&#x27;ve been us]]></description>
-</item>
-<item>
-<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
-<link>https://chatoss.ai</link>
-<guid isPermaLink="true">https://chatoss.ai</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
 </item>
 <item>
 <title>Compare 12 self-hosted Deep Research systems: GPT Researcher, Onyx, Open WebUI, Khoj, Vane and more. Architectures, local LLM, RAG, licenses.</title>
@@ -13585,6 +13620,13 @@
 <description><![CDATA[Social · Sigmoid #localllama. l being done with a local AI, a variant of a Qwen3.8-27B model, on a 3090. Short version: with MINUTES of conversation and discussion, I will have a normalized database of all of my cats veterinary records *AND* a pipeline for ingesting those records *AND]]></description>
 </item>
 <item>
+<title>Answering your Homelab Questions!</title>
+<link>https://www.youtube.com/watch?v=qyGbkEtjJ90</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=qyGbkEtjJ90</guid>
+<pubDate>2026-09-23T11:17:55-07:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f9691e4596ea9a3e.jpg" alt=""><p>Video · Wolfgang&#x27;s Channel. Click this link</p>]]></description>
+</item>
+<item>
 <title>ComfyUI v0.37.0</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.37.0</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.37.0</guid>
@@ -13611,6 +13653,13 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
+</item>
+<item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>2026-09-23T11:17:55-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>ComfyUI v0.36.0</title>
@@ -13667,6 +13716,13 @@
 <guid isPermaLink="true">https://www.youtube.com/watch?v=K2IGHj7KQoM</guid>
 <pubDate>2026-09-23T10:55:29-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01.jpg" alt=""><p>Video · Techno Tim. I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video</p>]]></description>
+</item>
+<item>
+<title>What Is an NPU Actually Good For?</title>
+<link>https://www.youtube.com/watch?v=8NFV6duMKQA</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=8NFV6duMKQA</guid>
+<pubDate>2026-09-23T10:55:29-07:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/322193c3ccae5516.jpg" alt=""><p>Video · Techno Tim. What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se</p>]]></description>
 </item>
 <item>
 <title>ComfyUI v0.37.1</title>
@@ -13942,13 +13998,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -14010,13 +14059,6 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
-</item>
-<item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
@@ -14285,13 +14327,6 @@
 <description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
 </item>
 <item>
-<title>What Is an NPU Actually Good For?</title>
-<link>https://www.youtube.com/watch?v=8NFV6duMKQA</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=8NFV6duMKQA</guid>
-<pubDate>2026-08-22T16:12:28+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/322193c3ccae5516.jpg" alt=""><p>Video · Techno Tim. What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se</p>]]></description>
-</item>
-<item>
 <title>Building an (almost) fully self-hosted, sandboxed, agentic software factory</title>
 <link>https://blog.jakesaunders.dev/building-an-almost-fully-self-hosted-sandboxed-agentic-software-factory/</link>
 <guid isPermaLink="true">https://blog.jakesaunders.dev/building-an-almost-fully-self-hosted-sandboxed-agentic-software-factory/</guid>
@@ -14318,6 +14353,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/comfyui/comments/1vs93gd/call_for_additional_mods/</guid>
 <pubDate>2026-08-19T02:03:06+00:00</pubDate>
 <description><![CDATA[Reddit · r/comfyui. I&#x27;ve come to the realization that my life is busy enough that we could use at least one more moderator on this subreddit. Please consider this a formal request for nominations. Rather than just picking someone myself, I’d like input from the community. If there’s someone here who]]></description>
+</item>
+<item>
+<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
+<link>https://chatoss.ai</link>
+<guid isPermaLink="true">https://chatoss.ai</guid>
+<pubDate>Tue, 18 Aug 2026 20:42:19 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
 </item>
 <item>
 <title>Self hosted email continues to steeply decline</title>
@@ -14402,13 +14444,6 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
-</item>
-<item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
@@ -14990,6 +15025,13 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v10.11.11</guid>
 <pubDate>2026-06-06T16:18:54Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/79f973ced56240ce.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 10.11.11 We are pleased to announce the latest stable release of Jellyfin, version 10.11.11! This minor release brings several bugfixes to improve your Jellyfin experience. As always, please ensure you take a full backup before upgrading! You can find more detai</p>]]></description>
+</item>
+<item>
+<title>Announcement: New Rules &amp; Processes on Software Projects</title>
+<link>https://www.reddit.com/r/homelab/comments/1ty58af/announcement_new_rules_processes_on_software/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/homelab/comments/1ty58af/announcement_new_rules_processes_on_software/</guid>
+<pubDate>2026-06-06T02:45:20+00:00</pubDate>
+<description><![CDATA[Reddit · r/homelab. I would like to thank everyone for their feedback in the recent post &amp; poll where we asked for feedback on how to slow the deluge of &quot;I made X, because Y&quot; type posts in r/homelab , most of which are AI generated and/or spam. While we felt that that the initial plan we shared was]]></description>
 </item>
 <item>
 <title>Apples to Apples: MLX vs. Llama.cpp for Gemma 4 12B on an M1 16GB</title>
@@ -15655,13 +15697,6 @@
 <guid isPermaLink="true">https://www.youtube.com/watch?v=hpC4qjWu_aY</guid>
 <pubDate>2025-07-23T11:10:52+00:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5228efb548ec02bc.jpg" alt=""><p>Video · Yannic Kilcher. Video from Yannic Kilcher.</p>]]></description>
-</item>
-<item>
-<title>Answering your Homelab Questions!</title>
-<link>https://www.youtube.com/watch?v=qyGbkEtjJ90</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=qyGbkEtjJ90</guid>
-<pubDate>2025-06-29T10:46:20+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f9691e4596ea9a3e.jpg" alt=""><p>Video · Wolfgang&#x27;s Channel. Click this link</p>]]></description>
 </item>
 <item>
 <title>What&#x27;s in my Homelab Rack?</title>
