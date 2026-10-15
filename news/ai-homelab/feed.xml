@@ -5,11 +5,32 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-15T04:05:42Z</lastBuildDate>
 <item>
+<title>llama.cpp b11655</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11655</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11655</guid>
+<pubDate>2026-10-15T12:48:56Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e5d74c5e7d6620bd.png" alt=""><p>Article · llama.cpp. vulkan : fix concurrent first device init ( #29766 ) vulkan : fix concurrent first device init tests : load models in parallel in test-thread-safety Loading them serially never exercised concurrent first backend init, so the crash reported in #29764 was invisible to this test. vu</p>]]></description>
+</item>
+<item>
+<title>Strata on MI50?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x6km4b/strata_on_mi50/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6km4b/strata_on_mi50/</guid>
+<pubDate>2026-10-15T12:43:06+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hi, is anyone using Strata or Project-Maya with one or more AMD MI50? I wanted to try it myself, but I couldn&#x27;t get it running. submitted by /u/HlddenDreck [link] [comments]]]></description>
+</item>
+<item>
 <title>llama.cpp b11647</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11647</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11647</guid>
 <pubDate>2026-10-15T12:25:40Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e5bcb2cb64abc07d.png" alt=""><p>Article · llama.cpp. vulkan : copy strided f16 KV once on AMD so reads spread across memory channels ( #27703 ) vulkan : copy strided f16 KV once so reads spread across memory channels Assisted-by: Claude (Opus 4.8 / Opus 5) tests : cover the f16 KV copy to scratch Assisted-by: Claude (Opus 4.8 / Opu</p>]]></description>
+</item>
+<item>
+<title>Strata might be actually really detrimental for intelligence? or is it Swift and GSQ-RCO? or both?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x6jump/strata_might_be_actually_really_detrimental_for/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6jump/strata_might_be_actually_really_detrimental_for/</guid>
+<pubDate>2026-10-15T12:05:20+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I continued to use Strata but something just feels off for this an large model, it is very fast but intelligence seemed even under 27B 3.8 UD Q4, it had a hard time coding a basic 3d game and a 2d platformer. Deepseek Flash V4 didn&#x27;t have this huge and drop off at Q2 imo. Then I]]></description>
 </item>
 <item>
 <title>llama.cpp b11645</title>
@@ -103,6 +124,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. this is actually interesting:]]></description>
 </item>
 <item>
+<title>b11658: models : add maion-coder (#29778)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11658</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11658</guid>
+<pubDate>2026-10-15T09:18:46Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1cf8eba545fec9e5.png" alt=""><p>Article · llama.cpp. Add Support to maion-coder arch iAdd Support to support Draft models Address comments Remove maion context shift function Co-authored-by: Karthik Vijayan kavijay@microsoft.com</p>]]></description>
+</item>
+<item>
 <title>IFM/Jais-3</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x6gxj3/ifmjais3/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6gxj3/ifmjais3/</guid>
@@ -122,13 +150,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6gf0y/will_there_be_a_blackfriday_this_year_nvidia_rtx/</guid>
 <pubDate>2026-10-15T08:45:18+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Will there be a black-friday this year? submitted by /u/chemist_slime [link] [comments]]]></description>
-</item>
-<item>
-<title>b11655: vulkan : fix concurrent first device init (#29766)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11655</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11655</guid>
-<pubDate>2026-10-15T08:37:35Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e5d74c5e7d6620bd.png" alt=""><p>Article · llama.cpp. vulkan : fix concurrent first device init tests : load models in parallel in test-thread-safety Loading them serially never exercised concurrent first backend init, so the crash reported in #29764 was invisible to this test. vulkan : create fence before retaining device in buffer</p>]]></description>
 </item>
 <item>
 <title>I tested Qwen3.8 27B KLD for 21 Models at 9 different KV quants that fit on 16GB VRAM (189 benchmarks).</title>
@@ -234,13 +255,6 @@
 <guid isPermaLink="true">https://www.marktechpost.com/2026/10/14/typesafe-ai-jev-1-14-images-box-long-context/</guid>
 <pubDate>Thu, 15 Oct 2026 05:45:03 +0000</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/df66795b29563436.png" alt=""><p>Article · MarkTechPost. TypeSafe AI released Jev 1.14 under the jev-preview alias. The System One model adds experimental image input, a Box bounding-box type and an opt-in 262k-token context, at $0.042 per million input tokens. The post TypeSafe AI Releases Jev 1.14 With Images, Box Type and 262k Conte</p>]]></description>
-</item>
-<item>
-<title>llama.cpp b11636</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11636</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11636</guid>
-<pubDate>2026-10-15T04:53:26Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c1f975e922220e7e.png" alt=""><p>Article · llama.cpp. sycl: IQ3 code reorder ( #29107 ) sycl: persistent IQ3_S/IQ3_XXS weight reorder for SYCL decode and prefill Add persistent reordered weight layouts for IQ3_S and IQ3_XXS. Weights are reordered once at load time; the reordered MMVQ dot products then walk dense super-blocks with dp</p>]]></description>
 </item>
 <item>
 <title>b11644: kv-cache: honor PARTIAL_ONLY in the plain KV cache (#30514)</title>
@@ -626,6 +640,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x5wcnz/new_model_from_telperion_qwen3827bmla/</guid>
 <pubDate>2026-10-14T16:47:46+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Hello! We&#x27;ve been busy at Telperion with a lot of experimental research (more coming soon). Today, we&#x27;re announcing the release of our latent attention variants of Qwen3.8-27B. Our latent attention variants (quants calibrated to FP8 KV cache) compress the KV cache by 4×, enabling]]></description>
+</item>
+<item>
+<title>b11636: sycl: IQ3 code reorder (#29107)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11636</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11636</guid>
+<pubDate>2026-10-14T16:41:23Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c1f975e922220e7e.png" alt=""><p>Article · llama.cpp. sycl: persistent IQ3_S/IQ3_XXS weight reorder for SYCL decode and prefill Add persistent reordered weight layouts for IQ3_S and IQ3_XXS. Weights are reordered once at load time; the reordered MMVQ dot products then walk dense super-blocks with dp4a and SWAR sign expansion instead</p>]]></description>
 </item>
 <item>
 <title>I used Magic The Gathering as inspiration for how to organize agent skills</title>
@@ -13361,6 +13382,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
 </item>
 <item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>2026-09-25T20:30:45-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
+</item>
+<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -13907,6 +13935,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>2026-09-23T11:17:55-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>ComfyUI v0.36.0</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</guid>
@@ -14229,13 +14264,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -14297,13 +14325,6 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
-</item>
-<item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
