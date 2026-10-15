@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-15T04:05:42Z</lastBuildDate>
 <item>
+<title>llama.cpp b11640</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11640</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11640</guid>
+<pubDate>2026-10-15T06:30:19Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e3fbab269c4c21b2.png" alt=""><p>Article · llama.cpp. vulkan: Use L2-friendly workgroup scheduling for cm2 mulmat ( #30215 ) Website:</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b11639</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11639</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11639</guid>
+<pubDate>2026-10-15T06:07:32Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ba2089a1151729a6.png" alt=""><p>Article · llama.cpp. opencl: support CLAMP on non-contiguous views ( #30186 ) The clamp kernel indexed source and destination as one flat contiguous array, so a strided view as input (the new CLAMP v=1 case) read the wrong elements. Add a strided kernel_clamp_nc, as the other unary ops have, and take</p>]]></description>
+</item>
+<item>
+<title>Stepfun Step-5-Preview released! (600B/27B-1M Context)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x6dx5x/stepfun_step5preview_released_600b27b1m_context/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6dx5x/stepfun_step5preview_released_600b27b1m_context/</guid>
+<pubDate>2026-10-15T06:04:04+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Step 5 Preview is StepFun&#x27;s flagship model for agentic work. It delivers frontier-level performance across software engineering and professional knowledge work, with particular strength in finance. submitted by /u/ResearchCrafty1804 [link] [comments]]]></description>
+</item>
+<item>
 <title>llama.cpp b11636</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11636</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11636</guid>
@@ -206,13 +227,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/comfyui/comments/1x61nxx/lora_to_reduce_burned_look_when_chaining_h3_turbo/</guid>
 <pubDate>2026-10-14T20:08:13+00:00</pubDate>
 <description><![CDATA[Reddit · r/comfyui. If you&#x27;ve chained H3 clips into a longer video, you&#x27;ve probably seen it: every continuation copies the last clip&#x27;s flaws and adds a few more. By clip 5–10, faces look crunchy, etched and over-sharpened. I spent the last few weeks (with a community compute grant) training a LoRA t]]></description>
-</item>
-<item>
-<title>b11639: opencl: support CLAMP on non-contiguous views (#30186)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11639</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11639</guid>
-<pubDate>2026-10-14T20:02:27Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ba2089a1151729a6.png" alt=""><p>Article · llama.cpp. The clamp kernel indexed source and destination as one flat contiguous array, so a strided view as input (the new CLAMP v=1 case) read the wrong elements. Add a strided kernel_clamp_nc, as the other unary ops have, and take it whenever the source is not contiguous.</p>]]></description>
 </item>
 <item>
 <title>inclusionAI/Ling-3.1-flash 560b-a25b</title>
@@ -13151,13 +13165,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
 </item>
 <item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>2026-09-25T20:30:45-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
-</item>
-<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -13711,13 +13718,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>ComfyUI v0.36.0</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</guid>
@@ -14054,6 +14054,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -14115,6 +14122,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
