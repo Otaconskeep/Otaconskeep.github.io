@@ -403,17 +403,18 @@
     {
       "url": "https://www.youtube.com/watch?v=K2IGHj7KQoM",
       "title": "Are Local Models Finally Good Enough?",
-      "summary": "Video from Techno Tim.",
+      "summary": "I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
-      "published": "2026-05-18T15:00:34+00:00",
+      "published": "2026-09-23T10:55:29-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://i.ytimg.com/vi/K2IGHj7KQoM/hqdefault.jpg",
       "file": "media/01.jpg",
       "video": "K2IGHj7KQoM",
       "categories": [
         "local-models",
+        "homelab",
         "video"
       ]
     },
@@ -454,7 +455,7 @@
     {
       "url": "https://www.youtube.com/watch?v=7I0pjHC4U7I",
       "title": "I'm starting a homelab festival (you're invited)",
-      "summary": "Video from Jeff Geerling.",
+      "summary": "REGISTER NOW!",
       "source": "Jeff Geerling",
       "kind": "youtube",
       "lane": "Video",
@@ -471,7 +472,7 @@
     {
       "url": "https://www.youtube.com/watch?v=8NFV6duMKQA",
       "title": "What Is an NPU Actually Good For?",
-      "summary": "Video from Techno Tim.",
+      "summary": "What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -574,7 +575,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Tue, 18 Aug 2026 20:42:19 +0000",
+      "published": "2026-09-24T07:26:37-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -587,11 +588,11 @@
     {
       "url": "https://github.com/OtoDock/oto-dock",
       "title": "Show HN: Self-hosted company OS, Claude Code and Codex agents in departments",
-      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many ",
-      "source": "Hacker News · self-hosted",
+      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Wed, 09 Sep 2026 17:57:55 +0000",
+      "published": "2026-09-25T20:30:45-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1011,10 +1012,10 @@
       "url": "https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/",
       "title": "Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama",
       "summary": "Article URL:",
-      "source": "Hacker News · self-hosted",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
+      "published": "2026-09-23T11:17:55-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1032,7 +1033,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
+      "published": "2026-09-24T07:26:37-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -22563,7 +22564,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qxfNTcPl70w",
       "title": "I Made My Local AI Pick Its Own Model",
-      "summary": "Video from Techno Tim.",
+      "summary": "I wanted my local AI to choose the right model automatically instead of making me pick between speed and capability for every request. I test NVIDIA Switchyard for local AI model routing with Nemotron 3.5 Lightning on an RTX 3090 and DeepSeek V4 Flash across two GX10s. I cover St",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -33975,7 +33976,7 @@
     {
       "url": "https://www.youtube.com/watch?v=Bjifz55TTPI",
       "title": "You can monitor EVERYTHING in your homelab with this",
-      "summary": "Video from NetworkChuck.",
+      "summary": "Easily monitor your devices for free with Checkmk:",
       "source": "NetworkChuck",
       "kind": "youtube",
       "lane": "Video",
@@ -38610,12 +38611,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11630",
-      "title": "b11630: ggml: fix conv_1d result layout for batched input (#28738)",
-      "summary": "ggml: fix conv_1d result layout for batched input The GEMM behind conv_1d folds the batch into its rows, so the product sits in memory as [OL, N, OC] while the reshape claims [OL, OC, N]. The shape is right and the contents are transposed, so nothing fires: no assert, no abort, t",
+      "title": "llama.cpp b11630",
+      "summary": "ggml: fix conv_1d result layout for batched input ( #28738 ) ggml: fix conv_1d result layout for batched input The GEMM behind conv_1d folds the batch into its rows, so the product sits in memory as [OL, N, OC] while the reshape claims [OL, OC, N]. The shape is right and the cont",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-14T11:16:08Z",
+      "published": "2026-10-15T00:36:04Z",
       "added_at": "2026-10-15T00:30:22Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/f54fabf4506a01ac.png",
@@ -38623,6 +38624,108 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11632",
+      "title": "b11632: cuda, hip: GDN chunked kernel (#29353)",
+      "summary": "cuda, hip: GDN chunked kernel Ported-from: tetherto#257 Source-commit: 53f0027 Co-authored-by: Aman Gupta aman.gupta@tether.io fix older builds review fixes cuda: enable GDN MMA on tested Ampere and Ada GPUs Enable SM86 and SM89 after RTX 3090 and RTX 4090 correctness and prefill",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-14T14:00:58Z",
+      "added_at": "2026-10-15T01:00:21Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/1c1dc6fbc1637955.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x67qeu/4x_r9700_builds_with_127_used_epycs_107k_allin/",
+      "title": "4x R9700 builds with $127 used EPYCs: $10.7k all-in per machine. I built three (384GB VRAM)",
+      "summary": "I saw the 4x R9700 build for a 10-person startup here a few days ago and wanted to share my results, since I opted to spend most of the money on the cards. I went with a super cheap used EPYC instead of a Threadripper. In the end it came to about $10.7k per box all-in, and I buil",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-15T00:31:42+00:00",
+      "added_at": "2026-10-15T01:00:23Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x664yt/microsoftuserrepgen4b/",
+      "title": "microsoft/UserRepGen-4B",
+      "summary": "Reddit from r/LocalLLaMA.",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-14T23:16:47+00:00",
+      "added_at": "2026-10-15T01:00:23Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x640u6/176_ts_decode_and_6450_ts_prefill_with_q4_qwen38/",
+      "title": "176 t/s decode and 6,450 t/s prefill with Q4 Qwen-3.8 Flash-Next on 2xR9700 + 64GB DDR5 using Deadcode's Radiance engine",
+      "summary": "Reddit from r/LocalLLaMA.",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-14T21:44:00+00:00",
+      "added_at": "2026-10-15T01:00:23Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x6533a/qwen_38_flashnext_compared_to_glm_53_flash/",
+      "title": "Qwen 3.8 Flash-Next compared to GLM 5.3 Flash",
+      "summary": "Anecdotally, I've noticed that QFN seems more collaborative than GLM. QFN seems willing to engage in conversation. It feels more like an assistant. GLM seems more action-oriented and less willing to converse. That is, I ask GLM a question to engage in discussion: GLM runs off sea",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-14T22:29:11+00:00",
+      "added_at": "2026-10-15T01:00:23Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x65hq9/strata_performance_finetuning_try_it_out/",
+      "title": "Strata performance finetuning - try it out",
+      "summary": "As strata is somewhat new, I assume that some people din't yet learn how to finetune it for best performance on their machine. I find documentation a bit hard to navigate (use your agents for this!), which doesn't help. After some serious testing, I've tweaked pretty much every p",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-14T22:47:26+00:00",
+      "added_at": "2026-10-15T01:00:23Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]

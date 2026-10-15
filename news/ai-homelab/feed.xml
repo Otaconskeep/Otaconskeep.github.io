@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-14T13:33:02Z</lastBuildDate>
 <item>
+<title>llama.cpp b11630</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11630</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11630</guid>
+<pubDate>2026-10-15T00:36:04Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f54fabf4506a01ac.png" alt=""><p>Article · llama.cpp. ggml: fix conv_1d result layout for batched input ( #28738 ) ggml: fix conv_1d result layout for batched input The GEMM behind conv_1d folds the batch into its rows, so the product sits in memory as [OL, N, OC] while the reshape claims [OL, OC, N]. The shape is right and the cont</p>]]></description>
+</item>
+<item>
+<title>4x R9700 builds with $127 used EPYCs: $10.7k all-in per machine. I built three (384GB VRAM)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x67qeu/4x_r9700_builds_with_127_used_epycs_107k_allin/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x67qeu/4x_r9700_builds_with_127_used_epycs_107k_allin/</guid>
+<pubDate>2026-10-15T00:31:42+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I saw the 4x R9700 build for a 10-person startup here a few days ago and wanted to share my results, since I opted to spend most of the money on the cards. I went with a super cheap used EPYC instead of a Threadripper. In the end it came to about $10.7k per box all-in, and I buil]]></description>
+</item>
+<item>
 <title>llama.cpp b11627</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11627</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11627</guid>
@@ -26,6 +40,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/a264c4af5885aa0a.png" alt=""><p>Article · vLLM. Signed-off-by: jinzhen.ljz jinzhen.ljz@antgroup.com Co-authored-by: Codex codex@openai.com Co-authored-by: Misha Goin mgoin64@gmail.com Co-authored-by: Kevin H. Luu khluu000@gmail.com</p>]]></description>
 </item>
 <item>
+<title>microsoft/UserRepGen-4B</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x664yt/microsoftuserrepgen4b/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x664yt/microsoftuserrepgen4b/</guid>
+<pubDate>2026-10-14T23:16:47+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+</item>
+<item>
 <title>Can ChatGPT Really Build a Self-Hosted App? I Tried It</title>
 <link>https://noted.lol/can-chatgpt-build-self-hosted-app/</link>
 <guid isPermaLink="true">https://noted.lol/can-chatgpt-build-self-hosted-app/</guid>
@@ -33,11 +54,32 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/66864afac38c74c7.png" alt=""><p>Article · noted.lol. I wanted to see if ChatGPT could really build an entire self-hosted application. What started as a simple voice recorder turned into a personal journal powered by local AI. The results genuinely surprised me.</p>]]></description>
 </item>
 <item>
+<title>Strata performance finetuning - try it out</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x65hq9/strata_performance_finetuning_try_it_out/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x65hq9/strata_performance_finetuning_try_it_out/</guid>
+<pubDate>2026-10-14T22:47:26+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. As strata is somewhat new, I assume that some people din&#x27;t yet learn how to finetune it for best performance on their machine. I find documentation a bit hard to navigate (use your agents for this!), which doesn&#x27;t help. After some serious testing, I&#x27;ve tweaked pretty much every p]]></description>
+</item>
+<item>
+<title>Qwen 3.8 Flash-Next compared to GLM 5.3 Flash</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x6533a/qwen_38_flashnext_compared_to_glm_53_flash/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6533a/qwen_38_flashnext_compared_to_glm_53_flash/</guid>
+<pubDate>2026-10-14T22:29:11+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Anecdotally, I&#x27;ve noticed that QFN seems more collaborative than GLM. QFN seems willing to engage in conversation. It feels more like an assistant. GLM seems more action-oriented and less willing to converse. That is, I ask GLM a question to engage in discussion: GLM runs off sea]]></description>
+</item>
+<item>
 <title>LiteLLM v1.106.0-rc.3</title>
 <link>https://github.com/BerriAI/litellm/releases/tag/v1.106.0-rc.3</link>
 <guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.106.0-rc.3</guid>
 <pubDate>2026-10-14T21:52:40Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d569c28c63ad490c.png" alt=""><p>Article · LiteLLM. Verify Docker Image Signature All LiteLLM Docker images are signed with cosign . Every release is signed with the same key introduced in commit 0112e53 . Verify using the pinned commit hash (recommended): A commit hash is cryptographically immutable, so this is the strongest way</p>]]></description>
+</item>
+<item>
+<title>176 t/s decode and 6,450 t/s prefill with Q4 Qwen-3.8 Flash-Next on 2xR9700 + 64GB DDR5 using Deadcode&#x27;s Radiance engine</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x640u6/176_ts_decode_and_6450_ts_prefill_with_q4_qwen38/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x640u6/176_ts_decode_and_6450_ts_prefill_with_q4_qwen38/</guid>
+<pubDate>2026-10-14T21:44:00+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
 </item>
 <item>
 <title>Open WebUI v0.12.2</title>
@@ -390,6 +432,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Performance on Model Prompt tokens master tok/s pr tok/s Change RTX PRO 6000 Blackwell Qwen3.5-35B-A3B-Q8_0 2048 13,653.58 16,459.56 +20.6% RTX PRO 6000 Blackwell Qwen3.5-35B-A3B-Q8_0 4096 14,090.26 16,595.47 +17.8% RTX PRO 6000 Blackwell Qwen3.8-27B-Q8_0 2048 4,470.39 4,757.20 +]]></description>
 </item>
 <item>
+<title>b11632: cuda, hip: GDN chunked kernel (#29353)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11632</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11632</guid>
+<pubDate>2026-10-14T14:00:58Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1c1dc6fbc1637955.png" alt=""><p>Article · llama.cpp. cuda, hip: GDN chunked kernel Ported-from: tetherto#257 Source-commit: 53f0027 Co-authored-by: Aman Gupta aman.gupta@tether.io fix older builds review fixes cuda: enable GDN MMA on tested Ampere and Ada GPUs Enable SM86 and SM89 after RTX 3090 and RTX 4090 correctness and prefill</p>]]></description>
+</item>
+<item>
 <title>HyCanvas: a self-hosted Canva and Genspark alternative, with AI decks you can edit by hand</title>
 <link>https://www.reddit.com/r/selfhosted/comments/1x5rkjo/hycanvas_a_selfhosted_canva_and_genspark/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/selfhosted/comments/1x5rkjo/hycanvas_a_selfhosted_canva_and_genspark/</guid>
@@ -465,13 +514,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/comfyui/comments/1x5opoh/browser_extension_to_directly_send_images_or_text/</guid>
 <pubDate>2026-10-14T11:27:24+00:00</pubDate>
 <description><![CDATA[Reddit · r/comfyui. I wanted a quick way to push things from my browser into ComfyUI without switching windows, copying prompts, or saving images first. So I vibe coded a small extension for it. What it does Select text on any page, right-click, Send selection to ComfyUI . It fills your prompt node]]></description>
-</item>
-<item>
-<title>b11630: ggml: fix conv_1d result layout for batched input (#28738)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11630</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11630</guid>
-<pubDate>2026-10-14T11:16:08Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f54fabf4506a01ac.png" alt=""><p>Article · llama.cpp. ggml: fix conv_1d result layout for batched input The GEMM behind conv_1d folds the batch into its rows, so the product sits in memory as [OL, N, OC] while the reshape claims [OL, OC, N]. The shape is right and the contents are transposed, so nothing fires: no assert, no abort, t</p>]]></description>
 </item>
 <item>
 <title>common : add --spec-draft-n-ubatch by ggerganov · Pull Request #30459 · ggml-org/llama.cpp</title>
@@ -1913,7 +1955,7 @@
 <link>https://www.youtube.com/watch?v=Bjifz55TTPI</link>
 <guid isPermaLink="true">https://www.youtube.com/watch?v=Bjifz55TTPI</guid>
 <pubDate>2026-10-12T14:19:35+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/09cf4ded6c9a7181.jpg" alt=""><p>Video · NetworkChuck. Video from NetworkChuck.</p>]]></description>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/09cf4ded6c9a7181.jpg" alt=""><p>Video · NetworkChuck. Easily monitor your devices for free with Checkmk:</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b11571</title>
@@ -6533,7 +6575,7 @@
 <link>https://www.youtube.com/watch?v=qxfNTcPl70w</link>
 <guid isPermaLink="true">https://www.youtube.com/watch?v=qxfNTcPl70w</guid>
 <pubDate>2026-10-05T17:21:32+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ecaa56d996166879.jpg" alt=""><p>Video · Techno Tim. Video from Techno Tim.</p>]]></description>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ecaa56d996166879.jpg" alt=""><p>Video · Techno Tim. I wanted my local AI to choose the right model automatically instead of making me pick between speed and capability for every request. I test NVIDIA Switchyard for local AI model routing with Nemotron 3.5 Lightning on an RTX 3090 and DeepSeek V4 Flash across two GX10s. I cover St</p>]]></description>
 </item>
 <item>
 <title>How is it possible that qwen 27b is so good? When GPT 4o had a trillion parameters and was worse?</title>
@@ -13018,6 +13060,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b200a1398eed4d53.png" alt=""><p>Article · llama.cpp. hexagon: find software divide calls using binary inspection tool ( #29449 ) hex-scripts: fix table alignment hex-scripts: find sw div calls using binary inspection tool Website:</p>]]></description>
 </item>
 <item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>2026-09-25T20:30:45-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
+</item>
+<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -13176,7 +13225,7 @@
 <link>https://www.youtube.com/watch?v=7I0pjHC4U7I</link>
 <guid isPermaLink="true">https://www.youtube.com/watch?v=7I0pjHC4U7I</guid>
 <pubDate>2026-09-25T15:00:38+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4bfe6bb1f1622204.jpg" alt=""><p>Video · Jeff Geerling. Video from Jeff Geerling.</p>]]></description>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4bfe6bb1f1622204.jpg" alt=""><p>Video · Jeff Geerling. REGISTER NOW!</p>]]></description>
 </item>
 <item>
 <title>Armbian for Amlogic, Rockchip, and Allwinner devices brings Linux to a wide range of TV boxes, including models without official support. Replace A</title>
@@ -13396,6 +13445,13 @@
 <description><![CDATA[Reddit · r/ollama. I&#x27;m in a position where I didn&#x27;t mean to go down this AI rabbit hole... I was looking into mental cognitions and how the mind is made up and learned that my old RTX 5k could run small models. So that led me to running a dual boot Win/Linux and getting another RTX 8K. I&#x27;ve been us]]></description>
 </item>
 <item>
+<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
+<link>https://chatoss.ai</link>
+<guid isPermaLink="true">https://chatoss.ai</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
+</item>
+<item>
 <title>Compare 12 self-hosted Deep Research systems: GPT Researcher, Onyx, Open WebUI, Khoj, Vane and more. Architectures, local LLM, RAG, licenses.</title>
 <link>https://techhub.social/@ros/117325481287155039</link>
 <guid isPermaLink="true">https://techhub.social/@ros/117325481287155039</guid>
@@ -13436,6 +13492,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11157</guid>
 <pubDate>2026-09-24T07:26:37-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
+</item>
+<item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
@@ -13550,6 +13613,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>2026-09-23T11:17:55-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>ComfyUI v0.36.0</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</guid>
@@ -13597,6 +13667,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11138</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3a1c6ee8349fc30f.png" alt=""><p>Article · llama.cpp. jinja : parse unary +/- before variables ( #29244</p>]]></description>
+</item>
+<item>
+<title>Are Local Models Finally Good Enough?</title>
+<link>https://www.youtube.com/watch?v=K2IGHj7KQoM</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=K2IGHj7KQoM</guid>
+<pubDate>2026-09-23T10:55:29-07:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01.jpg" alt=""><p>Video · Techno Tim. I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video</p>]]></description>
 </item>
 <item>
 <title>ComfyUI v0.37.1</title>
@@ -13872,13 +13949,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -13914,13 +13984,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
 </item>
 <item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.0</guid>
@@ -13947,13 +14010,6 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
-</item>
-<item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
@@ -14226,7 +14282,7 @@
 <link>https://www.youtube.com/watch?v=8NFV6duMKQA</link>
 <guid isPermaLink="true">https://www.youtube.com/watch?v=8NFV6duMKQA</guid>
 <pubDate>2026-08-22T16:12:28+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/322193c3ccae5516.jpg" alt=""><p>Video · Techno Tim. Video from Techno Tim.</p>]]></description>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/322193c3ccae5516.jpg" alt=""><p>Video · Techno Tim. What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se</p>]]></description>
 </item>
 <item>
 <title>Building an (almost) fully self-hosted, sandboxed, agentic software factory</title>
@@ -14255,13 +14311,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/comfyui/comments/1vs93gd/call_for_additional_mods/</guid>
 <pubDate>2026-08-19T02:03:06+00:00</pubDate>
 <description><![CDATA[Reddit · r/comfyui. I&#x27;ve come to the realization that my life is busy enough that we could use at least one more moderator on this subreddit. Please consider this a formal request for nominations. Rather than just picking someone myself, I’d like input from the community. If there’s someone here who]]></description>
-</item>
-<item>
-<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
-<link>https://chatoss.ai</link>
-<guid isPermaLink="true">https://chatoss.ai</guid>
-<pubDate>Tue, 18 Aug 2026 20:42:19 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
 </item>
 <item>
 <title>Self hosted email continues to steeply decline</title>
@@ -15109,13 +15158,6 @@
 <guid isPermaLink="true">https://github.com/oobabooga/textgen/releases/tag/v4.8</guid>
 <pubDate>2026-05-18T16:53:51Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/12.png" alt=""><p>Article · text-generation-webui. Changes Redesigned chat composer : Taller input area with the paperclip and message-action buttons pinned to the bottom, similar to Gemini and DeepSeek. Smooth scroll animation when sending a new message : Inspired by Gemini&#x27;s chat UI. Electron improvements : Persist window bound</p>]]></description>
-</item>
-<item>
-<title>Are Local Models Finally Good Enough?</title>
-<link>https://www.youtube.com/watch?v=K2IGHj7KQoM</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=K2IGHj7KQoM</guid>
-<pubDate>2026-05-18T15:00:34+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01.jpg" alt=""><p>Video · Techno Tim. Video from Techno Tim.</p>]]></description>
 </item>
 <item>
 <title>EverShelf - The AI-Powered, Self-Hosted Inventory Brain for Your Kitchen</title>
