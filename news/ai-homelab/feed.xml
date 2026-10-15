@@ -5,6 +5,34 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-15T13:34:11Z</lastBuildDate>
 <item>
+<title>llama.cpp v0.7.0</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/v0.7.0</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/v0.7.0</guid>
+<pubDate>2026-10-15T17:15:35Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f727b4e1831e7a08.png" alt=""><p>Article · llama.cpp. Overview llama.cpp v0.7.0 adds the LiliCorr speculative decoding technique and MTP for GLM5-Next, a new GPU cache for MoE experts kept in host memory ( --moe-cache-mib , up to ~2.2x decode speedup when experts are offloaded), and a large batch of new models: K2 Horizon (dense and</p>]]></description>
+</item>
+<item>
+<title>Unsloth Muse Spark Open is out!</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x6rcid/unsloth_muse_spark_open_is_out/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6rcid/unsloth_muse_spark_open_is_out/</guid>
+<pubDate>2026-10-15T17:06:32+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/Bob_SUS [link] [comments]]]></description>
+</item>
+<item>
+<title>Ollama v0.40.5</title>
+<link>https://github.com/ollama/ollama/releases/tag/v0.40.5-rc2</link>
+<guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.40.5-rc2</guid>
+<pubDate>2026-10-15T17:03:18Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ed0e38dfc7378c4e.png" alt=""><p>Article · Ollama. What&#x27;s Changed mlx: port the Metal custom kernels to CUDA by @dhiltgen in #18657 docs: model recs and language standardization by @anra8571 in #18981 openai: accept custom tool calls in Responses history by @hoyyeva in #18911 app: clarify cloud payment errors by @willietran in #1</p>]]></description>
+</item>
+<item>
+<title>The space is moving quick. 2x 4060 Tensor Parallel main weights. RPC offload the drafters to amd strix. Got +2-3GB Vram for context at no perf cost.</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x6qq0j/the_space_is_moving_quick_2x_4060_tensor_parallel/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6qq0j/the_space_is_moving_quick_2x_4060_tensor_parallel/</guid>
+<pubDate>2026-10-15T16:43:07+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Mixing Nvidia+AMD hardware via RPC usually meant split-mode layer only. I managed to keep split-mode tensor working, and patch my llama-rpc to send the drafters over to my strix. That let me go from 150k -&gt; 195k context, at the same tensor parallel speed.. nice. My agents helped]]></description>
+</item>
+<item>
 <title>ComfyUI v0.41.1</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.41.1</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.41.1</guid>
@@ -12,18 +40,25 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/80d003a49bad7c09.png" alt=""><p>Article · ComfyUI. Article from ComfyUI.</p>]]></description>
 </item>
 <item>
+<title>Nemotron 3.5 Bolt vs Nemo 3.5 Super vs Qwen 3.8 27B/FN</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x6qc3j/nemotron_35_bolt_vs_nemo_35_super_vs_qwen_38_27bfn/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6qc3j/nemotron_35_bolt_vs_nemo_35_super_vs_qwen_38_27bfn/</guid>
+<pubDate>2026-10-15T16:28:32+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Pulling the benchmarks from the model cards. Benchmarks might not be exactly comparable, as some models do not specify the version. Benchmark 3.5 Bolt 3.5 Super 3.8 27B 3.8 FN DeepSWE N/A 24.65 42.2 58.7 GPQA-Diamond 86.43 89.52 89.2 91.7 SWE-bench Pro N/A 51.78 61.7 62.5 Termina]]></description>
+</item>
+<item>
+<title>Best Model for 48gb Unified RAM users?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x6q1w9/best_model_for_48gb_unified_ram_users/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6q1w9/best_model_for_48gb_unified_ram_users/</guid>
+<pubDate>2026-10-15T16:18:11+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hi all, I&#x27;ve been following this sub for months now, but I recently started working again and missed some of the newer developments with Strata and new model releases since about when Qwen 3.8 27b first came out. What&#x27;s the current best set of models / best model to run on a syst]]></description>
+</item>
+<item>
 <title>llama.cpp b11669</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11669</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11669</guid>
 <pubDate>2026-10-15T16:15:26Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e86f5a64d3658262.png" alt=""><p>Article · llama.cpp. llama.cpp : bump version to 0.7.0 ( #30603 ) Website:</p>]]></description>
-</item>
-<item>
-<title>Ollama v0.40.5-rc2</title>
-<link>https://github.com/ollama/ollama/releases/tag/v0.40.5-rc2</link>
-<guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.40.5-rc2</guid>
-<pubDate>2026-10-15T16:11:12Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ed0e38dfc7378c4e.png" alt=""><p>Article · Ollama. llama.cpp: version bump b11669 ( #19032 )</p>]]></description>
 </item>
 <item>
 <title>ComfyUI v0.41.0</title>
@@ -40,18 +75,25 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/99349eeb1d4542eb.png" alt=""><p>Article · llama.cpp. sync : ggml Website:</p>]]></description>
 </item>
 <item>
+<title>mistralai/Timestral</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x6ouoy/mistralaitimestral/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6ouoy/mistralaitimestral/</guid>
+<pubDate>2026-10-15T15:32:45+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+</item>
+<item>
+<title>AtomicChat/Ling-3.1-flash-GGUF · Hugging Face</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x6of05/atomicchatling31flashgguf_hugging_face/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6of05/atomicchatling31flashgguf_hugging_face/</guid>
+<pubDate>2026-10-15T15:16:42+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Yesterday I said its hard to play 4 spark with ling-3.1-flash but today its coming! submitted by /u/BerryBlush_Rogers691 [link] [comments]]]></description>
+</item>
+<item>
 <title>LiteLLM v1.106.0-rc.4</title>
 <link>https://github.com/BerriAI/litellm/releases/tag/v1.106.0-rc.4</link>
 <guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.106.0-rc.4</guid>
 <pubDate>2026-10-15T15:12:32Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/191aaeedb8f337ed.png" alt=""><p>Article · LiteLLM. Verify Docker Image Signature All LiteLLM Docker images are signed with cosign . Every release is signed with the same key introduced in commit 0112e53 . Verify using the pinned commit hash (recommended): A commit hash is cryptographically immutable, so this is the strongest way</p>]]></description>
-</item>
-<item>
-<title>Ollama v0.40.5</title>
-<link>https://github.com/ollama/ollama/releases/tag/v0.40.5-rc1</link>
-<guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.40.5-rc1</guid>
-<pubDate>2026-10-15T15:07:44Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c382892319c647d5.png" alt=""><p>Article · Ollama. What&#x27;s Changed mlx: port the Metal custom kernels to CUDA by @dhiltgen in #18657 docs: model recs and language standardization by @anra8571 in #18981 openai: accept custom tool calls in Responses history by @hoyyeva in #18911 app: clarify cloud payment errors by @willietran in #1</p>]]></description>
 </item>
 <item>
 <title>Your Docker Backups Might Be Useless When You Need Them Most</title>
@@ -61,11 +103,25 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/56e3ba99fb0e1265.png" alt=""><p>Article · noted.lol. Your Docker backups might be running perfectly, but can you actually restore your applications when something goes wrong?</p>]]></description>
 </item>
 <item>
+<title>nvidia/NVIDIA-Nemotron-3.5-Bolt-74B-A9B-24GB · Hugging Face</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x6o31q/nvidianvidianemotron35bolt74ba9b24gb_hugging_face/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6o31q/nvidianvidianemotron35bolt74ba9b24gb_hugging_face/</guid>
+<pubDate>2026-10-15T15:04:12+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+</item>
+<item>
 <title>nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B model family released (base, NVFP4, BF16, and LiLiCorr speculative decoding)</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x6nl8m/nvidianvidianemotron35supervl120ba12b_model/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x6nl8m/nvidianvidianemotron35supervl120ba12b_model/</guid>
 <pubDate>2026-10-15T14:46:04+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/jinnyjuice [link] [comments]]]></description>
+</item>
+<item>
+<title>v0.40.5-rc1: New model... (#19030)</title>
+<link>https://github.com/ollama/ollama/releases/tag/v0.40.5-rc1</link>
+<guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.40.5-rc1</guid>
+<pubDate>2026-10-15T14:28:26Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c382892319c647d5.png" alt=""><p>Article · Ollama. ci: shorten Windows Vulkan build path Keep the nested shader-generator compiler probes below Windows path limits in checkouts with longer repository names. mlx: fix Nemotron bugs and support global scales Accept published Nemotron layer names while retaining legacy aliases, and f</p>]]></description>
 </item>
 <item>
 <title>Add Nemotron Super 3.5 VL and Nemotron Bolt 74B A9B support by frozenblade1224 · Pull Request #30520 · ggml-org/llama.cpp</title>
