@@ -5,6 +5,41 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-16T13:35:28Z</lastBuildDate>
 <item>
+<title>llama.cpp b11699</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11699</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11699</guid>
+<pubDate>2026-10-16T18:00:21Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0400448115dbe0ee.png" alt=""><p>Article · llama.cpp. common: honor HTTP_PROXY/HTTPS_PROXY env vars in http client ( #21752 ) common: honor HTTP_PROXY/HTTPS_PROXY env vars in http client common_http_client() was ignoring standard proxy env vars, causing downloads via -hf and similar flags to fail silently in environments behind an H</p>]]></description>
+</item>
+<item>
+<title>Tyger: open-weights streaming ASR + full-duplex turn-control in one model</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x7msmj/tyger_openweights_streaming_asr_fullduplex/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x7msmj/tyger_openweights_streaming_asr_fullduplex/</guid>
+<pubDate>2026-10-16T17:42:26+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hi r/LocalLLaMA , we&#x27;re releasing Tyger, a small model that handles full-duplex turn-control for voice agents. What it is Base: NVIDIA Nemotron 3.5 ASR Streaming 0.6B + 14M causal GRU on top. Every 80 ms, with no lookahead, it picks one of three states: - answer : the user finish]]></description>
+</item>
+<item>
+<title>Nemotron 3.5 Bolt Evaluation using real-world tasks</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x7mig3/nemotron_35_bolt_evaluation_using_realworld_tasks/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x7mig3/nemotron_35_bolt_evaluation_using_realworld_tasks/</guid>
+<pubDate>2026-10-16T17:31:30+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I evaluate new models by giving them actual work tasks that have already been completed by a trusted model and then comparing the results. My typical workflow is to plan tasks/requests in Gemini and create a markdown spec-sheet that outlines the work that needs to be done along w]]></description>
+</item>
+<item>
+<title>Qwen 27B - sacrificing context in order run better quants, pros and cons.</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x7m3gf/qwen_27b_sacrificing_context_in_order_run_better/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x7m3gf/qwen_27b_sacrificing_context_in_order_run_better/</guid>
+<pubDate>2026-10-16T17:15:33+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I was running Unsloth IQ4_XS for a while and while it provided me with a healthy 96K context on 20GB vram, I did notice all the issues it had during draft and all the time and local tokens wasted trying to fix said issues. I decided to see what would happen if I used less context]]></description>
+</item>
+<item>
+<title>Show me your rack</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x7lw9g/show_me_your_rack/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x7lw9g/show_me_your_rack/</guid>
+<pubDate>2026-10-16T17:07:47+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Ryzen 9600X, 32GB dual channel DDR5, 2x CMP 170HX Ryzen 5700, 32GB dual channel DDR4, 5x Vega 56 Intel i7 9700, 32GB dual channel DDR4, 3070 + 2080ti Ryzen 7500x3D, 32GB dual channel DDR5, 7900xtx + 2x 5600XT 223 GB total VRAM submitted by /u/negus123 [link] [comments]]]></description>
+</item>
+<item>
 <title>Learned something about MTP that didn&#x27;t seem intuitive, thought I would share</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x7liub/learned_something_about_mtp_that_didnt_seem/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x7liub/learned_something_about_mtp_that_didnt_seem/</guid>
@@ -31,13 +66,6 @@
 <guid isPermaLink="true">https://noted.lol/libreboot-26-10-old-computers-new-life/</guid>
 <pubDate>Fri, 16 Oct 2026 11:15:23 -0400</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bb7795f73e0aa189.png" alt=""><p>Article · noted.lol. Libreboot 26.10 gives older computers a second chance with modern UEFI support, new hardware compatibility, and expanded Chromebook builds.</p>]]></description>
-</item>
-<item>
-<title>b11699: common: honor HTTP_PROXY/HTTPS_PROXY env vars in http client (#21752)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11699</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11699</guid>
-<pubDate>2026-10-16T15:01:37Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0400448115dbe0ee.png" alt=""><p>Article · llama.cpp. common: honor HTTP_PROXY/HTTPS_PROXY env vars in http client common_http_client() was ignoring standard proxy env vars, causing downloads via -hf and similar flags to fail silently in environments behind an HTTP proxy (corporate networks, air-gapped infra, etc.). Checks HTTPS_PRO</p>]]></description>
 </item>
 <item>
 <title>It really just needs some encouragement (Qwen3.8-27B-UD-IQ4_XS)</title>
@@ -14782,6 +14810,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -14885,6 +14920,13 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
+</item>
+<item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>2026-09-23T11:17:55-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>ComfyUI v0.36.0</title>
@@ -15209,13 +15251,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -15249,13 +15284,6 @@
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/proto-v0.1.0</guid>
 <pubDate>2026-09-11T08:30:05Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
-</item>
-<item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0</title>
