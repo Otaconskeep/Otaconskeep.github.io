@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-16T04:02:20Z</lastBuildDate>
 <item>
+<title>llama.cpp b11683</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11683</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11683</guid>
+<pubDate>2026-10-16T08:14:27Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2067d9d2fbf30d76.png" alt=""><p>Article · llama.cpp. vulkan: fix gpu-visible host memory issues ( #30468 ) vulkan: fix log spam if host pointer import fails exclude MoltenVK from shared memory import remove unreachable code, assert instead. Shorten warnings disable host memory buffer sharing on AMD due to amdgpu perf issue Website:</p>]]></description>
+</item>
+<item>
+<title>New paper from Stanford, Together AI, UIUC, and Meta introduces Hybrid Reasoning Agents. These AI models think mostly in a hidden internal way (faster and cheaper), and only use no</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x7a8i8/new_paper_from_stanford_together_ai_uiuc_and_meta/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x7a8i8/new_paper_from_stanford_together_ai_uiuc_and_meta/</guid>
+<pubDate>2026-10-16T07:58:04+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. On many tests (math, science, medicine, etc.), they score about 10% higher, use half the tokens, run twice as fast, and cost much less than regular models. mod here, paper link: [2610.18861] Hybrid Reasoning Agents make sure to join Discord stuff. original post on tech_x. submitt]]></description>
+</item>
+<item>
+<title>cpu : reduce AVX2 tiled accumulators together by trivalik · Pull Request #30296 · ggml-org/llama.cpp</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x7a59i/cpu_reduce_avx2_tiled_accumulators_together_by/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x7a59i/cpu_reduce_avx2_tiled_accumulators_together_by/</guid>
+<pubDate>2026-10-16T07:52:47+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. More t/s on CPU, for GPU poor people submitted by /u/jacek2023 [link] [comments]]]></description>
+</item>
+<item>
 <title>n8n@2.43.7</title>
 <link>https://github.com/n8n-io/n8n/releases/tag/n8n%402.43.7</link>
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/n8n%402.43.7</guid>
@@ -37,7 +58,14 @@
 <link>https://lemmy.world/post/53195494</link>
 <guid isPermaLink="true">https://lemmy.world/post/53195494</guid>
 <pubDate>Fri, 16 Oct 2026 07:18:41 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by firefoxdev to selfhosted -3 points | 0 comments]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by firefoxdev to selfhosted -4 points | 0 comments]]></description>
+</item>
+<item>
+<title>DeepSeek V4.1 Flash on 4x DGX Spark: my numbers vs Patrick Moorhead&#x27;s results via Wccftech.</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x79ijg/deepseek_v41_flash_on_4x_dgx_spark_my_numbers_vs/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x79ijg/deepseek_v41_flash_on_4x_dgx_spark_my_numbers_vs/</guid>
+<pubDate>2026-10-16T07:11:48+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. A couple of weeks ago I read this Wccftech article about Patrick Moorhead&#x27;s 4 Spark setup. I meant to post this a few days ago but ran some more tests first, and then my workstation had a problem after a kernel and NVIDIA driver update. This post is long enough already, so that w]]></description>
 </item>
 <item>
 <title>Self-hosted AI code review for Gitea, using your own local model</title>
@@ -47,11 +75,18 @@
 <description><![CDATA[Reddit · r/selfhosted. Hey everyone, i built lgtmaybe, an open-source code reviewer, and it runs from Gitea Actions. It posts review comments on your Gitea PRs using a model on your own hardware, so your code never leaves your network. Setup is a token for a bot account, a workflow file and a model end]]></description>
 </item>
 <item>
-<title>b11683: vulkan: fix gpu-visible host memory issues (#30468)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11683</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11683</guid>
-<pubDate>2026-10-16T06:29:23Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2067d9d2fbf30d76.png" alt=""><p>Article · llama.cpp. vulkan: fix log spam if host pointer import fails exclude MoltenVK from shared memory import remove unreachable code, assert instead. Shorten warnings disable host memory buffer sharing on AMD due to amdgpu perf issue</p>]]></description>
+<title>b11684: tests : catch vanished rows in the fusion baseline (#30618)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11684</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11684</guid>
+<pubDate>2026-10-16T06:35:19Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d3ec8753d421d644.png" alt=""><p>Article · llama.cpp. tests : update the Metal fusion baseline Re-record the MTL fusion baseline with the current build: 276 rows over 131 dummy models. Assisted-by: pi:llama.cpp/ggml-org/Qwen3.8-Flash-Next-GGUF (MacBook, M5 Max, 128GB) tests : fail test-fusion when a baseline row stops matching The r</p>]]></description>
+</item>
+<item>
+<title>Liquid AI Releases d1-ultra: A Multimodal Decision Model That Scores 65 on the AA Decision Index</title>
+<link>https://www.marktechpost.com/2026/10/15/liquid-ai-d1-ultra-decision-model/</link>
+<guid isPermaLink="true">https://www.marktechpost.com/2026/10/15/liquid-ai-d1-ultra-decision-model/</guid>
+<pubDate>Fri, 16 Oct 2026 06:26:41 +0000</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1fdd8957df973597.png" alt=""><p>Article · MarkTechPost. Liquid AI released d1-ultra, a text and image decision model that returns calibrated probabilities in 1 forward pass. It scores 65 on the Artificial Analysis Decision Index and costs $0.042 per million input tokens. The post Liquid AI Releases d1-ultra: A Multimodal Decision Mode</p>]]></description>
 </item>
 <item>
 <title>Paperless-ngx v3.3.2</title>
@@ -14110,13 +14145,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/10.png" alt=""><p>Article · ComfyUI. ComfyUI v0.37.3</p>]]></description>
 </item>
 <item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>2026-09-25T20:30:45-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
-</item>
-<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -14649,13 +14677,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>ComfyUI v0.36.0</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</guid>
@@ -14978,6 +14999,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -15039,6 +15067,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
