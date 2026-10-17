@@ -5,11 +5,39 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-17T13:33:46Z</lastBuildDate>
 <item>
+<title>Xolotl (Strata based) - DeepSeek-V4.1-Flash (552B) on a single 4090 at ~27 tok/s, Uncensored 1017 quant coming in a couple of days</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x8m0jj/xolotl_strata_based_deepseekv41flash_552b_on_a/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x8m0jj/xolotl_strata_based_deepseekv41flash_552b_on_a/</guid>
+<pubDate>2026-10-17T21:40:27+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hey all, been meaning to post this for a while. I&#x27;ve been building an inference engine based off Strata called Xolotl that runs DeepSeek-V4.1-Flash, all 552B of it, on one gaming PC. My setup is a single RTX 4090 (24GB), a Ryzen 7 5700X, 90GB of DDR4 and an NVMe drive, nothing fa]]></description>
+</item>
+<item>
+<title>if you&#x27;re on Strata before 0.1.45 and your client doesn&#x27;t set sampling, you&#x27;re running greedy</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x8lwa1/if_youre_on_strata_before_0145_and_your_client/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x8lwa1/if_youre_on_strata_before_0145_and_your_client/</guid>
+<pubDate>2026-10-17T21:34:49+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Two things I ran into while moving my Strata setup from IQ2_XS to Unsloth&#x27;s UD-IQ4_XS (RTX 4090, i9-14900K, 64GB DDR5-5800, Arch). 1. Greedy sampling on older builds Before Strata 0.1.45, a run config without a `sampling` block decoded greedy whenever the request didn&#x27;t set its o]]></description>
+</item>
+<item>
 <title>llama.cpp b11716</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11716</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11716</guid>
 <pubDate>2026-10-17T21:15:22Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4deb72897bf4cab2.png" alt=""><p>Article · llama.cpp. hexagon: add support for Q1_0 and Q2_0 ( #30122 ) hexagon: add support for q1_0 quant hexagon: enable Q1_0 weights in the 2D HMX MUL_MAT path hex-q1: cleanup gates, generalize tiling and remove in-loop divs hex-tiling: document tiled formats in developer.md and update htp-tensor.</p>]]></description>
+</item>
+<item>
+<title>2 gaming PCs + an M4 Pro MacBook over Ethernet + 2 iPhone 17 Pro Maxes over USB-C: Qwen3.8 Flash Next at 37-39 tok/s at 60k context (262k layout in the works)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x8ley0/2_gaming_pcs_an_m4_pro_macbook_over_ethernet_2/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x8ley0/2_gaming_pcs_an_m4_pro_macbook_over_ethernet_2/</guid>
+<pubDate>2026-10-17T21:13:35+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. DISCLAIMER: the prefill rate on the dashboard in the video counts cached prompt tokens as if they were read again, so it reads high. The captions show the server’s real end-to-end numbers, and so does everything below. The decode numbers on screen are correct. After the last post]]></description>
+</item>
+<item>
+<title>32GB to 64GB of RAM took Qwen3.8-Flash-Next from IQ2_XS (2-bit) to Unsloth UD-IQ4_XS (4-bit) on a single 4090</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x8l18e/32gb_to_64gb_of_ram_took_qwen38flashnext_from_iq2/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x8l18e/32gb_to_64gb_of_ram_took_qwen38flashnext_from_iq2/</guid>
+<pubDate>2026-10-17T20:57:25+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I went from 32GB to 64GB of DDR5-5800 this week and moved my Strata setup off IQ2_XS. Box: RTX 4090 24GB, i9-14900K, 64GB DDR5-5800, Arch. The models sit on a SATA SSD (~550 MB/s), so anything Strata has to pull from disk while it generates hurts. I wanted every expert in RAM or]]></description>
 </item>
 <item>
 <title>DeepSeek V4.1 Flash 1017 Support for ds4 · PR #1225 · antirez/ds4</title>
@@ -38,6 +66,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x8kces/fish_audio_drama_3_says_it_needs_a_48_gb_nvidia/</guid>
 <pubDate>2026-10-17T20:27:46+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Drama 3 officially needs an NVIDIA GPU with 48 GB. I wanted it on my RX 9070, so I built Red Curtain together with Claude. How it works: it&#x27;s a 35B MoE with ~3B active per token. The FP8 experts (~32 GB) stay in system RAM and only the ones that actually get used are cached on th]]></description>
+</item>
+<item>
+<title>I Made 17 AIs Play 7,700 Hands of Poker (frontier vs cheap vs local vs jev)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x8j6j8/i_made_17_ais_play_7700_hands_of_poker_frontier/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x8j6j8/i_made_17_ais_play_7700_hands_of_poker_frontier/</guid>
+<pubDate>2026-10-17T19:38:58+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/Civil-Demand555 [link] [comments]]]></description>
 </item>
 <item>
 <title>llama.cpp b11715</title>
@@ -394,7 +429,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x88txd/nvidia_has_officially_confirmed_that_the_5090_is/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x88txd/nvidia_has_officially_confirmed_that_the_5090_is/</guid>
 <pubDate>2026-10-17T12:18:00+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. During a post-event interview at the RTX Spark Launch Party: Taipei on October 16, 2026, Nvidia&#x27;s Senior Vice President of Personal Computing, Jeff Fisher , explicitly debunked the recent discontinuation rumors. submitted by /u/chemist_slime [link] [comments]]]></description>
 </item>
 <item>
 <title>Tested FLUX 3 Klein ConvRot Int8 HQ speed ups on RTX 3090 and 5090 - I have both GPUs in same PC - The results are just simply amazing - Much better precision and accuracy than FP8</title>
@@ -408,7 +443,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x88fvj/qwen_flash_next_quant_and_temp_comparison/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x88fvj/qwen_flash_next_quant_and_temp_comparison/</guid>
 <pubDate>2026-10-17T11:58:07+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. Following a recent interesting post that challenges the performance of higher vs lower quants and generally advised sampling parameters (namely temp), I decided that I had too much free time on my hands and ran 12 test tasks. I ran three models that work on my hardware: - q3_xxs]]></description>
 </item>
 <item>
 <title>MossImage quants &amp; SFT fix</title>
@@ -429,7 +464,7 @@
 <link>https://lemmy.world/post/53242050</link>
 <guid isPermaLink="true">https://lemmy.world/post/53242050</guid>
 <pubDate>Sat, 17 Oct 2026 10:57:13 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by StateMachine to selfhosted 73 points | 108 comments Does anyone run their own AI service? If so, Which one? What hardware? Do you have a way to access it from outside or from a phone? And, if you’re open to sharing, what do you do with it? I know AI-enabling hardware]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by StateMachine to selfhosted 75 points | 110 comments Does anyone run their own AI service? If so, Which one? What hardware? Do you have a way to access it from outside or from a phone? And, if you’re open to sharing, what do you do with it? I know AI-enabling hardware]]></description>
 </item>
 <item>
 <title>MOSS Image - samplers and schedulers</title>
@@ -513,7 +548,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x84po4/deepseekaideepseekv41flash1017_hugging_face/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x84po4/deepseekaideepseekv41flash1017_hugging_face/</guid>
 <pubDate>2026-10-17T08:09:21+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/Bestlife73 [link] [comments]]]></description>
 </item>
 <item>
 <title>For people worried about China export controls - here&#x27;s what it means for us regular folks</title>
@@ -15146,13 +15181,6 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>2026-09-26T07:01:03-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -15720,13 +15748,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/11.png" alt=""><p>Article · ComfyUI. ComfyUI v0.37.2</p>]]></description>
 </item>
 <item>
-<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
-<link>https://chatoss.ai</link>
-<guid isPermaLink="true">https://chatoss.ai</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
-</item>
-<item>
 <title>Compare 12 self-hosted Deep Research systems: GPT Researcher, Onyx, Open WebUI, Khoj, Vane and more. Architectures, local LLM, RAG, licenses.</title>
 <link>https://techhub.social/@ros/117325481287155039</link>
 <guid isPermaLink="true">https://techhub.social/@ros/117325481287155039</guid>
@@ -15767,13 +15788,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11157</guid>
 <pubDate>2026-09-24T07:26:37-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
-</item>
-<item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
@@ -16245,6 +16259,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.0</guid>
@@ -16581,6 +16602,13 @@
 <description><![CDATA[Reddit · r/comfyui. I&#x27;ve come to the realization that my life is busy enough that we could use at least one more moderator on this subreddit. Please consider this a formal request for nominations. Rather than just picking someone myself, I’d like input from the community. If there’s someone here who]]></description>
 </item>
 <item>
+<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
+<link>https://chatoss.ai</link>
+<guid isPermaLink="true">https://chatoss.ai</guid>
+<pubDate>Tue, 18 Aug 2026 20:42:19 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
+</item>
+<item>
 <title>Self hosted email continues to steeply decline</title>
 <link>https://labs.ripe.net/author/artem-berezin/two-providers-a-stubborn-plateau-and-a-very-long-tail-email-in-the-tranco-top-1m/</link>
 <guid isPermaLink="true">https://labs.ripe.net/author/artem-berezin/two-providers-a-stubborn-plateau-and-a-very-long-tail-email-in-the-tranco-top-1m/</guid>
@@ -16670,6 +16698,13 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
+</item>
+<item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
