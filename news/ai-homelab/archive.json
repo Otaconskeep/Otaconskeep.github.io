@@ -306,11 +306,11 @@
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/stable",
       "title": "stable",
-      "summary": "2.43.7 (2026-10-16) Features core: Suspend in-flight production executions at worker shutdown ( #40944 ) ( 5863179 )",
+      "summary": "2.43.8 (2026-10-19) Bug Fixes core: Turn off expression spans by default ( #41310 ) ( e88162a )",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-16T07:25:00Z",
+      "published": "2026-10-19T07:24:50Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "media/19.png",
@@ -438,10 +438,10 @@
       "url": "https://phunky.cafe/my-homelab-got-hacked/",
       "title": "My Homelab Got Hacked – A Postmortem",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · homelab",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-26T07:01:03-07:00",
+      "published": "Mon, 10 Aug 2026 23:04:18 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -574,7 +574,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-24T07:26:37-07:00",
+      "published": "Tue, 18 Aug 2026 20:42:19 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -672,11 +672,11 @@
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/beta",
       "title": "beta",
-      "summary": "2.44.3 (2026-10-16) Bug Fixes core: Keep Observer detail lines instead of discarding the response ( #41157 ) ( c09e0a9 )",
+      "summary": "2.44.4 (2026-10-19) Bug Fixes core: Reuse connections in the log streaming webhook destination ( #41281 ) ( b79afe2 ) core: Turn off expression spans by default ( #41309 ) ( 6965193 )",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-16T07:23:27Z",
+      "published": "2026-10-19T07:24:35Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://opengraph.githubassets.com/e9d9f05b13f547b1c080b1d16028ce9f87c686e48e865def71f7b17721568d04/n8n-io/n8n/releases/tag/beta",
       "file": "media/f195a5e647d31823.png",
@@ -1014,7 +1014,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-23T11:17:55-07:00",
+      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1032,7 +1032,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-24T07:26:37-07:00",
+      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -42805,7 +42805,7 @@
     {
       "url": "https://lemmy.world/post/53242050",
       "title": "Is anyone self-hosting their own AI?",
-      "summary": "submitted by StateMachine to selfhosted 146 points | 168 comments Does anyone run their own AI service? If so, Which one? What hardware? Do you have a way to access it from outside or from a phone? And, if you’re open to sharing, what do you do with it? I know AI-enabling hardwar",
+      "summary": "submitted by StateMachine to selfhosted 147 points | 169 comments Does anyone run their own AI service? If so, Which one? What hardware? Do you have a way to access it from outside or from a phone? And, if you’re open to sharing, what do you do with it? I know AI-enabling hardwar",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -45346,7 +45346,7 @@
     {
       "url": "https://lemmy.world/post/53285873",
       "title": "PSA: Recent Influx of LLM Bots",
-      "summary": "submitted by curbstickle to selfhosted 341 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an",
+      "summary": "submitted by curbstickle to selfhosted 342 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -46749,6 +46749,57 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11727",
+      "title": "llama.cpp b11727",
+      "summary": "tools : reject truncated GGUF tensor data in split and export tools (…",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-19T06:27:46Z",
+      "added_at": "2026-10-19T07:30:28Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/0ce49673993106aa.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.44.4",
+      "title": "n8n@2.44.4",
+      "summary": "2.44.4 (2026-10-19) Bug Fixes core: Reuse connections in the log streaming webhook destination ( #41281 ) ( b79afe2 ) core: Turn off expression spans by default ( #41309 ) ( 6965193 )",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-19T07:26:54Z",
+      "added_at": "2026-10-19T07:30:40Z",
+      "image": "https://opengraph.githubassets.com/f4b03979279efd08a73a8c519d88c5d80e70cd903799c624fd42f31a7130e3b8/n8n-io/n8n/releases/tag/n8n%402.44.4",
+      "file": "media/d1744e858065c09d.png",
+      "video": "",
+      "categories": [
+        "home-automation",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.43.8",
+      "title": "n8n@2.43.8",
+      "summary": "2.43.8 (2026-10-19) Bug Fixes core: Turn off expression spans by default ( #41310 ) ( e88162a )",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-19T07:26:41Z",
+      "added_at": "2026-10-19T07:30:40Z",
+      "image": "https://opengraph.githubassets.com/8991d1cedcfe4d8db1e78790455c83745178b9dce2a6970e4fc1dc92d2b6fa01/n8n-io/n8n/releases/tag/n8n%402.43.8",
+      "file": "media/aef788764f6a1937.png",
+      "video": "",
+      "categories": [
+        "home-automation",
+        "releases"
       ]
     }
   ]
