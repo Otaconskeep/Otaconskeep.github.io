@@ -45346,7 +45346,7 @@
     {
       "url": "https://lemmy.world/post/53285873",
       "title": "PSA: Recent Influx of LLM Bots",
-      "summary": "submitted by curbstickle to selfhosted 352 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an",
+      "summary": "submitted by curbstickle to selfhosted 353 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -46906,12 +46906,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11729",
-      "title": "b11729: qwen3 : bidirectional attention and dense_2 output projection (#30607)",
-      "summary": "qwen3 : bidirectional attention and dense_2 output projection Assisted-by: Grok convert : read use_bidirectional_attention in base Assisted-by: Grok Update conversion/base.py Co-authored-by: Sigbjørn Skjæret sigbjorn.skjaeret@huggingface.co Co-authored-by: Sigbjørn Skjæret sigbjo",
+      "title": "llama.cpp b11729",
+      "summary": "qwen3 : bidirectional attention and dense_2 output projection ( #30607 ) qwen3 : bidirectional attention and dense_2 output projection Assisted-by: Grok convert : read use_bidirectional_attention in base Assisted-by: Grok Update conversion/base.py Co-authored-by: Sigbjørn Skjæret",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-19T06:29:02Z",
+      "published": "2026-10-19T11:27:37Z",
       "added_at": "2026-10-19T11:00:28Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/2bd1be0741b41422.png",
@@ -46936,6 +46936,56 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11730",
+      "title": "b11730: cuda: cap MMQ Stream-K blocks at available work (#30553)",
+      "summary": "cuda: cap Stream-K blocks at the number of k-blocks Stream-K normally launches one CUDA block per SM. For small matrices, this can exceed the total number of output-tile/k-block pairs, leaving blocks with no work and adding launch and fixup overhead. Cap the grid at that count to",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-19T07:41:14Z",
+      "added_at": "2026-10-19T11:30:28Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/d3cc85c71c3b10d1.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1x9tzf1/qwen3827b_and_flashnext_on_consumer_hardware/",
+      "title": "Qwen3.8-27B and Flash-Next on consumer hardware: engine numbers I could verify, and what they cost with 2026 RAM prices",
+      "summary": "I've been keeping a list of the engines that run Qwen3.8-27B and Flash-Next on consumer hardware, mostly to see where my own engine ( capy-flash ) stands. Sharing it because most numbers going around aren't comparable. Our rows are measured on my box: 2× RTX 5070 Ti, 96 GB DDR5. ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-19T11:09:56+00:00",
+      "added_at": "2026-10-19T11:30:29Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://noted.lol/sigwood/",
+      "title": "Sigwood Helps Make Sense of the Logs Sitting on Your Server",
+      "summary": "Home servers collect plenty of information about themselves. System logs record services restarting, login attempts, and other activity that usually goes unnoticed until something stops working. Finding anything meaningful can take longer than expected. I've always liked smaller ",
+      "source": "noted.lol",
+      "kind": "article",
+      "lane": "Article",
+      "published": "Mon, 19 Oct 2026 07:05:30 -0400",
+      "added_at": "2026-10-19T11:30:53Z",
+      "image": "https://noted.lol/content/images/size/w1200/2026/10/sigwood-log-hunter.png",
+      "file": "media/16de17b8764a123a.png",
+      "video": "",
+      "categories": [
+        "homelab"
       ]
     }
   ]

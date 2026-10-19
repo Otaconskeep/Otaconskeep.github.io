@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-19T04:02:15Z</lastBuildDate>
 <item>
+<title>llama.cpp b11729</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11729</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11729</guid>
+<pubDate>2026-10-19T11:27:37Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2bd1be0741b41422.png" alt=""><p>Article · llama.cpp. qwen3 : bidirectional attention and dense_2 output projection ( #30607 ) qwen3 : bidirectional attention and dense_2 output projection Assisted-by: Grok convert : read use_bidirectional_attention in base Assisted-by: Grok Update conversion/base.py Co-authored-by: Sigbjørn Skjæret</p>]]></description>
+</item>
+<item>
+<title>Qwen3.8-27B and Flash-Next on consumer hardware: engine numbers I could verify, and what they cost with 2026 RAM prices</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1x9tzf1/qwen3827b_and_flashnext_on_consumer_hardware/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x9tzf1/qwen3827b_and_flashnext_on_consumer_hardware/</guid>
+<pubDate>2026-10-19T11:09:56+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I&#x27;ve been keeping a list of the engines that run Qwen3.8-27B and Flash-Next on consumer hardware, mostly to see where my own engine ( capy-flash ) stands. Sharing it because most numbers going around aren&#x27;t comparable. Our rows are measured on my box: 2× RTX 5070 Ti, 96 GB DDR5.]]></description>
+</item>
+<item>
+<title>Sigwood Helps Make Sense of the Logs Sitting on Your Server</title>
+<link>https://noted.lol/sigwood/</link>
+<guid isPermaLink="true">https://noted.lol/sigwood/</guid>
+<pubDate>Mon, 19 Oct 2026 07:05:30 -0400</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16de17b8764a123a.png" alt=""><p>Article · noted.lol. Home servers collect plenty of information about themselves. System logs record services restarting, login attempts, and other activity that usually goes unnoticed until something stops working. Finding anything meaningful can take longer than expected. I&#x27;ve always liked smaller</p>]]></description>
+</item>
+<item>
 <title>llama server&#x27;s default port changed from 8080 to 9931</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1x9tbg2/llama_servers_default_port_changed_from_8080_to/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x9tbg2/llama_servers_default_port_changed_from_8080_to/</guid>
@@ -54,6 +75,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. What do you think about a public repository where contributors can dump their sessions manually. We can also build browser extensions and other collectors to automate this as well. Why this is useful: Right now frontier models do not allow distilation and open llms have very limi]]></description>
 </item>
 <item>
+<title>b11730: cuda: cap MMQ Stream-K blocks at available work (#30553)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11730</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11730</guid>
+<pubDate>2026-10-19T07:41:14Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d3cc85c71c3b10d1.png" alt=""><p>Article · llama.cpp. cuda: cap Stream-K blocks at the number of k-blocks Stream-K normally launches one CUDA block per SM. For small matrices, this can exceed the total number of output-tile/k-block pairs, leaving blocks with no work and adding launch and fixup overhead. Cap the grid at that count to</p>]]></description>
+</item>
+<item>
 <title>n8n@2.44.4</title>
 <link>https://github.com/n8n-io/n8n/releases/tag/n8n%402.44.4</link>
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/n8n%402.44.4</guid>
@@ -87,13 +115,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1x9pzt0/kapitsa_opensource_apple_silicon_optimized_metal/</guid>
 <pubDate>2026-10-19T07:04:45+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. hey, my name is Ye, I vibecode at Nace.ai and we do a lot of work with enterprises, and a lot of the time we&#x27;re inside their networks with no internet access and outdated cloud hosted models. considering we work on macbooks, we have built Kapitsa, an open-source (Apache 2.0) infe]]></description>
-</item>
-<item>
-<title>b11729: qwen3 : bidirectional attention and dense_2 output projection (#30607)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11729</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11729</guid>
-<pubDate>2026-10-19T06:29:02Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2bd1be0741b41422.png" alt=""><p>Article · llama.cpp. qwen3 : bidirectional attention and dense_2 output projection Assisted-by: Grok convert : read use_bidirectional_attention in base Assisted-by: Grok Update conversion/base.py Co-authored-by: Sigbjørn Skjæret sigbjorn.skjaeret@huggingface.co Co-authored-by: Sigbjørn Skjæret sigbjo</p>]]></description>
 </item>
 <item>
 <title>LTX 2.5 running locally on a 48GB M5 Pro MacBook Pro in TensorSharp’s Video Studio</title>
@@ -492,7 +513,7 @@
 <link>https://lemmy.world/post/53285873</link>
 <guid isPermaLink="true">https://lemmy.world/post/53285873</guid>
 <pubDate>Sun, 18 Oct 2026 12:14:20 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by curbstickle to selfhosted 352 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by curbstickle to selfhosted 353 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an]]></description>
 </item>
 <item>
 <title>Mellum2 model from JetBrains</title>
