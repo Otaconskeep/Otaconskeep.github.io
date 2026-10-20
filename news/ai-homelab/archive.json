@@ -45346,7 +45346,7 @@
     {
       "url": "https://lemmy.world/post/53285873",
       "title": "PSA: Recent Influx of LLM Bots",
-      "summary": "submitted by curbstickle to selfhosted 379 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an",
+      "summary": "submitted by curbstickle to selfhosted 381 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -49382,8 +49382,8 @@
     },
     {
       "url": "https://lemmy.world/post/53391287",
-      "title": "Was using a hermes agent to grab Internet Archive collections, had it automate the process and make a webui",
-      "summary": "submitted by dilroopgill to selfhosted -2 points | 2 comments",
+      "title": "[AIP] Was using a hermes agent to grab Internet Archive collections, had it automate the process and make a webui",
+      "summary": "submitted by dilroopgill to selfhosted -1 points | 6 comments",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -49418,14 +49418,31 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11760",
       "title": "llama.cpp b11760",
-      "summary": "HIP/CUDA: Fix reduction in mmf getting tile widths not devisiable by …",
+      "summary": "HIP/CUDA: Fix reduction in mmf getting tile widths not devisiable by 64 ( #30836 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-20T11:32:38Z",
+      "published": "2026-10-20T21:53:44Z",
       "added_at": "2026-10-20T21:30:29Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/6ddf0366087284b8.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11761",
+      "title": "b11761: ggml-cpu : select the NEON fp32->fp16 conversion (#30505)",
+      "summary": "The _ ARM_NEON branch defines both GGML_CPU_COMPUTE * macros but selects only FP16_TO_FP32, so FP32_TO_FP16 falls through to the portable software conversion while neon_compute_fp32_to_fp16, a single fcvt, stays defined and referenced by nothing. POWER9_VECTOR and __riscv_zfhmin ",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-20T11:35:06Z",
+      "added_at": "2026-10-20T22:00:29Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/efba68315c6e645d.png",
       "video": "",
       "categories": [
         "local-models",
