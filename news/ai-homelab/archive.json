@@ -49383,7 +49383,7 @@
     {
       "url": "https://lemmy.world/post/53391287",
       "title": "[AIP] Was using a hermes agent to grab Internet Archive collections, had it automate the process and make a webui",
-      "summary": "submitted by dilroopgill to selfhosted -1 points | 6 comments",
+      "summary": "submitted by dilroopgill to selfhosted -6 points | 6 comments",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -49434,12 +49434,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11761",
-      "title": "b11761: ggml-cpu : select the NEON fp32->fp16 conversion (#30505)",
-      "summary": "The _ ARM_NEON branch defines both GGML_CPU_COMPUTE * macros but selects only FP16_TO_FP32, so FP32_TO_FP16 falls through to the portable software conversion while neon_compute_fp32_to_fp16, a single fcvt, stays defined and referenced by nothing. POWER9_VECTOR and __riscv_zfhmin ",
+      "title": "llama.cpp b11761",
+      "summary": "ggml-cpu : select the NEON fp32->fp16 conversion ( #30505 ) The _ ARM_NEON branch defines both GGML_CPU_COMPUTE * macros but selects only FP16_TO_FP32, so FP32_TO_FP16 falls through to the portable software conversion while neon_compute_fp32_to_fp16, a single fcvt, stays defined ",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-20T11:35:06Z",
+      "published": "2026-10-20T22:18:25Z",
       "added_at": "2026-10-20T22:00:29Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/efba68315c6e645d.png",
@@ -49447,6 +49447,57 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11762",
+      "title": "llama.cpp b11762",
+      "summary": "sycl : replace memset due to not always ordered ( #30812 )",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-20T11:35:48Z",
+      "added_at": "2026-10-20T22:30:30Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/0c709df81efddcad.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xb5qxn/yes/",
+      "title": "yes",
+      "summary": "I had 9t/s on my rig, with Unsloth 3bit Qwen 3.8 Flash Next. Then I tried STRATA with CachyOS, because I needed something with a ready NVIDIA driver, kinda pain getting the latest NVIDIA driver to work. Cachy just does it for you, anyway, I hit up to 48t/s sometimes... its kinda ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-20T22:09:34+00:00",
+      "added_at": "2026-10-20T22:30:31Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xb45bq/i_built_an_rk3588_npu_runtime_without_any/",
+      "title": "I built an RK3588 NPU runtime without any proprietary inference libraries: Qwen3.5-4B at ~10 tok/s, ~2x faster than vendor SDK.",
+      "summary": "If you have an RK3588 board, here’s another way to put its NPU to work. I made open_rknpu2_lm_infer, a local LLM inference engine for the Rockchip RK3588 NPU. It runs without Rockchip’s proprietary userspace inference libraries. The upper part is written in Rust and the NPU opera",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-20T21:03:58+00:00",
+      "added_at": "2026-10-20T22:30:31Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]

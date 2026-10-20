@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-20T13:34:13Z</lastBuildDate>
 <item>
+<title>llama.cpp b11761</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11761</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11761</guid>
+<pubDate>2026-10-20T22:18:25Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/efba68315c6e645d.png" alt=""><p>Article · llama.cpp. ggml-cpu : select the NEON fp32-&gt;fp16 conversion ( #30505 ) The _ ARM_NEON branch defines both GGML_CPU_COMPUTE * macros but selects only FP16_TO_FP32, so FP32_TO_FP16 falls through to the portable software conversion while neon_compute_fp32_to_fp16, a single fcvt, stays defined</p>]]></description>
+</item>
+<item>
+<title>yes</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xb5qxn/yes/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xb5qxn/yes/</guid>
+<pubDate>2026-10-20T22:09:34+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I had 9t/s on my rig, with Unsloth 3bit Qwen 3.8 Flash Next. Then I tried STRATA with CachyOS, because I needed something with a ready NVIDIA driver, kinda pain getting the latest NVIDIA driver to work. Cachy just does it for you, anyway, I hit up to 48t/s sometimes... its kinda]]></description>
+</item>
+<item>
 <title>llama.cpp b11760</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11760</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11760</guid>
@@ -26,11 +40,18 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d2ace7e9d2436a97.png" alt=""><p>Article · Ollama. Deduplicate MLX CUDA runtime payloads Move CUDA libraries shared by the GGML and MLX backends into the sibling CUDA payload, and teach in-process and subprocess MLX loading to resolve that packaged dependency directory. Keep MLX-private libraries and JIT headers in the MLX overla</p>]]></description>
 </item>
 <item>
+<title>I built an RK3588 NPU runtime without any proprietary inference libraries: Qwen3.5-4B at ~10 tok/s, ~2x faster than vendor SDK.</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xb45bq/i_built_an_rk3588_npu_runtime_without_any/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xb45bq/i_built_an_rk3588_npu_runtime_without_any/</guid>
+<pubDate>2026-10-20T21:03:58+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. If you have an RK3588 board, here’s another way to put its NPU to work. I made open_rknpu2_lm_infer, a local LLM inference engine for the Rockchip RK3588 NPU. It runs without Rockchip’s proprietary userspace inference libraries. The upper part is written in Rust and the NPU opera]]></description>
+</item>
+<item>
 <title>[AIP] Was using a hermes agent to grab Internet Archive collections, had it automate the process and make a webui</title>
 <link>https://lemmy.world/post/53391287</link>
 <guid isPermaLink="true">https://lemmy.world/post/53391287</guid>
 <pubDate>Tue, 20 Oct 2026 20:44:43 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by dilroopgill to selfhosted -1 points | 6 comments]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by dilroopgill to selfhosted -6 points | 6 comments]]></description>
 </item>
 <item>
 <title>ComfyUI v0.42.2</title>
@@ -222,11 +243,11 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Hi all, just wanted to share some benchmarks. I got Unsloth&#x27;s UD-Q4_K_XL quant of DeepSeek-V4.1-Flash-1017 running and spent some time tuning it. Some of what I found isn&#x27;t in the guide, so here are my notes. Hardware EPYC 9575F (64 cores / 128 threads) 768 GB DDR5 4x RTX 3090 (9]]></description>
 </item>
 <item>
-<title>b11761: ggml-cpu : select the NEON fp32-&gt;fp16 conversion (#30505)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11761</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11761</guid>
-<pubDate>2026-10-20T11:35:06Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/efba68315c6e645d.png" alt=""><p>Article · llama.cpp. The _ ARM_NEON branch defines both GGML_CPU_COMPUTE * macros but selects only FP16_TO_FP32, so FP32_TO_FP16 falls through to the portable software conversion while neon_compute_fp32_to_fp16, a single fcvt, stays defined and referenced by nothing. POWER9_VECTOR and __riscv_zfhmin</p>]]></description>
+<title>llama.cpp b11762</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11762</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11762</guid>
+<pubDate>2026-10-20T11:35:48Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0c709df81efddcad.png" alt=""><p>Article · llama.cpp. sycl : replace memset due to not always ordered ( #30812 )</p>]]></description>
 </item>
 <item>
 <title>chinese hardware</title>
