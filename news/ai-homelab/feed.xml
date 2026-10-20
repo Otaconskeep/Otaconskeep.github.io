@@ -5,10 +5,17 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-20T13:34:13Z</lastBuildDate>
 <item>
+<title>llama.cpp b11765</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11765</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11765</guid>
+<pubDate>2026-10-20T23:23:18Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/72a731f967f209c7.png" alt=""><p>Article · llama.cpp. model : drop the redundant precision overrides in the Kolibri-1 router ( #30865 ) model : drop the redundant precision overrides in the Kolibri-1 router Follow-up to the review in #30673 : the router matmul works with the default precision, so both ggml_prec_set_* calls can go aw</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11763</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11763</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11763</guid>
-<pubDate>2026-10-20T23:00:23Z</pubDate>
+<pubDate>2026-10-20T23:01:45Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/df1d6ce7caa4eee3.png" alt=""><p>Article · llama.cpp. opencl: add several gemm variants for small batches and some fixes ( #30850 ) opencl: fix OOB read in mul_mv_mxfp4_f32_flat opencl: remove large-N guard that forces CPU weight placement this condition claims that large batch produces incorrect results on adreno and cannot be repr</p>]]></description>
 </item>
 <item>
@@ -257,18 +264,18 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Geezuz, its fast! Qwen3.8-27B, two RTX 3090s power-limited to 280 W, plain PCIe, no NVLink, at 0 Context: (tests showing results with context are found on the next table) Requests Q4_K_M Q8_0 1 request 190 tok/s 143 tok/s 8 requests at once (total) 622 tok/s 610 tok/s llama.cpp&#x27;s]]></description>
 </item>
 <item>
+<title>b11766: metal : optimize argmax and pool_1d (#30862)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11766</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11766</guid>
+<pubDate>2026-10-20T13:46:00Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/125af853e4eeaced.png" alt=""><p>Article · llama.cpp. metal : optimize argmax and pool_1d Add a two-pass partial reduction for large-row argmax and use cooperative threadgroup reductions for pool_1d. Allocate scratch space for the argmax partials through the Metal buffer allocator. Assisted-by: pi:llama.cpp/ggml-org/DeepSeek-V4-Flas</p>]]></description>
+</item>
+<item>
 <title>DeepSeek-V4.1-Flash (UD-Q4_K_XL) on 4x 3090 + EPYC: 12 → 25 tok/s prose, 39 tok/s code.</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xas9h8/deepseekv41flash_udq4_k_xl_on_4x_3090_epyc_12_25/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xas9h8/deepseekv41flash_udq4_k_xl_on_4x_3090_epyc_12_25/</guid>
 <pubDate>2026-10-20T13:32:26+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Hi all, just wanted to share some benchmarks. I got Unsloth&#x27;s UD-Q4_K_XL quant of DeepSeek-V4.1-Flash-1017 running and spent some time tuning it. Some of what I found isn&#x27;t in the guide, so here are my notes. Hardware EPYC 9575F (64 cores / 128 threads) 768 GB DDR5 4x RTX 3090 (9]]></description>
-</item>
-<item>
-<title>llama.cpp b11765</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11765</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11765</guid>
-<pubDate>2026-10-20T12:58:09Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/72a731f967f209c7.png" alt=""><p>Article · llama.cpp. model : drop the redundant precision overrides in the Kolibri-1 route…</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b11762</title>
@@ -17554,13 +17561,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/10.png" alt=""><p>Article · ComfyUI. ComfyUI v0.37.3</p>]]></description>
 </item>
 <item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>2026-09-25T20:30:45-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
-</item>
-<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -18419,7 +18419,7 @@
 <link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
 <guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
 <pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.1rc0</title>
@@ -18483,6 +18483,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
@@ -19168,7 +19175,7 @@
 <link>https://blawg.pages.dev/ollama-vs-llama-server</link>
 <guid isPermaLink="true">https://blawg.pages.dev/ollama-vs-llama-server</guid>
 <pubDate>Sun, 12 Jul 2026 12:22:17 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · llama.cpp. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>Rebuilding My Homelab with Compose, Ruby, IPv6, and No Kubernetes</title>
