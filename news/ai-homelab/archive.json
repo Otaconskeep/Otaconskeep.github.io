@@ -454,7 +454,7 @@
     {
       "url": "https://www.youtube.com/watch?v=7I0pjHC4U7I",
       "title": "I'm starting a homelab festival (you're invited)",
-      "summary": "Video from Jeff Geerling.",
+      "summary": "REGISTER NOW!",
       "source": "Jeff Geerling",
       "kind": "youtube",
       "lane": "Video",
@@ -49315,11 +49315,11 @@
     {
       "url": "https://github.com/BerriAI/litellm/releases/tag/v1.106.1",
       "title": "LiteLLM v1.106.1",
-      "summary": "Verify Docker Image Signature All LiteLLM Docker images are signed with cosign . Every release is signed with the same key introduced in commit 0112e53 . Verify using the pinned commit hash (recommended): A commit hash is cryptographically immutable, so this is the strongest way ",
+      "summary": "Verify this release cosign verify \\ --key",
       "source": "LiteLLM",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-20T18:58:28Z",
+      "published": "2026-10-21T03:25:55Z",
       "added_at": "2026-10-20T19:00:48Z",
       "image": "https://opengraph.githubassets.com/928ac72f3e912d0423a168d98cfebbe1670719c5b5c4ed9f49b43ad8845ac9da/BerriAI/litellm/releases/tag/v1.106.1",
       "file": "media/18d43f408aa21288.png",
@@ -49810,12 +49810,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11776",
-      "title": "b11776: server: Support logprobs with speculative decoding (#27196)",
-      "summary": "return logprobs in spec path server: add regression test for logprobs with speculative decoding Asserts accepted draft tokens report the target model's logprobs, comparing a draft-enabled run against a no-draft baseline ( #24271 ). Fails on master (top_logprobs empty, logprob 0.0",
+      "title": "llama.cpp b11776",
+      "summary": "server: Support logprobs with speculative decoding ( #27196 ) return logprobs in spec path server: add regression test for logprobs with speculative decoding Asserts accepted draft tokens report the target model's logprobs, comparing a draft-enabled run against a no-draft baselin",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-20T17:36:14Z",
+      "published": "2026-10-21T03:07:32Z",
       "added_at": "2026-10-21T03:00:29Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/e23ecc6a42542db4.png",
@@ -49836,6 +49836,57 @@
       "added_at": "2026-10-21T03:00:29Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/79945a2db5d60bd9.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ollama/ollama/releases/tag/v0.40.7",
+      "title": "v0.40.7: mlx: deduplicate CUDA runtime payloads (#17956)",
+      "summary": "Deduplicate MLX CUDA runtime payloads Move CUDA libraries shared by the GGML and MLX backends into the sibling CUDA payload, and teach in-process and subprocess MLX loading to resolve that packaged dependency directory. Keep MLX-private libraries and JIT headers in the MLX overla",
+      "source": "Ollama",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-20T21:15:15Z",
+      "added_at": "2026-10-21T03:30:28Z",
+      "image": "https://opengraph.githubassets.com/97f073ce47ca85f2564370614a9805947216acb7cbd4c08ac1c80a4400b1f4b5/ollama/ollama",
+      "file": "media/86cb76492e93ed0a.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11778",
+      "title": "llama.cpp b11778",
+      "summary": "model : support Nemotron-3(.5)-Embed ( #30877 )",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-20T20:48:45Z",
+      "added_at": "2026-10-21T03:30:29Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/d579a544af764836.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11777",
+      "title": "llama.cpp b11777",
+      "summary": "qwen: reshape output to 2d instead of 3d ( #30823 ) qwen: reshape output to 2d instead of 3d remove final reshape, fix comments Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-21T03:25:40Z",
+      "added_at": "2026-10-21T03:30:29Z",
+      "image": "https://opengraph.githubassets.com/4e193e0a11808291a3b8cc867f2fb3aa0c36e4c33b895bdca12a5084cee72535/ggml-org/llama.cpp/releases/tag/b11777",
+      "file": "media/ae2593ff9e1d94bc.png",
       "video": "",
       "categories": [
         "local-models",

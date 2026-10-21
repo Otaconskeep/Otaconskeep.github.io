@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-20T13:34:13Z</lastBuildDate>
 <item>
+<title>LiteLLM v1.106.1</title>
+<link>https://github.com/BerriAI/litellm/releases/tag/v1.106.1</link>
+<guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.106.1</guid>
+<pubDate>2026-10-21T03:25:55Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/18d43f408aa21288.png" alt=""><p>Article · LiteLLM. Verify this release cosign verify \ --key</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b11777</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11777</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11777</guid>
+<pubDate>2026-10-21T03:25:40Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ae2593ff9e1d94bc.png" alt=""><p>Article · llama.cpp. qwen: reshape output to 2d instead of 3d ( #30823 ) qwen: reshape output to 2d instead of 3d remove final reshape, fix comments Website:</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b11776</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11776</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11776</guid>
+<pubDate>2026-10-21T03:07:32Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e23ecc6a42542db4.png" alt=""><p>Article · llama.cpp. server: Support logprobs with speculative decoding ( #27196 ) return logprobs in spec path server: add regression test for logprobs with speculative decoding Asserts accepted draft tokens report the target model&#x27;s logprobs, comparing a draft-enabled run against a no-draft baselin</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11774</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11774</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11774</guid>
@@ -152,11 +173,25 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d729c5af15e6e1c3.png" alt=""><p>Article · llama.cpp. ggml-zdnn: introduce flash attention op ( #30512 ) ggml-zdnn: add scratch buffer pool Signed-off-by: Aaron Teo aaron.teo1@ibm.com ggml-zdnn: implement fattn, ditch scratch slots in favour of scratch buffer pool Signed-off-by: Aaron Teo aaron.teo1@ibm.com docs: add note about fatt</p>]]></description>
 </item>
 <item>
+<title>v0.40.7: mlx: deduplicate CUDA runtime payloads (#17956)</title>
+<link>https://github.com/ollama/ollama/releases/tag/v0.40.7</link>
+<guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.40.7</guid>
+<pubDate>2026-10-20T21:15:15Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/86cb76492e93ed0a.png" alt=""><p>Article · Ollama. Deduplicate MLX CUDA runtime payloads Move CUDA libraries shared by the GGML and MLX backends into the sibling CUDA payload, and teach in-process and subprocess MLX loading to resolve that packaged dependency directory. Keep MLX-private libraries and JIT headers in the MLX overla</p>]]></description>
+</item>
+<item>
 <title>I built an RK3588 NPU runtime without any proprietary inference libraries: Qwen3.5-4B at ~10 tok/s, ~2x faster than vendor SDK.</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xb45bq/i_built_an_rk3588_npu_runtime_without_any/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xb45bq/i_built_an_rk3588_npu_runtime_without_any/</guid>
 <pubDate>2026-10-20T21:03:58+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. If you have an RK3588 board, here’s another way to put its NPU to work. I made open_rknpu2_lm_infer, a local LLM inference engine for the Rockchip RK3588 NPU. It runs without Rockchip’s proprietary userspace inference libraries. The upper part is written in Rust and the NPU opera]]></description>
+</item>
+<item>
+<title>llama.cpp b11778</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11778</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11778</guid>
+<pubDate>2026-10-20T20:48:45Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d579a544af764836.png" alt=""><p>Article · llama.cpp. model : support Nemotron-3(.5)-Embed ( #30877 )</p>]]></description>
 </item>
 <item>
 <title>[AIP] Was using a hermes agent to grab Internet Archive collections, had it automate the process and make a webui</title>
@@ -178,13 +213,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11757</guid>
 <pubDate>2026-10-20T20:00:29Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1abb0c06a1739c59.png" alt=""><p>Article · llama.cpp. CUDA: Clear CUDA graphs after legacy memory pool flush ( #26771 ) Assisted-by: Claude Opus 5.5 Website:</p>]]></description>
-</item>
-<item>
-<title>LiteLLM v1.106.1</title>
-<link>https://github.com/BerriAI/litellm/releases/tag/v1.106.1</link>
-<guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.106.1</guid>
-<pubDate>2026-10-20T18:58:28Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/18d43f408aa21288.png" alt=""><p>Article · LiteLLM. Verify Docker Image Signature All LiteLLM Docker images are signed with cosign . Every release is signed with the same key introduced in commit 0112e53 . Verify using the pinned commit hash (recommended): A commit hash is cryptographically immutable, so this is the strongest way</p>]]></description>
 </item>
 <item>
 <title>XHToken/Spark-X2.6-4B · Hugging Face</title>
@@ -213,13 +241,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xaz06x/running_35b_moe_models_on_a_tesla_k80_2014_at_21/</guid>
 <pubDate>2026-10-20T17:49:47+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. I&#x27;ve spent about a year on an inference engine that doesn&#x27;t need modern hardware. It&#x27;s called Pantheon (LLM engine) on top of Foundry (ML library), both in C with no outside libraries. The CUDA backend targets Kepler ( sm_37 ), so a Tesla K80 you can buy used for very little does]]></description>
-</item>
-<item>
-<title>b11776: server: Support logprobs with speculative decoding (#27196)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11776</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11776</guid>
-<pubDate>2026-10-20T17:36:14Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e23ecc6a42542db4.png" alt=""><p>Article · llama.cpp. return logprobs in spec path server: add regression test for logprobs with speculative decoding Asserts accepted draft tokens report the target model&#x27;s logprobs, comparing a draft-enabled run against a no-draft baseline ( #24271 ). Fails on master (top_logprobs empty, logprob 0.0</p>]]></description>
 </item>
 <item>
 <title>LiteLLM v1.103.6</title>
@@ -17810,7 +17831,7 @@
 <link>https://www.youtube.com/watch?v=7I0pjHC4U7I</link>
 <guid isPermaLink="true">https://www.youtube.com/watch?v=7I0pjHC4U7I</guid>
 <pubDate>2026-09-25T15:00:38+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4bfe6bb1f1622204.jpg" alt=""><p>Video · Jeff Geerling. Video from Jeff Geerling.</p>]]></description>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4bfe6bb1f1622204.jpg" alt=""><p>Video · Jeff Geerling. REGISTER NOW!</p>]]></description>
 </item>
 <item>
 <title>Armbian for Amlogic, Rockchip, and Allwinner devices brings Linux to a wide range of TV boxes, including models without official support. Replace A</title>
