@@ -52473,7 +52473,7 @@
     {
       "url": "https://lemmy.world/post/53462631",
       "title": "[AIT] what is your selfhosted local LLM stack?",
-      "summary": "submitted by Alvaro to selfhosted -1 points | 7 comments What tools and projects do you use for your local LLM chats and agents? I’m trying to sift through the mess of LLM harness and tools to find how to really get the most out of local LLMs.",
+      "summary": "submitted by Alvaro to selfhosted 1 points | 7 comments What tools and projects do you use for your local LLM chats and agents? I’m trying to sift through the mess of LLM harness and tools to find how to really get the most out of local LLMs.",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -52676,12 +52676,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11821",
-      "title": "b11821: Multi-column on Intel XMX matrix engines refactored (#29864)",
-      "summary": "Multi-column on Intel XMX matrix engines refactored Multi-column (2 to 80 activation columns) mul_mat_vec_q for reordered K-quant and Q8_0 weights on the Intel XMX matrix engines (int8 DPAS, ESIMD), for the SYCL backend. It targets speculative decoding verification (2 to 8 tokens",
+      "title": "llama.cpp b11821",
+      "summary": "Multi-column on Intel XMX matrix engines refactored ( #29864 ) Multi-column on Intel XMX matrix engines refactored Multi-column (2 to 80 activation columns) mul_mat_vec_q for reordered K-quant and Q8_0 weights on the Intel XMX matrix engines (int8 DPAS, ESIMD), for the SYCL backe",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-22T13:39:01Z",
+      "published": "2026-10-22T17:05:42Z",
       "added_at": "2026-10-22T17:00:37Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/caa2121350852b24.png",
@@ -52694,7 +52694,7 @@
     {
       "url": "https://lemmy.world/post/53468554",
       "title": "FYI: AI models are useful to recover your forgotten pppoe credentials",
-      "summary": "submitted by erer to selfhosted 0 points | 0 comments I know Lemmy hates AI, but this might be helpful information for some in this community. If you forgot your pppoe password in your modem, 😉, just ask an AI model to help you recover it. Normally you just need to get a backup o",
+      "summary": "submitted by erer to selfhosted -14 points | 1 comments I know Lemmy hates AI, but this might be helpful information for some in this community. If you forgot your pppoe password in your modem, 😉, just ask an AI model to help you recover it. Normally you just need to get a backup",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -52705,6 +52705,108 @@
       "video": "",
       "categories": [
         "homelab",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11822",
+      "title": "b11822: model : fix qwen4exp layer inputs for DFlash drafters (#30927)",
+      "summary": "qwen4exp published the hc-wide residual [n_embd, hc, n_tokens] as t_layer_inp, but the drafter reads layer inputs as [n_embd, n_tokens] rows: llama_context sizes each embd_layer_inp buffer as n_embd * n_batch and the DFlash encoder input is n_extract * n_embd wide. Evaluating a D",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-22T13:49:38Z",
+      "added_at": "2026-10-22T17:30:36Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/3f3b9cf3711f8a8a.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xcmioz/q4_flash_next_for_300600_snapdragon_mini_pc/",
+      "title": "Q4 flash next for £300/600 👀 - snapdragon mini PC results update - 315/43 Tok/s A3b, 46/20 Tok/s Flash Next (read/gen) 💥",
+      "summary": "Follow up to my post about the £300 Snapdragon mini PC:",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-22T15:58:48+00:00",
+      "added_at": "2026-10-22T17:30:38Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xcoelw/deepseek_and_minimax_clear_chinas_ai_export_rules/",
+      "title": "DeepSeek and MiniMax Clear China’s AI Export Rules for Overseas Open-Source Releases",
+      "summary": "On October 22, Chinese media reported that DeepSeek and MiniMax have officially completed the required registration filings under China’s new temporary AI export regulations. By submitting their technologies for cross-border review, both companies successfully fulfilled the admin",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-22T17:07:31+00:00",
+      "added_at": "2026-10-22T17:30:38Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xcnsrj/ling30tinyubtree_dflash_draft_for_stock_mainline/",
+      "title": "Ling-3.0-tiny-UBTree DFlash draft for stock mainline llama.cpp (+8% prose, +61% code speedup)",
+      "summary": "I use Ling-3.0-tiny on my LLM server for text processing. I convert a lot of PDF documents to markdown for downstream LLM processing, and I built my custom harness for it. It uses ONNX model to parse layout, extracts text, and then runs LLM processing stage to remove extra whites",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-22T16:45:30+00:00",
+      "added_at": "2026-10-22T17:30:38Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xclt9s/when_will_we_have_another_breakthrough_for_faster/",
+      "title": "When will we have another breakthrough for faster local dense models?",
+      "summary": "Most of the speedup are touching along the likes like cutting the active params reletive to total params(MOE) but it does take a hit in stability & reliability compared to a dense-27b can be much more stable at low total params. We hade the innovation of MTP which is great and lo",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-22T15:32:14+00:00",
+      "added_at": "2026-10-22T17:30:38Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xcmkyh/is_128gb_ram_worth_it/",
+      "title": "Is 128GB RAM worth it?",
+      "summary": "I have 48GB VRAM (2x3090 24GB) and 48GB DDR4 RAM. If I get 128 GB DDR4 RAM can I run things like Deepseek V4.1 1017 and GLM 5.3 Flash at low quants with at least 20T/s or so and have it be better than Qwen 3.8 Flash Next etc? If not, is there another system I should get, maybe sw",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-22T16:00:55+00:00",
+      "added_at": "2026-10-22T17:30:38Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
         "communities"
       ]
     }
