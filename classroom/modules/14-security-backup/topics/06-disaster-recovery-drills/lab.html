@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>06-disaster-recovery-drills: Lab · Classroom</title>
+<meta name="description" content="06-disaster-recovery-drills: Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/14-security-backup/topics/06-disaster-recovery-drills/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M14 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M14 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 06-disaster-recovery-drills: Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Segmentation, Backup &amp; Power<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> medium<br />
+<strong>Objective:</strong> Distinguish disaster recovery from backup creation, high availability, and routine incident response.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Comfort using a POSIX-compatible shell and standard file-management commands.</li>
+<li>Basic understanding of backups, archives, checksums, service dependencies, and incident response.</li>
+<li>Permission to create and modify /opt/lab-classroom/class75/.</li>
+<li>The parent directory /opt/lab-classroom/ must already exist and be writable by the learner.</li>
+<li>Python 3, tar, gzip, sha256sum, sort, diff, date, mkdir, mv, test, cat, and printf must be available.</li>
+<li>No production service may use /opt/lab-classroom/class75/.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>scenario</h4><p>A simulated application directory becomes unavailable. The operator must detect the failure, select and validate a known recovery point, restore it, prove data integrity, and document the drill.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A simulated application directory becomes unavailable.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>exercise_targets</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (exercise_targets)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>rto</h4><p>Complete the classroom recovery within 20 minutes. This is an exercise target, not a production benchmark.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Complete the classroom recovery within 20 minutes.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>rpo</h4><p>Recover exactly the state represented by app-state-v1.tgz and baseline.sha256.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Recover exactly the state represented by app-state-v1.tgz and baseline.sha256.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>success_condition</h4><p>The restored manifest matches the baseline, required files exist, configuration values are readable, and the drill report contains measured timestamps.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The restored manifest matches the baseline, required files exist, configuration values are readable, and the drill report contains measured timestamps.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>safety_rules</h4><p>Confirm the current directory and LAB_ROOT value before every mutating command.<br />
+Do not substitute another path for /opt/lab-classroom/class75/.<br />
+Stop if /opt/lab-classroom/class75 already exists; inspect it rather than overwriting prior work.<br />
+Do not run this exercise against a production application, mounted backup repository, or shared service path.<br />
+Treat archive extraction as an overwrite-capable operation and inspect the archive member list first.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Establish the scoped workspace</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Establish the scoped workspace</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>export LAB_ROOT=/opt/lab-classroom/class75<br />
+test "$LAB_ROOT" = "/opt/lab-classroom/class75"<br />
+test ! -e "$LAB_ROOT"<br />
+mkdir "$LAB_ROOT"<br />
+mkdir "$LAB_ROOT/service" "$LAB_ROOT/backups" "$LAB_ROOT/manifests" "$LAB_ROOT/incidents" "$LAB_ROOT/drill"<br />
+mkdir "$LAB_ROOT/service/current" "$LAB_ROOT/service/current/config" "$LAB_ROOT/service/current/data"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: export LAB_ROOT=/opt/lab-classroom/class75
+test &quot;$LAB_ROOT&quot; = &quot;/opt/lab-classroom/class75&quot;
+test !</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>If the nonexistence check fails, stop. Preserve the existing directory as evidence and use an instructor-approved reset procedure.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: If the nonexistence check fails, stop.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Create deterministic application state</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create deterministic application state</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>printf '%s\n' 'application=inventory' 'mode=training' 'schema_version=1' &gt; "$LAB_ROOT/service/current/config/app.conf"<br />
+printf '%s\n' 'asset-001,router,active' 'asset-002,switch,active' 'asset-003,server,maintenance' &gt; "$LAB_ROOT/service/current/data/records.txt"<br />
+printf '%s\n' 'config/app.conf' 'data/records.txt' &gt; "$LAB_ROOT/service/current/required-files.txt"<br />
+(cd "$LAB_ROOT/service/current" &amp;&amp; sha256sum config/app.conf data/records.txt required-files.txt | sort) &gt; "$LAB_ROOT/manifests/baseline.sha256"<br />
+cat "$LAB_ROOT/manifests/baseline.sha256"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: printf &#x27;%s\n&#x27; &#x27;application=inventory&#x27; &#x27;mode=training&#x27; &#x27;schema_version=1&#x27; &gt; &quot;$LAB_ROOT/service/current/config/app.conf&quot;
+printf &#x27;%s\n&#x27; &#x27;asset-001,router,active…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The baseline manifest represents the trusted recovery point for this exercise.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The baseline manifest represents the trusted recovery point for this exercise.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Create and validate the recovery artifact</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create and validate the recovery artifact</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>tar -C "$LAB_ROOT/service" -czf "$LAB_ROOT/backups/app-state-v1.tgz" current<br />
+sha256sum "$LAB_ROOT/backups/app-state-v1.tgz" &gt; "$LAB_ROOT/manifests/archive.sha256"<br />
+gzip -t "$LAB_ROOT/backups/app-state-v1.tgz"<br />
+tar -tzf "$LAB_ROOT/backups/app-state-v1.tgz" | tee "$LAB_ROOT/drill/archive-members.txt"<br />
+grep -Fx 'current/config/app.conf' "$LAB_ROOT/drill/archive-members.txt"<br />
+grep -Fx 'current/data/records.txt' "$LAB_ROOT/drill/archive-members.txt"<br />
+grep -Fx 'current/required-files.txt' "$LAB_ROOT/drill/archive-members.txt"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: tar -C &quot;$LAB_ROOT/service&quot; -czf &quot;$LAB_ROOT/backups/app-state-v1.tgz&quot; current
+sha256sum &quot;$LAB_ROOT/backups/app-state-v1.tgz&quot; &gt; &quot;$LAB_ROOT/manifests/archive.sh…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>Review the complete member list. Every member should be under current/ and no member should begin with an absolute path or contain a parent-directory traversal component.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Review the complete member list.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Record the start and inject the outage</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Record the start and inject the outage</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>date -u +%s &gt; "$LAB_ROOT/drill/start_epoch.txt"<br />
+date -u +%Y-%m-%dT%H:%M:%SZ &gt; "$LAB_ROOT/drill/start_utc.txt"<br />
+printf '%s\n' 'Scenario: active application directory unavailable' 'Recovery artifact: backups/app-state-v1.tgz' &gt; "$LAB_ROOT/drill/declaration.txt"<br />
+mv "$LAB_ROOT/service/current" "$LAB_ROOT/incidents/current.unavailable"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: date -u +%s &gt; &quot;$LAB_ROOT/drill/start_epoch.txt&quot;
+date -u +%Y-%m-%dT%H:%M:%SZ &gt; &quot;$LAB_ROOT/drill/start_utc.txt&quot;
+printf &#x27;%s\n&#x27; &#x27;Scenario: active application dir…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The move is the controlled fault injection. It affects only the simulated service under the laboratory root.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The move is the controlled fault injection.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Confirm detection</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Confirm detection</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>if test -f "$LAB_ROOT/service/current/config/app.conf"; then printf '%s\n' 'UNEXPECTED: health check passed'; else printf '%s\n' 'EXPECTED: health check failed because active state is unavailable'; fi | tee "$LAB_ROOT/drill/detection.txt"<br />
+test ! -e "$LAB_ROOT/service/current"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The second command should succeed silently because the active directory is absent.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The second command should succeed silently because the active directory is absent.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Revalidate and restore</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Revalidate and restore</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>sha256sum -c "$LAB_ROOT/manifests/archive.sha256"<br />
+gzip -t "$LAB_ROOT/backups/app-state-v1.tgz"<br />
+tar -xzf "$LAB_ROOT/backups/app-state-v1.tgz" -C "$LAB_ROOT/service"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: sha256sum -c &quot;$LAB_ROOT/manifests/archive.sha256&quot;
+gzip -t &quot;$LAB_ROOT/backups/app-state-v1.tgz&quot;
+tar -xzf &quot;$LAB_ROOT/backups/app-state-v1.tgz&quot; -C &quot;$LAB_ROOT/se…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>Do not extract until the archive digest, compression test, and previously captured member list are acceptable.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Do not extract until the archive digest, compression test, and previously captured member list are acceptable.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Verify integrity and function</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Verify integrity and function</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>(cd "$LAB_ROOT/service/current" &amp;&amp; sha256sum config/app.conf data/records.txt required-files.txt | sort) &gt; "$LAB_ROOT/manifests/restored.sha256"<br />
+diff -u "$LAB_ROOT/manifests/baseline.sha256" "$LAB_ROOT/manifests/restored.sha256" | tee "$LAB_ROOT/drill/manifest-diff.txt"<br />
+test -f "$LAB_ROOT/service/current/config/app.conf"<br />
+test -f "$LAB_ROOT/service/current/data/records.txt"<br />
+test -f "$LAB_ROOT/service/current/required-files.txt"<br />
+grep -Fx 'application=inventory' "$LAB_ROOT/service/current/config/app.conf"<br />
+grep -Fx 'schema_version=1' "$LAB_ROOT/service/current/config/app.conf"<br />
+test "$(wc -l &lt; "$LAB_ROOT/service/current/data/records.txt")" -eq 3<br />
+printf '%s\n' 'PASS: integrity and functional checks completed' | tee "$LAB_ROOT/drill/verification-summary.txt"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: (cd &quot;$LAB_ROOT/service/current&quot; &amp;&amp; sha256sum config/app.conf data/records.txt required-files.txt | sort) &gt; &quot;$LAB_ROOT/manifests/restored.sha256&quot;
+diff -u &quot;$LA…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>A successful diff produces no difference output. Do not write the PASS summary if an earlier required command fails.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: A successful diff produces no difference output.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>8</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 8</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Measure and report</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Measure and report</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>date -u +%s &gt; "$LAB_ROOT/drill/end_epoch.txt"<br />
+date -u +%Y-%m-%dT%H:%M:%SZ &gt; "$LAB_ROOT/drill/end_utc.txt"<br />
+start=$(cat "$LAB_ROOT/drill/start_epoch.txt"); end=$(cat "$LAB_ROOT/drill/end_epoch.txt"); printf 'recovery_time_actual_seconds=%s\n' "$((end-start))" &gt; "$LAB_ROOT/drill/metrics.txt"<br />
+printf '%s\n' 'recovery_point_actual=selected archive state' 'data_integrity=matched baseline manifest' 'scope=/opt/lab-classroom/class75/' &gt;&gt; "$LAB_ROOT/drill/metrics.txt"<br />
+cat "$LAB_ROOT/drill/start_utc.txt" "$LAB_ROOT/drill/end_utc.txt" "$LAB_ROOT/drill/metrics.txt" "$LAB_ROOT/drill/verification-summary.txt" &gt; "$LAB_ROOT/drill/final-report.txt"<br />
+cat "$LAB_ROOT/drill/final-report.txt"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: date -u +%s &gt; &quot;$LAB_ROOT/drill/end_epoch.txt&quot;
+date -u +%Y-%m-%dT%H:%M:%SZ &gt; &quot;$LAB_ROOT/drill/end_utc.txt&quot;
+start=$(cat &quot;$LAB_ROOT/drill/start_epoch.txt&quot;); end…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The measured result applies only to this exercise and environment. Add operator observations and corrective actions to the report after the technical work.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The measured result applies only to this exercise and environment.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>stop_conditions</h4><p>LAB_ROOT does not exactly equal /opt/lab-classroom/class75.<br />
+The target directory existed before the exercise.<br />
+An archive member uses an absolute path or parent-directory traversal.<br />
+The archive digest or compression validation fails.<br />
+A command would modify a path outside the classroom directory.<br />
+The baseline manifest is unavailable or cannot be trusted.<br />
+The learner cannot distinguish the simulated service from a real workload.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: LAB_ROOT does not exactly equal /opt/lab-classroom/class75.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The active simulated application becomes unavailable after the controlled move into the incidents directory.</li>
+<li>The health check reports the expected failure before restoration.</li>
+<li>The archive digest check and compression validation succeed before extraction.</li>
+<li>The restored application contains config/app.conf, data/records.txt, and required-files.txt.</li>
+<li>The restored checksum manifest is identical to the baseline manifest.</li>
+<li>The restored configuration identifies the inventory application and schema version 1.</li>
+<li>The restored data file contains exactly the three deterministic training records created during setup.</li>
+<li>The drill directory contains start and end timestamps, measured recovery time, archive members, detection output, verification output, and a final report.</li>
+<li>The original fault-injected directory remains under incidents/current.unavailable for comparison and evidence.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run test "$(cat /opt/lab-classroom/class75/drill/manifest-diff.txt | wc -c)" -eq 0; success confirms that diff produced no integrity differences.</li>
+<li>[ ] Run sha256sum -c /opt/lab-classroom/class75/manifests/archive.sha256; the result must report the recovery archive as OK.</li>
+<li>[ ] Run diff -u /opt/lab-classroom/class75/manifests/baseline.sha256 /opt/lab-classroom/class75/manifests/restored.sha256; successful verification produces no differences.</li>
+<li>[ ] Run test -f /opt/lab-classroom/class75/service/current/config/app.conf and test -f /opt/lab-classroom/class75/service/current/data/records.txt; both commands must succeed.</li>
+<li>[ ] Run grep -Fx 'application=inventory' /opt/lab-classroom/class75/service/current/config/app.conf; the exact configuration line must be returned.</li>
+<li>[ ] Run test "$(wc -l &lt; /opt/lab-classroom/class75/service/current/data/records.txt)" -eq 3; the command must succeed.</li>
+<li>[ ] Inspect /opt/lab-classroom/class75/drill/final-report.txt and confirm that it contains UTC start and end timestamps, recovery_time_actual_seconds, the selected recovery point, integrity status, and scope.</li>
+<li>[ ] Confirm that every artifact created by the lab is beneath /opt/lab-classroom/class75/.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - [ ] Run test &quot;$(cat /opt/lab-classroom/class75/drill/manifest-diff.txt | wc -c)&quot; -eq 0; success confirms that diff produced no integrity differences.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Creating the laboratory root fails because the path already exists.</td>
+<td>A previous exercise or retained evidence is present.</td>
+<td>Stop and inspect the existing directory. Do not overwrite it. Ask the instructor to archive or reset the prior exercise while preserving anything needed for review.</td>
+</tr>
+<tr>
+<td>Creating the laboratory root fails because the parent directory is missing or not writable.</td>
+<td>The classroom host was not prepared or the learner lacks delegated access.</td>
+<td>Have the administrator create and authorize the parent classroom directory. Do not redirect the exercise to an unapproved location.</td>
+</tr>
+<tr>
+<td>The archive digest check reports FAILED.</td>
+<td>The archive changed after its digest was recorded, the wrong manifest is being used, or storage corruption occurred.</td>
+<td>Stop the restore, preserve the archive and output as evidence, verify the selected artifact, and create a new backup only after determining why the trusted digest no longer matches.</td>
+</tr>
+<tr>
+<td>The compression validation reports an unexpected end of file.</td>
+<td>The archive is incomplete or damaged.</td>
+<td>Do not extract it. Select another validated recovery point or recreate the training archive from intact source data before repeating the fault injection.</td>
+</tr>
+<tr>
+<td>Archive member paths are not confined to current/.</td>
+<td>The wrong archive was selected or its contents are unsafe for the planned extraction directory.</td>
+<td>Stop before extraction. Quarantine the artifact for analysis and use a recovery artifact whose complete member list is understood and confined to the intended path.</td>
+</tr>
+<tr>
+<td>Extraction reports that files already exist.</td>
+<td>The outage injection did not move the active directory, or a previous restore attempt created partial state.</td>
+<td>Do not force an overwrite. Inspect service/current, move partial state to a uniquely named evidence directory under /opt/lab-classroom/class75/incidents/, revalidate the archive, and retry.</td>
+</tr>
+<tr>
+<td>The restored manifest differs from the baseline.</td>
+<td>The wrong recovery point was selected, extraction was incomplete, files changed after restoration, or the baseline is not the manifest for this archive.</td>
+<td>Keep the service in a failed state, save the diff, compare archive identity with the selected manifest, and repeat restoration only after identifying the mismatch.</td>
+</tr>
+<tr>
+<td>The integrity comparison passes but a functional check fails.</td>
+<td>The baseline itself lacks required state, the functional expectation is incorrect, or the backup captured files consistently but incompletely.</td>
+<td>Treat recovery as unsuccessful. Update backup scope and the runbook, create a corrected recovery artifact, and rerun the drill.</td>
+</tr>
+<tr>
+<td>The measured recovery time is negative or implausible.</td>
+<td>The host clock changed during the exercise or timestamp files came from different runs.</td>
+<td>Preserve the recorded timestamps, note the clock issue in the report, correct time synchronization through the normal administrative process, and repeat the measurement.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>controls</h4><p>Use least-privilege access and grant write permission only to the classroom scope required for the exercise.<br />
+Verify LAB_ROOT exactly before each mutating operation; an unset or altered variable must be treated as a stop condition.<br />
+Keep backup access credentials separate from normal workload credentials in real deployments.<br />
+Store at least one production recovery copy outside the failure domain of the protected service.<br />
+Cryptographically verify selected artifacts and preserve hashes with the drill evidence.<br />
+Inspect archive paths before extraction to reduce path traversal and unintended overwrite risk.<br />
+Do not include production secrets, personal data, private keys, tokens, or authentic customer records in this exercise.<br />
+Restrict drill reports because real reports may reveal architecture, recovery paths, administrative identities, and security gaps.<br />
+Require explicit authorization before conducting fault injection against any shared or production environment.<br />
+Treat integrity success as necessary but not sufficient; malware-free status, application consistency, and authorization must also be established before production cutover.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>limitations</h4><p>The backup and active state are on the same host and filesystem, so the lab does not test host loss, storage loss, media isolation, or off-site recovery.<br />
+The simulated service has no network, identity, certificate, database, or external dependency, so those recovery concerns must be addressed separately.<br />
+Cryptographic hashes detect differences but do not prove that the original recovery point was safe or semantically correct.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>goal</h4><p>Return the simulated service to the trusted recovery point while preserving failed or partial state as drill evidence.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Return the simulated service to the trusted recovery point while preserving failed or partial state as drill evidence.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>procedure</h4><p>Stop if any proposed destination is outside /opt/lab-classroom/class75/.<br />
+If service/current is absent, revalidate backups/app-state-v1.tgz and extract it into the service directory.<br />
+If service/current exists but fails verification, move it to a uniquely named directory beneath incidents/ rather than overwriting evidence.<br />
+Revalidate the archive digest and compression stream.<br />
+Extract the archive into the service directory.<br />
+Recreate restored.sha256 and compare it with baseline.sha256.<br />
+Record the rollback action, reason, operator, timestamps, and verification result in the drill report.<br />
+Leave all exercise artifacts in place for review unless an instructor authorizes a separate scoped cleanup.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Tear it down and bring it back to prove your data and settings really survive.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>success_criteria</h4><p>The active simulated state matches baseline.sha256, required files pass their checks, and the unsuccessful state remains preserved beneath the incidents directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The active simulated state matches baseline.sha256, required files pass their checks, and the unsuccessful state remains preserved beneath the incidents dire…</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

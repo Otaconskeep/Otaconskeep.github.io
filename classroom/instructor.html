@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260929e">
+<link rel="stylesheet" href="/assets/style.css">
 <link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
 </head>
 <body>
@@ -24,32 +24,28 @@
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
- <a href="/#ecosystem">Platform</a>
- <div class="navdrop">
- <a href="/#ecosystem">Products</a>
- <div class="navdrop-menu">
- <a href="/otacon/">Otacon Lite</a>
- <a href="/keeproute/">KeepRoute</a>
+ <a href="/otacon/">Otacon</a>
  <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- </div>
- </div>
- <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
  <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="/news/">News</a>
- <a href="/donate/">Donate</a>
- <a href="/install/" class="discord">Get Otacon</a>
- </div></div>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
 </nav>
 <nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
- <a href="/classroom/homelab/">Overview</a>
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
  <a href="/classroom/syllabus.html">Syllabus</a>
@@ -69,7 +65,14 @@
 </div>
 <div class="wrap">
  <div class="cr-box"><h3>Overview</h3><p>These are model answers. Equivalent technically correct explanations are acceptable. Practical evidence outweighs memorized wording.</p></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 1</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 1</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Host is the physical system/hypervisor environment; guest is the managed virtual system.  </li>
 <li>VM.  </li>
 <li>A virtual Ethernet switch/bridge.  </li>
@@ -90,7 +93,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 2</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 2</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Containers are replaceable; writable-layer data can disappear during recreation.  </li>
 <li><code>8080</code>.  </li>
 <li>The Compose model parses/renders; it does not prove runtime health.  </li>
@@ -112,7 +122,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Tear it down and bring it back to prove your data and settings really survive.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 3</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 3</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>The Sonarr container itself.  </li>
 <li>It supplies scoped networking and embedded service-name DNS.  </li>
 <li>No, not when containers share a network.  </li>
@@ -133,7 +150,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Require a name-resolution test and proof that an unexposed service is unavailable from the LAN.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 4</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 4</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Process state does not prove application, dependencies, or user transaction.  </li>
 <li>Data whose loss cannot be recreated from another trusted source.  </li>
 <li>It moves and does not identify the last-known-good bytes.  </li>
@@ -154,7 +178,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Require update and rollback, not only a written procedure.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 5</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 5</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Prowlarr manages indexers/sync; Sonarr/Radarr own monitored content, selection policy, handoff, and import.  </li>
 <li>API reachability can succeed while configuration is not synchronized.  </li>
 <li>Separates queues and connects completed jobs to the intended importer.  </li>
@@ -176,7 +207,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Do not require a copyrighted download.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 6</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 6</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Quality is a built-in source/encode classification; CF matches additional traits.  </li>
 <li>Rules overlap and scores accumulate.  </li>
 <li>When quality-driven upgrades stop.  </li>
@@ -198,7 +236,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Require observed candidate rankings and written local policy.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 7</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 7</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Difference between declared and observed configuration.  </li>
 <li>It exposes unwanted duplication or non-convergent behavior.  </li>
 <li>A completed write does not prove resulting selection behavior.  </li>
@@ -220,7 +265,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 8</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 8</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Device is a represented product; entity is one state/control surface.  </li>
 <li>OS is a managed appliance with Supervisor/add-ons; Container is Core managed by the operator's Docker environment.  </li>
 <li>Unavailable means state cannot be determined, not that the device is off.  </li>
@@ -234,7 +286,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 9</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 9</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Trigger starts evaluation; condition permits or blocks action.  </li>
 <li>It proves the guard prevents unwanted behavior.  </li>
 <li>When the newest trigger should replace a still-running older execution.  </li>
@@ -255,7 +314,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Require positive, negative, and restart/reload evidence.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 10</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 10</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>No. Authorization policy is separate.  </li>
 <li>They hold powerful API/admin controls and are not designed as public consumer endpoints.  </li>
 <li>The internal destination served through the connector/proxy.  </li>
@@ -277,7 +343,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 11</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 11</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>The action could succeed despite a poor transcript in another trial; inspect the STT artifact directly.  </li>
 <li>Speech start/end detection and captured utterance boundary.  </li>
 <li>Transcript paired with source audio.  </li>
@@ -291,7 +364,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This connects a real folder on your computer into the container so data can stay.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 12</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 12</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Wyoming transports/coordinates compatible voice-service interactions; Whisper performs STT inference.  </li>
 <li>Model load/cache effects change latency.  </li>
 <li>It does not prove protocol, model, inference, or output quality.  </li>
@@ -306,7 +386,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Voice is a chain: hear → turn into text → decide → speak back. Test one link at a time.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 13</h3></div><div class="cr-prose-block"><ol>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Class 13</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Successful defined operation while WAN is disconnected, with traffic/dependency evidence.  </li>
 <li>The test targets cloud dependence, not intentional destruction of local routing.  </li>
 <li>Deterministic safety/home-control commands where supported.  </li>
@@ -328,7 +415,14 @@
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The capstone cannot pass if only text input works or if the offline test is skipped.</div>
  
 </div></div></div>
-<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Grading rubric</h3></div><div class="cr-prose-block"><table>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Grading rubric</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><table>
 <thead>
 <tr>
 <th>Dimension</th>
@@ -357,7 +451,14 @@
 <td style="text-align: right;">15%</td>
 </tr>
 </tbody>
-</table></div><div class="cr-prose-block"><p>Minimum pass: 80% overall and no critical safety/security failure.</p><div class="cr-help">
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Minimum pass: 80% overall and no critical safety/security failure.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

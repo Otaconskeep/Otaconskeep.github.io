@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260929e">
+<link rel="stylesheet" href="/assets/style.css">
 <link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
 </head>
 <body>
@@ -24,32 +24,28 @@
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
- <a href="/#ecosystem">Platform</a>
- <div class="navdrop">
- <a href="/#ecosystem">Products</a>
- <div class="navdrop-menu">
- <a href="/otacon/">Otacon Lite</a>
- <a href="/keeproute/">KeepRoute</a>
+ <a href="/otacon/">Otacon</a>
  <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- </div>
- </div>
- <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
  <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="/news/">News</a>
- <a href="/donate/">Donate</a>
- <a href="/install/" class="discord">Get Otacon</a>
- </div></div>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
 </nav>
 <nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
- <a href="/classroom/homelab/">Overview</a>
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
  <a href="/classroom/syllabus.html">Syllabus</a>
@@ -77,7 +73,14 @@
  <figure class="class-visual"><img src="/classroom/visuals/diagrams/39-configuration-backups-and-recovery.svg" alt="Class 39: Configuration backups and recovery"><figcaption>Class 39 visual reference. Use it as the map, then prove it in the reading, lesson, and lab.</figcaption></figure>
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> ARR Data Model &amp; Compose<br />
 <strong>Activity type:</strong> Homework / independent application<br />
-<strong>Objective:</strong> Explain why a configuration archive alone is not a complete recovery strategy.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Requirements</h3></div><div class="cr-prose-block"><h4>assignment</h4><p>Create a second attempt under /opt/lab-classroom/class39/attempt2/. Add a third configuration file in a format Python can parse, include it in the package manifest, and extend the validator with at least two semantic rules. Create two backup generations with clearly different metadata, introduce drift, recover the older generation into a candidate directory, and document why selecting that generation is justified.</p><div class="cr-help">
+<strong>Objective:</strong> Explain why a configuration archive alone is not a complete recovery strategy.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Requirements</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>assignment</h4><p>Create a second attempt under /opt/lab-classroom/class39/attempt2/. Add a third configuration file in a format Python can parse, include it in the package manifest, and extend the validator with at least two semantic rules. Create two backup generations with clearly different metadata, introduce drift, recover the older generation into a candidate directory, and document why selecting that generation is justified.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -106,7 +109,14 @@ Preserve the pre-recovery state until the exercise is fully verified.</p><div cl
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: All filesystem changes must remain under /opt/lab-classroom/class39/.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Submit / record</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Submit / record</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>[ ] Evidence artifacts (secrets redacted)</li>
 <li>[ ] Spiral connections written</li>
 <li>[ ] Ready for topic quiz</li>
@@ -115,7 +125,7 @@ Preserve the pre-recovery state until the exercise is fully verified.</p><div cl
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: [ ] Evidence artifacts (secrets redacted)
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - [ ] Evidence artifacts (secrets redacted)
 - [ ] Spiral connections written
 - [ ] Ready for topic quiz</div>
  

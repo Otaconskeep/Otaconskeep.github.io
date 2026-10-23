@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260929e">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260924v">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
 </head>
 <body>
 
@@ -24,32 +24,28 @@
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
- <a href="/#ecosystem">Platform</a>
- <div class="navdrop">
- <a href="/#ecosystem">Products</a>
- <div class="navdrop-menu">
- <a href="/otacon/">Otacon Lite</a>
- <a href="/keeproute/">KeepRoute</a>
+ <a href="/otacon/">Otacon</a>
  <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- </div>
- </div>
- <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
  <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="/news/">News</a>
- <a href="/donate/">Donate</a>
- <a href="/install/" class="discord">Get Otacon</a>
- </div></div>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
 </nav>
 <nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
- <a href="/classroom/homelab/">Overview</a>
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
  <a href="/classroom/syllabus.html">Syllabus</a>
@@ -70,6 +66,7 @@
  </section>
 </div>
 <div class="wrap">
+ <figure class="class-visual"><img src="/classroom/visuals/diagrams/01-vms-hypervisors-and-proxmox.svg" alt="Class 1: VMs, hypervisors, and Proxmox"><figcaption>Class 1 visual reference. Use it as the map, then prove it in the reading, lesson, and lab.</figcaption></figure>
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 1: Infrastructure &amp; Addressing<br />
 <strong>Topic:</strong> 01: Virtual machines &amp; Proxmox<br />
 <strong>Activity type:</strong> Reading / reference (Learn)<br />
@@ -171,7 +168,14 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-prose-block"><h4>Originally: What you will learn</h4><p>You will understand what a virtual machine really is (a full computer living inside another computer), why hypervisors exist, the difference between Type 2 (app-on-your-OS) and Type 1 (OS replaced by the hypervisor), and how to stand up a safe practice box without risking your daily desktop. You will also learn how VMs differ from LXC, how storage and networking attach to guests, and why this Academy puts Docker inside a Linux VM later.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>Originally: What you will learn</h4><p>You will understand what a virtual machine really is (a full computer living inside another computer), why hypervisors exist, the difference between Type 2 (app-on-your-OS) and Type 1 (OS replaced by the hypervisor), and how to stand up a safe practice box without risking your daily desktop. You will also learn how VMs differ from LXC, how storage and networking attach to guests, and why this Academy puts Docker inside a Linux VM later.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -180,7 +184,14 @@
  
 </div></div><div class="cr-prose-block"><h4>What a virtual machine is</h4><p>Open your laptop. Inside the case sit real parts: CPU, RAM, storage, network chip. An operating system (Windows, macOS, or Linux) sits on top and turns those parts into something you can use.</p>
 <p>A <strong>virtual machine</strong> is another complete computer that lives <em>inside</em> that setup. It gets virtual CPU, virtual RAM, a virtual disk, and a virtual network card. The guest OS boots, paints a desktop, and runs programs. From the guest’s point of view, it is the only computer in the room. From your point of view, it is software sharing your real hardware.</p>
-<p>You do not need a second physical PC just to try Linux, practice networking, or break configuration on purpose. You carve out a slice of what you already own.</p></div><div class="cr-prose-block"><h4>Why you want one</h4><p>Three reasons show up again and again in real labs:</p>
+<p>You do not need a second physical PC just to try Linux, practice networking, or break configuration on purpose. You carve out a slice of what you already own.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Open your laptop.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>Why you want one</h4><p>Three reasons show up again and again in real labs:</p>
 <ol>
 <li><strong>Safe practice.</strong> Mess up the guest. Delete it. Rebuild it. Your daily host OS stays untouched.</li>
 <li><strong>Learn other operating systems.</strong> Run Ubuntu, Debian, a server trial, or a second Windows install without repartitioning your only disk.</li>
@@ -389,7 +400,7 @@ Type 1 (Academy default)
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Bridged networking puts the guest on the real LAN with its own address, handy and less isolated.</div>
  
-</div></div></div><figure class="class-visual" data-visual="reading"><img src="/classroom/visuals/diagrams/01-vms-hypervisors-and-proxmox.svg" alt="Diagram of VMs, hypervisors, and Proxmox" width="1600" height="900"><figcaption>Reference architecture. Study this before the rest of the reading.</figcaption></figure><div class="cr-box cr-box-example"><div class="cr-box-head"><span class="cr-chip cr-chip-example">I do</span><h3>Worked example (study this)</h3></div><div class="cr-help">
+</div></div></div><div class="cr-box cr-box-example"><div class="cr-box-head"><span class="cr-chip cr-chip-example">I do</span><h3>Worked example (study this)</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -431,7 +442,14 @@ Type 1 (Academy default)
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this before you rush. It keeps you safe or up to date.</div>
  
-</div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Next</h3></div><div class="cr-prose-block"><ol>
+</div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Next</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Open the <strong>Lesson</strong> for prior-knowledge check, guided practice, and <strong>required Feynman teach-back</strong>.</li>
 <li>Then complete <strong>Lab</strong>, <strong>Homework</strong>, and <strong>Quiz</strong> for this topic.</li>
 </ol><div class="cr-help">

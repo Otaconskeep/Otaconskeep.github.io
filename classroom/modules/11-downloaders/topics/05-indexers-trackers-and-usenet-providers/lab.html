@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260929e">
+<link rel="stylesheet" href="/assets/style.css">
 <link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
 </head>
 <body>
@@ -24,7 +24,7 @@
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
@@ -37,7 +37,6 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="/donate/">Donate</a>
  <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
  </div>
@@ -45,7 +44,7 @@
 </nav>
 <nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
- <a href="/classroom/homelab/">Overview</a>
+ <a href="/classroom/">Academy</a>
  <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
@@ -75,7 +74,14 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Download Clients &amp; Indexers<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Differentiate a Usenet indexer, Usenet provider, torrent indexer, BitTorrent tracker, download client, and automation application.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Differentiate a Usenet indexer, Usenet provider, torrent indexer, BitTorrent tracker, download client, and automation application.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>Basic understanding of client-server networking and HTTPS</li>
 <li>Basic familiarity with JSON configuration files</li>
 <li>Ability to run shell commands and Python 3</li>
@@ -356,7 +362,14 @@ source = root / &#x27;catalog.…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Make one reversible edit inside catalog.json, such as changing the synthetic tracker transport from https to http, rerun the evaluator, and observe that its …</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>The evaluator reports that it wrote four classified records.</li>
 <li>The generated recommendations.json file contains two discovery records, one transfer-infrastructure record, and one peer-coordination record.</li>
 <li>The Usenet indexer record depends on both a Usenet provider and a Usenet download client.</li>
@@ -372,7 +385,14 @@ source = root / &#x27;catalog.…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>[ ] Run: python3 -m json.tool /opt/lab-classroom/class53/catalog.json</li>
 <li>[ ] Run: python3 -m json.tool /opt/lab-classroom/class53/output/recommendations.json</li>
 <li>[ ] Run: python3 -c "import json; from pathlib import Path; d=json.loads(Path('/opt/lab-classroom/class53/output/recommendations.json').read_text()); print([(x['role'], x['purpose'], x['status']) for x in d])"</li>
@@ -385,7 +405,7 @@ source = root / &#x27;catalog.…</div>
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: [ ] Run: python3 -m json.tool /opt/lab-classroom/class53/catalog.json
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - [ ] Run: python3 -m json.tool /opt/lab-classroom/class53/catalog.json
 - [ ] Run: python3 -m json.tool /opt/lab-classroom/class53/output/recommendations.jso…</div>
  
 </div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
@@ -452,7 +472,14 @@ source = root / &#x27;catalog.…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>credential_handling</h4><p>Store indexer, provider, and client API secrets in the application's secret mechanism rather than in shared examples or source control.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>credential_handling</h4><p>Store indexer, provider, and client API secrets in the application's secret mechanism rather than in shared examples or source control.<br />
 Use different credentials for different trust boundaries when the service supports that model.<br />
 Rotate any credential exposed in logs, screenshots, shell history, or support bundles.<br />
 Redact query strings and headers because some APIs place tokens in URLs or authorization headers.</p><div class="cr-help">
@@ -496,7 +523,14 @@ Treat imported archives, media containers, subtitles, scripts, and metadata as u
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The lab uses fictional records, performs no network operations, contains no real credentials, and confines all mutations to /opt/lab-classroom/class53/.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>purpose</h4><p>Remove only the files and directories created by this class.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>purpose</h4><p>Remove only the files and directories created by this class.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

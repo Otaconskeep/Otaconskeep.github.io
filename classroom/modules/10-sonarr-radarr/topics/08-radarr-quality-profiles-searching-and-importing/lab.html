@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260929e">
+<link rel="stylesheet" href="/assets/style.css">
 <link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
 </head>
 <body>
@@ -24,7 +24,7 @@
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
@@ -37,7 +37,6 @@
  <a href="/engineering/">Engineering</a>
  <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="/donate/">Donate</a>
  <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
  <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
  </div>
@@ -45,7 +44,7 @@
 </nav>
 <nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
- <a href="/classroom/homelab/">Overview</a>
+ <a href="/classroom/">Academy</a>
  <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
@@ -75,7 +74,14 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Sonarr &amp; Radarr<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the difference between a quality definition, quality profile, custom format, and release restriction</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the difference between a quality definition, quality profile, custom format, and release restriction</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>Completion of introductory Radarr installation and library-management lessons</li>
 <li>Basic familiarity with indexers, download clients, and media library folders</li>
 <li>Ability to read JSON and run Python 3 from a terminal</li>
@@ -408,7 +414,14 @@ path = Path(&quot;/opt/lab-classroom/class47/profile.json&quot;)
 data = json.loads(path.read_text())
 data[&quot;minimu…</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>The sandbox contains profile.json, candidates.json, imports.json, and evaluate.py under /opt/lab-classroom/class47/.</li>
 <li>The WEB-DL 1080p and Bluray-1080p releases are initially reported as acceptable.</li>
 <li>The 2160p remux is rejected because its quality is not allowed and its reported size exceeds the classroom limit.</li>
@@ -424,9 +437,16 @@ data[&quot;minimu…</div>
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The sandbox contains profile.json, candidates.json, imports.json, and evaluate.py under /opt/lab-classroom/class47/.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - The sandbox contains profile.json, candidates.json, imports.json, and evaluate.py under /opt/lab-classroom/class47/.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>[ ] Run: test -f /opt/lab-classroom/class47/profile.json &amp;&amp; test -f /opt/lab-classroom/class47/candidates.json &amp;&amp; test -f /opt/lab-classroom/class47/imports.json &amp;&amp; test -f /opt/lab-classroom/class47/evaluate.py</li>
 <li>[ ] Run: python3 -m json.tool /opt/lab-classroom/class47/profile.json and confirm that the JSON is valid.</li>
 <li>[ ] Run: PYTHONDONTWRITEBYTECODE=1 python3 /opt/lab-classroom/class47/evaluate.py and confirm that no Python exception is displayed.</li>
@@ -440,7 +460,7 @@ data[&quot;minimu…</div>
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: [ ] Run: test -f /opt/lab-classroom/class47/profile.json &amp;&amp; test -f /opt/lab-classroom/class47/candidates.json &amp;&amp; test -f /opt/lab-classroom/class47/import…</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - [ ] Run: test -f /opt/lab-classroom/class47/profile.json &amp;&amp; test -f /opt/lab-classroom/class47/candidates.json &amp;&amp; test -f /opt/lab-classroom/class47/import…</div>
  
 </div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
  <div class="cr-actions">
@@ -506,7 +526,14 @@ data[&quot;minimu…</div>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><p>Treat Radarr API keys, indexer credentials, and download-client credentials as secrets. Do not place them in lesson notes, screenshots, shell history, or shared configuration examples.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Treat Radarr API keys, indexer credentials, and download-client credentials as secrets. Do not place them in lesson notes, screenshots, shell history, or shared configuration examples.<br />
 Give Radarr only the filesystem access required for its download and library paths. Align service accounts and groups instead of granting unrestricted access.<br />
 Do not import an ambiguous file merely to clear an activity warning. A wrong match can mislabel content and replace a correct library item.<br />
 Review release names and source trust before acquisition. Automation does not establish that an uploaded file is safe or authentic.<br />
@@ -520,7 +547,14 @@ The classroom fixtures contain no real credentials, network calls, or production
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> An indexer is a search source. You only add ones you are allowed to use.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>production_impact</h4><p>None expected. The lab does not change Radarr, an indexer, a download client, or a media library.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>production_impact</h4><p>None expected. The lab does not change Radarr, an indexer, a download client, or a media library.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

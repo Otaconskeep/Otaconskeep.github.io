@@ -565,7 +565,7 @@ def write_index():
     rows = []
     for mod in MODULES_SPEC:
         rows.append(
-            f"| {mod['id']} | [{mod['title']}]({mod['id']}-{mod['slug']}/MODULE.md) | {len(mod['topics'])} topics | {mod['gate'].split(', ')[0].strip()} |"
+            f"| {mod['id']} | [{mod['title']}]({mod['id']}-{mod['slug']}/MODULE.md) | {len(mod['topics'])} topics | {mod['gate'].split(':')[0].strip()} |"
         )
     write(
         MODULES / "README.md",

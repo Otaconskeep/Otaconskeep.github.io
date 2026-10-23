@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260929e">
+<link rel="stylesheet" href="/assets/style.css">
 <link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
 </head>
 <body>
@@ -24,32 +24,28 @@
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
- <a href="/#ecosystem">Platform</a>
- <div class="navdrop">
- <a href="/#ecosystem">Products</a>
- <div class="navdrop-menu">
- <a href="/otacon/">Otacon Lite</a>
- <a href="/keeproute/">KeepRoute</a>
+ <a href="/otacon/">Otacon</a>
  <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- </div>
- </div>
- <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
  <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="/news/">News</a>
- <a href="/donate/">Donate</a>
- <a href="/install/" class="discord">Get Otacon</a>
- </div></div>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
 </nav>
 <nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
- <a href="/classroom/homelab/">Overview</a>
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
  <a href="/classroom/syllabus.html">Syllabus</a>
@@ -78,7 +74,14 @@
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> ARR Data Model &amp; Compose<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain why a running process is not necessarily a healthy or ready service</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain why a running process is not necessarily a healthy or ready service</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>Comfort using a Linux shell and reading process logs</li>
 <li>Basic understanding of TCP ports, HTTP status codes, and local services</li>
 <li>Ability to run Python 3 from a terminal</li>
@@ -89,7 +92,7 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Comfort using a Linux shell and reading process logs
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Comfort using a Linux shell and reading process logs
 - Basic understanding of TCP ports, HTTP status codes, and local services
 - Ability to run Python 3 fr…</div>
  
@@ -516,7 +519,14 @@ tail -n 8 /opt/lab-classroom/class37/supervisor.log</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The supervisor handles the termination signal, stops its child processes, closes its logs, and records a final stopped message.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>The supervisor log initially reports that the dependency is not ready and retries at one-second intervals.</li>
 <li>The application is not started until the dependency returns a successful readiness response.</li>
 <li>The dependency and application liveness endpoints return HTTP 200 while their processes can serve requests.</li>
@@ -531,7 +541,14 @@ tail -n 8 /opt/lab-classroom/class37/supervisor.log</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>[ ] Run <code>cat /opt/lab-classroom/class37/supervisor.log</code> and confirm that dependency readiness retries occur before the first application start message.</li>
 <li>[ ] Run <code>python3 -B -c "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:18371/ready', timeout=1).status)"</code> while the lab is running and confirm that it prints 200.</li>
 <li>[ ] Record the PID returned by the application /live endpoint, invoke /crash, wait three seconds, and confirm that the new /live response contains a different PID.</li>
@@ -609,7 +626,14 @@ tail -n 8 /opt/lab-classroom/class37/supervisor.log</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Health endpoints can reveal version, dependency, topology, and failure information. Expose only the minimum response required by the health consumer.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>Health endpoints can reveal version, dependency, topology, and failure information. Expose only the minimum response required by the health consumer.<br />
 Bind administrative health endpoints to a management network or loopback interface unless remote access is explicitly required.<br />
 Do not place credentials, tokens, connection strings, stack traces, or customer data in health responses.<br />
 Use short timeouts so a health check cannot accumulate blocked workers or connections.<br />
@@ -630,7 +654,14 @@ Restart policies should run services with least privilege and should not repeate
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>goal</h4><p>Stop all lab processes while preserving files and logs for review.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>goal</h4><p>Stop all lab processes while preserving files and logs for review.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

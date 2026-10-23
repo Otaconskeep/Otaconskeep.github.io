@@ -1,0 +1,208 @@
+# Canonical core class roadmap (Homelab Academy).
+# Existing Classes 01–15 in the repository are authoritative and must not be overwritten.
+# Remap 2026-09-22: unpublished Linux FS / Shell Pipes inserted as 16–17; former 16–121 shifted +2 → 18–123.
+schema_version: 2
+core_final_class: 123
+batch_size: 6
+
+# Historical published classes (do not regenerate / overwrite)
+preserved_published:
+  14: "n8n automation for the homelab"
+  15: "IPv4 addresses, masks, and gateways"
+
+# Keys are class numbers; values are canonical titles for missing classes 16–123.
+classes:
+  16: "Linux Filesystem and Navigation"
+  17: "Shell Pipes and Redirection"
+  18: "Users, Groups, Permissions, and Least Privilege"
+  19: "Processes, Signals, and systemd"
+  20: "Logs and journalctl"
+  21: "SSH Keys and Safe Hardening"
+  22: "Package Management and Safe System Updates"
+  23: "IP Addresses, Subnets, Gateways, and Routing"
+  24: "DNS, DHCP, and NAT"
+  25: "Ports, Protocols, and Host Firewalls"
+  26: "Network Troubleshooting Tools and Methodology"
+  27: "Docker Engine Installation and Daemon Fundamentals"
+  28: "Docker Images, Tags, Registries, and Provenance"
+  29: "Container Lifecycle and Resource Controls"
+  30: "Docker Volumes and Bind Mounts"
+  31: "Linux Disks, Partitions, and Filesystems"
+  32: "Mounts, UUIDs, and fstab"
+  33: "PUID, PGID, ACLs, and Container File Access"
+  34: "ARR Stack Data Architecture and the /data Model"
+  35: "Hardlinks, Atomic Moves, and Import Efficiency"
+  36: "Docker Compose Fundamentals"
+  37: "Health Checks, Dependencies, and Restart Policies"
+  38: "Environment Variables, Secrets, and Configuration"
+  39: "Configuration Backups and Recovery"
+  40: "Sonarr Installation and First Configuration"
+  41: "Sonarr Series Monitoring and Availability"
+  42: "Sonarr Quality Profiles, Searching, and Importing"
+  43: "Sonarr Naming and Library Hygiene"
+  44: "Anime, Absolute Numbering, and Multi-Episode Files"
+  45: "Radarr Installation and First Configuration"
+  46: "Radarr Monitoring and Availability"
+  47: "Radarr Quality Profiles, Searching, and Importing"
+  48: "Radarr Naming and Movie Library Hygiene"
+  49: "qBittorrent Installation and Safe Configuration"
+  50: "Download Categories, Paths, and ARR Integration"
+  51: "VPN Binding, Kill Switches, and Leak Verification"
+  52: "SABnzbd and Usenet Downloading"
+  53: "Indexers, Trackers, and Usenet Providers"
+  54: "Prowlarr Installation and Indexer Management"
+  55: "Connecting Prowlarr to Sonarr and Radarr"
+  56: "Jellyseerr or Overseerr Request Management"
+  57: "Plex Installation and Library Design"
+  58: "Jellyfin Installation and Library Design"
+  59: "Plex versus Jellyfin and Safe Migration"
+  60: "Hardware Transcoding and Verification"
+  61: "Bazarr and Subtitle Automation"
+  62: "ARR Stack Health Monitoring"
+  63: "Notifications for Downloads, Failures, and Requests"
+  64: "Reverse Proxy Fundamentals"
+  65: "Local DNS and Friendly Service Names"
+  66: "TLS Certificates and HTTPS"
+  67: "Authentication and Access Control"
+  68: "Tailscale for Homelab Remote Access"
+  69: "WireGuard Fundamentals and Deployment"
+  70: "VLAN Design for a Homelab"
+  71: "Firewall Segmentation and Trust Boundaries"
+  72: "The 3-2-1 Backup Strategy"
+  73: "Restic or Borg Backup Implementation"
+  74: "Database Backup and Restore"
+  75: "Disaster-Recovery Drills"
+  76: "SMART, Disk Health, and Failure Warning"
+  77: "UPS Monitoring and Safe Shutdown"
+  78: "Power Efficiency and Thermal Management"
+  79: "Docker Networking"
+  80: "Reusable Docker Compose Stack Patterns"
+  81: "Image Version Pinning and Controlled Updates"
+  82: "Safe Container Update Automation"
+  83: "Portainer, Dockge, and Stack Management"
+  84: "Git and Configuration as Code"
+  85: "Ansible Fundamentals for Homelabs"
+  86: "Secrets Management"
+  87: "Metrics Collection with Prometheus-Compatible Tools"
+  88: "Grafana Dashboards"
+  89: "Centralized Logging with Loki-Compatible Tools"
+  90: "Alerting and Actionable Notifications"
+  91: "Capacity Planning"
+  92: "GPU and VRAM Fundamentals for Local AI"
+  93: "NVIDIA Container Toolkit and GPU Containers"
+  94: "Ollama Installation and Model Management"
+  95: "Model Formats, Context, and Quantization"
+  96: "Open WebUI"
+  97: "Multi-GPU Inference and Local Model Routing"
+  98: "Retrieval-Augmented Generation"
+  99: "Embeddings and Vector Databases"
+  100: "Document Ingestion and Data Quality"
+  101: "Local-AI Evaluations and Benchmarks"
+  102: "Agent Frameworks and Tool Use"
+  103: "Long-Term Memory Systems"
+  104: "MCP, Tool Permissions, and Agent Safety"
+  105: "Self-Hosted Voice Assistants"
+  106: "Self-Hosted Image Generation"
+  107: "Threat Modeling for Local AI"
+  108: "Hardening Local-AI Services"
+  109: "Backing Up Models, Prompts, Memory, and AI Assets"
+  110: "Home Assistant Foundations"
+  111: "MQTT and Device Messaging"
+  112: "n8n and Self-Hosted Workflow Automation"
+  113: "Event-Driven Notifications and Message Buses"
+  114: "Secure Remote-Access Architecture"
+  115: "Domains and Public DNS"
+  116: "Production Reverse-Proxy Architecture"
+  117: "Identity, SSO, and Central Authentication"
+  118: "Observability Capstone"
+  119: "Incident Response"
+  120: "Change and Release Management"
+  121: "Staging and Test Environments"
+  122: "Documentation, Diagrams, and Runbooks"
+  123: "Final Homelab Capstone: Build, Verify, Break, Restore"
+
+modules:
+  "06-linux-foundations":
+    id: "06"
+    title: "Linux Foundations"
+    unit: "6"
+    unit_name: "Linux"
+    classes: [16, 17, 18, 19, 20, 21]
+  "07-network-ops":
+    id: "07"
+    title: "Network Operations"
+    unit: "7"
+    unit_name: "Network"
+    classes: [22, 23, 24, 25, 26]
+  "08-docker-storage":
+    id: "08"
+    title: "Docker, Storage & Permissions"
+    unit: "8"
+    unit_name: "Docker/Storage"
+    classes: [27, 28, 29, 30, 31, 32, 33]
+  "09-arr-data-compose":
+    id: "09"
+    title: "ARR Data Model & Compose"
+    unit: "9"
+    unit_name: "ARR Data"
+    classes: [34, 35, 36, 37, 38, 39]
+  "10-sonarr-radarr":
+    id: "10"
+    title: "Sonarr & Radarr"
+    unit: "10"
+    unit_name: "ARR Apps"
+    classes: [40, 41, 42, 43, 44, 45, 46, 47, 48]
+  "11-downloaders":
+    id: "11"
+    title: "Download Clients & Indexers"
+    unit: "11"
+    unit_name: "Download"
+    classes: [49, 50, 51, 52, 53, 54, 55]
+  "12-media-servers":
+    id: "12"
+    title: "Requests & Media Servers"
+    unit: "12"
+    unit_name: "Media"
+    classes: [56, 57, 58, 59, 60, 61, 62, 63]
+  "13-access-edge":
+    id: "13"
+    title: "Edge Access & VPN"
+    unit: "13"
+    unit_name: "Access"
+    classes: [64, 65, 66, 67, 68, 69]
+  "14-security-backup":
+    id: "14"
+    title: "Segmentation, Backup & Power"
+    unit: "14"
+    unit_name: "Resilience"
+    classes: [70, 71, 72, 73, 74, 75, 76, 77, 78]
+  "15-compose-ops":
+    id: "15"
+    title: "Compose Operations & IaC"
+    unit: "15"
+    unit_name: "Ops"
+    classes: [79, 80, 81, 82, 83, 84, 85, 86]
+  "16-observability":
+    id: "16"
+    title: "Observability"
+    unit: "16"
+    unit_name: "Observe"
+    classes: [87, 88, 89, 90, 91]
+  "17-local-ai":
+    id: "17"
+    title: "Local AI"
+    unit: "17"
+    unit_name: "Local AI"
+    classes: [92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109]
+  "18-automation-prod":
+    id: "18"
+    title: "Automation & Production Access"
+    unit: "18"
+    unit_name: "Production"
+    classes: [110, 111, 112, 113, 114, 115, 116, 117]
+  "19-capstone-ops":
+    id: "19"
+    title: "Operations Capstone Track"
+    unit: "19"
+    unit_name: "Capstone"
+    classes: [118, 119, 120, 121, 122, 123]

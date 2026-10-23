@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Class 66: TLS Certificates and HTTPS · Classroom</title>
+<meta name="description" content="TLS Certificates and HTTPS">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/classes/66.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 66<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 66<small>unit 6 · linux</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">TLS Certificates and HTTPS</h1>
+ <p class="lede">Full learning cycle with mandatory Feynman teach-back, retrieval practice, lab, and mastery gate. Prefer current official docs in References.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+
+<div class="wrap">
+ <div class="cr-box"><h3>Before you start</h3><p><strong>Learning objective:</strong> Explain the distinct roles of a private key, public key, certificate signing request, certificate, and certificate authority; Create a private lab certificate authority without modifying the operating system trust store; Issue a server certificate containing DNS and IP Subject Alternative Names; Run a loopback-only TLS service and record the PID of the actual OpenSSL server process; Distinguish trust-chain validation from hostname validation; Use curl and OpenSSL to verify a certificate chain and HTTPS endpoint; Stop the TLS service safely and remove only class-specific artifacts<br />
+<strong>Bloom level:</strong> Understand / Apply<br />
+<strong>Track:</strong> Networking and Security · <strong>Difficulty:</strong> intermediate · <strong>Duration:</strong> ~75 minutes · <strong>Lab risk:</strong> low<br />
+<strong>Mastery unlock:</strong> ≥80% quiz + completed Feynman teach-back + lab verification + homework evidence.<br />
+<strong>Last reviewed:</strong> 2025-02-20<br />
+<strong>Compatibility:</strong> ### operating_systems<br />
+Linux distributions with a POSIX-like shell and procps-compatible ps<br />
+Linux hosts where /opt/lab-classroom/class66/ can be created by the learner</p>
+<h3>required_tools</h3>
+<p>OpenSSL 1.1.1 or newer<br />
+curl with TLS support<br />
+Standard shell utilities including mkdir, chmod, cat, ps, find, grep, and sleep</p>
+<h3>network_requirements</h3>
+<p>No external network access is required after tools are installed. TCP port 8443 must be free on 127.0.0.1.</p>
+<h3>notes</h3>
+<p>Commands use RSA keys for broad instructional compatibility. The TLS protocol and cipher suite are negotiated by the installed OpenSSL build. The lesson does not depend on a specific negotiated cipher or performance result.</p></div>
+ <div class="cr-box cr-box-objective"><div class="cr-box-head"><span class="cr-chip cr-chip-goal">Objective</span><h3>Learning objective</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the finish line for the class: a task you should be able to do, not a vague &#x27;understand.&#x27;</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If you cannot restate it as something you can perform, you are not ready for the gate.</div>
+</div><div class="cr-prose-block"><ul>
+<li>Explain the distinct roles of a private key, public key, certificate signing request, certificate, and certificate authority</li>
+<li>Create a private lab certificate authority without modifying the operating system trust store</li>
+<li>Issue a server certificate containing DNS and IP Subject Alternative Names</li>
+<li>Run a loopback-only TLS service and record the PID of the actual OpenSSL server process</li>
+<li>Distinguish trust-chain validation from hostname validation</li>
+<li>Use curl and OpenSSL to verify a certificate chain and HTTPS endpoint</li>
+<li>Stop the TLS service safely and remove only class-specific artifacts</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-why"><div class="cr-box-head"><span class="cr-chip cr-chip-why">Why it matters</span><h3>Why this matters</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This gives you a reason to care before the theory. Context first, then details.</div>
+ 
+</div><div class="cr-prose-block"><p>Teach how TLS certificates establish server identity, how certificate authorities and trust stores participate in verification, how hostname validation uses Subject Alternative Names, and how to operate and verify a small HTTPS service using OpenSSL and curl.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Teach how TLS certificates establish server identity, how certificate authorities and trust stores participate in verification, how hostname validation uses …</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Prerequisites</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Basic familiarity with TCP/IP, DNS names, ports, and client-server communication</li>
+<li>Basic shell navigation and command execution</li>
+<li>OpenSSL command-line tools</li>
+<li>curl with HTTPS support</li>
+<li>Permission to create files under /opt/lab-classroom/class66/</li>
+<li>An unused local TCP port 8443</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>OpenSSL documentation: https://docs.openssl.org/3.0/man1/openssl-req/</li>
+<li>OpenSSL certificate command documentation: https://docs.openssl.org/3.0/man1/openssl-x509/</li>
+<li>OpenSSL TLS server documentation: https://docs.openssl.org/3.0/man1/openssl-s_server/</li>
+<li>RFC 5280, Internet X.509 Public Key Infrastructure Certificate and CRL Profile: https://www.rfc-editor.org/rfc/rfc5280</li>
+<li>RFC 6125, Service Identity in TLS: https://www.rfc-editor.org/rfc/rfc6125</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - OpenSSL documentation: https://docs.openssl.org/3.0/man1/openssl-req/
+- OpenSSL certificate command documentation: https://docs.openssl.org/3.0/man1/openss…</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-prior"><div class="cr-box-head"><span class="cr-chip cr-chip-prior">Prior check</span><h3>Prior-knowledge check</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Warm up your brain. Wrong answers are useful: they show what to review.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Do not skip ahead. Activation makes the lesson stick.</div>
+</div><div class="cr-prose-block"><p>Answer briefly before reading Instruction.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Answer briefly before reading Instruction.</div>
+ 
+</div></div><div class="cr-prose-block"><ol>
+<li>What problem does this class prevent in a homelab?</li>
+<li>What disposable lab boundary will you use?</li>
+<li>What evidence will prove you succeeded?</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLS</td>
+<td>Transport Layer Security, the protocol that provides encryption, integrity protection, and authenticated identities for connections such as HTTPS.</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td>HTTP carried through a TLS connection. The TLS layer is established and verified before normal HTTP messages are exchanged.</td>
+</tr>
+<tr>
+<td>Private key</td>
+<td>Secret cryptographic material used to prove possession of an identity and perform operations such as signing. It must not be distributed with the certificate.</td>
+</tr>
+<tr>
+<td>Public key</td>
+<td>The non-secret portion of a key pair. A certificate binds a public key to an asserted identity.</td>
+</tr>
+<tr>
+<td>Certificate authority</td>
+<td>An entity whose certificate and private key are used to sign other certificates. Clients must trust an appropriate CA before accepting certificates issued by it.</td>
+</tr>
+<tr>
+<td>Certificate signing request</td>
+<td>A signed request containing a public key and requested identity information. A CA validates the request according to policy before issuing a certificate.</td>
+</tr>
+<tr>
+<td>Certificate chain</td>
+<td>A sequence from a leaf certificate through one or more issuing CA certificates to a trust anchor recognized by the client.</td>
+</tr>
+<tr>
+<td>Trust anchor</td>
+<td>A CA certificate explicitly trusted by a client or operating system. Trust anchors are commonly stored in a system or application-specific trust store.</td>
+</tr>
+<tr>
+<td>Subject Alternative Name</td>
+<td>The certificate extension containing DNS names, IP addresses, or other identities for which a certificate is valid.</td>
+</tr>
+<tr>
+<td>Hostname validation</td>
+<td>The client-side comparison of the requested service name with identities in the server certificate, normally its Subject Alternative Name extension.</td>
+</tr>
+<tr>
+<td>PEM</td>
+<td>A text encoding that wraps base64-encoded cryptographic data between BEGIN and END labels.</td>
+</tr>
+<tr>
+<td>TLS handshake</td>
+<td>The exchange in which peers negotiate protocol parameters, establish session keys, and authenticate the server certificate before application data is transferred.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>TLS addresses three major properties of a network connection: confidentiality, integrity, and authentication. Encryption prevents an observer from directly reading application traffic. Integrity checks detect unauthorized changes in transit. Authentication lets a client determine whether the peer presenting a certificate is authorized for the requested identity. These properties are related but not interchangeable. A connection may be encrypted while still being vulnerable to impersonation if the client does not verify the certificate.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: TLS addresses three major properties of a network connection: confidentiality, integrity, and authentication.</div>
+ 
+</div></div><div class="cr-prose-block"><p>A server certificate contains a public key, identity information, validity dates, usage restrictions, and a digital signature from an issuer. The matching private key remains on the server. During the TLS handshake, the server proves possession of that private key. The client then evaluates the certificate chain against its trusted CA certificates. A valid issuer signature alone is insufficient: the chain must lead to a trust anchor accepted by the client, the certificate must be within its validity period, its extensions must allow server authentication, and the requested hostname or IP address must match a Subject Alternative Name.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div><div class="cr-prose-block"><p>A self-created CA is not automatically trusted. This is why an initial curl request to the lab server should fail even though the certificate is correctly signed by the lab CA. Supplying the CA certificate explicitly with --cacert creates narrow, command-specific trust without altering the machine-wide trust store. This is safer for a classroom exercise and demonstrates that trust is a client policy decision rather than a property a server can declare for itself.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Modern clients use the Subject Alternative Name extension for identity checks. The certificate Common Name should not be treated as a substitute. This lab includes both DNS:localhost and IP:127.0.0.1 so students can examine both identity forms. curl is instructed to resolve localhost directly to 127.0.0.1. That preserves the DNS name used for certificate validation while avoiding an IPv6 localhost connection to a server intentionally bound only to IPv4 loopback.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div><div class="cr-prose-block"><p>Operationally, private-key handling is as important as certificate issuance. The lab directory is restricted, private keys receive owner-only permissions, and the server listens only on loopback. The OpenSSL server is started as the direct background command after changing directories; its actual PID is recorded and validated against its command line. Shutdown checks that the PID still belongs to the expected OpenSSL process before signaling it, waits for process termination, and only then removes the PID record or lab artifacts.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>components</h3>
+<h3>name</h3>
+<p>Lab root CA</p>
+<h3>role</h3>
+<p>Signs the server certificate and acts as an explicitly supplied trust anchor for lab clients.</p>
+<h3>location</h3>
+<p>/opt/lab-classroom/class66/ca.crt</p>
+<h3>name</h3>
+<p>HTTPS test server</p>
+<h3>role</h3>
+<p>Uses the issued certificate and private key to provide a local TLS endpoint.</p>
+<h3>location</h3>
+<p>127.0.0.1:8443</p>
+<h3>name</h3>
+<p>TLS client</p>
+<h3>role</h3>
+<p>Uses curl or openssl s_client to validate the chain, service identity, and handshake.</p>
+<h3>location</h3>
+<p>The same host as the test server</p>
+<h3>trust_flow</h3>
+<p>The client connects using the service identity localhost. The server presents server.crt and proves possession of server.key. The client validates the issuer signature using ca.crt, checks certificate validity and usage, and compares localhost with the DNS Subject Alternative Name.</p>
+<h3>scope</h3>
+<p>All generated keys, certificates, logs, serial files, extension files, and PID records remain under /opt/lab-classroom/class66/. No system trust store or production service configuration is changed.</p></div>
+<div class="cr-box cr-box-example"><div class="cr-box-head"><span class="cr-chip cr-chip-example">I do</span><h3>Worked example</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> I do: watch the bad → better reasoning. Steal the thinking, not just the answer.</div>
+ 
+</div><div class="cr-prose-block"><p>See the worked example embedded in Instruction; reproduce it on your disposable lab path.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: See the worked example embedded in Instruction; reproduce it on your disposable lab path.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-practice"><div class="cr-box-head"><span class="cr-chip cr-chip-practice">Practice</span><h3>Guided practice</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> We do: try with hints. Compare your reasoning to the lesson.</div>
+ 
+</div><div class="cr-prose-block"><p>Complete the guided lab steps with hints allowed, then restate results in your own words.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Complete the guided lab steps with hints allowed, then restate results in your own words.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-practice"><div class="cr-box-head"><span class="cr-chip cr-chip-practice">Practice</span><h3>Independent practice</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You do: close the hints. Struggle is part of learning.</div>
+ 
+</div><div class="cr-prose-block"><h4>tasks</h4><p>Draw the lab trust chain and label the trust anchor, issuer, leaf certificate, public keys, and private keys.<br />
+Inspect server.crt and list every condition a client should check before accepting it for https://localhost:8443/.<br />
+Explain what error should occur if a client connects using a DNS name not present in the Subject Alternative Name extension.<br />
+Compare the security consequences of losing server.key with those of losing ca.key.<br />
+Write a certificate-renewal plan that replaces a leaf certificate before expiration without changing the trusted CA or exposing private keys.<br />
+Explain why placing the lab CA into a global trust store would expand risk beyond this single endpoint.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>submission</h4><p>Provide a short trust-chain diagram, certificate inspection notes, and written answers. Do not submit private-key contents.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Provide a short trust-chain diagram, certificate inspection notes, and written answers.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-feynman" id="feynman"><div class="cr-box-head"><span class="cr-chip cr-chip-feynman">Teach it back</span><h3>Feynman teach-back: required</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If you cannot explain it simply, you do not own it yet. This section is required for mastery.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Weak spots are gold: restudy that part and rewrite.</div>
+</div><div class="cr-prose-block"><h3>prompt</h3>
+<p>Explain HTTPS to a new administrator without using the phrase 'it is secure because it has a lock icon.'</p>
+<h3>model_explanation</h3>
+<p>The server owns a private key and presents a certificate containing the matching public key and approved service names. A certificate authority signs that certificate. The client trusts selected CA certificates, verifies the issuer chain and validity rules, and confirms that the requested hostname appears in the certificate. The server proves possession of its private key during the handshake, and both sides derive temporary session keys used to encrypt and authenticate application traffic. If the CA is not trusted or the name does not match, encryption alone does not establish that the client reached the intended server.</p>
+<h3>self_check</h3>
+<p>Can you explain why the server certificate may be public but the server private key must remain secret?<br />
+Can you distinguish chain trust from hostname validation?<br />
+Can you explain why explicitly supplying ca.crt changes the result without changing the server certificate?<br />
+Can you explain why localhost was forced to 127.0.0.1 while still remaining the URL hostname?</p></div><div class="cr-feynman-form" data-feynman-form="66"><div class="cr-feynman-field"><label for="fy-66-explain"><strong>Explain</strong>: Describe today&#x27;s concept in your own words.</label><textarea id="fy-66-explain" data-feynman-id="66" data-feynman-field="explain" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-66-simplify"><strong>Simplify</strong>: Explain it to a 12-year-old. Define any jargon.</label><textarea id="fy-66-simplify" data-feynman-id="66" data-feynman-field="simplify" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-66-example"><strong>Example</strong>: Give your own real-world analogy or example.</label><textarea id="fy-66-example" data-feynman-id="66" data-feynman-field="example" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-66-weak"><strong>Weak spot</strong>: What part could you not explain clearly?</label><textarea id="fy-66-weak" data-feynman-id="66" data-feynman-field="weak" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-66-retry"><strong>Retry</strong>: Restudy that section and rewrite a clearer explanation.</label><textarea id="fy-66-retry" data-feynman-id="66" data-feynman-field="retry" rows="4" placeholder="Write here…"></textarea></div><p class="cr-feynman-note">Answers save in this browser (localStorage). Completing all five fields is part of the mastery unlock.</p></div></div>
+<div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Retrieval check</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Write from memory first. Retrieval beats rereading.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Target about 80% before the practical gate.</div>
+</div><div class="cr-prose-block"><ol>
+<li>
+<ol>
+<li>What does a server prove by successfully completing a TLS handshake with a certificate's matching private key?</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Why does a correctly signed certificate from the lab CA fail in curl before --cacert is supplied?</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Which certificate field should contain localhost for modern hostname validation?</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>What is the difference between certificate-chain validation and hostname validation?</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>Why does the lab use --resolve localhost:8443:127.0.0.1 instead of requesting https://127.0.0.1:8443/ for the primary DNS-name test?</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>Why must a shutdown procedure verify a recorded PID's command line before signaling it?</li>
+</ol>
+</li>
+<li>
+<ol start="7">
+<li>Which private key creates the greater trust impact if compromised: server.key or ca.key, and why?</li>
+</ol>
+</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>goal</h4><p>Create a local CA, issue a localhost server certificate, observe failure without explicit trust, verify success with explicit trust, inspect the peer certificate, and stop the server safely.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Localhost means “this same machine/container.” From inside another container it often points at the wrong place.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create and secure the lab directory</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create and secure the lab directory</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>LAB=/opt/lab-classroom/class66; mkdir -p "$LAB" &amp;&amp; chmod 700 "$LAB" &amp;&amp; printf 'Lab directory: %s\n' "$LAB"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: LAB=/opt/lab-classroom/class66; mkdir -p &quot;$LAB&quot; &amp;&amp; chmod 700 &quot;$LAB&quot; &amp;&amp; printf &#x27;Lab directory: %s\n&#x27; &quot;$LAB&quot;</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The directory is the only location mutated by this lab. Restrictive directory permissions reduce accidental exposure of generated private keys.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The directory is the only location mutated by this lab.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Generate the lab CA private key and self-signed CA certificate</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Generate the lab CA private key and self-signed CA certificate</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>LAB=/opt/lab-classroom/class66; openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out "$LAB/ca.key" &amp;&amp; chmod 600 "$LAB/ca.key" &amp;&amp; openssl req -x509 -new -sha256 -key "$LAB/ca.key" -days 365 -subj "/CN=Class 66 Lab Root CA/O=OtaconsKeep Homelab Academy" -addext "basicConstraints=critical,CA:TRUE" -addext "keyUsage=critical,keyCertSign,cRLSign" -addext "subjectKeyIdentifier=hash" -out "$LAB/ca.crt"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: LAB=/opt/lab-classroom/class66; openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out &quot;$LAB/ca.key&quot; &amp;&amp; chmod 600 &quot;$LAB/ca.key&quot; &amp;&amp; openssl req -x5…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The CA certificate is self-signed and suitable only as a lab trust anchor. The CA private key never leaves the class directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The CA certificate is self-signed and suitable only as a lab trust anchor.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Generate the server key and certificate signing request</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>LAB=/opt/lab-classroom/class66; openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 -out "$LAB/server.key" &amp;&amp; chmod 600 "$LAB/server.key" &amp;&amp; openssl req -new -sha256 -key "$LAB/server.key" -subj "/CN=localhost/O=OtaconsKeep Homelab Academy" -out "$LAB/server.csr" &amp;&amp; openssl req -in "$LAB/server.csr" -noout -verify</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Localhost means “this same machine/container.” From inside another container it often points at the wrong place.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The CSR proves possession of the server private key and carries the requested subject. Identity authorization will be encoded through certificate extensions during issuance.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The CSR proves possession of the server private key and carries the requested subject.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Define server certificate extensions</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Define server certificate extensions</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>LAB=/opt/lab-classroom/class66; cat &gt; "$LAB/server.ext" &lt;&lt;'EOF'<br />
+[server_cert]<br />
+basicConstraints=critical,CA:FALSE<br />
+keyUsage=critical,digitalSignature,keyEncipherment<br />
+extendedKeyUsage=serverAuth<br />
+subjectKeyIdentifier=hash<br />
+authorityKeyIdentifier=keyid,issuer<br />
+subjectAltName=@alt_names</p>
+<p>[alt_names]<br />
+DNS.1=localhost<br />
+IP.1=127.0.0.1<br />
+EOF</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The extension profile prevents the leaf certificate from acting as a CA, enables server authentication, and supplies both DNS and IPv4 loopback identities.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Issue the server certificate</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Issue the server certificate</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>LAB=/opt/lab-classroom/class66; openssl x509 -req -sha256 -in "$LAB/server.csr" -CA "$LAB/ca.crt" -CAkey "$LAB/ca.key" -CAserial "$LAB/ca.srl" -CAcreateserial -days 30 -extfile "$LAB/server.ext" -extensions server_cert -out "$LAB/server.crt" &amp;&amp; openssl verify -CAfile "$LAB/ca.crt" "$LAB/server.crt"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: LAB=/opt/lab-classroom/class66; openssl x509 -req -sha256 -in &quot;$LAB/server.csr&quot; -CA &quot;$LAB/ca.crt&quot; -CAkey &quot;$LAB/ca.key&quot; -CAserial &quot;$LAB/ca.srl&quot; -CAcreateseria…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The CA signs the CSR and applies the controlled extension profile. openssl verify confirms that the issued certificate chains to the supplied lab CA.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The CA signs the CSR and applies the controlled extension profile.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Inspect certificate identity and usage</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inspect certificate identity and usage</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>LAB=/opt/lab-classroom/class66; openssl x509 -in "$LAB/server.crt" -noout -subject -issuer -dates -serial -ext basicConstraints -ext extendedKeyUsage -ext subjectAltName &amp;&amp; openssl x509 -in "$LAB/server.crt" -noout -checkhost localhost &amp;&amp; openssl x509 -in "$LAB/server.crt" -noout -checkip 127.0.0.1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>This confirms the issuer, validity window, server-auth usage, non-CA status, and both intended identities before the certificate is placed into service.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: This confirms the issuer, validity window, server-auth usage, non-CA status, and both intended identities before the certificate is placed into service.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Start the loopback-only OpenSSL TLS server and record its actual PID</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>LAB=/opt/lab-classroom/class66; cd "$LAB" || exit 1; nohup openssl s_server -accept 127.0.0.1:8443 -cert "$LAB/server.crt" -key "$LAB/server.key" -www </dev/null >"$LAB/server.log" 2&gt;&amp;1 &amp; pid=$!; printf '%s\n' "$pid" &gt; "$LAB/server.pid"; sleep 1; args=$(ps -p "$pid" -o args= 2&gt;/dev/null || true); case "$args" in <em>"openssl s_server"</em>"$LAB/server.crt"<em>) printf 'TLS server PID %s is running on 127.0.0.1:8443\n' "$pid" ;; </em>) printf 'TLS server did not start as expected. Log follows:\n' &gt;&2; cat "$LAB/server.log" &gt;&2; exit 1 ;; esac</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The shell changes directory first and then backgrounds the simple nohup command. nohup executes OpenSSL in the same recorded process, so $! identifies the OpenSSL server rather than a background subshell. The command line is checked before continuing.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The shell changes directory first and then backgrounds the simple nohup command.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>8</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 8</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Demonstrate failure when the lab CA is not trusted</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Demonstrate failure when the lab CA is not trusted</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>set +e; output=$(curl --noproxy '*' --resolve localhost:8443:127.0.0.1 --silent --show-error https://localhost:8443/ 2&gt;&amp;1); rc=$?; set -e; printf '%s\n' "$output"; if [ "$rc" -eq 0 ]; then printf 'Unexpected success without the lab CA\n' &gt;&2; exit 1; fi; printf 'Expected certificate verification failure occurred; curl exit status was %s\n' "$rc"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The server certificate is signed correctly, but the client does not yet trust the private lab CA. --resolve preserves the requested DNS name while forcing the connection to the IPv4 address on which the server listens.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>9</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 9</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Trust only the lab CA for this request</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>LAB=/opt/lab-classroom/class66; curl --noproxy '*' --resolve localhost:8443:127.0.0.1 --fail --silent --show-error --cacert "$LAB/ca.crt" https://localhost:8443/</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>Supplying --cacert allows curl to build a trusted chain while still validating the DNS identity localhost against the certificate Subject Alternative Name.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>10</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 10</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Verify the live TLS peer with OpenSSL</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Verify the live TLS peer with OpenSSL</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>LAB=/opt/lab-classroom/class66; openssl s_client -connect 127.0.0.1:8443 -servername localhost -CAfile "$LAB/ca.crt" -verify_return_error -showcerts </dev/null >"$LAB/s_client.out" 2&gt;"$LAB/s_client.err" &amp;&amp; openssl x509 -in "$LAB/s_client.out" -noout -subject -issuer -fingerprint -sha256 &amp;&amp; openssl x509 -in "$LAB/s_client.out" -noout -checkhost localhost</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The client sends localhost through Server Name Indication, requires successful chain verification, saves diagnostic output inside the lab directory, and performs a separate identity check on the presented certificate.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Localhost means “this same machine/container.” From inside another container it often points at the wrong place.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>11</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 11</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Stop the exact OpenSSL server process</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Stop the exact OpenSSL server process</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>LAB=/opt/lab-classroom/class66; pid=$(cat "$LAB/server.pid") || exit 1; args=$(ps -p "$pid" -o args= 2&gt;/dev/null || true); case "$args" in <em>"openssl s_server"</em>"$LAB/server.crt"<em>) kill "$pid" || exit 1 ;; </em>) printf 'Refusing to signal PID %s because it is not the expected lab OpenSSL server\n' "$pid" &gt;&2; exit 1 ;; esac; i=0; while kill -0 "$pid" 2&gt;/dev/null &amp;&amp; [ "$i" -lt 50 ]; do sleep 0.1; i=$((i + 1)); done; if kill -0 "$pid" 2&gt;/dev/null; then printf 'Server PID %s did not exit; preserve artifacts and investigate\n' "$pid" &gt;&2; exit 1; fi; find "$LAB" -maxdepth 1 -type f -name 'server.pid' -delete; printf 'TLS server PID %s has exited\n' "$pid"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: LAB=/opt/lab-classroom/class66; pid=$(cat &quot;$LAB/server.pid&quot;) || exit 1; args=$(ps -p &quot;$pid&quot; -o args= 2&gt;/dev/null || true); case &quot;$args&quot; in *&quot;openssl s_server…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The PID is matched to both openssl s_server and the lab certificate path before signaling. The process must disappear before its PID record is removed.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The PID is matched to both openssl s_server and the lab certificate path before signaling.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The lab directory exists with restrictive permissions and all generated artifacts remain under /opt/lab-classroom/class66/.</li>
+<li>openssl verify reports /opt/lab-classroom/class66/server.crt: OK.</li>
+<li>Certificate inspection shows CA:FALSE, TLS Web Server Authentication, DNS:localhost, and IP Address:127.0.0.1.</li>
+<li>The first curl request fails because the private lab CA is not trusted by default.</li>
+<li>The curl request using --cacert succeeds and returns the OpenSSL s_server status page.</li>
+<li>The live peer certificate is issued by the Class 66 lab CA and passes the localhost identity check.</li>
+<li>The shutdown step reports that the recorded TLS server PID exited.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification checkpoints</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run <code>openssl verify -CAfile /opt/lab-classroom/class66/ca.crt /opt/lab-classroom/class66/server.crt</code>; the result must end with <code>server.crt: OK</code>.</li>
+<li>[ ] Run <code>openssl x509 -in /opt/lab-classroom/class66/server.crt -noout -checkhost localhost</code>; it must report that the certificate matches the host.</li>
+<li>[ ] Run <code>openssl x509 -in /opt/lab-classroom/class66/server.crt -noout -checkip 127.0.0.1</code>; it must report that the certificate matches the IP address.</li>
+<li>[ ] While the server is running, run <code>curl --noproxy '*' --resolve localhost:8443:127.0.0.1 --fail --cacert /opt/lab-classroom/class66/ca.crt https://localhost:8443/</code>; it must complete without a certificate error.</li>
+<li>[ ] After the stop step, the PID recorded before shutdown must no longer appear in <code>ps</code>, and a connection to 127.0.0.1:8443 should fail unless another service independently uses that port.</li>
+<li>[ ] Confirm that the exercise did not install ca.crt into a system or browser trust store.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenSSL reports that -addext is unknown.</td>
+<td>The installed OpenSSL version predates support for the option or uses a vendor-specific command implementation.</td>
+<td>Use OpenSSL 1.1.1 or newer for this lesson. Do not silently omit CA constraints or key-usage extensions.</td>
+</tr>
+<tr>
+<td>The server startup check fails and server.log says the address is already in use.</td>
+<td>Another process is listening on 127.0.0.1:8443.</td>
+<td>Identify and stop only the conflicting service if it is safe to do so, or schedule the lab when the required port is free. Do not change the certificate identity merely to bypass the conflict.</td>
+</tr>
+<tr>
+<td>The first curl request succeeds even though --cacert was not supplied.</td>
+<td>The lab CA or an equivalent signing certificate was previously added to a client trust store, or curl is being affected by CA-related environment variables.</td>
+<td>Inspect curl's TLS backend and CA environment settings, remove unintended lab trust through the mechanism that added it, and repeat using a clean client configuration.</td>
+</tr>
+<tr>
+<td>curl reports a hostname or subject name mismatch.</td>
+<td>The requested URL identity is not present in the certificate Subject Alternative Name extension.</td>
+<td>Use the URL https://localhost:8443/ with the supplied --resolve option, then inspect the certificate with <code>openssl x509 -ext subjectAltName</code>.</td>
+</tr>
+<tr>
+<td>curl reports connection refused instead of a certificate verification error.</td>
+<td>The OpenSSL server failed to start, exited, or is not listening on 127.0.0.1:8443.</td>
+<td>Read /opt/lab-classroom/class66/server.log and validate the saved PID with ps. Restart only after resolving the logged error.</td>
+</tr>
+<tr>
+<td>The shutdown step refuses to signal the recorded PID.</td>
+<td>The PID file is stale, the server exited, or the operating system reused the PID for a different process.</td>
+<td>Inspect the PID and command line manually. Never signal a mismatched process. If the expected OpenSSL server is already absent, remove the stale PID record inside the lab directory.</td>
+</tr>
+<tr>
+<td>OpenSSL chain verification succeeds but an HTTPS client still rejects the endpoint.</td>
+<td>Chain validation and service identity validation are separate checks; the URL name may not match the certificate SAN, or the client may impose additional policy.</td>
+<td>Check the requested hostname, Subject Alternative Name entries, validity dates, extended key usage, and the specific client error.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security considerations</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>controls</h4><p>The server binds only to 127.0.0.1, preventing direct access from other hosts.<br />
+The exercise supplies the lab CA per command rather than installing it into a machine-wide trust store.<br />
+CA and server private keys are stored only under the class directory with owner-only file permissions.<br />
+The server PID is validated against its command line and certificate path before any signal is sent.<br />
+The generated CA is for education only and must not issue certificates for production or externally reachable services.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>key_management</h4><p>Anyone who obtains ca.key can issue certificates accepted wherever ca.crt is trusted. Anyone who obtains server.key can impersonate this lab server while the certificate is valid. Do not copy these keys to shared storage or source-control repositories.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Anyone who obtains ca.key can issue certificates accepted wherever ca.crt is trusted.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>trust_warning</h4><p>Installing a private lab CA as a global trust anchor grants it broad authority to authenticate services. This lab deliberately avoids that change.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Installing a private lab CA as a global trust anchor grants it broad authority to authenticate services.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>exposure_warning</h4><p>OpenSSL s_server is a diagnostic tool, not a production web server. It is loopback-bound and should be stopped after testing.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>objective</h4><p>Stop the expected OpenSSL server, confirm that it has exited, and then remove only the class directory and its artifacts.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Stop the expected OpenSSL server, confirm that it has exited, and then remove only the class directory and its artifacts.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>command</h4><p>LAB=/opt/lab-classroom/class66; if [ -d "$LAB" ]; then if [ -f "$LAB/server.pid" ]; then pid=$(cat "$LAB/server.pid"); args=$(ps -p "$pid" -o args= 2&gt;/dev/null || true); case "$args" in <em>"openssl s_server"</em>"$LAB/server.crt"<em>) kill "$pid" || exit 1; i=0; while kill -0 "$pid" 2&gt;/dev/null &amp;&amp; [ "$i" -lt 50 ]; do sleep 0.1; i=$((i + 1)); done; if kill -0 "$pid" 2&gt;/dev/null; then kill -KILL "$pid" || exit 1; i=0; while kill -0 "$pid" 2&gt;/dev/null &amp;&amp; [ "$i" -lt 20 ]; do sleep 0.1; i=$((i + 1)); done; fi; if kill -0 "$pid" 2&gt;/dev/null; then printf 'Unable to confirm exit of PID %s; rollback aborted before deleting artifacts\n' "$pid" &gt;&2; exit 1; fi ;; "") printf 'Recorded PID %s is not running; continuing with artifact cleanup\n' "$pid" ;; </em>) printf 'PID %s belongs to another process; rollback aborted without signaling or deleting artifacts\n' "$pid" &gt;&2; exit 1 ;; esac; fi; find "$LAB" -mindepth 1 -maxdepth 1 -type f -delete &amp;&amp; rmdir "$LAB"; fi</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: LAB=/opt/lab-classroom/class66; if [ -d &quot;$LAB&quot; ]; then if [ -f &quot;$LAB/server.pid&quot; ]; then pid=$(cat &quot;$LAB/server.pid&quot;); args=$(ps -p &quot;$pid&quot; -o args= 2&gt;/dev/nu…</div>
+ 
+</div></div><div class="cr-prose-block"><h4>verification</h4><p>Confirm that no process matching the recorded PID remains before deletion, that /opt/lab-classroom/class66/ no longer exists, and that no system trust store was changed.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Confirm that no process matching the recorded PID remains before deletion, that /opt/lab-classroom/class66/ no longer exists, and that no system trust store …</div>
+ 
+</div></div><div class="cr-prose-block"><h4>scope</h4><p>The rollback neither signals an unverified PID nor deletes anything outside /opt/lab-classroom/class66/.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The rollback neither signals an unverified PID nor deletes anything outside /opt/lab-classroom/class66/.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video narration notes</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Begin by showing the empty class directory and describing TLS as a combination of encryption, integrity, and authenticated identity. Generate the lab CA and emphasize that ca.key is the authority's critical secret while ca.crt is the public trust anchor. Generate the server key and CSR, then display the extension file and point out CA:FALSE, serverAuth, DNS:localhost, and IP:127.0.0.1. Sign the CSR and verify the chain before starting any service. Start OpenSSL s_server only on IPv4 loopback, showing that the command backgrounds OpenSSL itself and records the actual server PID. Demonstrate the first curl failure without the lab CA and explain that a valid signature is not enough when the issuer is untrusted. Repeat with --cacert and --resolve, noting that localhost remains the validated service name while the connection is forced to 127.0.0.1. Use openssl s_client to inspect the live peer and verify its chain. Finish by validating the recorded process command, stopping that exact OpenSSL server, confirming its exit, and discussing why cleanup must not delete PID evidence before termination is confirmed.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>OpenSSL req documentation: https://docs.openssl.org/3.0/man1/openssl-req/</li>
+<li>OpenSSL x509 documentation: https://docs.openssl.org/3.0/man1/openssl-x509/</li>
+<li>OpenSSL verify documentation: https://docs.openssl.org/3.0/man1/openssl-verify/</li>
+<li>OpenSSL s_client documentation: https://docs.openssl.org/3.0/man1/openssl-s_client/</li>
+<li>OpenSSL s_server documentation: https://docs.openssl.org/3.0/man1/openssl-s_server/</li>
+<li>curl HTTPS certificate documentation: https://curl.se/docs/sslcerts.html</li>
+<li>RFC 5280: https://www.rfc-editor.org/rfc/rfc5280</li>
+<li>RFC 6125: https://www.rfc-editor.org/rfc/rfc6125</li>
+<li>RFC 8446, The Transport Layer Security Protocol Version 1.3: https://www.rfc-editor.org/rfc/rfc8446</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - OpenSSL req documentation: https://docs.openssl.org/3.0/man1/openssl-req/
+- OpenSSL x509 documentation: https://docs.openssl.org/3.0/man1/openssl-x509/
+- O…</div>
+ 
+</div></div></div>
+<div class="cr-check" data-check-id="gate-66">
+ <div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical mastery gate: pass before you continue</h3></div>
+ <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
+</div>
+ <div class="cr-check-item"><label><input type="checkbox" data-k="0"> <span>Objectives demonstrated with evidence</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Objectives demonstrated with evidence)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="1"> <span>Feynman complete</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Feynman complete)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="2"> <span>Quiz self-scored ≥80%</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Quiz self-scored ≥80%)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="3"> <span>Lab verification boxes checked</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Lab verification boxes checked)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="4"> <span>Rollback understood</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Rollback understood)</div>
+ 
+</div></div>
+ <div class="cr-gate">Mastery unlock: all boxes true + Feynman complete → continue to the next class</div>
+</div>
+<div class="cr-box cr-box-reflect"><div class="cr-box-head"><span class="cr-chip cr-chip-reflect">Reflect</span><h3>Reflection</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Name what you learned, where you struggled, and how it connects backward and forward.</div>
+ 
+</div><div class="cr-prose-block"><ol>
+<li>What did I learn?</li>
+<li>What did I struggle with?</li>
+<li>How does this connect to earlier classes?</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-spiral"><div class="cr-box-head"><span class="cr-chip cr-chip-spiral">Spiral</span><h3>Spiral hook</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This skill will return later. Knowing the hook helps you notice it when it does.</div>
+ 
+</div><div class="cr-prose-block"><p>Return to this class whenever a later service fails for identity, process, log, remote access, update, or routing reasons covered here.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="65.html">← Class 65</a><a href="67.html">Class 67 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

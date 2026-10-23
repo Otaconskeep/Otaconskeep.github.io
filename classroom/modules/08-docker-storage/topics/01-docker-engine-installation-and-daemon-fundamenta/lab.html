@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260929e">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260924v">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
 </head>
 <body>
 
@@ -24,32 +24,28 @@
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
- <a href="/#ecosystem">Platform</a>
- <div class="navdrop">
- <a href="/#ecosystem">Products</a>
- <div class="navdrop-menu">
- <a href="/otacon/">Otacon Lite</a>
- <a href="/keeproute/">KeepRoute</a>
+ <a href="/otacon/">Otacon</a>
  <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- </div>
- </div>
- <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
  <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="/news/">News</a>
- <a href="/donate/">Donate</a>
- <a href="/install/" class="discord">Get Otacon</a>
- </div></div>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
 </nav>
 <nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
- <a href="/classroom/homelab/">Overview</a>
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
  <a href="/classroom/syllabus.html">Syllabus</a>
@@ -74,10 +70,18 @@
  </section>
 </div>
 <div class="wrap">
+ <figure class="class-visual"><img src="/classroom/visuals/diagrams/27-docker-engine-installation-and-daemon-fundamentals.svg" alt="Class 27: Docker Engine and the daemon"><figcaption>Class 27 visual reference. Use it as the map, then prove it in the reading, lesson, and lab.</figcaption></figure>
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Docker, Storage &amp; Permissions<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the responsibilities of the Docker CLI, Docker daemon, containerd, and OCI runtime</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the responsibilities of the Docker CLI, Docker daemon, containerd, and OCI runtime</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>Basic Linux command-line navigation</li>
 <li>Familiarity with JSON syntax</li>
 <li>Ability to identify the Linux distribution and CPU architecture</li>
@@ -317,7 +321,14 @@ cat /opt/lab-classroom/class27/daemon.json</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The listing provides an auditable view of the workspace created by the lab.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>The directory /opt/lab-classroom/class27/ exists with runtime, docker-data, and docker-exec subdirectories.</li>
 <li>host-inventory.txt identifies the kernel, architecture, and whether docker, dockerd, and containerd are present.</li>
 <li>installation-plan.txt records that package and service changes were not performed during the lab.</li>
@@ -329,9 +340,16 @@ cat /opt/lab-classroom/class27/daemon.json</p><div class="cr-help">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The directory /opt/lab-classroom/class27/ exists with runtime, docker-data, and docker-exec subdirectories.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - The directory /opt/lab-classroom/class27/ exists with runtime, docker-data, and docker-exec subdirectories.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>[ ] Run: test -d /opt/lab-classroom/class27/runtime &amp;&amp; test -d /opt/lab-classroom/class27/docker-data &amp;&amp; test -d /opt/lab-classroom/class27/docker-exec &amp;&amp; echo PASS</li>
 <li>[ ] Run: test -s /opt/lab-classroom/class27/host-inventory.txt &amp;&amp; echo PASS</li>
 <li>[ ] Run: test -s /opt/lab-classroom/class27/installation-plan.txt &amp;&amp; echo PASS</li>
@@ -347,7 +365,7 @@ cat /opt/lab-classroom/class27/daemon.json</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
  
-</div></div></div><figure class="class-visual" data-visual="lab"><img src="/classroom/visuals/diagrams/27-docker-engine-installation-and-daemon-fundamentals.svg" alt="Diagram of Docker Engine Installation and Daemon Fundamentals" width="1600" height="900"><figcaption>Reference architecture for this lab.</figcaption></figure><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
@@ -411,7 +429,14 @@ cat /opt/lab-classroom/class27/daemon.json</p><div class="cr-help">
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Treat control of a rootful Docker daemon as administrative control of the host.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>Treat control of a rootful Docker daemon as administrative control of the host.<br />
 Grant local daemon access only to identities that are authorized for host-level administration.<br />
 Do not expose an unauthenticated or unencrypted daemon API to a network.<br />
 Verify repository provenance, signing configuration, operating-system support, and package architecture before installation.<br />
@@ -441,7 +466,14 @@ Back up application data according to the storage system's consistency requireme
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>lab_rollback</h4><p>Remove only the class workspace through the classroom's approved cleanup process. The lab does not provide a destructive cleanup command because preserving the files may be useful for review and no system configuration was changed.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>lab_rollback</h4><p>Remove only the class workspace through the classroom's approved cleanup process. The lab does not provide a destructive cleanup command because preserving the files may be useful for review and no system configuration was changed.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

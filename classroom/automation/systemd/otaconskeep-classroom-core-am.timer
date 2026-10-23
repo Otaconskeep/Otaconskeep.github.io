@@ -1,0 +1,13 @@
+[Unit]
+Description=OtaconsKeep Classroom core AM timer (America/Phoenix 01:00)
+Requires=otaconskeep-classroom-core-am.service
+
+[Timer]
+# Host timezone verified America/Phoenix on OtaconsKeep
+OnCalendar=*-*-* 01:00:00
+Persistent=true
+RandomizedDelaySec=120
+Unit=otaconskeep-classroom-core-am.service
+
+[Install]
+WantedBy=timers.target

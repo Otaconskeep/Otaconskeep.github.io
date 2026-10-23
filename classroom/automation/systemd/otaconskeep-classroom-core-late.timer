@@ -1,0 +1,12 @@
+[Unit]
+Description=OtaconsKeep Classroom core late timer (America/Phoenix 03:30)
+Requires=otaconskeep-classroom-core-late.service
+
+[Timer]
+OnCalendar=*-*-* 03:30:00
+Persistent=true
+RandomizedDelaySec=120
+Unit=otaconskeep-classroom-core-late.service
+
+[Install]
+WantedBy=timers.target

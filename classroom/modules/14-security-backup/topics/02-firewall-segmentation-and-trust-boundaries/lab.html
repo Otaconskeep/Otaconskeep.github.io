@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02-firewall-segmentation-and-trust-boundaries: Lab · Classroom</title>
+<meta name="description" content="02-firewall-segmentation-and-trust-boundaries: Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/14-security-backup/topics/02-firewall-segmentation-and-trust-boundaries/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M14 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M14 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 02-firewall-segmentation-and-trust-boundaries: Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Segmentation, Backup &amp; Power<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Define zones as groups of systems with similar trust and policy requirements.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Comfort using a Linux shell and changing directories.</li>
+<li>Basic understanding of IPv4 addresses, CIDR prefixes, TCP ports, and client-server traffic.</li>
+<li>Ability to read JSON and run Python 3 scripts.</li>
+<li>Completion of introductory networking and least-privilege lessons is recommended.</li>
+<li>Write access to /opt/lab-classroom/class71/.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> An IP address is how devices find each other on a network. The mask tells which part is the ‘street’ and which part is the ‘house number.’</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>workspace</h4><p>/opt/lab-classroom/class71/</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: /opt/lab-classroom/class71/</div>
+ 
+</div></div><div class="cr-lab-path"><h4>constraints</h4><p>Run the commands as an account that can write to the workspace.<br />
+Do not substitute a real packet-filter command for the simulator.<br />
+Every created or modified lab artifact remains below /opt/lab-classroom/class71/.<br />
+The host audit reads selected host configuration paths but writes its snapshot only inside the workspace.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A snapshot is a restore point. Take one before a risky change so you can roll back fast.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the complete lab artifacts in a clean workspace</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the complete lab artifacts in a clean workspace</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>These commands create every required script and data file. reset_data.py contains durable embedded originals for policy.json and flows.json, so recovery does not depend on policy.json.bak.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: These commands create every required script and data file.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>mkdir -p /opt/lab-classroom/class71 &amp;&amp; cd /opt/lab-classroom/class71<br />
+cat &gt; /opt/lab-classroom/class71/reset_data.py &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import json</p>
+<p>ROOT = Path('/opt/lab-classroom/class71')<br />
+POLICY = {<br />
+    'zones': {<br />
+        'admin': {'cidr': '10.71.10.0/24', 'address_standard': 'RFC1918'},<br />
+        'servers': {'cidr': '10.71.20.0/24', 'address_standard': 'RFC1918'},<br />
+        'users': {'cidr': '10.71.30.0/24', 'address_standard': 'RFC1918'},<br />
+        'monitoring': {'cidr': '10.71.40.0/24', 'address_standard': 'RFC1918'},<br />
+        'external-test': {'cidr': '203.0.113.0/24', 'address_standard': 'RFC5737'}<br />
+    },<br />
+    'rules': [<br />
+        {'name': 'allow-admin-ssh', 'src': 'admin', 'dst': 'servers', 'protocol': 'tcp', 'port': 22, 'action': 'allow'},<br />
+        {'name': 'allow-users-https', 'src': 'users', 'dst': 'servers', 'protocol': 'tcp', 'port': 443, 'action': 'allow'},<br />
+        {'name': 'allow-server-egress-https', 'src': 'servers', 'dst': 'external-test', 'protocol': 'tcp', 'port': 443, 'action': 'allow'},<br />
+        {'name': 'default-deny', 'src': 'any', 'dst': 'any', 'protocol': 'any', 'port': 'any', 'action': 'deny'}<br />
+    ]<br />
+}<br />
+FLOWS = [<br />
+    {'name': 'admin-ssh', 'src_zone': 'admin', 'src_ip': '10.71.10.10', 'dst_zone': 'servers', 'dst_ip': '10.71.20.21', 'protocol': 'tcp', 'port': 22},<br />
+    {'name': 'users-https', 'src_zone': 'users', 'src_ip': '10.71.30.50', 'dst_zone': 'servers', 'dst_ip': '10.71.20.25', 'protocol': 'tcp', 'port': 443},<br />
+    {'name': 'users-ssh-denied', 'src_zone': 'users', 'src_ip': '10.71.30.50', 'dst_zone': 'servers', 'dst_ip': '10.71.20.21', 'protocol': 'tcp', 'port': 22},<br />
+    {'name': 'server-egress-https', 'src_zone': 'servers', 'src_ip': '10.71.20.25', 'dst_zone': 'external-test', 'dst_ip': '203.0.113.20', 'protocol': 'tcp', 'port': 443},<br />
+    {'name': 'monitoring-node-exporter', 'src_zone': 'monitoring', 'src_ip': '10.71.40.10', 'dst_zone': 'servers', 'dst_ip': '10.71.20.21', 'protocol': 'tcp', 'port': 9100},<br />
+    {'name': 'monitoring-blackbox', 'src_zone': 'monitoring', 'src_ip': '10.71.40.11', 'dst_zone': 'servers', 'dst_ip': '10.71.20.25', 'protocol': 'tcp', 'port': 9115},<br />
+    {'name': 'external-to-admin-denied', 'src_zone': 'external-test', 'src_ip': '203.0.113.30', 'dst_zone': 'admin', 'dst_ip': '10.71.10.10', 'protocol': 'tcp', 'port': 22}<br />
+]<br />
+ROOT.mkdir(parents=True, exist_ok=True)<br />
+(ROOT / 'policy.json').write_text(json.dumps(POLICY, indent=2) + '\n')<br />
+(ROOT / 'flows.json').write_text(json.dumps(FLOWS, indent=2) + '\n')<br />
+print('Reinstalled original policy.json and flows.json')<br />
+PY<br />
+python3 /opt/lab-classroom/class71/reset_data.py<br />
+cat &gt; /opt/lab-classroom/class71/evaluate.py &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import ipaddress<br />
+import json<br />
+import sys</p>
+<p>ROOT = Path('/opt/lab-classroom/class71')<br />
+policy = json.loads((ROOT / 'policy.json').read_text())<br />
+flows = json.loads((ROOT / 'flows.json').read_text())<br />
+zones = policy['zones']</p>
+<p>def validate_endpoint(flow, side):<br />
+    zone_name = flow[side + '_zone']<br />
+    ip_text = flow[side + '_ip']<br />
+    if zone_name not in zones:<br />
+        raise ValueError(f"{flow['name']}: unknown {side} zone {zone_name}")<br />
+    network = ipaddress.ip_network(zones[zone_name]['cidr'])<br />
+    address = ipaddress.ip_address(ip_text)<br />
+    if address not in network:<br />
+        raise ValueError(f"{flow['name']}: {side} IP {address} is outside {zone_name} {network}")</p>
+<p>def field_matches(rule_value, flow_value):<br />
+    return rule_value == 'any' or rule_value == flow_value</p>
+<p>def evaluate(flow):<br />
+    validate_endpoint(flow, 'src')<br />
+    validate_endpoint(flow, 'dst')<br />
+    for position, rule in enumerate(policy['rules'], start=1):<br />
+        if not field_matches(rule['src'], flow['src_zone']):<br />
+            continue<br />
+        if not field_matches(rule['dst'], flow['dst_zone']):<br />
+            continue<br />
+        if not field_matches(rule['protocol'], flow['protocol']):<br />
+            continue<br />
+        if not field_matches(rule['port'], flow['port']):<br />
+            continue<br />
+        return {<br />
+            'flow': flow['name'],<br />
+            'decision': rule['action'],<br />
+            'matched_rule': rule['name'],<br />
+            'rule_position': position,<br />
+            'src_zone': flow['src_zone'],<br />
+            'dst_zone': flow['dst_zone']<br />
+        }<br />
+    raise ValueError(f"{flow['name']}: no rule matched; policy requires an explicit terminal rule")</p>
+<p>try:<br />
+    for item in flows:<br />
+        print(json.dumps(evaluate(item), sort_keys=True))<br />
+except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:<br />
+    print(f'POLICY ERROR: {exc}', file=sys.stderr)<br />
+    sys.exit(2)<br />
+PY<br />
+cat &gt; /opt/lab-classroom/class71/assert_results.py &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import json<br />
+import subprocess<br />
+import sys</p>
+<p>ROOT = Path('/opt/lab-classroom/class71')<br />
+EXPECTED = {<br />
+    'baseline': {<br />
+        'admin-ssh': ('allow', 'allow-admin-ssh'),<br />
+        'users-https': ('allow', 'allow-users-https'),<br />
+        'users-ssh-denied': ('deny', 'default-deny'),<br />
+        'server-egress-https': ('allow', 'allow-server-egress-https'),<br />
+        'monitoring-node-exporter': ('deny', 'default-deny'),<br />
+        'monitoring-blackbox': ('deny', 'default-deny'),<br />
+        'external-to-admin-denied': ('deny', 'default-deny')<br />
+    },<br />
+    'changed': {<br />
+        'admin-ssh': ('allow', 'allow-admin-ssh'),<br />
+        'users-https': ('allow', 'allow-users-https'),<br />
+        'users-ssh-denied': ('deny', 'default-deny'),<br />
+        'server-egress-https': ('allow', 'allow-server-egress-https'),<br />
+        'monitoring-node-exporter': ('allow', 'allow-monitoring-node-exporter'),<br />
+        'monitoring-blackbox': ('allow', 'allow-monitoring-blackbox'),<br />
+        'external-to-admin-denied': ('deny', 'default-deny')<br />
+    }<br />
+}</p>
+<p>if len(sys.argv) != 2 or sys.argv[1] not in EXPECTED:<br />
+    print('Usage: python3 assert_results.py baseline|changed', file=sys.stderr)<br />
+    sys.exit(2)<br />
+mode = sys.argv[1]<br />
+run = subprocess.run([sys.executable, str(ROOT / 'evaluate.py')], text=True, capture_output=True)<br />
+if run.returncode != 0:<br />
+    print(run.stderr, end='', file=sys.stderr)<br />
+    sys.exit(run.returncode)<br />
+actual = {}<br />
+for line in run.stdout.splitlines():<br />
+    result = json.loads(line)<br />
+    actual[result['flow']] = (result['decision'], result['matched_rule'])<br />
+failures = []<br />
+for flow, expected in EXPECTED[mode].items():<br />
+    observed = actual.get(flow)<br />
+    if observed != expected:<br />
+        failures.append(f'{flow}: expected {expected}, observed {observed}')<br />
+extra = sorted(set(actual) - set(EXPECTED[mode]))<br />
+if extra:<br />
+    failures.append(f'unexpected flows: {extra}')<br />
+if failures:<br />
+    print('\n'.join(failures), file=sys.stderr)<br />
+    sys.exit(1)<br />
+print(f'{mode} assertions passed for {len(EXPECTED[mode])} flows')<br />
+PY<br />
+cat &gt; /opt/lab-classroom/class71/edit_policy.py &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import json<br />
+import sys</p>
+<p>ROOT = Path('/opt/lab-classroom/class71')<br />
+NEW_RULES = [<br />
+    {'name': 'allow-monitoring-node-exporter', 'src': 'monitoring', 'dst': 'servers', 'protocol': 'tcp', 'port': 9100, 'action': 'allow'},<br />
+    {'name': 'allow-monitoring-blackbox', 'src': 'monitoring', 'dst': 'servers', 'protocol': 'tcp', 'port': 9115, 'action': 'allow'}<br />
+]</p>
+<p>if len(sys.argv) != 2 or sys.argv[1] not in ('shadow', 'correct'):<br />
+    print('Usage: python3 edit_policy.py shadow|correct', file=sys.stderr)<br />
+    sys.exit(2)<br />
+mode = sys.argv[1]<br />
+path = ROOT / 'policy.json'<br />
+policy = json.loads(path.read_text())<br />
+new_names = {rule['name'] for rule in NEW_RULES}<br />
+policy['rules'] = [rule for rule in policy['rules'] if rule['name'] not in new_names]<br />
+if mode == 'shadow':<br />
+    policy['rules'].extend(NEW_RULES)<br />
+    print('Inserted monitoring allows after default-deny; they are intentionally shadowed')<br />
+else:<br />
+    deny_positions = [index for index, rule in enumerate(policy['rules']) if rule['name'] == 'default-deny']<br />
+    if len(deny_positions) != 1:<br />
+        raise SystemExit('Expected exactly one default-deny rule')<br />
+    insertion = deny_positions[0]<br />
+    policy['rules'][insertion:insertion] = NEW_RULES<br />
+    print('Inserted monitoring allows immediately before default-deny')<br />
+path.write_text(json.dumps(policy, indent=2) + '\n')<br />
+for position, rule in enumerate(policy['rules'], start=1):<br />
+    print(f"{position}: {rule['name']} -&gt; {rule['action']}")<br />
+PY<br />
+cat &gt; /opt/lab-classroom/class71/check_addressing.py &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import ipaddress<br />
+import json<br />
+import sys</p>
+<p>ROOT = Path('/opt/lab-classroom/class71')<br />
+policy = json.loads((ROOT / 'policy.json').read_text())<br />
+rfc1918 = [ipaddress.ip_network(value) for value in ('10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16')]<br />
+rfc5737 = [ipaddress.ip_network(value) for value in ('192.0.2.0/24', '198.51.100.0/24', '203.0.113.0/24')]<br />
+standards = {'RFC1918': rfc1918, 'RFC5737': rfc5737}<br />
+failures = []<br />
+for name, zone in policy['zones'].items():<br />
+    network = ipaddress.ip_network(zone['cidr'])<br />
+    standard = zone['address_standard']<br />
+    valid = standard in standards and any(network.subnet_of(parent) for parent in standards[standard])<br />
+    print(f'{name}: {network} declared={standard} valid={str(valid).lower()}')<br />
+    if not valid:<br />
+        failures.append(name)<br />
+if failures:<br />
+    print(f'Address-standard failures: {failures}', file=sys.stderr)<br />
+    sys.exit(1)<br />
+if policy['zones']['monitoring']['address_standard'] != 'RFC1918':<br />
+    raise SystemExit('Monitoring must be represented as RFC1918 in this lab')<br />
+if policy['zones']['external-test']['address_standard'] != 'RFC5737':<br />
+    raise SystemExit('External test zone must be represented as RFC5737')<br />
+print('Addressing assertions passed, including monitoring and external-test')<br />
+PY<br />
+cat &gt; /opt/lab-classroom/class71/host_audit.py &lt;&lt;'PY'<br />
+from pathlib import Path<br />
+import hashlib<br />
+import json<br />
+import os<br />
+import sys</p>
+<p>ROOT = Path('/opt/lab-classroom/class71')<br />
+SNAPSHOT = ROOT / 'host-firewall-audit.json'<br />
+TARGETS = [<br />
+    Path('/etc/nftables.conf'),<br />
+    Path('/etc/ufw'),<br />
+    Path('/etc/firewalld'),<br />
+    Path('/etc/iptables'),<br />
+    Path('/etc/sysconfig/iptables'),<br />
+    Path('/etc/sysconfig/ip6tables'),<br />
+    Path('/proc/sys/net/ipv4/ip_forward')<br />
+]</p>
+<p>def digest_file(path):<br />
+    try:<br />
+        return hashlib.sha256(path.read_bytes()).hexdigest()<br />
+    except Exception as exc:<br />
+        return f'UNREADABLE:{type(exc).<strong>name</strong>}'</p>
+<p>def inventory():<br />
+    result = {}<br />
+    for target in TARGETS:<br />
+        key = str(target)<br />
+        if not target.exists():<br />
+            result[key] = {'state': 'absent'}<br />
+        elif target.is_file():<br />
+            result[key] = {'state': 'file', 'sha256': digest_file(target)}<br />
+        elif target.is_dir():<br />
+            entries = {}<br />
+            for base, dirs, files in os.walk(target):<br />
+                dirs.sort()<br />
+                files.sort()<br />
+                for filename in files:<br />
+                    item = Path(base) / filename<br />
+                    entries[str(item)] = digest_file(item)<br />
+            result[key] = {'state': 'directory', 'entries': entries}<br />
+        else:<br />
+            result[key] = {'state': 'other'}<br />
+    return result</p>
+<p>if len(sys.argv) != 2 or sys.argv[1] not in ('capture', 'check'):<br />
+    print('Usage: python3 host_audit.py capture|check', file=sys.stderr)<br />
+    sys.exit(2)<br />
+current = inventory()<br />
+if sys.argv[1] == 'capture':<br />
+    SNAPSHOT.write_text(json.dumps(current, indent=2, sort_keys=True) + '\n')<br />
+    print(f'Captured host firewall configuration fingerprints in {SNAPSHOT}')<br />
+else:<br />
+    if not SNAPSHOT.exists():<br />
+        raise SystemExit('Audit snapshot is missing; run capture first')<br />
+    original = json.loads(SNAPSHOT.read_text())<br />
+    if current != original:<br />
+        print('Host firewall configuration fingerprint changed', file=sys.stderr)<br />
+        sys.exit(1)<br />
+    for path in ROOT.rglob('*'):<br />
+        if not path.resolve().is_relative_to(ROOT.resolve()):<br />
+            raise SystemExit(f'Workspace escape detected: {path}')<br />
+    print('Host firewall fingerprints unchanged; lab artifacts remain in the class workspace')<br />
+PY<br />
+cd /opt/lab-classroom/class71 &amp;&amp; python3 host_audit.py capture &amp;&amp; python3 -m json.tool policy.json &gt;/dev/null &amp;&amp; python3 -m json.tool flows.json &gt;/dev/null</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A snapshot is a restore point. Take one before a risky change so you can roll back fast.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Evaluate and assert the baseline</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Evaluate and assert the baseline</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The baseline assertions explicitly verify both future monitoring flows. Before the change, each must be denied by default-deny. The assertions also verify the exact matched rule for every other flow.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The baseline assertions explicitly verify both future monitoring flows.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class71 &amp;&amp; python3 evaluate.py<br />
+cd /opt/lab-classroom/class71 &amp;&amp; python3 assert_results.py baseline<br />
+cd /opt/lab-classroom/class71 &amp;&amp; python3 check_addressing.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class71 &amp;&amp; python3 evaluate.py
+cd /opt/lab-classroom/class71 &amp;&amp; python3 assert_results.py baseline
+cd /opt/lab-classroom/class71 &amp;&amp; pyt…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create a non-consuming backup</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The copy remains available after restoration because later restoration uses another copy operation rather than a move or replace operation.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The copy remains available after restoration because later restoration uses another copy operation rather than a move or replace operation.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class71 &amp;&amp; cp -p policy.json policy.json.bak<br />
+cd /opt/lab-classroom/class71 &amp;&amp; test -s policy.json.bak &amp;&amp; cmp -s policy.json policy.json.bak &amp;&amp; echo 'Backup verified'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Intentionally create and observe shadowed rules</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Intentionally create and observe shadowed rules</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The edit script prints the complete rule order. In shadow mode it appends both monitoring allows after default-deny. First-match processing therefore continues to deny both flows with the default-deny rule.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The edit script prints the complete rule order.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class71 &amp;&amp; python3 edit_policy.py shadow<br />
+cd /opt/lab-classroom/class71 &amp;&amp; python3 -m json.tool policy.json<br />
+cd /opt/lab-classroom/class71 &amp;&amp; python3 evaluate.py<br />
+cd /opt/lab-classroom/class71 &amp;&amp; python3 assert_results.py baseline</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class71 &amp;&amp; python3 edit_policy.py shadow
+cd /opt/lab-classroom/class71 &amp;&amp; python3 -m json.tool policy.json
+cd /opt/lab-classroom/class7…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Correct the rule order and verify the intended change</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Correct the rule order and verify the intended change</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>Correct mode removes prior copies of the two named rules and inserts them immediately before default-deny. The changed assertions require TCP 9100 to match allow-monitoring-node-exporter and TCP 9115 to match allow-monitoring-blackbox. Existing allows and negative tests must remain unchanged.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Correct mode removes prior copies of the two named rules and inserts them immediately before default-deny.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class71 &amp;&amp; python3 edit_policy.py correct<br />
+cd /opt/lab-classroom/class71 &amp;&amp; python3 evaluate.py<br />
+cd /opt/lab-classroom/class71 &amp;&amp; python3 assert_results.py changed<br />
+cd /opt/lab-classroom/class71 &amp;&amp; python3 check_addressing.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class71 &amp;&amp; python3 edit_policy.py correct
+cd /opt/lab-classroom/class71 &amp;&amp; python3 evaluate.py
+cd /opt/lab-classroom/class71 &amp;&amp; python3…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Restore from the retained backup</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>Copying from the backup restores the baseline while retaining policy.json.bak for another recovery attempt.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class71 &amp;&amp; cp -p policy.json.bak policy.json<br />
+cd /opt/lab-classroom/class71 &amp;&amp; test -s policy.json.bak &amp;&amp; python3 assert_results.py baseline</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class71 &amp;&amp; cp -p policy.json.bak policy.json
+cd /opt/lab-classroom/class71 &amp;&amp; test -s policy.json.bak &amp;&amp; python3 assert_results.py base…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Remove the backup and prove embedded recovery</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>After confirming ordinary restoration, remove only the scoped backup. Then change the policy again and run reset_data.py. This proves that a missing backup does not prevent scripted recovery to the embedded original policy and flow data.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class71 &amp;&amp; rm -f -- policy.json.bak &amp;&amp; test ! -e policy.json.bak &amp;&amp; echo 'Backup removal verified'<br />
+cd /opt/lab-classroom/class71 &amp;&amp; python3 edit_policy.py correct &amp;&amp; python3 assert_results.py changed<br />
+cd /opt/lab-classroom/class71 &amp;&amp; python3 reset_data.py &amp;&amp; python3 assert_results.py baseline<br />
+cd /opt/lab-classroom/class71 &amp;&amp; test ! -e policy.json.bak &amp;&amp; echo 'Embedded recovery succeeded without a backup'</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>8</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 8</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Run the host change audit</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run the host change audit</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The audit compares selected host firewall and forwarding configuration fingerprints with the snapshot captured before policy experiments. It also rejects any discovered workspace path that resolves outside the class root.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A snapshot is a restore point. Take one before a risky change so you can roll back fast.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class71 &amp;&amp; python3 host_audit.py check<br />
+find /opt/lab-classroom/class71 -xdev -type f -printf '%p\n' | sort</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class71 &amp;&amp; python3 host_audit.py check
+find /opt/lab-classroom/class71 -xdev -type f -printf &#x27;%p\n&#x27; | sort</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The initial artifact installation succeeds in a clean workspace and creates policy.json, flows.json, evaluate.py, assert_results.py, edit_policy.py, check_addressing.py, host_audit.py, and reset_data.py.</li>
+<li>Baseline assertions report that seven flows passed.</li>
+<li>In the baseline, monitoring-node-exporter is denied by default-deny rather than by either new allow rule.</li>
+<li>In the baseline, monitoring-blackbox is denied by default-deny rather than by either new allow rule.</li>
+<li>The addressing check reports the monitoring zone as 10.71.40.0/24 with RFC1918 valid=true.</li>
+<li>The addressing check reports the external-test zone as 203.0.113.0/24 with RFC5737 valid=true.</li>
+<li>After shadow insertion, the printed order places both monitoring allow rules after default-deny and the baseline assertions still pass.</li>
+<li>After corrected insertion, monitoring-node-exporter is allowed by allow-monitoring-node-exporter.</li>
+<li>After corrected insertion, monitoring-blackbox is allowed by allow-monitoring-blackbox.</li>
+<li>The user SSH and external-to-admin negative tests remain denied by default-deny after the change.</li>
+<li>Restoration from policy.json.bak returns the policy to the baseline without consuming the backup.</li>
+<li>The backup-removal test confirms policy.json.bak is absent.</li>
+<li>Running reset_data.py after backup removal restores the embedded original policy and flows, and the baseline assertions pass.</li>
+<li>The host audit reports unchanged host firewall fingerprints and confirms that lab artifacts remain in the class workspace.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; python3 reset_data.py &amp;&amp; python3 assert_results.py baseline</li>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; python3 evaluate.py | grep -F '"flow": "monitoring-node-exporter"' | grep -F '"matched_rule": "default-deny"' | grep -F '"decision": "deny"'</li>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; python3 evaluate.py | grep -F '"flow": "monitoring-blackbox"' | grep -F '"matched_rule": "default-deny"' | grep -F '"decision": "deny"'</li>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; cp -p policy.json policy.json.bak &amp;&amp; python3 edit_policy.py correct &amp;&amp; python3 assert_results.py changed</li>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; python3 evaluate.py | grep -F '"flow": "monitoring-node-exporter"' | grep -F '"matched_rule": "allow-monitoring-node-exporter"' | grep -F '"decision": "allow"'</li>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; python3 evaluate.py | grep -F '"flow": "monitoring-blackbox"' | grep -F '"matched_rule": "allow-monitoring-blackbox"' | grep -F '"decision": "allow"'</li>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; python3 check_addressing.py | grep -F 'monitoring: 10.71.40.0/24 declared=RFC1918 valid=true'</li>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; python3 check_addressing.py | grep -F 'external-test: 203.0.113.0/24 declared=RFC5737 valid=true'</li>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; cp -p policy.json.bak policy.json &amp;&amp; test -s policy.json.bak &amp;&amp; python3 assert_results.py baseline</li>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; rm -f -- policy.json.bak &amp;&amp; test ! -e policy.json.bak</li>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; python3 edit_policy.py correct &amp;&amp; python3 reset_data.py &amp;&amp; test ! -e policy.json.bak &amp;&amp; python3 assert_results.py baseline</li>
+<li>[ ] cd /opt/lab-classroom/class71 &amp;&amp; python3 host_audit.py check</li>
+<li>[ ] find /opt/lab-classroom/class71 -xdev -type f -printf '%p\n' | sort</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - [ ] cd /opt/lab-classroom/class71 &amp;&amp; python3 reset_data.py &amp;&amp; python3 assert_results.py baseline
+- [ ] cd /opt/lab-classroom/class71 &amp;&amp; python3 evaluate.py…</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>python3 reports that policy.json or flows.json does not exist.</td>
+<td>The artifact installation commands were not completed, or reset_data.py was created but not executed.</td>
+<td>Run cd /opt/lab-classroom/class71 &amp;&amp; python3 reset_data.py, then validate both JSON files with python3 -m json.tool.</td>
+</tr>
+<tr>
+<td>The monitoring rules appear in policy.json, but both monitoring flows are still denied by default-deny.</td>
+<td>The allow rules were appended after the catch-all default-deny rule and are shadowed by first-match processing.</td>
+<td>Run python3 edit_policy.py correct and inspect the printed order to confirm both monitoring allows precede default-deny.</td>
+</tr>
+<tr>
+<td>A monitoring flow is allowed, but assert_results.py changed fails on the matched rule name.</td>
+<td>A broader rule was added ahead of the intended named rule, or a rule name was changed.</td>
+<td>Inspect python3 -m json.tool policy.json. Remove the unintended broad rule, preserve the required names, and rerun the changed assertions.</td>
+</tr>
+<tr>
+<td>The evaluator reports that an IP is outside its declared zone.</td>
+<td>A flow IP does not belong to the CIDR associated with its src_zone or dst_zone.</td>
+<td>Correct the flow address or zone label. Do not bypass the CIDR validation because it protects the accuracy of the trust-boundary model.</td>
+</tr>
+<tr>
+<td>check_addressing.py reports an address-standard failure.</td>
+<td>A zone CIDR was labeled RFC1918 or RFC5737 even though it is not a subnet of the corresponding standard ranges.</td>
+<td>Restore the originals with python3 reset_data.py or correct both the CIDR and its address_standard declaration.</td>
+</tr>
+<tr>
+<td>Restoration from policy.json.bak fails because the backup is missing.</td>
+<td>The cleanup step already removed the backup or the backup was never created.</td>
+<td>Run python3 /opt/lab-classroom/class71/reset_data.py. It reinstalls the embedded original policy.json and flows.json without relying on the backup.</td>
+</tr>
+<tr>
+<td>host_audit.py check says that the snapshot is missing.</td>
+<td>The capture step was skipped or host-firewall-audit.json was removed.</td>
+<td>Return the policy to baseline with reset_data.py, run host_audit.py capture, repeat only the simulator exercise, and then run host_audit.py check.</td>
+</tr>
+<tr>
+<td>host_audit.py reports a changed host firewall fingerprint.</td>
+<td>A selected host configuration changed after capture, possibly through an unrelated administrator or service.</td>
+<td>Stop the lab, review the reported environment with the system owner, and do not claim the lab was host-neutral until the change is understood. The lab itself should use only the simulator.</td>
+</tr>
+<tr>
+<td>Permission is denied when creating the workspace.</td>
+<td>The current account lacks write permission under /opt/lab-classroom.</td>
+<td>Have the lab administrator provision /opt/lab-classroom/class71 with appropriate ownership. Do not redirect artifacts to another path because the exercise is scoped to this workspace.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>Treat every inter-zone connection as a specific authorization decision.<br />
+Use a final default deny and place narrow allows before it.<br />
+Keep monitoring separate from administration because telemetry collection does not require general management access.<br />
+Test denied paths as carefully as allowed paths.<br />
+Verify the matched rule name, not only the resulting allow or deny decision.<br />
+Require source and destination addresses to belong to their declared zone CIDRs.<br />
+Use RFC 5737 addresses only for examples and documentation, not as private production ranges.<br />
+Keep a verified recovery path independent of an easily deleted backup.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>host_safety</h4><p>The exercise does not invoke a host packet-filter utility, alter routes, enable forwarding, change interfaces, or reload services. The only intended writes are below /opt/lab-classroom/class71/. The audit script reads selected host configuration paths and stores fingerprints in the workspace.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The exercise does not invoke a host packet-filter utility, alter routes, enable forwarding, change interfaces, or reload services.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>production_warning</h4><p>A production segmentation change can interrupt administration, DNS, storage, monitoring, authentication, or application traffic. Production changes require an out-of-band recovery path, platform-specific syntax validation, staged deployment, logging, peer review, and tests from both sides of each boundary.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Use the container’s name like a phone contact, not “localhost,” unless they truly share one network bubble.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>preferred_restore</h4><p>If policy.json.bak exists and has already been verified, run cd /opt/lab-classroom/class71 &amp;&amp; cp -p policy.json.bak policy.json. This restores from the backup without consuming it.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>backup_independent_restore</h4><p>If policy.json.bak is absent, run cd /opt/lab-classroom/class71 &amp;&amp; python3 reset_data.py. This deterministically rewrites the embedded original policy.json and flows.json.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: If policy.json.bak is absent, run cd /opt/lab-classroom/class71 &amp;&amp; python3 reset_data.py.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>post_restore_verification</h4><p>Run cd /opt/lab-classroom/class71 &amp;&amp; python3 assert_results.py baseline &amp;&amp; python3 check_addressing.py.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run cd /opt/lab-classroom/class71 &amp;&amp; python3 assert_results.py baseline &amp;&amp; python3 check_addressing.py.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>backup_cleanup</h4><p>After successful restoration and verification, run cd /opt/lab-classroom/class71 &amp;&amp; rm -f -- policy.json.bak &amp;&amp; test ! -e policy.json.bak.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: After successful restoration and verification, run cd /opt/lab-classroom/class71 &amp;&amp; rm -f -- policy.json.bak &amp;&amp; test !</div>
+ 
+</div></div><div class="cr-prose-block"><h4>scope_confirmation</h4><p>Run cd /opt/lab-classroom/class71 &amp;&amp; python3 host_audit.py check, then list workspace files with find /opt/lab-classroom/class71 -xdev -type f -printf '%p\n' | sort.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run cd /opt/lab-classroom/class71 &amp;&amp; python3 host_audit.py check, then list workspace files with find /opt/lab-classroom/class71 -xdev -type f -printf &#x27;%p\n&#x27;…</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260929e">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260924v">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
 </head>
 <body>
 
@@ -24,32 +24,28 @@
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
- <a href="/#ecosystem">Platform</a>
- <div class="navdrop">
- <a href="/#ecosystem">Products</a>
- <div class="navdrop-menu">
- <a href="/otacon/">Otacon Lite</a>
- <a href="/keeproute/">KeepRoute</a>
+ <a href="/otacon/">Otacon</a>
  <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- </div>
- </div>
- <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
  <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="/news/">News</a>
- <a href="/donate/">Donate</a>
- <a href="/install/" class="discord">Get Otacon</a>
- </div></div>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
 </nav>
 <nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
- <a href="/classroom/homelab/">Overview</a>
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
  <a href="/classroom/syllabus.html">Syllabus</a>
@@ -70,6 +66,7 @@
  </section>
 </div>
 <div class="wrap">
+ <figure class="class-visual"><img src="/classroom/visuals/diagrams/16-linux-filesystem-and-navigation.svg" alt="Class 16: Linux filesystem and navigation"><figcaption>Class 16 visual reference. Use it as the map, then prove it in the reading, lesson, and lab.</figcaption></figure>
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Linux Foundations<br />
 <strong>Activity type:</strong> Reading (Learn)<br />
 <strong>Objective:</strong> Explain the difference between the filesystem root directory and the root user</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
@@ -185,7 +182,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
  
-</div><figure class="class-visual" data-visual="reading"><img src="/classroom/visuals/diagrams/16-linux-filesystem-and-navigation.svg" alt="Diagram of Linux Filesystem and Navigation" width="1600" height="900"><figcaption>Reference architecture. Study this before the rest of the reading.</figcaption></figure><h3>conceptual_flow</h3>
+</div><h3>conceptual_flow</h3>
 <p>A shell process holds a current working directory.<br />
 The shell expands syntax such as variables and the home-directory shortcut.<br />
 The kernel resolves each pathname component through directories.<br />
@@ -205,7 +202,14 @@ Mount points can transition pathname resolution into another filesystem.</p>
 /opt/lab-classroom/class16/projects/app/data/inventory.csv<br />
 /opt/lab-classroom/class16/archive/</p>
 <h3>path_resolution_example</h3>
-<p>From /opt/lab-classroom/class16/projects/app/config, the relative path ../README.txt resolves to /opt/lab-classroom/class16/projects/app/README.txt.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-prose-block"><ul>
+<p>From /opt/lab-classroom/class16/projects/app/config, the relative path ../README.txt resolves to /opt/lab-classroom/class16/projects/app/README.txt.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>Filesystem Hierarchy Standard 3.0: https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html</li>
 <li>GNU Coreutils manual, ls invocation: https://www.gnu.org/software/coreutils/manual/html_node/ls-invocation.html</li>
 <li>GNU Coreutils manual, stat invocation: https://www.gnu.org/software/coreutils/manual/html_node/stat-invocation.html</li>
@@ -218,7 +222,14 @@ Mount points can transition pathname resolution into another filesystem.</p>
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>Filesystem Hierarchy Standard 3.0: https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html</li>
 <li>GNU Coreutils manual: https://www.gnu.org/software/coreutils/manual/</li>
 <li>Linux man-pages, path_resolution(7): https://man7.org/linux/man-pages/man7/path_resolution.7.html</li>

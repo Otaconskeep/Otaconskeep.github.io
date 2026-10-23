@@ -56,6 +56,7 @@ NAV = f'''<nav class="topnav">
 SUB = '''<nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
  <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
  <a href="/classroom/syllabus.html">Syllabus</a>
@@ -121,8 +122,11 @@ def load_dynamic_class_extensions():
             if num in known:
                 continue
             raw = p.read_text(encoding='utf-8', errors='replace')
-            tm = re.search(r'^#\s+Class\s+(\d+)\s+[:\-]\s+(.+)$', raw, re.M)
-            title = tm.group(2).strip() if tm else p.stem
+            tm = re.search(r'^#\s+Class\s+(\d+)\s*[:\-]\s+(.+)$', raw, re.M)
+            title = tm.group(2).strip() if tm else p.stem.replace('_', ' ').title()
+            mapped = class_visuals().get(num)
+            if mapped and mapped.get('title'):
+                title = mapped['title']
             # unit guess from automation roadmap modules via class_index
             unit, unit_name = '6', 'Linux'
             dynamic.append((num, p.name, title, unit, unit_name))
@@ -289,23 +293,6 @@ def write(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text)
     print("wrote", path.relative_to(SITE))
-
-
-def topic_display_title(tdir: Path) -> str:
-    """Human title for a topic, e.g. 'Virtual machines & Proxmox', not the
-    raw directory slug ('01-virtualization'). Read from lesson.md's own H1
-    ('# Lesson NN.NN: Title'), since that title is already hand-authored and
-    consistent across every topic. Falls back to a prettified slug only if
-    lesson.md is missing or doesn't match the expected format, so a template
-    change here can never regress to an empty title."""
-    lesson_md = tdir / "lesson.md"
-    if lesson_md.is_file():
-        content = lesson_md.read_text().strip()
-        first_line = content.splitlines()[0] if content else ""
-        m = re.match(r"#\s*Lesson\s+[\d.]+:\s*(.+?)\s*$", first_line)
-        if m:
-            return m.group(1)
-    return re.sub(r"^\d+-", "", tdir.name).replace("-", " ").strip().capitalize()
 
 
 def pager(prev, next_):
@@ -725,7 +712,7 @@ def discover_extra_modules():
             head = mod_md.read_text(encoding="utf-8", errors="replace").splitlines()[:5]
             for line in head:
                 if line.startswith("# "):
-                    title = re.sub(r"^#\s+Module\s+\d+\s+[:\-]\s+", "", line).strip() or title
+                    title = re.sub(r"^#\s*Module\s+\d+\s*[:\-]\s*", "", line).strip() or title
                     break
         topics = list((d / "topics").glob("*")) if (d / "topics").is_dir() else []
         meta = f"{len(topics)} topics / automation"
@@ -754,6 +741,68 @@ def _rewrite_md_links(md: str, topic_url_base: str, mod_url_base: str) -> str:
     return md
 
 
+def class_visuals():
+    import csv
+    path = SITE / "visuals" / "asset-map.csv"
+    rows = {}
+    if not path.is_file():
+        return rows
+    with path.open(newline="", encoding="utf-8") as fh:
+        for row in csv.DictReader(fh):
+            rows[f"{int(row['class']):02d}"] = row
+    return rows
+
+
+def class_pages():
+    import json
+    path = SITE / "visuals" / "class-pages.json"
+    if not path.is_file():
+        return {}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def course_icon(num):
+    row = class_visuals().get(f"{int(num):02d}")
+    if not row or not row.get("icon_svg"):
+        return f'<div class="num">{int(num):02d}</div>'
+    return f'<img class="class-icon" src="/classroom/visuals/{row["icon_svg"]}" alt="" width="64" height="64">'
+
+
+def module_icon(slug, num):
+    hits = [info for key, info in class_pages().items() if key.startswith(slug + "/")]
+    hits.sort(key=lambda info: info["num"])
+    if hits:
+        return f'<img class="class-icon" src="{hits[0]["icon"]}" alt="" width="64" height="64">'
+    return course_icon(num)
+
+
+def topic_heading(slug, topic_name):
+    info = class_pages().get(f"{slug}/topics/{topic_name}")
+    if not info:
+        return H.escape(topic_name)
+    return (
+        f'<img class="class-icon" src="{info["icon"]}" alt="" width="36" height="36"> '
+        + H.escape(info["title"])
+    )
+
+
+def class_figure(out_path: Path) -> str:
+    try:
+        rel = out_path.relative_to(SITE / "modules").as_posix()
+    except ValueError:
+        return ""
+    info = class_pages().get(rel.rsplit("/", 1)[0])
+    if not info:
+        return ""
+    label = f"Class {int(info['num'])}"
+    return (
+        '<figure class="class-visual">'
+        f'<img src="{info["diagram"]}" alt="{H.escape(label)}: {H.escape(info["title"])}">'
+        f"<figcaption>{H.escape(label)} visual reference. Use it as the map, then prove it in the reading, lesson, and lab.</figcaption>"
+        "</figure>"
+    )
+
+
 def gen_activity_page(md_path: Path, out_path: Path, title: str, bar: str, canon: str, kind: str, prev, next_, lede: str, topic_base: str, mod_base: str):
     raw = _rewrite_md_links(md_path.read_text(), topic_base, mod_base)
     _t, lead, sections = split_sections(raw)
@@ -767,6 +816,7 @@ def gen_activity_page(md_path: Path, out_path: Path, title: str, bar: str, canon
             parts.append(render_section(h2, body, out_path.stem))
     badge = kind_badge(ACTIVITY_KIND.get(kind, "box"))
     osbar = OSBAR if kind in {"lab", "lesson", "homework"} else ""
+    visual = class_figure(out_path)
     body = f"""
 <div class="wrap">
  <section class="hero flush">
@@ -778,6 +828,7 @@ def gen_activity_page(md_path: Path, out_path: Path, title: str, bar: str, canon
  </section>
 </div>
 <div class="wrap">
+ {visual}
  {''.join(parts)}
  {pager(prev, next_)}
 </div>
@@ -789,19 +840,32 @@ def gen_modules():
     root = SITE / "modules"
     pack_mod = PACK / "modules"
     if root.exists():
-        shutil.rmtree(root)
-    root.mkdir(parents=True)
+        for child in list(root.iterdir()):
+            if child.name == "00-pick-your-lab":
+                continue
+            if child.is_dir():
+                shutil.rmtree(child)
+            else:
+                child.unlink()
+    root.mkdir(parents=True, exist_ok=True)
 
     cards = []
     for slug, num, title, meta in MODULE_DIRS:
         cards.append(
             f'<a class="cr-course-card" href="{slug}/">'
-            f'<div class="num">{num}</div><div>'
+            f'{module_icon(slug, num)}<div>'
             f"<h3>{H.escape(title)}</h3>"
             f"<p>Reading / Lesson / Lab / Homework / Quiz / Project / Exam</p>"
             f'<div class="meta">{H.escape(meta)}</div>'
             f"</div></a>"
         )
+    cards.insert(0, (
+        '<a class="cr-course-card" href="00-pick-your-lab/">'
+        f'{course_icon("00")}<div>'
+        "<h3>Build your own lab</h3>"
+        "<p>Answer a few questions, then explore the generated lab.</p>"
+        '<div class="meta">Start here</div></div></a>'
+    ))
     body = f"""
 <div class="wrap">
  <section class="hero flush">
@@ -831,7 +895,7 @@ def gen_modules():
                 continue
             tb = f"/classroom/modules/{slug}/topics/{tdir.name}/"
             topic_blocks.append(
-                f'<div class="cr-box"><h3>{H.escape(topic_display_title(tdir))}</h3>'
+                f'<div class="cr-box"><h3>{topic_heading(slug, tdir.name)}</h3>'
                 f'<ol class="cr-class-list">'
                 f'<li><a href="{tb}reading.html"><strong>Reading</strong></a>: Learn</li>'
                 f'<li><a href="{tb}lesson.html"><strong>Lesson</strong></a>: Feynman required</li>'
@@ -904,7 +968,6 @@ def gen_modules():
             tout = out / "topics" / tdir.name
             tout.mkdir(parents=True)
             topic_base = f"/classroom/modules/{slug}/topics/{tdir.name}/"
-            topic_title = topic_display_title(tdir)
             acts = [
                 ("reading", "Reading", "Learn: instruction, vocabulary, worked example."),
                 ("lesson", "Lesson", "Orient, prior check, guided practice, required Feynman, reflect."),
@@ -918,7 +981,7 @@ def gen_modules():
                 gen_activity_page(
                     tdir / f"{act}.md",
                     tout / f"{act}.html",
-                    f"{topic_title}: {label}",
+                    f"{tdir.name}: {label}",
                     f"M{int(num)} {label.upper()}",
                     f"{topic_base}{act}.html",
                     act,
@@ -936,7 +999,7 @@ def gen_modules():
 <div class="wrap">
  <section class="hero flush">
  <p class="tag">Module {int(num)} / Topic</p>
- <h1 class="display" style="font-size:clamp(1.6rem,4vw,2.4rem);">{H.escape(topic_title)}</h1>
+ <h1 class="display" style="font-size:clamp(1.6rem,4vw,2.4rem);">{topic_heading(slug, tdir.name)}</h1>
  <p class="lede">Complete in order: Reading then Lesson (Feynman) then Lab then Homework then Quiz.</p>
  </section>
 </div>
@@ -945,7 +1008,7 @@ def gen_modules():
  {pager((f"/classroom/modules/{slug}/", "Module hub"), ("reading.html", "Reading"))}
 </div>
 """
-            write(tout / "index.html", wrap(f"{topic_title} · Classroom", topic_title, topic_base, "TOPIC", tbody))
+            write(tout / "index.html", wrap(f"{tdir.name} · Classroom", tdir.name, topic_base, "TOPIC", tbody))
 
     print("modules published")
 
@@ -990,16 +1053,12 @@ def _class_count() -> int:
     return len(CLASS_META)
 
 
-def _module_count() -> int:
-    return len(MODULE_DIRS)
-
-
 def gen_hub():
     cards = []
     for num, _fn, title, unit, unit_name in CLASS_META:
         cards.append(
             f'<a class="cr-course-card" href="classes/{num}.html">'
-            f'<div class="num">{num}</div><div>'
+            f'{course_icon(num)}<div>'
             f"<h3>{H.escape(title)}</h3>"
             f'<p>Unit {unit}: {H.escape(unit_name)}</p>'
             f'<div class="meta">Class {int(num)}</div>'
@@ -1014,7 +1073,8 @@ def gen_hub():
  <h1 class="display" style="font-size:clamp(2.2rem,6vw,3.6rem);">Learn. Practice. Explain. Master.</h1>
  <p class="lede">A learning system for ARR, Home Assistant, and local voice: Backward Design, Bloom progression, mandatory Feynman teach-backs, mastery gates, and spiral review. Not a pile of videos and quizzes.</p>
  <div class="btn-row" style="margin-top:26px;">
-  <a class="btn btn-primary" href="modules/01-infrastructure/">Start Module 1</a>
+  <a class="btn btn-primary" href="modules/00-pick-your-lab/">Build your own lab</a>
+  <a class="btn btn-ghost" href="modules/01-infrastructure/">Start Module 1</a>
   <a class="btn btn-ghost" href="workbook.html">Student workbook</a>
   <a class="btn btn-ghost" href="final-exam.html">Final capstone</a>
   <a class="btn btn-ghost" href="references/">References</a>
@@ -1043,35 +1103,28 @@ def gen_hub():
  <p class="tag">01 // Stage gates</p>
  <h2>Pass each gate before the next unit</h2>
  <pre class="cr-diagram"><span class="hi">COURSE FLOW</span>
+Lesson 00     Build your own lab
 Classes 1–4   Infrastructure (Compose, networks, ops)
 Classes 5–7   ARR / Prowlarr / TRaSH / config sync
 Classes 8–10  Home Assistant + secure remote access
 Classes 11–13 Local voice → private smart speaker
 Class 14       n8n automation → guarded Keep Agent
 Class 15       IPv4 addressing → mask, gateway, usable hosts
-→ Module 6   Linux Foundations (shell, permissions, systemd, SSH)
-→ Module 7   Network Operations (patching a live host safely)
-→ Module 8   Docker, Storage & Permissions (volumes, fstab, PUID/PGID)
-→ Module 9   ARR Data Model & Compose (a /data layout that scales)
-→ Module 10  Sonarr & Radarr
-→ Module 11  Download Clients & Indexers (qBittorrent, SABnzbd, Prowlarr, VPN)
-→ Module 12  Requests & Media Servers (Jellyseerr/Overseerr)
 → FINAL CAPSTONE verification matrix</pre>
- <p class="intro" style="margin-top:12px;">Exact class numbering inside Modules 6 through 12 changes as topics are added; the <a href="modules/">Modules page</a> is the current source of truth, not this diagram.</p>
  </section>
 </div>
 
 <div class="wrap">
  <section>
  <p class="tag">02 // Modules</p>
- <h2>{_module_count()} modules with readings, labs, homework, quizzes</h2>
+ <h2>Five modules with readings, labs, homework, quizzes</h2>
  <p class="intro">Each topic is split into Reading (Learn), Lesson with <strong>required Feynman</strong>, Lab (Practice), Homework (Apply), and Quiz (Test). Modules close with project, module quiz, exam, and remediation.</p>
  <div class="btn-row" style="margin-top:18px;">
   <a class="btn btn-primary" href="modules/">Open modules</a>
   <a class="btn btn-ghost" href="modules/01-infrastructure/topics/01-virtualization/">Topic 1.1 path</a>
  </div>
  <div class="cr-course-grid" style="margin-top:22px;">
-{''.join(cards)}
+<a class="cr-course-card" href="classes/00.html">{course_icon('00')}<div><h3>Build your own lab</h3><p>Answer a few questions, then explore the generated lab.</p><div class="meta">Start</div></div></a>{''.join(cards)}
  </div>
  </section>
 </div>

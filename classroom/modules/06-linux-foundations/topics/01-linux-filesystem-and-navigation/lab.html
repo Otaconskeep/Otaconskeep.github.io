@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260929e">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260924v">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
 </head>
 <body>
 
@@ -24,32 +24,28 @@
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
- <a href="/#ecosystem">Platform</a>
- <div class="navdrop">
- <a href="/#ecosystem">Products</a>
- <div class="navdrop-menu">
- <a href="/otacon/">Otacon Lite</a>
- <a href="/keeproute/">KeepRoute</a>
+ <a href="/otacon/">Otacon</a>
  <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- </div>
- </div>
- <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
  <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="/news/">News</a>
- <a href="/donate/">Donate</a>
- <a href="/install/" class="discord">Get Otacon</a>
- </div></div>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
 </nav>
 <nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
- <a href="/classroom/homelab/">Overview</a>
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
  <a href="/classroom/syllabus.html">Syllabus</a>
@@ -74,10 +70,18 @@
  </section>
 </div>
 <div class="wrap">
+ <figure class="class-visual"><img src="/classroom/visuals/diagrams/16-linux-filesystem-and-navigation.svg" alt="Class 16: Linux filesystem and navigation"><figcaption>Class 16 visual reference. Use it as the map, then prove it in the reading, lesson, and lab.</figcaption></figure>
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Linux Foundations<br />
 <strong>Activity type:</strong> Lab (Practice)<br />
 <strong>Lab risk:</strong> low<br />
-<strong>Objective:</strong> Explain the difference between the filesystem root directory and the root user</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-prose-block"><ul>
+<strong>Objective:</strong> Explain the difference between the filesystem root directory and the root user</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>Access to a Linux shell using a terminal or console</li>
 <li>A user account that can run sudo for creation of the lab directory</li>
 <li>Basic familiarity with entering commands and reading command output</li>
@@ -87,7 +91,7 @@
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Access to a Linux shell using a terminal or console
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Access to a Linux shell using a terminal or console
 - A user account that can run sudo for creation of the lab directory
 - Basic familiarity with entering …</div>
  
@@ -347,7 +351,14 @@ stat -c 'name=%n inode=%i links=%h size=%s' "$LAB/projects/app/README.txt" "$LAB
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>pwd prints /opt/lab-classroom/class16 immediately after workspace setup.</li>
 <li>The lab contains projects, projects/app, projects/app/config, projects/app/data, and archive directories.</li>
 <li>The default concept of hidden entries is demonstrated by .lab-note, which appears with ls -a or ls -la.</li>
@@ -363,7 +374,14 @@ stat -c 'name=%n inode=%i links=%h size=%s' "$LAB/projects/app/README.txt" "$LAB
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-prose-block"><ul>
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>[ ] Run test "$(pwd)" = "$LAB" after returning to the workspace; successful verification produces no output and exits with status zero.</li>
 <li>[ ] Run test -d "$LAB/projects/app/config" &amp;&amp; test -d "$LAB/projects/app/data" &amp;&amp; test -d "$LAB/archive"; all three directory tests must succeed.</li>
 <li>[ ] Run test -f "$LAB/projects/app/README.txt" &amp;&amp; test -f "$LAB/projects/app/data/inventory.csv" &amp;&amp; test -f "$LAB/archive/inventory.csv.copy"; all regular-file tests must succeed.</li>
@@ -380,7 +398,7 @@ stat -c 'name=%n inode=%i links=%h size=%s' "$LAB/projects/app/README.txt" "$LAB
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Check that two paths are the same file underneath, not a wasteful second copy.</div>
  
-</div></div></div><figure class="class-visual" data-visual="lab"><img src="/classroom/visuals/diagrams/16-linux-filesystem-and-navigation.svg" alt="Diagram of Linux Filesystem and Navigation" width="1600" height="900"><figcaption>Reference architecture for this lab.</figcaption></figure><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
@@ -444,7 +462,14 @@ stat -c 'name=%n inode=%i links=%h size=%s' "$LAB/projects/app/README.txt" "$LAB
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-prose-block"><h4>principles</h4><p>Treat the current working directory as security-relevant context because relative mutations depend on it.<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>Treat the current working directory as security-relevant context because relative mutations depend on it.<br />
 Use an exact, validated absolute lab path for changes.<br />
 Quote all variable expansions and paths so spaces and wildcard characters are not reinterpreted by the shell.<br />
 Inspect an object with pwd, ls, stat, or readlink before modifying it.<br />
@@ -473,7 +498,14 @@ Use elevated privileges only for the initial creation and ownership of the contr
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Training data only; do not place credentials, private keys, tokens, or production configuration in the lab tree.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-prose-block"><h4>goal</h4><p>Remove only the objects created by this lesson while preserving /opt/lab-classroom/class16 as an empty classroom directory.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>goal</h4><p>Remove only the objects created by this lesson while preserving /opt/lab-classroom/class16 as an empty classroom directory.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   

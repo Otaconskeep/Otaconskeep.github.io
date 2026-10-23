@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>07-arr-stack-health-monitoring: Reading · Classroom</title>
+<meta name="description" content="07-arr-stack-health-monitoring: Reading">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/12-media-servers/topics/07-arr-stack-health-monitoring/reading.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M12 READING<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M12 READING<small>reading</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-learn">Instruction</span> 07-arr-stack-health-monitoring: Reading</h1>
+ <p class="lede">Learn: instruction, vocabulary, worked example.</p>
+ 
+ </section>
+</div>
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Requests &amp; Media Servers<br />
+<strong>Activity type:</strong> Reading (Learn)<br />
+<strong>Objective:</strong> Separate service reachability from application health state.</p></div><div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ARR stack</td>
+<td>A collection of media-management applications such as Sonarr and Radarr, commonly operated with download clients and media servers.</td>
+</tr>
+<tr>
+<td>Reachability</td>
+<td>Whether the monitor can successfully communicate with a service. In this lesson it is represented independently by arr_monitor_up.</td>
+</tr>
+<tr>
+<td>Declared health</td>
+<td>A synthetic application-provided state of healthy, warning, or critical.</td>
+</tr>
+<tr>
+<td>Queue depth</td>
+<td>The number of pending synthetic work items. A value greater than 25 produces warning state unless a critical condition has precedence.</td>
+</tr>
+<tr>
+<td>Free-space percentage</td>
+<td>The percentage of storage capacity still available. A value below 15 produces warning state unless a critical condition has precedence.</td>
+</tr>
+<tr>
+<td>Gauge</td>
+<td>A Prometheus metric type whose value can rise or fall directly.</td>
+</tr>
+<tr>
+<td>Metric family</td>
+<td>A metric name together with its HELP and TYPE metadata and all associated labeled samples.</td>
+</tr>
+<tr>
+<td>Precedence</td>
+<td>The order in which overlapping health conditions are evaluated so that a more severe condition cannot be hidden by a less severe one.</td>
+</tr>
+<tr>
+<td>Synthetic fixture</td>
+<td>Controlled input data used to exercise monitoring behavior without contacting a production service.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div><div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>Health monitoring is more useful when it distinguishes transport success from application condition. A service can be reachable while reporting a critical internal state, and an unreachable service cannot provide trustworthy queue or storage information. For that reason, this lesson exposes two metric families. arr_monitor_up answers only whether the monitor could reach the service: 1 means reachable and 0 means unreachable. arr_monitor_state_number represents the classified health state: 2 means healthy, 1 means warning, and 0 means critical. These values must not be merged into a single ambiguous signal. A reachable service with declared_health set to critical therefore emits arr_monitor_up value 1 and arr_monitor_state_number value 0.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div></div><div class="cr-prose-block"><p>Classification follows explicit precedence. Unreachable is critical. A reachable service whose declared health is critical is also critical. Only after those checks does the exporter evaluate warning conditions: declared warning, queue depth greater than 25, or free-space percentage below 15. If none apply, the service is healthy. The comparisons are intentionally strict. Queue depth 25 is healthy when no other warning exists, while 26 is warning. Free space 15 is healthy, while 14.9 is warning. Writing these boundaries down prevents dashboards and alerts from disagreeing with the exporter.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div></div><div class="cr-prose-block"><p>Prometheus text exposition also has structural requirements. Each metric family should present its HELP line and TYPE line before samples from that family. The lab fixes the family order as arr_monitor_up followed by arr_monitor_state_number and fixes service order as sonarr followed by radarr. With two services and two families, every successful render must contain exactly four sample lines. Deterministic ordering is not required for Prometheus ingestion, but it makes reviews, diffs, and tests much clearer. Labels remain low-cardinality because the service label has only two permitted values.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Prometheus text exposition also has structural requirements.</div>
+ 
+</div></div><div class="cr-prose-block"><p>The lab deliberately uses synthetic JSON rather than real API calls. This isolates classification logic from authentication, network failures, API-version differences, and production data. The verifier independently defines expected values for each scenario, checks the complete output text, checks metadata order, counts exactly four samples, enforces the exact sample set, and restricts arr_monitor_up to only 0 or 1. It executes both implemented warning branches rather than leaving them as untested intentions. Input validation rejects missing services, non-Boolean reachability, unsupported declared states, negative queue depths, and percentages outside zero through one hundred. A monitor should fail visibly on malformed data instead of publishing a plausible but false health result.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A health check asks “are you really ready?” not just “did the process start?”</div>
+ 
+</div></div></div><div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>components</h3>
+<h3>name</h3>
+<p>Synthetic JSON input</p>
+<h3>role</h3>
+<p>Provides one record each for sonarr and radarr with reachable, declared_health, queue_depth, and free_space_percent fields.</p>
+<h3>name</h3>
+<p>Python exporter</p>
+<h3>role</h3>
+<p>Validates records, classifies health with deterministic precedence, and renders two Prometheus gauge families.</p>
+<h3>name</h3>
+<p>Verification harness</p>
+<h3>role</h3>
+<p>Executes six scenarios and checks exact output, family order, value domains, labels, sample count, and threshold behavior.</p>
+<h3>name</h3>
+<p>Prometheus-compatible output</p>
+<h3>role</h3>
+<p>Contains metadata and samples that could later be exposed by an HTTP collector, although this lab does not open a listener.</p>
+<h3>data_flow</h3>
+<p>Synthetic JSON is loaded from a file or constructed in memory by the verifier.<br />
+The exporter validates both service records before rendering any metrics.<br />
+Reachability and health state are classified separately.<br />
+Metric families are emitted in a stable order with sonarr before radarr.<br />
+The verifier compares the complete rendered document with independently specified expectations.</p>
+<h3>health_model</h3>
+<h3>reachability_metric</h3>
+<p>arr_monitor_up is 1 only when reachable is true; otherwise it is 0.</p>
+<h3>state_metric</h3>
+<p>arr_monitor_state_number is 2 for healthy, 1 for warning, and 0 for critical.</p>
+<h3>evaluation_order</h3>
+<p>Evaluate unreachable critical conditions first.<br />
+Evaluate reachable declared_health=critical next.<br />
+Evaluate warning conditions only when no critical condition matched.<br />
+Classify as healthy only when neither critical nor warning conditions matched.</p>
+<h3>critical_conditions</h3>
+<p>reachable=false produces arr_monitor_up 0 and arr_monitor_state_number 0.<br />
+reachable=true with declared_health=critical produces arr_monitor_up 1 and arr_monitor_state_number 0.</p>
+<h3>warning_conditions</h3>
+<p>reachable=true with declared_health=warning<br />
+reachable=true with queue_depth greater than 25<br />
+reachable=true with free_space_percent below 15</p>
+<h3>healthy_conditions</h3>
+<p>reachable=true, declared_health=healthy, queue_depth at most 25, and free_space_percent at least 15</p>
+<h3>boundary_rules</h3>
+<p>queue_depth=25 does not trigger a warning.<br />
+free_space_percent=15 does not trigger a warning.</p>
+<h3>metric_contract</h3>
+<h3>family_order</h3>
+<p>arr_monitor_up<br />
+arr_monitor_state_number</p>
+<h3>service_order</h3>
+<p>sonarr<br />
+radarr</p>
+<h3>sample_count</h3>
+<p>4</p>
+<h3>allowed_up_values</h3>
+<p>0<br />
+1</p>
+<h3>allowed_state_values</h3>
+<p>0<br />
+1<br />
+2</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Prometheus exposition formats: https://prometheus.io/docs/instrumenting/exposition_formats/</li>
+<li>Prometheus metric and label naming practices: https://prometheus.io/docs/practices/naming/</li>
+<li>Prometheus instrumentation practices: https://prometheus.io/docs/practices/instrumentation/</li>
+<li>Python json module documentation: https://docs.python.org/3/library/json.html</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Prometheus exposition formats: https://prometheus.io/docs/instrumenting/exposition_formats/
+- Prometheus metric and label naming practices: https://prometh…</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Prometheus exposition formats: https://prometheus.io/docs/instrumenting/exposition_formats/</li>
+<li>Prometheus metric and label naming: https://prometheus.io/docs/practices/naming/</li>
+<li>Prometheus instrumentation practices: https://prometheus.io/docs/practices/instrumentation/</li>
+<li>Prometheus metric types: https://prometheus.io/docs/concepts/metric_types/</li>
+<li>Python json module: https://docs.python.org/3/library/json.html</li>
+<li>Python re module: https://docs.python.org/3/library/re.html</li>
+<li>Python pathlib module: https://docs.python.org/3/library/pathlib.html</li>
+<li>Python shutil module: https://docs.python.org/3/library/shutil.html</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Prometheus exposition formats: https://prometheus.io/docs/instrumenting/exposition_formats/
+- Prometheus metric and label naming: https://prometheus.io/doc…</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="/classroom/modules/12-media-servers/">← Module hub</a><a href="lesson.html">Lesson →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

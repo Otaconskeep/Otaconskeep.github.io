@@ -1,0 +1,13 @@
+[Unit]
+Description=OtaconsKeep Classroom news timer (after late core window)
+Requires=otaconskeep-classroom-news.service
+
+[Timer]
+# 04:00 Phoenix — after 03:30 core batch; lock prevents overlap
+OnCalendar=*-*-* 04:00:00
+Persistent=true
+RandomizedDelaySec=180
+Unit=otaconskeep-classroom-news.service
+
+[Install]
+WantedBy=timers.target

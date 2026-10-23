@@ -1,0 +1,1063 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Class 67: Authentication and Access Control · Classroom</title>
+<meta name="description" content="Authentication and Access Control">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/classes/67.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>CLASS 67<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">CLASS 67<small>unit 6 · linux</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy</p>
+ <h1 class="display" style="font-size:clamp(1.8rem,5vw,2.8rem);">Authentication and Access Control</h1>
+ <p class="lede">Full learning cycle with mandatory Feynman teach-back, retrieval practice, lab, and mastery gate. Prefer current official docs in References.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+
+<div class="wrap">
+ <div class="cr-box"><h3>Before you start</h3><p><strong>Learning objective:</strong> Explain the difference between identification, authentication, authorization, and accounting.; Describe passwords, security keys, one-time codes, certificates, and recovery mechanisms as authentication factors or supporting controls.; Store password verifiers using a unique salt and a deliberately expensive password-based key derivation function.; Implement role-based access control with default-deny behavior.; Return generic authentication failures while retaining useful internal audit details.; Recognize why authorization must be checked for every protected operation rather than only at login.; Verify allowed, denied, disabled-account, wrong-password, and unknown-user behavior.; Plan secure lifecycle controls for enrollment, privilege review, revocation, recovery, and audit retention.<br />
+<strong>Bloom level:</strong> Understand / Apply<br />
+<strong>Track:</strong> Identity, Security, and Systems Administration · <strong>Difficulty:</strong> intermediate · <strong>Duration:</strong> ~105 minutes · <strong>Lab risk:</strong> low<br />
+<strong>Mastery unlock:</strong> ≥80% quiz + completed Feynman teach-back + lab verification + homework evidence.<br />
+<strong>Last reviewed:</strong> 2025-03-08<br />
+<strong>Compatibility:</strong> ### operating_systems<br />
+Linux distributions providing a POSIX-compatible shell and Python 3.8 or newer</p>
+<h3>runtime</h3>
+<p>Python 3.8 or newer is required because the rollback uses Path.unlink with missing_ok.</p>
+<h3>privileges</h3>
+<p>An authorized process may be needed to create the dedicated directory beneath /opt. The lesson should otherwise run as a non-privileged lab user that owns that directory.</p>
+<h3>network</h3>
+<p>No network connectivity is required.</p>
+<h3>dependencies</h3>
+<p>Only Python standard-library modules are used.</p>
+<h3>filesystem_scope</h3>
+<p>/opt/lab-classroom/class67/</p>
+<h3>repeatability</h3>
+<p>The main exercise may be rerun. Each run appends audit events, so verification intentionally does not depend on one exact event count.</p></div>
+ <div class="cr-box cr-box-objective"><div class="cr-box-head"><span class="cr-chip cr-chip-goal">Objective</span><h3>Learning objective</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the finish line for the class: a task you should be able to do, not a vague &#x27;understand.&#x27;</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If you cannot restate it as something you can perform, you are not ready for the gate.</div>
+</div><div class="cr-prose-block"><ul>
+<li>Explain the difference between identification, authentication, authorization, and accounting.</li>
+<li>Describe passwords, security keys, one-time codes, certificates, and recovery mechanisms as authentication factors or supporting controls.</li>
+<li>Store password verifiers using a unique salt and a deliberately expensive password-based key derivation function.</li>
+<li>Implement role-based access control with default-deny behavior.</li>
+<li>Return generic authentication failures while retaining useful internal audit details.</li>
+<li>Recognize why authorization must be checked for every protected operation rather than only at login.</li>
+<li>Verify allowed, denied, disabled-account, wrong-password, and unknown-user behavior.</li>
+<li>Plan secure lifecycle controls for enrollment, privilege review, revocation, recovery, and audit retention.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Explain the difference between identification, authentication, authorization, and accounting.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-why"><div class="cr-box-head"><span class="cr-chip cr-chip-why">Why it matters</span><h3>Why this matters</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This gives you a reason to care before the theory. Context first, then details.</div>
+ 
+</div><div class="cr-prose-block"><p>Teach homelab administrators how to distinguish authentication from authorization, design role-based permissions, apply default-deny decisions, protect stored credentials, and produce useful security audit events. The lab implements a self-contained authentication and authorization model without modifying host accounts, remote-access services, or system policy.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Teach homelab administrators how to distinguish authentication from authorization, design role-based permissions, apply default-deny decisions, protect store…</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Prerequisites</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Comfort using a Linux shell and running Python 3 programs.</li>
+<li>Basic understanding of users, groups, services, files, and permissions.</li>
+<li>Ability to create the dedicated directory /opt/lab-classroom/class67/.</li>
+<li>The lab directory must be new or reserved exclusively for this class.</li>
+<li>No production identity provider, host account database, or externally reachable service is required.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Comfort using a Linux shell and running Python 3 programs.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Required reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>NIST SP 800-63B, Digital Identity Guidelines: Authentication and Lifecycle Management, especially the sections on authenticators, memorized secrets, and verifier requirements.</li>
+<li>OWASP Authentication Cheat Sheet, focusing on generic error messages, credential storage, reauthentication, and account recovery.</li>
+<li>OWASP Authorization Cheat Sheet, focusing on least privilege, deny by default, and permission checks on every request.</li>
+<li>Python documentation for hashlib.pbkdf2_hmac, secrets.token_bytes, and hmac.compare_digest.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-prior"><div class="cr-box-head"><span class="cr-chip cr-chip-prior">Prior check</span><h3>Prior-knowledge check</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Warm up your brain. Wrong answers are useful: they show what to review.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Do not skip ahead. Activation makes the lesson stick.</div>
+</div><div class="cr-prose-block"><p>Answer briefly before reading Instruction.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Answer briefly before reading Instruction.</div>
+ 
+</div></div><div class="cr-prose-block"><ol>
+<li>What problem does this class prevent in a homelab?</li>
+<li>What disposable lab boundary will you use?</li>
+<li>What evidence will prove you succeeded?</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-vocab"><div class="cr-box-head"><span class="cr-chip cr-chip-words">Words</span><h3>Vocabulary</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Come back here when a later step uses a term you forgot.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identification</td>
+<td>The act of claiming an identity, such as submitting a username. A claim alone does not prove that the claimant owns the identity.</td>
+</tr>
+<tr>
+<td>Authentication</td>
+<td>The process of verifying an identity claim using one or more authenticators.</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>The decision about whether an authenticated principal may perform a particular action on a resource.</td>
+</tr>
+<tr>
+<td>Accounting</td>
+<td>Recording security-relevant activity so that administrators can investigate, review, and attribute events.</td>
+</tr>
+<tr>
+<td>Principal</td>
+<td>An authenticated user, service, device, or workload to which permissions can be assigned.</td>
+</tr>
+<tr>
+<td>Authenticator</td>
+<td>Something used to demonstrate control of an identity, such as a password, security key, certificate, or one-time-code device.</td>
+</tr>
+<tr>
+<td>Authentication factor</td>
+<td>A factor category such as something known, possessed, or inherent. Two passwords are not two independent factors because both are knowledge factors.</td>
+</tr>
+<tr>
+<td>Password verifier</td>
+<td>A derived value stored by a service and used to check a submitted password without storing the original password.</td>
+</tr>
+<tr>
+<td>Salt</td>
+<td>A unique, non-secret random value incorporated into password derivation to prevent equal passwords from producing equal stored verifiers and to frustrate precomputed attacks.</td>
+</tr>
+<tr>
+<td>RBAC</td>
+<td>Role-based access control, in which permissions are assigned to roles and roles are assigned to principals.</td>
+</tr>
+<tr>
+<td>ABAC</td>
+<td>Attribute-based access control, in which policy evaluates attributes such as user, resource, device, network, action, and time.</td>
+</tr>
+<tr>
+<td>Least privilege</td>
+<td>Granting only the permissions needed for a defined task and retaining them only as long as needed.</td>
+</tr>
+<tr>
+<td>Default deny</td>
+<td>Rejecting an operation unless a policy explicitly allows it.</td>
+</tr>
+<tr>
+<td>Privilege escalation</td>
+<td>Obtaining permissions beyond those originally assigned, either through an approved elevation process or through a vulnerability.</td>
+</tr>
+<tr>
+<td>Federation</td>
+<td>A trust arrangement in which one system accepts identity assertions issued by another system.</td>
+</tr>
+<tr>
+<td>Session</td>
+<td>A bounded period during which a service associates requests with a previously authenticated principal.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-learn"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Instruction</span><h3>Instruction</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the teaching core. One major concept (or a tight group). Read carefully.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Use What this means under dense blocks.</div>
+</div><div class="cr-prose-block"><p>Authentication and authorization answer different questions. Identification asks who a subject claims to be. Authentication evaluates evidence for that claim. Authorization begins only after the service has a trustworthy principal and asks whether that principal may perform a specific action on a specific resource. Accounting records what happened. A successful login must never be treated as permission to do everything: every protected operation needs an authorization decision, including API requests, background jobs, administrative interfaces, and object-level access.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Passwords should not be stored in plaintext or with fast general-purpose hashing alone. A service stores a verifier generated with a password-oriented derivation function, a unique random salt, and a reviewed work factor. The salt need not be secret. Its purpose is to make identical passwords produce different verifiers and to defeat useful precomputation. Verification should use a constant-time comparison primitive. Password policy should favor length, permit password managers, screen known-compromised values where practical, and avoid arbitrary composition rules that push users toward predictable patterns. Production choices should follow current platform guidance because algorithms and recommended work factors change. The PBKDF2 settings in this isolated lesson demonstrate the structure of password verification; they are not a universal production recommendation or a performance benchmark.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Passwords should not be stored in plaintext or with fast general-purpose hashing alone.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Multi-factor authentication combines independent factor categories. A password plus another password is still one factor category. A password plus a hardware-backed security key combines knowledge and possession. Recovery is part of the authentication system and must not be weaker than normal enrollment. Backup codes, help-desk resets, device replacement, and emergency access therefore require explicit controls, audit events, revocation procedures, and testing.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Authorization policy should be understandable, testable, and deny access when no rule explicitly permits it. RBAC is useful when job functions map cleanly to roles, but oversized roles can accumulate privilege. ABAC can express context-rich rules, yet complexity may make outcomes difficult to review. Many systems combine approaches: roles provide coarse entitlements while resource ownership, environment, device state, or time supplies additional conditions. Regardless of model, the server must enforce policy. Hiding a button in a user interface is not an authorization control.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-prose-block"><p>The lab uses three roles and two permissions. A viewer may read inventory, an operator may read inventory and request a service restart, and an administrator has the permissions represented by the exercise. An account marked disabled is rejected even when its password is correct. Unknown users are checked against a dummy verifier so that the implementation does not immediately skip all expensive work. External authentication failures use the same message for an unknown username, a wrong password, and a disabled account. This reduces direct account-status disclosure, although production defenses must also consider timing, rate limits, response metadata, and behavior across recovery flows.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Audit records serve defenders and reviewers, but they can also create risk. Record event time, outcome, principal or submitted identifier, requested action, target, and relevant policy reason. Do not record passwords, session secrets, one-time codes, private keys, or complete recovery tokens. Protect logs from unauthorized reading and alteration, synchronize clocks, define retention, and monitor important events. An audit event does not replace prevention: it supports detection, investigation, and accountability after preventive policy has been applied.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Audit records serve defenders and reviewers, but they can also create risk.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-diagram"><div class="cr-box-head"><span class="cr-chip cr-chip-map">Map</span><h3>Architecture</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This is the map of the system. Know which box does which job before you click around.</div>
+ 
+</div><h3>scope</h3>
+<p>A local, self-contained Python demonstration writes only an audit log beneath /opt/lab-classroom/class67/.</p>
+<h3>components</h3>
+<p>An in-memory identity store containing usernames, unique salts, derived password verifiers, roles, and enabled status.<br />
+An authentication function that performs password derivation, constant-time comparison, account-status checking, and generic client-facing failure handling.<br />
+An RBAC policy mapping roles to permissions.<br />
+An authorization function that applies default deny and records its decision.<br />
+A JSON Lines audit file containing security events without passwords or password verifiers.<br />
+A test harness covering positive and negative security paths.</p>
+<h3>decision_flow</h3>
+<p>The caller submits an identity claim and an authenticator.<br />
+The authentication layer selects the account record or a dummy record and verifies the submitted password.<br />
+A successful check for an enabled account produces a principal containing the username and role.<br />
+The authorization layer resolves the role's permissions and checks the requested permission.<br />
+The operation proceeds only when policy explicitly allows it.<br />
+Authentication and authorization outcomes are written as separate audit events.</p>
+<h3>trust_boundaries</h3>
+<p>Submitted identity claims and passwords are untrusted input.<br />
+The identity store and policy are trusted by this demonstration but would require administrative protection in production.<br />
+An authenticated principal is trusted only as an identity statement; its requested operation still requires authorization.<br />
+Audit data is sensitive administrative data and is not intended for ordinary users.</p></div>
+<div class="cr-box cr-box-example"><div class="cr-box-head"><span class="cr-chip cr-chip-example">I do</span><h3>Worked example</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> I do: watch the bad → better reasoning. Steal the thinking, not just the answer.</div>
+ 
+</div><div class="cr-prose-block"><p>See the worked example embedded in Instruction; reproduce it on your disposable lab path.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: See the worked example embedded in Instruction; reproduce it on your disposable lab path.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-practice"><div class="cr-box-head"><span class="cr-chip cr-chip-practice">Practice</span><h3>Guided practice</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> We do: try with hints. Compare your reasoning to the lesson.</div>
+ 
+</div><div class="cr-prose-block"><p>Complete the guided lab steps with hints allowed, then restate results in your own words.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Complete the guided lab steps with hints allowed, then restate results in your own words.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-practice"><div class="cr-box-head"><span class="cr-chip cr-chip-practice">Practice</span><h3>Independent practice</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You do: close the hints. Struggle is part of learning.</div>
+ 
+</div><div class="cr-prose-block"><p>Draw an access-control matrix for three homelab roles, at least four resources, and at least five actions. Mark every cell as explicitly allowed or denied.<br />
+Extend the design on paper with a resource environment attribute such as development or production. State how an operator assigned to development is denied operations on production resources.<br />
+Write a session policy covering idle timeout, absolute lifetime, revocation after role changes, reauthentication for sensitive actions, and emergency invalidation.<br />
+Create an audit-event specification listing required fields, prohibited secret fields, retention expectations, and which event types should alert an administrator.<br />
+Threat-model account recovery by identifying assets, actors, entry points, likely abuse cases, preventive controls, and audit evidence.<br />
+Compare RBAC and ABAC for a homelab containing human administrators, automation services, monitoring agents, and guest users. Recommend where each model is appropriate.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Home Assistant watches sensors and runs if-this-then-that rules for your house.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-feynman" id="feynman"><div class="cr-box-head"><span class="cr-chip cr-chip-feynman">Teach it back</span><h3>Feynman teach-back: required</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If you cannot explain it simply, you do not own it yet. This section is required for mastery.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Weak spots are gold: restudy that part and rewrite.</div>
+</div><div class="cr-prose-block"><h3>prompt</h3>
+<p>Explain the system to a new homelab operator without using the words authentication or authorization at first.</p>
+<h3>model_explanation</h3>
+<p>First, the service asks, 'Can you prove you are the identity you claimed?' After accepting that proof, it separately asks, 'Is this identity allowed to perform this exact action on this exact resource?' A valid identity may still receive a denial because proof of identity is not a universal permission grant. The system records both decisions without recording the submitted secret. In formal terms, the first decision is authentication and the second is authorization.</p>
+<h3>self_test</h3>
+<p>Can you explain why a logged-in viewer must still be denied a service restart?<br />
+Can you explain why a salt may be stored beside a password verifier?<br />
+Can you explain why hiding an administrative control in a web page does not enforce access control?<br />
+Can you explain why the recovery process belongs inside the authentication threat model?</p></div><div class="cr-feynman-form" data-feynman-form="67"><div class="cr-feynman-field"><label for="fy-67-explain"><strong>Explain</strong>: Describe today&#x27;s concept in your own words.</label><textarea id="fy-67-explain" data-feynman-id="67" data-feynman-field="explain" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-67-simplify"><strong>Simplify</strong>: Explain it to a 12-year-old. Define any jargon.</label><textarea id="fy-67-simplify" data-feynman-id="67" data-feynman-field="simplify" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-67-example"><strong>Example</strong>: Give your own real-world analogy or example.</label><textarea id="fy-67-example" data-feynman-id="67" data-feynman-field="example" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-67-weak"><strong>Weak spot</strong>: What part could you not explain clearly?</label><textarea id="fy-67-weak" data-feynman-id="67" data-feynman-field="weak" rows="4" placeholder="Write here…"></textarea></div><div class="cr-feynman-field"><label for="fy-67-retry"><strong>Retry</strong>: Restudy that section and rewrite a clearer explanation.</label><textarea id="fy-67-retry" data-feynman-id="67" data-feynman-field="retry" rows="4" placeholder="Write here…"></textarea></div><p class="cr-feynman-note">Answers save in this browser (localStorage). Completing all five fields is part of the mastery unlock.</p></div></div>
+<div class="cr-box cr-box-quiz"><div class="cr-box-head"><span class="cr-chip cr-chip-quiz">Check yourself</span><h3>Retrieval check</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Write from memory first. Retrieval beats rereading.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Target about 80% before the practical gate.</div>
+</div><div class="cr-prose-block"><ol>
+<li>
+<ol>
+<li>What is the difference between identification, authentication, and authorization?</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Why should a service use a unique salt when deriving each password verifier?</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Does combining a password with a second password provide two independent authentication factors? Explain.</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Why must a protected API perform authorization checks even after a valid login?</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>What does default deny mean in an access-control policy?</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>Why should unknown users, disabled accounts, and incorrect passwords generally receive similar external error messages?</li>
+</ol>
+</li>
+<li>
+<ol start="7">
+<li>Name two categories of data that should never be written to an authentication audit log.</li>
+</ol>
+</li>
+<li>
+<ol start="8">
+<li>Why is hiding an administrative button insufficient to protect the administrative operation?</li>
+</ol>
+</li>
+<li>
+<ol start="9">
+<li>What security problem can occur when roles continually gain permissions but are rarely reviewed?</li>
+</ol>
+</li>
+<li>
+<ol start="10">
+<li>Why can a successful password check still result in an authentication failure for a disabled account?</li>
+</ol>
+</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A category is a label that keeps TV and movies (or other jobs) in separate piles.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>name</h4><p>Build and test a default-deny RBAC decision path</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Build and test a default-deny RBAC decision path</div>
+ 
+</div></div><div class="cr-lab-path"><h4>constraints</h4><p>Run this exercise only on a disposable or authorized homelab system.<br />
+Every filesystem mutation made by the exercise is confined to /opt/lab-classroom/class67/.<br />
+The exercise does not create operating-system users, change host authentication, or expose a network listener.<br />
+The sample credentials exist only inside the short-lived Python process and are not production secrets.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run this exercise only on a disposable or authorized homelab system.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Create the dedicated lab directory with restrictive default permissions.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the dedicated lab directory with restrictive default permissions.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>umask 077 &amp;&amp; mkdir -p /opt/lab-classroom/class67/</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: umask 077 &amp;&amp; mkdir -p /opt/lab-classroom/class67/</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Run the demonstration. It builds an in-memory identity store, executes six tests, and appends JSON audit events to the dedicated lab directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run the demonstration.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>umask 077 &amp;&amp; python3 - &lt;&lt;'PY'<br />
+import hashlib<br />
+import hmac<br />
+import json<br />
+import secrets<br />
+from datetime import datetime, timezone<br />
+from pathlib import Path</p>
+<p>BASE = Path('/opt/lab-classroom/class67')<br />
+AUDIT = BASE / 'audit.jsonl'<br />
+ITERATIONS = 210_000<br />
+GENERIC_FAILURE = 'Invalid credentials or account unavailable'</p>
+<p>PERMISSIONS = {<br />
+    'viewer': {'inventory.read'},<br />
+    'operator': {'inventory.read', 'service.restart'},<br />
+    'administrator': {'inventory.read', 'service.restart', 'identity.manage'},<br />
+}</p>
+<p>def derive(password, salt):<br />
+    return hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt, ITERATIONS)</p>
+<p>def record_for(password, role, enabled=True):<br />
+    salt = secrets.token_bytes(16)<br />
+    return {<br />
+        'salt': salt,<br />
+        'verifier': derive(password, salt),<br />
+        'role': role,<br />
+        'enabled': enabled,<br />
+    }</p>
+<p>USERS = {<br />
+    'alice': record_for('class67-alice-demo', 'viewer'),<br />
+    'bob': record_for('class67-bob-demo', 'operator'),<br />
+    'carol': record_for('class67-carol-demo', 'administrator', enabled=False),<br />
+}<br />
+DUMMY_SALT = secrets.token_bytes(16)<br />
+DUMMY_VERIFIER = derive('dummy-value-never-used-for-login', DUMMY_SALT)</p>
+<p>def audit(event, <strong>fields):<br />
+    entry = {<br />
+        'timestamp': datetime.now(timezone.utc).isoformat(),<br />
+        'event': event,<br />
+</strong>fields,<br />
+    }<br />
+    with AUDIT.open('a', encoding='utf-8') as handle:<br />
+        handle.write(json.dumps(entry, sort_keys=True) + '\n')</p>
+<p>def authenticate(username, password):<br />
+    account = USERS.get(username)<br />
+    salt = account['salt'] if account else DUMMY_SALT<br />
+    expected = account['verifier'] if account else DUMMY_VERIFIER<br />
+    supplied = derive(password, salt)<br />
+    password_matches = hmac.compare_digest(supplied, expected)<br />
+    if account and password_matches and account['enabled']:<br />
+        audit('authentication_success', username=username)<br />
+        return {'username': username, 'role': account['role']}, None<br />
+    reason = 'unknown_user'<br />
+    if account and not password_matches:<br />
+        reason = 'invalid_password'<br />
+    elif account and password_matches and not account['enabled']:<br />
+        reason = 'account_disabled'<br />
+    audit('authentication_failure', username=username, reason=reason)<br />
+    return None, GENERIC_FAILURE</p>
+<p>def authorize(principal, permission, resource):<br />
+    if not principal:<br />
+        return False<br />
+    allowed = permission in PERMISSIONS.get(principal['role'], set())<br />
+    audit(<br />
+        'authorization_allowed' if allowed else 'authorization_denied',<br />
+        username=principal['username'],<br />
+        role=principal['role'],<br />
+        permission=permission,<br />
+        resource=resource,<br />
+    )<br />
+    return allowed</p>
+<p>def check(label, condition):<br />
+    if not condition:<br />
+        raise AssertionError(label)<br />
+    print('PASS:', label)</p>
+<p>principal, error = authenticate('alice', 'class67-alice-demo')<br />
+check('viewer authentication succeeds', principal is not None and error is None)<br />
+check('viewer may read inventory', authorize(principal, 'inventory.read', 'node-01'))<br />
+check('viewer may not restart service', not authorize(principal, 'service.restart', 'node-01'))</p>
+<p>principal, error = authenticate('bob', 'class67-bob-demo')<br />
+check('operator authentication succeeds', principal is not None and error is None)<br />
+check('operator may restart service', authorize(principal, 'service.restart', 'node-01'))</p>
+<p>principal, error = authenticate('carol', 'class67-carol-demo')<br />
+check('disabled account is rejected generically', principal is None and error == GENERIC_FAILURE)</p>
+<p>principal, error = authenticate('alice', 'wrong-password')<br />
+check('wrong password is rejected generically', principal is None and error == GENERIC_FAILURE)</p>
+<p>principal, error = authenticate('mallory', 'anything')<br />
+check('unknown user is rejected generically', principal is None and error == GENERIC_FAILURE)</p>
+<p>print('Audit path:', AUDIT)<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>instruction</h4><p>Inspect the audit file without displaying or searching for any real secrets. Confirm that the file contains parseable JSON events and that denied operations are represented.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inspect the audit file without displaying or searching for any real secrets.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>python3 - &lt;&lt;'PY'<br />
+import json<br />
+from pathlib import Path<br />
+p = Path('/opt/lab-classroom/class67/audit.jsonl')<br />
+rows = [json.loads(line) for line in p.read_text(encoding='utf-8').splitlines() if line.strip()]<br />
+print('event_count=', len(rows))<br />
+print('event_types=', sorted({row['event'] for row in rows}))<br />
+print('denied_permissions=', [row.get('permission') for row in rows if row['event'] == 'authorization_denied'])<br />
+assert rows<br />
+assert any(row['event'] == 'authentication_success' for row in rows)<br />
+assert any(row['event'] == 'authentication_failure' for row in rows)<br />
+assert any(row['event'] == 'authorization_allowed' for row in rows)<br />
+assert any(row['event'] == 'authorization_denied' for row in rows)<br />
+assert all('password' not in row for row in rows)<br />
+print('PASS: audit verification complete')<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>discussion_prompts</h4><p>Why is the role checked again when a permission is requested even though authentication already succeeded?<br />
+What additional resource attributes would be needed to prevent an operator from restarting services on nodes outside the operator's assigned environment?<br />
+Which audit fields would help an incident responder without unnecessarily exposing secrets or personal data?<br />
+How would session expiration, role changes, and account disablement affect an already authenticated session in a production design?</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The first lab command creates /opt/lab-classroom/class67/ and does not intentionally modify files outside that directory.</li>
+<li>The demonstration prints PASS results for successful viewer and operator authentication.</li>
+<li>The viewer is allowed to read inventory but denied permission to restart a service.</li>
+<li>The operator is allowed to request a service restart.</li>
+<li>The disabled account, wrong password, and unknown username all receive the same client-facing failure text.</li>
+<li>The audit file contains authentication successes, authentication failures, authorization allowances, and authorization denials.</li>
+<li>The audit file does not contain a field named password.</li>
+<li>Each rerun appends another set of events, so the total event count may increase while the required event types remain present.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification checkpoints</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Confirm that the lab printed PASS for every test and exited without an AssertionError.</li>
+<li>[ ] Run: test -f /opt/lab-classroom/class67/audit.jsonl &amp;&amp; echo PASS</li>
+<li>[ ] Run: python3 -c "import json,pathlib; p=pathlib.Path('/opt/lab-classroom/class67/audit.jsonl'); rows=[json.loads(x) for x in p.read_text().splitlines() if x.strip()]; assert {'authentication_success','authentication_failure','authorization_allowed','authorization_denied'} &lt;= {r['event'] for r in rows}; print('PASS')"</li>
+<li>[ ] Run: python3 -c "import json,pathlib; rows=[json.loads(x) for x in pathlib.Path('/opt/lab-classroom/class67/audit.jsonl').read_text().splitlines() if x.strip()]; assert any(r.get('role')=='viewer' and r.get('permission')=='service.restart' and r['event']=='authorization_denied' for r in rows); print('PASS')"</li>
+<li>[ ] Run: python3 -c "import json,pathlib; rows=[json.loads(x) for x in pathlib.Path('/opt/lab-classroom/class67/audit.jsonl').read_text().splitlines() if x.strip()]; assert all('password' not in r and 'verifier' not in r and 'salt' not in r for r in rows); print('PASS')"</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Creating the lab directory reports permission denied.</td>
+<td>The current account cannot create directories beneath /opt, or the class directory has an unexpected owner.</td>
+<td>Use an authorized administrative workflow to create only /opt/lab-classroom/class67/ for the learner, then rerun the lab as the learner. Do not broaden unrelated filesystem permissions.</td>
+</tr>
+<tr>
+<td>The shell reports that python3 cannot be found.</td>
+<td>Python 3 is not installed or is not available through the current command search path.</td>
+<td>Install a vendor-supported Python 3 package using the host's normal package-management process, then confirm that python3 --version works before returning to the lab.</td>
+</tr>
+<tr>
+<td>The demonstration ends with an AssertionError.</td>
+<td>The copied program was altered, truncated, or executed by a shell that did not preserve the here-document exactly.</td>
+<td>Start a fresh terminal, copy the complete command from step 2, and verify that the closing PY marker begins at the first column with no extra characters.</td>
+</tr>
+<tr>
+<td>The audit event count is larger than expected.</td>
+<td>The lab appends events and has been run more than once.</td>
+<td>This is expected. Evaluate the presence and contents of event types rather than requiring one fixed count, or perform the documented rollback before a clean rerun.</td>
+</tr>
+<tr>
+<td>Audit verification reports invalid JSON.</td>
+<td>The audit file was manually edited, a previous process was interrupted during a write, or unrelated content was placed in the file.</td>
+<td>Inspect only /opt/lab-classroom/class67/audit.jsonl, preserve it if investigation is needed, then perform rollback and rerun the lab to generate a clean file.</td>
+</tr>
+<tr>
+<td>Rollback reports that the directory is not empty.</td>
+<td>Additional files were placed in the class directory after the lab ran.</td>
+<td>List and review the directory contents. Remove or relocate only files you have positively identified as class artifacts, then rerun the narrow rollback command. Do not replace it with an unbounded recursive deletion.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security considerations</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>Deny by default and explicitly grant narrowly defined permissions.<br />
+Separate authentication from authorization and log their outcomes independently.<br />
+Apply server-side authorization to every protected operation and object.<br />
+Use unique salts, reviewed password-derivation settings, and constant-time verifier comparison.<br />
+Use generic external authentication errors while preserving limited diagnostic reasons in protected audit data.<br />
+Treat account recovery, enrollment, factor replacement, and emergency access as security-sensitive authentication paths.<br />
+Review role assignments periodically and revoke access promptly when responsibilities change.<br />
+Protect session identifiers and require expiration, revocation, and reauthentication for sensitive actions.<br />
+Do not include passwords, private keys, session tokens, or complete recovery credentials in logs.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>lab_limitations</h4><p>The in-memory identity store is educational and is not a production identity database.<br />
+The sample work factor is not presented as a benchmark or universal configuration recommendation.<br />
+The exercise does not implement throttling, persistent lockout state, session management, federation, cryptographic key management, or multi-factor enrollment.<br />
+A dummy password derivation reduces a simple user-enumeration difference but does not prove that all observable timing is identical.<br />
+The audit file is locally writable by the lab owner and is not an append-only or remotely protected logging system.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The in-memory identity store is educational and is not a production identity database.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>production_guidance</h4><p>Prefer mature, maintained identity platforms over custom authentication code.<br />
+Use phishing-resistant authentication for privileged administration where supported.<br />
+Rate-limit authentication attempts using controls that resist denial-of-service abuse.<br />
+Inventory service accounts and use short-lived workload identities where possible.<br />
+Test object-level authorization because permission to access one object does not imply permission to access every object of the same type.<br />
+Generate alerts for privilege changes, disabled-account attempts, suspicious recovery activity, and repeated authorization denials.<br />
+Maintain tested emergency-access procedures with strong monitoring and post-use review.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>goal</h4><p>Remove only the audit file created by this lesson and then remove the class directory if it is empty.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Remove only the audit file created by this lesson and then remove the class directory if it is empty.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>precheck</h4><p>Run: python3 -c "from pathlib import Path; p=Path('/opt/lab-classroom/class67'); print([x.name for x in p.iterdir()] if p.exists() else 'already absent')"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run: python3 -c &quot;from pathlib import Path; p=Path(&#x27;/opt/lab-classroom/class67&#x27;); print([x.name for x in p.iterdir()] if p.exists() else &#x27;already absent&#x27;)&quot;</div>
+ 
+</div></div><div class="cr-prose-block"><h4>command</h4><p>python3 -c "from pathlib import Path; p=Path('/opt/lab-classroom/class67'); (p/'audit.jsonl').unlink(missing_ok=True); p.rmdir()"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 -c &quot;from pathlib import Path; p=Path(&#x27;/opt/lab-classroom/class67&#x27;); (p/&#x27;audit.jsonl&#x27;).unlink(missing_ok=True); p.rmdir()&quot;</div>
+ 
+</div></div><div class="cr-prose-block"><h4>behavior</h4><p>The directory removal intentionally fails if any unexpected file remains. This prevents the rollback from recursively deleting unreviewed content.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The directory removal intentionally fails if any unexpected file remains.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>postcheck</h4><p>Run: python3 -c "from pathlib import Path; p=Path('/opt/lab-classroom/class67'); print('PASS' if not p.exists() else 'REVIEW REQUIRED')"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run: python3 -c &quot;from pathlib import Path; p=Path(&#x27;/opt/lab-classroom/class67&#x27;); print(&#x27;PASS&#x27; if not p.exists() else &#x27;REVIEW REQUIRED&#x27;)&quot;</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video narration notes</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Welcome to Class 67, Authentication and Access Control. This lesson separates four ideas that are often blended together: identification, authentication, authorization, and accounting. A username is an identity claim. Checking an authenticator determines whether that claim should be trusted. Once a principal has been established, a separate policy determines whether that principal may perform a requested operation. Finally, security events are recorded for review.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Welcome to Class 67, Authentication and Access Control.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Our lab remains entirely inside the Class 67 directory. It does not change host accounts or expose a network service. The demonstration creates three in-memory accounts. Alice has the viewer role, Bob has the operator role, and Carol represents a disabled administrator account. Passwords are converted into verifiers using PBKDF2 with unique random salts. Submitted and stored verifier values are compared with a constant-time comparison function.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Our lab remains entirely inside the Class 67 directory.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Notice the negative paths. Alice can read inventory but cannot restart a service. Bob can restart the service because that permission is assigned to the operator role. Carol cannot authenticate while disabled, even with the correct password. A wrong password and an unknown username are also rejected. The client receives the same generic failure text in all three cases, while the protected audit record retains a reason that can help an administrator investigate.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div><div class="cr-prose-block"><p>The most important design rule is that a valid login is not a universal authorization grant. Every sensitive operation must reach a server-side policy check, and the safe fallback is denial. Interfaces may hide controls for usability, but an attacker can bypass an interface and address an endpoint directly.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The most important design rule is that a valid login is not a universal authorization grant.</div>
+ 
+</div></div><div class="cr-prose-block"><p>After running the lab, inspect the JSON Lines audit file. It should show both successful and failed authentication events, along with allowed and denied authorization decisions. It should not contain passwords, salts, or verifiers. In a production environment, these records would need stronger integrity protection, access restrictions, retention policy, monitoring, and reliable time synchronization.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: After running the lab, inspect the JSON Lines audit file.</div>
+ 
+</div></div><div class="cr-prose-block"><p>Complete the lesson by explaining the flow in plain language: first prove who you are; then determine what that identity may do; finally record the security-relevant result without recording the secret. If you can explain why each stage is separate and where it must be enforced, you understand the core of authentication and access control.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Complete the lesson by explaining the flow in plain language: first prove who you are; then determine what that identity may do; finally record the security-…</div>
+ 
+</div></div></div>
+<div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>References</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>NIST Special Publication 800-63B, Digital Identity Guidelines: Authentication and Lifecycle Management.</li>
+<li>NIST Special Publication 800-162, Guide to Attribute Based Access Control Definition and Considerations.</li>
+<li>NIST Special Publication 800-53 Revision 5, Security and Privacy Controls for Information Systems and Organizations, Access Control and Identification and Authentication control families.</li>
+<li>OWASP Authentication Cheat Sheet.</li>
+<li>OWASP Authorization Cheat Sheet.</li>
+<li>OWASP Password Storage Cheat Sheet.</li>
+<li>OWASP Session Management Cheat Sheet.</li>
+<li>OWASP Application Security Verification Standard, authentication, session management, and access-control requirements.</li>
+<li>Python Standard Library documentation for hashlib.</li>
+<li>Python Standard Library documentation for hmac.</li>
+<li>Python Standard Library documentation for secrets.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - NIST Special Publication 800-63B, Digital Identity Guidelines: Authentication and Lifecycle Management.</div>
+ 
+</div></div></div>
+<div class="cr-check" data-check-id="gate-67">
+ <div class="cr-box-head"><span class="cr-chip cr-chip-gate">Pass gate</span><h3>Practical mastery gate: pass before you continue</h3></div>
+ <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> These boxes are the pass rules. Check a box only when you have real proof for that line.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> “It seems to work” is not enough. Use a test, log, screenshot (secrets removed), or command output.</div>
+</div>
+ <div class="cr-check-item"><label><input type="checkbox" data-k="0"> <span>Objectives demonstrated with evidence</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Objectives demonstrated with evidence)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="1"> <span>Feynman complete</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Feynman complete)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="2"> <span>Quiz self-scored ≥80%</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Quiz self-scored ≥80%)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="3"> <span>Lab verification boxes checked</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Lab verification boxes checked)</div>
+ 
+</div></div><div class="cr-check-item"><label><input type="checkbox" data-k="4"> <span>Rollback understood</span></label><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Rollback understood)</div>
+ 
+</div></div>
+ <div class="cr-gate">Mastery unlock: all boxes true + Feynman complete → continue to the next class</div>
+</div>
+<div class="cr-box cr-box-reflect"><div class="cr-box-head"><span class="cr-chip cr-chip-reflect">Reflect</span><h3>Reflection</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Name what you learned, where you struggled, and how it connects backward and forward.</div>
+ 
+</div><div class="cr-prose-block"><ol>
+<li>What did I learn?</li>
+<li>What did I struggle with?</li>
+<li>How does this connect to earlier classes?</li>
+</ol><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1.</div>
+ 
+</div></div></div>
+<div class="cr-box cr-box-spiral"><div class="cr-box-head"><span class="cr-chip cr-chip-spiral">Spiral</span><h3>Spiral hook</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> This skill will return later. Knowing the hook helps you notice it when it does.</div>
+ 
+</div><div class="cr-prose-block"><p>Return to this class whenever a later service fails for identity, process, log, remote access, update, or routing reasons covered here.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="66.html">← Class 66</a><a href="68.html">Class 68 →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

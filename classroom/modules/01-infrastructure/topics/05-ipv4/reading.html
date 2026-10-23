@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260929e">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260924v">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
 </head>
 <body>
 
@@ -24,32 +24,28 @@
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
- <a href="/#ecosystem">Platform</a>
- <div class="navdrop">
- <a href="/#ecosystem">Products</a>
- <div class="navdrop-menu">
- <a href="/otacon/">Otacon Lite</a>
- <a href="/keeproute/">KeepRoute</a>
+ <a href="/otacon/">Otacon</a>
  <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- </div>
- </div>
- <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
  <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="/news/">News</a>
- <a href="/donate/">Donate</a>
- <a href="/install/" class="discord">Get Otacon</a>
- </div></div>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
 </nav>
 <nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
- <a href="/classroom/homelab/">Overview</a>
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
  <a href="/classroom/syllabus.html">Syllabus</a>
@@ -70,6 +66,7 @@
  </section>
 </div>
 <div class="wrap">
+ <figure class="class-visual"><img src="/classroom/visuals/diagrams/15-ipv4-addresses-and-gateways.svg" alt="Class 15: IPv4 addresses and gateways"><figcaption>Class 15 visual reference. Use it as the map, then prove it in the reading, lesson, and lab.</figcaption></figure>
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 1: Infrastructure &amp; Addressing<br />
 <strong>Topic:</strong> 05: IPv4 addresses &amp; gateways<br />
 <strong>Activity type:</strong> Reading / reference (Learn)<br />
@@ -175,7 +172,14 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> This list is your pocket dictionary for the class. You do not need to memorize every word on day one.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-prose-block"><h4>Originally: What you will learn</h4><p>You will understand what an IPv4 address is for, how to read it on Windows and Linux, what the subnet mask and default gateway do, how DHCP usually hands out addresses at home, and how a device decides “same street / hand it over” versus “call the router.” You will see why IPv4’s roughly <strong>4.3 billion</strong> addresses felt endless in 1983 and why classful allocation (A/B/C plus reserved D/E and loopback) burned through that pool too fast. You will practice a beginner subnet-reading hack that covers most home and small-lab <code>/24</code> networks, contrast <strong>classful</strong> defaults with <strong>classless</strong> masks you actually use, and prove loopback with ping, then you will prove it with commands, not vibes.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>Originally: What you will learn</h4><p>You will understand what an IPv4 address is for, how to read it on Windows and Linux, what the subnet mask and default gateway do, how DHCP usually hands out addresses at home, and how a device decides “same street / hand it over” versus “call the router.” You will see why IPv4’s roughly <strong>4.3 billion</strong> addresses felt endless in 1983 and why classful allocation (A/B/C plus reserved D/E and loopback) burned through that pool too fast. You will practice a beginner subnet-reading hack that covers most home and small-lab <code>/24</code> networks, contrast <strong>classful</strong> defaults with <strong>classless</strong> masks you actually use, and prove loopback with ping, then you will prove it with commands, not vibes.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -435,7 +439,7 @@ ping -c 2 127.15.15.8
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> NAT lets the guest use the host’s internet path. The guest is usually not a full peer on your home LAN.</div>
  
-</div></div></div><figure class="class-visual" data-visual="reading"><img src="/classroom/visuals/diagrams/15-ipv4-addresses-and-gateways.svg" alt="Diagram of IPv4 addresses and gateways" width="1600" height="900"><figcaption>Reference architecture. Study this before the rest of the reading.</figcaption></figure><div class="cr-box cr-box-example"><div class="cr-box-head"><span class="cr-chip cr-chip-example">I do</span><h3>Worked example (study this)</h3></div><div class="cr-help">
+</div></div></div><div class="cr-box cr-box-example"><div class="cr-box-head"><span class="cr-chip cr-chip-example">I do</span><h3>Worked example (study this)</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -470,7 +474,14 @@ ping -c 2 127.15.15.8
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this before you rush. It keeps you safe or up to date.</div>
  
-</div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Next</h3></div><div class="cr-prose-block"><ol>
+</div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Next</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ol>
 <li>Open the <strong>Lesson</strong> for prior-knowledge check, guided practice, and <strong>required Feynman teach-back</strong>.</li>
 <li>Then complete <strong>Lab</strong>, <strong>Homework</strong>, and <strong>Quiz</strong> for this topic.</li>
 </ol><div class="cr-help">

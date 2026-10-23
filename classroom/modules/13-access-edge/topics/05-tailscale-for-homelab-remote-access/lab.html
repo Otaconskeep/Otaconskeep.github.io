@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05-tailscale-for-homelab-remote-access: Lab · Classroom</title>
+<meta name="description" content="05-tailscale-for-homelab-remote-access: Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/13-access-edge/topics/05-tailscale-for-homelab-remote-access/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M13 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M13 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 05-tailscale-for-homelab-remote-access: Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Edge Access &amp; VPN<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain how Tailscale separates identity and policy decisions from encrypted peer-to-peer packet transport.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Basic understanding of IP addresses, CIDR notation, TCP ports, and routing.</li>
+<li>Familiarity with JSON and a text editor.</li>
+<li>Python 3 available for local validation.</li>
+<li>The directory /opt/lab-classroom/ already exists and is writable, or an instructor can create the class68 child directory.</li>
+<li>No live Tailscale account or tailnet is required for this design-only lab.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Classless means you choose the mask that fits, you are not stuck with the old Class A/B/C default.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>name</h4><p>Author and validate a least-privilege Tailscale design</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Author and validate a least-privilege Tailscale design</div>
+ 
+</div></div><div class="cr-lab-path"><h4>scope</h4><p>This lab does not install Tailscale, join a device, change a live policy, or alter network state. All authored files and lab-created state must remain under /opt/lab-classroom/class68/.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: This lab does not install Tailscale, join a device, change a live policy, or alter network state.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>scenario</h4><p>Alice, alice@example.com, is the homelab administrator and requires TCP ports 22 and 443 on the legacy host.<br />
+Bob, bob@example.com, is an operator and requires only TCP port 443 on the legacy host.<br />
+Carol, carol@example.com, is a contractor and must not reach TCP port 443 on the legacy host.<br />
+The legacy host is 192.168.50.10 and cannot run Tailscale.<br />
+A dedicated device named subnet-router will advertise a route to the legacy host.<br />
+Only 192.168.50.10/32 may be advertised and approved. The wider 192.168.50.0/24 must appear exactly once across the three learner-authored JSON files, solely as the destination of a negative route-scope test.<br />
+The subnet router must use tag:homelab-router, with tag ownership assigned to group:admins.<br />
+Device approval and route approval are both required.<br />
+An exit node is not required and must be represented by the JSON boolean false.<br />
+The rollout must contain at least three phases and exactly three distinct rollback triggers.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>files</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (files)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>path</h4><p>/opt/lab-classroom/class68/architecture.json</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: /opt/lab-classroom/class68/architecture.json</div>
+ 
+</div></div><div class="cr-lab-path"><h4>learner_authored</h4><p>True</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: True</div>
+ 
+</div></div><div class="cr-lab-path"><h4>required_shape</h4><p>An object containing identities, groups, tags, devices, access_intent, and decisions. Each decisions value must explain the selected identity model, route scope, or denial model in at least 40 characters.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: An object containing identities, groups, tags, devices, access_intent, and decisions.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>path</h4><p>/opt/lab-classroom/class68/test-matrix.json</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: /opt/lab-classroom/class68/test-matrix.json</div>
+ 
+</div></div><div class="cr-lab-path"><h4>learner_authored</h4><p>True</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: True</div>
+ 
+</div></div><div class="cr-lab-path"><h4>required_shape</h4><p>An array of exactly six objects. Each object contains id, source, destination, service, and expected.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: An array of exactly six objects.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>path</h4><p>/opt/lab-classroom/class68/rollout.json</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: /opt/lab-classroom/class68/rollout.json</div>
+ 
+</div></div><div class="cr-lab-path"><h4>learner_authored</h4><p>True</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: True</div>
+ 
+</div></div><div class="cr-lab-path"><h4>required_shape</h4><p>An object containing approvals_before_enable, phases, rollback_triggers, and route_withdrawal. Every phase contains name, owner, success_criteria, and rollback_action.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: An object containing approvals_before_enable, phases, rollback_triggers, and route_withdrawal.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>path</h4><p>/opt/lab-classroom/class68/check_design.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: /opt/lab-classroom/class68/check_design.py</div>
+ 
+</div></div><div class="cr-lab-path"><h4>learner_authored</h4><p>False</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: False</div>
+ 
+</div></div><div class="cr-lab-path"><h4>required_shape</h4><p>The supplied Python checker. It reads the three learner-authored files and reports assertion failures without rewriting them.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The supplied Python checker.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div><div class="cr-step-list"><div class="cr-step" data-step="1">
+ <div class="cr-step-num">1</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Create the workspace with: mkdir /opt/lab-classroom/class68</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Create the workspace with: mkdir /opt/lab-classroom/class68)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="2">
+ <div class="cr-step-num">2</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Using a text editor, author architecture.json, test-matrix.json, and rollout.json from the scenario. Do not copy a prebuilt architecture. Select and document the identity mappings, narrow route, intended allows, intended denials, approval gates, rollout phases, and rollback language. Save only under /opt/lab-classroom/class68/.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="3">
+ <div class="cr-step-num">3</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Save the supplied checker as /opt/lab-classroom/class68/check_design.py and run: python3 /opt/lab-classroom/class68/check_design.py. The checker asserts all of the following: the three people have unique identities and required group memberships; the router tag is owned by administrators; the router requires device approval; exit_node_required is the boolean false; advertised and approved routes are exactly 192.168.50.10/32; the five host-level access intentions match the scenario; each design rationale is substantive; the matrix contains exactly six unique IDs and six unique flow assertions; all required allow and deny outcomes are present; there are exactly three denied tests; 192.168.50.0/24 occurs exactly once across the learner JSON files; both approval gates are listed; there are at least three complete rollout phases; there are exactly three unique rollback triggers; and route withdrawal is assigned to group:admins for 192.168.50.10/32.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="4">
+ <div class="cr-step-num">4</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Read every failure message rather than weakening the checker. Correct the learner-authored JSON documents and rerun the checker until it prints PASS.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Read every failure message rather than weakening the checker. Correct the learner-authored JSON documents and rerun the checker until it …)</div>
+ 
+</div>
+ </div>
+</div><div class="cr-step" data-step="5">
+ <div class="cr-step-num">5</div>
+ <div class="cr-step-body">
+  <div class="cr-step-text"><p>Review the final files with: ls -la /opt/lab-classroom/class68/ and confirm that no lab artifact was created outside the class directory.</p></div>
+  <div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (Review the final files with: ls -la /opt/lab-classroom/class68/ and confirm that no lab artifact was created outside the class directory.)</div>
+ 
+</div>
+ </div>
+</div></div></div><div class="cr-lab-path"><h4>checker_code</h4><p>from pathlib import Path<br />
+import json<br />
+import sys</p>
+<p>ROOT = Path('/opt/lab-classroom/class68')<br />
+errors = []</p>
+<p>def load_json(name):<br />
+    path = ROOT / name<br />
+    try:<br />
+        with path.open('r', encoding='utf-8') as handle:<br />
+            return json.load(handle)<br />
+    except FileNotFoundError:<br />
+        errors.append(f'{name}: file is missing')<br />
+    except json.JSONDecodeError as exc:<br />
+        errors.append(f'{name}: invalid JSON at line {exc.lineno}, column {exc.colno}: {exc.msg}')<br />
+    return None</p>
+<p>def require(condition, message):<br />
+    if not condition:<br />
+        errors.append(message)</p>
+<p>architecture = load_json('architecture.json')<br />
+matrix = load_json('test-matrix.json')<br />
+rollout = load_json('rollout.json')</p>
+<p>if architecture is not None:<br />
+    require(isinstance(architecture, dict), 'architecture.json must contain an object')<br />
+if matrix is not None:<br />
+    require(isinstance(matrix, list), 'test-matrix.json must contain an array')<br />
+if rollout is not None:<br />
+    require(isinstance(rollout, dict), 'rollout.json must contain an object')</p>
+<p>if isinstance(architecture, dict):<br />
+    identities = architecture.get('identities', [])<br />
+    require(isinstance(identities, list), 'identities must be an array')<br />
+    expected_people = {<br />
+        'alice@example.com': ('Alice', 'group:admins'),<br />
+        'bob@example.com': ('Bob', 'group:operators'),<br />
+        'carol@example.com': ('Carol', 'group:contractors')<br />
+    }<br />
+    observed_people = {}<br />
+    if isinstance(identities, list):<br />
+        for item in identities:<br />
+            if isinstance(item, dict):<br />
+                observed_people[item.get('email')] = (item.get('name'), item.get('group'))<br />
+        emails = [item.get('email') for item in identities if isinstance(item, dict)]<br />
+        require(len(emails) == len(set(emails)), 'human identity email values must be unique')<br />
+    require(observed_people == expected_people, 'identities must map Alice, Bob, and Carol to the required unique email addresses and groups')</p>
+<pre><code>groups = architecture.get('groups', {})
+require(isinstance(groups, dict), 'groups must be an object')
+if isinstance(groups, dict):
+    require(set(groups.get('group:admins', [])) == {'alice@example.com'}, 'group:admins must contain only alice@example.com')
+    require(set(groups.get('group:operators', [])) == {'bob@example.com'}, 'group:operators must contain only bob@example.com')
+    require(set(groups.get('group:contractors', [])) == {'carol@example.com'}, 'group:contractors must contain only carol@example.com')
+
+tags = architecture.get('tags', {})
+tag_data = tags.get('tag:homelab-router', {}) if isinstance(tags, dict) else {}
+require(isinstance(tag_data, dict), 'tag:homelab-router must be an object')
+if isinstance(tag_data, dict):
+    require(set(tag_data.get('owner_groups', [])) == {'group:admins'}, 'tag:homelab-router must be owned only by group:admins')
+
+devices = architecture.get('devices', [])
+require(isinstance(devices, list), 'devices must be an array')
+router = None
+if isinstance(devices, list):
+    matches = [item for item in devices if isinstance(item, dict) and item.get('name') == 'subnet-router']
+    require(len(matches) == 1, 'devices must contain exactly one device named subnet-router')
+    if len(matches) == 1:
+        router = matches[0]
+if router is not None:
+    require(set(router.get('tags', [])) == {'tag:homelab-router'}, 'subnet-router must use only tag:homelab-router')
+    require(router.get('device_approval_required') is True, 'device_approval_required must be the boolean true')
+    require(router.get('exit_node_required') is False, 'exit_node_required must be the boolean false')
+    require(router.get('advertised_routes') == ['192.168.50.10/32'], 'advertised_routes must be exactly [192.168.50.10/32]')
+    require(router.get('approved_routes') == ['192.168.50.10/32'], 'approved_routes must be exactly [192.168.50.10/32]')
+
+expected_intent = {
+    ('group:admins', '192.168.50.10', 'tcp/22', 'allow'),
+    ('group:admins', '192.168.50.10', 'tcp/443', 'allow'),
+    ('group:operators', '192.168.50.10', 'tcp/443', 'allow'),
+    ('group:operators', '192.168.50.10', 'tcp/22', 'deny'),
+    ('group:contractors', '192.168.50.10', 'tcp/443', 'deny')
+}
+access_intent = architecture.get('access_intent', [])
+require(isinstance(access_intent, list), 'access_intent must be an array')
+observed_intent = set()
+if isinstance(access_intent, list):
+    for item in access_intent:
+        if isinstance(item, dict):
+            observed_intent.add((item.get('source'), item.get('destination'), item.get('service'), item.get('effect')))
+require(observed_intent == expected_intent, 'access_intent must contain exactly the five required host-level allow and deny intentions')
+
+decisions = architecture.get('decisions', {})
+require(isinstance(decisions, dict), 'decisions must be an object')
+for key in ('identity_model', 'route_scope', 'denial_model'):
+    value = decisions.get(key, '') if isinstance(decisions, dict) else ''
+    require(isinstance(value, str) and len(value.strip()) &gt;= 40, f'decisions.{key} must contain a rationale of at least 40 characters')
+</code></pre>
+<p>if isinstance(matrix, list):<br />
+    require(len(matrix) == 6, 'test matrix must contain exactly six tests')<br />
+    ids = [item.get('id') for item in matrix if isinstance(item, dict)]<br />
+    require(len(ids) == 6 and all(isinstance(value, str) and value.strip() for value in ids), 'all six tests must have non-empty string IDs')<br />
+    require(len(ids) == len(set(ids)), 'all six test IDs must be unique')<br />
+    expected_tests = {<br />
+        ('alice@example.com', '192.168.50.10', 'tcp/22', 'allow'),<br />
+        ('alice@example.com', '192.168.50.10', 'tcp/443', 'allow'),<br />
+        ('bob@example.com', '192.168.50.10', 'tcp/443', 'allow'),<br />
+        ('bob@example.com', '192.168.50.10', 'tcp/22', 'deny'),<br />
+        ('carol@example.com', '192.168.50.10', 'tcp/443', 'deny'),<br />
+        ('alice@example.com', '192.168.50.0/24', 'route', 'deny')<br />
+    }<br />
+    observed_tests = set()<br />
+    for item in matrix:<br />
+        if isinstance(item, dict):<br />
+            observed_tests.add((item.get('source'), item.get('destination'), item.get('service'), item.get('expected')))<br />
+    require(len(observed_tests) == 6, 'the matrix must contain six unique flow assertions')<br />
+    require(observed_tests == expected_tests, 'the six matrix outcomes must exactly match the scenario, including all required denials')<br />
+    deny_count = sum(1 for item in matrix if isinstance(item, dict) and item.get('expected') == 'deny')<br />
+    require(deny_count == 3, 'the test matrix must contain exactly three expected denials')</p>
+<p>if isinstance(rollout, dict):<br />
+    approvals = rollout.get('approvals_before_enable', [])<br />
+    require(isinstance(approvals, list), 'approvals_before_enable must be an array')<br />
+    if isinstance(approvals, list):<br />
+        normalized = {str(item).strip().lower() for item in approvals}<br />
+        require(normalized == {'device approval', 'route approval'}, 'approvals_before_enable must list exactly device approval and route approval')</p>
+<pre><code>phases = rollout.get('phases', [])
+require(isinstance(phases, list) and len(phases) &gt;= 3, 'rollout must contain at least three phases')
+if isinstance(phases, list):
+    for index, phase in enumerate(phases, start=1):
+        require(isinstance(phase, dict), f'rollout phase {index} must be an object')
+        if isinstance(phase, dict):
+            for key in ('name', 'owner', 'success_criteria', 'rollback_action'):
+                value = phase.get(key)
+                require(isinstance(value, str) and bool(value.strip()), f'rollout phase {index} requires a non-empty {key}')
+
+triggers = rollout.get('rollback_triggers', [])
+require(isinstance(triggers, list), 'rollback_triggers must be an array')
+if isinstance(triggers, list):
+    require(len(triggers) == 3, 'rollout must contain exactly three rollback triggers')
+    normalized_triggers = [str(item).strip() for item in triggers]
+    require(all(len(item) &gt;= 12 for item in normalized_triggers), 'each rollback trigger must be descriptive rather than a short label')
+    require(len(set(normalized_triggers)) == 3, 'all three rollback triggers must be unique')
+
+withdrawal = rollout.get('route_withdrawal', {})
+require(isinstance(withdrawal, dict), 'route_withdrawal must be an object')
+if isinstance(withdrawal, dict):
+    require(withdrawal.get('route') == '192.168.50.10/32', 'route_withdrawal.route must be 192.168.50.10/32')
+    require(withdrawal.get('owner') == 'group:admins', 'route withdrawal must be owned by group:admins')
+    procedure = withdrawal.get('procedure', '')
+    require(isinstance(procedure, str) and len(procedure.strip()) &gt;= 40, 'route withdrawal procedure must contain at least 40 characters')
+</code></pre>
+<p>if architecture is not None and matrix is not None and rollout is not None:<br />
+    serialized = json.dumps([architecture, matrix, rollout], sort_keys=True)<br />
+    require(serialized.count('192.168.50.0/24') == 1, '192.168.50.0/24 must occur exactly once across the three learner-authored JSON files')</p>
+<p>if errors:<br />
+    print('FAIL')<br />
+    for error in errors:<br />
+        print(f'- {error}')<br />
+    sys.exit(1)</p>
+<p>print('PASS: architecture, six tests, approvals, route scope, rollout, and rollback assertions are valid')</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>architecture.json contains learner-selected identity mappings, human groups, a router tag, one /32 advertised route, one /32 approved route, explicit device approval, exit_node_required set to the boolean false, five access intentions, and three written design rationales.</li>
+<li>test-matrix.json contains exactly six uniquely identified and unique flow tests: three expected allows and three expected denials.</li>
+<li>The rejected prefix 192.168.50.0/24 appears exactly once across the three learner-authored JSON files and appears only as the destination of the negative route-scope test.</li>
+<li>rollout.json contains both approval gates, at least three complete phases, exactly three distinct rollback triggers, and an administrator-owned route-withdrawal procedure.</li>
+<li>The checker exits successfully and prints: PASS: architecture, six tests, approvals, route scope, rollout, and rollback assertions are valid.</li>
+<li>A portable directory listing shows only the intended class files under /opt/lab-classroom/class68/.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run: python3 /opt/lab-classroom/class68/check_design.py. Confirm it re-runs every lab assertion and exits with status zero.</li>
+<li>[ ] Verify identities and groups: the checker must confirm three unique human email identities and the exact Alice-to-admins, Bob-to-operators, and Carol-to-contractors memberships.</li>
+<li>[ ] Verify tag ownership and enrollment: the checker must confirm that tag:homelab-router is owned only by group:admins and that device_approval_required is the boolean true.</li>
+<li>[ ] Verify exit-node scope: the checker must confirm that exit_node_required is the boolean false.</li>
+<li>[ ] Verify route scope: the checker must confirm that advertised_routes and approved_routes are each exactly [192.168.50.10/32].</li>
+<li>[ ] Verify access intent and rationale: the checker must confirm the five required host-level allow or deny intentions and at least 40 characters for each identity, route, and denial rationale.</li>
+<li>[ ] Verify the matrix: the checker must confirm exactly six non-empty unique IDs, six unique flow assertions, the complete required outcome set, and exactly three expected denials.</li>
+<li>[ ] Verify the broad-prefix sentinel: the checker must confirm that 192.168.50.0/24 occurs exactly once across architecture.json, test-matrix.json, and rollout.json.</li>
+<li>[ ] Verify rollout controls: the checker must confirm exactly the device approval and route approval gates, at least three complete phases, exactly three unique descriptive rollback triggers, and route withdrawal owned by group:admins for 192.168.50.10/32.</li>
+<li>[ ] Run the portable listing command: ls -la /opt/lab-classroom/class68/ and confirm the intended architecture.json, test-matrix.json, rollout.json, and check_design.py files are present.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The checker reports that a JSON file is invalid.</td>
+<td>A comma, quote, bracket, brace, or JSON boolean is malformed.</td>
+<td>Open the named file, inspect the reported line and column, and remember that JSON uses true and false without quotation marks.</td>
+</tr>
+<tr>
+<td>The checker says exit_node_required must be the boolean false.</td>
+<td>The value was written as the string "false", omitted, or set to true.</td>
+<td>Set the subnet-router field to the JSON boolean false without quotation marks.</td>
+</tr>
+<tr>
+<td>The checker reports more than one occurrence of 192.168.50.0/24.</td>
+<td>The rejected broad prefix was repeated in a rationale, route list, rollout note, or more than one test.</td>
+<td>Keep the broad prefix only in the single negative route-scope test. Refer to it generically as the broad prefix elsewhere in learner-authored files.</td>
+</tr>
+<tr>
+<td>The checker reports that six tests exist but the flow assertions are not unique.</td>
+<td>Two test IDs differ while their source, destination, service, and expected result are identical.</td>
+<td>Compare complete test tuples and replace the duplicate with the missing scenario assertion.</td>
+</tr>
+<tr>
+<td>The access intentions fail even though the test matrix passes.</td>
+<td>The architecture document and validation matrix describe different policies, or the architecture includes an extra broad permission.</td>
+<td>Align access_intent with the five required host-level relationships and keep the route-scope denial in the matrix.</td>
+</tr>
+<tr>
+<td>The approvals assertion fails.</td>
+<td>Device approval and route approval were treated as one control or extra approval labels were added.</td>
+<td>List exactly two separate values under approvals_before_enable: device approval and route approval.</td>
+</tr>
+<tr>
+<td>The rollback trigger assertion fails.</td>
+<td>There are not exactly three triggers, two are duplicates, or a trigger is only a short label.</td>
+<td>Write exactly three distinct, observable conditions describing when access or route availability must be withdrawn.</td>
+</tr>
+<tr>
+<td>The class directory cannot be created.</td>
+<td>The learner account lacks permission under /opt/lab-classroom/ or the prerequisite parent directory is missing.</td>
+<td>Ask the instructor to provision and assign the class68 directory. Do not redirect the lab to another path because the checker intentionally fixes the allowed workspace.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Advertise the smallest practical prefix. Because the scenario requires only one host, 192.168.50.10/32 is justified and the full private subnet is not.<br />
+Use groups for humans, tags for non-human infrastructure, device approval for enrollment, route approval for advertised reachability, and access policy for source-to-destination authorization.<br />
+Treat device approval and route approval as separate gates. Approving a router device should not silently approve every route it advertises.<br />
+Do not configure an exit node when the requirement is only access to a private host. General internet forwarding expands the role and impact of the router.<br />
+Keep tag ownership narrow. Only the administrator group may assign or own the subnet-router role in this design.<br />
+Represent denied behavior through absent permissions and negative tests. Do not create an unnecessarily broad allow with the expectation that another layer will correct it.<br />
+Review identity lifecycle, device ownership, key expiration behavior, route advertisements, and policy changes periodically.<br />
+Protect the subnet-router host as infrastructure: minimize installed services, apply operating-system updates, monitor availability, and restrict administrative ownership.<br />
+A successful design checker proves internal consistency, not live enforcement. A production rollout still requires administrative review and controlled testing against the current Tailscale policy model.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>lab_rollback</h4><p>Delete only the four class files from /opt/lab-classroom/class68/ using an editor or file manager, then remove the empty class68 directory if the instructor permits it. Do not alter any parent directory or live Tailscale state.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Delete only the four class files from /opt/lab-classroom/class68/ using an editor or file manager, then remove the empty class68 directory if the instructor …</div>
+ 
+</div></div><div class="cr-prose-block"><h4>production_concept</h4><p>Stop the rollout when any defined rollback trigger occurs.<br />
+Remove approval for the 192.168.50.10/32 route or stop advertising that route according to the reviewed operational procedure.<br />
+Confirm that route availability has disappeared for all test identities.<br />
+If device trust is in question, disable or remove the subnet-router device independently of route approval.<br />
+Restore the last reviewed access policy rather than improvising a broader emergency permission.<br />
+Record the trigger, affected identities, timestamps, observations, and recovery decision before retrying.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

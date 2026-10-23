@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=20260929e">
-<link rel="stylesheet" href="/classroom/classroom.css?v=20260924v">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
 </head>
 <body>
 
@@ -24,32 +24,28 @@
 
 <nav class="topnav">
  <div class="wrap">
- <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <a class="brand" href="/">Otaconskeep</a>
  <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
  <div class="navlinks">
  <a href="/">Home</a>
- <a href="/#ecosystem">Platform</a>
- <div class="navdrop">
- <a href="/#ecosystem">Products</a>
- <div class="navdrop-menu">
- <a href="/otacon/">Otacon Lite</a>
- <a href="/keeproute/">KeepRoute</a>
+ <a href="/otacon/">Otacon</a>
  <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
  <a href="/expansion/">Expansion</a>
  <a href="/ai9/">AI9</a>
- </div>
- </div>
- <a href="/classroom/" aria-current="page">Learn</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
  <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
  <a href="/about/">About</a>
- <a href="/news/">News</a>
- <a href="/donate/">Donate</a>
- <a href="/install/" class="discord">Get Otacon</a>
- </div></div>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
 </nav>
 <nav class="cr-subnav" aria-label="Classroom">
  <div class="wrap">
- <a href="/classroom/homelab/">Overview</a>
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
  <a href="/classroom/modules/">Modules</a>
  <a href="/classroom/methodology.html">Method</a>
  <a href="/classroom/syllabus.html">Syllabus</a>
@@ -70,6 +66,7 @@
  </section>
 </div>
 <div class="wrap">
+ <figure class="class-visual"><img src="/classroom/visuals/diagrams/28-docker-images-tags-registries-and-provenance.svg" alt="Class 28: Images, tags, registries, and provenance"><figcaption>Class 28 visual reference. Use it as the map, then prove it in the reading, lesson, and lab.</figcaption></figure>
  <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Module 8: Docker, Storage &amp; Permissions<br />
 <strong>Topic:</strong> 02: Docker Images, Tags, Registries, and Provenance<br />
 <strong>Activity type:</strong> Reading / reference (Learn)<br />
@@ -87,7 +84,14 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: this setting tells an operator what someone called an image, not exactly which content ran.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-prose-block"><p>An image is an immutable template assembled from content-addressed layers and configuration. A container adds a writable runtime layer and process state. A registry stores and distributes image manifests and blobs. A repository groups related images, while a tag is a mutable name inside that repository.</p><div class="cr-help">
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Core reading</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>An image is an immutable template assembled from content-addressed layers and configuration. A container adds a writable runtime layer and process state. A registry stores and distributes image manifests and blobs. A repository groups related images, while a tag is a mutable name inside that repository.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -136,7 +140,7 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Do not place registry credentials in image names, Dockerfiles, shell history, or lesson evidence.</div>
  
-</div></div></div><figure class="class-visual" data-visual="reading"><img src="/classroom/visuals/diagrams/28-docker-images-tags-registries-and-provenance.svg" alt="Diagram of Docker Images, Tags, Registries, and Provenance" width="1600" height="900"><figcaption>Reference architecture. Study this before the rest of the reading.</figcaption></figure><div class="cr-box cr-box-example"><div class="cr-box-head"><span class="cr-chip cr-chip-example">I do</span><h3>Worked example (study this)</h3></div><div class="cr-help">
+</div></div></div><div class="cr-box cr-box-example"><div class="cr-box-head"><span class="cr-chip cr-chip-example">I do</span><h3>Worked example (study this)</h3></div><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
@@ -150,18 +154,39 @@
  </div>
  <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: An operator records this setting, deploys it, and later recreates the container.</div>
  
-</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Image Supply Path</h3></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 1: Image Supply Path</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
 flowchart LR<br />
   S[Source] --&gt; B[Build]<br />
   B --&gt; M[Manifest + layers]<br />
   M --&gt; R[Registry]<br />
   R --&gt; P[Policy check]<br />
   P --&gt; H[Homelab host]</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
-<p>The trust decision spans the entire path; pulling successfully proves availability, not trust.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 2: Name Versus Identity</h3></div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
+<p>The trust decision spans the entire path; pulling successfully proves availability, not trust.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Visual 2: Name Versus Identity</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block cr-prose-code"><p>```mermaid<br />
 flowchart TD<br />
   T[Tag: app:1.4] --&gt;|can be reassigned| D1[Digest A]<br />
   T -. later .-&gt; D2[Digest B]<br />
-  P[app@sha256:Digest-A] --&gt;|fixed identity| D1</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-prose-block"><ul>
+  P[app@sha256:Digest-A] --&gt;|fixed identity| D1</p></div><div class="cr-prose-block cr-prose-code"><p>```</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security and Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
 <li>Treat registries and build pipelines as supply-chain trust boundaries.</li>
 <li>Never expose <code>/var/run/docker.sock</code> to an untrusted container.</li>
 <li>Prefer immutable digests for promoted deployments while preserving a human-readable tag in documentation.</li>
@@ -171,7 +196,7 @@ flowchart TD<br />
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
  </div>
- <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Treat registries and build pipelines as supply-chain trust boundaries.</div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Treat registries and build pipelines as supply-chain trust boundaries.</div>
  
 </div></div><div class="cr-prose-block"><p>Rollback removes only the labeled lab image after confirming no dependent container exists:</p><div class="cr-help">
  <div class="cr-actions">
@@ -183,7 +208,14 @@ flowchart TD<br />
 </div></div><div class="cr-prose-block cr-prose-code"><p>```bash<br />
 docker ps -a --filter ancestor=academy-c28:1.0<br />
 docker image rm academy-c28:1.0</p></div><div class="cr-prose-block cr-prose-code"><p>```</p>
-<p>Preserve <code>/opt/lab-classroom/class28/</code> until evidence is graded; remove it later only with an explicitly reviewed path.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-prose-block"><p>Open with two containers using the same tag but different digests. Animate the tag moving between fingerprints. Demonstrate the network-free build, inspect the image ID and labels, then close with the rule: tags communicate intent; digests preserve identity; provenance supports trust.</p><div class="cr-help">
+<p>Preserve <code>/opt/lab-classroom/class28/</code> until evidence is graded; remove it later only with an explicitly reviewed path.</p></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Video Narration Notes</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><p>Open with two containers using the same tag but different digests. Animate the tag moving between fingerprints. Demonstrate the network-free build, inspect the image ID and labels, then close with the rule: tags communicate intent; digests preserve identity; provenance supports trust.</p><div class="cr-help">
  <div class="cr-actions">
   <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
   
