@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-24T13:34:16Z</lastBuildDate>
 <item>
+<title>8 GB GPU, 262K context 3.5 BPW Qwen-Flash-Next Coder 70 T/s using llama.cpp</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xebdzl/8_gb_gpu_262k_context_35_bpw_qwenflashnext_coder/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xebdzl/8_gb_gpu_262k_context_35_bpw_qwenflashnext_coder/</guid>
+<pubDate>2026-10-24T15:21:50+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. The methodology Qwen-Flash-Next has n-gram, MOE packing above its weight but it&#x27;s still 6B active params. We exploit this by keeping most MOEs in RAM (Smallest MOEs go in VRAM for speedup) and n-gram on disk - ensure you put the model on your fastest SSD. 8 GB VRAM, 24 GB RAM cos]]></description>
+</item>
+<item>
+<title>llama.cpp b11856</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11856</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11856</guid>
+<pubDate>2026-10-24T15:10:27Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/664553e7007c199f.png" alt=""><p>Article · llama.cpp. tests : add speculative rejection draft sampling test ( #30213 ) tests : add speculative rejection draft sampling test This commit adds a test for speculative rejection sampling test that excercises the speculative rejection sampling mechanism in common/speculative.cpp. The motiv</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11854</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11854</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11854</guid>
@@ -12,11 +26,18 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e27fb46a94e610c5.png" alt=""><p>Article · llama.cpp. vulkan: ggml src1 precision support ( #30656 ) vulkan: update accumulator precision selection handle fp32 overflows through scaling handle overflows in copy-to-fp16 activations add missing cases simplify code add tests add ggml prec get helpers, use in Vulkan backend clean up com</p>]]></description>
 </item>
 <item>
+<title>capy-flash v0.7.4: where my two-GPU Qwen3.8 engine is now, what it isn&#x27;t for, and where it&#x27;s going</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xe9yyg/capyflash_v074_where_my_twogpu_qwen38_engine_is/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xe9yyg/capyflash_v074_where_my_twogpu_qwen38_engine_is/</guid>
+<pubDate>2026-10-24T14:23:16+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. It&#x27;s been a few releases since my last post, so here is where capy-flash is now. It&#x27;s my own engine for two models, Qwen3.8-27B and Qwen3.8-Flash-Next. It started as my ninfer-tp2 fork of NInfer, which added tensor parallel over PCIe, but at this point it&#x27;s an engine of its own a]]></description>
+</item>
+<item>
 <title>AbliteratedOutTheBox Strata Announcement</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xe8x9c/abliteratedoutthebox_strata_announcement/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xe8x9c/abliteratedoutthebox_strata_announcement/</guid>
 <pubDate>2026-10-24T13:38:58+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. I’ve been working on an inference-time abliteration engine as a fork of llama.cpp, and I’ve now ported the hook to Strata. It acts as an easy way to use abliterated models without huge amounts of vram or finetuning.]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. I’ve been working on an inference-time abliteration engine as a fork of llama.cpp, and I’ve now ported the hook to Strata. It acts as an easy way to use abliterated models without huge amounts of vram or finetuning. For the Strata Branch]]></description>
 </item>
 <item>
 <title>New blog post 🧪 Can you turn an old PC into a network of autonomous AI agents - without writing a single line of code? That&#x27;s what I set out</title>
@@ -75,18 +96,18 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d3739b69c6a3eb39.png" alt=""><p>Article · llama.cpp. HIP: add byte permute fallback when __builtin_amdgcn_perm is unavailable ( #30915 ) HIP: add byte permute fallback when __builtin_amdgcn_perm is unavailable amdgcnspirv rejects target-specific builtins unless they are guarded by __builtin_amdgcn_is_invocable , so 66 of 145 HIP fi</p>]]></description>
 </item>
 <item>
+<title>b11857: ggml : allow MUL_MAT_ID -1 index to skip the computation (#26631)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11857</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11857</guid>
+<pubDate>2026-10-24T10:15:36Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/485e04c8a3fd159f.png" alt=""><p>Article · llama.cpp. ggml : allow MUL_MAT_ID -1 index to skip the computation nits update vulkan code ggml-webgpu: ensure all threads reach workgroup barriers in mul_mat_id_vec (cherry picked from commit d8a4b9e ) fix cuda openvino exclude CUDA from this PR add TODO tag Co-authored-by: yomaytk yoshim</p>]]></description>
+</item>
+<item>
 <title>qwen3.8 27B on my 3090 basically tied Opus 5.5 on a Korean RAG benchmark, which I did not expect</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xe4v74/qwen38_27b_on_my_3090_basically_tied_opus_55_on_a/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xe4v74/qwen38_27b_on_my_3090_basically_tied_opus_55_on_a/</guid>
 <pubDate>2026-10-24T10:07:50+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. So I’ve been running local RAG over Korean PDFs for a while and my only evaluation was “yeah the answers look ok”. Finally sat down and used Allganize’s Korean RAG set since every question has a known answer and the page it’s on (300 questions, 64 PDFs, MIT). Fed every model the]]></description>
-</item>
-<item>
-<title>b11856: tests : add speculative rejection draft sampling test (#30213)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11856</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11856</guid>
-<pubDate>2026-10-24T09:47:49Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/664553e7007c199f.png" alt=""><p>Article · llama.cpp. tests : add speculative rejection draft sampling test This commit adds a test for speculative rejection sampling test that excercises the speculative rejection sampling mechanism in common/speculative.cpp. The motivation for this is have a test that verifies that the speculative</p>]]></description>
 </item>
 <item>
 <title>LiteLLM v1.106.3</title>
@@ -3978,7 +3999,7 @@
 <link>https://lemmy.world/post/53285873</link>
 <guid isPermaLink="true">https://lemmy.world/post/53285873</guid>
 <pubDate>Sun, 18 Oct 2026 12:14:20 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by curbstickle to selfhosted 387 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by curbstickle to selfhosted 388 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an]]></description>
 </item>
 <item>
 <title>Mellum2 model from JetBrains</title>
@@ -19752,6 +19773,13 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>2026-09-26T07:01:03-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -19946,6 +19974,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.37.3</guid>
 <pubDate>2026-09-25T20:30:45-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/10.png" alt=""><p>Article · ComfyUI. ComfyUI v0.37.3</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>2026-09-25T20:30:45-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
@@ -20820,7 +20855,7 @@
 <link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
 <guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
 <pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.1rc0</title>
@@ -20884,13 +20919,6 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
-</item>
-<item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
@@ -21292,13 +21320,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
 </item>
 <item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
-</item>
-<item>
 <title>LocalAI v4.8.2</title>
 <link>https://github.com/mudler/LocalAI/releases/tag/v4.8.2</link>
 <guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/v4.8.2</guid>
@@ -21576,7 +21597,7 @@
 <link>https://blawg.pages.dev/ollama-vs-llama-server</link>
 <guid isPermaLink="true">https://blawg.pages.dev/ollama-vs-llama-server</guid>
 <pubDate>Sun, 12 Jul 2026 12:22:17 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · llama.cpp. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>Rebuilding My Homelab with Compose, Ruby, IPv6, and No Kubernetes</title>
