@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03-image-version-pinning-and-controlled-updates: Lab · Classroom</title>
+<meta name="description" content="03-image-version-pinning-and-controlled-updates: Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/15-compose-ops/topics/03-image-version-pinning-and-controlled-updates/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M15 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M15 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 03-image-version-pinning-and-controlled-updates: Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Compose Operations &amp; IaC<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain why a mutable tag is unsuitable as the final deployment identity.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Comfort using a Linux shell and Python 3.</li>
+<li>Basic familiarity with containers, image tags, JSON, and SHA-256 digests.</li>
+<li>Permission to create and modify files under /opt/lab-classroom/class81/.</li>
+<li>Understanding that this lab uses a local registry model and does not pull or run a real container image.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>working_directory</h4><p>/opt/lab-classroom/class81/</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: /opt/lab-classroom/class81/</div>
+ 
+</div></div><div class="cr-lab-path"><h4>scope_rule</h4><p>Do not create, edit, move, or delete files outside /opt/lab-classroom/class81/ during this lab.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Do not create, edit, move, or delete files outside /opt/lab-classroom/class81/ during this lab.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>setup_command</h4><p>mkdir -p /opt/lab-classroom/class81/blobs &amp;&amp; cd /opt/lab-classroom/class81 &amp;&amp; python3 - &lt;&lt;'PY'<br />
+import json<br />
+from pathlib import Path<br />
+base = Path('/opt/lab-classroom/class81')<br />
+old = 'sha256:2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824'<br />
+candidate = 'sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'<br />
+empty = 'sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'<br />
+registry = {<br />
+  'repository': 'registry.lab/academy/demo',<br />
+  'channels': {'stable': 'index-v2', 'previous': 'index-v1'},<br />
+  'indexes': {<br />
+    'index-v1': {'manifests': [<br />
+      {'platform': {'os': 'linux', 'architecture': 'amd64'}, 'digest': old, 'blob': 'blobs/previous-amd64.manifest'}<br />
+    ]},<br />
+    'index-v2': {'manifests': [<br />
+      {'platform': {'os': 'linux', 'architecture': 'amd64'}, 'digest': candidate, 'blob': 'blobs/candidate-amd64.manifest'},<br />
+      {'platform': {'os': 'linux', 'architecture': 'arm64'}, 'digest': empty, 'blob': 'blobs/candidate-arm64.manifest'}<br />
+    ]}<br />
+  }<br />
+}<br />
+policy = {'allowed': [<br />
+  {'channel': 'stable', 'platform': 'linux/amd64', 'digest': candidate},<br />
+  {'channel': 'stable', 'platform': 'linux/amd64', 'digest': old}<br />
+]}<br />
+deployment = {<br />
+  'channel': 'stable',<br />
+  'platform': 'linux/amd64',<br />
+  'image': 'registry.lab/academy/demo@' + old<br />
+}<br />
+(base / 'blobs/previous-amd64.manifest').write_bytes(b'hello')<br />
+(base / 'blobs/candidate-amd64.manifest').write_bytes(b'abc')<br />
+(base / 'blobs/candidate-arm64.manifest').write_bytes(b'')<br />
+for name, value in [('registry.json', registry), ('policy.json', policy), ('deployment.json', deployment)]:<br />
+    (base / name).write_text(json.dumps(value, indent=2, sort_keys=True) + '\n', encoding='utf-8')<br />
+(base / 'audit.log').write_text('', encoding='utf-8')<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>update_program_command</h4><p>cat &gt; /opt/lab-classroom/class81/update.py &lt;&lt;'PY'<br />
+import argparse<br />
+import hashlib<br />
+import json<br />
+import os<br />
+import re<br />
+import shutil<br />
+from datetime import datetime, timezone<br />
+from pathlib import Path</p>
+<p>BASE = Path('/opt/lab-classroom/class81')<br />
+DIGEST_RE = re.compile(r'^sha256:[0-9a-f]{64}$')</p>
+<p>def load_json(name):<br />
+    with (BASE / name).open('r', encoding='utf-8') as handle:<br />
+        return json.load(handle)</p>
+<p>def digest_bytes(data):<br />
+    return 'sha256:' + hashlib.sha256(data).hexdigest()</p>
+<p>def image_digest(image):<br />
+    if '@' not in image:<br />
+        raise ValueError('deployment image is not digest pinned')<br />
+    value = image.rsplit('@', 1)[1]<br />
+    if not DIGEST_RE.fullmatch(value):<br />
+        raise ValueError('deployment image has an invalid digest')<br />
+    return value</p>
+<p>def append_audit(event):<br />
+    with (BASE / 'audit.log').open('a', encoding='utf-8') as handle:<br />
+        handle.write(json.dumps(event, sort_keys=True) + '\n')<br />
+        handle.flush()<br />
+        os.fsync(handle.fileno())</p>
+<p>def main():<br />
+    parser = argparse.ArgumentParser()<br />
+    parser.add_argument('--channel', required=True)<br />
+    parser.add_argument('--platform', required=True)<br />
+    parser.add_argument('--expected-digest', required=True)<br />
+    parser.add_argument('--dry-run', action='store_true')<br />
+    args = parser.parse_args()<br />
+    if not DIGEST_RE.fullmatch(args.expected_digest):<br />
+        raise SystemExit('REJECT: malformed expected digest')<br />
+    if args.platform.count('/') != 1:<br />
+        raise SystemExit('REJECT: platform must be os/architecture')<br />
+    wanted_os, wanted_arch = args.platform.split('/', 1)<br />
+    registry = load_json('registry.json')<br />
+    policy = load_json('policy.json')<br />
+    deployment = load_json('deployment.json')<br />
+    index_name = registry.get('channels', {}).get(args.channel)<br />
+    if index_name is None:<br />
+        raise SystemExit('REJECT: unknown channel')<br />
+    index = registry.get('indexes', {}).get(index_name)<br />
+    if not isinstance(index, dict):<br />
+        raise SystemExit('REJECT: channel does not resolve to an index')<br />
+    matches = [d for d in index.get('manifests', []) if d.get('platform') == {'os': wanted_os, 'architecture': wanted_arch}]<br />
+    if len(matches) != 1:<br />
+        raise SystemExit('REJECT: platform selection must produce exactly one manifest')<br />
+    descriptor = matches[0]<br />
+    selected_digest = descriptor.get('digest', '')<br />
+    if not DIGEST_RE.fullmatch(selected_digest):<br />
+        raise SystemExit('REJECT: selected descriptor digest is malformed')<br />
+    blob_path = (BASE / descriptor.get('blob', '')).resolve()<br />
+    if BASE.resolve() not in blob_path.parents:<br />
+        raise SystemExit('REJECT: blob path escapes lab directory')<br />
+    actual_digest = digest_bytes(blob_path.read_bytes())<br />
+    if actual_digest != selected_digest:<br />
+        raise SystemExit('REJECT: selected manifest bytes do not match the index descriptor')<br />
+    if selected_digest != args.expected_digest:<br />
+        raise SystemExit('REJECT: selected manifest does not match the out-of-band expected digest')<br />
+    approved = any(item == {'channel': args.channel, 'platform': args.platform, 'digest': selected_digest} for item in policy.get('allowed', []))<br />
+    if not approved:<br />
+        raise SystemExit('REJECT: selected channel, platform, and digest tuple is not locally approved')<br />
+    prior_digest = image_digest(deployment.get('image', ''))<br />
+    new_deployment = {<br />
+      'channel': args.channel,<br />
+      'platform': args.platform,<br />
+      'image': registry['repository'] + '@' + selected_digest<br />
+    }<br />
+    if args.dry_run:<br />
+        print(json.dumps({'action': 'dry-run', 'index': index_name, 'selected_platform_manifest': selected_digest, 'from_digest': prior_digest, 'to_digest': selected_digest}, sort_keys=True))<br />
+        return<br />
+    target = BASE / 'deployment.json'<br />
+    backup = BASE / 'deployment.backup.json'<br />
+    temporary = BASE / 'deployment.json.tmp'<br />
+    shutil.copy2(target, backup)<br />
+    temporary.write_text(json.dumps(new_deployment, indent=2, sort_keys=True) + '\n', encoding='utf-8')<br />
+    os.replace(temporary, target)<br />
+    append_audit({<br />
+      'action': 'update',<br />
+      'channel': args.channel,<br />
+      'platform': args.platform,<br />
+      'from_digest': prior_digest,<br />
+      'to_digest': selected_digest,<br />
+      'time': datetime.now(timezone.utc).isoformat()<br />
+    })<br />
+    print('PROMOTED ' + new_deployment['image'])</p>
+<p>if <strong>name</strong> == '<strong>main</strong>':<br />
+    main()<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>rollback_program_command</h4><p>cat &gt; /opt/lab-classroom/class81/rollback.py &lt;&lt;'PY'<br />
+import argparse<br />
+import json<br />
+import os<br />
+import re<br />
+import shutil<br />
+import time<br />
+from datetime import datetime, timezone<br />
+from pathlib import Path</p>
+<p>BASE = Path('/opt/lab-classroom/class81')<br />
+DIGEST_RE = re.compile(r'^sha256:[0-9a-f]{64}$')</p>
+<p>def load(path):<br />
+    with path.open('r', encoding='utf-8') as handle:<br />
+        return json.load(handle)</p>
+<p>def get_digest(document):<br />
+    image = document.get('image', '')<br />
+    if '@' not in image:<br />
+        raise SystemExit('REJECT: image is not digest pinned')<br />
+    digest = image.rsplit('@', 1)[1]<br />
+    if not DIGEST_RE.fullmatch(digest):<br />
+        raise SystemExit('REJECT: malformed image digest')<br />
+    return digest</p>
+<p>def append_audit(event):<br />
+    with (BASE / 'audit.log').open('a', encoding='utf-8') as handle:<br />
+        handle.write(json.dumps(event, sort_keys=True) + '\n')<br />
+        handle.flush()<br />
+        os.fsync(handle.fileno())</p>
+<p>def main():<br />
+    parser = argparse.ArgumentParser()<br />
+    parser.add_argument('--channel', required=True)<br />
+    parser.add_argument('--platform', required=True)<br />
+    parser.add_argument('--expected-digest', required=True)<br />
+    args = parser.parse_args()<br />
+    if not DIGEST_RE.fullmatch(args.expected_digest):<br />
+        raise SystemExit('REJECT: malformed expected rollback digest')<br />
+    target = BASE / 'deployment.json'<br />
+    backup = BASE / 'deployment.backup.json'<br />
+    if not backup.is_file():<br />
+        raise SystemExit('REJECT: retained backup is unavailable')<br />
+    current = load(target)<br />
+    prior = load(backup)<br />
+    current_digest = get_digest(current)<br />
+    restore_digest = get_digest(prior)<br />
+    if prior.get('channel') != args.channel or prior.get('platform') != args.platform:<br />
+        raise SystemExit('REJECT: backup channel or platform does not match rollback approval')<br />
+    if restore_digest != args.expected_digest:<br />
+        raise SystemExit('REJECT: backup digest does not match the out-of-band rollback digest')<br />
+    policy = load(BASE / 'policy.json')<br />
+    approved = any(item == {'channel': args.channel, 'platform': args.platform, 'digest': restore_digest} for item in policy.get('allowed', []))<br />
+    if not approved:<br />
+        raise SystemExit('REJECT: rollback tuple is not locally approved')<br />
+    failed_copy = BASE / ('deployment.failed.' + str(time.time_ns()) + '.json')<br />
+    shutil.copy2(target, failed_copy)<br />
+    temporary = BASE / 'deployment.rollback.tmp'<br />
+    shutil.copy2(backup, temporary)<br />
+    if get_digest(load(temporary)) != args.expected_digest:<br />
+        raise SystemExit('REJECT: copied rollback candidate failed validation')<br />
+    os.replace(temporary, target)<br />
+    restored = load(target)<br />
+    if get_digest(restored) != args.expected_digest:<br />
+        raise SystemExit('REJECT: restored deployment failed post-replace validation')<br />
+    append_audit({<br />
+      'action': 'rollback',<br />
+      'channel': args.channel,<br />
+      'platform': args.platform,<br />
+      'from_digest': current_digest,<br />
+      'to_digest': restore_digest,<br />
+      'failed_state_copy': failed_copy.name,<br />
+      'time': datetime.now(timezone.utc).isoformat()<br />
+    })<br />
+    print('RESTORED ' + restored['image'])</p>
+<p>if <strong>name</strong> == '<strong>main</strong>':<br />
+    main()<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Create the isolated registry model and programs</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the isolated registry model and programs</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>Run the setup_command.<br />
+Run the update_program_command.<br />
+Run the rollback_program_command.<br />
+cd /opt/lab-classroom/class81</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Run the setup_command.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Inspect the index and platform descriptors</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Inspect the index and platform descriptors</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>python3 -m json.tool /opt/lab-classroom/class81/registry.json<br />
+python3 -m json.tool /opt/lab-classroom/class81/deployment.json</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: python3 -m json.tool /opt/lab-classroom/class81/registry.json
+python3 -m json.tool /opt/lab-classroom/class81/deployment.json</div>
+ 
+</div></div><div class="cr-lab-path"><h4>observation</h4><p>stable resolves to index-v2. That index points separately to linux/amd64 and linux/arm64 manifests. The current deployment is pinned to the previous linux/amd64 digest rather than to stable.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: stable resolves to index-v2.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Verify the published golden vectors independently</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Verify the published golden vectors independently</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class81 &amp;&amp; test "$(sha256sum blobs/previous-amd64.manifest | awk '{print $1}')" = "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"<br />
+cd /opt/lab-classroom/class81 &amp;&amp; test "$(sha256sum blobs/candidate-amd64.manifest | awk '{print $1}')" = "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"<br />
+cd /opt/lab-classroom/class81 &amp;&amp; test "$(sha256sum blobs/candidate-arm64.manifest | awk '{print $1}')" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class81 &amp;&amp; test &quot;$(sha256sum blobs/previous-amd64.manifest | awk &#x27;{print $1}&#x27;)&quot; = &quot;2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e7304…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Prove dry-run does not mutate deployment or audit state</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Prove dry-run does not mutate deployment or audit state</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class81 &amp;&amp; cp deployment.json deployment.before-dry-run.json &amp;&amp; cp audit.log audit.before-dry-run.log<br />
+cd /opt/lab-classroom/class81 &amp;&amp; python3 update.py --channel stable --platform linux/amd64 --expected-digest sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad --dry-run<br />
+cd /opt/lab-classroom/class81 &amp;&amp; cmp deployment.json deployment.before-dry-run.json &amp;&amp; cmp audit.log audit.before-dry-run.log &amp;&amp; test ! -e deployment.backup.json</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Prove a simultaneous catalog, content, and policy substitution is rejected</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Prove a simultaneous catalog, content, and policy substitution is rejected</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class81 &amp;&amp; cp registry.json registry.before-tamper.json &amp;&amp; cp policy.json policy.before-tamper.json &amp;&amp; cp blobs/candidate-amd64.manifest candidate.before-tamper.manifest &amp;&amp; cp deployment.json deployment.before-rejection.json &amp;&amp; cp audit.log audit.before-rejection.log<br />
+cd /opt/lab-classroom/class81 &amp;&amp; python3 - &lt;&lt;'PY'<br />
+import json<br />
+from pathlib import Path<br />
+base = Path('/opt/lab-classroom/class81')<br />
+old = 'sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'<br />
+new = 'sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'<br />
+(base / 'blobs/candidate-amd64.manifest').write_bytes(b'test')<br />
+for name in ('registry.json', 'policy.json'):<br />
+    path = base / name<br />
+    path.write_text(path.read_text(encoding='utf-8').replace(old, new), encoding='utf-8')<br />
+PY<br />
+cd /opt/lab-classroom/class81 &amp;&amp; if python3 update.py --channel stable --platform linux/amd64 --expected-digest sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad; then echo 'ERROR: substitution was accepted'; exit 1; else echo 'Expected rejection observed'; fi<br />
+cd /opt/lab-classroom/class81 &amp;&amp; cmp deployment.json deployment.before-rejection.json &amp;&amp; cmp audit.log audit.before-rejection.log &amp;&amp; test ! -e deployment.backup.json<br />
+cd /opt/lab-classroom/class81 &amp;&amp; cp registry.before-tamper.json registry.json &amp;&amp; cp policy.before-tamper.json policy.json &amp;&amp; cp candidate.before-tamper.manifest blobs/candidate-amd64.manifest</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>observation</h4><p>The substituted bytes and descriptor are internally consistent, and local policy was changed to approve them. Promotion still fails because the selected digest differs from the independently supplied expected digest.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The substituted bytes and descriptor are internally consistent, and local policy was changed to approve them.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>name</h4><p>Perform the controlled update</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Perform the controlled update</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class81 &amp;&amp; python3 update.py --channel stable --platform linux/amd64 --expected-digest sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad<br />
+cd /opt/lab-classroom/class81 &amp;&amp; python3 -m json.tool deployment.json<br />
+cd /opt/lab-classroom/class81 &amp;&amp; python3 -m json.tool deployment.backup.json<br />
+cd /opt/lab-classroom/class81 &amp;&amp; cat audit.log</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The stable channel resolves to index-v2, and linux/amd64 selection yields sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad rather than the linux/arm64 digest.</li>
+<li>The deployed image after promotion is registry.lab/academy/demo@sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad.</li>
+<li>The dry-run prints the selected index and digest transition but leaves deployment.json, audit.log, and backup state unchanged.</li>
+<li>A coordinated substitution of the candidate blob, descriptor digest, and policy approval is rejected because it differs from the out-of-band expected digest.</li>
+<li>The rejected update leaves deployment.json and audit.log byte-for-byte unchanged and creates no deployment.backup.json.</li>
+<li>A successful update retains deployment.backup.json containing the prior hello digest.</li>
+<li>The successful update audit event links from_digest sha256:2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824 to to_digest sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run: cd /opt/lab-classroom/class81 &amp;&amp; test "$(sha256sum blobs/previous-amd64.manifest | awk '{print $1}')" = "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824". This compares against the published golden digest for the exact bytes hello.</li>
+<li>[ ] Run: cd /opt/lab-classroom/class81 &amp;&amp; test "$(sha256sum blobs/candidate-amd64.manifest | awk '{print $1}')" = "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad". This compares against the published golden digest for the exact bytes abc.</li>
+<li>[ ] Run: cd /opt/lab-classroom/class81 &amp;&amp; cmp deployment.json deployment.before-dry-run.json &amp;&amp; cmp audit.log audit.before-dry-run.log. Both comparisons must succeed, proving dry-run left state unchanged.</li>
+<li>[ ] Run after the intentional rejection and before promotion: cd /opt/lab-classroom/class81 &amp;&amp; cmp deployment.json deployment.before-rejection.json &amp;&amp; cmp audit.log audit.before-rejection.log. Both comparisons must succeed, proving rejection left state unchanged.</li>
+<li>[ ] Run after promotion: cd /opt/lab-classroom/class81 &amp;&amp; python3 - &lt;&lt;'PY'<br />
+import json<br />
+from pathlib import Path<br />
+base = Path('/opt/lab-classroom/class81')<br />
+old = 'sha256:2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824'<br />
+new = 'sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'<br />
+deployment = json.loads((base / 'deployment.json').read_text())<br />
+backup = json.loads((base / 'deployment.backup.json').read_text())<br />
+events = [json.loads(line) for line in (base / 'audit.log').read_text().splitlines() if line]<br />
+assert deployment == {'channel': 'stable', 'platform': 'linux/amd64', 'image': 'registry.lab/academy/demo@' + new}<br />
+assert backup == {'channel': 'stable', 'platform': 'linux/amd64', 'image': 'registry.lab/academy/demo@' + old}<br />
+updates = [event for event in events if event.get('action') == 'update']<br />
+assert len(updates) == 1<br />
+assert updates[0]['from_digest'] == old<br />
+assert updates[0]['to_digest'] == new<br />
+assert updates[0]['channel'] == 'stable'<br />
+assert updates[0]['platform'] == 'linux/amd64'<br />
+print('deployment, retained backup, and audit linkage verified')<br />
+PY</li>
+<li>[ ] Run: cd /opt/lab-classroom/class81 &amp;&amp; python3 - &lt;&lt;'PY'<br />
+import json<br />
+from pathlib import Path<br />
+r = json.loads(Path('registry.json').read_text())<br />
+i = r['indexes'][r['channels']['stable']]<br />
+selected = [d for d in i['manifests'] if d['platform'] == {'os': 'linux', 'architecture': 'amd64'}]<br />
+assert len(selected) == 1<br />
+assert selected[0]['digest'] == 'sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'<br />
+assert r['repository'] + '@' + selected[0]['digest'] == json.loads(Path('deployment.json').read_text())['image']<br />
+print('index selection and manifest pin verified')<br />
+PY</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The golden digest test fails for candidate-amd64.manifest.</td>
+<td>The file contains a newline, different capitalization, or bytes other than the exact three-byte sequence abc.</td>
+<td>Run the setup command again or use Python to write b'abc' exactly to /opt/lab-classroom/class81/blobs/candidate-amd64.manifest.</td>
+</tr>
+<tr>
+<td>update.py reports that the selected manifest bytes do not match the index descriptor.</td>
+<td>A blob or its descriptor was changed without restoring the original test files.</td>
+<td>Copy registry.before-tamper.json to registry.json and candidate.before-tamper.manifest to blobs/candidate-amd64.manifest, then rerun the golden digest checks.</td>
+</tr>
+<tr>
+<td>update.py reports that the selected manifest does not match the out-of-band expected digest.</td>
+<td>The command supplied a digest for another release or platform, or the catalog was intentionally substituted.</td>
+<td>Do not weaken the check. Confirm the reviewed release digest and requested platform, restore the intended catalog for the lab, and rerun with the literal approved digest.</td>
+</tr>
+<tr>
+<td>The platform selection does not produce exactly one manifest.</td>
+<td>The requested platform is absent or the index contains duplicate descriptors for the same operating system and architecture.</td>
+<td>Inspect registry.json and require one unambiguous descriptor for the requested platform. Do not silently select the first duplicate.</td>
+</tr>
+<tr>
+<td>The rejection test unexpectedly creates deployment.backup.json.</td>
+<td>The update program was modified so validation occurs after mutation, or a backup from an earlier successful update already exists.</td>
+<td>Recreate the lab from the supplied setup and update program before the rejection test. Confirm every validation occurs before the backup and replacement operations.</td>
+</tr>
+<tr>
+<td>Rollback reports that the retained backup is unavailable.</td>
+<td>No successful update has occurred or the backup was manually moved.</td>
+<td>Complete the controlled update first. Rollback must fail closed when the expected retained backup is absent.</td>
+</tr>
+<tr>
+<td>An audit assertion reports more than one update event.</td>
+<td>The successful update was executed multiple times without recreating the lab.</td>
+<td>Inspect audit.log to understand the history. For the exact lesson assertion, rerun setup to begin with an empty audit log and perform one successful update.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>controls_demonstrated</h4><p>Deployment by immutable repository@sha256 reference instead of a mutable channel or tag.<br />
+Explicit index-to-platform-manifest resolution with rejection of missing or ambiguous platform matches.<br />
+Hash verification of selected manifest bytes against the selected index descriptor.<br />
+Required out-of-band expected channel, platform, and digest.<br />
+Exact local policy matching of the channel, platform, and selected manifest digest tuple.<br />
+Validation before mutation, atomic deployment replacement, retained backup state, and digest-linked audit events.<br />
+Independent golden values for known byte sequences and explicit unchanged-state assertions.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>fail_closed_behavior</h4><p>The update rejects an unknown channel.<br />
+The update rejects a missing, malformed, or ambiguous platform selection.<br />
+The update rejects malformed digests and blob paths that escape the lab directory.<br />
+The update rejects when selected bytes disagree with the index descriptor.<br />
+The update rejects when the selected manifest differs from the out-of-band expected digest.<br />
+The update rejects when the exact channel, platform, and digest tuple is absent from local policy.<br />
+Rollback rejects a missing backup, an unpinned image, a tuple mismatch, an out-of-band digest mismatch, or a locally unapproved restoration.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>limitations</h4><p>A self-consistent catalog digest is not publisher trust. An attacker controlling both content and its catalog digest can produce a valid hash relationship.<br />
+A self-consistent catalog hash is not a digital signature, does not identify the publisher, does not prove build provenance, and does not by itself enforce an approved digest.<br />
+The out-of-band expected digest detects substitutions that change the selected digest while the approved invocation remains trustworthy. It cannot detect malicious replacement of content with different bytes having the same SHA-256 digest, compromise of the approval source, or an operator intentionally supplying an attacker-approved digest.<br />
+The local policy check detects tuples absent from policy, but it cannot provide independent approval if policy.json and the invoking authority are both compromised.<br />
+This lab does not verify registry transport security, signatures, attestations, transparency logs, vulnerability status, image configuration, runtime behavior, or the authenticity of update.py itself.<br />
+The miniature manifest blobs are SHA-256 teaching vectors rather than runnable OCI JSON manifests. The index-selection and digest-pinning logic model the identity decisions without claiming to implement a complete registry client.<br />
+Production systems should combine digest pinning with protected change control, authenticated registries, signature or attestation verification, least privilege, monitored audit storage, and tested recovery procedures.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>precondition</h4><p>Complete the successful controlled update so deployment.json contains the candidate digest and deployment.backup.json contains the previous approved digest.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>command</h4><p>cd /opt/lab-classroom/class81 &amp;&amp; python3 rollback.py --channel stable --platform linux/amd64 --expected-digest sha256:2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class81 &amp;&amp; python3 rollback.py --channel stable --platform linux/amd64 --expected-digest sha256:2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5…</div>
+ 
+</div></div><div class="cr-prose-block"><h4>verification_command</h4><p>cd /opt/lab-classroom/class81 &amp;&amp; python3 - &lt;&lt;'PY'<br />
+import json<br />
+from pathlib import Path<br />
+base = Path('/opt/lab-classroom/class81')<br />
+old = 'sha256:2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824'<br />
+new = 'sha256:ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'<br />
+deployment = json.loads((base / 'deployment.json').read_text())<br />
+backup = json.loads((base / 'deployment.backup.json').read_text())<br />
+failed = list(base.glob('deployment.failed.*.json'))<br />
+events = [json.loads(line) for line in (base / 'audit.log').read_text().splitlines() if line]<br />
+rollbacks = [event for event in events if event.get('action') == 'rollback']<br />
+assert deployment['image'] == 'registry.lab/academy/demo@' + old<br />
+assert backup['image'] == 'registry.lab/academy/demo@' + old<br />
+assert failed<br />
+assert any(json.loads(path.read_text())['image'] == 'registry.lab/academy/demo@' + new for path in failed)<br />
+assert len(rollbacks) == 1<br />
+assert rollbacks[0]['from_digest'] == new<br />
+assert rollbacks[0]['to_digest'] == old<br />
+assert (base / rollbacks[0]['failed_state_copy']).is_file()<br />
+print('rollback, retained backup, failed-state evidence, and audit linkage verified')<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Make a safety copy first so a mistake does not erase your work.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>behavior</h4><p>The currently deployed candidate document is copied to a timestamped deployment.failed file before restoration.<br />
+The backup's channel, platform, pin format, out-of-band expected digest, and local approval are validated before restoration.<br />
+The backup is copied to a temporary restoration file rather than moved, so deployment.backup.json remains available.<br />
+The temporary copy is validated before atomic replacement, and deployment.json is validated again after replacement.<br />
+The rollback audit event is appended only after the restored deployment has passed post-replacement validation.<br />
+The rollback audit event links the failed candidate digest to the restored prior digest.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Pause for a human yes/no before the automation changes anything important.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

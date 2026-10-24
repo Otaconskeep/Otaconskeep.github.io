@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02-reusable-docker-compose-stack-patterns: Lab · Classroom</title>
+<meta name="description" content="02-reusable-docker-compose-stack-patterns: Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/15-compose-ops/topics/02-reusable-docker-compose-stack-patterns/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M15 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M15 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 02-reusable-docker-compose-stack-patterns: Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Compose Operations &amp; IaC<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Create a reusable Compose stack with extension fields and YAML anchors.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Comfort using a Linux shell and editing YAML files</li>
+<li>Docker Engine with the Docker Compose v2 plugin installed</li>
+<li>Docker Compose v2.24.4 or newer for the !override YAML tag</li>
+<li>Python 3 for local assertions against rendered JSON</li>
+<li>Write access to /opt/lab-classroom/class80/</li>
+<li>Basic familiarity with services, images, ports, bind mounts, and environment variables</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>scope_rule</h4><p>Every file created or changed by these steps is under /opt/lab-classroom/class80/. Do not run docker compose up, start, create, run, or pull during this static lesson.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Confirm tool compatibility and create the isolated workspace</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Confirm tool compatibility and create the isolated workspace</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>docker compose version<br />
+python3 --version<br />
+mkdir -p /opt/lab-classroom/class80/stack/site /opt/lab-classroom/class80/stack/site-blue /opt/lab-classroom/class80/stack/shared<br />
+cd /opt/lab-classroom/class80/stack</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>Confirm that Docker Compose is v2.24.4 or newer because the production overlay uses !override. All subsequent file mutations remain inside the class workspace.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create harmless bind-mount content</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create harmless bind-mount content</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cd /opt/lab-classroom/class80/stack<br />
+printf '%s\n' 'class80 base site' &gt; site/index.html<br />
+printf '%s\n' 'class80 blue site' &gt; site-blue/index.html<br />
+printf '%s\n' 'shared read-only content' &gt; shared/readme.txt</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class80/stack
+printf &#x27;%s\n&#x27; &#x27;class80 base site&#x27; &gt; site/index.html
+printf &#x27;%s\n&#x27; &#x27;class80 blue site&#x27; &gt; site-blue/index.html
+printf &#x27;%s\n…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The files allow Compose to resolve real bind-mount paths. They are not served because the lab never starts a container.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The files allow Compose to resolve real bind-mount paths.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create interpolation and runtime environment files</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create interpolation and runtime environment files</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cd /opt/lab-classroom/class80/stack<br />
+cat &gt; .env &lt;&lt;'EOF'<br />
+WEB_PORT=8080<br />
+APP_ENV=development<br />
+LOG_LEVEL=debug<br />
+EOF<br />
+cat &gt; .env.prod &lt;&lt;'EOF'<br />
+PROD_WEB_PORT=8181<br />
+APP_ENV=production<br />
+LOG_LEVEL=info<br />
+EOF<br />
+cat &gt; .env.runtime &lt;&lt;'EOF'<br />
+RUNTIME_BANNER=loaded-from-service-env-file<br />
+EOF</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class80/stack
+cat &gt; .env &lt;&lt;&#x27;EOF&#x27;
+WEB_PORT=8080
+APP_ENV=development
+LOG_LEVEL=debug
+EOF
+cat &gt; .env.prod &lt;&lt;&#x27;EOF&#x27;
+PROD_WEB_PORT=8181
+APP_E…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>.env and .env.prod participate in Compose interpolation. The service-level .env.runtime is represented in the model as container environment input and does not provide WEB_PORT or PROD_WEB_PORT to Compose interpolation.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: .env and .env.prod participate in Compose interpolation.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the reusable base stack</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the reusable base stack</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cd /opt/lab-classroom/class80/stack<br />
+cat &gt; compose.yaml &lt;&lt;'EOF'<br />
+name: class80</p>
+<p>x-service-defaults: &amp;service-defaults<br />
+  restart: unless-stopped<br />
+  networks:<br />
+    - frontend<br />
+  logging:<br />
+    driver: json-file<br />
+    options:<br />
+      max-size: "10m"<br />
+      max-file: "3"</p>
+<p>services:<br />
+  web:<br />
+    &lt;&lt;: *service-defaults<br />
+    image: nginx:1.27-alpine<br />
+    env_file:<br />
+      - .env.runtime<br />
+    environment:<br />
+      APP_ENV: "${APP_ENV:-development}"<br />
+      LOG_LEVEL: "${LOG_LEVEL:-info}"<br />
+    ports:<br />
+      - target: 80<br />
+        published: "${WEB_PORT:-8080}"<br />
+        host_ip: 127.0.0.1<br />
+        protocol: tcp<br />
+    volumes:<br />
+      - type: bind<br />
+        source: ./site<br />
+        target: /usr/share/nginx/html<br />
+        read_only: true<br />
+    labels:<br />
+      academy.class: "80"<br />
+      academy.role: web</p>
+<p>worker:<br />
+    &lt;&lt;: *service-defaults<br />
+    image: busybox:1.36<br />
+    profiles:<br />
+      - ops<br />
+    command:<br />
+      - sh<br />
+      - -c<br />
+      - while true; do sleep 3600; done<br />
+    environment:<br />
+      APP_ENV: "${APP_ENV:-development}"<br />
+    labels:<br />
+      academy.class: "80"<br />
+      academy.role: worker</p>
+<p>networks:<br />
+  frontend:<br />
+    name: class80_frontend<br />
+EOF</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The x-service-defaults extension and YAML anchor centralize restart, network, and logging policy. The worker remains in the application model but is operationally gated by the ops profile.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> YAML is the indented text file that describes your services. Spaces matter.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create an explicit production replacement overlay</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create an explicit production replacement overlay</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cd /opt/lab-classroom/class80/stack<br />
+cat &gt; compose.prod.yaml &lt;&lt;'EOF'<br />
+services:<br />
+  web:<br />
+    environment:<br />
+      APP_ENV: "${APP_ENV:-production}"<br />
+    ports: !override<br />
+      - target: 80<br />
+        published: "${PROD_WEB_PORT:-8181}"<br />
+        host_ip: 127.0.0.1<br />
+        protocol: tcp<br />
+EOF</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The !override tag replaces the complete inherited port sequence. The rendered production model should contain the loopback port published as 8181 and should not retain 8080.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>6</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 6</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create a mount merge experiment</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create a mount merge experiment</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cd /opt/lab-classroom/class80/stack<br />
+cat &gt; compose.mounts.yaml &lt;&lt;'EOF'<br />
+services:<br />
+  web:<br />
+    volumes:<br />
+      - type: bind<br />
+        source: ./site-blue<br />
+        target: /usr/share/nginx/html<br />
+        read_only: true<br />
+      - type: bind<br />
+        source: ./shared<br />
+        target: /srv/shared<br />
+        read_only: true<br />
+EOF</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> YAML is the indented text file that describes your services. Spaces matter.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The first mount has the same container target as the base mount, so it represents the same unique resource and changes its source to site-blue. The second mount has a new target and is appended. Rendering the merged model makes both outcomes observable.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The first mount has the same container target as the base mount, so it represents the same unique resource and changes its source to site-blue.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>7</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 7</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Render normalized models without starting services</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Render normalized models without starting services</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cd /opt/lab-classroom/class80/stack<br />
+docker compose -f compose.yaml config --format json &gt; rendered.base.json<br />
+docker compose --env-file .env.prod -f compose.yaml -f compose.prod.yaml config --format json &gt; rendered.prod.json<br />
+docker compose -f compose.yaml -f compose.mounts.yaml config --format json &gt; rendered.mounts.json<br />
+docker compose -f compose.yaml config --services &gt; services.default.txt<br />
+docker compose --profile ops -f compose.yaml config --services &gt; services.ops.txt</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Compose is the recipe file that starts and stops your app group together.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The full JSON render includes the worker definition. The default --services selection excludes worker because its profile is inactive, while the profile-enabled selection includes it.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The full JSON render includes the worker definition.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>8</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 8</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Inspect canonical long-form port semantics</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cd /opt/lab-classroom/class80/stack<br />
+python3 - &lt;&lt;'PY'<br />
+import json<br />
+for filename in ('rendered.base.json', 'rendered.prod.json'):<br />
+    with open(filename, encoding='utf-8') as handle:<br />
+        model = json.load(handle)<br />
+    print(filename)<br />
+    for port in model['services']['web']['ports']:<br />
+        print({<br />
+            'host_ip': port.get('host_ip'),<br />
+            'published': str(port.get('published')),<br />
+            'target': int(port.get('target')),<br />
+            'protocol': port.get('protocol', 'tcp')<br />
+        })<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>This verifies semantic fields instead of looking for short YAML strings. Normalization is allowed to change representation while preserving port meaning.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A port is the door number you use in the browser to open the app.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>9</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 9</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create automated model assertions</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create automated model assertions</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cd /opt/lab-classroom/class80/stack<br />
+cat &gt; inspect_config.py &lt;&lt;'PY'<br />
+import json<br />
+from pathlib import Path</p>
+<p>ROOT = Path('/opt/lab-classroom/class80/stack')</p>
+<p>def load(name):<br />
+    with (ROOT / name).open(encoding='utf-8') as handle:<br />
+        return json.load(handle)</p>
+<p>def service_lines(name):<br />
+    return {<br />
+        line.strip()<br />
+        for line in (ROOT / name).read_text(encoding='utf-8').splitlines()<br />
+        if line.strip()<br />
+    }</p>
+<p>def normalized_ports(model):<br />
+    result = set()<br />
+    for port in model['services']['web'].get('ports', []):<br />
+        result.add((<br />
+            str(port.get('host_ip')),<br />
+            str(port.get('published')),<br />
+            int(port.get('target')),<br />
+            str(port.get('protocol', 'tcp')),<br />
+        ))<br />
+    return result</p>
+<p>def volume_by_target(model):<br />
+    return {<br />
+        volume['target']: volume<br />
+        for volume in model['services']['web'].get('volumes', [])<br />
+    }</p>
+<p>base = load('rendered.base.json')<br />
+prod = load('rendered.prod.json')<br />
+mounts = load('rendered.mounts.json')</p>
+<p>assert set(base['services']) == {'web', 'worker'}, base['services'].keys()<br />
+assert base['services']['worker']['profiles'] == ['ops']<br />
+assert service_lines('services.default.txt') == {'web'}<br />
+assert service_lines('services.ops.txt') == {'web', 'worker'}</p>
+<p>assert normalized_ports(base) == {('127.0.0.1', '8080', 80, 'tcp')}<br />
+assert normalized_ports(prod) == {('127.0.0.1', '8181', 80, 'tcp')}<br />
+assert prod['services']['web']['environment']['APP_ENV'] == 'production'</p>
+<p>base_volumes = volume_by_target(base)<br />
+merged_volumes = volume_by_target(mounts)<br />
+assert set(base_volumes) == {'/usr/share/nginx/html'}<br />
+assert set(merged_volumes) == {'/usr/share/nginx/html', '/srv/shared'}<br />
+assert str(base_volumes['/usr/share/nginx/html']['source']).endswith('/site')<br />
+assert str(merged_volumes['/usr/share/nginx/html']['source']).endswith('/site-blue')<br />
+assert str(merged_volumes['/srv/shared']['source']).endswith('/shared')<br />
+assert merged_volumes['/usr/share/nginx/html'].get('read_only') is True<br />
+assert merged_volumes['/srv/shared'].get('read_only') is True</p>
+<p>print('PASS: base model contains web and profile-gated worker')<br />
+print('PASS: default service selection is web only')<br />
+print('PASS: ops service selection contains web and worker')<br />
+print('PASS: base port is 127.0.0.1:8080 -&gt; 80/tcp')<br />
+print('PASS: production !override leaves only 127.0.0.1:8181 -&gt; 80/tcp')<br />
+print('PASS: same-target mount changed to site-blue and new-target mount was appended')<br />
+PY<br />
+python3 inspect_config.py</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The assertions validate model inclusion separately from profile-aware service selection. They also validate long-form ports and directly demonstrate same-target replacement versus new-target append behavior for mounts.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The assertions validate model inclusion separately from profile-aware service selection.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>10</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 10</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Review the effective differences</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Review the effective differences</div>
+ 
+</div></div><div class="cr-lab-path"><h4>command</h4><p>cd /opt/lab-classroom/class80/stack<br />
+python3 - &lt;&lt;'PY'<br />
+import json<br />
+from pathlib import Path<br />
+root = Path('/opt/lab-classroom/class80/stack')<br />
+for name in ('rendered.base.json', 'rendered.prod.json', 'rendered.mounts.json'):<br />
+    model = json.loads((root / name).read_text(encoding='utf-8'))<br />
+    web = model['services']['web']<br />
+    print(f'[{name}]')<br />
+    print('services:', ', '.join(sorted(model['services'])))<br />
+    print('ports:', web.get('ports', []))<br />
+    print('volumes:', web.get('volumes', []))<br />
+    print('environment:', web.get('environment', {}))<br />
+PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class80/stack
+python3 - &lt;&lt;&#x27;PY&#x27;
+import json
+from pathlib import Path
+root = Path(&#x27;/opt/lab-classroom/class80/stack&#x27;)
+for name in (&#x27;rende…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>explanation</h4><p>The final review shows that reuse and overlays produce small, explainable changes in the effective model.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The final review shows that reuse and overlays produce small, explainable changes in the effective model.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>rendered.base.json contains both web and worker because the full Compose model retains profile-gated service definitions.</li>
+<li>services.default.txt contains only web because the ops profile is not enabled for the --services query.</li>
+<li>services.ops.txt contains web and worker because the ops profile is enabled.</li>
+<li>The normalized base web port has host_ip 127.0.0.1, published 8080, target 80, and protocol tcp.</li>
+<li>The normalized production web port has host_ip 127.0.0.1, published 8181, target 80, and protocol tcp.</li>
+<li>The production port list contains only the 8181 mapping because !override replaces the base sequence.</li>
+<li>The production web environment contains APP_ENV set to production.</li>
+<li>The base model mounts site at /usr/share/nginx/html.</li>
+<li>The mount experiment changes the source for /usr/share/nginx/html to site-blue and appends shared at /srv/shared.</li>
+<li>inspect_config.py prints six PASS lines and exits successfully.</li>
+<li>No container, network, or image pull is created by the prescribed lab steps.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run: cd /opt/lab-classroom/class80/stack &amp;&amp; docker compose -f compose.yaml config --quiet. Expected: exit status 0 with no validation error.</li>
+<li>[ ] Run: cd /opt/lab-classroom/class80/stack &amp;&amp; docker compose --env-file .env.prod -f compose.yaml -f compose.prod.yaml config --quiet. Expected: exit status 0.</li>
+<li>[ ] Run: cd /opt/lab-classroom/class80/stack &amp;&amp; docker compose -f compose.yaml -f compose.mounts.yaml config --quiet. Expected: exit status 0.</li>
+<li>[ ] Run: cd /opt/lab-classroom/class80/stack &amp;&amp; python3 inspect_config.py. Expected: all six PASS messages and exit status 0.</li>
+<li>[ ] Run: cd /opt/lab-classroom/class80/stack &amp;&amp; cat services.default.txt. Expected: web only; worker must not appear because ops is inactive.</li>
+<li>[ ] Run: cd /opt/lab-classroom/class80/stack &amp;&amp; sort services.ops.txt. Expected: one line for web and one line for worker.</li>
+<li>[ ] Inspect rendered.base.json. Expected: services contains both web and worker even though services.default.txt contains only web.</li>
+<li>[ ] Inspect the ports array in rendered.base.json. Expected semantic tuple: host_ip=127.0.0.1, published=8080, target=80, protocol=tcp.</li>
+<li>[ ] Inspect the ports array in rendered.prod.json. Expected semantic tuple: host_ip=127.0.0.1, published=8181, target=80, protocol=tcp, with no retained 8080 entry.</li>
+<li>[ ] Inspect rendered.mounts.json. Expected: exactly one mount targeting /usr/share/nginx/html with a source ending in /site-blue, plus a mount targeting /srv/shared with a source ending in /shared.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compose reports that !override is an unknown tag.</td>
+<td>The installed Docker Compose plugin predates v2.24.4.</td>
+<td>Upgrade the Docker Compose v2 plugin to v2.24.4 or newer, confirm with docker compose version, and rerun the production render.</td>
+</tr>
+<tr>
+<td>services.default.txt contains worker.</td>
+<td>The ops profile was enabled through a command option or the COMPOSE_PROFILES environment variable.</td>
+<td>Run the exact default command from the lab without --profile and with COMPOSE_PROFILES unset for that invocation: env -u COMPOSE_PROFILES docker compose -f compose.yaml config --services &gt; services.default.txt.</td>
+</tr>
+<tr>
+<td>services.default.txt contains only web, but the learner expected worker too.</td>
+<td>The learner is confusing full model inclusion with profile-aware service selection.</td>
+<td>Treat web-only output as correct for the default --services query. Inspect rendered.base.json to confirm worker remains in the full model, then run docker compose --profile ops -f compose.yaml config --services to include it in the service selection.</td>
+</tr>
+<tr>
+<td>The base port is not published as 8080.</td>
+<td>A shell variable named WEB_PORT is overriding the value in .env.</td>
+<td>Inspect the invoking environment with printenv WEB_PORT. Run the render from a shell where WEB_PORT is unset, or deliberately pass --env-file .env and document the intended precedence.</td>
+</tr>
+<tr>
+<td>The production model still contains the 8080 port.</td>
+<td>The production file omitted !override, was not supplied after the base file, or the learner inspected an older rendered file.</td>
+<td>Confirm that compose.prod.yaml uses ports: !override, place it after compose.yaml in the command, regenerate rendered.prod.json, and rerun inspect_config.py.</td>
+</tr>
+<tr>
+<td>A check for 127.0.0.1:8080:80 or 127.0.0.1:8181:80 fails even though the model looks correct.</td>
+<td>The check assumes short port syntax, while Compose normalized ports into long-form objects.</td>
+<td>Use config --format json and inspect host_ip, published, target, and protocol as separate semantic fields.</td>
+</tr>
+<tr>
+<td>The mount experiment still points /usr/share/nginx/html at site.</td>
+<td>compose.mounts.yaml was omitted, placed before compose.yaml, or the rendered file was not regenerated.</td>
+<td>Run docker compose -f compose.yaml -f compose.mounts.yaml config --format json &gt; rendered.mounts.json and rerun inspect_config.py.</td>
+</tr>
+<tr>
+<td>The rendered source paths are absolute rather than ./site or ./site-blue.</td>
+<td>Compose normalized relative bind paths against the first Compose file's directory.</td>
+<td>This is expected. Compare the end of the normalized path or use pathlib rather than requiring the original relative spelling.</td>
+</tr>
+<tr>
+<td>Compose reports that a bind source does not exist.</td>
+<td>One or more of site, site-blue, or shared was not created in the stack directory.</td>
+<td>Recreate the missing directory under /opt/lab-classroom/class80/stack and repeat the render.</td>
+</tr>
+<tr>
+<td>inspect_config.py reports a service-set assertion failure.</td>
+<td>The source files were edited, a different working copy was rendered, or stale JSON files are being inspected.</td>
+<td>Confirm the absolute workspace path, regenerate every rendered JSON file using the lab commands, and rerun the script.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>The lab performs static rendering only and does not start unreviewed images.<br />
+Published ports bind to 127.0.0.1 rather than every host interface.<br />
+Bind mounts are read-only in the Compose model.<br />
+No secrets are stored in the example environment files.<br />
+Runtime environment files should not be mistaken for secret-management systems.<br />
+Pinned image tags are clearer than floating latest tags, although production environments may additionally pin immutable digests.<br />
+Profiles reduce accidental activation of optional services but are not an authorization boundary.<br />
+Rendered configuration can expose interpolated values, so real secret-bearing output should be handled as sensitive data.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Loopback talks only to this computer. Ping 127.0.0.1 to check the local IP stack.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>review_checks</h4><p>Review every overlay in file order because later files can materially change earlier policy.<br />
+Confirm that replacement tags are intentional and supported by the deployed Compose version.<br />
+Inspect normalized host_ip values before approving published ports.<br />
+Check bind sources and targets to ensure a later overlay does not expose an unintended host path.<br />
+Keep project names explicit to reduce the chance of operating on an unrelated Compose project.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Review every overlay in file order because later files can materially change earlier policy.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>static_lab_cleanup</h4><p>The lesson does not require cleanup for correctness because all generated files remain inside /opt/lab-classroom/class80/.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The lesson does not require cleanup for correctness because all generated files remain inside /opt/lab-classroom/class80/.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>idempotent_disable</h4><p>cd /opt/lab-classroom/class80 &amp;&amp; if [ -d stack ] &amp;&amp; [ ! -e stack.disabled ]; then mv stack stack.disabled; elif [ -d stack ] &amp;&amp; [ -e stack.disabled ]; then printf '%s\n' 'Both stack and stack.disabled exist; no rename performed.'; else printf '%s\n' 'No active stack directory to disable.'; fi</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class80 &amp;&amp; if [ -d stack ] &amp;&amp; [ !</div>
+ 
+</div></div><div class="cr-prose-block"><h4>idempotent_restore</h4><p>cd /opt/lab-classroom/class80 &amp;&amp; if [ -d stack.disabled ] &amp;&amp; [ ! -e stack ]; then mv stack.disabled stack; elif [ -d stack.disabled ] &amp;&amp; [ -e stack ]; then printf '%s\n' 'Both stack and stack.disabled exist; no rename performed.'; else printf '%s\n' 'No disabled stack directory to restore.'; fi</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class80 &amp;&amp; if [ -d stack.disabled ] &amp;&amp; [ !</div>
+ 
+</div></div><div class="cr-prose-block"><h4>collision_behavior</h4><p>The disable and restore commands refuse to overwrite an existing destination. If both directories exist, compare them and resolve the collision manually while remaining under /opt/lab-classroom/class80/.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The disable and restore commands refuse to overwrite an existing destination.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>optional_runtime_cleanup</h4><p>The prescribed lab never starts the project. Only if a learner independently started it, change to /opt/lab-classroom/class80/stack and run docker compose --profile ops down --remove-orphans after verifying the project name is class80. This removes project runtime resources and is not part of the normal static workflow.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> A workflow is the whole automation graph, triggers, nodes, and how data flows between them.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>

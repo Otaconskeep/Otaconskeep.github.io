@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>08-ups-monitoring-and-safe-shutdown: Lab · Classroom</title>
+<meta name="description" content="08-ups-monitoring-and-safe-shutdown: Lab">
+<link rel="canonical" href="https://otaconskeep.github.io/classroom/modules/14-security-backup/topics/08-ups-monitoring-and-safe-shutdown/lab.html">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/classroom/classroom.css?v=20260922b">
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>CLASSROOM // HOMELAB ACADEMY</span>
+ <span>M14 LAB<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/">Otaconskeep</a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/otacon/">Otacon</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/classroom/" aria-current="page">Classroom</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/faq/">FAQ</a>
+ <a href="/about/">About</a>
+ <a href="https://github.com/Otaconskeep" target="_blank" rel="noopener">GitHub</a>
+ <a class="discord" href="https://discord.gg/cZDeqECzX" target="_blank" rel="noopener">Discord</a>
+ </div>
+ </div>
+</nav>
+<nav class="cr-subnav" aria-label="Classroom">
+ <div class="wrap">
+ <a href="/classroom/">Academy</a>
+ <a href="/classroom/modules/00-pick-your-lab/">Build your own lab</a>
+ <a href="/classroom/modules/">Modules</a>
+ <a href="/classroom/methodology.html">Method</a>
+ <a href="/classroom/syllabus.html">Syllabus</a>
+ <a href="/classroom/workbook.html">Workbook</a>
+ <a href="/classroom/final-exam.html">Capstone</a>
+ <a href="/classroom/references/">References</a>
+ <a href="/classroom/glossary.html">Glossary</a>
+ </div>
+</nav>
+
+<div class="wrap">
+ <section class="hero flush">
+ <div class="stamp">M14 LAB<small>lab</small></div>
+ <p class="eyebrow" style="margin-top:18px;">Homelab Academy / Modules</p>
+ <h1 class="display" style="font-size:clamp(1.6rem,4.5vw,2.5rem);"><span class="cr-chip cr-chip-lab">Hands-on</span> 08-ups-monitoring-and-safe-shutdown: Lab</h1>
+ <p class="lede">Guided practice + break/fix + lab gate.</p>
+ <div class="cr-osbar" role="group" aria-label="Command host">
+ <span>Show commands for:</span>
+ <button type="button" class="win" data-os="win" aria-pressed="false">Windows</button>
+ <button type="button" class="lin" data-os="lin" aria-pressed="true">Linux / macOS</button>
+</div>
+ </section>
+</div>
+<div class="wrap">
+ 
+ <div class="cr-box"><h3>Overview</h3><p><strong>Module:</strong> Segmentation, Backup &amp; Power<br />
+<strong>Activity type:</strong> Lab (Practice)<br />
+<strong>Lab risk:</strong> low<br />
+<strong>Objective:</strong> Explain the roles of a UPS, UPS driver, monitoring daemon, client, and shutdown coordinator.</p></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Before you start</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>Basic Linux command-line navigation</li>
+<li>Ability to read JSON and run Python 3 scripts</li>
+<li>A pre-created, writable /opt/lab-classroom/class77/ directory</li>
+<li>Basic understanding of electrical power, batteries, and graceful operating-system shutdown</li>
+<li>Familiarity with client-server monitoring concepts</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - Basic Linux command-line navigation
+- Ability to read JSON and run Python 3 scripts
+- A pre-created, writable /opt/lab-classroom/class77/ directory
+- Basic…</div>
+ 
+</div></div></div><div class="cr-box cr-box-lab" id="lab"><div class="cr-box-head"><span class="cr-chip cr-chip-lab">Hands-on</span><h3>Guided lab</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do these steps in order, one time, without skipping. Each step should leave proof you can show later.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> If a step fails, stop and use Break/fix instead of inventing a new path.</div>
+</div><div class="cr-lab-path"><h4>scope</h4><p>All files created or changed by this lab remain under /opt/lab-classroom/class77/. The exercise uses simulated data and must not be connected to a production shutdown hook.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: All files created or changed by this lab remain under /opt/lab-classroom/class77/.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>safety_boundary</h4><p>Do not unplug a UPS or utility feed for this exercise.<br />
+Do not run an operating-system poweroff command.<br />
+Do not run a UPS output-removal command.<br />
+Do not install or edit system services, scheduled tasks, or production NUT configuration.<br />
+Run the commands as a user already authorized to write only to the classroom directory.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Do not unplug a UPS or utility feed for this exercise.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>steps</h4><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Do this carefully, then check that it worked before moving on. (steps)</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>1</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 1</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Enter and confirm the classroom workspace</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Enter and confirm the classroom workspace</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cd /opt/lab-classroom/class77/<br />
+pwd</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cd /opt/lab-classroom/class77/
+pwd</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The printed path must be exactly /opt/lab-classroom/class77 before creating any artifacts.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The printed path must be exactly /opt/lab-classroom/class77 before creating any artifacts.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>2</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 2</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create deterministic simulated UPS samples</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create deterministic simulated UPS samples</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cat &gt; samples.jsonl &lt;&lt;'EOF'<br />
+{"age_seconds":1,"battery_charge":100,"runtime_seconds":1800,"status":"OL"}<br />
+{"age_seconds":2,"battery_charge":78,"runtime_seconds":900,"status":"OB"}<br />
+{"age_seconds":2,"battery_charge":24,"runtime_seconds":280,"status":"OB LB"}<br />
+{"age_seconds":3,"battery_charge":22,"runtime_seconds":260,"status":"OB LB"}<br />
+{"age_seconds":4,"battery_charge":20,"runtime_seconds":240,"status":"OB LB"}<br />
+{"age_seconds":1,"battery_charge":26,"runtime_seconds":700,"status":"OL CHRG"}<br />
+{"age_seconds":2,"battery_charge":18,"runtime_seconds":220,"status":"OB LB"}<br />
+EOF</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: cat &gt; samples.jsonl &lt;&lt;&#x27;EOF&#x27;
+{&quot;age_seconds&quot;:1,&quot;battery_charge&quot;:100,&quot;runtime_seconds&quot;:1800,&quot;status&quot;:&quot;OL&quot;}
+{&quot;age_seconds&quot;:2,&quot;battery_charge&quot;:78,&quot;runtime_seconds…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The sequence contains online operation, an on-battery event, three consecutive critical samples, recovery, and one new critical sample after recovery.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The sequence contains online operation, an on-battery event, three consecutive critical samples, recovery, and one new critical sample after recovery.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>3</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 3</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Create the simulated shutdown decision engine</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Create the simulated shutdown decision engine</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>cat &gt; ups_guard.py &lt;&lt;'PY'<br />
+import json<br />
+import pathlib<br />
+import sys</p>
+<p>ROOT = pathlib.Path('/opt/lab-classroom/class77').resolve()<br />
+STATE_PATH = ROOT / 'state.json'<br />
+EVENT_PATH = ROOT / 'events.jsonl'<br />
+MAX_AGE_SECONDS = 30<br />
+RUNTIME_THRESHOLD_SECONDS = 300<br />
+REQUIRED_CRITICAL_SAMPLES = 3</p>
+<p>if pathlib.Path.cwd().resolve() != ROOT:<br />
+    raise SystemExit('Refusing to run outside the class77 workspace')</p>
+<p>if STATE_PATH.exists():<br />
+    state = json.loads(STATE_PATH.read_text())<br />
+else:<br />
+    state = {'low_count': 0, 'latched': False}</p>
+<p>for sequence, line in enumerate(sys.stdin, start=1):<br />
+    sample = json.loads(line)<br />
+    age = sample.get('age_seconds')<br />
+    runtime = sample.get('runtime_seconds')<br />
+    tokens = set(str(sample.get('status', '')).split())<br />
+    action = 'NO_ACTION'<br />
+    reason = 'No policy condition matched'</p>
+<pre><code>if not isinstance(age, (int, float)) or age &gt; MAX_AGE_SECONDS:
+    state['low_count'] = 0
+    action = 'DATA_STALE'
+    reason = 'Telemetry is missing a valid age or is older than the permitted age'
+elif 'OL' in tokens:
+    state = {'low_count': 0, 'latched': False}
+    action = 'ONLINE'
+    reason = 'Utility power is reported available; incident latch cleared'
+elif 'OB' in tokens:
+    critical = 'LB' in tokens or (
+        isinstance(runtime, (int, float)) and
+        runtime &lt;= RUNTIME_THRESHOLD_SECONDS
+    )
+    if critical:
+        state['low_count'] += 1
+        if state['low_count'] &gt;= REQUIRED_CRITICAL_SAMPLES:
+            if state['latched']:
+                action = 'ALREADY_LATCHED'
+                reason = 'A shutdown request was already issued for this incident'
+            else:
+                state['latched'] = True
+                action = 'SHUTDOWN_REQUESTED'
+                reason = 'Critical battery state was confirmed by consecutive samples'
+        else:
+            action = 'LOW_BATTERY_CONFIRMING'
+            reason = 'Critical state observed but confirmation count is incomplete'
+    else:
+        state['low_count'] = 0
+        action = 'ON_BATTERY_WAIT'
+        reason = 'On battery without a confirmed critical condition'
+else:
+    state['low_count'] = 0
+    action = 'UNKNOWN_STATUS'
+    reason = 'Neither online nor on-battery status was reported'
+
+event = {
+    'action': action,
+    'latched': state['latched'],
+    'low_count': state['low_count'],
+    'reason': reason,
+    'sequence': sequence,
+    'status_tokens': sorted(tokens)
+}
+with EVENT_PATH.open('a', encoding='utf-8') as event_file:
+    event_file.write(json.dumps(event, sort_keys=True) + '\n')
+STATE_PATH.write_text(json.dumps(state, sort_keys=True) + '\n', encoding='utf-8')
+print(json.dumps(event, sort_keys=True))
+</code></pre>
+<p>PY</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The script checks its working directory before writing. Its decision output is a simulation label only; it contains no host shutdown operation.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The script checks its working directory before writing.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>4</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 4</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Initialize state and run the simulation</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Initialize state and run the simulation</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>printf '%s\n' '{"latched": false, "low_count": 0}' &gt; state.json<br />
+printf '' &gt; events.jsonl<br />
+python3 ups_guard.py &lt; samples.jsonl &gt; actual-events.jsonl<br />
+cat actual-events.jsonl</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: printf &#x27;%s\n&#x27; &#x27;{&quot;latched&quot;: false, &quot;low_count&quot;: 0}&#x27; &gt; state.json
+printf &#x27;&#x27; &gt; events.jsonl
+python3 ups_guard.py &lt; samples.jsonl &gt; actual-events.jsonl
+cat actua…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The fifth sample should produce SHUTDOWN_REQUESTED after three consecutive critical samples. Recovery clears the latch, and the final sample begins a new confirmation sequence without requesting shutdown.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The fifth sample should produce SHUTDOWN_REQUESTED after three consecutive critical samples.</div>
+ 
+</div></div><div class="cr-lab-path"><h4>step</h4><p>5</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: 5</div>
+ 
+</div></div><div class="cr-lab-path"><h4>title</h4><p>Test stale telemetry handling</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Test stale telemetry handling</div>
+ 
+</div></div><div class="cr-lab-path"><h4>commands</h4><p>printf '%s\n' '{"age_seconds":90,"battery_charge":10,"runtime_seconds":120,"status":"OB LB"}' &gt; stale-sample.jsonl<br />
+printf '%s\n' '{"latched": false, "low_count": 0}' &gt; state.json<br />
+printf '' &gt; events.jsonl<br />
+python3 ups_guard.py &lt; stale-sample.jsonl &gt; stale-result.jsonl<br />
+cat stale-result.jsonl</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: printf &#x27;%s\n&#x27; &#x27;{&quot;age_seconds&quot;:90,&quot;battery_charge&quot;:10,&quot;runtime_seconds&quot;:120,&quot;status&quot;:&quot;OB LB&quot;}&#x27; &gt; stale-sample.jsonl
+printf &#x27;%s\n&#x27; &#x27;{&quot;latched&quot;: false, &quot;low_cou…</div>
+ 
+</div></div><div class="cr-lab-path"><h4>notes</h4><p>The action must be DATA_STALE rather than SHUTDOWN_REQUESTED because the simulated observation is older than the accepted age.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: The action must be DATA_STALE rather than SHUTDOWN_REQUESTED because the simulated observation is older than the accepted age.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Expected results</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>The normal seven-sample run produces exactly one SHUTDOWN_REQUESTED action.</li>
+<li>The first OL sample produces ONLINE and leaves the latch false.</li>
+<li>The noncritical OB sample produces ON_BATTERY_WAIT.</li>
+<li>The first two critical samples produce LOW_BATTERY_CONFIRMING.</li>
+<li>The third consecutive critical sample produces SHUTDOWN_REQUESTED and sets the latch true.</li>
+<li>The recovery sample containing OL clears the counter and latch.</li>
+<li>The final critical sample starts a new confirmation sequence with low_count equal to 1 and does not request shutdown.</li>
+<li>The stale sample produces DATA_STALE and does not produce SHUTDOWN_REQUESTED.</li>
+<li>All generated files remain under /opt/lab-classroom/class77/.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Verification</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><ul>
+<li>[ ] Run <code>pwd</code> from the lab shell and confirm the output is exactly <code>/opt/lab-classroom/class77</code>.</li>
+<li>[ ] Run <code>grep -c '"action": "SHUTDOWN_REQUESTED"' actual-events.jsonl</code> after the normal simulation; the result should be <code>1</code>.</li>
+<li>[ ] Run <code>grep -c '"action": "DATA_STALE"' stale-result.jsonl</code> after the stale-data test; the result should be <code>1</code>.</li>
+<li>[ ] Run <code>grep -c '"action": "SHUTDOWN_REQUESTED"' stale-result.jsonl</code>; the result should be <code>0</code>.</li>
+<li>[ ] Run <code>wc -l &lt; actual-events.jsonl</code>; the result should be <code>7</code>.</li>
+<li>[ ] Run <code>tail -n 1 actual-events.jsonl</code> and confirm it contains <code>LOW_BATTERY_CONFIRMING</code>, <code>"latched": false</code>, and <code>"low_count": 1</code>.</li>
+<li>[ ] Run <code>find /opt/lab-classroom/class77/ -maxdepth 1 -type f -printf '%f\n' | sort</code> and review that the artifacts are confined to the classroom directory.</li>
+</ul><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: - [ ] Run this setting from the lab shell and confirm the output is exactly this setting.</div>
+ 
+</div></div></div><div class="cr-box cr-box-break"><div class="cr-box-head"><span class="cr-chip cr-chip-break">Break / fix</span><h3>Break/fix</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  <button type="button" class="cr-btn" data-cr="more" aria-expanded="false">More detail</button>
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ <div class="cr-panel more" hidden><strong>More detail:</strong> Change only one thing at a time so you know what caused the failure.</div>
+</div><div class="cr-prose-block"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The shell reports that /opt/lab-classroom/class77 does not exist or is not writable.</td>
+<td>The classroom workspace was not provisioned with the required ownership before the lesson.</td>
+<td>Stop the lab and ask the classroom administrator to provision the directory. Do not redirect the exercise into a system configuration directory.</td>
+</tr>
+<tr>
+<td>The script exits with a message that it refuses to run outside the workspace.</td>
+<td>The current working directory is not exactly /opt/lab-classroom/class77.</td>
+<td>Change to /opt/lab-classroom/class77, verify with pwd, and rerun the script.</td>
+</tr>
+<tr>
+<td>Python reports a JSON decoding error.</td>
+<td>A JSON line in samples.jsonl, stale-sample.jsonl, or state.json is incomplete or has invalid punctuation.</td>
+<td>Recreate the affected file from the lesson and ensure that each sample occupies one complete line.</td>
+</tr>
+<tr>
+<td>More than one shutdown request appears after repeating the normal test.</td>
+<td>events.jsonl or actual-events.jsonl contains results from an earlier run, or state was reset at an unintended point.</td>
+<td>Reinitialize state.json and truncate events.jsonl as shown before running the complete sample sequence again.</td>
+</tr>
+<tr>
+<td>The third critical sample remains in LOW_BATTERY_CONFIRMING.</td>
+<td>A preceding sample lacked OB, was stale, or reset the consecutive critical-sample counter.</td>
+<td>Inspect samples.jsonl and actual-events.jsonl in sequence order. Confirm that the three critical samples all contain OB and either LB or a numeric runtime at or below the demonstration threshold.</td>
+</tr>
+<tr>
+<td>A stale sample causes a shutdown request.</td>
+<td>The age check was removed, altered, or placed after the critical-state action.</td>
+<td>Restore the supplied script so freshness is checked before OL, OB, LB, or runtime policy evaluation.</td>
+</tr>
+<tr>
+<td>A real UPS reports different status tokens or lacks runtime data.</td>
+<td>UPS models and drivers expose different capabilities and combinations of normalized variables.</td>
+<td>Consult the driver and NUT documentation for the device. Design policy around confirmed available variables and never invent missing telemetry.</td>
+</tr>
+</tbody>
+</table><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> You break one thing on purpose so you learn how it fails. Then you put it back. This builds real troubleshooting skill.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Security</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>principles</h4><p>Separate read-only telemetry access from shutdown authority.<br />
+Grant shutdown capability only to the minimum required service identity.<br />
+Restrict UPS monitoring interfaces to trusted management networks and approved clients.<br />
+Treat UPS server credentials and shutdown secrets as operational secrets.<br />
+Protect state and event logs from unauthorized modification because altered telemetry or latch state can influence availability.<br />
+Use authenticated and encrypted transport where the selected UPS monitoring stack supports it; otherwise isolate the monitoring path on a trusted network.<br />
+Ensure only one designated controller can perform final UPS output removal.<br />
+Alert on stale telemetry, repeated authentication failures, unauthorized configuration changes, and unexpected shutdown requests.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Big idea: Separate read-only telemetry access from shutdown authority.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>threats</h4><p>A forged low-battery state could create an availability attack.<br />
+A forged online state could suppress shutdown until battery exhaustion.<br />
+Credential theft could let an attacker request host shutdown or remove UPS output.<br />
+A duplicate controller could race with the authorized shutdown coordinator.<br />
+Unprotected logs could disclose infrastructure names, device addresses, or outage patterns.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> The request app is the friendly front desk. Family uses it instead of the admin tools.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>production_guidance</h4><p>Before enabling automation, review service-account permissions, network exposure, credential storage, log ownership, shutdown ordering, and recovery behavior. Test policy with simulation and maintenance-window exercises before allowing any component to control real power.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div></div><div class="cr-box"><div class="cr-box-head"><span class="cr-chip cr-chip-learn">Learn</span><h3>Rollback</h3></div><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Read this block, then try the next action. If you feel stuck, tap What this means.</div>
+ 
+</div><div class="cr-prose-block"><h4>lab_reset</h4><p>Remain in /opt/lab-classroom/class77/.<br />
+Reset policy state with <code>printf '%s\n' '{"latched": false, "low_count": 0}' &gt; state.json</code>.<br />
+Reset the event log with <code>printf '' &gt; events.jsonl</code>.<br />
+Reset captured output with <code>printf '' &gt; actual-events.jsonl</code> and <code>printf '' &gt; stale-result.jsonl</code>.<br />
+No service restart, package removal, host reboot, or UPS operation is required.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> Logs are the app’s diary. Read the newest lines when something breaks.</div>
+ 
+</div></div><div class="cr-prose-block"><h4>production_recovery_principle</h4><p>If a production automation rollout behaves unexpectedly, disable only the shutdown action path through the site's approved change process while preserving telemetry and logs. Do not clear an active incident merely to silence alerts. Confirm utility power, UPS state, workload integrity, and shutdown-authority ownership before re-enabling automation.</p><div class="cr-help">
+ <div class="cr-actions">
+  <button type="button" class="cr-btn mean" data-cr="mean" aria-expanded="false">What this means</button>
+  
+ </div>
+ <div class="cr-panel mean" hidden><strong>In plain words:</strong> If the app cannot write files, the user numbers (who owns the folder) are probably wrong.</div>
+ 
+</div></div></div>
+ <div class="cr-pager"><a href="lesson.html">← Lesson</a><a href="homework.html">Homework →</a></div>
+</div>
+
+<footer class="sitefoot">
+ <div class="wrap">
+ <span>Otaconskeep Classroom · Homelab Academy</span>
+ <span><a href="https://github.com/Otaconskeep/Classroom">GitHub</a> · <a href="/classroom/pack/">Source pack</a></span>
+ </div>
+</footer>
+<script src="/classroom/classroom.js?v=20260922b"></script>
+</body></html>
