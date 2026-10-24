@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-24T13:34:16Z</lastBuildDate>
 <item>
+<title>llama.cpp b11861</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11861</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11861</guid>
+<pubDate>2026-10-24T19:17:22Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b961263fdf3fde56.png" alt=""><p>Article · llama.cpp. minimax-m3 : forward quant scales to the graph (fixes #31063 ) ( #31097 ) The generic scale pass in llama-model.cpp loads the per-expert NVFP4 scale2 tensors (ffn_{up,gate,down}_exps_s) and the per-tensor MXFP8 scales for the dense FFN and the shared expert, but minimax-m3.cpp ne</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11860</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11860</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11860</guid>
@@ -89,6 +96,20 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. This is due to China&#x27;s new export restrictions primarily but also the growing caution around cybersecurity exploits popping up. submitted by /u/zxyzyxz [link] [comments]]]></description>
 </item>
 <item>
+<title>b11866: metal : remove mul_mm_id amax rescaling (#30924)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11866</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11866</guid>
+<pubDate>2026-10-24T15:40:19Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b0c812cbc916a282.png" alt=""><p>Article · llama.cpp. The src1 power-of-two rescale in kernel_mul_mm_id is superseded by the per expert-token amax scaling done in the compute graph (ref: #30861 ), which keeps the MoE down-projection activations within f16 range before the op runs. Drop the two-stage reduction kernels, their scratch</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b11865</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11865</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11865</guid>
+<pubDate>2026-10-24T15:34:46Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8d0fa1ae78bc4b87.png" alt=""><p>Article · llama.cpp. rpc : add bounds check in rdma_recv ( #30399 )</p>]]></description>
+</item>
+<item>
 <title>big cloud models like opus 5.5 get all the motion graphics praise, but i made this with local qwen3.8 flash next. it&#x27;s very possible!</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xebkti/big_cloud_models_like_opus_55_get_all_the_motion/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xebkti/big_cloud_models_like_opus_55_get_all_the_motion/</guid>
@@ -122,13 +143,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xe9yyg/capyflash_v074_where_my_twogpu_qwen38_engine_is/</guid>
 <pubDate>2026-10-24T14:23:16+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. It&#x27;s been a few releases since my last post, so here is where capy-flash is now. It&#x27;s my own engine for two models, Qwen3.8-27B and Qwen3.8-Flash-Next. It started as my ninfer-tp2 fork of NInfer, which added tensor parallel over PCIe, but at this point it&#x27;s an engine of its own a]]></description>
-</item>
-<item>
-<title>b11861: minimax-m3 : forward quant scales to the graph (fixes #31063) (#31097)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11861</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11861</guid>
-<pubDate>2026-10-24T14:09:02Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b961263fdf3fde56.png" alt=""><p>Article · llama.cpp. The generic scale pass in llama-model.cpp loads the per-expert NVFP4 scale2 tensors (ffn_{up,gate,down}_exps_s) and the per-tensor MXFP8 scales for the dense FFN and the shared expert, but minimax-m3.cpp never forwarded any of them to the graph. build_moe_ffn() defaults these to</p>]]></description>
 </item>
 <item>
 <title>AbliteratedOutTheBox Strata Announcement</title>

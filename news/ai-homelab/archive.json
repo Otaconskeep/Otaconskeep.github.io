@@ -55590,12 +55590,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11861",
-      "title": "b11861: minimax-m3 : forward quant scales to the graph (fixes #31063) (#31097)",
-      "summary": "The generic scale pass in llama-model.cpp loads the per-expert NVFP4 scale2 tensors (ffn_{up,gate,down}_exps_s) and the per-tensor MXFP8 scales for the dense FFN and the shared expert, but minimax-m3.cpp never forwarded any of them to the graph. build_moe_ffn() defaults these to ",
+      "title": "llama.cpp b11861",
+      "summary": "minimax-m3 : forward quant scales to the graph (fixes #31063 ) ( #31097 ) The generic scale pass in llama-model.cpp loads the per-expert NVFP4 scale2 tensors (ffn_{up,gate,down}_exps_s) and the per-tensor MXFP8 scales for the dense FFN and the shared expert, but minimax-m3.cpp ne",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-24T14:09:02Z",
+      "published": "2026-10-24T19:17:22Z",
       "added_at": "2026-10-24T19:00:37Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/b961263fdf3fde56.png",
@@ -55616,6 +55616,40 @@
       "added_at": "2026-10-24T19:00:37Z",
       "image": "https://opengraph.githubassets.com/817b2478dfa6153583043ce7b670f9dec0e44fa71886878eb7c7139d23d3ae9a/ggml-org/llama.cpp/releases/tag/b11860",
       "file": "media/5f2ac8f83e3e3f0d.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11866",
+      "title": "b11866: metal : remove mul_mm_id amax rescaling (#30924)",
+      "summary": "The src1 power-of-two rescale in kernel_mul_mm_id is superseded by the per expert-token amax scaling done in the compute graph (ref: #30861 ), which keeps the MoE down-projection activations within f16 range before the op runs. Drop the two-stage reduction kernels, their scratch ",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-24T15:40:19Z",
+      "added_at": "2026-10-24T19:30:37Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/b0c812cbc916a282.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11865",
+      "title": "llama.cpp b11865",
+      "summary": "rpc : add bounds check in rdma_recv ( #30399 )",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-24T15:34:46Z",
+      "added_at": "2026-10-24T19:30:37Z",
+      "image": "https://opengraph.githubassets.com/20ce634506dde9d1593a92bb60392d7eaf1220bb59cb24cb3cefa2d6fc0246e5/ggml-org/llama.cpp/releases/tag/b11865",
+      "file": "media/8d0fa1ae78bc4b87.png",
       "video": "",
       "categories": [
         "local-models",
