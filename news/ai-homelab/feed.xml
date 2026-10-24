@@ -5,6 +5,34 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-24T13:34:16Z</lastBuildDate>
 <item>
+<title>llama.cpp b11866</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11866</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11866</guid>
+<pubDate>2026-10-24T19:55:35Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b0c812cbc916a282.png" alt=""><p>Article · llama.cpp. metal : remove mul_mm_id amax rescaling ( #30924 ) The src1 power-of-two rescale in kernel_mul_mm_id is superseded by the per expert-token amax scaling done in the compute graph (ref: #30861 ), which keeps the MoE down-projection activations within f16 range before the op runs. D</p>]]></description>
+</item>
+<item>
+<title>Raon is better than Flint.</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xehs52/raon_is_better_than_flint/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xehs52/raon_is_better_than_flint/</guid>
+<pubDate>2026-10-24T19:38:27+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Idk why everyone keeps posting about Flint! Raon is hundreds of times better, and it’s not even the best, which is really saying something about Flint lmao]]></description>
+</item>
+<item>
+<title>llama.cpp b11865</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11865</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11865</guid>
+<pubDate>2026-10-24T19:34:37Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8d0fa1ae78bc4b87.png" alt=""><p>Article · llama.cpp. rpc : add bounds check in rdma_recv ( #30399 ) Website:</p>]]></description>
+</item>
+<item>
+<title>RecursiveSI Flint Benchmark: unsloth/flint-GGUF flint-UD-Q3_K_XL.gguf</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xehn3u/recursivesi_flint_benchmark_unslothflintgguf/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xehn3u/recursivesi_flint_benchmark_unslothflintgguf/</guid>
+<pubDate>2026-10-24T19:32:49+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Unsloth Flint Q3 Results Performed quite poorly on benchmark using 3 diff harnesses: OMP : Completed all 12 tasks; 71.2/100 (only 7 solved). AtomicAgent: Completed all 12 tasks; 39.2/100 (only 3 solved). Hermes: Stopped during Task 7 after it performed needless broad searches acr]]></description>
+</item>
+<item>
 <title>llama.cpp b11861</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11861</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11861</guid>
@@ -31,6 +59,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11857</guid>
 <pubDate>2026-10-24T18:23:32Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/485e04c8a3fd159f.png" alt=""><p>Article · llama.cpp. ggml : allow MUL_MAT_ID -1 index to skip the computation ( #26631 ) ggml : allow MUL_MAT_ID -1 index to skip the computation nits update vulkan code ggml-webgpu: ensure all threads reach workgroup barriers in mul_mat_id_vec (cherry picked from commit d8a4b9e ) fix cuda openvino e</p>]]></description>
+</item>
+<item>
+<title>b11867: server: refactor server entrypoint (#31113)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11867</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11867</guid>
+<pubDate>2026-10-24T18:04:28Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/122cce26ca27407f.png" alt=""><p>Article · llama.cpp. server_role cont</p>]]></description>
 </item>
 <item>
 <title>Ollama v0.40.11</title>
@@ -94,20 +129,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xecgrf/kimi_k31_removes_cyberattack_training_data_from/</guid>
 <pubDate>2026-10-24T16:05:18+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. This is due to China&#x27;s new export restrictions primarily but also the growing caution around cybersecurity exploits popping up. submitted by /u/zxyzyxz [link] [comments]]]></description>
-</item>
-<item>
-<title>b11866: metal : remove mul_mm_id amax rescaling (#30924)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11866</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11866</guid>
-<pubDate>2026-10-24T15:40:19Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b0c812cbc916a282.png" alt=""><p>Article · llama.cpp. The src1 power-of-two rescale in kernel_mul_mm_id is superseded by the per expert-token amax scaling done in the compute graph (ref: #30861 ), which keeps the MoE down-projection activations within f16 range before the op runs. Drop the two-stage reduction kernels, their scratch</p>]]></description>
-</item>
-<item>
-<title>llama.cpp b11865</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11865</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11865</guid>
-<pubDate>2026-10-24T15:34:46Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8d0fa1ae78bc4b87.png" alt=""><p>Article · llama.cpp. rpc : add bounds check in rdma_recv ( #30399 )</p>]]></description>
 </item>
 <item>
 <title>big cloud models like opus 5.5 get all the motion graphics praise, but i made this with local qwen3.8 flash next. it&#x27;s very possible!</title>
@@ -1073,7 +1094,7 @@
 <link>https://lemmy.world/post/53473946</link>
 <guid isPermaLink="true">https://lemmy.world/post/53473946</guid>
 <pubDate>Thu, 22 Oct 2026 19:44:03 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by Ferrous to selfhosted 90 points | 57 comments PHP, TLS, etc… We appear to be facing a tsunami of vulnerabilities being discovered in record time. Further, the window to act on these vulnerabilities has basically closed to zero; hackers’ tools now automatically fold t]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by Ferrous to selfhosted 91 points | 57 comments PHP, TLS, etc… We appear to be facing a tsunami of vulnerabilities being discovered in record time. Further, the window to act on these vulnerabilities has basically closed to zero; hackers’ tools now automatically fold t]]></description>
 </item>
 <item>
 <title>llama.cpp b11827</title>
@@ -4097,7 +4118,7 @@
 <link>https://lemmy.world/post/53285873</link>
 <guid isPermaLink="true">https://lemmy.world/post/53285873</guid>
 <pubDate>Sun, 18 Oct 2026 12:14:20 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by curbstickle to selfhosted 388 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by curbstickle to selfhosted 389 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an]]></description>
 </item>
 <item>
 <title>Mellum2 model from JetBrains</title>

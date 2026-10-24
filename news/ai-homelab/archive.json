@@ -45346,7 +45346,7 @@
     {
       "url": "https://lemmy.world/post/53285873",
       "title": "PSA: Recent Influx of LLM Bots",
-      "summary": "submitted by curbstickle to selfhosted 388 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an",
+      "summary": "submitted by curbstickle to selfhosted 389 points | 0 comments The Lemmy.world TOS requires that any bot account be set as such in their profile, and that any community they post to requires approval first. Generically speaking, I won’t be approving any. What I mean by that is an",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -53017,7 +53017,7 @@
     {
       "url": "https://lemmy.world/post/53473946",
       "title": "For users with public facing services: How does the current explosion of AI-discovered vulnerabilities affect your threat model and willingness to be public facing?",
-      "summary": "submitted by Ferrous to selfhosted 90 points | 57 comments PHP, TLS, etc… We appear to be facing a tsunami of vulnerabilities being discovered in record time. Further, the window to act on these vulnerabilities has basically closed to zero; hackers’ tools now automatically fold t",
+      "summary": "submitted by Ferrous to selfhosted 91 points | 57 comments PHP, TLS, etc… We appear to be facing a tsunami of vulnerabilities being discovered in record time. Further, the window to act on these vulnerabilities has basically closed to zero; hackers’ tools now automatically fold t",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -55624,12 +55624,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11866",
-      "title": "b11866: metal : remove mul_mm_id amax rescaling (#30924)",
-      "summary": "The src1 power-of-two rescale in kernel_mul_mm_id is superseded by the per expert-token amax scaling done in the compute graph (ref: #30861 ), which keeps the MoE down-projection activations within f16 range before the op runs. Drop the two-stage reduction kernels, their scratch ",
+      "title": "llama.cpp b11866",
+      "summary": "metal : remove mul_mm_id amax rescaling ( #30924 ) The src1 power-of-two rescale in kernel_mul_mm_id is superseded by the per expert-token amax scaling done in the compute graph (ref: #30861 ), which keeps the MoE down-projection activations within f16 range before the op runs. D",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-24T15:40:19Z",
+      "published": "2026-10-24T19:55:35Z",
       "added_at": "2026-10-24T19:30:37Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/b0c812cbc916a282.png",
@@ -55642,11 +55642,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11865",
       "title": "llama.cpp b11865",
-      "summary": "rpc : add bounds check in rdma_recv ( #30399 )",
+      "summary": "rpc : add bounds check in rdma_recv ( #30399 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-24T15:34:46Z",
+      "published": "2026-10-24T19:34:37Z",
       "added_at": "2026-10-24T19:30:37Z",
       "image": "https://opengraph.githubassets.com/20ce634506dde9d1593a92bb60392d7eaf1220bb59cb24cb3cefa2d6fc0246e5/ggml-org/llama.cpp/releases/tag/b11865",
       "file": "media/8d0fa1ae78bc4b87.png",
@@ -55654,6 +55654,57 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11867",
+      "title": "b11867: server: refactor server entrypoint (#31113)",
+      "summary": "server_role cont",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-24T18:04:28Z",
+      "added_at": "2026-10-24T20:00:36Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/122cce26ca27407f.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xehs52/raon_is_better_than_flint/",
+      "title": "Raon is better than Flint.",
+      "summary": "Idk why everyone keeps posting about Flint! Raon is hundreds of times better, and it’s not even the best, which is really saying something about Flint lmao",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-24T19:38:27+00:00",
+      "added_at": "2026-10-24T20:00:38Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xehn3u/recursivesi_flint_benchmark_unslothflintgguf/",
+      "title": "RecursiveSI Flint Benchmark: unsloth/flint-GGUF flint-UD-Q3_K_XL.gguf",
+      "summary": "Unsloth Flint Q3 Results Performed quite poorly on benchmark using 3 diff harnesses: OMP : Completed all 12 tasks; 71.2/100 (only 7 solved). AtomicAgent: Completed all 12 tasks; 39.2/100 (only 3 solved). Hermes: Stopped during Task 7 after it performed needless broad searches acr",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-24T19:32:49+00:00",
+      "added_at": "2026-10-24T20:00:38Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
