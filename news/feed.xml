@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-25T13:36:35Z</lastBuildDate>
 <item>
+<title>llama.cpp b11876</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11876</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11876</guid>
+<pubDate>2026-10-25T14:30:26Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1f632b2b5ecfc302.png" alt=""><p>Article · llama.cpp. vulkan : one warp tile per subgroup in the small matmul tiles ( #30106 ) WM of the small tiles was 32, or 8 for 8-wide subgroups, whatever the tile&#x27;s BLOCK_SIZE and WARP. With 16-wide subgroups (Mali) the second subgroup of a workgroup wrote into the next tile&#x27;s columns. With 8-w</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b11875</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11875</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11875</guid>
+<pubDate>2026-10-25T14:09:26Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2b7bf2af1844ba12.png" alt=""><p>Article · llama.cpp. hexagon: generic dims collapse/reshape for unary, binary and matmul ops ( #31071 ) hex-tools: support for --compare option in the profile.py hex-unary: improve collapse logic to also do splits if nrows is small hex-colapse: handle all colapsing at the host and make it generic hex</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11874</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11874</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11874</guid>
@@ -117,11 +131,11 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. time to download some speedup DGX Spark (GB10), llama-bench -ngl 999 -fa on -p 16384 -n 0 -b 2048 -ub 2048 -ctk f16 -ctv f16 -r 5 , tok/s: model type master PR Qwen3.8-27B Q4_K_M 840.1 899.9 +7.1% Q5_K_M 840.1 880.6 +4.8% Q6_K 751.2 785.8 +4.6% Q8_0 876.2 940.1 +7.3% IQ4_XS 882.4]]></description>
 </item>
 <item>
-<title>llama.cpp b11875</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11875</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11875</guid>
-<pubDate>2026-10-25T09:11:48Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2b7bf2af1844ba12.png" alt=""><p>Article · llama.cpp. hexagon: generic dims collapse/reshape for unary, binary and matmul o…</p>]]></description>
+<title>b11877: vulkan: Add a larger tile size for conv3d (coopmat2 only) (#29920)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11877</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11877</guid>
+<pubDate>2026-10-25T09:13:48Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/74b249640aafe29a.png" alt=""><p>Article · llama.cpp. vulkan: Add a larger tile size for conv3d (coopmat2 only) This adds a larger tile size, in practice it is only for coopmat2 where we don&#x27;t need shared memory to store the output (would use more than 64KB). Add some additional representative backend tests. At least, this is what c</p>]]></description>
 </item>
 <item>
 <title>About running deepseek 4.1 flash</title>
@@ -20487,6 +20501,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/10.png" alt=""><p>Article · ComfyUI. ComfyUI v0.37.3</p>]]></description>
 </item>
 <item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>2026-09-25T20:30:45-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
+</item>
+<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -21359,7 +21380,7 @@
 <link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
 <guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
 <pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.1rc0</title>
@@ -21423,13 +21444,6 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
-</item>
-<item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
