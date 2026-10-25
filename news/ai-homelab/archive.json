@@ -403,17 +403,18 @@
     {
       "url": "https://www.youtube.com/watch?v=K2IGHj7KQoM",
       "title": "Are Local Models Finally Good Enough?",
-      "summary": "Video from Techno Tim.",
+      "summary": "I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
-      "published": "2026-05-18T15:00:34+00:00",
+      "published": "2026-09-23T10:55:29-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://i.ytimg.com/vi/K2IGHj7KQoM/hqdefault.jpg",
       "file": "media/01.jpg",
       "video": "K2IGHj7KQoM",
       "categories": [
         "local-models",
+        "homelab",
         "video"
       ]
     },
@@ -471,7 +472,7 @@
     {
       "url": "https://www.youtube.com/watch?v=8NFV6duMKQA",
       "title": "What Is an NPU Actually Good For?",
-      "summary": "Video from Techno Tim.",
+      "summary": "What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -488,7 +489,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qyGbkEtjJ90",
       "title": "Answering your Homelab Questions!",
-      "summary": "Video from Wolfgang's Channel.",
+      "summary": "Click this link",
       "source": "Wolfgang's Channel",
       "kind": "youtube",
       "lane": "Video",
@@ -587,11 +588,11 @@
     {
       "url": "https://github.com/OtoDock/oto-dock",
       "title": "Show HN: Self-hosted company OS, Claude Code and Codex agents in departments",
-      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many",
-      "source": "Hacker News",
+      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many ",
+      "source": "Hacker News · self-hosted",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-25T20:30:45-07:00",
+      "published": "Wed, 09 Sep 2026 17:57:55 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1011,10 +1012,10 @@
       "url": "https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/",
       "title": "Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · self-hosted",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-23T11:17:55-07:00",
+      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -22563,7 +22564,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qxfNTcPl70w",
       "title": "I Made My Local AI Pick Its Own Model",
-      "summary": "Video from Techno Tim.",
+      "summary": "I wanted my local AI to choose the right model automatically instead of making me pick between speed and capability for every request. I test NVIDIA Switchyard for local AI model routing with Nemotron 3.5 Lightning on an RTX 3090 and DeepSeek V4 Flash across two GX10s. I cover St",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -57083,11 +57084,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11888",
       "title": "llama.cpp b11888",
-      "summary": "common, grammar: add recursive depth limit, make it a requirement ( #3 …",
+      "summary": "common, grammar: add recursive depth limit, make it a requirement ( #31153 ) common, grammar: add recursive depth limit, make it a requirement catch more recursive functions common : tidy up peg parser changes grammar : reject candidates in a loop, without a depth limit The depth",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-25T22:53:08Z",
+      "published": "2026-10-25T23:30:37Z",
       "added_at": "2026-10-25T23:00:40Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/fe1be7ec8610d5b5.png",
@@ -57095,6 +57096,193 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11889",
+      "title": "b11889: cuda : use std::string instead of VLA for archName (#30463)",
+      "summary": "cuda : use std::string instead of VLA for archName Modernize the code (old C style) and fix the following warnings: ggml/src/ggml-cuda/ggml-cuda.cu:180:19: warning: variable length arrays in C++ are a Clang extension [-Wvla-cxx-extension] 180 | char archName[archLen + 1]; | ^~~~~",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-25T23:08:22Z",
+      "added_at": "2026-10-25T23:30:38Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/5f77088f23d78981.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xff9e4/crowdgpt_a_collaboratively_trained_llm/",
+      "title": "CrowdGPT - A collaboratively trained LLM.",
+      "summary": "Hello, I'm developing CrowdGPT , a project aiming to create an LLM without datacenters and without the usual millions of dollars spent by AI companies. The project aims to train a 1 billion parameter model collaboratively and openly, with a protocol where everyone gets a say in t",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-25T22:07:17+00:00",
+      "added_at": "2026-10-25T23:30:39Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xfb9oz/show_and_tell_polystrata_on_my_20_xeon_server/",
+      "title": "Show and tell: PolyStrata on my $20 Xeon server",
+      "summary": "submitted by /u/randylush [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-25T19:24:15+00:00",
+      "added_at": "2026-10-25T23:30:39Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xfeho8/nanbeige4333b_quantised_gguf/",
+      "title": "Nanbeige4.3-33B Quantised GGUF",
+      "summary": "Quant ladder of Nanbeige's new 33B model from 35.2GB down to 13.7GB For 32GB hardware the sweet spot is 20.3GB AD-IQ4_XS with a top-1% of 92.0% compared to BF16 submitted by /u/gladkos [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-25T21:33:29+00:00",
+      "added_at": "2026-10-25T23:30:39Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xfe04h/tuned_strata_config_2000_pp_and_95105_mean_tg/",
+      "title": "Tuned Strata config, 2000 PP and 95-105 mean tg",
+      "summary": "TLDR: IQ3_S Qwen3.8-Flash-Next, RTX 4090 + 48 GB + Ryzen 3900X, Windows, 200k context. Ran essentially a grid search on a ton of flags: decode 97 → 142 tok/s (+45%) for three flags. Most relevant: --adapt-async 1, --kv-resident 20480, STRATA_ADAPT_LAG=2. Worst: --expert-cache is ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-25T21:12:58+00:00",
+      "added_at": "2026-10-25T23:30:39Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xfckvl/140tb_of_storage_and_640gb_a100_gpu_server_what/",
+      "title": "140TB of storage and 640gb A100 gpu server, what models to download",
+      "summary": "Since hugging face got token over I want to download the most important models. These include GLM5.3 (Flash)(abliterated) DS4 Flash and more. But since I still have storage left, the question is, what models and quants I should safe that could benefit me the most in the future. I",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-25T20:15:27+00:00",
+      "added_at": "2026-10-25T23:30:39Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xffuvl/i_need_to_fine_tune_qwen359b_with_qlora_on_about/",
+      "title": "I need to fine tune Qwen3.5-9B with QLora on about 500 GB of raw data (images/scanned documents/pdfs/word/excel) - what is the best way forward?",
+      "summary": "Hi All: I done overthought and burned money after consulting with AI chats (from chatgpt to grok to deepseek and kimi/etc). I had to learn. I have in my possession: - 1 Asus ESC4000 G3 with 128 GB DDR4 RDIMM and in it 8x T4s deployment. This server hosts the Qwen 3.5-9B Q5_K_XL a",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-25T22:32:43+00:00",
+      "added_at": "2026-10-25T23:30:39Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xfeghr/llama_swap_mobile_control/",
+      "title": "Llama Swap Mobile Control!",
+      "summary": "I just finished vibe coding an apk for Llama swap mobile controller. I really like being able to read logs and monitor my PC's performance while I'm out and about using my agents and I didn't necessarily care for how llama swap looked on mobile browser. Everything has been workin",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-25T21:32:11+00:00",
+      "added_at": "2026-10-25T23:30:39Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xfd1nk/monolithic_ddr3_server/",
+      "title": "Monolithic ddr3 server",
+      "summary": "Hi all. Do any of you guys run a server like this for inference of big models. Given deepseek is down to 8/16b active I'm curious as to whether this could start to make sense if I was to add a gpu. This server is local for $550 USD. Dell PowerEdge R820 4x CPU E5-4640 768GB RAM 2x",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-25T20:34:08+00:00",
+      "added_at": "2026-10-25T23:30:39Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xfbjil/strata_optimized_for_64gb_agx_orin/",
+      "title": "Strata Optimized for 64GB AGX Orin",
+      "summary": "Hey guys, hope all is well. I've spent the last few days working on a fork of Strata v0.1.45 for the Jetson AGX Orin 64GB , mainly running Qwen3.6-35B-A3B . I was getting around 21 tok/s decode with MTP-3 in llama.cpp, versus around 30 tok/s in my earlier Strata runs. With sample",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-25T19:35:00+00:00",
+      "added_at": "2026-10-25T23:30:39Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xfe84i/rtx_pro_4000_blackwell_sff_67_generation_on/",
+      "title": "RTX PRO 4000 Blackwell SFF: +67% generation on Qwen3.8 27B, different scaling on Qwen3.6 35B A3B",
+      "summary": "I ran an experiment on one RTX PRO 4000 Blackwell SFF: 24 GB GDDR7, factory 70 W, no auxiliary power connector. Using u/panchovix ’s loader and patched NVIDIA open kernel modules, I loaded a modified VBIOS into memory, raised the power limit to 120 W, and tested memory and core o",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-25T21:22:23+00:00",
+      "added_at": "2026-10-25T23:30:39Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
