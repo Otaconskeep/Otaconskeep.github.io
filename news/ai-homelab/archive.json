@@ -57832,11 +57832,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11897",
       "title": "llama.cpp b11897",
-      "summary": "tests : refactor test-llama-archs to not link internal libllama symbo…",
+      "summary": "tests : refactor test-llama-archs to not link internal libllama symbols ( #30880 ) test-llama-archs included src/llama-arch.h and src/llama-model-saver.h, which prevented building on Windows with shared libraries since the used symbols are not exported from the DLL. declare llama",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-26T10:16:02Z",
+      "published": "2026-10-26T11:00:39Z",
       "added_at": "2026-10-26T10:30:41Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/b8d1597f4456030e.png",
@@ -57844,6 +57844,57 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11898",
+      "title": "llama.cpp b11898",
+      "summary": "ggml-cpu : fix unused variables in arm arch ( #31180 )",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-26T10:38:55Z",
+      "added_at": "2026-10-26T11:00:39Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/400b7781ac0b129b.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xft2ae/have_8_gb_of_vram_and_32_gb_of_ram_you_can_run/",
+      "title": "Have 8 GB of VRAM and 32 GB of RAM? You can run Qwen 3.8 Flash Next at up to 900 t/s PP and 30 t/s TG!",
+      "summary": "First, this isn’t clickbait - these are real results. I managed to run Qwen 3.8 Flash Next Q2 and got better results in benchmarks and real-world tests than I did with any Qwen 3.6 35B A3B fine-tune or Qwen 3.8 27B model I tested. It is also faster than my current Qwen 3.6 35B A3",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-26T10:26:48+00:00",
+      "added_at": "2026-10-26T11:00:40Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xftcj0/qwen427bs_4way_hc_shift/",
+      "title": "Qwen4-27B's 4-way HC shift?",
+      "summary": "I just saw a PR in vllm-xpu-kernels today, revealing a significant architectural change in Qwen4-27B, and now that page shows 404 not found? It looks like a 4-way parallel residual stream to improve information flow and representation density within a fixed 27B parameter budget. ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-26T10:42:26+00:00",
+      "added_at": "2026-10-26T11:00:40Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]

@@ -5,18 +5,39 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-26T04:04:36Z</lastBuildDate>
 <item>
+<title>llama.cpp b11897</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11897</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11897</guid>
+<pubDate>2026-10-26T11:00:39Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b8d1597f4456030e.png" alt=""><p>Article · llama.cpp. tests : refactor test-llama-archs to not link internal libllama symbols ( #30880 ) test-llama-archs included src/llama-arch.h and src/llama-model-saver.h, which prevented building on Windows with shared libraries since the used symbols are not exported from the DLL. declare llama</p>]]></description>
+</item>
+<item>
+<title>Qwen4-27B&#x27;s 4-way HC shift?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xftcj0/qwen427bs_4way_hc_shift/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xftcj0/qwen427bs_4way_hc_shift/</guid>
+<pubDate>2026-10-26T10:42:26+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I just saw a PR in vllm-xpu-kernels today, revealing a significant architectural change in Qwen4-27B, and now that page shows 404 not found? It looks like a 4-way parallel residual stream to improve information flow and representation density within a fixed 27B parameter budget.]]></description>
+</item>
+<item>
+<title>llama.cpp b11898</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11898</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11898</guid>
+<pubDate>2026-10-26T10:38:55Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/400b7781ac0b129b.png" alt=""><p>Article · llama.cpp. ggml-cpu : fix unused variables in arm arch ( #31180 )</p>]]></description>
+</item>
+<item>
+<title>Have 8 GB of VRAM and 32 GB of RAM? You can run Qwen 3.8 Flash Next at up to 900 t/s PP and 30 t/s TG!</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xft2ae/have_8_gb_of_vram_and_32_gb_of_ram_you_can_run/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xft2ae/have_8_gb_of_vram_and_32_gb_of_ram_you_can_run/</guid>
+<pubDate>2026-10-26T10:26:48+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. First, this isn’t clickbait - these are real results. I managed to run Qwen 3.8 Flash Next Q2 and got better results in benchmarks and real-world tests than I did with any Qwen 3.6 35B A3B fine-tune or Qwen 3.8 27B model I tested. It is also faster than my current Qwen 3.6 35B A3]]></description>
+</item>
+<item>
 <title>llama.cpp b11896</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11896</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11896</guid>
 <pubDate>2026-10-26T10:20:04Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/62bc207b9e95c884.png" alt=""><p>Article · llama.cpp. ci : fix race in webgpu memset ( #31162 ) Website:</p>]]></description>
-</item>
-<item>
-<title>llama.cpp b11897</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11897</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11897</guid>
-<pubDate>2026-10-26T10:16:02Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b8d1597f4456030e.png" alt=""><p>Article · llama.cpp. tests : refactor test-llama-archs to not link internal libllama symbo…</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b11895</title>
