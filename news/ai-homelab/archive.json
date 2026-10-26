@@ -58322,12 +58322,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11905",
-      "title": "b11905: vulkan: rms norm optimization using subgroup reductions (#29882)",
-      "summary": "RMS Norm Subgroup reductions optimizaton Fix build error Improved optimization Make usage of BLOCK_SIZE consistent Add fast path to skip 2nd subgroupAdd Add AMD Vendor to subgroup reduction opt Add comment clarifying rms_dict and merge_maps behavior Add unroll Rebase Fixed syntax",
+      "title": "llama.cpp b11905",
+      "summary": "vulkan: rms norm optimization using subgroup reductions ( #29882 ) RMS Norm Subgroup reductions optimizaton Fix build error Improved optimization Make usage of BLOCK_SIZE consistent Add fast path to skip 2nd subgroupAdd Add AMD Vendor to subgroup reduction opt Add comment clarify",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-26T14:14:31Z",
+      "published": "2026-10-26T19:12:18Z",
       "added_at": "2026-10-26T19:00:39Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/1131c79da1510707.png",
@@ -58335,6 +58335,40 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11906",
+      "title": "b11906: ggml-cpu : rewrite concat as one row kernel for all types (#31179)",
+      "summary": "Every dst row comes from src0 or src1, or for dim 0 from the row of src0 followed by the row of src1, so a single kernel covers every type: a dense source row is one memcpy, quantized types included, and a strided source is copied element by element with the element size known at",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-26T14:18:45Z",
+      "added_at": "2026-10-26T19:30:45Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/da08d56823ef3933.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xg5rlx/price_5080_10_days/",
+      "title": "Price 5080 10 days",
+      "summary": "I paid $1658 on October 16th, on October 19th I paid $2032; with tax, shipping, same card. Now $2318 This is all through the big A btw. submitted by /u/Frizzy-MacDrizzle [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-26T18:57:17+00:00",
+      "added_at": "2026-10-26T19:30:46Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
