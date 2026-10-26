@@ -58001,11 +58001,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11901",
       "title": "llama.cpp b11901",
-      "summary": "sycl : bound reorder temp memory to 32 MiB ( #31062 )",
+      "summary": "sycl : bound reorder temp memory to 32 MiB ( #31062 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-26T14:11:57Z",
+      "published": "2026-10-26T17:29:49Z",
       "added_at": "2026-10-26T15:00:41Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/c43ee03833a30084.png",
@@ -58132,6 +58132,23 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11902",
+      "title": "b11902: sycl: add set_tensor_2d for faster tensor-split loading (#30358)",
+      "summary": "sycl: add set_tensor_2d for faster tensor-split loading Pack host rows into chunks of up to 64 MiB when destination rows are contiguous, avoiding a separate upload call for each row. Keep the existing per-row copy path for non-contiguous destinations. On two Arc Pro B70s with gpt",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-26T14:12:25Z",
+      "added_at": "2026-10-26T17:30:40Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/313af67fd8c7e8b6.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
