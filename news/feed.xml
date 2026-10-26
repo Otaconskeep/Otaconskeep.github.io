@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-26T13:33:21Z</lastBuildDate>
 <item>
+<title>llama.cpp b11906</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11906</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11906</guid>
+<pubDate>2026-10-26T19:49:05Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/da08d56823ef3933.png" alt=""><p>Article · llama.cpp. ggml-cpu : rewrite concat as one row kernel for all types ( #31179 ) Every dst row comes from src0 or src1, or for dim 0 from the row of src0 followed by the row of src1, so a single kernel covers every type: a dense source row is one memcpy, quantized types included, and a strid</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11905</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11905</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11905</guid>
@@ -138,11 +145,11 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Caveats: IDK how to set anything up and I asked Deepseek to handle it - not enough training data so without specific guides the set up doesn&#x27;t work well. I&#x27;m not a programmer. My previous model was Qwen 3.8 27B q4 using ninfer. Was getting around 1.4k prefill and 100-120 tokens d]]></description>
 </item>
 <item>
-<title>b11906: ggml-cpu : rewrite concat as one row kernel for all types (#31179)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11906</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11906</guid>
-<pubDate>2026-10-26T14:18:45Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/da08d56823ef3933.png" alt=""><p>Article · llama.cpp. Every dst row comes from src0 or src1, or for dim 0 from the row of src0 followed by the row of src1, so a single kernel covers every type: a dense source row is one memcpy, quantized types included, and a strided source is copied element by element with the element size known at</p>]]></description>
+<title>b11907: models : replace ggml_tensor** out-params with output structs (#31142)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11907</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11907</guid>
+<pubDate>2026-10-26T14:19:47Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/67c44c74430c7c20.png" alt=""><p>Article · llama.cpp. The hyper-connection and DSA graph builders wrote their extra outputs (post / comb gates, carried top-k selections, inject gates) through ggml_tensor** out-params. Return them in a small struct next to the primary output instead. Assisted-by: dsh:llama.cpp/ggml-org/Qwen3.8-Flash-</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b11903</title>

@@ -58339,12 +58339,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11906",
-      "title": "b11906: ggml-cpu : rewrite concat as one row kernel for all types (#31179)",
-      "summary": "Every dst row comes from src0 or src1, or for dim 0 from the row of src0 followed by the row of src1, so a single kernel covers every type: a dense source row is one memcpy, quantized types included, and a strided source is copied element by element with the element size known at",
+      "title": "llama.cpp b11906",
+      "summary": "ggml-cpu : rewrite concat as one row kernel for all types ( #31179 ) Every dst row comes from src0 or src1, or for dim 0 from the row of src0 followed by the row of src1, so a single kernel covers every type: a dense source row is one memcpy, quantized types included, and a strid",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-26T14:18:45Z",
+      "published": "2026-10-26T19:49:05Z",
       "added_at": "2026-10-26T19:30:45Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/da08d56823ef3933.png",
@@ -58369,6 +58369,23 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11907",
+      "title": "b11907: models : replace ggml_tensor** out-params with output structs (#31142)",
+      "summary": "The hyper-connection and DSA graph builders wrote their extra outputs (post / comb gates, carried top-k selections, inject gates) through ggml_tensor** out-params. Return them in a small struct next to the primary output instead. Assisted-by: dsh:llama.cpp/ggml-org/Qwen3.8-Flash-",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-26T14:19:47Z",
+      "added_at": "2026-10-26T20:00:39Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/67c44c74430c7c20.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
