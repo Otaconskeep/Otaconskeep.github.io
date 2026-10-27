@@ -438,10 +438,10 @@
       "url": "https://phunky.cafe/my-homelab-got-hacked/",
       "title": "My Homelab Got Hacked – A Postmortem",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · homelab",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-26T07:01:03-07:00",
+      "published": "Mon, 10 Aug 2026 23:04:18 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -587,11 +587,11 @@
     {
       "url": "https://github.com/OtoDock/oto-dock",
       "title": "Show HN: Self-hosted company OS, Claude Code and Codex agents in departments",
-      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many ",
-      "source": "Hacker News · self-hosted",
+      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Wed, 09 Sep 2026 17:57:55 +0000",
+      "published": "2026-09-25T20:30:45-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1011,7 +1011,7 @@
       "url": "https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/",
       "title": "Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama",
       "summary": "Article URL:",
-      "source": "Hacker News · self-hosted",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
       "published": "Mon, 14 Sep 2026 13:59:09 +0000",
@@ -1032,7 +1032,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-24T07:26:37-07:00",
+      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -2113,7 +2113,7 @@
       "url": "https://blawg.pages.dev/ollama-vs-llama-server",
       "title": "Ollama vs. Llama.cpp – Quick Benchmark",
       "summary": "Article URL:",
-      "source": "Hacker News · llama.cpp",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
       "published": "Sun, 12 Jul 2026 12:22:17 +0000",
@@ -59340,12 +59340,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11933",
-      "title": "b11933: vulkan: fix CI llvmpipe by allowing dim 3 broadcast in MUL_MAT (#31239)",
-      "summary": "vulkan: allow dim 3 broadcast in MUL_MAT supports_op rejected every MUL_MAT whose src0 and src1 differ in ne3, although mul_mm, mul_mmq and mul_mat_vec already broadcast src0 over dim 3 through broadcast3. Such a matmul then ran on the CPU with a copy of the weight, and the split",
+      "title": "llama.cpp b11933",
+      "summary": "vulkan: fix CI llvmpipe by allowing dim 3 broadcast in MUL_MAT ( #31239 ) vulkan: allow dim 3 broadcast in MUL_MAT supports_op rejected every MUL_MAT whose src0 and src1 differ in ne3, although mul_mm, mul_mmq and mul_mat_vec already broadcast src0 over dim 3 through broadcast3. ",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-27T12:39:03Z",
+      "published": "2026-10-27T15:30:39Z",
       "added_at": "2026-10-27T14:00:41Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/ba0c41f8addcc99f.png",
@@ -59403,6 +59403,91 @@
       "video": "",
       "categories": [
         "homelab",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11934",
+      "title": "b11934: tests : speed up tensor data generation and model saving (#31145)",
+      "summary": "tests : speed up tensor data generation and model saving Refactor save_models to create only the model, not a llama_context, which is not needed for saving. Replace the slow std::normal_distribution draw with a splitmix64 + box-muller normal generator. Assisted-by: dsh:llama.cpp/",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-27T12:44:41Z",
+      "added_at": "2026-10-27T15:30:41Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/fe6c8212a1cce378.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xgu3ck/rlocalllama_community_benchmarks_glm_53_flash_vs/",
+      "title": "r/LocalLLaMA Community Benchmarks - GLM 5.3 Flash vs Hy 4 Preview vs MiMo v2.6 Pro",
+      "summary": "I made benchmark and took comments from this subreddit as an experiment to see how model feels submitted by /u/ArturCzemiel [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-27T14:30:20+00:00",
+      "added_at": "2026-10-27T15:30:42Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xguv3i/how_to_build_a_decision_model_like_jev/",
+      "title": "How to Build a Decision Model Like Jev",
+      "summary": "Full disclosure: I'm one of the authors of this blog, and work at Oumi. I thought folks here would find our investigation interesting, especially anyone interested in building local decision models. We ran several experiments to investigate which model Jev may be based on and how",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-27T15:00:42+00:00",
+      "added_at": "2026-10-27T15:30:42Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xgvcnu/sensenova_68_code2video_an_opensourced_model_that/",
+      "title": "SenseNova 6.8 Code2Video: an open-sourced model that writes and revises code to make videos",
+      "summary": "Think of the animation workflows people use with Claude Opus 5.5: the model writes code, rendering tools turn it into video, and further instructions revise the result. SenseNova follows that same general approach, with a model and creation Skill focused on video creation A few h",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-27T15:19:11+00:00",
+      "added_at": "2026-10-27T15:30:42Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xguu4c/qwen38_27b_on_one_rtx_5090_comparing_six_engines/",
+      "title": "Qwen3.8 27B on one RTX 5090: comparing six engines across TTFT, prefill, decode, concurrency and tool tasks",
+      "summary": "Disclosure: I’m the author of TensorSharp. This English post was prepared with LLM assistance from the benchmark report linked below. Here is a comparison of TensorSharp, llama.cpp, vLLM, SGLang, velox-inferer, and NInfer running Qwen3.8 27B on a single RTX 5090. The results cove",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-27T14:59:47+00:00",
+      "added_at": "2026-10-27T15:30:42Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
         "communities"
       ]
     }
