@@ -3,7 +3,21 @@
 <title>AI &amp; Homelab News</title>
 <link>https://otaconskeep.github.io/news/ai-homelab/</link>
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
-<lastBuildDate>2026-10-27T04:02:48Z</lastBuildDate>
+<lastBuildDate>2026-10-27T13:35:58Z</lastBuildDate>
+<item>
+<title>llama.cpp b11930</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11930</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11930</guid>
+<pubDate>2026-10-27T13:46:24Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/03efaabc91c5a0ac.png" alt=""><p>Article · llama.cpp. server: add router device memory margin parameter for dynamic unloading ( #21231 ) server: add --models-memory-max parameter to allow dynamically unloading models when they exceed a memory size threshold estimate with to-be-loaded model size included use no_alloc to get memory re</p>]]></description>
+</item>
+<item>
+<title>4 coding agents on one RTX 3090: ~290 tok/s total from a custom CUDA engine for Qwen3.8-27B (3-4x llama-server --parallel)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xgs8hp/4_coding_agents_on_one_rtx_3090_290_toks_total/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xgs8hp/4_coding_agents_on_one_rtx_3090_290_toks_total/</guid>
+<pubDate>2026-10-27T13:15:50+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I&#x27;ve been building OpenJet, a local coding agent with its own CUDA megakernel engine for Qwen3.8-27B Q4_K_M. Until now it served one conversation at a time. The new release serves several agents at once on a single GPU.]]></description>
+</item>
 <item>
 <title>llama.cpp b11929</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11929</link>
@@ -19,11 +33,32 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Well, “coming soon” turned out to be five days. I posted the earlier announcement last week. The 1019 weights are now on Hugging Face . Still 560B total, 25B active, with a 1M context window. This is the update they reported at 44 on the AA Intelligence Index v4.3.2, up from 41.]]></description>
 </item>
 <item>
+<title>b11933: vulkan: fix CI llvmpipe by allowing dim 3 broadcast in MUL_MAT (#31239)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11933</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11933</guid>
+<pubDate>2026-10-27T12:39:03Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ba0c41f8addcc99f.png" alt=""><p>Article · llama.cpp. vulkan: allow dim 3 broadcast in MUL_MAT supports_op rejected every MUL_MAT whose src0 and src1 differ in ne3, although mul_mm, mul_mmq and mul_mat_vec already broadcast src0 over dim 3 through broadcast3. Such a matmul then ran on the CPU with a copy of the weight, and the split</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11928</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11928</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11928</guid>
 <pubDate>2026-10-27T12:33:51Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e1a6c815842fc518.png" alt=""><p>Article · llama.cpp. model: Add MiniCPM-OCR-Jev ( #30980 ) model : add MiniCPM-OCR-Jev support The model is a Qwen3.5-VL trunk with a value head read at the last token: it scores an OCR text against an image rendered from it, it does not generate. Add the openbmb-minicpm-ocr-jev decision type, served</p>]]></description>
+</item>
+<item>
+<title>โดย Nokka (นก-กา) | ตรวจข้อมูล 27 ต.ค. 2026 บทความนี้เขียนโดย AI (deepseek-v4.1-flash ·...</title>
+<link>https://www.urbanmind.net/display/f7dd981d-21083bd8-0686eaba1013f88d</link>
+<guid isPermaLink="true">https://www.urbanmind.net/display/f7dd981d-21083bd8-0686eaba1013f88d</guid>
+<pubDate>Tue, 27 Oct 2026 12:30:47 +0000</pubDate>
+<description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
+</item>
+<item>
+<title>125 Tokens per Second on an RTX 4070 Ti SUPER: How I Got a Local LLM Working as a Full-Fledged Coding Agent</title>
+<link>https://www.reddit.com/r/LocalLLM/comments/1xgqyz4/125_tokens_per_second_on_an_rtx_4070_ti_super_how/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLM/comments/1xgqyz4/125_tokens_per_second_on_an_rtx_4070_ti_super_how/</guid>
+<pubDate>2026-10-27T12:18:22+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLM. Reddit from r/LocalLLM.]]></description>
 </item>
 <item>
 <title>Best way to use R9700 vs RTX3060 or RTX3090 for Qwen</title>
@@ -33,6 +68,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Thoughts on how I might best use my hardware? MiniPC (Bubblina) with eGPU oculink R9700 (32GB AMD) 64GB DDR5 - Qwen3.8-27B Paiton-KV4-vision 262K context, 8-concurrent Desktop (BM1) Ryzen 5700G currently with RTX3060 12GB, and a GTX1660 6GB, 64GB DDR4 - Strata IQ2_XS - runs surpr]]></description>
 </item>
 <item>
+<title>b11932: mtmd-cli: Reduced scope of batch pointer (#31155) (#31165)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11932</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11932</guid>
+<pubDate>2026-10-27T11:56:03Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/a94cf55dda58e660.png" alt=""><p>Article · llama.cpp. mtmd-cli: Reduced scope of batch pointer ( #31155 ) mtmd-cli: Remove CLI regression test</p>]]></description>
+</item>
+<item>
 <title>Comparing ISTA-DASLab&#x27;s DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF 2.25bpw against the official API</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xgqf92/comparing_istadaslabs/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xgqf92/comparing_istadaslabs/</guid>
@@ -40,18 +82,18 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. I&#x27;ve been running ISTA-DASLab&#x27;s 2.25bpw quant of DSv4.1-1017 for a few days, and it&#x27;s holding up well. But the fact that it&#x27;s only 2.25bpw average did make me wonder how good the quant actually is against the full model. Local setup: Project-maya v1.1.27. ISTA-DASLab&#x27;s 2.25bpw qu]]></description>
 </item>
 <item>
+<title>Bought a refurbished RTX 2080 Super (~$190) just to babysit my desktop, so my 5090 does nothing but LLM.</title>
+<link>https://www.reddit.com/r/LocalLLM/comments/1xgpzvq/bought_a_refurbished_rtx_2080_super_190_just_to/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLM/comments/1xgpzvq/bought_a_refurbished_rtx_2080_super_190_just_to/</guid>
+<pubDate>2026-10-27T11:29:30+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLM. While benchmarking I noticed decode at ~120K context depends on what Chrome is doing: Chrome open and visible: 51 tok/s Chrome minimized: 59 tok/s Chrome closed: 64 tok/s Short prompts barely notice. My guess: on Windows (WDDM) with a 4K 240 Hz monitor on the same GPU, every comp]]></description>
+</item>
+<item>
 <title>Olivares AI: a self-hosted server for Claude Code, Codex and other coding agents (open source) --- GitHub - olivaresai/olivares: Ground truth for enterprise AI: your AI coding tool</title>
 <link>https://www.reddit.com/r/selfhosted/comments/1xgpyne/olivares_ai_a_selfhosted_server_for_claude_code/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/selfhosted/comments/1xgpyne/olivares_ai_a_selfhosted_server_for_claude_code/</guid>
 <pubDate>2026-10-27T11:27:37+00:00</pubDate>
 <description><![CDATA[Reddit · r/selfhosted. We built Olivares AI to run coding agents on our own servers instead of on each laptop: Claude Code, Codex, Gemini CLI, OpenCode, Grok and local models through Ollama. It is one Go binary with the web console built in. It stores its data in SQLite on a single node, or in PostgreS]]></description>
-</item>
-<item>
-<title>llama.cpp b11930</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11930</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11930</guid>
-<pubDate>2026-10-27T11:14:42Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/03efaabc91c5a0ac.png" alt=""><p>Article · llama.cpp. server: add router device memory margin parameter for dynamic unloadi…</p>]]></description>
 </item>
 <item>
 <title>inclusionAI/Ling-3.1-flash-1019 · Hugging Face</title>
@@ -21369,6 +21411,13 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>2026-09-26T07:01:03-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -22006,6 +22055,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -22109,6 +22165,13 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
+</item>
+<item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>2026-09-23T11:17:55-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>ComfyUI v0.36.0</title>
@@ -22440,13 +22503,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -22473,13 +22529,6 @@
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/proto-v0.1.0</guid>
 <pubDate>2026-09-11T08:30:05Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
-</item>
-<item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0</title>
@@ -22907,13 +22956,6 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
-</item>
-<item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
