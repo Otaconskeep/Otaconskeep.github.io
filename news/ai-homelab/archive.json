@@ -403,18 +403,17 @@
     {
       "url": "https://www.youtube.com/watch?v=K2IGHj7KQoM",
       "title": "Are Local Models Finally Good Enough?",
-      "summary": "I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video",
+      "summary": "Video from Techno Tim.",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
-      "published": "2026-09-23T10:55:29-07:00",
+      "published": "2026-05-18T15:00:34+00:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://i.ytimg.com/vi/K2IGHj7KQoM/hqdefault.jpg",
       "file": "media/01.jpg",
       "video": "K2IGHj7KQoM",
       "categories": [
         "local-models",
-        "homelab",
         "video"
       ]
     },
@@ -455,11 +454,11 @@
     {
       "url": "https://www.youtube.com/watch?v=7I0pjHC4U7I",
       "title": "I'm starting a homelab festival (you're invited)",
-      "summary": "REGISTER NOW!",
+      "summary": "Video from Jeff Geerling.",
       "source": "Jeff Geerling",
       "kind": "youtube",
       "lane": "Video",
-      "published": "2026-09-26T07:01:03-07:00",
+      "published": "2026-09-25T15:00:38+00:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://i.ytimg.com/vi/7I0pjHC4U7I/hqdefault.jpg",
       "file": "media/4bfe6bb1f1622204.jpg",
@@ -472,11 +471,11 @@
     {
       "url": "https://www.youtube.com/watch?v=8NFV6duMKQA",
       "title": "What Is an NPU Actually Good For?",
-      "summary": "What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se",
+      "summary": "Video from Techno Tim.",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
-      "published": "2026-09-23T10:55:29-07:00",
+      "published": "2026-08-22T16:12:28+00:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://i.ytimg.com/vi/8NFV6duMKQA/hqdefault.jpg",
       "file": "media/322193c3ccae5516.jpg",
@@ -489,7 +488,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qyGbkEtjJ90",
       "title": "Answering your Homelab Questions!",
-      "summary": "Click this link",
+      "summary": "Video from Wolfgang's Channel.",
       "source": "Wolfgang's Channel",
       "kind": "youtube",
       "lane": "Video",
@@ -22564,7 +22563,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qxfNTcPl70w",
       "title": "I Made My Local AI Pick Its Own Model",
-      "summary": "I wanted my local AI to choose the right model automatically instead of making me pick between speed and capability for every request. I test NVIDIA Switchyard for local AI model routing with Nemotron 3.5 Lightning on an RTX 3090 and DeepSeek V4 Flash across two GX10s. I cover St",
+      "summary": "Video from Techno Tim.",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -61837,11 +61836,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11979",
       "title": "llama.cpp b11979",
-      "summary": "sycl : vectorize reordered-layout dequantization stores (Q4_0, K-quan…",
+      "summary": "sycl : vectorize reordered-layout dequantization stores (Q4_0, K-quants, IQ3, MXFP4) ( #30976 ) sycl : widen reordered q4_0 dequantization stores The reordered-layout Q4_0 conversion kernel processed one qs byte per work-item with two scalar stores, strided 16 elements apart. Giv",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-29T05:57:53Z",
+      "published": "2026-10-29T06:48:48Z",
       "added_at": "2026-10-29T06:30:41Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/dd04e48f1b3ea632.png",
@@ -61849,6 +61848,40 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11980",
+      "title": "b11980: [SYCL] add DPAS flash attention kernel for quantized KV cache (#31125)",
+      "summary": "sycl : add DPAS flash attention kernel for quantized KV cache Decode and small batches (1 to 31 query tokens) now run flash attention straight on q4_0 and q8_0 KV blocks, instead of scalar dequant or converting the whole cache to f16 per call. Q.K uses s8 x s4 and s8 x s8 DPAS on",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-29T06:01:21Z",
+      "added_at": "2026-10-29T07:00:42Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/3b6828e3e93cf644.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xibujk/pruned_nvidias_new_30b_speech_llm_from_675gb_to/",
+      "title": "pruned NVIDIA's new 30B speech LLM from 67.5GB to 10GB with zero retraining, it still transcribes at 5.16% WER (teacher: 4.12%)",
+      "summary": "submitted by /u/Illustrious_Row_9971 [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-10-29T05:54:38+00:00",
+      "added_at": "2026-10-29T07:00:44Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
