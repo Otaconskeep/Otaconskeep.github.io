@@ -61852,12 +61852,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11980",
-      "title": "b11980: [SYCL] add DPAS flash attention kernel for quantized KV cache (#31125)",
-      "summary": "sycl : add DPAS flash attention kernel for quantized KV cache Decode and small batches (1 to 31 query tokens) now run flash attention straight on q4_0 and q8_0 KV blocks, instead of scalar dequant or converting the whole cache to f16 per call. Q.K uses s8 x s4 and s8 x s8 DPAS on",
+      "title": "llama.cpp b11980",
+      "summary": "[SYCL] add DPAS flash attention kernel for quantized KV cache ( #31125 ) sycl : add DPAS flash attention kernel for quantized KV cache Decode and small batches (1 to 31 query tokens) now run flash attention straight on q4_0 and q8_0 KV blocks, instead of scalar dequant or convert",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-29T06:01:21Z",
+      "published": "2026-10-29T07:14:26Z",
       "added_at": "2026-10-29T07:00:42Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/3b6828e3e93cf644.png",
@@ -61882,6 +61882,23 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b11981",
+      "title": "b11981: hexagon: improve DDR bw utilization in transposed CONCAT (#31277)",
+      "summary": "hex-concat: double row block size for transposed CONCAT hex-concat: double buffer scratchpads hex-concat: chunked src1 rows in transposed concat hex-concat: pad src1 VTCM stride to spread gather lanes hex-vgather: apply similar vgather opts to SSM_CONV and GDN Co-authored-by: Max",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-10-29T06:57:18Z",
+      "added_at": "2026-10-29T07:30:42Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/6dca85f696cdb99b.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]

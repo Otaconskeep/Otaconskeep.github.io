@@ -5,18 +5,25 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-29T04:03:55Z</lastBuildDate>
 <item>
+<title>llama.cpp b11980</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11980</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11980</guid>
+<pubDate>2026-10-29T07:14:26Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3b6828e3e93cf644.png" alt=""><p>Article · llama.cpp. [SYCL] add DPAS flash attention kernel for quantized KV cache ( #31125 ) sycl : add DPAS flash attention kernel for quantized KV cache Decode and small batches (1 to 31 query tokens) now run flash attention straight on q4_0 and q8_0 KV blocks, instead of scalar dequant or convert</p>]]></description>
+</item>
+<item>
+<title>b11981: hexagon: improve DDR bw utilization in transposed CONCAT (#31277)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11981</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11981</guid>
+<pubDate>2026-10-29T06:57:18Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6dca85f696cdb99b.png" alt=""><p>Article · llama.cpp. hex-concat: double row block size for transposed CONCAT hex-concat: double buffer scratchpads hex-concat: chunked src1 rows in transposed concat hex-concat: pad src1 VTCM stride to spread gather lanes hex-vgather: apply similar vgather opts to SSM_CONV and GDN Co-authored-by: Max</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b11979</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b11979</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11979</guid>
 <pubDate>2026-10-29T06:48:48Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/dd04e48f1b3ea632.png" alt=""><p>Article · llama.cpp. sycl : vectorize reordered-layout dequantization stores (Q4_0, K-quants, IQ3, MXFP4) ( #30976 ) sycl : widen reordered q4_0 dequantization stores The reordered-layout Q4_0 conversion kernel processed one qs byte per work-item with two scalar stores, strided 16 elements apart. Giv</p>]]></description>
-</item>
-<item>
-<title>b11980: [SYCL] add DPAS flash attention kernel for quantized KV cache (#31125)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b11980</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11980</guid>
-<pubDate>2026-10-29T06:01:21Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3b6828e3e93cf644.png" alt=""><p>Article · llama.cpp. sycl : add DPAS flash attention kernel for quantized KV cache Decode and small batches (1 to 31 query tokens) now run flash attention straight on q4_0 and q8_0 KV blocks, instead of scalar dequant or converting the whole cache to f16 per call. Q.K uses s8 x s4 and s8 x s8 DPAS on</p>]]></description>
 </item>
 <item>
 <title>pruned NVIDIA&#x27;s new 30B speech LLM from 67.5GB to 10GB with zero retraining, it still transcribes at 5.16% WER (teacher: 4.12%)</title>
