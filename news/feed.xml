@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-10-30T13:36:11Z</lastBuildDate>
 <item>
+<title>llama.cpp b12008</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12008</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12008</guid>
+<pubDate>2026-10-30T14:10:18Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6d508a898eb83dcd.png" alt=""><p>Article · llama.cpp. gemma3n, gemma4 : create token_embd before the tied output ( #31394 ) The duplicated output looks up token_embd in its buffer context, so token_embd must exist first. With the old order a load where input and output share a buffer type (CPU-only, -ngl 0) held the table twice: gem</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12007</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12007</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12007</guid>
@@ -110,6 +117,20 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/a5720c84ca245061.png" alt=""><p>Article · noted.lol. Map out the machines and services running in a homelab with Homelab Atlas, a self-hosted diagram editor that does the layout work.</p>]]></description>
 </item>
 <item>
+<title>llama.cpp b12012</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12012</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12012</guid>
+<pubDate>2026-10-30T10:49:58Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/53f056ac6a2e863f.png" alt=""><p>Article · llama.cpp. vendor : update cpp-httplib to 0.64.0 ( #31400 )</p>]]></description>
+</item>
+<item>
+<title>b12010: cmake : embed an app manifest in all Windows exes (#31329)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12010</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12010</guid>
+<pubDate>2026-10-30T09:56:53Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c4e7f4822788cff1.png" alt=""><p>Article · llama.cpp. cmake : embed an app manifest in all Windows exes Signed-off-by: Adrien Gallouët angt@huggingface.co Remove LLAMA_WIN_APP_CMAKE Signed-off-by: Adrien Gallouët angt@huggingface.co Signed-off-by: Adrien Gallouët angt@huggingface.co</p>]]></description>
+</item>
+<item>
 <title>v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N &gt;= 2^31 on gfx950 (#64567)</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2</guid>
@@ -129,13 +150,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xj9xjh/the_rtx_5080_has_been_removed_from_nvidias/</guid>
 <pubDate>2026-10-30T08:38:08+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Rumors claim that the RTX 5080 16GB will be discontinued alongside the already discontinued RTX 5090, and those claims seem to be true. NVIDIA is reportedly planning to introduce an RTX 5080 24GB model in early 2027, which would serve as its flagship GPU until RTX Rubin arrives s]]></description>
-</item>
-<item>
-<title>b12008: gemma3n, gemma4 : create token_embd before the tied output (#31394)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12008</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12008</guid>
-<pubDate>2026-10-30T08:36:27Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6d508a898eb83dcd.png" alt=""><p>Article · llama.cpp. The duplicated output looks up token_embd in its buffer context, so token_embd must exist first. With the old order a load where input and output share a buffer type (CPU-only, -ngl 0) held the table twice: gemma-4-E2B-it Q4_K_M, no mmap, CPU model buffer 3163.73 -&gt; 2947.73 MiB.</p>]]></description>
 </item>
 <item>
 <title>n8n@2.46.3</title>
@@ -352,7 +366,7 @@
 <link>https://lemmy.world/post/53751592</link>
 <guid isPermaLink="true">https://lemmy.world/post/53751592</guid>
 <pubDate>Thu, 29 Oct 2026 21:59:18 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by tofu to selfhosted 103 points | 7 comments]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by tofu to selfhosted 104 points | 7 comments]]></description>
 </item>
 <item>
 <title>Arguably unethical behavior from Cohere</title>
