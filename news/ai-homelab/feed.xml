@@ -3,7 +3,21 @@
 <title>AI &amp; Homelab News</title>
 <link>https://otaconskeep.github.io/news/ai-homelab/</link>
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
-<lastBuildDate>2026-10-30T04:03:37Z</lastBuildDate>
+<lastBuildDate>2026-10-30T13:36:11Z</lastBuildDate>
+<item>
+<title>llama.cpp b12007</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12007</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12007</guid>
+<pubDate>2026-10-30T13:54:18Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b15bec59cff16399.png" alt=""><p>Article · llama.cpp. kv-cache : keep rotation constants on the GPU ( #31073 ) kv-cache : keep rotation constants on the GPU Assisted-by: Codex tests : verify resident KV rotation buffers Assisted-by: Codex kv-cache : document remaining multi-device rotation work Assisted-by: Codex kv-cache : support</p>]]></description>
+</item>
+<item>
+<title>Introducing DeepSeek-V4.1-Flash-1017 Dynamic v3.1 Unsloth GGUFs</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xjfuqh/introducing_deepseekv41flash1017_dynamic_v31/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xjfuqh/introducing_deepseekv41flash1017_dynamic_v31/</guid>
+<pubDate>2026-10-30T13:48:01+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hey everyone! We’re releasing new DeepSeek-V4.1-1017 Dynamic V3.1 (preview) GGUFs which showcases how Unsloth’s GGUFs retain the most accuracy for its size across 7 different benchmarks . We benchmarked ISTA&#x27;s GSQ-RCO GGUFs but could not reproduce their reported results , even wh]]></description>
+</item>
 <item>
 <title>Tried to get Qwen 3.8 27b to make the deepseek chibi whale in blender and animate it lol</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xjf0yg/tried_to_get_qwen_38_27b_to_make_the_deepseek/</link>
@@ -117,6 +131,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Rumors claim that the RTX 5080 16GB will be discontinued alongside the already discontinued RTX 5090, and those claims seem to be true. NVIDIA is reportedly planning to introduce an RTX 5080 24GB model in early 2027, which would serve as its flagship GPU until RTX Rubin arrives s]]></description>
 </item>
 <item>
+<title>b12008: gemma3n, gemma4 : create token_embd before the tied output (#31394)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12008</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12008</guid>
+<pubDate>2026-10-30T08:36:27Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6d508a898eb83dcd.png" alt=""><p>Article · llama.cpp. The duplicated output looks up token_embd in its buffer context, so token_embd must exist first. With the old order a load where input and output share a buffer type (CPU-only, -ngl 0) held the table twice: gemma-4-E2B-it Q4_K_M, no mmap, CPU model buffer 3163.73 -&gt; 2947.73 MiB.</p>]]></description>
+</item>
+<item>
 <title>n8n@2.46.3</title>
 <link>https://github.com/n8n-io/n8n/releases/tag/n8n%402.46.3</link>
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/n8n%402.46.3</guid>
@@ -150,13 +171,6 @@
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/stable</guid>
 <pubDate>2026-10-30T08:25:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · n8n. 2.45.7 (2026-10-30) Bug Fixes core: Require execution:read when workflow-scoped routes read execution data ( #42446 ) ( 93638f4 ) core: Resolve IMAP trigger expressions after activation ( #42611 ) ( 50ef902 ) core: Return user data with an __isError key as data in expressions ( #</p>]]></description>
-</item>
-<item>
-<title>b12007: kv-cache : keep rotation constants on the GPU (#31073)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12007</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12007</guid>
-<pubDate>2026-10-30T08:15:06Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b15bec59cff16399.png" alt=""><p>Article · llama.cpp. kv-cache : keep rotation constants on the GPU Assisted-by: Codex tests : verify resident KV rotation buffers Assisted-by: Codex kv-cache : document remaining multi-device rotation work Assisted-by: Codex kv-cache : support per-layer rotation buffers Assisted-by: Codex kv-cache :</p>]]></description>
 </item>
 <item>
 <title>b12006: memory: refuse rollbacks past the snapshots of the last ubatch (#31368)</title>
@@ -338,7 +352,7 @@
 <link>https://lemmy.world/post/53751592</link>
 <guid isPermaLink="true">https://lemmy.world/post/53751592</guid>
 <pubDate>Thu, 29 Oct 2026 21:59:18 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by tofu to selfhosted 101 points | 7 comments]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by tofu to selfhosted 103 points | 7 comments]]></description>
 </item>
 <item>
 <title>Arguably unethical behavior from Cohere</title>
@@ -23161,6 +23175,13 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>2026-09-26T07:01:03-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -24699,13 +24720,6 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
-</item>
-<item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
