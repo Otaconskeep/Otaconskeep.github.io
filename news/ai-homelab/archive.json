@@ -574,7 +574,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-24T07:26:37-07:00",
+      "published": "Tue, 18 Aug 2026 20:42:19 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -587,11 +587,11 @@
     {
       "url": "https://github.com/OtoDock/oto-dock",
       "title": "Show HN: Self-hosted company OS, Claude Code and Codex agents in departments",
-      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many",
-      "source": "Hacker News",
+      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many ",
+      "source": "Hacker News · self-hosted",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-25T20:30:45-07:00",
+      "published": "Wed, 09 Sep 2026 17:57:55 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1011,10 +1011,10 @@
       "url": "https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/",
       "title": "Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama",
       "summary": "Article URL:",
-      "source": "Hacker News",
+      "source": "Hacker News · self-hosted",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-23T11:17:55-07:00",
+      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1032,7 +1032,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-24T07:26:37-07:00",
+      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -2113,7 +2113,7 @@
       "url": "https://blawg.pages.dev/ollama-vs-llama-server",
       "title": "Ollama vs. Llama.cpp – Quick Benchmark",
       "summary": "Article URL:",
-      "source": "Hacker News · llama.cpp",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
       "published": "Sun, 12 Jul 2026 12:22:17 +0000",
@@ -68423,12 +68423,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12047",
-      "title": "b12047: sycl: dmmv code cleanup (#31325)",
-      "summary": "sycl: fold q8_0 reorder dmmv into the generic template sycl: template the dmmv non-K launchers sycl: template the dmmv K-quant launchers",
+      "title": "llama.cpp b12047",
+      "summary": "sycl: dmmv code cleanup ( #31325 ) sycl: fold q8_0 reorder dmmv into the generic template sycl: template the dmmv non-K launchers sycl: template the dmmv K-quant launchers Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-02T11:51:20Z",
+      "published": "2026-11-02T15:51:15Z",
       "added_at": "2026-11-02T15:00:56Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/17da400e6e393b6a.png",
@@ -68521,6 +68521,108 @@
       "video": "",
       "categories": [
         "homelab",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12048",
+      "title": "b12048: sycl : fast ggml_sycl_comm_exchange() on Intel Arc Pro B70s (#30956)",
+      "summary": "Update ggml-sycl.cpp Increases -sm tensor prompt eval t/s by +19% with zero PPL change. Update ggml-sycl.cpp Replace first pair of wait() calls with ext_oneapi_submit_barrier(). The wait() calls was discovered to cause MTP degradation. Update ggml-sycl.cpp Adding comm_exchange fu",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-02T11:52:53Z",
+      "added_at": "2026-11-02T16:00:58Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/485ac8c6f2805767.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xlzaq0/an_ai_agent_just_beat_nvidias_flashmla_baseline/",
+      "title": "An AI agent just beat NVIDIA's FlashMLA baseline by 9.8% on B200, without seeing its source code",
+      "summary": "OpenBMB just wrapped up ForgeKernel Live, a ~22-hour autonomous GPU kernel optimization run on NVIDIA B200. The interesting part isn't just the speedup. The agent was optimizing against a black box. It could execute and benchmark the official FlashMLA implementation, but couldn't",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-02T14:53:42+00:00",
+      "added_at": "2026-11-02T16:00:58Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xm0b7r/builders_got_minimax_m31_flashs_open_weights_from/",
+      "title": "Builders got MiniMax M3.1 Flash's open weights from 252.4 GB down to 93 GB in 10 days, and the lab thanked them by name",
+      "summary": "MiniMax posted a thank-you yesterday for everyone quantizing M3.1 Flash (428B, 252.4 GB), and I went through the ones they named. Numbers are each builder's, separate eval sets, not comparable. 128 GB PC: Maya-XS by PeasantSmith, 93 GB. 88.8% top-1 agreement (tool calls, agents).",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-02T15:31:39+00:00",
+      "added_at": "2026-11-02T16:00:58Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xm0i9m/made_my_own_invoicing_dekstop_app_with_qwen_38/",
+      "title": "😃Made My Own Invoicing Dekstop App With Qwen 3.8 27B+OpenCode+LM Studio On RTX 5090..Saved Me $100 a Year I Was Paying",
+      "summary": "My first fully vibe coded Desktop app with Qwen 3.8 27B as someone with near 0 coding knowledge lol. Was paying $100 a year for an online Invoicing App so i decided to cook up one for myself. The results are mind blowing..I basically one shotted everything throughout development ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-02T15:38:55+00:00",
+      "added_at": "2026-11-02T16:00:58Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xm102d/unsloth_vs_gsqrco_512k_context_deepseekv41_gguf/",
+      "title": "Unsloth vs GSQ-RCO - 512K context DeepSeek-V4.1 GGUF benchmarks Terminal Bench",
+      "summary": "We ran DeepSWE, Terminal Bench, Automation Bench, HLE, SciCode at 512K context on our DeepSeek UD version 3.1 GGUFs and show we're >10-20% better than GSQ-RCO We ran all other benchmarks (14 in total) to 128K. AIME2025 64x, DeepSWE/TB 3x. We addressed some issues people mentioned",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-02T15:57:37+00:00",
+      "added_at": "2026-11-02T16:00:58Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xlzuf2/a_144m_model_makes_most_of_my_villagers_choices/",
+      "title": "a 144m model makes most of my villagers' choices, gemma 4 e4b only steps in when something goes wrong (6 gb laptop gpu)",
+      "summary": "i built a small village sim where 8 villagers live through a day, and i wanted to see how far small models get if each one only does one job. the gut is julia-1, 144m params from supersonic labs, using ggml-org's gguf. it runs on the cpu and doesn't generate text at all. the worl",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-02T15:14:17+00:00",
+      "added_at": "2026-11-02T16:00:58Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
         "communities"
       ]
     }
