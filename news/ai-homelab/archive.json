@@ -672,11 +672,11 @@
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/beta",
       "title": "beta",
-      "summary": "2.46.3 (2026-10-30) Bug Fixes core: Add a cooldown before resending migration owner reminders ( #42567 ) ( 724efc3 ) core: Resolve IMAP trigger expressions after activation ( #42612 ) ( 17594a7 ) core: Return user data with an __isError key as data in expressions ( #42490 ) ( 9fe",
+      "summary": "2.46.4 (2026-11-02) Bug Fixes core: Keep own proto keys in values that cross the expression runtime ( #42806 ) ( 3075ef1 ) core: Keep the name and fields of an Error that an expression returns ( #42805 ) ( 7640bcb ) core: Let expressions read Error objects in item data ( #42804 )",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-10-30T08:27:12Z",
+      "published": "2026-11-02T08:27:53Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://opengraph.githubassets.com/e9d9f05b13f547b1c080b1d16028ce9f87c686e48e865def71f7b17721568d04/n8n-io/n8n/releases/tag/beta",
       "file": "media/f195a5e647d31823.png",
@@ -789,11 +789,11 @@
     {
       "url": "https://www.reddit.com/r/homelab/comments/1ty58af/announcement_new_rules_processes_on_software/",
       "title": "Announcement: New Rules & Processes on Software Projects",
-      "summary": "I would like to thank everyone for their feedback in the recent post & poll where we asked for feedback on how to slow the deluge of \"I made X, because Y\" type posts in r/homelab , most of which are AI generated and/or spam. While we felt that that the initial plan we shared was",
+      "summary": "I would like to thank everyone for their feedback in the recent post & poll where we asked for feedback on how to slow the deluge of \"I made X, because Y\" type posts in r/homelab , most of which are AI generated and/or spam. While we felt that that the initial plan we shared was ",
       "source": "r/homelab",
       "kind": "social",
       "lane": "Reddit",
-      "published": "2026-09-24T07:36:22-07:00",
+      "published": "2026-06-06T02:45:20+00:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1032,7 +1032,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-24T07:26:37-07:00",
+      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -67687,11 +67687,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12034",
       "title": "llama.cpp b12034",
-      "summary": "webgpu : fix CI by keeping scratch alloc sizes monotonic in batch len…",
+      "summary": "webgpu : fix CI by keeping scratch alloc sizes monotonic in batch length ( #31422 ) webgpu: keep scratch alloc sizes monotonic in the batch length The flash attention vec path and the MMVQ path append a scratch area after dst, but get_alloc_size only accounted for it when the cur",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-02T07:36:04Z",
+      "published": "2026-11-02T08:06:05Z",
       "added_at": "2026-11-02T08:00:55Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/2c0d25407f7cdc15.png",
@@ -67699,6 +67699,41 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.46.4",
+      "title": "n8n@2.46.4",
+      "summary": "2.46.4 (2026-11-02) Bug Fixes core: Keep own proto keys in values that cross the expression runtime ( #42806 ) ( 3075ef1 ) core: Keep the name and fields of an Error that an expression returns ( #42805 ) ( 7640bcb ) core: Let expressions read Error objects in item data ( #42804 )",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-02T08:30:14Z",
+      "added_at": "2026-11-02T08:31:08Z",
+      "image": "https://opengraph.githubassets.com/d4a8adf9ac375bd5fb1de51f26764e3e06c0e9f4089cef0530d1761f63d5bd88/n8n-io/n8n/releases/tag/n8n%402.46.4",
+      "file": "media/0a744c995fe03f60.png",
+      "video": "",
+      "categories": [
+        "home-automation",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/homelab/comments/1xlqd5s/starting_a_home_server_in_italy_what_specs_and/",
+      "title": "Starting a home server in Italy: what specs, and where to buy used? (budget ~150€)",
+      "summary": "I'm starting my first home server and would like a sanity check before I spend money. Use case: 24/7 box for Docker, Nextcloud, Jellyfin (a bit of transcoding), Pi-hole, and Home Assistant. I'd like to learn Proxmox later. Budget: ~120-150€ total, and low idle power matters since",
+      "source": "r/homelab",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-02T06:56:44+00:00",
+      "added_at": "2026-11-02T08:31:09Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "homelab",
+        "home-automation",
+        "communities"
       ]
     }
   ]
