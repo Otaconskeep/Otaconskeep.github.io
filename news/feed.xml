@@ -5,6 +5,34 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-02T13:32:50Z</lastBuildDate>
 <item>
+<title>llama.cpp b12060</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12060</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12060</guid>
+<pubDate>2026-11-02T23:00:51Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c34c1c12b0b44125.png" alt=""><p>Article · llama.cpp. model: add Clover support ( #31306 ) model : add AR-only Clover MoE support Add GGUF conversion, model loading, and causal hybrid attention for Clover, reusing shared attention, recurrent-state, MoE, and LoRA helpers. Update tests/test-llama-archs.cpp Co-authored-by: Sigbjørn Skj</p>]]></description>
+</item>
+<item>
+<title>Question about powering discs for NAS expansion</title>
+<link>https://www.reddit.com/r/homelab/comments/1xmc71p/question_about_powering_discs_for_nas_expansion/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/homelab/comments/1xmc71p/question_about_powering_discs_for_nas_expansion/</guid>
+<pubDate>2026-11-02T22:51:55+00:00</pubDate>
+<description><![CDATA[Reddit · r/homelab. hello homelab. I am here to bring my plan for my nas expansion to peer review. I&#x27;ve hit a struggle we all have hit before, running out of disk space. I don&#x27;t want to buy a big disk and have several smaller disks laying around. I would just slap them in my novice diy-nas, but I am]]></description>
+</item>
+<item>
+<title>llama.cpp b12059</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12059</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12059</guid>
+<pubDate>2026-11-02T22:44:44Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/95f6837c3f322fa4.png" alt=""><p>Article · llama.cpp. llama : flash_attn_ext_rows - more efficient unified kv for multi-seq ( #29510 ) llama : use llm_attn_mask and kv_rows for unified attention Assisted-by: dsh:llama.cpp/ggml-org/DeepSeek-V4-Flash-Vision-Exp-GGUF (Mac Studio, M2 Ultra, 192GB) Co-authored-by: Georgi Gerganov ggergan</p>]]></description>
+</item>
+<item>
+<title>Qwen 3.8 27b is sometimes so smart it scares me...</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xmbym0/qwen_38_27b_is_sometimes_so_smart_it_scares_me/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xmbym0/qwen_38_27b_is_sometimes_so_smart_it_scares_me/</guid>
+<pubDate>2026-11-02T22:42:11+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. For fun, I gave Qwen 3.8 27b a physics problem involving some heavy math. A little bit into its reasoning, Qwen took a look at its tools, found that it had access to Blender via blender mcp - and that it could write and execute arbitrary python code through that. So it engaged Bl]]></description>
+</item>
+<item>
 <title>New sparse attention method for ultra-long context</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xmbj0v/new_sparse_attention_method_for_ultralong_context/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xmbj0v/new_sparse_attention_method_for_ultralong_context/</guid>
@@ -138,6 +166,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4177dd396b829115.png" alt=""><p>Article · llama.cpp. opencl: add topk_mask ( #31441 ) Website:</p>]]></description>
 </item>
 <item>
+<title>b12061: mtmd: Pocket tts - support for voices without voice cloning (#31429)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12061</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12061</guid>
+<pubDate>2026-11-02T17:39:51Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d12853f6724947c6.png" alt=""><p>Article · llama.cpp. feat: support PocketTTS voices with no voice cloning The kyutai/pocket-tts-without-voice-cloning weights ship predefined voices as the backbone KV state after the voice prompt. The converter turns each state back into the prompt embeddings and stores them in the mmproj (voice.),</p>]]></description>
+</item>
+<item>
 <title>[Day 2] The 2 upgrades that made this 2013 laptop usable for Proxmox: 12GB RAM + 512GB SSD</title>
 <link>https://www.reddit.com/r/homelab/comments/1xm3p3c/day_2_the_2_upgrades_that_made_this_2013_laptop/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/homelab/comments/1xm3p3c/day_2_the_2_upgrades_that_made_this_2013_laptop/</guid>
@@ -206,13 +241,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12048</guid>
 <pubDate>2026-11-02T16:14:28Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/485ac8c6f2805767.png" alt=""><p>Article · llama.cpp. sycl : fast ggml_sycl_comm_exchange() on Intel Arc Pro B70s ( #30956 ) Update ggml-sycl.cpp Increases -sm tensor prompt eval t/s by +19% with zero PPL change. Update ggml-sycl.cpp Replace first pair of wait() calls with ext_oneapi_submit_barrier(). The wait() calls was discovered</p>]]></description>
-</item>
-<item>
-<title>llama.cpp b12059</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12059</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12059</guid>
-<pubDate>2026-11-02T16:13:33Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/95f6837c3f322fa4.png" alt=""><p>Article · llama.cpp. llama : flash_attn_ext_rows - more efficient unified kv for multi-seq…</p>]]></description>
 </item>
 <item>
 <title>How did they not pick r/homelabsales for this?</title>
@@ -26066,13 +26094,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/11.png" alt=""><p>Article · ComfyUI. ComfyUI v0.37.2</p>]]></description>
 </item>
 <item>
-<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
-<link>https://chatoss.ai</link>
-<guid isPermaLink="true">https://chatoss.ai</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
-</item>
-<item>
 <title>Compare 12 self-hosted Deep Research systems: GPT Researcher, Onyx, Open WebUI, Khoj, Vane and more. Architectures, local LLM, RAG, licenses.</title>
 <link>https://techhub.social/@ros/117325481287155039</link>
 <guid isPermaLink="true">https://techhub.social/@ros/117325481287155039</guid>
@@ -26113,13 +26134,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11157</guid>
 <pubDate>2026-09-24T07:26:37-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
-</item>
-<item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
@@ -26225,13 +26239,6 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
-</item>
-<item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>ComfyUI v0.36.0</title>
@@ -26563,6 +26570,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -26589,6 +26603,13 @@
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/proto-v0.1.0</guid>
 <pubDate>2026-09-11T08:30:05Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
+</item>
+<item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0</title>
@@ -26918,6 +26939,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/comfyui/comments/1vs93gd/call_for_additional_mods/</guid>
 <pubDate>2026-08-19T02:03:06+00:00</pubDate>
 <description><![CDATA[Reddit · r/comfyui. I&#x27;ve come to the realization that my life is busy enough that we could use at least one more moderator on this subreddit. Please consider this a formal request for nominations. Rather than just picking someone myself, I’d like input from the community. If there’s someone here who]]></description>
+</item>
+<item>
+<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
+<link>https://chatoss.ai</link>
+<guid isPermaLink="true">https://chatoss.ai</guid>
+<pubDate>Tue, 18 Aug 2026 20:42:19 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
 </item>
 <item>
 <title>Self hosted email continues to steeply decline</title>
@@ -27288,7 +27316,7 @@
 <link>https://blawg.pages.dev/ollama-vs-llama-server</link>
 <guid isPermaLink="true">https://blawg.pages.dev/ollama-vs-llama-server</guid>
 <pubDate>Sun, 12 Jul 2026 12:22:17 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · llama.cpp. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>Rebuilding My Homelab with Compose, Ruby, IPv6, and No Kubernetes</title>
