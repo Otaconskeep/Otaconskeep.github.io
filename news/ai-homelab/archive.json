@@ -574,7 +574,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Tue, 18 Aug 2026 20:42:19 +0000",
+      "published": "2026-09-24T07:26:37-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -587,11 +587,11 @@
     {
       "url": "https://github.com/OtoDock/oto-dock",
       "title": "Show HN: Self-hosted company OS, Claude Code and Codex agents in departments",
-      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many ",
-      "source": "Hacker News · self-hosted",
+      "summary": "Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Wed, 09 Sep 2026 17:57:55 +0000",
+      "published": "2026-09-25T20:30:45-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1011,10 +1011,10 @@
       "url": "https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/",
       "title": "Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama",
       "summary": "Article URL:",
-      "source": "Hacker News · self-hosted",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
+      "published": "2026-09-23T11:17:55-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1032,7 +1032,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
+      "published": "2026-09-24T07:26:37-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -68526,12 +68526,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12048",
-      "title": "b12048: sycl : fast ggml_sycl_comm_exchange() on Intel Arc Pro B70s (#30956)",
-      "summary": "Update ggml-sycl.cpp Increases -sm tensor prompt eval t/s by +19% with zero PPL change. Update ggml-sycl.cpp Replace first pair of wait() calls with ext_oneapi_submit_barrier(). The wait() calls was discovered to cause MTP degradation. Update ggml-sycl.cpp Adding comm_exchange fu",
+      "title": "llama.cpp b12048",
+      "summary": "sycl : fast ggml_sycl_comm_exchange() on Intel Arc Pro B70s ( #30956 ) Update ggml-sycl.cpp Increases -sm tensor prompt eval t/s by +19% with zero PPL change. Update ggml-sycl.cpp Replace first pair of wait() calls with ext_oneapi_submit_barrier(). The wait() calls was discovered",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-02T11:52:53Z",
+      "published": "2026-11-02T16:14:28Z",
       "added_at": "2026-11-02T16:00:58Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/485ac8c6f2805767.png",
@@ -68623,6 +68623,124 @@
       "video": "",
       "categories": [
         "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12050",
+      "title": "b12050: vulkan: improve small-n split-K selection on RDNA3 and RDNA4 (#30146)",
+      "summary": "vulkan: improve small-n split-K selection on RDNA3 and RDNA4 Clean up test cases by removing commented code Removed tests as requested",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-02T11:54:09Z",
+      "added_at": "2026-11-02T16:30:57Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/830fe9b0c5a68699.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12049",
+      "title": "b12049: vulkan: avoid redundant scans when zeroing skipped rows (#31266)",
+      "summary": "vulkan: avoid redundant scans when zeroing skipped rows vulkan: remove unreachable zero-expert fallback",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-02T11:53:27Z",
+      "added_at": "2026-11-02T16:30:57Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/dab41a7eb879f015.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xm0uy0/running_uncensored_deepseekv41flash1017_on_a_12/",
+      "title": "Running UNCENSORED DeepSeek-V4.1-Flash-1017 on a 12 Gb VRAM",
+      "summary": "Measured, refusals 85%→0% even in thinking, 3 sizes 12 GB GPU VRAM, 64GB RAM + SSD via Strata Engine We took ISTA-DASLab's GSQ-RCO quants of DeepSeek-V4.1-Flash-1017 (the ones people run in Strata with a 12 GB GPU and the Engram table on SSD) and removed the refusals. We only tou",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-02T15:52:25+00:00",
+      "added_at": "2026-11-02T16:30:58Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xm0lmk/emperoaipivo14m_hugging_face/",
+      "title": "empero-ai/PiVo-1.4M · Hugging Face",
+      "summary": "PiVo-1.4M How many parameters does a voice need? PiVo is our attempt at an answer: two English voices, Pi and Vo , from a complete text-to-speech stack with 1,401,562 learned parameters , vocoder included. A 584,965-parameter acoustic model predicts vocoder features, and an 816,5",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-02T15:42:27+00:00",
+      "added_at": "2026-11-02T16:30:58Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://noted.lol/best-open-source-alternatives-community-recommends/",
+      "title": "10 Open Source Alternatives Worth Using in Your Homelab and Beyond",
+      "summary": "Which open source alternatives are actually worth using? We explore community favorites, from Jellyfin and OPNsense to Blender, KeePassXC, and more.",
+      "source": "noted.lol",
+      "kind": "article",
+      "lane": "Article",
+      "published": "Mon, 02 Nov 2026 11:21:58 -0500",
+      "added_at": "2026-11-02T16:31:26Z",
+      "image": "https://noted.lol/content/images/size/w1200/2026/11/open-source-alternatives-homelab-noted-featured.png",
+      "file": "media/dbec7d92320b1f58.png",
+      "video": "",
+      "categories": [
+        "homelab"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/homelab/comments/1xm13ld/how_did_they_not_pick_rhomelabsales_for_this/",
+      "title": "How did they not pick r/homelabsales for this?",
+      "summary": "Sold, clearly thanks to this post!",
+      "source": "r/homelab",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-02T16:01:05+00:00",
+      "added_at": "2026-11-02T16:31:26Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "homelab",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/homelab/comments/1xm1ivk/hi_i_am_making_a_topology_for_my_home_lab_but/",
+      "title": "Hi i am making a topology for my home lab but need some review",
+      "summary": "This is my first time doing home lab. My goal is learn CCNA, CCNP and network security this is my topology so far i need some advice physical machine i own are: 1 Switch Cisco WS-C3560X-48P-L PoE+ C3KX-NM-1G 48x10/100/1000 Ethernet PoE+ Ports 2 wifi TENDA F3 1 mini pc (for monito",
+      "source": "r/homelab",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-02T16:16:23+00:00",
+      "added_at": "2026-11-02T16:31:26Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "homelab",
         "communities"
       ]
     }
