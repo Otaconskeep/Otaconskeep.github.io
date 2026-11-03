@@ -58663,7 +58663,7 @@
     {
       "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.43.0",
       "title": "ComfyUI v0.43.0",
-      "summary": "What's Changed model_prefetch: syncrhonize all graph cleanups by @rattus128 in",
+      "summary": "What's Changed model_prefetch: syncrhonize all graph cleanups by @rattus128 in #17178 Add rope scaling support to MOSS-image by @kijai in #17172 [Partner Nodes] Renew partner-node sign-in tokens in API nodes by @dante01yoon in #16943 [Partner Nodes] feat(HeyGen): add HeyGen Voice",
       "source": "ComfyUI",
       "kind": "article",
       "lane": "Article",
@@ -70346,7 +70346,7 @@
     {
       "url": "https://lemmy.world/post/53945115",
       "title": "Thoughts on coding with AI: my experience",
-      "summary": "submitted by Shimitar to selfhosted -18 points | 7 comments",
+      "summary": "submitted by Shimitar to selfhosted -16 points | 12 comments",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -70466,11 +70466,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12078",
       "title": "llama.cpp b12078",
-      "summary": "tools : reject mismatched shards in GGUF split merge ( #31579 )",
+      "summary": "tools : reject mismatched shards in GGUF split merge ( #31579 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-03T09:11:05Z",
+      "published": "2026-11-03T18:28:19Z",
       "added_at": "2026-11-03T18:01:02Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/9d2b5d14cfa7c1e9.png",
@@ -70478,6 +70478,74 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12079",
+      "title": "b12079: Add nccl support for multi-node tensor parallelism (#28967)",
+      "summary": "Add a backend interface for collectives across ranks running in separate processes, implement it in the CUDA backend using NCCL, and use it in the RPC server when available. Drop ggml_backend_comm_allreduce_rank_t and reuse ggml_backend_comm_allreduce_tensor for per-rank communic",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-03T09:26:19Z",
+      "added_at": "2026-11-03T18:31:02Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/9700c07623d0788d.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xmz9ca/like_gpt6_astra_qwen_38_27b_can_interpret_model/",
+      "title": "Like GPT-6 Astra, Qwen 3.8 27B can interpret model weights",
+      "summary": "submitted by /u/tarruda [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T17:29:42+00:00",
+      "added_at": "2026-11-03T18:31:03Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xmzo2s/261103526_library_of_layers_lol_adaptively/",
+      "title": "[2611.03526] Library of Layers (LoL): Adaptively Ordering Transformer Layers at Runtime",
+      "summary": "submitted by /u/Thrumpwart [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T17:44:41+00:00",
+      "added_at": "2026-11-03T18:31:03Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xmyji8/can_qwen_directly_control_the_robot_as_well_as/",
+      "title": "“Can Qwen directly control the robot as well as GPT-6 Astra?”",
+      "summary": "A open source harness that was used with Qwen3.8 FN that QwenDev did a shout out to. Available now. From QwenDev via x",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T17:03:57+00:00",
+      "added_at": "2026-11-03T18:31:03Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
