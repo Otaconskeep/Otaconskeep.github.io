@@ -403,18 +403,17 @@
     {
       "url": "https://www.youtube.com/watch?v=K2IGHj7KQoM",
       "title": "Are Local Models Finally Good Enough?",
-      "summary": "I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video",
+      "summary": "Video from Techno Tim.",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
-      "published": "2026-09-23T10:55:29-07:00",
+      "published": "2026-05-18T15:00:34+00:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://i.ytimg.com/vi/K2IGHj7KQoM/hqdefault.jpg",
       "file": "media/01.jpg",
       "video": "K2IGHj7KQoM",
       "categories": [
         "local-models",
-        "homelab",
         "video"
       ]
     },
@@ -472,7 +471,7 @@
     {
       "url": "https://www.youtube.com/watch?v=8NFV6duMKQA",
       "title": "What Is an NPU Actually Good For?",
-      "summary": "What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se",
+      "summary": "Video from Techno Tim.",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -1015,7 +1014,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-23T11:17:55-07:00",
+      "published": "Mon, 14 Sep 2026 13:59:09 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -1033,7 +1032,7 @@
       "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
-      "published": "2026-09-24T07:26:37-07:00",
+      "published": "Fri, 11 Sep 2026 00:45:26 +0000",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "",
@@ -2114,7 +2113,7 @@
       "url": "https://blawg.pages.dev/ollama-vs-llama-server",
       "title": "Ollama vs. Llama.cpp – Quick Benchmark",
       "summary": "Article URL:",
-      "source": "Hacker News · llama.cpp",
+      "source": "Hacker News",
       "kind": "social",
       "lane": "Hacker News",
       "published": "Sun, 12 Jul 2026 12:22:17 +0000",
@@ -22564,7 +22563,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qxfNTcPl70w",
       "title": "I Made My Local AI Pick Its Own Model",
-      "summary": "I wanted my local AI to choose the right model automatically instead of making me pick between speed and capability for every request. I test NVIDIA Switchyard for local AI model routing with Nemotron 3.5 Lightning on an RTX 3090 and DeepSeek V4 Flash across two GX10s. I cover St",
+      "summary": "Video from Techno Tim.",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -67419,7 +67418,7 @@
     {
       "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xlmkk4/ama_announcement_reflection_the_lab_behind_behind/",
       "title": "AMA Announcement: Reflection, the lab behind behind Beam (Tuesday Nov 3rd, 8am-11am PT)",
-      "summary": "Reddit from r/LocalLLaMA.",
+      "summary": "Join us on Tuesday to meet the product team at Reflection and to learn more about Beam, their first open-weight model! submitted by /u/Aggressive-Sign-8167 [link] [comments]",
       "source": "r/LocalLLaMA",
       "kind": "social",
       "lane": "Reddit",
@@ -68782,7 +68781,7 @@
     {
       "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xm28e6/official_statement_qwen_models_will_stick_to_open/",
       "title": "Official Statement: Qwen Models Will Stick to Open Source to the End!",
-      "summary": "Reddit from r/LocalLLaMA.",
+      "summary": "There were some rumours the last few days that Qwen4 will be the last open-weight series of Qwen, and future ones would be API only. The following statement contradicts the rumours and clearly states the stance that Qwen is taking regarding their future releases. Qwen Head Liu Da",
       "source": "r/LocalLLaMA",
       "kind": "social",
       "lane": "Reddit",
@@ -69054,7 +69053,7 @@
     {
       "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xm8o8g/amazon_is_allegedly_canceling_gpu_orders_and_in/",
       "title": "Amazon Is Allegedly Canceling GPU Orders And, In Rare Cases, Closing Accounts For Purchasing Compute Hardware; Tim Sweeney Also A Victim Of This Practice",
-      "summary": "Reddit from r/LocalLLaMA.",
+      "summary": "submitted by /u/chemist_slime [link] [comments]",
       "source": "r/LocalLLaMA",
       "kind": "social",
       "lane": "Reddit",
@@ -69490,6 +69489,40 @@
       "video": "",
       "categories": [
         "homelab",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12064",
+      "title": "b12064: hexagon: tiled hvx permute (#31446)",
+      "summary": "hexagon: add tiled HVX transpose path for permuted CONT/CPY Permuted copies where dst dim 0 is strided in src, but some other src dim is contiguous, used to fall back to HTP_COPY_KERNEL_RESHAPE. That issues one DMA descriptor per element. The channel-first channel-last permutes a",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-03T05:13:38Z",
+      "added_at": "2026-11-03T05:30:58Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/419393c3c0a3cbc4.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xmjipa/underrated_benefit_of_local_ai_speed/",
+      "title": "Underrated benefit of Local AI: Speed",
+      "summary": "When it comes to the value/cost of local AI, people usually only look at token savings (money) while forgetting one of the most valuable resource of yours, time . Just did a side by side comparison of GLM 5.3 flash via Z.ai's official subscription, and GLM 5.3 flash served locall",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T04:31:23+00:00",
+      "added_at": "2026-11-03T05:30:58Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
         "communities"
       ]
     }

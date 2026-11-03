@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-03T04:05:17Z</lastBuildDate>
 <item>
+<title>b12064: hexagon: tiled hvx permute (#31446)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12064</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12064</guid>
+<pubDate>2026-11-03T05:13:38Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/419393c3c0a3cbc4.png" alt=""><p>Article · llama.cpp. hexagon: add tiled HVX transpose path for permuted CONT/CPY Permuted copies where dst dim 0 is strided in src, but some other src dim is contiguous, used to fall back to HTP_COPY_KERNEL_RESHAPE. That issues one DMA descriptor per element. The channel-first channel-last permutes a</p>]]></description>
+</item>
+<item>
+<title>Underrated benefit of Local AI: Speed</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xmjipa/underrated_benefit_of_local_ai_speed/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xmjipa/underrated_benefit_of_local_ai_speed/</guid>
+<pubDate>2026-11-03T04:31:23+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. When it comes to the value/cost of local AI, people usually only look at token savings (money) while forgetting one of the most valuable resource of yours, time . Just did a side by side comparison of GLM 5.3 flash via Z.ai&#x27;s official subscription, and GLM 5.3 flash served locall]]></description>
+</item>
+<item>
 <title>Alibaba&#x27;s Qwen Code repo just leaked qwen4-max, qwen4-coder-plus, and qwen4-omni-120b</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xmitzx/alibabas_qwen_code_repo_just_leaked_qwen4max/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xmitzx/alibabas_qwen_code_repo_just_leaked_qwen4max/</guid>
@@ -184,7 +198,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xm8o8g/amazon_is_allegedly_canceling_gpu_orders_and_in/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xm8o8g/amazon_is_allegedly_canceling_gpu_orders_and_in/</guid>
 <pubDate>2026-11-02T20:33:48+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/chemist_slime [link] [comments]]]></description>
 </item>
 <item>
 <title>YSK: Strata and polystrata have this functionality called answer_room</title>
@@ -303,7 +317,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xm28e6/official_statement_qwen_models_will_stick_to_open/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xm28e6/official_statement_qwen_models_will_stick_to_open/</guid>
 <pubDate>2026-11-02T16:42:32+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. There were some rumours the last few days that Qwen4 will be the last open-weight series of Qwen, and future ones would be API only. The following statement contradicts the rumours and clearly states the stance that Qwen is taking regarding their future releases. Qwen Head Liu Da]]></description>
 </item>
 <item>
 <title>llama + CUDA: flash_attn_ext_rows (fix unified kv for multi-seq) by am17an · Pull Request #29510 · ggml-org/llama.cpp</title>
@@ -786,7 +800,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xlmkk4/ama_announcement_reflection_the_lab_behind_behind/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xlmkk4/ama_announcement_reflection_the_lab_behind_behind/</guid>
 <pubDate>2026-11-02T03:22:28+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. Join us on Tuesday to meet the product team at Reflection and to learn more about Beam, their first open-weight model! submitted by /u/Aggressive-Sign-8167 [link] [comments]]]></description>
 </item>
 <item>
 <title>Strata viable for bigger quants?</title>
@@ -19294,7 +19308,7 @@
 <link>https://www.youtube.com/watch?v=qxfNTcPl70w</link>
 <guid isPermaLink="true">https://www.youtube.com/watch?v=qxfNTcPl70w</guid>
 <pubDate>2026-10-05T17:21:32+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ecaa56d996166879.jpg" alt=""><p>Video · Techno Tim. I wanted my local AI to choose the right model automatically instead of making me pick between speed and capability for every request. I test NVIDIA Switchyard for local AI model routing with Nemotron 3.5 Lightning on an RTX 3090 and DeepSeek V4 Flash across two GX10s. I cover St</p>]]></description>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ecaa56d996166879.jpg" alt=""><p>Video · Techno Tim. Video from Techno Tim.</p>]]></description>
 </item>
 <item>
 <title>How is it possible that qwen 27b is so good? When GPT 4o had a trillion parameters and was worse?</title>
@@ -26227,13 +26241,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -26346,13 +26353,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>ComfyUI v0.36.0</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</guid>
@@ -26407,13 +26407,6 @@
 <guid isPermaLink="true">https://www.urbanmind.net/display/f7dd981d-7ec373a8-c155c465fffddc01</guid>
 <pubDate>2026-09-23T10:55:29-07:00</pubDate>
 <description><![CDATA[Social · Sigmoid #localllama. Social from Sigmoid #localllama.]]></description>
-</item>
-<item>
-<title>Are Local Models Finally Good Enough?</title>
-<link>https://www.youtube.com/watch?v=K2IGHj7KQoM</link>
-<guid isPermaLink="true">https://www.youtube.com/watch?v=K2IGHj7KQoM</guid>
-<pubDate>2026-09-23T10:55:29-07:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01.jpg" alt=""><p>Video · Techno Tim. I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video</p>]]></description>
 </item>
 <item>
 <title>ComfyUI v0.37.1</title>
@@ -26689,6 +26682,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -26715,6 +26715,13 @@
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/proto-v0.1.0</guid>
 <pubDate>2026-09-11T08:30:05Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
+</item>
+<item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0</title>
@@ -27015,7 +27022,7 @@
 <link>https://www.youtube.com/watch?v=8NFV6duMKQA</link>
 <guid isPermaLink="true">https://www.youtube.com/watch?v=8NFV6duMKQA</guid>
 <pubDate>2026-08-22T16:12:28+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/322193c3ccae5516.jpg" alt=""><p>Video · Techno Tim. What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se</p>]]></description>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/322193c3ccae5516.jpg" alt=""><p>Video · Techno Tim. Video from Techno Tim.</p>]]></description>
 </item>
 <item>
 <title>Building an (almost) fully self-hosted, sandboxed, agentic software factory</title>
@@ -27421,7 +27428,7 @@
 <link>https://blawg.pages.dev/ollama-vs-llama-server</link>
 <guid isPermaLink="true">https://blawg.pages.dev/ollama-vs-llama-server</guid>
 <pubDate>Sun, 12 Jul 2026 12:22:17 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · llama.cpp. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>Rebuilding My Homelab with Compose, Ruby, IPv6, and No Kubernetes</title>
@@ -27891,6 +27898,13 @@
 <guid isPermaLink="true">https://github.com/oobabooga/textgen/releases/tag/v4.8</guid>
 <pubDate>2026-05-18T16:53:51Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/12.png" alt=""><p>Article · text-generation-webui. Changes Redesigned chat composer : Taller input area with the paperclip and message-action buttons pinned to the bottom, similar to Gemini and DeepSeek. Smooth scroll animation when sending a new message : Inspired by Gemini&#x27;s chat UI. Electron improvements : Persist window bound</p>]]></description>
+</item>
+<item>
+<title>Are Local Models Finally Good Enough?</title>
+<link>https://www.youtube.com/watch?v=K2IGHj7KQoM</link>
+<guid isPermaLink="true">https://www.youtube.com/watch?v=K2IGHj7KQoM</guid>
+<pubDate>2026-05-18T15:00:34+00:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01.jpg" alt=""><p>Video · Techno Tim. Video from Techno Tim.</p>]]></description>
 </item>
 <item>
 <title>Self-Host Weekly (15 May 2026)</title>
