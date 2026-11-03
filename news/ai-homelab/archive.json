@@ -70652,12 +70652,12 @@
     },
     {
       "url": "https://github.com/ollama/ollama/releases/tag/v0.40.15-rc0",
-      "title": "Ollama v0.40.15-rc0",
-      "summary": "model: add MiMo V2.6 renderer for Qwen3.5 ( #19400 )",
+      "title": "Ollama v0.40.15",
+      "summary": "What's Changed mlx: load bundled CUDA libraries in-process on Linux by @dhiltgen in #19433 model: add MiMo V2.6 model support by @dhiltgen in #19400 Full Changelog : v0.40.14...v0.40.15-rc0",
       "source": "Ollama",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-03T15:09:06Z",
+      "published": "2026-11-03T22:52:31Z",
       "added_at": "2026-11-03T21:30:58Z",
       "image": "https://opengraph.githubassets.com/f04e6621583a282af29d28cb374b2dfb48ea41beb934450e2ce89e11d702f996/ollama/ollama",
       "file": "media/c2fb38ee81776874.png",
@@ -70755,12 +70755,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12081",
-      "title": "b12081: cuda: potential fix for Q8_1 correction sum (#31247)",
-      "summary": "cuda: potential fix for Q8_1 correction sum Update ggml/src/ggml-cuda/quantize.cu Co-authored-by: Gaurav Garg gaugarg@nvidia.com addressed review comment to change the quantize_mmq_q8_1 flow as well Co-authored-by: Gaurav Garg gaugarg@nvidia.com",
+      "title": "llama.cpp b12081",
+      "summary": "cuda: potential fix for Q8_1 correction sum ( #31247 ) cuda: potential fix for Q8_1 correction sum Update ggml/src/ggml-cuda/quantize.cu Co-authored-by: Gaurav Garg gaugarg@nvidia.com addressed review comment to change the quantize_mmq_q8_1 flow as well Co-authored-by: Gaurav Gar",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-03T10:24:42Z",
+      "published": "2026-11-03T22:51:32Z",
       "added_at": "2026-11-03T22:30:59Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/f036c36fad00b553.png",
@@ -70801,6 +70801,57 @@
       "video": "",
       "categories": [
         "local-models"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12083",
+      "title": "b12083: ggml: avoid signed overflow in ggml_roll bounds check (#30375)",
+      "summary": "ggml_roll validated each shift with abs(shift), but abs(INT_MIN) is signed integer overflow UB evaluated before the bounds check runs. Compare with a signed-safe test instead.",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-03T11:26:29Z",
+      "added_at": "2026-11-03T23:00:59Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/e154fee02c7c3291.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xn7rfh/llamacpp_fork_qfn_specific_quant_ultra_specific/",
+      "title": "[llama.cpp fork]: QFN + [specific quant] + [ultra specific hardware config] = [incredible and irreproducible pp and tg]",
+      "summary": "Upvote, now! submitted by /u/ParaboloidalCrest [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T22:48:57+00:00",
+      "added_at": "2026-11-03T23:00:59Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/homelab/comments/1xn7gqa/my_homelabs_diagram_13th_year_journey_in/",
+      "title": "My homelab's diagram. 13th year journey in homelabbing so far.",
+      "summary": "See my backup/security solution, realtime system health and traffic at my homepage:",
+      "source": "r/homelab",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T22:36:38+00:00",
+      "added_at": "2026-11-03T23:01:05Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "homelab",
+        "communities"
       ]
     }
   ]

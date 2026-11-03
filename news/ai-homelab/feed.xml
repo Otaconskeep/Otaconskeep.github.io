@@ -5,6 +5,34 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-03T13:32:37Z</lastBuildDate>
 <item>
+<title>Ollama v0.40.15</title>
+<link>https://github.com/ollama/ollama/releases/tag/v0.40.15-rc0</link>
+<guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.40.15-rc0</guid>
+<pubDate>2026-11-03T22:52:31Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c2fb38ee81776874.png" alt=""><p>Article · Ollama. What&#x27;s Changed mlx: load bundled CUDA libraries in-process on Linux by @dhiltgen in #19433 model: add MiMo V2.6 model support by @dhiltgen in #19400 Full Changelog : v0.40.14...v0.40.15-rc0</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12081</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12081</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12081</guid>
+<pubDate>2026-11-03T22:51:32Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f036c36fad00b553.png" alt=""><p>Article · llama.cpp. cuda: potential fix for Q8_1 correction sum ( #31247 ) cuda: potential fix for Q8_1 correction sum Update ggml/src/ggml-cuda/quantize.cu Co-authored-by: Gaurav Garg gaugarg@nvidia.com addressed review comment to change the quantize_mmq_q8_1 flow as well Co-authored-by: Gaurav Gar</p>]]></description>
+</item>
+<item>
+<title>[llama.cpp fork]: QFN + [specific quant] + [ultra specific hardware config] = [incredible and irreproducible pp and tg]</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xn7rfh/llamacpp_fork_qfn_specific_quant_ultra_specific/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xn7rfh/llamacpp_fork_qfn_specific_quant_ultra_specific/</guid>
+<pubDate>2026-11-03T22:48:57+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Upvote, now! submitted by /u/ParaboloidalCrest [link] [comments]]]></description>
+</item>
+<item>
+<title>My homelab&#x27;s diagram. 13th year journey in homelabbing so far.</title>
+<link>https://www.reddit.com/r/homelab/comments/1xn7gqa/my_homelabs_diagram_13th_year_journey_in/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/homelab/comments/1xn7gqa/my_homelabs_diagram_13th_year_journey_in/</guid>
+<pubDate>2026-11-03T22:36:38+00:00</pubDate>
+<description><![CDATA[Reddit · r/homelab. See my backup/security solution, realtime system health and traffic at my homepage:]]></description>
+</item>
+<item>
 <title>llama.cpp b12080</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12080</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12080</guid>
@@ -222,13 +250,6 @@
 <description><![CDATA[Reddit · r/homelab. submitted by /u/Clean_Ring7045 [link] [comments]]]></description>
 </item>
 <item>
-<title>Ollama v0.40.15-rc0</title>
-<link>https://github.com/ollama/ollama/releases/tag/v0.40.15-rc0</link>
-<guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.40.15-rc0</guid>
-<pubDate>2026-11-03T15:09:06Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c2fb38ee81776874.png" alt=""><p>Article · Ollama. model: add MiMo V2.6 renderer for Qwen3.5 ( #19400 )</p>]]></description>
-</item>
-<item>
 <title>llama.cpp b12072</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12072</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12072</guid>
@@ -362,6 +383,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/MundanePercentage674 [link] [comments]]]></description>
 </item>
 <item>
+<title>b12083: ggml: avoid signed overflow in ggml_roll bounds check (#30375)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12083</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12083</guid>
+<pubDate>2026-11-03T11:26:29Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e154fee02c7c3291.png" alt=""><p>Article · llama.cpp. ggml_roll validated each shift with abs(shift), but abs(INT_MIN) is signed integer overflow UB evaluated before the bounds check runs. Compare with a signed-safe test instead.</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12069</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12069</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12069</guid>
@@ -395,13 +423,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12068</guid>
 <pubDate>2026-11-03T10:48:00Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/160020b13b699e77.png" alt=""><p>Article · llama.cpp. chat : allow constraint type after gpt-oss final channel ( #31556 ) Website:</p>]]></description>
-</item>
-<item>
-<title>b12081: cuda: potential fix for Q8_1 correction sum (#31247)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12081</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12081</guid>
-<pubDate>2026-11-03T10:24:42Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f036c36fad00b553.png" alt=""><p>Article · llama.cpp. cuda: potential fix for Q8_1 correction sum Update ggml/src/ggml-cuda/quantize.cu Co-authored-by: Gaurav Garg gaugarg@nvidia.com addressed review comment to change the quantize_mmq_q8_1 flow as well Co-authored-by: Gaurav Garg gaugarg@nvidia.com</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12066</title>
