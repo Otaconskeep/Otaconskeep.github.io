@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-03T04:05:17Z</lastBuildDate>
 <item>
+<title>llama.cpp b12065</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12065</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12065</guid>
+<pubDate>2026-11-03T08:12:51Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/27f1eeea6fb78149.png" alt=""><p>Article · llama.cpp. kv-cache : never return 0 kv_rows for sequences without cells ( #31570 ) A cache that shares the cells of another one (f.ex. the gemma4 assistant) can build a graph before its sequences have any cells, f.ex. at the server warmup. get_n_kv_rows() then returned 0, which means that</p>]]></description>
+</item>
+<item>
+<title>DeepSeek V5 is planned to be pre-trained on Huawei Ascend chips.</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xmmadn/deepseek_v5_is_planned_to_be_pretrained_on_huawei/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xmmadn/deepseek_v5_is_planned_to_be_pretrained_on_huawei/</guid>
+<pubDate>2026-11-03T07:07:11+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+</item>
+<item>
 <title>Ollama v0.40.14</title>
 <link>https://github.com/ollama/ollama/releases/tag/v0.40.14</link>
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.40.14</guid>
@@ -12,11 +26,11 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b53d42e9c538fd76.png" alt=""><p>Article · Ollama. What&#x27;s Changed ollama launch claude now applies the model&#x27;s output token limit for Claude Code, so cloud models no longer run into the 128k default cap Cloud web search responses on /api/chat are now decoded correctly, including compressed responses OpenAI-compatible endpoints no</p>]]></description>
 </item>
 <item>
-<title>b12065: kv-cache : never return 0 kv_rows for sequences without cells (#31570)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12065</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12065</guid>
-<pubDate>2026-11-03T05:51:53Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/27f1eeea6fb78149.png" alt=""><p>Article · llama.cpp. A cache that shares the cells of another one (f.ex. the gemma4 assistant) can build a graph before its sequences have any cells, f.ex. at the server warmup. get_n_kv_rows() then returned 0, which means that kv_rows are not used, so the graph fell back to the dense KQ mask and the</p>]]></description>
+<title>llama.cpp b12066</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12066</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12066</guid>
+<pubDate>2026-11-03T05:54:00Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4b8e636b930102c6.png" alt=""><p>Article · llama.cpp. webgpu: add ARANGE support ( #31455 )</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12064</title>
@@ -226,7 +240,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xm8o8g/amazon_is_allegedly_canceling_gpu_orders_and_in/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xm8o8g/amazon_is_allegedly_canceling_gpu_orders_and_in/</guid>
 <pubDate>2026-11-02T20:33:48+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/chemist_slime [link] [comments]]]></description>
 </item>
 <item>
 <title>YSK: Strata and polystrata have this functionality called answer_room</title>
@@ -345,7 +359,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xm28e6/official_statement_qwen_models_will_stick_to_open/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xm28e6/official_statement_qwen_models_will_stick_to_open/</guid>
 <pubDate>2026-11-02T16:42:32+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. There were some rumours the last few days that Qwen4 will be the last open-weight series of Qwen, and future ones would be API only. The following statement contradicts the rumours and clearly states the stance that Qwen is taking regarding their future releases. Qwen Head Liu Da]]></description>
 </item>
 <item>
 <title>llama + CUDA: flash_attn_ext_rows (fix unified kv for multi-seq) by am17an · Pull Request #29510 · ggml-org/llama.cpp</title>
@@ -828,7 +842,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xlmkk4/ama_announcement_reflection_the_lab_behind_behind/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xlmkk4/ama_announcement_reflection_the_lab_behind_behind/</guid>
 <pubDate>2026-11-02T03:22:28+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. Join us on Tuesday to meet the product team at Reflection and to learn more about Beam, their first open-weight model! submitted by /u/Aggressive-Sign-8167 [link] [comments]]]></description>
 </item>
 <item>
 <title>Strata viable for bigger quants?</title>
@@ -25835,13 +25849,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/10.png" alt=""><p>Article · ComfyUI. ComfyUI v0.37.3</p>]]></description>
 </item>
 <item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>2026-09-25T20:30:45-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
-</item>
-<item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqcrly/ling_tiny_30_is_a_glimpse_of_the_future/</guid>
@@ -26381,13 +26388,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>ComfyUI v0.36.0</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.36.0</guid>
@@ -26717,6 +26717,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -26771,6 +26778,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
