@@ -5,10 +5,31 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-03T13:32:37Z</lastBuildDate>
 <item>
+<title>How do you keep your local model collection organized across machines?</title>
+<link>https://www.reddit.com/r/selfhosted/comments/1xmvylt/how_do_you_keep_your_local_model_collection/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/selfhosted/comments/1xmvylt/how_do_you_keep_your_local_model_collection/</guid>
+<pubDate>2026-11-03T15:28:34+00:00</pubDate>
+<description><![CDATA[Reddit · r/selfhosted. Between GGUFs, safetensors, LoRAs and a few quants of the same model, my homelab model folder is a junk drawer. Each machine has its own Hugging Face cache, and I can&#x27;t easily tell which box has which revision. What&#x27;s working for you? Shared HF cache on a NAS, a mirror proxy, rsy]]></description>
+</item>
+<item>
+<title>llama.cpp b12073</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12073</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12073</guid>
+<pubDate>2026-11-03T15:21:17Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f45cdd5f95812c0b.png" alt=""><p>Article · llama.cpp. vulkan: fix out-of-bounds NVFP4 UE4M3 scale lookup ( #31079 ) vulkan : fix out-of-bounds NVFP4 UE4M3 scale lookup On the non-OCP path, ue4m3_fp32_lut has 128 entries and is indexed with the raw scale byte. ggml_validate_row_data accepts every byte and ggml_ue4m3_to_fp32 ignores b</p>]]></description>
+</item>
+<item>
+<title>Mini homelab en una Raspberry Pi 3B (1 GB): ¿Le pondrías algo más?</title>
+<link>https://www.reddit.com/r/homelab/comments/1xmvibq/mini_homelab_en_una_raspberry_pi_3b_1_gb_le/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/homelab/comments/1xmvibq/mini_homelab_en_una_raspberry_pi_3b_1_gb_le/</guid>
+<pubDate>2026-11-03T15:11:29+00:00</pubDate>
+<description><![CDATA[Reddit · r/homelab. submitted by /u/Clean_Ring7045 [link] [comments]]]></description>
+</item>
+<item>
 <title>llama.cpp b12072</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12072</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12072</guid>
-<pubDate>2026-11-03T15:00:55Z</pubDate>
+<pubDate>2026-11-03T15:03:32Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8a2f9a05df6cb8f2.png" alt=""><p>Article · llama.cpp. llama : drop the redundant cnv from llm_attn_mask ( #31558 ) The dspark block mask is now derived at input-fill time: llm_attn_mask::block_uniform fills every token of a sequence with the mask row of its first token, so the graph-level reshape/repeat in dflash is gone and cnv alw</p>]]></description>
 </item>
 <item>
@@ -59,6 +80,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xms9ii/what_qwen_is_thinking_when_it_gets_stuck_saying/</guid>
 <pubDate>2026-11-03T12:58:05+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. MIT CSAIL had GPT-6 Astra fix Qwen3.5-0.8B&#x27;s reasoning loops by editing 0.016% of its weights (MATH-500 went from 7.9% to 48.1%). They released the diff, so the edit can be rebuilt exactly and run locally. I took it a step further and had Claude look at Qwen with Anthropic&#x27;s Jaco]]></description>
+</item>
+<item>
+<title>Best local AI agent for email searches, Excel exports, and banking automation?</title>
+<link>https://www.reddit.com/r/selfhosted/comments/1xms6u3/best_local_ai_agent_for_email_searches_excel/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/selfhosted/comments/1xms6u3/best_local_ai_agent_for_email_searches_excel/</guid>
+<pubDate>2026-11-03T12:54:30+00:00</pubDate>
+<description><![CDATA[Reddit · r/selfhosted. I &#x27;m looking for a privacy-focused AI agent that runs locally on Windows and can automate a few tasks without sending sensitive information to third-party AI servers. Here&#x27;s what I need: Email search: Connect to Gmail and Yahoo Mail, search emails using natural language, and find]]></description>
 </item>
 <item>
 <title>Is Qwen 3.8 27B still the king</title>
@@ -236,18 +264,18 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/27f1eeea6fb78149.png" alt=""><p>Article · llama.cpp. kv-cache : never return 0 kv_rows for sequences without cells ( #31570 ) A cache that shares the cells of another one (f.ex. the gemma4 assistant) can build a graph before its sequences have any cells, f.ex. at the server warmup. get_n_kv_rows() then returned 0, which means that</p>]]></description>
 </item>
 <item>
+<title>b12074: delta_net_base: refactor conv state (#30878)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12074</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12074</guid>
+<pubDate>2026-11-03T07:28:35Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/7e52a6acfd99b02c.png" alt=""><p>Article · llama.cpp. delta_net: access conv state via views fix sm tensor delta_net: fill the conv slot index on the host The rollback slot index of the conv windows is a constant per graph shape. It is now an I32 input of the recurrent memory filled on the host, instead of an arange and an argsort c</p>]]></description>
+</item>
+<item>
 <title>DeepSeek V5 is planned to be pre-trained on Huawei Ascend chips.</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xmmadn/deepseek_v5_is_planned_to_be_pretrained_on_huawei/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xmmadn/deepseek_v5_is_planned_to_be_pretrained_on_huawei/</guid>
 <pubDate>2026-11-03T07:07:11+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
-</item>
-<item>
-<title>b12073: vulkan: fix out-of-bounds NVFP4 UE4M3 scale lookup (#31079)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12073</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12073</guid>
-<pubDate>2026-11-03T06:58:56Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f45cdd5f95812c0b.png" alt=""><p>Article · llama.cpp. vulkan : fix out-of-bounds NVFP4 UE4M3 scale lookup On the non-OCP path, ue4m3_fp32_lut has 128 entries and is indexed with the raw scale byte. ggml_validate_row_data accepts every byte and ggml_ue4m3_to_fp32 ignores bit 7, so a byte &gt;= 0x80 reads past the shared array. Vulkan ro</p>]]></description>
 </item>
 <item>
 <title>Ollama v0.40.14</title>
@@ -367,6 +395,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xme6c5/lfm317b_quantization_report_36_gb_vram_lossless/</guid>
 <pubDate>2026-11-03T00:15:48+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. This model looks quite spectacular. According to LiquidAI&#x27;s own benchmarks, it scores higher than MiniCPM5-2B across the board, while offering 2x the context and taking up half the space in VRAM (3.6 GiB vs. 7.1 GiB for a quasi-lossless quant). Read the report:]]></description>
+</item>
+<item>
+<title>Naming things in Home Assistant, shaped by your feedback</title>
+<link>https://www.home-assistant.io/blog/2026/11/03/naming-things-in-home-assistant/</link>
+<guid isPermaLink="true">https://www.home-assistant.io/blog/2026/11/03/naming-things-in-home-assistant/</guid>
+<pubDate>2026-11-03T00:00:01+00:00</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/a46f908c9a644d4c.webp" alt=""><p>Article · Home Assistant. Just before the 2026.4 release , we pulled a change to entity naming in Home Assistant. You’d tested it in beta, told us what you didn’t like, and we listened. It took a few extra months, but we believe it’s now in a better place. We’ve filled the gaps you found, including screen</p>]]></description>
 </item>
 <item>
 <title>Someone Packed 930,000 Wikipedia Articles and Local AI Into an Offline Survival Library</title>
@@ -25870,13 +25905,6 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>2026-09-26T07:01:03-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -26071,13 +26099,6 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.37.3</guid>
 <pubDate>2026-09-25T20:30:45-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/10.png" alt=""><p>Article · ComfyUI. ComfyUI v0.37.3</p>]]></description>
-</item>
-<item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>2026-09-25T20:30:45-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
@@ -26465,13 +26486,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/11.png" alt=""><p>Article · ComfyUI. ComfyUI v0.37.2</p>]]></description>
 </item>
 <item>
-<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
-<link>https://chatoss.ai</link>
-<guid isPermaLink="true">https://chatoss.ai</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
-</item>
-<item>
 <title>Compare 12 self-hosted Deep Research systems: GPT Researcher, Onyx, Open WebUI, Khoj, Vane and more. Architectures, local LLM, RAG, licenses.</title>
 <link>https://techhub.social/@ros/117325481287155039</link>
 <guid isPermaLink="true">https://techhub.social/@ros/117325481287155039</guid>
@@ -26512,13 +26526,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11157</guid>
 <pubDate>2026-09-24T07:26:37-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
-</item>
-<item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>2026-09-24T07:26:37-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
@@ -26624,13 +26631,6 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
-</item>
-<item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>2026-09-23T11:17:55-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>ComfyUI v0.36.0</title>
@@ -26962,6 +26962,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -26990,6 +26997,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>vLLM v0.29.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.0</guid>
@@ -27016,6 +27030,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
@@ -27319,6 +27340,13 @@
 <description><![CDATA[Reddit · r/comfyui. I&#x27;ve come to the realization that my life is busy enough that we could use at least one more moderator on this subreddit. Please consider this a formal request for nominations. Rather than just picking someone myself, I’d like input from the community. If there’s someone here who]]></description>
 </item>
 <item>
+<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
+<link>https://chatoss.ai</link>
+<guid isPermaLink="true">https://chatoss.ai</guid>
+<pubDate>Tue, 18 Aug 2026 20:42:19 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
+</item>
+<item>
 <title>Self hosted email continues to steeply decline</title>
 <link>https://labs.ripe.net/author/artem-berezin/two-providers-a-stubborn-plateau-and-a-very-long-tail-email-in-the-tranco-top-1m/</link>
 <guid isPermaLink="true">https://labs.ripe.net/author/artem-berezin/two-providers-a-stubborn-plateau-and-a-very-long-tail-email-in-the-tranco-top-1m/</guid>
@@ -27408,6 +27436,13 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
+</item>
+<item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
@@ -27687,7 +27722,7 @@
 <link>https://blawg.pages.dev/ollama-vs-llama-server</link>
 <guid isPermaLink="true">https://blawg.pages.dev/ollama-vs-llama-server</guid>
 <pubDate>Sun, 12 Jul 2026 12:22:17 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+<description><![CDATA[Hacker News · Hacker News · llama.cpp. Article URL:]]></description>
 </item>
 <item>
 <title>Rebuilding My Homelab with Compose, Ruby, IPv6, and No Kubernetes</title>
