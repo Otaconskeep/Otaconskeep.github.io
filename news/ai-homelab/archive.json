@@ -70346,7 +70346,7 @@
     {
       "url": "https://lemmy.world/post/53945115",
       "title": "Thoughts on coding with AI: my experience",
-      "summary": "submitted by Shimitar to selfhosted -15 points | 5 comments",
+      "summary": "submitted by Shimitar to selfhosted -16 points | 7 comments",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -70379,12 +70379,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12076",
-      "title": "b12076: metal : fix cpy kernel for dst non-contiguous in dim 0 (#31581)",
-      "summary": "kernel_cpy_t_t indexed the dst innermost dim with an implicit element-size stride instead of args.nb0, so cpy into a permuted view (nb0 != type size) wrote the wrong addresses. caught by the new test-backend-ops cpy case with permute_dst = {1, 0, 2, 3} from #31446 . addressing is",
+      "title": "llama.cpp b12076",
+      "summary": "metal : fix cpy kernel for dst non-contiguous in dim 0 ( #31581 ) kernel_cpy_t_t indexed the dst innermost dim with an implicit element-size stride instead of args.nb0, so cpy into a permuted view (nb0 != type size) wrote the wrong addresses. caught by the new test-backend-ops cp",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-03T08:41:24Z",
+      "published": "2026-11-03T17:26:47Z",
       "added_at": "2026-11-03T17:00:58Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/7442731f0202b0d3.png",
@@ -70421,6 +70421,40 @@
       "lane": "Reddit",
       "published": "2026-11-03T16:20:43+00:00",
       "added_at": "2026-11-03T17:01:06Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "homelab",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12077",
+      "title": "b12077: meta: support GLM-5.3 next sm tensor (#30499)",
+      "summary": "meta: support GLM-5.3 next sm tensor glm5-next : cont q_absorbed for -sm tensor with non-unified KV meta : keep GGML_OP_ARANGE in ggml.h order glm5-next : split MLA heads in pairs for -sm tensor The MLA cache has a single KV head, so the heads on a device are its GQA ratio. The H",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-03T08:51:10Z",
+      "added_at": "2026-11-03T17:30:58Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/8ea075c86dbcdcf8.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/homelab/comments/1xmyzx6/raspberry_pi_4_2bay_home_nas/",
+      "title": "Raspberry Pi 4 - 2Bay Home NAS",
+      "summary": "I am a game developer with homelabbing being my free time hobby. A while ago I decided that I want a local NAS to escape from google photos. My previous setup consisted of a single Raspberry Pi 4 with a usb sata ssd (used for Samba, AdGuard, etc). I thought it would be reasonable",
+      "source": "r/homelab",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T17:20:18+00:00",
+      "added_at": "2026-11-03T17:31:06Z",
       "image": "",
       "file": "",
       "video": "",

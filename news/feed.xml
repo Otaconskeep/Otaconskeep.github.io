@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-03T13:32:37Z</lastBuildDate>
 <item>
+<title>llama.cpp b12076</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12076</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12076</guid>
+<pubDate>2026-11-03T17:26:47Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/7442731f0202b0d3.png" alt=""><p>Article · llama.cpp. metal : fix cpy kernel for dst non-contiguous in dim 0 ( #31581 ) kernel_cpy_t_t indexed the dst innermost dim with an implicit element-size stride instead of args.nb0, so cpy into a permuted view (nb0 != type size) wrote the wrong addresses. caught by the new test-backend-ops cp</p>]]></description>
+</item>
+<item>
+<title>Raspberry Pi 4 - 2Bay Home NAS</title>
+<link>https://www.reddit.com/r/homelab/comments/1xmyzx6/raspberry_pi_4_2bay_home_nas/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/homelab/comments/1xmyzx6/raspberry_pi_4_2bay_home_nas/</guid>
+<pubDate>2026-11-03T17:20:18+00:00</pubDate>
+<description><![CDATA[Reddit · r/homelab. I am a game developer with homelabbing being my free time hobby. A while ago I decided that I want a local NAS to escape from google photos. My previous setup consisted of a single Raspberry Pi 4 with a usb sata ssd (used for Samba, AdGuard, etc). I thought it would be reasonable]]></description>
+</item>
+<item>
 <title>Jaull: a terminal tool that tells you which local LLMs your hardware can run, then benchmarks them to check</title>
 <link>https://www.reddit.com/r/selfhosted/comments/1xmxsyw/jaull_a_terminal_tool_that_tells_you_which_local/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/selfhosted/comments/1xmxsyw/jaull_a_terminal_tool_that_tells_you_which_local/</guid>
@@ -30,7 +44,7 @@
 <link>https://lemmy.world/post/53945115</link>
 <guid isPermaLink="true">https://lemmy.world/post/53945115</guid>
 <pubDate>Tue, 3 Nov 2026 15:49:08 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by Shimitar to selfhosted -15 points | 5 comments]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by Shimitar to selfhosted -16 points | 7 comments]]></description>
 </item>
 <item>
 <title>llama.cpp b12074</title>
@@ -285,6 +299,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. TL;DR We find that frontier LLMs are surprisingly good at natively reading and writing neural network weights , well past what we’d expect from humans or conventional algorithms. This might be a big deal for both optimization and interpretability. Just by looking at the raw weigh]]></description>
 </item>
 <item>
+<title>b12077: meta: support GLM-5.3 next sm tensor (#30499)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12077</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12077</guid>
+<pubDate>2026-11-03T08:51:10Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8ea075c86dbcdcf8.png" alt=""><p>Article · llama.cpp. meta: support GLM-5.3 next sm tensor glm5-next : cont q_absorbed for -sm tensor with non-unified KV meta : keep GGML_OP_ARANGE in ggml.h order glm5-next : split MLA heads in pairs for -sm tensor The MLA cache has a single KV head, so the heads on a device are its GQA ratio. The H</p>]]></description>
+</item>
+<item>
 <title>stable</title>
 <link>https://github.com/n8n-io/n8n/releases/tag/stable</link>
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/stable</guid>
@@ -297,13 +318,6 @@
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/n8n%402.46.4</guid>
 <pubDate>2026-11-03T08:47:02Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0a744c995fe03f60.png" alt=""><p>Article · n8n. 2.46.4 (2026-11-02) Bug Fixes core: Keep own proto keys in values that cross the expression runtime ( #42806 ) ( 3075ef1 ) core: Keep the name and fields of an Error that an expression returns ( #42805 ) ( 7640bcb ) core: Let expressions read Error objects in item data ( #42804 )</p>]]></description>
-</item>
-<item>
-<title>b12076: metal : fix cpy kernel for dst non-contiguous in dim 0 (#31581)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12076</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12076</guid>
-<pubDate>2026-11-03T08:41:24Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/7442731f0202b0d3.png" alt=""><p>Article · llama.cpp. kernel_cpy_t_t indexed the dst innermost dim with an implicit element-size stride instead of args.nb0, so cpy into a permuted view (nb0 != type size) wrote the wrong addresses. caught by the new test-backend-ops cpy case with permute_dst = {1, 0, 2, 3} from #31446 . addressing is</p>]]></description>
 </item>
 <item>
 <title>n8n@2.47.0</title>
