@@ -70346,7 +70346,7 @@
     {
       "url": "https://lemmy.world/post/53945115",
       "title": "Thoughts on coding with AI: my experience",
-      "summary": "submitted by Shimitar to selfhosted -10 points | 3 comments",
+      "summary": "submitted by Shimitar to selfhosted -15 points | 5 comments",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -70369,6 +70369,58 @@
       "lane": "Reddit",
       "published": "2026-11-03T15:42:20+00:00",
       "added_at": "2026-11-03T16:30:58Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "homelab",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12076",
+      "title": "b12076: metal : fix cpy kernel for dst non-contiguous in dim 0 (#31581)",
+      "summary": "kernel_cpy_t_t indexed the dst innermost dim with an implicit element-size stride instead of args.nb0, so cpy into a permuted view (nb0 != type size) wrote the wrong addresses. caught by the new test-backend-ops cpy case with permute_dst = {1, 0, 2, 3} from #31446 . addressing is",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-03T08:41:24Z",
+      "added_at": "2026-11-03T17:00:58Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/7442731f0202b0d3.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/selfhosted/comments/1xmxsyw/jaull_a_terminal_tool_that_tells_you_which_local/",
+      "title": "Jaull: a terminal tool that tells you which local LLMs your hardware can run, then benchmarks them to check",
+      "summary": "Hi, i'm building Jaull as my final degree project :D. It reads your machine (CPU, RAM, GPU and VRAM, compute backends), finds open models that fit, and picks the exact file, quantization and runtime for each one. It also explains why each model lands where it does in the ranking.",
+      "source": "r/selfhosted",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T16:36:48+00:00",
+      "added_at": "2026-11-03T17:00:59Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "homelab",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/homelab/comments/1xmxd3d/suggested_mdm_for_homelab/",
+      "title": "Suggested MDM for homelab",
+      "summary": "I haven't heard a lot about MDM services in the homelab space and was curious on what people are doing for their mobile devices and/or everyday computers. What are some services you suggest? Maybe a better question is why are you using an MDM in the first place? submitted by /u/B",
+      "source": "r/homelab",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T16:20:43+00:00",
+      "added_at": "2026-11-03T17:01:06Z",
       "image": "",
       "file": "",
       "video": "",

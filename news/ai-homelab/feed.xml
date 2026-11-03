@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-03T13:32:37Z</lastBuildDate>
 <item>
+<title>Jaull: a terminal tool that tells you which local LLMs your hardware can run, then benchmarks them to check</title>
+<link>https://www.reddit.com/r/selfhosted/comments/1xmxsyw/jaull_a_terminal_tool_that_tells_you_which_local/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/selfhosted/comments/1xmxsyw/jaull_a_terminal_tool_that_tells_you_which_local/</guid>
+<pubDate>2026-11-03T16:36:48+00:00</pubDate>
+<description><![CDATA[Reddit · r/selfhosted. Hi, i&#x27;m building Jaull as my final degree project :D. It reads your machine (CPU, RAM, GPU and VRAM, compute backends), finds open models that fit, and picks the exact file, quantization and runtime for each one. It also explains why each model lands where it does in the ranking.]]></description>
+</item>
+<item>
+<title>Suggested MDM for homelab</title>
+<link>https://www.reddit.com/r/homelab/comments/1xmxd3d/suggested_mdm_for_homelab/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/homelab/comments/1xmxd3d/suggested_mdm_for_homelab/</guid>
+<pubDate>2026-11-03T16:20:43+00:00</pubDate>
+<description><![CDATA[Reddit · r/homelab. I haven&#x27;t heard a lot about MDM services in the homelab space and was curious on what people are doing for their mobile devices and/or everyday computers. What are some services you suggest? Maybe a better question is why are you using an MDM in the first place? submitted by /u/B]]></description>
+</item>
+<item>
 <title>We’re the product team at Reflection, the lab behind Beam - Ask Us Anything!</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xmwryg/were_the_product_team_at_reflection_the_lab/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xmwryg/were_the_product_team_at_reflection_the_lab/</guid>
@@ -16,7 +30,7 @@
 <link>https://lemmy.world/post/53945115</link>
 <guid isPermaLink="true">https://lemmy.world/post/53945115</guid>
 <pubDate>Tue, 3 Nov 2026 15:49:08 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by Shimitar to selfhosted -10 points | 3 comments]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by Shimitar to selfhosted -15 points | 5 comments]]></description>
 </item>
 <item>
 <title>llama.cpp b12074</title>
@@ -283,6 +297,13 @@
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/n8n%402.46.4</guid>
 <pubDate>2026-11-03T08:47:02Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0a744c995fe03f60.png" alt=""><p>Article · n8n. 2.46.4 (2026-11-02) Bug Fixes core: Keep own proto keys in values that cross the expression runtime ( #42806 ) ( 3075ef1 ) core: Keep the name and fields of an Error that an expression returns ( #42805 ) ( 7640bcb ) core: Let expressions read Error objects in item data ( #42804 )</p>]]></description>
+</item>
+<item>
+<title>b12076: metal : fix cpy kernel for dst non-contiguous in dim 0 (#31581)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12076</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12076</guid>
+<pubDate>2026-11-03T08:41:24Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/7442731f0202b0d3.png" alt=""><p>Article · llama.cpp. kernel_cpy_t_t indexed the dst innermost dim with an implicit element-size stride instead of args.nb0, so cpy into a permuted view (nb0 != type size) wrote the wrong addresses. caught by the new test-backend-ops cpy case with permute_dst = {1, 0, 2, 3} from #31446 . addressing is</p>]]></description>
 </item>
 <item>
 <title>n8n@2.47.0</title>
