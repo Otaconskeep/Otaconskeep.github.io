@@ -306,11 +306,11 @@
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/stable",
       "title": "stable",
-      "summary": "2.46.5 (2026-11-04) Bug Fixes AI Agent Node: Point the deprecated agent type callout to an action that works ( #42908 ) ( 6fa6e60 ) core: Improve credential resolution for node parameter loading ( #42755 ) ( e4e033e ) core: Read named array keys in expressions ( #42970 ) ( 00a1fb",
+      "summary": "2.46.6 (2026-11-04) Bug Fixes Make npm install of n8n work on all platforms again ( #43035 ) ( 6abcfc7 )",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-04T09:39:09Z",
+      "published": "2026-11-04T13:11:05Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "media/19.png",
@@ -671,12 +671,12 @@
     },
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/beta",
-      "title": "beta: :rocket: Release 2.47.0 (#42988)",
-      "summary": "Co-authored-by: n8n-release-helper[bot]",
+      "title": "beta",
+      "summary": "2.47.1 (2026-11-04) Features core: Hide archived workflows in the migration report by default ( #42994 ) ( f2d4913 ) editor: Show a message when the migration report takes long to load ( #43000 ) ( 20ff7df )",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-03T08:15:30Z",
+      "published": "2026-11-04T13:30:36Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://opengraph.githubassets.com/e9d9f05b13f547b1c080b1d16028ce9f87c686e48e865def71f7b17721568d04/n8n-io/n8n/releases/tag/beta",
       "file": "media/f195a5e647d31823.png",
@@ -15705,7 +15705,7 @@
     {
       "url": "https://www.reddit.com/r/comfyui/comments/1wv4x9q/comfy_agent_is_now_live_for_everyone_on_comfy/",
       "title": "Comfy Agent is now live for everyone on Comfy Cloud. It builds and fixes ComfyUI workflows right on your canvas. ( Local version coming soon )",
-      "summary": "The short version: you describe what you want, and it plans the workflow, adds and wires the nodes on your canvas, and helps fix things when they break. The goal is to take the technical overhead off your plate so you can spend more time on the visuals instead of hunting for the ",
+      "summary": "Reddit from r/comfyui.",
       "source": "r/comfyui",
       "kind": "social",
       "lane": "Reddit",
@@ -40938,7 +40938,7 @@
     {
       "url": "https://www.reddit.com/r/comfyui/comments/1x70kab/were_giving_away_25k_for_higgsfield_opensource/",
       "title": "We’re giving away $25K for Higgsfield open-source rebuilds of creative apps on ComfyUI (2 weeks, 3× RTX 5090s up for grabs)",
-      "summary": "Higgsfield promised to open-source their entire platform. They didn’t, so we figured we’d help. For the next two weeks, Comfy is putting up $25,000 in prizes for the best open-source builds on the Comfy Developer Platform . Rebuild Genjutsu or Cinema Studio, or make a creative ap",
+      "summary": "Reddit from r/comfyui.",
       "source": "r/comfyui",
       "kind": "social",
       "lane": "Reddit",
@@ -71763,7 +71763,7 @@
     {
       "url": "https://www.reddit.com/r/comfyui/comments/1xmp6dh/i_built_a_free_opensource_film_studio_on_top_of/",
       "title": "I built a free, open-source film studio on top of ComfyUI + MiniMax H3: idea to finished short film, on your own PC",
-      "summary": "This is IV Studio, my entry for Comfy's Open Source Higgsfield challenge. It's a Windows desktop app (MIT) that drives your own ComfyUI over its API, so you never touch a node graph unless you want to. What it does: - **Write it for me:** a local model (Qwen3-VL via Ollama or you",
+      "summary": "Reddit from r/comfyui.",
       "source": "r/comfyui",
       "kind": "social",
       "lane": "Reddit",
@@ -72799,7 +72799,7 @@
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-04T09:40:48Z",
+      "published": "2026-11-04T13:30:34Z",
       "added_at": "2026-11-04T10:01:06Z",
       "image": "https://opengraph.githubassets.com/cdad1866d8c0a44dead78acd1c893accf94b7b3aac92eee39ce1e1ce81c24f5d/n8n-io/n8n/releases/tag/n8n%402.47.1",
       "file": "media/7385a95f484f12bd.png",
@@ -72980,7 +72980,7 @@
     {
       "url": "https://www.reddit.com/r/LocalLLM/comments/1xnl82r/low_cost_1500_ai_rig_qwen_38_flash_next_525_ts/",
       "title": "Low cost $1500 AI rig - QWEN 3.8 Flash Next, 52.5 t/s decode in FP8 - 6xM10 = 192GB VRAM",
-      "summary": "Hi, Yes, yes, I know... crappy old NVIDIA Tesla M10's GPU as AI compute core. Am I crazy and should go book a room in an mental institution?.. but hear me out..! Tesla M10's consists of 4 gm107 GPU cores with 8gb ram stitched together via an internal PCI switch. So each M10 is 32",
+      "summary": "Hi, Github project:",
       "source": "r/LocalLLM",
       "kind": "social",
       "lane": "Reddit",
@@ -73144,6 +73144,173 @@
       "video": "",
       "categories": [
         "homelab"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/v0.9.0",
+      "title": "llama.cpp v0.9.0",
+      "summary": "Overview This release adds OCP FP8 E4M3 quantization support, a new flash_attn_ext_rows op that makes the unified KV cache efficient for multi-sequence inference, and a generic batched tensor copy API. Four new architectures are supported (Clover, Limite, Metis-1.6 and Mistral La",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-04T13:09:55Z",
+      "added_at": "2026-11-04T13:31:00Z",
+      "image": "https://opengraph.githubassets.com/e49dfb87226b6ab9d9171d2b10a494edb6589f1d8d2728bd94d3e346112431b8/ggml-org/llama.cpp/releases/tag/v0.9.0",
+      "file": "media/9dccbf755eee5d2d.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12111",
+      "title": "b12111: common : delete common_get_path_from_env() (#31444)",
+      "summary": "Signed-off-by: Adrien Gallouët angt@huggingface.co",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-04T13:21:38Z",
+      "added_at": "2026-11-04T13:31:00Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/9b4a16ecc1cff854.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xnnr3k/tencent_says_hy4_ranks_among_the_best_open_models/",
+      "title": "Tencent says Hy4 ranks among the best open models. Its weights aren't out yet",
+      "summary": "From the article : On computer use, Tencent’s table puts Hy4 close to Claude Opus 5.5 and Kimi K3.1 Pro. submitted by /u/mawcopolow [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T13:07:26+00:00",
+      "added_at": "2026-11-04T13:31:00Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xnmre2/tinywebui_lightweight_open_webui_alternative_just/",
+      "title": "TinyWebUI - Lightweight Open WebUI alternative, just npx and go",
+      "summary": "While we cant quite match the feature set of Open WebUI, TinyWebUI can be installed with a simple npx command, \"npx tinywebui\". It comes with tinysearch and tinycontext preinstalled for fully local web search and memory, and can support multiple users with per user isolation. Als",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T12:18:25+00:00",
+      "added_at": "2026-11-04T13:31:00Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1xnnbmf/paper_specpilot_autonomous_algorithm_discovery/",
+      "title": "[Paper] 🚀🚀🚀 SpecPilot: Autonomous Algorithm Discovery and Systems Optimization for Speculative Decoding 🚀🚀🚀",
+      "summary": "submitted by /u/pmttyji [link] [comments]",
+      "source": "r/LocalLLM",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T12:47:12+00:00",
+      "added_at": "2026-11-04T13:31:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1xnnvh0/quero_começar_uma_llm_e_preciso_de_conselhos/",
+      "title": "Quero começar uma LLM e preciso de conselhos",
+      "summary": "Meu trabalho recebeu uns PCs besteirinha como os Sparks pra fazermos a LLM local daqui. Por enquanto vamos focar em consultas de processos, memorando e banco de dados da empresa. Dito isso, gostaria de perguntar, oq posso fazer ou como posso desenvolver a LLM aqui. Tem algum mode",
+      "source": "r/LocalLLM",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T13:13:12+00:00",
+      "added_at": "2026-11-04T13:31:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1xnnrrz/moss_ama_highlights/",
+      "title": "MOSS AMA highlights",
+      "summary": "submitted by /u/Physical_Hat4022 [link] [comments]",
+      "source": "r/LocalLLM",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T13:08:24+00:00",
+      "added_at": "2026-11-04T13:31:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1xnmjj8/need_help_in_llm/",
+      "title": "Need help in LLM",
+      "summary": "Hey guys, I'm new to running local LLMs. Just set up Ollama + Open WebUI and looking for model recommendations. My specs: RTX 5060 8GB 16GB ddr4 ram What are the best small/quantized models that run smoothly on 8GB of VRAM? Thanks! Main goal: have a self-sufficient daily assistan",
+      "source": "r/LocalLLM",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T12:06:48+00:00",
+      "added_at": "2026-11-04T13:31:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLM/comments/1xnmgd0/small_model_for_hermes_session_compression_on_an/",
+      "title": "Small model for Hermes session compression on an M4 Mac mini, 24GB?",
+      "summary": "Anyone using a small local model for session compression? I’d be interested in recommendations, particularly on Apple Silicon. I’m new to local LLM hosting and still experimenting. I’ve been using Hermes extensively for non-coding workloads, mainly research, knowledge management ",
+      "source": "r/LocalLLM",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T12:02:18+00:00",
+      "added_at": "2026-11-04T13:31:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.46.6",
+      "title": "n8n@2.46.6",
+      "summary": "2.46.6 (2026-11-04) Bug Fixes Make npm install of n8n work on all platforms again ( #43035 ) ( 6abcfc7 )",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-04T13:13:38Z",
+      "added_at": "2026-11-04T13:31:03Z",
+      "image": "https://opengraph.githubassets.com/a021bb01fc03dcedee89200f26d2d61729d7bc4a9717238e2674d79495b78ca9/n8n-io/n8n/releases/tag/n8n%402.46.6",
+      "file": "media/2e30ac0b03051a1a.png",
+      "video": "",
+      "categories": [
+        "home-automation",
+        "releases"
       ]
     }
   ]
