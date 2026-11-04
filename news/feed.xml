@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-04T04:05:15Z</lastBuildDate>
 <item>
+<title>Qwhen ?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xnjbjq/qwhen/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xnjbjq/qwhen/</guid>
+<pubDate>2026-11-04T08:49:31+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. When qwen 4 would release ? submitted by /u/anubhav_200 [link] [comments]]]></description>
+</item>
+<item>
+<title>llama.cpp b12101</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12101</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12101</guid>
+<pubDate>2026-11-04T08:37:24Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/215d7b2106130be3.png" alt=""><p>Article · llama.cpp. ggml : write host-buffer tensor data directly in gguf writer ( #31144 ) The gguf writer staged each tensor into a temporary vector before writing it. For host-buffer tensors the data pointer is directly writable, so skip the staging copy and write it straight to the file. This av</p>]]></description>
+</item>
+<item>
 <title>Read the muse spark open license before wiring it into anything</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xnis75/read_the_muse_spark_open_license_before_wiring_it/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xnis75/read_the_muse_spark_open_license_before_wiring_it/</guid>
@@ -26,6 +40,13 @@
 <description><![CDATA[Reddit · r/LocalLLM. Hi everyone so i just recently started out to explore local LLMs and tried to build one of my own based on my inspiration with Jarvis. my current pc specifications are: Ryzen 7 5700x 48gb Ram Rtx2060 6GB So i would like to ask for suggestions which model should i opt in for if i]]></description>
 </item>
 <item>
+<title>b12102: ggml: bound views by the bytes their strides reach (#31584)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12102</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12102</guid>
+<pubDate>2026-11-04T07:47:11Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/454857c97df68bcf.png" alt=""><p>Article · llama.cpp. ggml: bound views by the bytes their strides reach A view was checked against its source with the size of a contiguous tensor of the same shape, computed before its strides were set. Views whose rows overlap failed that check although they stay inside their source, and views with</p>]]></description>
+</item>
+<item>
 <title>4x RTX 3090 + 3x RTX 3060 for local inference long term - EPYC, Threadripper or my existing X570?</title>
 <link>https://www.reddit.com/r/LocalLLM/comments/1xniblf/4x_rtx_3090_3x_rtx_3060_for_local_inference_long/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLM/comments/1xniblf/4x_rtx_3090_3x_rtx_3060_for_local_inference_long/</guid>
@@ -38,13 +59,6 @@
 <guid isPermaLink="true">https://github.com/langgenius/dify/releases/tag/1.19.0</guid>
 <pubDate>2026-11-04T07:37:34Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3fc42fc84ed91203.png" alt=""><p>Article · Dify. Dify 1.19.0 brings nested workflow tracing to your observability tools. Follow a workflow into the Workflow Tools it calls, inspect the steps inside each invocation, and keep the LLM context alongside the execution tree. This release also makes Workflow Tools portable with App pa</p>]]></description>
-</item>
-<item>
-<title>b12101: ggml : write host-buffer tensor data directly in gguf writer (#31144)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12101</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12101</guid>
-<pubDate>2026-11-04T07:29:26Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/215d7b2106130be3.png" alt=""><p>Article · llama.cpp. The gguf writer staged each tensor into a temporary vector before writing it. For host-buffer tensors the data pointer is directly writable, so skip the staging copy and write it straight to the file. This avoids the per-tensor allocation, zero-init and memcpy. Assisted-by: dsh:l</p>]]></description>
 </item>
 <item>
 <title>Introducing Hy4 (open weights soon)</title>
@@ -751,7 +765,7 @@
 <link>https://lemmy.world/post/53945115</link>
 <guid isPermaLink="true">https://lemmy.world/post/53945115</guid>
 <pubDate>Tue, 3 Nov 2026 15:49:08 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by Shimitar to selfhosted -11 points | 18 comments]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by Shimitar to selfhosted -10 points | 18 comments]]></description>
 </item>
 <item>
 <title>llama.cpp b12074</title>
@@ -26759,6 +26773,13 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>2026-09-26T07:01:03-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -26953,6 +26974,13 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.37.3</guid>
 <pubDate>2026-09-25T20:30:45-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/10.png" alt=""><p>Article · ComfyUI. ComfyUI v0.37.3</p>]]></description>
+</item>
+<item>
+<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
+<link>https://github.com/OtoDock/oto-dock</link>
+<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
+<pubDate>2026-09-25T20:30:45-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>Ling Tiny 3.0 is a glimpse of the future</title>
@@ -27389,6 +27417,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
 </item>
 <item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
 <link>https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/ollama/comments/1wp1lct/the_alignment_tax_is_ruining_agentic_workflows/</guid>
@@ -27492,6 +27527,13 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.34.4-rc0</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16.png" alt=""><p>Article · Ollama. What&#x27;s Changed server: fix intermittent &quot;model not found&quot; errors. by @rick-github in</p>]]></description>
+</item>
+<item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>2026-09-23T11:17:55-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>ComfyUI v0.36.0</title>
@@ -27823,13 +27865,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -27858,13 +27893,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
 </item>
 <item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.0</guid>
@@ -27891,13 +27919,6 @@
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.35.0</guid>
 <pubDate>2026-09-09T19:55:08Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc95e03d0761f71b.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed [Partner Nodes] chore(Google): drop retiring Veo 2 and Veo 3.0 models by @bigcat88 in #15883 [Partner Nodes] feat(Recraft): add V4 Styles by @bigcat88 in #15903 [Partner Nodes] feat(WAN): add WAN3-Prime model support by @bigcat88 in #15894 Bump comfyui-frontend-pac</p>]]></description>
-</item>
-<item>
-<title>Show HN: Self-hosted company OS, Claude Code and Codex agents in departments</title>
-<link>https://github.com/OtoDock/oto-dock</link>
-<guid isPermaLink="true">https://github.com/OtoDock/oto-dock</guid>
-<pubDate>Wed, 09 Sep 2026 17:57:55 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · self-hosted. Hi HN, I am Dimitris. This is a company OS that I built and use to run my business and anyone can install it and self host it for free. Think of it as Claude Code, Cowork and the cloud sessions in one self hosted application. It is a Multi-tenant application by design where many]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0rc6</title>
@@ -28297,13 +28318,6 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
-</item>
-<item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
