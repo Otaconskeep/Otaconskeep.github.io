@@ -306,11 +306,11 @@
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/stable",
       "title": "stable",
-      "summary": "2.46.4 (2026-11-02) Bug Fixes core: Keep own proto keys in values that cross the expression runtime ( #42806 ) ( 3075ef1 ) core: Keep the name and fields of an Error that an expression returns ( #42805 ) ( 7640bcb ) core: Let expressions read Error objects in item data ( #42804 )",
+      "summary": "2.46.5 (2026-11-04) Bug Fixes AI Agent Node: Point the deprecated agent type callout to an action that works ( #42908 ) ( 6fa6e60 ) core: Improve credential resolution for node parameter loading ( #42755 ) ( e4e033e ) core: Read named array keys in expressions ( #42970 ) ( 00a1fb",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-03T08:47:04Z",
+      "published": "2026-11-04T09:39:09Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "media/19.png",
@@ -671,12 +671,12 @@
     },
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/beta",
-      "title": "beta",
-      "summary": "2.47.0 (2026-11-03) Bug Fixes Add missing period to data table storage limit banner copy ( #37943 ) ( d1dc4d6 ) AI Agent Node: Point the deprecated agent type callout to an action that works ( #42898 ) ( 7a44fcb ) ai-builder: Include instance admins in team self-healing reviews (",
+      "title": "beta: :rocket: Release 2.47.0 (#42988)",
+      "summary": "Co-authored-by: n8n-release-helper[bot]",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-03T08:38:09Z",
+      "published": "2026-11-03T08:15:30Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://opengraph.githubassets.com/e9d9f05b13f547b1c080b1d16028ce9f87c686e48e865def71f7b17721568d04/n8n-io/n8n/releases/tag/beta",
       "file": "media/f195a5e647d31823.png",
@@ -15705,7 +15705,7 @@
     {
       "url": "https://www.reddit.com/r/comfyui/comments/1wv4x9q/comfy_agent_is_now_live_for_everyone_on_comfy/",
       "title": "Comfy Agent is now live for everyone on Comfy Cloud. It builds and fixes ComfyUI workflows right on your canvas. ( Local version coming soon )",
-      "summary": "Reddit from r/comfyui.",
+      "summary": "The short version: you describe what you want, and it plans the workflow, adds and wires the nodes on your canvas, and helps fix things when they break. The goal is to take the technical overhead off your plate so you can spend more time on the visuals instead of hunting for the ",
       "source": "r/comfyui",
       "kind": "social",
       "lane": "Reddit",
@@ -40938,7 +40938,7 @@
     {
       "url": "https://www.reddit.com/r/comfyui/comments/1x70kab/were_giving_away_25k_for_higgsfield_opensource/",
       "title": "We’re giving away $25K for Higgsfield open-source rebuilds of creative apps on ComfyUI (2 weeks, 3× RTX 5090s up for grabs)",
-      "summary": "Reddit from r/comfyui.",
+      "summary": "Higgsfield promised to open-source their entire platform. They didn’t, so we figured we’d help. For the next two weeks, Comfy is putting up $25,000 in prizes for the best open-source builds on the Comfy Developer Platform . Rebuild Genjutsu or Cinema Studio, or make a creative ap",
       "source": "r/comfyui",
       "kind": "social",
       "lane": "Reddit",
@@ -70346,7 +70346,7 @@
     {
       "url": "https://lemmy.world/post/53945115",
       "title": "Thoughts on coding with AI: my experience",
-      "summary": "submitted by Shimitar to selfhosted -9 points | 18 comments",
+      "summary": "submitted by Shimitar to selfhosted -8 points | 18 comments",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -71763,7 +71763,7 @@
     {
       "url": "https://www.reddit.com/r/comfyui/comments/1xmp6dh/i_built_a_free_opensource_film_studio_on_top_of/",
       "title": "I built a free, open-source film studio on top of ComfyUI + MiniMax H3: idea to finished short film, on your own PC",
-      "summary": "Reddit from r/comfyui.",
+      "summary": "This is IV Studio, my entry for Comfy's Open Source Higgsfield challenge. It's a Windows desktop app (MIT) that drives your own ComfyUI over its API, so you never touch a node graph unless you want to. What it does: - **Write it for me:** a local model (Qwen3-VL via Ollama or you",
       "source": "r/comfyui",
       "kind": "social",
       "lane": "Reddit",
@@ -72364,6 +72364,465 @@
       "video": "",
       "categories": [
         "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xnjiu4/axion10axion1035b_hugging_face/",
+      "title": "Axion1-0/Axion-1.0-35B · Hugging Face",
+      "summary": "We introduce Axion 1.0, a fully open agent foundation model that combines strong and broad agentic capabilities with a remarkably simple training recipe. Axion 1.0 is trained in only three stages: two lightweight supervised fine-tuning stages followed by reinforcement learning, w",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T09:02:58+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xnjrgj/paper_specpilot_autonomous_algorithm_discovery/",
+      "title": "[Paper] SpecPilot: Autonomous Algorithm Discovery and Systems Optimization for Speculative Decoding 🚀🚀🚀",
+      "summary": "Speculative decoding accelerates memory-bound LLM decoding with a lightweight drafter, and parallel drafters extend this speedup by drafting a whole block in one forward pass. However, it remains unclear whether their released systems (stock) attain the full speedup that parallel",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T09:18:44+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xnjwte/using_strata_iq4_qwen_flash_to_edit_qwen_35_06b/",
+      "title": "Using Strata IQ4 Qwen Flash to edit Qwen 3.5 0.6B weight based on MIT CSAIL",
+      "summary": "EDIT : NON COMPRESS GRAPH :",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T09:28:48+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xnj4be/int8_isnt_the_problem_the_sampler_is_i_measured/",
+      "title": "INT8 isn't the problem, the sampler is: I measured samplers on INT8 flow models at 8-16 steps and added flow_ab2 / flow_ab3 to the sampler list",
+      "summary": "I wanted to know whether multistep samplers get hurt by INT8 models, because the common advice says they do. I measured it on real INT8 checkpoints (Flux3-Klein, Krea 2, Moss-Image) and on Anima, at 8-24 steps and different CFG. Short version: INT8 itself is nearly harmless. The ",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T08:35:56+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xn9ufc/pruna_ph3image_is_now_available_in_comfyui/",
+      "title": "Pruna P-H3-Image is now available in ComfyUI",
+      "summary": "Pruna’s P-H3-Image is now supported in ComfyUI. It’s a distilled image model built on MiniMax H3 and paired with a 4B text encoder. The goal is to keep H3-quality output while making it lighter and faster to run. What you need to know: Base: distilled from MiniMax H3 Text encoder",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T00:20:10+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xmyovx/new_image_model_based_on_minimax_h3_7_smaller_5/",
+      "title": "New image model based on Minimax H3, 7× smaller, 5× faster, 8 steps",
+      "summary": "Hey! We published a new image model built from MiniMax-H3. Open weights on Hugging Face and available natively on ComfyUI:",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T17:09:19+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xnfh4i/i_built_a_free_opensource_tool_that_turns_any/",
+      "title": "I built a free, open-source tool that turns any ComfyUI workflow into a clean control panel",
+      "summary": "Hi everyone! I'm Neural Dreamer, I make ComfyUI tutorials, and I just released ComfyUI ND UI Builder - a free, open-source tool (AGPL-3.0) that turns any workflow into a clean control panel. How it works: you tag the nodes you need, press Edit, and drag widgets (prompts, sliders,",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T04:58:32+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xmx04k/minimax_h3_in_comfyui_character_swap_talk_sing/",
+      "title": "MiniMax H3 in ComfyUI | Character Swap, Talk, Sing & Timeline (Ep41)",
+      "summary": "In this episode, we test MiniMax H3 in ComfyUI with 25 free workflows, plus 2 bonus workflows. H3 is a video model that makes video with sound, from your images, videos and audio. We test them all, and see what H3 does well and where it struggles. Part 1, change your video: a cha",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T16:07:24+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xn4cq4/i_used_a_blender_blockout_to_guide_an_aigenerated/",
+      "title": "I used a Blender blockout to guide an AI-generated soda ad",
+      "summary": "I wanted more control over the composition and movement in each shot, so I created a simple 3D blockout using ChatGPT and Blender MCP. Then I made cinematic scene references with GPT Image in ComfyUI and paired each one with its blockout clip in MiniMax H3’s reference-to-video wo",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T20:34:13+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xnbaec/minimax_pikavbvrsol_vae_workflow_mmh3_for_tts/",
+      "title": "Minimax Pika-VBVR-Sol VAE Workflow - MMH3 for TTS & Image Editing - 3mp Upscaler-Detailer & More",
+      "summary": "Some things. Links below if you didn't want to watch the video. New Minimax H3 workflow I am using - 04:41 MMH3 for TTS (Text to Speech) to address the 3 people dialogue issue - 27:29 MMH3 for image editing and creation (up to 8K but it hasnt won me over yet) - 25:16 Why I wont b",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T01:27:05+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xn4c5t/sonora_studio_11_a_free_local_music_studio_with/",
+      "title": "Sonora Studio 1.1: a free local music studio, with YuE2 running on your own PC (even a 12 GB card)",
+      "summary": "I listened to your feedback, and I’ve just published Sonora Studio 1.1 , a free, local music studio that now runs YuE2 on your own PC . It uses the lightest quantised version of the model (Q8_0), so it works even on a 12 GB graphics card: I tested it on an RTX 2060. Below is what",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T20:33:38+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xncmh1/spells_in_the_forest/",
+      "title": "Spells In The Forest",
+      "summary": "submitted by /u/Affectionate_Film161 [link] [comments]",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T02:32:02+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xmnxtj/we_opensourced_our_video_app_that_runs_on_your/",
+      "title": "We open-sourced our video app that runs on your ComfyUI (H3 VFX LoRAs, Qwen, Flux)",
+      "summary": "Hey there, fellow ComfyUI enjoyers I’m one of the founders of Mago and we've just open-sourced our AI video studio It’s made for long-form work like AI series, short films and microdramas. You start from an idea or a script, and it takes you through cast, shot list, storyboards a",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T08:53:23+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xnjvq8/ref2v_minimax_reference_image_issues_need_help/",
+      "title": "Ref2v Minimax reference image issues need help",
+      "summary": "How do you people deal with ref2va reference images showint up in the first frame or longer than a seconds then morphs to the actual reference image or describe environment? No matter how I have followed the prompting format or described that it shouldn’t show up but only be used",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T09:26:46+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xmz4lb/check_out_the_workflows_ive_been_working_on_ive/",
+      "title": "Check out the workflows I've been working on! I've smashed them together for this example and to share but you can change or keep poses and backgrounds, reposition and resize! It's",
+      "summary": "Reddit from r/comfyui.",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T17:24:57+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xnjq0o/the_problem_with_ltx25_that_i_dont_like/",
+      "title": "The problem with LTX2.5, that i don't like.",
+      "summary": "all though LTX2.5 is good for what it does, i think they missed the mark when it come to Animating a character from a reference image. i hope they do something about it in the future that what really bothering me. thanks for coming to my Ted Talk. submitted by /u/hi_im_fatter [li",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T09:16:07+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xnjlwl/comfyui_va_in_crash_con_lerrore_typeerror_failed/",
+      "title": "ComfyUI va in crash con l'errore \"TypeError: Failed to fetch\" e disconnessione del server durante l'esecuzione del prompt",
+      "summary": "Ciao a tutti, sto riscontrando questo errore mentre uso ComfyUI (tramite Pinokio). Quando provo a eseguire un flusso di lavoro (workflow), va improvvisamente in crash e mostra questi messaggi: * **Errore:** Esecuzione della prompt non riuscita: TypeError: Failed to fetch Avvisi i",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T09:08:51+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xmrcyl/comfyui_tutorial_pika_h3_minimax_h3_singularity/",
+      "title": "ComfyUI Tutorial: PIKA H3 + MiniMax H3 Singularity V2 + NVIDIA Regenerative 2K Upscaling KIJAI LORA (With 6GB of VRAM)",
+      "summary": "Hello everyone today I am showing you a new ComfyUI workflow that combines MiniMax H3 Singularity V2 combined with the Pika H3 LoRA to generate videos at approximately 0.6 MP with only 6 steps. Then, using the Ultimate MiniMax H3 Upscale node and Kijai's Regenerative 2K LoRA at a",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T12:13:09+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xmwk7a/i_built_an_opensource_ai_agent_for_comfyui/",
+      "title": "I built an open-source AI agent for ComfyUI",
+      "summary": "I've been working on ComfyUI-Agent, an open-source AI assistant that can directly interact with the ComfyUI canvas. Unlike a regular chatbot, it can: - Build and edit workflows from natural language. - Run and debug generations. - Validate workflows and fix issues. - Inspect prev",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T15:51:07+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xmtqu0/reshoot_4d_reshoot_anyone_in_4d/",
+      "title": "Reshoot 4D: Reshoot Anyone in 4D",
+      "summary": "Hey guys - first time reddit post from this account. Made this a few weeks back and just shipped a big update. You take a video of a person, it builds a 4D capture, you fly a new camera through it inside ComfyUI, and you get the same moment back from the new angle. Everything run",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-03T14:02:59+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xniaf7/changing_camera_angle_in_wan30/",
+      "title": "Changing camera angle in Wan3.0",
+      "summary": "Hi everyone! I’m trying to change the camera angle of an existing video while keeping everything else exactly the same. I want all the actions, movements, and timing to remain identical, but have the scene filmed from different camera angles. I'm using Wan3.0. I've done that seve",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T07:42:48+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xnhyt7/a_recipe_for_one_step_flawless_distant_faces_in_h3/",
+      "title": "A Recipe For One Step Flawless Distant Faces in H3",
+      "summary": "Trying to avoid having to run an extra SAM process in H3, having a SAM workflow swap out the face, I tested variants of Singularity + Pika. The primary goal of the generation, beyond not having to use SAM, was also to have it create an ACCURATE rendition of the face, with no glit",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T07:22:13+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xngzsr/professional_advice_for_built_portfolio_reel/",
+      "title": "Professional advice for built portfolio reel & resume.",
+      "summary": "I been 3d and vfx artist more than decade but its been a long before covid that i never update my work reel. So if i wanted to built an updated portfolio reel but as hybrid cg artist and ai artist. Understandable current market is bad and different expectation since the arrive of",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T06:23:07+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xnbnk2/moss_inpaint_question/",
+      "title": "MOSS Inpaint Question",
+      "summary": "I've been struggling a lot. I hope someone can help me get good results. I want to take an existing image for instance a car picture. Then I want to put an anime character into this realistic scene. Like sitting relaxed on the hood. All results I have are miserable. I think I am ",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T01:45:04+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/comfyui/comments/1xna30d/i_built_a_digital_twin_to_host_my_history/",
+      "title": "I built a digital twin to host my history documentary channel: LTX 2.3 in ComfyUI + my cloned voice, rendered locally",
+      "summary": "Full making-of, with videos, the actual ComfyUI graph and side-by-side tests:",
+      "source": "r/comfyui",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-04T00:30:57+00:00",
+      "added_at": "2026-11-04T10:01:01Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.47.1",
+      "title": "n8n@2.47.1",
+      "summary": "2.47.1 (2026-11-04) Features core: Hide archived workflows in the migration report by default ( #42994 ) ( f2d4913 ) editor: Show a message when the migration report takes long to load ( #43000 ) ( 20ff7df )",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-04T09:40:48Z",
+      "added_at": "2026-11-04T10:01:06Z",
+      "image": "https://opengraph.githubassets.com/cdad1866d8c0a44dead78acd1c893accf94b7b3aac92eee39ce1e1ce81c24f5d/n8n-io/n8n/releases/tag/n8n%402.47.1",
+      "file": "media/7385a95f484f12bd.png",
+      "video": "",
+      "categories": [
+        "home-automation",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.46.5",
+      "title": "n8n@2.46.5",
+      "summary": "2.46.5 (2026-11-04) Bug Fixes AI Agent Node: Point the deprecated agent type callout to an action that works ( #42908 ) ( 6fa6e60 ) core: Improve credential resolution for node parameter loading ( #42755 ) ( e4e033e ) core: Read named array keys in expressions ( #42970 ) ( 00a1fb",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-04T09:41:24Z",
+      "added_at": "2026-11-04T10:01:06Z",
+      "image": "https://opengraph.githubassets.com/342820423adbafb8a348b4daa73d09e56cd5b7363db1a26fa2b8db81aa71bbbe/n8n-io/n8n/releases/tag/n8n%402.46.5",
+      "file": "media/0a0498ad67da232e.png",
+      "video": "",
+      "categories": [
+        "home-automation",
         "releases"
       ]
     }
