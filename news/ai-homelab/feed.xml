@@ -5,6 +5,34 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-05T13:33:56Z</lastBuildDate>
 <item>
+<title>llama.cpp b12135</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12135</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12135</guid>
+<pubDate>2026-11-05T21:17:32Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc4273d3cbe4d08a.png" alt=""><p>Article · llama.cpp. webgpu : add MEAN support ( #31591 ) Assisted-by: Codex Website:</p>]]></description>
+</item>
+<item>
+<title>Lawyer with too many GPUs, part 4: DeepSeek-V4.1-Flash on eight V100s from 2018. 200+ tok/s on code, ~110 on legal writing, 2,200 tok/s prefill at 128K, 524K context, every weight</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xoubyo/lawyer_with_too_many_gpus_part_4_deepseekv41flash/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xoubyo/lawyer_with_too_many_gpus_part_4_deepseekv41flash/</guid>
+<pubDate>2026-11-05T21:07:54+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. fuck you sam altman. i am keeping my spare capacity. Update from the lawyer with the V100 server. Three days ago I got excited and posted DeepSeek-V4.1-Flash on four V100s at 36-38 tok/s, before I had done my custom kernel work and prefill optimizations. I also said I&#x27;d try it ac]]></description>
+</item>
+<item>
+<title>I fixed my tiny TTS by editing the weights directly, no retraining</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xou096/i_fixed_my_tiny_tts_by_editing_the_weights/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xou096/i_fixed_my_tiny_tts_by_editing_the_weights/</guid>
+<pubDate>2026-11-05T20:54:52+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I&#x27;m building Silencio-2, a small finetune of Kyutai&#x27;s Pocket TTS. It adds inline tags for emotions ( , , , , , ) and for sounds like [laugh] . I simply didn&#x27;t have enough tagged data to make them stable. worked, the others were hit or miss, and gave an actual whisper in about 1 o]]></description>
+</item>
+<item>
+<title>Strata for all Qwen models from little to big</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xottw2/strata_for_all_qwen_models_from_little_to_big/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xottw2/strata_for_all_qwen_models_from_little_to_big/</guid>
+<pubDate>2026-11-05T20:47:30+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Ran every Qwen GGUF on my disk through RustingStrata and llama.cpp, same PC, same file, back to back. PC: RTX 3060 12 GB, Ryzen 5 7600X, 32 GB RAM. CUDA. Normal desktop open (browser, Discord), no tuning, so numbers are lower than in the README. Model Quant Size Prefill 4K, Rusti]]></description>
+</item>
+<item>
 <title>llama.cpp b12132</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12132</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12132</guid>
@@ -73,6 +101,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xoq4vq/deepseekv41flash1017_on_one_rtx_3090_big_updates/</guid>
 <pubDate>2026-11-05T18:23:22+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Big update to the Delta Inference Engine, you guys asked for more features, more benchmarks and less clickbait. I&#x27;m here to deliver The short version: I&#x27;ve added almost everything requested and more. Delta Inference Engine now supports 64/96/128 GB of RAM and fully supports the n]]></description>
+</item>
+<item>
+<title>I added local TTS and STT to apple-llm using what&#x27;s already on your Mac. 30 minutes of narration renders in under 20 seconds on an M4 Air</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xoowb4/i_added_local_tts_and_stt_to_applellm_using_whats/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xoowb4/i_added_local_tts_and_stt_to_applellm_using_whats/</guid>
+<pubDate>2026-11-05T17:37:08+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I posted apple-llm here a while back: a Node and Python package that calls the LLMs Apple ships with macOS, with no API key. Version 0.3 adds the rest of what&#x27;s already on your Mac, the system voices and Apple&#x27;s speech recognition. There&#x27;s nothing to sign up for, and your audio s]]></description>
 </item>
 <item>
 <title>Nemotron 3.5 Bolt E4B on Jetson Orin Nano Super at 27.7 tok/s!</title>
@@ -236,11 +271,18 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. I have 32 GB of VRAM and 32 GB of system RAM. The best dense model I&#x27;ve managed to run so far is Qwen 3.8 27B at Q6 quantization. I can also run some larger MoE models by offloading the experts to the CPU, as long as the total memory footprint stays within my 64 GB combined memor]]></description>
 </item>
 <item>
-<title>b12135: webgpu : add MEAN support (#31591)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12135</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12135</guid>
-<pubDate>2026-11-05T08:29:14Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/bc4273d3cbe4d08a.png" alt=""><p>Article · llama.cpp. Assisted-by: Codex</p>]]></description>
+<title>b12137: server : reject non-object session updates (#31714)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12137</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12137</guid>
+<pubDate>2026-11-05T08:38:08Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e6276a951fd4cf5f.png" alt=""><p>Article · llama.cpp. Prevent malformed realtime session updates from throwing an uncaught exception and terminating the server Signed-off-by: Adrien Gallouët angt@huggingface.co</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12136</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12136</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12136</guid>
+<pubDate>2026-11-05T08:31:48Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/745f8c669fa35e8b.png" alt=""><p>Article · llama.cpp. fit : account for skipped NextN layers when setting n_gpu_layers ( #31 …</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12134</title>

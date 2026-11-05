@@ -75715,12 +75715,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12135",
-      "title": "b12135: webgpu : add MEAN support (#31591)",
-      "summary": "Assisted-by: Codex",
+      "title": "llama.cpp b12135",
+      "summary": "webgpu : add MEAN support ( #31591 ) Assisted-by: Codex Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-05T08:29:14Z",
+      "published": "2026-11-05T21:17:32Z",
       "added_at": "2026-11-05T21:01:03Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/bc4273d3cbe4d08a.png",
@@ -75745,6 +75745,108 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12137",
+      "title": "b12137: server : reject non-object session updates (#31714)",
+      "summary": "Prevent malformed realtime session updates from throwing an uncaught exception and terminating the server Signed-off-by: Adrien Gallouët angt@huggingface.co",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-05T08:38:08Z",
+      "added_at": "2026-11-05T21:31:03Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/e6276a951fd4cf5f.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12136",
+      "title": "llama.cpp b12136",
+      "summary": "fit : account for skipped NextN layers when setting n_gpu_layers ( #31 …",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-05T08:31:48Z",
+      "added_at": "2026-11-05T21:31:03Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/745f8c669fa35e8b.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xottw2/strata_for_all_qwen_models_from_little_to_big/",
+      "title": "Strata for all Qwen models from little to big",
+      "summary": "Ran every Qwen GGUF on my disk through RustingStrata and llama.cpp, same PC, same file, back to back. PC: RTX 3060 12 GB, Ryzen 5 7600X, 32 GB RAM. CUDA. Normal desktop open (browser, Discord), no tuning, so numbers are lower than in the README. Model Quant Size Prefill 4K, Rusti",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-05T20:47:30+00:00",
+      "added_at": "2026-11-05T21:31:04Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xoubyo/lawyer_with_too_many_gpus_part_4_deepseekv41flash/",
+      "title": "Lawyer with too many GPUs, part 4: DeepSeek-V4.1-Flash on eight V100s from 2018. 200+ tok/s on code, ~110 on legal writing, 2,200 tok/s prefill at 128K, 524K context, every weight",
+      "summary": "fuck you sam altman. i am keeping my spare capacity. Update from the lawyer with the V100 server. Three days ago I got excited and posted DeepSeek-V4.1-Flash on four V100s at 36-38 tok/s, before I had done my custom kernel work and prefill optimizations. I also said I'd try it ac",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-05T21:07:54+00:00",
+      "added_at": "2026-11-05T21:31:04Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xoowb4/i_added_local_tts_and_stt_to_applellm_using_whats/",
+      "title": "I added local TTS and STT to apple-llm using what's already on your Mac. 30 minutes of narration renders in under 20 seconds on an M4 Air",
+      "summary": "I posted apple-llm here a while back: a Node and Python package that calls the LLMs Apple ships with macOS, with no API key. Version 0.3 adds the rest of what's already on your Mac, the system voices and Apple's speech recognition. There's nothing to sign up for, and your audio s",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-05T17:37:08+00:00",
+      "added_at": "2026-11-05T21:31:04Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xou096/i_fixed_my_tiny_tts_by_editing_the_weights/",
+      "title": "I fixed my tiny TTS by editing the weights directly, no retraining",
+      "summary": "I'm building Silencio-2, a small finetune of Kyutai's Pocket TTS. It adds inline tags for emotions ( , , , , , ) and for sounds like [laugh] . I simply didn't have enough tagged data to make them stable. worked, the others were hit or miss, and gave an actual whisper in about 1 o",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-05T20:54:52+00:00",
+      "added_at": "2026-11-05T21:31:04Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
