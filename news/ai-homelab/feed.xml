@@ -68,6 +68,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
 </item>
 <item>
+<title>b12128: tests: fix CI flakes of TOPK_MOE caused by near ties (#31426)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12128</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12128</guid>
+<pubDate>2026-11-05T06:31:48Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/686daebd7e652345.png" alt=""><p>Article · llama.cpp. tests: fix CI flakes of TOPK_MOE caused by near ties With uniform random logits, two experts sometimes land within one f32 ulp of each other at a routing boundary, mostly with sqrt_softplus gating whose output range is narrow. A backend whose gating differs by a few ulps from the</p>]]></description>
+</item>
+<item>
 <title>b12127: metal: keep fusable node groups inside one command buffer (#31688)</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12127</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12127</guid>
@@ -646,7 +653,7 @@
 <link>https://lemmy.world/post/53985247</link>
 <guid isPermaLink="true">https://lemmy.world/post/53985247</guid>
 <pubDate>Wed, 4 Nov 2026 15:51:44 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by technocrit to selfhosted 295 points | 36 comments]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by technocrit to selfhosted 298 points | 36 comments]]></description>
 </item>
 <item>
 <title>What are you using to collect performance stats</title>
