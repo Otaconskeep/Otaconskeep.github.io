@@ -76618,7 +76618,7 @@
     {
       "url": "https://lemmy.world/post/54058808",
       "title": "The docker group is root access. An agent used it to write to /etc",
-      "summary": "submitted by jeena to selfhosted 35 points | 8 comments",
+      "summary": "submitted by jeena to selfhosted 36 points | 8 comments",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -76989,12 +76989,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12175",
-      "title": "b12175: tests : override hardware_concurrency in CI (#31797)",
-      "summary": "The self-hosted CPU runners are containers with 8 CPUs, but std::thread::hardware_concurrency reports the cores of the host. The table mode of test-llama-context sizes its pool from that count, so it runs 4 models x 8 threads on an 8-CPU job and hangs. Add TEST_ARG_HARDWARE_CONCU",
+      "title": "llama.cpp b12175",
+      "summary": "tests : override hardware_concurrency in CI ( #31797 ) The self-hosted CPU runners are containers with 8 CPUs, but std::thread::hardware_concurrency reports the cores of the host. The table mode of test-llama-context sizes its pool from that count, so it runs 4 models x 8 threads",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-06T12:52:26Z",
+      "published": "2026-11-06T16:11:07Z",
       "added_at": "2026-11-06T16:01:03Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/0b0e7840be3e83c6.png",
@@ -77082,6 +77082,57 @@
       "lane": "Reddit",
       "published": "2026-11-06T15:19:29+00:00",
       "added_at": "2026-11-06T16:01:03Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12176",
+      "title": "b12176: tests : qualify isnan and signbit with std:: (#31791)",
+      "summary": "tests : qualify isnan and signbit with std:: The unqualified calls rely on the C math.h names also being present in the global namespace, which is not the case for the NetBSD 11.99.9/x86_64 gcc 14.4.0 build reported in the issue. Prefix the calls with std:: to select the standard",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-06T12:53:04Z",
+      "added_at": "2026-11-06T16:31:04Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/b313e079c92ff673.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xpgsb3/coincidence_right/",
+      "title": "Coincidence, right?",
+      "summary": "submitted by /u/skeole [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-06T16:15:13+00:00",
+      "added_at": "2026-11-06T16:31:04Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xpfzqk/i_turned_a_12_gb_rtx_3060_into_a_qwen_api_server/",
+      "title": "I turned a 12 GB RTX 3060 into a Qwen API server for 4 people at once",
+      "summary": "Last time it was \"Strata for all Qwen models\". This time: share it. strata serve now runs a 35B MoE (Qwen3.6-35B-A3B Q2_K_XL) on one RTX 3060 for several users at the same time: Users at once Total Each user 1 106 tok/s 106 tok/s 2 139 tok/s 69 tok/s 4 164 tok/s 41 tok/s 41 tok/s",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-06T15:43:52+00:00",
+      "added_at": "2026-11-06T16:31:04Z",
       "image": "",
       "file": "",
       "video": "",

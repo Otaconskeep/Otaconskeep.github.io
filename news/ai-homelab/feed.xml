@@ -5,11 +5,32 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-06T13:33:59Z</lastBuildDate>
 <item>
+<title>Coincidence, right?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xpgsb3/coincidence_right/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xpgsb3/coincidence_right/</guid>
+<pubDate>2026-11-06T16:15:13+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/skeole [link] [comments]]]></description>
+</item>
+<item>
+<title>llama.cpp b12175</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12175</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12175</guid>
+<pubDate>2026-11-06T16:11:07Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0b0e7840be3e83c6.png" alt=""><p>Article · llama.cpp. tests : override hardware_concurrency in CI ( #31797 ) The self-hosted CPU runners are containers with 8 CPUs, but std::thread::hardware_concurrency reports the cores of the host. The table mode of test-llama-context sizes its pool from that count, so it runs 4 models x 8 threads</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12174</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12174</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12174</guid>
 <pubDate>2026-11-06T15:50:01Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ae36f1e272fb7ba5.png" alt=""><p>Article · llama.cpp. cmake : generate RC file directly without win-app.rc.in ( #31718 ) Signed-off-by: Adrien Gallouët angt@huggingface.co Website:</p>]]></description>
+</item>
+<item>
+<title>I turned a 12 GB RTX 3060 into a Qwen API server for 4 people at once</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xpfzqk/i_turned_a_12_gb_rtx_3060_into_a_qwen_api_server/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xpfzqk/i_turned_a_12_gb_rtx_3060_into_a_qwen_api_server/</guid>
+<pubDate>2026-11-06T15:43:52+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Last time it was &quot;Strata for all Qwen models&quot;. This time: share it. strata serve now runs a 35B MoE (Qwen3.6-35B-A3B Q2_K_XL) on one RTX 3060 for several users at the same time: Users at once Total Each user 1 106 tok/s 106 tok/s 2 139 tok/s 69 tok/s 4 164 tok/s 41 tok/s 41 tok/s]]></description>
 </item>
 <item>
 <title>moe-cache : LRFU/MQ-like hybrid cache, ClassLRU by sanmai · Pull Request #31233 · ggml-org/llama.cpp</title>
@@ -131,11 +152,11 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
-<title>b12175: tests : override hardware_concurrency in CI (#31797)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12175</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12175</guid>
-<pubDate>2026-11-06T12:52:26Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0b0e7840be3e83c6.png" alt=""><p>Article · llama.cpp. The self-hosted CPU runners are containers with 8 CPUs, but std::thread::hardware_concurrency reports the cores of the host. The table mode of test-llama-context sizes its pool from that count, so it runs 4 models x 8 threads on an 8-CPU job and hangs. Add TEST_ARG_HARDWARE_CONCU</p>]]></description>
+<title>b12176: tests : qualify isnan and signbit with std:: (#31791)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12176</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12176</guid>
+<pubDate>2026-11-06T12:53:04Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b313e079c92ff673.png" alt=""><p>Article · llama.cpp. tests : qualify isnan and signbit with std:: The unqualified calls rely on the C math.h names also being present in the global namespace, which is not the case for the NetBSD 11.99.9/x86_64 gcc 14.4.0 build reported in the issue. Prefix the calls with std:: to select the standard</p>]]></description>
 </item>
 <item>
 <title>Getting Started with Tailscale: Secure Remote Access to Your Homelab</title>
@@ -184,7 +205,7 @@
 <link>https://lemmy.world/post/54058808</link>
 <guid isPermaLink="true">https://lemmy.world/post/54058808</guid>
 <pubDate>Fri, 6 Nov 2026 11:01:55 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by jeena to selfhosted 35 points | 8 comments]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by jeena to selfhosted 36 points | 8 comments]]></description>
 </item>
 <item>
 <title>My setup for 2x 5060TI</title>
