@@ -403,17 +403,18 @@
     {
       "url": "https://www.youtube.com/watch?v=K2IGHj7KQoM",
       "title": "Are Local Models Finally Good Enough?",
-      "summary": "Video from Techno Tim.",
+      "summary": "I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
-      "published": "2026-05-18T15:00:34+00:00",
+      "published": "2026-09-23T10:55:29-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://i.ytimg.com/vi/K2IGHj7KQoM/hqdefault.jpg",
       "file": "media/01.jpg",
       "video": "K2IGHj7KQoM",
       "categories": [
         "local-models",
+        "homelab",
         "video"
       ]
     },
@@ -471,7 +472,7 @@
     {
       "url": "https://www.youtube.com/watch?v=8NFV6duMKQA",
       "title": "What Is an NPU Actually Good For?",
-      "summary": "Video from Techno Tim.",
+      "summary": "What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -22563,7 +22564,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qxfNTcPl70w",
       "title": "I Made My Local AI Pick Its Own Model",
-      "summary": "Video from Techno Tim.",
+      "summary": "I wanted my local AI to choose the right model automatically instead of making me pick between speed and capability for every request. I test NVIDIA Switchyard for local AI model routing with Nemotron 3.5 Lightning on an RTX 3090 and DeepSeek V4 Flash across two GX10s. I cover St",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -64078,7 +64079,7 @@
     {
       "url": "https://www.youtube.com/watch?v=cFdoXn6yvE4",
       "title": "local AI's biggest problem... they solved it?",
-      "summary": "Get $600 off either edition of WiCi One, the first wireless GPU, using my link:",
+      "summary": "Video from NetworkChuck.",
       "source": "NetworkChuck",
       "kind": "youtube",
       "lane": "Video",
@@ -75868,12 +75869,12 @@
     },
     {
       "url": "https://github.com/ollama/ollama/releases/tag/v0.40.15-rc2",
-      "title": "Ollama v0.40.15",
-      "summary": "MiMo V2.6 Xiaomi MiMo's mimo-v2.6 , a 9B model built for code and agent workflows, is now supported in Ollama. ollama run mimo-v2.6 AutoTrust decision models AutoTrust decision models read text and return choices, yes or no probabilities, and ratings for the questions you supply.",
+      "title": "Ollama v0.40.15-rc2",
+      "summary": "cmd/launch: add Kimi Code CLI support ( #19506 )",
       "source": "Ollama",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-06T01:14:44Z",
+      "published": "2026-11-05T21:41:21Z",
       "added_at": "2026-11-05T22:31:02Z",
       "image": "https://opengraph.githubassets.com/e91e3d8a50ac872a0715c27e9462f93aac30387c544bc101cd5d580191624a98/ollama/ollama",
       "file": "media/dbe9554da67aea58.png",
@@ -75937,11 +75938,11 @@
     {
       "url": "https://github.com/ollama/ollama/releases/tag/v0.40.15",
       "title": "Ollama v0.40.15",
-      "summary": "cmd/launch: add Kimi Code CLI support ( #19506 )",
+      "summary": "MiMo V2.6 Xiaomi MiMo's mimo-v2.6 , a 9B model built for code and agent workflows, is now supported in Ollama. ollama run mimo-v2.6 AutoTrust decision models AutoTrust decision models read text and return choices, yes or no probabilities, and ratings for the questions you supply.",
       "source": "Ollama",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-05T21:41:21Z",
+      "published": "2026-11-06T01:47:18Z",
       "added_at": "2026-11-06T01:31:02Z",
       "image": "https://opengraph.githubassets.com/abb02f028cbe20e2646d3a7ceb32a18f342c537fca7c639d6c69f3dc020e6abf/ollama/ollama",
       "file": "media/53eff4b4e1cfd452.png",
@@ -75954,11 +75955,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12141",
       "title": "llama.cpp b12141",
-      "summary": "llama-server: Use reference-counted checkpoints instead of deep-copie…",
+      "summary": "llama-server: Use reference-counted checkpoints instead of deep-copies ( #30137 ) checkpoints: reduce overhead Assisted-by: Codex rebase Adapt the slot save/restore checkpoint appendix from #26004 to the shared_ptr checkpoint list and the common_state_data buffers. Assisted-by: C",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-05T10:02:36Z",
+      "published": "2026-11-06T01:53:11Z",
       "added_at": "2026-11-06T01:31:03Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/0bde2464f9ca70de.png",
@@ -75966,6 +75967,125 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12142",
+      "title": "b12142: vulkan : check combined K+V f16 scratch size in FA dequant path (#30487)",
+      "summary": "Fixes #30048 Assisted-by: Claude",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-05T10:02:39Z",
+      "added_at": "2026-11-06T02:01:02Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/455d08fdf1898dc1.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xoz01k/inkling_2_small_released/",
+      "title": "Inkling 2 Small released",
+      "summary": "submitted by /u/spiwar [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-06T00:28:53+00:00",
+      "added_at": "2026-11-06T02:01:02Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xoz0w4/inkling_2_small_594ba17b_announcement_open/",
+      "title": "Inkling 2 Small (594B-A17B) Announcement; Open Weights Releasing Next Week",
+      "summary": "submitted by /u/tkrandomness [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-06T00:30:00+00:00",
+      "added_at": "2026-11-06T02:01:02Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xozbe6/ccore_glb3dcoder_dataset_is_here_3918_rendered/",
+      "title": "CCORE GLB-3D-Coder dataset is here: 3,918 rendered and tested examples across 40 domains",
+      "summary": "As promised in my previous posts, I’m releasing the dataset used to train CCORE GLB-3D-Coder , my small 4B model for creating 3D assets with Three.js and GLB export. The dataset contains 3,918 examples across 40 domains , including characters, creatures, vehicles, laboratory equi",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-06T00:43:25+00:00",
+      "added_at": "2026-11-06T02:01:02Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xoxx4a/qwen3827b_benchmark_6_inference_engines_gguf_vs/",
+      "title": "Qwen3.8-27B Benchmark: 6 Inference Engines, GGUF vs NInfer, 256K Context - Comparing Both Speed AND Quality",
+      "summary": "Most LLM inference benchmarks focus on tokens/sec or TTFT. But faster inference doesn't mean much if the output quality degrades, especially with aggressive quantization, speculative decoding, or very long contexts. I ran a comprehensive benchmark of Qwen3.8-27B across six infere",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-05T23:39:57+00:00",
+      "added_at": "2026-11-06T02:01:02Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xow94y/level1techs_the_cuda_hour_is_late_also_who_made/",
+      "title": "Level1Techs - The CUDA hour is Late. Also, Who Made the R9700 this fast?",
+      "summary": "submitted by /u/Thrumpwart [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-05T22:25:54+00:00",
+      "added_at": "2026-11-06T02:01:02Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xp01ck/endtoend_desktop_quantization_workspace_for_large/",
+      "title": "End-to-End Desktop Quantization workspace for Large Language Models: Load local Safetensors or Huggingface, Step-by-Step guided Conversions to GGUF, MLX, and ONNX, and Visualize Mo",
+      "summary": "This is a full quantization desktop workspace for large language models that supports GGUF, MLX, and ONNX. You can pick your own Safetensors model or choose one from Hugging Face, quantize it step by step, and watch what changes. You can then compare the result with the original ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-06T01:18:19+00:00",
+      "added_at": "2026-11-06T02:01:02Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
