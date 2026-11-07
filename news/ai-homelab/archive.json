@@ -64079,7 +64079,7 @@
     {
       "url": "https://www.youtube.com/watch?v=cFdoXn6yvE4",
       "title": "local AI's biggest problem... they solved it?",
-      "summary": "Video from NetworkChuck.",
+      "summary": "Get $600 off either edition of WiCi One, the first wireless GPU, using my link:",
       "source": "NetworkChuck",
       "kind": "youtube",
       "lane": "Video",
@@ -76669,12 +76669,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12170",
-      "title": "llama.cpp b12170",
-      "summary": "moe-cache : LRFU/MQ-like hybrid cache, ClassLRU ( #31233 ) moe-cache : LRFU/MQ-inspired hybrid cache make the clock advance by N tokens: use the real token count (ne[1] is always 1, ids have n_expert_used entries per token) sel is a RESHAPE node, the orig input is in src[0], so s",
+      "title": "b12170: moe-cache : LRFU/MQ-like hybrid cache, ClassLRU (#31233)",
+      "summary": "moe-cache : LRFU/MQ-inspired hybrid cache make the clock advance by N tokens: use the real token count (ne[1] is always 1, ids have n_expert_used entries per token) sel is a RESHAPE node, the orig input is in src[0], so sel->src[0]->ne[1] is the count c for the class index, last_",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-06T13:55:04Z",
+      "published": "2026-11-06T09:32:54Z",
       "added_at": "2026-11-06T12:31:05Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/52eea199a12f8937.png",
@@ -77536,7 +77536,7 @@
     {
       "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xppbrr/some_gpu_prices_are_dropping/",
       "title": "Some GPU prices are dropping",
-      "summary": "RTX 6000 MaxQ has been 14k a month at microcenter. Today, they cut prices of the workstation card to 16.5k (from a high of 18k). We all saw the dell discount as well (some people got cards for 11.5k). I think the RTX 6000 is seeing increased supply as they routed all 5090 product",
+      "summary": "Some context: RTX 6000 cards hit a peak price of 18k and were sold out in many places even at that price. The MaxQ and Workstation are different versions of the card (usually priced the same, but now their prices are diverging) RTX 6000 MaxQ has been 14k for a month at microcente",
       "source": "r/LocalLLaMA",
       "kind": "social",
       "lane": "Reddit",
@@ -77610,6 +77610,74 @@
       "lane": "Reddit",
       "published": "2026-11-06T22:34:47+00:00",
       "added_at": "2026-11-06T23:01:03Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12181",
+      "title": "b12181: hexagon: fuse post-norm residual add into RMS_NORM_MUL (#31822)",
+      "summary": "hexagon: fuse post-norm residual add into RMS_NORM_MUL hex-fusion: refactor RMS_NORM fusion and add dedicated RMS_NORM_MUL_ADD opcode Improves performance by keeping things in HVX registers. Also simplifies overall fusion logic and logging. Co-authored-by: Max Krasnyansky maxk@qt",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-07T00:06:59Z",
+      "added_at": "2026-11-07T00:31:04Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/8f05831adbeaff87.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xpqx1p/six_pallets_of_nvidia_hardware_worth_114_million/",
+      "title": "Six Pallets of NVIDIA Hardware Worth $11.4 Million Stolen on the Way to Texas",
+      "summary": "submitted by /u/chemist_slime [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-06T23:03:21+00:00",
+      "added_at": "2026-11-07T00:31:04Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xpq3l0/scyllas_band_v4_open_source_tts_with_code_to_run/",
+      "title": "Scylla's Band v4, open source TTS with code to run everywhere",
+      "summary": "This has been a long one for me: almost a year as a solo project, learning how to build a TTS model from the ground up. I wanted something fast, small enough to run on a phone, multilingual, and (the part I cared about most) able to do something a little different from the other ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-06T22:26:59+00:00",
+      "added_at": "2026-11-07T00:31:04Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xpqm0b/model_add_kimik31pro_text_model_by_usrlocalben/",
+      "title": "model: add Kimi-K3.1-Pro text model by usrlocalben · Pull Request #31779 · ggml-org/llama.cpp",
+      "summary": "now you can run Kimi K3.1 Pro locally (good luck!) ;)",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-06T22:49:45+00:00",
+      "added_at": "2026-11-07T00:31:04Z",
       "image": "",
       "file": "",
       "video": "",

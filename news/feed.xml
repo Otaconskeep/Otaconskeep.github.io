@@ -5,11 +5,25 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-06T13:33:59Z</lastBuildDate>
 <item>
+<title>b12181: hexagon: fuse post-norm residual add into RMS_NORM_MUL (#31822)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12181</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12181</guid>
+<pubDate>2026-11-07T00:06:59Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8f05831adbeaff87.png" alt=""><p>Article · llama.cpp. hexagon: fuse post-norm residual add into RMS_NORM_MUL hex-fusion: refactor RMS_NORM fusion and add dedicated RMS_NORM_MUL_ADD opcode Improves performance by keeping things in HVX registers. Also simplifies overall fusion logic and logging. Co-authored-by: Max Krasnyansky maxk@qt</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12180</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12180</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12180</guid>
 <pubDate>2026-11-06T23:24:23Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e1833b6ba9cd6bab.png" alt=""><p>Article · llama.cpp. model: add Kimi-K3.1-Pro text model ( #31779 ) model: add Kimi-K3.1-Pro text model K3 with the full-attention MLA layers replaced by DSA: on this checkpoint 24 of the 93 layers carry a lightning indexer (32 heads x 128, top_k 2048, no rope). The KDA (linear-attention) layers and</p>]]></description>
+</item>
+<item>
+<title>Six Pallets of NVIDIA Hardware Worth $11.4 Million Stolen on the Way to Texas</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xpqx1p/six_pallets_of_nvidia_hardware_worth_114_million/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xpqx1p/six_pallets_of_nvidia_hardware_worth_114_million/</guid>
+<pubDate>2026-11-06T23:03:21+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/chemist_slime [link] [comments]]]></description>
 </item>
 <item>
 <title>1.108.0 (LTS)</title>
@@ -33,11 +47,25 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/198c3fbca2713f17.png" alt=""><p>Article · LiteLLM. Tip The lts image tag always points to the latest LTS release. Pull ghcr.io/berriai/litellm:lts to stay on the newest LTS patch Verify Docker Image Signature All LiteLLM Docker images are signed with cosign . This release is signed with the key introduced in commit e82a3c6 . Veri</p>]]></description>
 </item>
 <item>
+<title>model: add Kimi-K3.1-Pro text model by usrlocalben · Pull Request #31779 · ggml-org/llama.cpp</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xpqm0b/model_add_kimik31pro_text_model_by_usrlocalben/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xpqm0b/model_add_kimik31pro_text_model_by_usrlocalben/</guid>
+<pubDate>2026-11-06T22:49:45+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. now you can run Kimi K3.1 Pro locally (good luck!) ;)]]></description>
+</item>
+<item>
 <title>Qwen Flash Next on Strata is unreal.</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xpqa3e/qwen_flash_next_on_strata_is_unreal/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xpqa3e/qwen_flash_next_on_strata_is_unreal/</guid>
 <pubDate>2026-11-06T22:34:47+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. I have been looking for a local model to do some of the typical work I used AI subscriptions for. I’ve tested almost every popular model. I have an M1 Max 64gb MacBook Pro as the inference machine and because of the memory size, I wasn’t able to load anything very effective in th]]></description>
+</item>
+<item>
+<title>Scylla&#x27;s Band v4, open source TTS with code to run everywhere</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xpq3l0/scyllas_band_v4_open_source_tts_with_code_to_run/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xpq3l0/scyllas_band_v4_open_source_tts_with_code_to_run/</guid>
+<pubDate>2026-11-06T22:26:59+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. This has been a long one for me: almost a year as a solo project, learning how to build a TTS model from the ground up. I wanted something fast, small enough to run on a phone, multilingual, and (the part I cared about most) able to do something a little different from the other]]></description>
 </item>
 <item>
 <title>I&#x27;m going to try to turn a 4B model into a genuinely useful coding agent that can compete with much larger models</title>
@@ -51,7 +79,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xppbrr/some_gpu_prices_are_dropping/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xppbrr/some_gpu_prices_are_dropping/</guid>
 <pubDate>2026-11-06T21:54:19+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. RTX 6000 MaxQ has been 14k a month at microcenter. Today, they cut prices of the workstation card to 16.5k (from a high of 18k). We all saw the dell discount as well (some people got cards for 11.5k). I think the RTX 6000 is seeing increased supply as they routed all 5090 product]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. Some context: RTX 6000 cards hit a peak price of 18k and were sold out in many places even at that price. The MaxQ and Workstation are different versions of the card (usually priced the same, but now their prices are diverging) RTX 6000 MaxQ has been 14k for a month at microcente]]></description>
 </item>
 <item>
 <title>We are in the golden age of Local LLM</title>
@@ -334,13 +362,6 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. I bet you guys are familiar with embedding models such as Qwen3-Embedding or Gemini Embedding. They are dense embedding models used to search text across a large corpus. I am developing a RAG agent, and my biggest concern was local computing power. RAG largely depends on retrieva]]></description>
 </item>
 <item>
-<title>llama.cpp b12170</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12170</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12170</guid>
-<pubDate>2026-11-06T13:55:04Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/52eea199a12f8937.png" alt=""><p>Article · llama.cpp. moe-cache : LRFU/MQ-like hybrid cache, ClassLRU ( #31233 ) moe-cache : LRFU/MQ-inspired hybrid cache make the clock advance by N tokens: use the real token count (ne[1] is always 1, ids have n_expert_used entries per token) sel is a RESHAPE node, the orig input is in src[0], so s</p>]]></description>
-</item>
-<item>
 <title>Linum-AI/pjit-21k · Hugging Face - A Text-to-Image Model Trained for $21K</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xpcpws/linumaipjit21k_hugging_face_a_texttoimage_model/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xpcpws/linumaipjit21k_hugging_face_a_texttoimage_model/</guid>
@@ -458,6 +479,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xp8sjd/cybertiel35ba3b_working_on_blender_rigging_via/</guid>
 <pubDate>2026-11-06T09:40:31+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Not a native English speaker. Written with my own ten fingers, one finger is broken btw. Plz bare with me. I still love to write text myself. My PC is suck for AI works. That&#x27;s all I have as a third world 3D modeler. Really admire other peoples running better models. But beggar c]]></description>
+</item>
+<item>
+<title>b12170: moe-cache : LRFU/MQ-like hybrid cache, ClassLRU (#31233)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12170</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12170</guid>
+<pubDate>2026-11-06T09:32:54Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/52eea199a12f8937.png" alt=""><p>Article · llama.cpp. moe-cache : LRFU/MQ-inspired hybrid cache make the clock advance by N tokens: use the real token count (ne[1] is always 1, ids have n_expert_used entries per token) sel is a RESHAPE node, the orig input is in src[0], so sel-&gt;src[0]-&gt;ne[1] is the count c for the class index, last_</p>]]></description>
 </item>
 <item>
 <title>Following the 2026 U.S. elections, how do you think potential regulations on AI would affect local AI software?</title>
@@ -5609,7 +5637,7 @@
 <link>https://www.youtube.com/watch?v=cFdoXn6yvE4</link>
 <guid isPermaLink="true">https://www.youtube.com/watch?v=cFdoXn6yvE4</guid>
 <pubDate>2026-10-30T18:45:36+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d8cd82fa9fd4f9b0.jpg" alt=""><p>Video · NetworkChuck. Video from NetworkChuck.</p>]]></description>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d8cd82fa9fd4f9b0.jpg" alt=""><p>Video · NetworkChuck. Get $600 off either edition of WiCi One, the first wireless GPU, using my link:</p>]]></description>
 </item>
 <item>
 <title>So uh...where are we on uncensored / NSFW audio models?</title>
