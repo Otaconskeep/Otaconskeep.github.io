@@ -78009,12 +78009,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12186",
-      "title": "b12186: vulkan: Add 'readonly' to decodeBuf declarations. (#31833)",
-      "summary": "In a future driver version I hope to be able to get some perf gain out of this.",
+      "title": "llama.cpp b12186",
+      "summary": "vulkan: Add 'readonly' to decodeBuf declarations. ( #31833 ) In a future driver version I hope to be able to get some perf gain out of this. Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-07T08:00:40Z",
+      "published": "2026-11-07T11:15:26Z",
       "added_at": "2026-11-07T11:01:06Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/20016e67a5bee634.png",
@@ -78022,6 +78022,40 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12187",
+      "title": "b12187: webgpu : Implement group norm kernel (#31490)",
+      "summary": "Only run webgpu CI on my fork Add webgpu only workflow Add WebGPU group_norm kernel clean up resolve merge conflicts parameterize data type; clean up cmake changes add nullptr check clean up webkit experiments more cleanup more cleanup clang format Remove unused feature check for",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-07T08:01:27Z",
+      "added_at": "2026-11-07T11:31:04Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/a1446be86e0a821c.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xq1y0y/paper_d3d_decoupled_diffusion_drafting_for/",
+      "title": "[Paper] D3D: Decoupled Diffusion Drafting for Asynchronous Speculative Decoding",
+      "summary": "Target-conditioned diffusion drafters predict candidate tokens in parallel, yet each new block must wait for updated target-model hidden states. This forces drafting and verification to run sequentially, limiting speedup even though each block is generated in one pass. We introdu",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-07T09:00:23+00:00",
+      "added_at": "2026-11-07T11:31:05Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
