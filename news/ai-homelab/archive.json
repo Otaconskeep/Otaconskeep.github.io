@@ -76618,7 +76618,7 @@
     {
       "url": "https://lemmy.world/post/54058808",
       "title": "The docker group is root access. An agent used it to write to /etc",
-      "summary": "submitted by jeena to selfhosted 49 points | 13 comments",
+      "summary": "submitted by jeena to selfhosted 49 points | 14 comments",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -78060,12 +78060,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12189",
-      "title": "b12189: metal : fix GROUP_NORM for ne03 > 1 and non-contiguous inputs (#31852)",
-      "summary": "The kernel_group_norm_f32 kernel and its host dispatch ignored the batch dimension (ne03) of the source tensor: only ngrp threadgroups were dispatched and each normalized the flat range [tgpig gs, (tgpig+1) gs) with gs = ne00 ne01 ceil(ne02/ngrp). For tensors with ne03 > 1, all b",
+      "title": "llama.cpp b12189",
+      "summary": "metal : fix GROUP_NORM for ne03 > 1 and non-contiguous inputs ( #31852 ) The kernel_group_norm_f32 kernel and its host dispatch ignored the batch dimension (ne03) of the source tensor: only ngrp threadgroups were dispatched and each normalized the flat range [tgpig gs, (tgpig+1) ",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-07T11:04:13Z",
+      "published": "2026-11-07T12:19:19Z",
       "added_at": "2026-11-07T12:01:05Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/6fe71b143c8b4bc4.png",
@@ -78082,7 +78082,7 @@
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-07T12:01:04Z",
+      "published": "2026-11-07T12:02:12Z",
       "added_at": "2026-11-07T12:01:05Z",
       "image": "https://opengraph.githubassets.com/67daf70eefd39c8883e2c4dbfd75948d7230919166e14397acd5d9abe939b8d4/ggml-org/llama.cpp/releases/tag/b12188",
       "file": "media/a0ad5cd24fa018ee.png",
@@ -78090,6 +78090,56 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xq4pb6/does_anyone_use_none_reasoning_level_for_anything/",
+      "title": "Does anyone use None reasoning level for anything ever?",
+      "summary": "Sometimes I am tempted to use none reasoning level in agentic tasks to save time, but I am always kinda scared to do so. I have only ever used llm with reasoning and with medium at the lowest. Anybody have a lot of experience using none for reasoning level? Anything I need to kno",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-07T11:59:19+00:00",
+      "added_at": "2026-11-07T12:31:09Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xq4yju/obsessive17b_a_11_gb_websearch_subagent/",
+      "title": "Obsessive-1.7B: a 1.1 GB web-search subagent",
+      "summary": "I fine-tuned LFM3-1.7B to do one job: take a factual question, call web_search once, and answer with a short value, a word-for-word quote and the URL. If the results don’t contain the answer, it says “Not found in the search results.” It’s meant to run as a subagent under a bigge",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-07T12:13:29+00:00",
+      "added_at": "2026-11-07T12:31:09Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://noted.lol/tailscale-subnet-routing-homelab/",
+      "title": "Tailscale Part 2: Access Your Entire Homelab With Subnet Routing",
+      "summary": "Learn how Tailscale subnet routing lets you securely access your entire homelab remotely without installing Tailscale on every device.",
+      "source": "noted.lol",
+      "kind": "article",
+      "lane": "Article",
+      "published": "Sat, 07 Nov 2026 07:27:19 -0500",
+      "added_at": "2026-11-07T12:31:14Z",
+      "image": "https://noted.lol/content/images/size/w1200/2026/11/tailscale-subnet-routing-noted-1.png",
+      "file": "media/e42c287afe2ea3ef.png",
+      "video": "",
+      "categories": [
+        "homelab"
       ]
     }
   ]
