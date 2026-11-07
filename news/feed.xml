@@ -5,11 +5,32 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-07T04:06:14Z</lastBuildDate>
 <item>
+<title>llama.cpp b12188</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12188</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12188</guid>
+<pubDate>2026-11-07T12:01:04Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/a0ad5cd24fa018ee.png" alt=""><p>Article · llama.cpp. server: visit parent slots before child slots ( #30779 ) server: visit parent slots before child slots A parent slot wakes its waiting child slots once it finishes the shared prompt prefix, while slots are visited in id order. When a child task lands on a lower slot id than its p</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12187</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12187</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12187</guid>
+<pubDate>2026-11-07T11:45:49Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/a1446be86e0a821c.png" alt=""><p>Article · llama.cpp. webgpu : Implement group norm kernel ( #31490 ) Only run webgpu CI on my fork Add webgpu only workflow Add WebGPU group_norm kernel clean up resolve merge conflicts parameterize data type; clean up cmake changes add nullptr check clean up webkit experiments more cleanup more clea</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12186</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12186</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12186</guid>
 <pubDate>2026-11-07T11:15:26Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/20016e67a5bee634.png" alt=""><p>Article · llama.cpp. vulkan: Add &#x27;readonly&#x27; to decodeBuf declarations. ( #31833 ) In a future driver version I hope to be able to get some perf gain out of this. Website:</p>]]></description>
+</item>
+<item>
+<title>b12189: metal : fix GROUP_NORM for ne03 &gt; 1 and non-contiguous inputs (#31852)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12189</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12189</guid>
+<pubDate>2026-11-07T11:04:13Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6fe71b143c8b4bc4.png" alt=""><p>Article · llama.cpp. The kernel_group_norm_f32 kernel and its host dispatch ignored the batch dimension (ne03) of the source tensor: only ngrp threadgroups were dispatched and each normalized the flat range [tgpig gs, (tgpig+1) gs) with gs = ne00 ne01 ceil(ne02/ngrp). For tensors with ne03 &gt; 1, all b</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12185</title>
@@ -38,13 +59,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xq1y0y/paper_d3d_decoupled_diffusion_drafting_for/</guid>
 <pubDate>2026-11-07T09:00:23+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Target-conditioned diffusion drafters predict candidate tokens in parallel, yet each new block must wait for updated target-model hidden states. This forces drafting and verification to run sequentially, limiting speedup even though each block is generated in one pass. We introdu]]></description>
-</item>
-<item>
-<title>b12187: webgpu : Implement group norm kernel (#31490)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12187</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12187</guid>
-<pubDate>2026-11-07T08:01:27Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/a1446be86e0a821c.png" alt=""><p>Article · llama.cpp. Only run webgpu CI on my fork Add webgpu only workflow Add WebGPU group_norm kernel clean up resolve merge conflicts parameterize data type; clean up cmake changes add nullptr check clean up webkit experiments more cleanup more cleanup clang format Remove unused feature check for</p>]]></description>
 </item>
 <item>
 <title>Feeling like Xmas</title>
@@ -590,7 +604,7 @@
 <link>https://lemmy.world/post/54058808</link>
 <guid isPermaLink="true">https://lemmy.world/post/54058808</guid>
 <pubDate>Fri, 6 Nov 2026 11:01:55 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by jeena to selfhosted 49 points | 12 comments]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by jeena to selfhosted 49 points | 13 comments]]></description>
 </item>
 <item>
 <title>My setup for 2x 5060TI</title>

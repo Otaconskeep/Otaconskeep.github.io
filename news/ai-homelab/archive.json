@@ -76618,7 +76618,7 @@
     {
       "url": "https://lemmy.world/post/54058808",
       "title": "The docker group is root access. An agent used it to write to /etc",
-      "summary": "submitted by jeena to selfhosted 49 points | 12 comments",
+      "summary": "submitted by jeena to selfhosted 49 points | 13 comments",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -78026,12 +78026,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12187",
-      "title": "b12187: webgpu : Implement group norm kernel (#31490)",
-      "summary": "Only run webgpu CI on my fork Add webgpu only workflow Add WebGPU group_norm kernel clean up resolve merge conflicts parameterize data type; clean up cmake changes add nullptr check clean up webkit experiments more cleanup more cleanup clang format Remove unused feature check for",
+      "title": "llama.cpp b12187",
+      "summary": "webgpu : Implement group norm kernel ( #31490 ) Only run webgpu CI on my fork Add webgpu only workflow Add WebGPU group_norm kernel clean up resolve merge conflicts parameterize data type; clean up cmake changes add nullptr check clean up webkit experiments more cleanup more clea",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-07T08:01:27Z",
+      "published": "2026-11-07T11:45:49Z",
       "added_at": "2026-11-07T11:31:04Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/a1446be86e0a821c.png",
@@ -78056,6 +78056,40 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12189",
+      "title": "b12189: metal : fix GROUP_NORM for ne03 > 1 and non-contiguous inputs (#31852)",
+      "summary": "The kernel_group_norm_f32 kernel and its host dispatch ignored the batch dimension (ne03) of the source tensor: only ngrp threadgroups were dispatched and each normalized the flat range [tgpig gs, (tgpig+1) gs) with gs = ne00 ne01 ceil(ne02/ngrp). For tensors with ne03 > 1, all b",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-07T11:04:13Z",
+      "added_at": "2026-11-07T12:01:05Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/6fe71b143c8b4bc4.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12188",
+      "title": "llama.cpp b12188",
+      "summary": "server: visit parent slots before child slots ( #30779 ) server: visit parent slots before child slots A parent slot wakes its waiting child slots once it finishes the shared prompt prefix, while slots are visited in id order. When a child task lands on a lower slot id than its p",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-07T12:01:04Z",
+      "added_at": "2026-11-07T12:01:05Z",
+      "image": "https://opengraph.githubassets.com/67daf70eefd39c8883e2c4dbfd75948d7230919166e14397acd5d9abe939b8d4/ggml-org/llama.cpp/releases/tag/b12188",
+      "file": "media/a0ad5cd24fa018ee.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
