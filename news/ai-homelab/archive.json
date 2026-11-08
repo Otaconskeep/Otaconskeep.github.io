@@ -79298,11 +79298,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12206",
       "title": "llama.cpp b12206",
-      "summary": "moe-cache : ensure CPU part does not wait for the cached experts ( #31 …",
+      "summary": "moe-cache : ensure CPU part does not wait for the cached experts ( #31888 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-08T13:29:11Z",
+      "published": "2026-11-08T14:04:15Z",
       "added_at": "2026-11-08T13:31:06Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/13cd00d76df5acec.png",
@@ -79444,6 +79444,40 @@
       "video": "",
       "categories": [
         "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12207",
+      "title": "llama.cpp b12207",
+      "summary": "ggml-cuda : add d_state=64 fast path to SSM_SCAN kernel ( #31818 ) Zamba2 and similar architectures use a state size of 64 in their recurrent-scan step, which fell outside the GPU kernel's existing fast paths (96, 128, 256). Every scan step was falling back to CPU, bottlenecking ",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-08T14:24:56Z",
+      "added_at": "2026-11-08T14:31:06Z",
+      "image": "https://opengraph.githubassets.com/d51de1c6c89807bc3b753fda6eda0c2d2567bca393183b9ac84ed20967e18a8f/ggml-org/llama.cpp/releases/tag/b12207",
+      "file": "media/cbc7205436091f54.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/selfhosted/comments/1xqzeve/super_productivity_v20_rulebased_views_background/",
+      "title": "Super Productivity v20: rule-based views, background Nextcloud/WebDAV reminders on Android, and a local MCP endpoint",
+      "summary": "I maintain Super Productivity, an MIT-licensed task manager and time tracker that works offline. You can self-host the web app and the optional SuperSync backend, or sync through WebDAV, Nextcloud, or a local file. My last update here was v19.2 in October. v19.3 and v20 have ship",
+      "source": "r/selfhosted",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-08T14:16:13+00:00",
+      "added_at": "2026-11-08T14:31:07Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "homelab",
         "communities"
       ]
     }
