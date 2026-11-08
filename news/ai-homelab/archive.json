@@ -79107,6 +79107,23 @@
         "local-models",
         "communities"
       ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12203",
+      "title": "b12203: ggml : switch to F32 src1 in the CPU backend (#31854)",
+      "summary": "ggml : switch to F32 src1 in the CPU backend Change the default computation for GGML_TYPE_F16 to use F32 for src1 data in matrix multiplications: vec_dot_type(F16) is now F32 and the dot product goes through the new ggml_vec_dot_f16_f32 (x = F16 src0, y = F32 src1), so src1 is no",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-08T09:44:00Z",
+      "added_at": "2026-11-08T10:01:06Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/a27835272556018e.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
     }
   ]
 }
