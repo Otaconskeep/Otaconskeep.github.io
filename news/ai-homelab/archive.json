@@ -62399,7 +62399,7 @@
     {
       "url": "https://www.home-assistant.io/blog/2026/10/29/what-the-heck-2026-everyone-at-home-gets-a-say/",
       "title": "“What the Heck?!” 2026: Everyone at home gets a say",
-      "summary": "WHAT THE HECK?! November 2026 (function () { var template = document.getElementById(\"wth-blog-hero\"); var image = template && template.parentNode.querySelector(\".wth-blog-hero-fallback\"); if (!image || !(\"content\" in template)) return; var hero = template.content.cloneNode(true);",
+      "summary": "WHAT THE HECK?! November 2026 (function () { try { var gl = document.createElement(\"canvas\").getContext(\"webgl2\"); if (gl && gl.getExtension(\"EXT_color_buffer_float\")) document.documentElement.classList.add(\"wth-3d\"); var lose = gl && gl.getExtension(\"WEBGL_lose_context\"); if (lo",
       "source": "Home Assistant",
       "kind": "article",
       "lane": "Article",
@@ -80373,7 +80373,7 @@
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-09T12:31:08Z",
+      "published": "2026-11-09T12:31:33Z",
       "added_at": "2026-11-09T12:01:07Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/62cba07321a0571c.png",
@@ -80452,12 +80452,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12223",
-      "title": "b12223: models : Attach Granite NVFP4 weight scales (#31449)",
-      "summary": "models : Attach Granite NVFP4 weight scales feat: Pass nvfp4 scales through build_ffn for all granite architectures Branch: granite-nvfp4-moe-scales AI-usage: full (Claude + Sonnet 5.5) Signed-off-by: Gabe Goodhart ghart@us.ibm.com Co-authored-by: Gabe Goodhart ghart@us.ibm.com",
+      "title": "llama.cpp b12223",
+      "summary": "models : Attach Granite NVFP4 weight scales ( #31449 ) models : Attach Granite NVFP4 weight scales feat: Pass nvfp4 scales through build_ffn for all granite architectures Branch: granite-nvfp4-moe-scales AI-usage: full (Claude + Sonnet 5.5) Signed-off-by: Gabe Goodhart ghart@us.i",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-09T12:04:06Z",
+      "published": "2026-11-09T12:55:36Z",
       "added_at": "2026-11-09T12:31:10Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/aecd57586d6d2fc7.png",
@@ -80465,6 +80465,40 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12224",
+      "title": "b12224: ggml-backend: don't upload inputs that are not read (#31419)",
+      "summary": "stop uploading inputs nothing reads Address nitpicks",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-09T12:40:17Z",
+      "added_at": "2026-11-09T13:01:07Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/d777aa3a0b01afdc.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xrq2fv/m4_pro_vs_m5_pro_24gb_qwen_38_flash_next_iq3_with/",
+      "title": "M4 Pro vs M5 Pro (24GB): Qwen 3.8 Flash Next IQ3 with MoEShift at 374 tok/s prefill, 14.7 tok/s decode, 8.5GB peak memory",
+      "summary": "I benchmarked Qwen3.8-Flash-Next 125B ISTA-DASLab's GSQ-RCO IQ3_XXS quant (76GB on disk), on two Macs with 24GB unified memory using MoEShift backend: Metric M4 Pro (medians) M5 Pro (medians) Short prompt decode (72 input tokens) 9.84 tok/s 14.69 tok/s Long prompt prefill (6,060 ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-09T12:10:54+00:00",
+      "added_at": "2026-11-09T13:01:08Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]

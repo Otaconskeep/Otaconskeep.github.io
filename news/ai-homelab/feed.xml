@@ -5,11 +5,32 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-09T04:03:09Z</lastBuildDate>
 <item>
+<title>llama.cpp b12223</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12223</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12223</guid>
+<pubDate>2026-11-09T12:55:36Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/aecd57586d6d2fc7.png" alt=""><p>Article · llama.cpp. models : Attach Granite NVFP4 weight scales ( #31449 ) models : Attach Granite NVFP4 weight scales feat: Pass nvfp4 scales through build_ffn for all granite architectures Branch: granite-nvfp4-moe-scales AI-usage: full (Claude + Sonnet 5.5) Signed-off-by: Gabe Goodhart ghart@us.i</p>]]></description>
+</item>
+<item>
+<title>b12224: ggml-backend: don&#x27;t upload inputs that are not read (#31419)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12224</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12224</guid>
+<pubDate>2026-11-09T12:40:17Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d777aa3a0b01afdc.png" alt=""><p>Article · llama.cpp. stop uploading inputs nothing reads Address nitpicks</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12221</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12221</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12221</guid>
-<pubDate>2026-11-09T12:31:08Z</pubDate>
+<pubDate>2026-11-09T12:31:33Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/62cba07321a0571c.png" alt=""><p>Article · llama.cpp. metal : prevent out-of-bounds writes to the Metal FA output buffer ( #31662 ) Co-authored-by: Zhuomin Chen moanachen@Mac.attlocal.net Website:</p>]]></description>
+</item>
+<item>
+<title>M4 Pro vs M5 Pro (24GB): Qwen 3.8 Flash Next IQ3 with MoEShift at 374 tok/s prefill, 14.7 tok/s decode, 8.5GB peak memory</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xrq2fv/m4_pro_vs_m5_pro_24gb_qwen_38_flash_next_iq3_with/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xrq2fv/m4_pro_vs_m5_pro_24gb_qwen_38_flash_next_iq3_with/</guid>
+<pubDate>2026-11-09T12:10:54+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I benchmarked Qwen3.8-Flash-Next 125B ISTA-DASLab&#x27;s GSQ-RCO IQ3_XXS quant (76GB on disk), on two Macs with 24GB unified memory using MoEShift backend: Metric M4 Pro (medians) M5 Pro (medians) Short prompt decode (72 input tokens) 9.84 tok/s 14.69 tok/s Long prompt prefill (6,060]]></description>
 </item>
 <item>
 <title>llama.cpp b12220</title>
@@ -17,13 +38,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12220</guid>
 <pubDate>2026-11-09T12:04:40Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1dc4889f48ea994f.png" alt=""><p>Article · llama.cpp. metal : make ggml_tri select instead of scaling by the comparison ( #30711 ) metal: make ggml_tri select instead of scaling by the comparison The kernel multiplied by the 0/1 comparison, which turns a +-inf outside the triangle into NaN, while the CPU kernel writes a plain zero t</p>]]></description>
-</item>
-<item>
-<title>b12223: models : Attach Granite NVFP4 weight scales (#31449)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12223</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12223</guid>
-<pubDate>2026-11-09T12:04:06Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/aecd57586d6d2fc7.png" alt=""><p>Article · llama.cpp. models : Attach Granite NVFP4 weight scales feat: Pass nvfp4 scales through build_ffn for all granite architectures Branch: granite-nvfp4-moe-scales AI-usage: full (Claude + Sonnet 5.5) Signed-off-by: Gabe Goodhart ghart@us.ibm.com Co-authored-by: Gabe Goodhart ghart@us.ibm.com</p>]]></description>
 </item>
 <item>
 <title>Anyone else given up waiting for Qwen4?</title>
@@ -7793,7 +7807,7 @@
 <link>https://www.home-assistant.io/blog/2026/10/29/what-the-heck-2026-everyone-at-home-gets-a-say/</link>
 <guid isPermaLink="true">https://www.home-assistant.io/blog/2026/10/29/what-the-heck-2026-everyone-at-home-gets-a-say/</guid>
 <pubDate>2026-10-29T00:00:01+00:00</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e258c2b5d1376897.webp" alt=""><p>Article · Home Assistant. WHAT THE HECK?! November 2026 (function () { var template = document.getElementById(&quot;wth-blog-hero&quot;); var image = template &amp;&amp; template.parentNode.querySelector(&quot;.wth-blog-hero-fallback&quot;); if (!image || !(&quot;content&quot; in template)) return; var hero = template.content.cloneNode(true);</p>]]></description>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e258c2b5d1376897.webp" alt=""><p>Article · Home Assistant. WHAT THE HECK?! November 2026 (function () { try { var gl = document.createElement(&quot;canvas&quot;).getContext(&quot;webgl2&quot;); if (gl &amp;&amp; gl.getExtension(&quot;EXT_color_buffer_float&quot;)) document.documentElement.classList.add(&quot;wth-3d&quot;); var lose = gl &amp;&amp; gl.getExtension(&quot;WEBGL_lose_context&quot;); if (lo</p>]]></description>
 </item>
 <item>
 <title>Electronics hobbyist converts $120 DDR5 SODIMM kit into ‘$1000’ desktop kit to fight RAM crisis - ICs from SK hynix DDR5-5600 16GB modules used to create DDR5-7800 desktop sticks</title>
