@@ -80703,6 +80703,41 @@
         "local-models",
         "communities"
       ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12227",
+      "title": "b12227: tests : keep dummy ffn.act scales away from zero (#31940)",
+      "summary": "The dummy-model generator fills every tensor from a plain normal pool. blk.N.ffn.act.scales is a divisor in the mpt graph, so with seed 1224489258 it draws |v| ~ 1e-6, and ffn_act = gelu(...) / scales reaches 2.7e5. Metal stages both operands of kernel_mul_mm_f32_f32 as half, so ",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-09T12:54:27Z",
+      "added_at": "2026-11-09T16:01:08Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/b4d8f0d95858a108.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/selfhosted/comments/1xrp2t9/home_lab_private_setup_combine_frontier_model_for/",
+      "title": "Home Lab private setup: combine frontier model for reasoing with local model for execution. Does this exist?",
+      "summary": "Hi all, I've searched online and also tried to scout chatting with ChatGPT and Claude but I didn't find anything. I'm looking for existing projects (or prior art) for the following setup: **Goal** A homelab container where a cloud frontier model (Claude) does the reasoning and wr",
+      "source": "r/selfhosted",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-09T11:16:04+00:00",
+      "added_at": "2026-11-09T16:01:08Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "homelab",
+        "communities"
+      ]
     }
   ]
 }

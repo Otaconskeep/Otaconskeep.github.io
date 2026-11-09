@@ -82,6 +82,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/aecd57586d6d2fc7.png" alt=""><p>Article · llama.cpp. models : Attach Granite NVFP4 weight scales ( #31449 ) models : Attach Granite NVFP4 weight scales feat: Pass nvfp4 scales through build_ffn for all granite architectures Branch: granite-nvfp4-moe-scales AI-usage: full (Claude + Sonnet 5.5) Signed-off-by: Gabe Goodhart ghart@us.i</p>]]></description>
 </item>
 <item>
+<title>b12227: tests : keep dummy ffn.act scales away from zero (#31940)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12227</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12227</guid>
+<pubDate>2026-11-09T12:54:27Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b4d8f0d95858a108.png" alt=""><p>Article · llama.cpp. The dummy-model generator fills every tensor from a plain normal pool. blk.N.ffn.act.scales is a divisor in the mpt graph, so with seed 1224489258 it draws |v| ~ 1e-6, and ffn_act = gelu(...) / scales reaches 2.7e5. Metal stages both operands of kernel_mul_mm_f32_f32 as half, so</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12226</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12226</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12226</guid>
@@ -136,6 +143,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xrpcke/new_gemma_models/</guid>
 <pubDate>2026-11-09T11:32:08+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Are there any (insider) infos to upcoming Gemma Models? Gemma 4 is for my usecase really good and I am looking forward if they will release any new even better models most likely named Gemma 5? Currently using Gemma 4 31b nvfp4 on 3x rtx pro 6000, quality is is really good only h]]></description>
+</item>
+<item>
+<title>Home Lab private setup: combine frontier model for reasoing with local model for execution. Does this exist?</title>
+<link>https://www.reddit.com/r/selfhosted/comments/1xrp2t9/home_lab_private_setup_combine_frontier_model_for/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/selfhosted/comments/1xrp2t9/home_lab_private_setup_combine_frontier_model_for/</guid>
+<pubDate>2026-11-09T11:16:04+00:00</pubDate>
+<description><![CDATA[Reddit · r/selfhosted. Hi all, I&#x27;ve searched online and also tried to scout chatting with ChatGPT and Claude but I didn&#x27;t find anything. I&#x27;m looking for existing projects (or prior art) for the following setup: **Goal** A homelab container where a cloud frontier model (Claude) does the reasoning and wr]]></description>
 </item>
 <item>
 <title>Best llama.cpp settings for Qwen3.8-Flash-Next on Ryzen AI Max+ 395</title>
