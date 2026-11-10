@@ -403,17 +403,18 @@
     {
       "url": "https://www.youtube.com/watch?v=K2IGHj7KQoM",
       "title": "Are Local Models Finally Good Enough?",
-      "summary": "Video from Techno Tim.",
+      "summary": "I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
-      "published": "2026-05-18T15:00:34+00:00",
+      "published": "2026-09-23T10:55:29-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://i.ytimg.com/vi/K2IGHj7KQoM/hqdefault.jpg",
       "file": "media/01.jpg",
       "video": "K2IGHj7KQoM",
       "categories": [
         "local-models",
+        "homelab",
         "video"
       ]
     },
@@ -471,7 +472,7 @@
     {
       "url": "https://www.youtube.com/watch?v=8NFV6duMKQA",
       "title": "What Is an NPU Actually Good For?",
-      "summary": "Video from Techno Tim.",
+      "summary": "What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -22563,7 +22564,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qxfNTcPl70w",
       "title": "I Made My Local AI Pick Its Own Model",
-      "summary": "Video from Techno Tim.",
+      "summary": "I wanted my local AI to choose the right model automatically instead of making me pick between speed and capability for every request. I test NVIDIA Switchyard for local AI model routing with Nemotron 3.5 Lightning on an RTX 3090 and DeepSeek V4 Flash across two GX10s. I cover St",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -81355,14 +81356,99 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12240",
       "title": "llama.cpp b12240",
-      "summary": "server: responses api: support conversion of text.format.json_schema …",
+      "summary": "server: responses api: support conversion of text.format.json_schema to completions ( #26145 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-09T23:43:38Z",
+      "published": "2026-11-10T01:23:59Z",
       "added_at": "2026-11-10T01:01:09Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/bb82ada884c5f2aa.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12241",
+      "title": "llama.cpp b12241",
+      "summary": "hexagon: fix 64-bit FastRPC handle truncation on close ( #30952 )",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-10T00:10:13Z",
+      "added_at": "2026-11-10T01:31:07Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/1f5965246ab60eaf.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xs81f3/how_to_mess_around_with_neurons_a_short_guide/",
+      "title": "How to mess around with neurons... a short guide",
+      "summary": "I made a couple of posts about weird neurons inside Qwen that I'd found and lots of people were asking how it was done so I thought it would be useful for people to have a guide. Generally this was inspired by justinrhowell's neuron-steering repo, although I didn't use his code d",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-09T23:59:37+00:00",
+      "added_at": "2026-11-10T01:31:08Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xs9nux/i_made_a_400m_model_for_npc_judgement_calls_in/",
+      "title": "I made a 400M model for NPC judgement calls in games (Apache-2.0, ~0.1s on a 3060 Ti)",
+      "summary": "The model is an encoder (Ettin-400M) fine-tuned to answer small game questions. You give it a scene, a question, and some options, and it returns probabilities or \"not sure\". The model was inspired by Jev. Stuff like: is the player threatening this guard, is that apology sincere,",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-10T01:11:58+00:00",
+      "added_at": "2026-11-10T01:31:08Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xs8hfw/free_opensource_voice_typing_for_any_app_on/",
+      "title": "Free, open-source voice typing for any app on Android and iPhone: the speech model runs on your phone, so it works offline",
+      "summary": "I wanted voice typing that doesn't send my voice to a server, so I built ThumbFree. It runs NVIDIA's Parakeet 0.6B speech model right on the phone. After a one-time model download, it even works in airplane mode. The video shows Android first, then iPhone. Google Play:",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-10T00:17:43+00:00",
+      "added_at": "2026-11-10T01:31:08Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc0",
+      "title": "v0.34.0rc0: [Transformers backend] Migrate Gemma and StableLM (#66393)",
+      "summary": "Signed-off-by: Harry Mellor 19981378+hmellor@users.noreply.github.com Co-authored-by: Claude Opus 5.5 noreply@anthropic.com",
+      "source": "vLLM",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-08T18:38:57Z",
+      "added_at": "2026-11-10T01:31:19Z",
+      "image": "https://opengraph.githubassets.com/9ae2bc6133d497317a0858538294521bd32ec7ed717bf579dd84a5fb141fe4e9/vllm-project/vllm",
+      "file": "media/3007fcee676fa59f.png",
       "video": "",
       "categories": [
         "local-models",
