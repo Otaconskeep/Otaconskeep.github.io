@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-10T13:32:51Z</lastBuildDate>
 <item>
+<title>llama.cpp b12257</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12257</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12257</guid>
+<pubDate>2026-11-10T21:58:27Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f0e35a5b9983adee.png" alt=""><p>Article · llama.cpp. CUDA: move graph and concurrent stream state out of common.cuh ( #32001 ) ggml_cuda_graph, ggml_cuda_concurrent_event and ggml_cuda_stream_context are only used by ggml-cuda.cu, but keeping them in common.cuh meant any change to them rebuilt every CUDA translation unit. Move them</p>]]></description>
+</item>
+<item>
+<title>ComfyUI v0.45.0</title>
+<link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.45.0</link>
+<guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.45.0</guid>
+<pubDate>2026-11-10T21:42:42Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/33f7920011b22605.png" alt=""><p>Article · ComfyUI. What&#x27;s Changed Bump comfyui-frontend-package to 1.58.5 by @comfy-pr-bot in #17442 Add better error for when pixel_space VAE wrongly selected. by @comfyanonymous in #17518 Make SeedVR2 VAE slice length adaptive to free memory by @kijai in #17508 [Partner Nodes] feat(Pika): add Pik</p>]]></description>
+</item>
+<item>
+<title>Ollama v0.40.17-rc0</title>
+<link>https://github.com/ollama/ollama/releases/tag/v0.40.17-rc0</link>
+<guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.40.17-rc0</guid>
+<pubDate>2026-11-10T21:42:11Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/60786b016c122ab8.png" alt=""><p>Article · Ollama. MLX, MLX-C: version bump ( #19647 )</p>]]></description>
+</item>
+<item>
 <title>ComfyUI v0.45.1</title>
 <link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.45.1</link>
 <guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.45.1</guid>
@@ -143,13 +164,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xsqv86/tts_bench_91_open_tts_models_and_28_paid_tts_apis/</guid>
 <pubDate>2026-11-10T16:09:25+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. This is the third round of tts-bench. Thanks to everyone who gave feedback on the first two posts: TTS benchmark comparison of all known TTS models Text-to-speech benchmark, revamped tts-bench runs every model through the sameish Python harness on the same prompts, so you can com]]></description>
-</item>
-<item>
-<title>ComfyUI v0.45.0</title>
-<link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.45.0</link>
-<guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.45.0</guid>
-<pubDate>2026-11-10T15:59:14Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/33f7920011b22605.png" alt=""><p>Article · ComfyUI. Article from ComfyUI.</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12247</title>
@@ -292,6 +306,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0629b65414ef9337.png" alt=""><p>Article · n8n. Co-authored-by: n8n-release-helper[bot]</p>]]></description>
 </item>
 <item>
+<title>b12259: mtmd: add kimi K3.1 vision (#31980)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12259</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12259</guid>
+<pubDate>2026-11-10T10:28:47Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/06caa1015b411171.png" alt=""><p>Article · llama.cpp. mtmd: support kimi k3.1 vision fix preproc (both k2.5 and k3.1) and projector mlp small renaming</p>]]></description>
+</item>
+<item>
 <title>Fable 5.2 not only has guardrails against AI acceleration, its capabilities were capped in training too</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xsjfwo/fable_52_not_only_has_guardrails_against_ai/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xsjfwo/fable_52_not_only_has_guardrails_against_ai/</guid>
@@ -325,13 +346,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/selfhosted/comments/1xsihpc/n8n_queueing_every_afternoon_since_i_added_ai/</guid>
 <pubDate>2026-11-10T09:24:16+00:00</pubDate>
 <description><![CDATA[Reddit · r/selfhosted. My current setup: 4 vCPU, 8GB, Docker Compose with n8n, Postgres and Redis behind Traefik. I have about 40 workflows and recently I have added LLM calls and a vector lookup to a few of them. What I&#x27;m seeing at peak: load average 6.8, 6.1, 5.4. The n8n container sits at 340% CPU i]]></description>
-</item>
-<item>
-<title>b12257: CUDA: move graph and concurrent stream state out of common.cuh (#32001)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12257</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12257</guid>
-<pubDate>2026-11-10T09:03:49Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f0e35a5b9983adee.png" alt=""><p>Article · llama.cpp. ggml_cuda_graph, ggml_cuda_concurrent_event and ggml_cuda_stream_context are only used by ggml-cuda.cu, but keeping them in common.cuh meant any change to them rebuilt every CUDA translation unit. Move them to graph.cuh and leave forward declarations in common.cuh. The context co</p>]]></description>
 </item>
 <item>
 <title>stable</title>
