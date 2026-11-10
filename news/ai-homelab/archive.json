@@ -403,17 +403,18 @@
     {
       "url": "https://www.youtube.com/watch?v=K2IGHj7KQoM",
       "title": "Are Local Models Finally Good Enough?",
-      "summary": "Video from Techno Tim.",
+      "summary": "I have been covering local and self-hosted AI for a few years now - from running models privately at home to what is still running in my homelab today. But to run the larger, more capable models, you need something more specialized than a general-purpose home server with a video",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
-      "published": "2026-05-18T15:00:34+00:00",
+      "published": "2026-09-23T10:55:29-07:00",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://i.ytimg.com/vi/K2IGHj7KQoM/hqdefault.jpg",
       "file": "media/01.jpg",
       "video": "K2IGHj7KQoM",
       "categories": [
         "local-models",
+        "homelab",
         "video"
       ]
     },
@@ -471,7 +472,7 @@
     {
       "url": "https://www.youtube.com/watch?v=8NFV6duMKQA",
       "title": "What Is an NPU Actually Good For?",
-      "summary": "Video from Techno Tim.",
+      "summary": "What is an NPU actually useful for? Is it faster than a GPU, more efficient, or meant for a completely different kind of AI workload? I tested the Intel NPU in the MINISFORUM MS-03 using Frigate and OpenVINO, comparing the same workload across the CPU, GPU, and NPU. MINISFORUM se",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -22563,7 +22564,7 @@
     {
       "url": "https://www.youtube.com/watch?v=qxfNTcPl70w",
       "title": "I Made My Local AI Pick Its Own Model",
-      "summary": "Video from Techno Tim.",
+      "summary": "I wanted my local AI to choose the right model automatically instead of making me pick between speed and capability for every request. I test NVIDIA Switchyard for local AI model routing with Nemotron 3.5 Lightning on an RTX 3090 and DeepSeek V4 Flash across two GX10s. I cover St",
       "source": "Techno Tim",
       "kind": "youtube",
       "lane": "Video",
@@ -81269,12 +81270,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12238",
-      "title": "b12238: server: add oai-compat /v1/audio/speech endpoint (#31763)",
-      "summary": "server: add oai-compat /v1/audio/speech endpoint add e2e pytest server: share the s16 rounding, type speech form fields The WAV writer of the audio helper truncates while pcm_f32_to_s16 rounds, so wav and pcm differ by one LSB. Both now round. pcm_f32_to_s16 takes a pointer and a",
+      "title": "llama.cpp b12238",
+      "summary": "server: add oai-compat /v1/audio/speech endpoint ( #31763 ) server: add oai-compat /v1/audio/speech endpoint add e2e pytest server: share the s16 rounding, type speech form fields The WAV writer of the audio helper truncates while pcm_f32_to_s16 rounds, so wav and pcm differ by o",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-09T22:58:52Z",
+      "published": "2026-11-10T00:27:42Z",
       "added_at": "2026-11-10T00:01:09Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/041c60470c72b33d.png",
@@ -81333,6 +81334,23 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12239",
+      "title": "llama.cpp b12239",
+      "summary": "server : use common_chat_input in realtime api ( #31978 )",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-09T22:59:16Z",
+      "added_at": "2026-11-10T00:31:08Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/198f6dafafe93497.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
