@@ -82136,11 +82136,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12249",
       "title": "llama.cpp b12249",
-      "summary": "ggml-rpc : fail gracefully on unreachable endpoints and failed handsh…",
+      "summary": "ggml-rpc : fail gracefully on unreachable endpoints and failed handshakes ( #30415 ) ggml-rpc: fail gracefully on unreachable endpoints and failed handshakes rpc_dispatcher::start() aborted the whole process (GGML_ABORT -> SIGABRT) when the endpoint could not be parsed, the trans",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-10T07:40:35Z",
+      "published": "2026-11-10T17:01:20Z",
       "added_at": "2026-11-10T16:31:22Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/9e92f6476e72e227.png",
@@ -82283,6 +82283,57 @@
       "video": "",
       "categories": [
         "homelab"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12250",
+      "title": "b12250: vulkan: add tiled-transpose concat shader for Qwen models (#30591)",
+      "summary": "vulkan: tiled transpose for dim-0 concat with a transposed source The delta-net conv-state path does ggml_transpose() straight into a dim-0 ggml_concat(), so the generic concat kernel reads src1 with the transposed stride, one element per thread, and neighbouring lanes land on di",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-10T07:41:45Z",
+      "added_at": "2026-11-10T17:01:21Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/dac6751e4b3871fe.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xsrg0l/speakleashbielik11bv31instruct_hugging_face/",
+      "title": "speakleash/Bielik-11B-v3.1-Instruct · Hugging Face",
+      "summary": "Reddit from r/LocalLLaMA.",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-10T16:30:55+00:00",
+      "added_at": "2026-11-10T17:01:21Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xsqv86/tts_bench_91_open_tts_models_and_28_paid_tts_apis/",
+      "title": "TTS bench - 91 open TTS models and 28 paid TTS APIs on the same prompts",
+      "summary": "This is the third round of tts-bench. Thanks to everyone who gave feedback on the first two posts: TTS benchmark comparison of all known TTS models Text-to-speech benchmark, revamped tts-bench runs every model through the sameish Python harness on the same prompts, so you can com",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-10T16:09:25+00:00",
+      "added_at": "2026-11-10T17:01:21Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
