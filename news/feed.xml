@@ -5,10 +5,24 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-10T13:32:51Z</lastBuildDate>
 <item>
+<title>llama.cpp b12250</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12250</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12250</guid>
+<pubDate>2026-11-10T17:17:04Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/dac6751e4b3871fe.png" alt=""><p>Article · llama.cpp. vulkan: add tiled-transpose concat shader for Qwen models ( #30591 ) vulkan: tiled transpose for dim-0 concat with a transposed source The delta-net conv-state path does ggml_transpose() straight into a dim-0 ggml_concat(), so the generic concat kernel reads src1 with the transpo</p>]]></description>
+</item>
+<item>
+<title>I trained a 348M-active MoE on ~11B tokens. It scores 85.5% vs Qwen2.5-1.5B&#x27;s 53.3% on shuffled fact chains. GGUF + eval set - please try to break it.</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xssj9q/i_trained_a_348mactive_moe_on_11b_tokens_it/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xssj9q/i_trained_a_348mactive_moe_on_11b_tokens_it/</guid>
+<pubDate>2026-11-10T17:11:20+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I&#x27;ve been developing a small sparse MoE independently, and I&#x27;ve got a result I&#x27;d like strangers to attack. The model has 1.17B stored parameters, ~348M active per token, trained from scratch on approximately 11B tokens including instruction tuning. For context, Qwen2.5 reports up]]></description>
+</item>
+<item>
 <title>llama.cpp b12249</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12249</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12249</guid>
-<pubDate>2026-11-10T17:01:20Z</pubDate>
+<pubDate>2026-11-10T17:01:41Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9e92f6476e72e227.png" alt=""><p>Article · llama.cpp. ggml-rpc : fail gracefully on unreachable endpoints and failed handshakes ( #30415 ) ggml-rpc: fail gracefully on unreachable endpoints and failed handshakes rpc_dispatcher::start() aborted the whole process (GGML_ABORT -&gt; SIGABRT) when the endpoint could not be parsed, the trans</p>]]></description>
 </item>
 <item>
@@ -264,11 +278,11 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
 </item>
 <item>
-<title>b12250: vulkan: add tiled-transpose concat shader for Qwen models (#30591)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12250</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12250</guid>
-<pubDate>2026-11-10T07:41:45Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/dac6751e4b3871fe.png" alt=""><p>Article · llama.cpp. vulkan: tiled transpose for dim-0 concat with a transposed source The delta-net conv-state path does ggml_transpose() straight into a dim-0 ggml_concat(), so the generic concat kernel reads src1 with the transposed stride, one element per thread, and neighbouring lanes land on di</p>]]></description>
+<title>b12251: sycl: Add device-side MoE scheduler (#30156)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12251</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12251</guid>
+<pubDate>2026-11-10T07:42:25Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6d99531d45b580bd.png" alt=""><p>Article · llama.cpp. sycl: Add device-side MoE scheduler Assisted-by: Codex Add width-heuristic override bit and Q2_K and Q3_K types Assisted-by: Codex tests: cover skipped MUL_MAT_ID slots on the device MoE schedule Assisted-by: Claude Opus 5.5 sycl: keep graphs on for lazily reordered MUL_MAT and r</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12244</title>
