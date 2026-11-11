@@ -83607,6 +83607,23 @@
         "local-models",
         "communities"
       ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12285",
+      "title": "b12285: cuda : fattn mma head sizes 40 72 (#30285)",
+      "summary": "cuda : add MMA FlashAttention support for head sizes 40 and 72 Head sizes 40 and 72 (used e.g. in vision towers of Gemma 3/4 and Qwen3-VL) were excluded from every tensor-core dispatch branch and fell back to the tile kernel. The fp16 MMA fragment covers 16 halfs in the head dire",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-11T08:45:01Z",
+      "added_at": "2026-11-11T14:31:20Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/05064262ca929f3c.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
     }
   ]
 }
