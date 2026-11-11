@@ -5,11 +5,18 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-11T04:05:49Z</lastBuildDate>
 <item>
-<title>b12283: sycl : fixed sycl CLAMP to actually support strided view (#31784)</title>
+<title>LiteLLM v1.109.0</title>
+<link>https://github.com/BerriAI/litellm/releases/tag/v1.109.0</link>
+<guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.109.0</guid>
+<pubDate>2026-11-11T06:25:06Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e24b4ccf595e591c.png" alt=""><p>Article · LiteLLM. Verify this release cosign verify \ --key</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12283</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12283</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12283</guid>
-<pubDate>2026-11-11T05:48:20Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b4d65b96bb23b787.png" alt=""><p>Article · llama.cpp. Modify ggml_sycl_op_clamp to use the unary helper function ggml_sycl_detail::ggml_sycl_op_unary to handle non-contigous or strided views. The fix uses a pattern that matches other stride-safe unary ops, and is a simpler execution path. Deleted dead template unary_op_clamp_kernel</p>]]></description>
+<pubDate>2026-11-11T06:21:55Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b4d65b96bb23b787.png" alt=""><p>Article · llama.cpp. sycl : fixed sycl CLAMP to actually support strided view ( #31784 ) Modify ggml_sycl_op_clamp to use the unary helper function ggml_sycl_detail::ggml_sycl_op_unary to handle non-contigous or strided views. The fix uses a pattern that matches other stride-safe unary ops, and is a</p>]]></description>
 </item>
 <item>
 <title>LiteLLM v1.106.8</title>
@@ -164,13 +171,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xt4bnl/i_built_a_free_app_that_turns_epub_and_pdf_books/</guid>
 <pubDate>2026-11-11T01:06:00+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. InkVoice reads your own EPUB and PDF files aloud using local text-to-speech voices, so nothing gets uploaded and there&#x27;s no account or subscription. A few things I focused on: The word being spoken stays highlighted, and you can click any word to start listening from there. Speed]]></description>
-</item>
-<item>
-<title>LiteLLM v1.109.0</title>
-<link>https://github.com/BerriAI/litellm/releases/tag/v1.109.0</link>
-<guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.109.0</guid>
-<pubDate>2026-11-11T00:56:51Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e24b4ccf595e591c.png" alt=""><p>Article · LiteLLM. Verify Docker Image Signature All LiteLLM Docker images are signed with cosign . This release is signed with the key introduced in commit e82a3c6 . Verify using the pinned commit hash (recommended): A commit hash is cryptographically immutable, so this is the strongest way to ens</p>]]></description>
 </item>
 <item>
 <title>I built a zero-dependency streaming Markdown renderer for AI chat replies, n× faster than the next one I benchmarked</title>
