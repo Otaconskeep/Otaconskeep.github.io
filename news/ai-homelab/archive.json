@@ -306,11 +306,11 @@
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/stable",
       "title": "stable",
-      "summary": "2.47.3 (2026-11-09) Bug Fixes core: Only allow users who can edit a workflow to own its migration findings ( #43101 ) ( cff4342 ) core: Retire stale scheduled tasks in repeated batches in each reaper pass ( #43096 ) ( 4ba6e50 ) Features Open the migration report filtered to the r",
+      "summary": "2.47.4 (2026-11-11) Bug Fixes core: Keep expression transfers working after built-in replacements ( #43360 ) ( b110abb ) core: Keep observational memory running after a user stops a HITL card ( #43225 ) ( 353a342 ) core: Match bare node references across expression engines ( #433",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-10T08:52:13Z",
+      "published": "2026-11-11T08:41:21Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "media/19.png",
@@ -672,11 +672,11 @@
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/beta",
       "title": "beta",
-      "summary": "2.48.0 (2026-11-10) Bug Fixes ai-builder: Return the raw body when fetch-url reads JSON, XML, CSV or YAML ( #42949 ) ( 6640010 ) Align workflow history header dividers ( #43167 ) ( 73698d6 ) Compression Node: Preserve custom gzip file names ( #42063 ) ( a196d7d ) core: Apply the ",
+      "summary": "2.48.1 (2026-11-11) Bug Fixes core: Keep expression transfers working after built-in replacements ( #43359 ) ( 8b3d3db ) core: Match bare node references across expression engines ( #43357 ) ( 7afa69d ) Edit Image Node: Register font once instead of on every text operation ( #433",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-10T08:45:08Z",
+      "published": "2026-11-11T08:41:24Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://opengraph.githubassets.com/e9d9f05b13f547b1c080b1d16028ce9f87c686e48e865def71f7b17721568d04/n8n-io/n8n/releases/tag/beta",
       "file": "media/f195a5e647d31823.png",
@@ -83284,6 +83284,57 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12284",
+      "title": "b12284: CUDA: Add OCP FP8 support (#28413)",
+      "summary": "Initial CUDA WIP version Use fp8 intrinsics Do W8A16 for FP8 in GEMV case (base) osimons@ub-osimons:~/lcpp_fp8.git$ ./build-x64-linux-gcc-reldbg/bin/llama-bench -m /mnt/share/gguf/nvidia/Qwen3.6-27B-NVFP4/Qwen3.6-27B-NVFP4_fp8.gguf -p 8196 -ub 512,2048 -d 0,32000 -n 256 --load-mo",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-11T08:44:30Z",
+      "added_at": "2026-11-11T09:01:23Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/b021b1fd455a0df8.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.48.1",
+      "title": "n8n@2.48.1",
+      "summary": "2.48.1 (2026-11-11) Bug Fixes core: Keep expression transfers working after built-in replacements ( #43359 ) ( 8b3d3db ) core: Match bare node references across expression engines ( #43357 ) ( 7afa69d ) Edit Image Node: Register font once instead of on every text operation ( #433",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-11T08:43:32Z",
+      "added_at": "2026-11-11T09:01:36Z",
+      "image": "https://opengraph.githubassets.com/a7c3f806cfd9a4027c6611ceeaeeb45a9bae8e93d4b25f9d30ce537d9768db41/n8n-io/n8n/releases/tag/n8n%402.48.1",
+      "file": "media/de625ba9efe5fd47.png",
+      "video": "",
+      "categories": [
+        "home-automation",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.47.4",
+      "title": "n8n@2.47.4",
+      "summary": "2.47.4 (2026-11-11) Bug Fixes core: Keep expression transfers working after built-in replacements ( #43360 ) ( b110abb ) core: Keep observational memory running after a user stops a HITL card ( #43225 ) ( 353a342 ) core: Match bare node references across expression engines ( #433",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-11T08:43:33Z",
+      "added_at": "2026-11-11T09:01:36Z",
+      "image": "https://opengraph.githubassets.com/1555e469f09fcea799bde286c502dd6f099c25cbc8e1411aa1432ad85b3f55ea/n8n-io/n8n/releases/tag/n8n%402.47.4",
+      "file": "media/8b5c01bd0bf9841c.png",
+      "video": "",
+      "categories": [
+        "home-automation",
+        "releases"
       ]
     }
   ]
