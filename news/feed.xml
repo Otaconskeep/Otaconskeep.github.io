@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-12T13:34:54Z</lastBuildDate>
 <item>
+<title>llama.cpp b12319</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12319</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12319</guid>
+<pubDate>2026-11-12T16:38:47Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1c6e913a4c75ac84.png" alt=""><p>Article · llama.cpp. sycl : use cached device-id in set_main_device ( #32013 ) ggml_sycl_set_main_device() runs at the start of every graph compute. Its early-return check called dpct::get_current_device_id(), which locks the device manager mutex and looks up the thread-to-device map. Use the thread-</p>]]></description>
+</item>
+<item>
+<title>qwen3.8-flash shows us a glimpse of whats possible for smaller hardware</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xugw1p/qwen38flash_shows_us_a_glimpse_of_whats_possible/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xugw1p/qwen38flash_shows_us_a_glimpse_of_whats_possible/</guid>
+<pubDate>2026-11-12T16:13:32+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Normally active params matters more than total param if you want coherent behavior(not world knowledge) a 4b models attepting to handle complex rules and lots and lots of instructions all at once often cause smaller active params to loop like we would often see with qwen3.6-35b-a]]></description>
+</item>
+<item>
+<title>24GB Vram+128GB Ram vs 16GB Vram+192GB Ram</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xug2h0/24gb_vram128gb_ram_vs_16gb_vram192gb_ram/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xug2h0/24gb_vram128gb_ram_vs_16gb_vram192gb_ram/</guid>
+<pubDate>2026-11-12T15:42:55+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hi folks,need advice from community. I have a laptop with 16 GB vram Nvidia gpu and 96 GB ddr5 ram. I use it mainly for local coding with Qwen flash next nvfp4 at 256k context. I get around 30 t/s. I don&#x27;t like PCs and Macs. I want mobility. So because of my limited budget, i hav]]></description>
+</item>
+<item>
 <title>The CIA got rid of Jensen</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xudwsh/the_cia_got_rid_of_jensen/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xudwsh/the_cia_got_rid_of_jensen/</guid>
@@ -208,11 +229,11 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b66712bf9359025c.png" alt=""><p>Article · llama.cpp. opencl: add bin kernel kernel_gemm_noshuffle_q4_0_f32_32b_trans_ila_a7_bin ( #30947 ) opencl: add A7 Q4_0 non-MoE binary kernel opencl: refactor Co-authored-by: Li He lih@qti.qualcomm.com Website:</p>]]></description>
 </item>
 <item>
-<title>b12319: sycl : use cached device-id in set_main_device (#32013)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12319</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12319</guid>
-<pubDate>2026-11-12T06:50:55Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1c6e913a4c75ac84.png" alt=""><p>Article · llama.cpp. ggml_sycl_set_main_device() runs at the start of every graph compute. Its early-return check called dpct::get_current_device_id(), which locks the device manager mutex and looks up the thread-to-device map. Use the thread-local cached id that the rest of the backend already uses.</p>]]></description>
+<title>b12320: sycl : fix AOT for more than 4GB (#31873)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12320</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12320</guid>
+<pubDate>2026-11-12T06:54:58Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0e4894e65e90d0a3.png" alt=""><p>Article · llama.cpp. fix aot for &gt;4g garbage output issue; add --aot in build script correct the aot flag support no-xmx build, update the code for no-xmx building, rename nossl to no-ssl</p>]]></description>
 </item>
 <item>
 <title>Qwen4 is coming, pull requests spoted on github</title>
