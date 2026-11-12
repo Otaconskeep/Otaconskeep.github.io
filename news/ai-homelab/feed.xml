@@ -5,10 +5,17 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-12T13:34:54Z</lastBuildDate>
 <item>
+<title>llama.cpp b12328</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12328</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12328</guid>
+<pubDate>2026-11-12T21:24:43Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d97c9ce2ae1eb5e8.png" alt=""><p>Article · llama.cpp. ggml-backend : prefetch only inputs computed by earlier splits ( #32100 ) ggml-backend : prefetch only inputs computed by earlier splits The copy callback of a split runs after the prefetch and can write tensors that a later split reads, e.g. the MoE cache uploads missed experts</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12327</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12327</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12327</guid>
-<pubDate>2026-11-12T21:01:11Z</pubDate>
+<pubDate>2026-11-12T21:03:27Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4260969ab2bce236.png" alt=""><p>Article · llama.cpp. ggml : dispatch SpacemiT Q4_1 32x256 through the HP kernel ( #31929 ) The 32x256 pack already keeps a separate uint8 zero point. Complete the M1 path and use the same HP kernel as Q4_0. Assisted-by: Codex Signed-off-by: gitGurugu 2049447146@qq.com Signed-off-by: Wang Yang yangwan</p>]]></description>
 </item>
 <item>
@@ -45,6 +52,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12323</guid>
 <pubDate>2026-11-12T20:05:54Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f6e9a3b13d6f1fdc.png" alt=""><p>Article · llama.cpp. chat : refactor gemma4 to build loose schema rules and clean up ( #31915 ) chat : build a schema-shaped PEG parser for Gemma 4 tool arguments chat : enforce only the key structure of Gemma 4 tool arguments chat : remove old gemma4 workarounds cont : add node.as () to simplify sta</p>]]></description>
+</item>
+<item>
+<title>Solved High CPU usage when model fit in GPU, beware of -ngl -1 llama.cpp layers offloading to GPU and llama-fit-param</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xun196/solved_high_cpu_usage_when_model_fit_in_gpu/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xun196/solved_high_cpu_usage_when_model_fit_in_gpu/</guid>
+<pubDate>2026-11-12T20:00:08+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I&#x27;m trying to figure out how much context i can use on my 3090 (full compute, monitor is on mobo). If i launch: llama-bin-win-cuda-13.4-x64\llama-fit-params.exe --model modelli\Swift-1.5-Qwen3.8-27B-Q4_K_M.gguf -ctk q8_0 -ctv q8_0 -ngl -1 -fa on -np 1 -b 4096 -ub 1024 I get: -c 1]]></description>
 </item>
 <item>
 <title>MoE and expert offloading on llama, exllamav3, strata on 9070XT</title>
@@ -271,11 +285,11 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. Multimodal System One Encoder with a natural language interface for instruction-following encoding: give it a task and a list of candidates , and it scores the candidates by task specification. Both a task and each candidate are expressed in natural language - instructions, queri]]></description>
 </item>
 <item>
-<title>b12328: ggml-backend : prefetch only inputs computed by earlier splits (#32100)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12328</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12328</guid>
-<pubDate>2026-11-12T09:24:40Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d97c9ce2ae1eb5e8.png" alt=""><p>Article · llama.cpp. ggml-backend : prefetch only inputs computed by earlier splits The copy callback of a split runs after the prefetch and can write tensors that a later split reads, e.g. the MoE cache uploads missed experts into its bank. A prefetch of such a tensor reads it before the write. llam</p>]]></description>
+<title>llama.cpp b12329</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12329</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12329</guid>
+<pubDate>2026-11-12T09:28:36Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/479fbc38c33364d1.png" alt=""><p>Article · llama.cpp. CUDA: Optimize prefil via fuse of w_s scale in epilogue MMQ for nvfp4…</p>]]></description>
 </item>
 <item>
 <title>qvac/BotPsy-0.8B · Hugging Face - On-Device Personal Assistant with a Sub-Billion-Parameter Agentic Language Model</title>
