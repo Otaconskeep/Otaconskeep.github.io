@@ -85474,12 +85474,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12322",
-      "title": "b12322: llama : avoid touching unused graph metadata pages (#32043)",
-      "summary": "Each graph result reserves metadata for max_nodes, but many graphs use only a fraction of that capacity. The vector resize initializes the whole reserve and makes otherwise unused pages resident. Allocate the reserve with new uint8_t[] instead.",
+      "title": "llama.cpp b12322",
+      "summary": "llama : avoid touching unused graph metadata pages ( #32043 ) Each graph result reserves metadata for max_nodes, but many graphs use only a fraction of that capacity. The vector resize initializes the whole reserve and makes otherwise unused pages resident. Allocate the reserve w",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-12T07:42:45Z",
+      "published": "2026-11-12T19:01:24Z",
       "added_at": "2026-11-12T18:31:25Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/7b9f63f2b0ab42a7.png",
@@ -85498,6 +85498,57 @@
       "lane": "Reddit",
       "published": "2026-11-12T16:31:45+00:00",
       "added_at": "2026-11-12T18:31:26Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12323",
+      "title": "b12323: chat : refactor gemma4 to build loose schema rules and clean up (#31915)",
+      "summary": "chat : build a schema-shaped PEG parser for Gemma 4 tool arguments chat : enforce only the key structure of Gemma 4 tool arguments chat : remove old gemma4 workarounds cont : add node.as () to simplify static casts cont : add depth_guard and use numerical rule names cont : clean ",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-12T07:44:42Z",
+      "added_at": "2026-11-12T19:01:26Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/f6e9a3b13d6f1fdc.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xukt9t/so_this_will_be_true_in_couple_of_years/",
+      "title": "So this will be true in couple of years?",
+      "summary": "I think after jensen they will fully focus on AI compute for data centers submitted by /u/UltramanQuar [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-12T18:38:17+00:00",
+      "added_at": "2026-11-12T19:01:27Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xul4p2/pov_jensen_huang_after_building_nvidia_for_33/",
+      "title": "POV: Jensen Huang after building nvidia for 33 years",
+      "summary": "submitted by /u/Queasy_Back2588 [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-12T18:50:04+00:00",
+      "added_at": "2026-11-12T19:01:27Z",
       "image": "",
       "file": "",
       "video": "",

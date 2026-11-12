@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-12T13:34:54Z</lastBuildDate>
 <item>
+<title>llama.cpp b12322</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12322</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12322</guid>
+<pubDate>2026-11-12T19:01:24Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/7b9f63f2b0ab42a7.png" alt=""><p>Article · llama.cpp. llama : avoid touching unused graph metadata pages ( #32043 ) Each graph result reserves metadata for max_nodes, but many graphs use only a fraction of that capacity. The vector resize initializes the whole reserve and makes otherwise unused pages resident. Allocate the reserve w</p>]]></description>
+</item>
+<item>
+<title>POV: Jensen Huang after building nvidia for 33 years</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xul4p2/pov_jensen_huang_after_building_nvidia_for_33/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xul4p2/pov_jensen_huang_after_building_nvidia_for_33/</guid>
+<pubDate>2026-11-12T18:50:04+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/Queasy_Back2588 [link] [comments]]]></description>
+</item>
+<item>
+<title>So this will be true in couple of years?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xukt9t/so_this_will_be_true_in_couple_of_years/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xukt9t/so_this_will_be_true_in_couple_of_years/</guid>
+<pubDate>2026-11-12T18:38:17+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I think after jensen they will fully focus on AI compute for data centers submitted by /u/UltramanQuar [link] [comments]]]></description>
+</item>
+<item>
 <title>llama.cpp b12321</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12321</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12321</guid>
@@ -257,11 +278,11 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. If you’ve ever tried agentic coding with Gemma and had tool calling issues, give it another try, in my case, it completely fixed Gemma submitted by /u/jacek2023 [link] [comments]]]></description>
 </item>
 <item>
-<title>b12322: llama : avoid touching unused graph metadata pages (#32043)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12322</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12322</guid>
-<pubDate>2026-11-12T07:42:45Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/7b9f63f2b0ab42a7.png" alt=""><p>Article · llama.cpp. Each graph result reserves metadata for max_nodes, but many graphs use only a fraction of that capacity. The vector resize initializes the whole reserve and makes otherwise unused pages resident. Allocate the reserve with new uint8_t[] instead.</p>]]></description>
+<title>b12323: chat : refactor gemma4 to build loose schema rules and clean up (#31915)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12323</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12323</guid>
+<pubDate>2026-11-12T07:44:42Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f6e9a3b13d6f1fdc.png" alt=""><p>Article · llama.cpp. chat : build a schema-shaped PEG parser for Gemma 4 tool arguments chat : enforce only the key structure of Gemma 4 tool arguments chat : remove old gemma4 workarounds cont : add node.as () to simplify static casts cont : add depth_guard and use numerical rule names cont : clean</p>]]></description>
 </item>
 <item>
 <title>Closed Source LLM&#x27;s should be forbidden</title>
