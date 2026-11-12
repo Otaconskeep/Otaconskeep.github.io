@@ -5,11 +5,32 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-12T13:34:54Z</lastBuildDate>
 <item>
-<title>LiteLLM v1.108.7</title>
+<title>llama.cpp b12327</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12327</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12327</guid>
+<pubDate>2026-11-12T21:01:11Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4260969ab2bce236.png" alt=""><p>Article · llama.cpp. ggml : dispatch SpacemiT Q4_1 32x256 through the HP kernel ( #31929 ) The 32x256 pack already keeps a separate uint8 zero point. Complete the M1 path and use the same HP kernel as Q4_0. Assisted-by: Codex Signed-off-by: gitGurugu 2049447146@qq.com Signed-off-by: Wang Yang yangwan</p>]]></description>
+</item>
+<item>
+<title>ComfyUI v0.45.3</title>
+<link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.45.3</link>
+<guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.45.3</guid>
+<pubDate>2026-11-12T20:58:31Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3c565bda097faa16.png" alt=""><p>Article · ComfyUI. Article from ComfyUI.</p>]]></description>
+</item>
+<item>
+<title>1.108.7 (LTS)</title>
 <link>https://github.com/BerriAI/litellm/releases/tag/v1.108.7</link>
 <guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.108.7</guid>
-<pubDate>2026-11-12T20:27:30Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0de89f83015c6ded.png" alt=""><p>Article · LiteLLM. Verify Docker Image Signature All LiteLLM Docker images are signed with cosign . This release is signed with the key introduced in commit e82a3c6 . Verify using the pinned commit hash (recommended): A commit hash is cryptographically immutable, so this is the strongest way to ens</p>]]></description>
+<pubDate>2026-11-12T20:40:45Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0de89f83015c6ded.png" alt=""><p>Article · LiteLLM. Tip The lts image tag always points to the latest LTS release. Pull ghcr.io/berriai/litellm:lts to stay on the newest LTS patch Verify this release cosign verify \ --key</p>]]></description>
+</item>
+<item>
+<title>New Model &quot;Ernie 5.5 Flash Preview&quot; hits strongly at a low parameter count (280B, 14B Active)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xune1i/new_model_ernie_55_flash_preview_hits_strongly_at/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xune1i/new_model_ernie_55_flash_preview_hits_strongly_at/</guid>
+<pubDate>2026-11-12T20:13:37+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. If you&#x27;re asking what this leaderboard is, it is not AA, it is simply an aggregate index for &quot;Agentic Coding&quot; along 12 coding-related benchmarks (note that the AA index includes only 2 coding benchmarks: Terminal-Bench 4.0, FrontierCode-AA 2.0, making up just 25% of its total sco]]></description>
 </item>
 <item>
 <title>1.108.6 (LTS)</title>
@@ -26,6 +47,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f6e9a3b13d6f1fdc.png" alt=""><p>Article · llama.cpp. chat : refactor gemma4 to build loose schema rules and clean up ( #31915 ) chat : build a schema-shaped PEG parser for Gemma 4 tool arguments chat : enforce only the key structure of Gemma 4 tool arguments chat : remove old gemma4 workarounds cont : add node.as () to simplify sta</p>]]></description>
 </item>
 <item>
+<title>MoE and expert offloading on llama, exllamav3, strata on 9070XT</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xun15v/moe_and_expert_offloading_on_llama_exllamav3/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xun15v/moe_and_expert_offloading_on_llama_exllamav3/</guid>
+<pubDate>2026-11-12T20:00:04+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. First off. I am by all means no expert, and excellent work has been done in the past few years that we all currently enjoy. Came over this post]]></description>
+</item>
+<item>
 <title>Jensen today at Nvidia board meeting</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xumhm3/jensen_today_at_nvidia_board_meeting/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xumhm3/jensen_today_at_nvidia_board_meeting/</guid>
@@ -37,7 +65,7 @@
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xumdj4/intel_arc_vulkan_prefill_got_a_dedicated_fa/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xumdj4/intel_arc_vulkan_prefill_got_a_dedicated_fa/</guid>
 <pubDate>2026-11-12T19:35:39+00:00</pubDate>
-<description><![CDATA[Reddit · r/LocalLLaMA. We have merged a dedicated Vulkan Flash Attention prefill kernel for Intel Arc and Xe, delivering massive prefill acceleration on supported platforms like ARL-H and Xe2/Xe3. This implementation leverages customized shaders to utilize Intel&#x27;s native matrix core shapes and SLM arch]]></description>
+<description><![CDATA[Reddit · r/LocalLLaMA. We have a new dedicated Vulkan Flash Attention prefill kernel for Intel Arc and Xe, delivering massive prefill acceleration on supported platforms like ARL-H and Xe2/Xe3. This implementation leverages customized shaders to utilize Intel&#x27;s native matrix core shapes and SLM archite]]></description>
 </item>
 <item>
 <title>llama.cpp b12322</title>
@@ -241,6 +269,13 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xu8eie/metaencoder_a_facebook_collection_one_encoder_for/</guid>
 <pubDate>2026-11-12T09:28:59+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Multimodal System One Encoder with a natural language interface for instruction-following encoding: give it a task and a list of candidates , and it scores the candidates by task specification. Both a task and each candidate are expressed in natural language - instructions, queri]]></description>
+</item>
+<item>
+<title>b12328: ggml-backend : prefetch only inputs computed by earlier splits (#32100)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12328</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12328</guid>
+<pubDate>2026-11-12T09:24:40Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d97c9ce2ae1eb5e8.png" alt=""><p>Article · llama.cpp. ggml-backend : prefetch only inputs computed by earlier splits The copy callback of a split runs after the prefetch and can write tensors that a later split reads, e.g. the MoE cache uploads missed experts into its bank. A prefetch of such a tensor reads it before the write. llam</p>]]></description>
 </item>
 <item>
 <title>qvac/BotPsy-0.8B · Hugging Face - On-Device Personal Assistant with a Sub-Billion-Parameter Agentic Language Model</title>

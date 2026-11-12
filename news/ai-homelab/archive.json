@@ -85594,7 +85594,7 @@
     {
       "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xumdj4/intel_arc_vulkan_prefill_got_a_dedicated_fa/",
       "title": "Intel Arc Vulkan prefill got a dedicated FA kernel in llama.cpp master",
-      "summary": "We have merged a dedicated Vulkan Flash Attention prefill kernel for Intel Arc and Xe, delivering massive prefill acceleration on supported platforms like ARL-H and Xe2/Xe3. This implementation leverages customized shaders to utilize Intel's native matrix core shapes and SLM arch",
+      "summary": "We have a new dedicated Vulkan Flash Attention prefill kernel for Intel Arc and Xe, delivering massive prefill acceleration on supported platforms like ARL-H and Xe2/Xe3. This implementation leverages customized shaders to utilize Intel's native matrix core shapes and SLM archite",
       "source": "r/LocalLLaMA",
       "kind": "social",
       "lane": "Reddit",
@@ -85610,12 +85610,12 @@
     },
     {
       "url": "https://github.com/BerriAI/litellm/releases/tag/v1.108.7",
-      "title": "LiteLLM v1.108.7",
-      "summary": "Verify Docker Image Signature All LiteLLM Docker images are signed with cosign . This release is signed with the key introduced in commit e82a3c6 . Verify using the pinned commit hash (recommended): A commit hash is cryptographically immutable, so this is the strongest way to ens",
+      "title": "1.108.7 (LTS)",
+      "summary": "Tip The lts image tag always points to the latest LTS release. Pull ghcr.io/berriai/litellm:lts to stay on the newest LTS patch Verify this release cosign verify \\ --key",
       "source": "LiteLLM",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-12T20:27:30Z",
+      "published": "2026-11-12T20:40:45Z",
       "added_at": "2026-11-12T20:31:32Z",
       "image": "https://opengraph.githubassets.com/1ad7fcf5031949e31ee4a700db3c05fea61c8ae480102e9ef5d9e12069023df4/BerriAI/litellm/releases/tag/v1.108.7",
       "file": "media/0de89f83015c6ded.png",
@@ -85623,6 +85623,91 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12328",
+      "title": "b12328: ggml-backend : prefetch only inputs computed by earlier splits (#32100)",
+      "summary": "ggml-backend : prefetch only inputs computed by earlier splits The copy callback of a split runs after the prefetch and can write tensors that a later split reads, e.g. the MoE cache uploads missed experts into its bank. A prefetch of such a tensor reads it before the write. llam",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-12T09:24:40Z",
+      "added_at": "2026-11-12T21:01:25Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/d97c9ce2ae1eb5e8.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12327",
+      "title": "llama.cpp b12327",
+      "summary": "ggml : dispatch SpacemiT Q4_1 32x256 through the HP kernel ( #31929 ) The 32x256 pack already keeps a separate uint8 zero point. Complete the M1 path and use the same HP kernel as Q4_0. Assisted-by: Codex Signed-off-by: gitGurugu 2049447146@qq.com Signed-off-by: Wang Yang yangwan",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-12T21:01:11Z",
+      "added_at": "2026-11-12T21:01:25Z",
+      "image": "https://opengraph.githubassets.com/6f1fc4edcc40de5a89a9397bb35b51f2bd9d84c4bb2bd452e95bf1ba4eef1d2e/ggml-org/llama.cpp/releases/tag/b12327",
+      "file": "media/4260969ab2bce236.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.45.3",
+      "title": "ComfyUI v0.45.3",
+      "summary": "Article from ComfyUI.",
+      "source": "ComfyUI",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-12T20:58:31Z",
+      "added_at": "2026-11-12T21:01:25Z",
+      "image": "https://repository-images.githubusercontent.com/589831718/8894dcc0-5f53-4f3c-97f0-50d820b7779b",
+      "file": "media/3c565bda097faa16.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xune1i/new_model_ernie_55_flash_preview_hits_strongly_at/",
+      "title": "New Model \"Ernie 5.5 Flash Preview\" hits strongly at a low parameter count (280B, 14B Active)",
+      "summary": "If you're asking what this leaderboard is, it is not AA, it is simply an aggregate index for \"Agentic Coding\" along 12 coding-related benchmarks (note that the AA index includes only 2 coding benchmarks: Terminal-Bench 4.0, FrontierCode-AA 2.0, making up just 25% of its total sco",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-12T20:13:37+00:00",
+      "added_at": "2026-11-12T21:01:25Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xun15v/moe_and_expert_offloading_on_llama_exllamav3/",
+      "title": "MoE and expert offloading on llama, exllamav3, strata on 9070XT",
+      "summary": "First off. I am by all means no expert, and excellent work has been done in the past few years that we all currently enjoy. Came over this post",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-12T20:00:04+00:00",
+      "added_at": "2026-11-12T21:01:25Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
