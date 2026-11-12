@@ -85441,11 +85441,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12321",
       "title": "llama.cpp b12321",
-      "summary": "sycl: make oneDNN FA cache thread-safe and memoize runtime failures (…",
+      "summary": "sycl: make oneDNN FA cache thread-safe and memoize runtime failures ( #31138 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-12T06:58:26Z",
+      "published": "2026-11-12T18:21:31Z",
       "added_at": "2026-11-12T18:01:26Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/04ce7d8114ff91aa.png",
@@ -85469,6 +85469,40 @@
       "video": "",
       "categories": [
         "homelab",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12322",
+      "title": "b12322: llama : avoid touching unused graph metadata pages (#32043)",
+      "summary": "Each graph result reserves metadata for max_nodes, but many graphs use only a fraction of that capacity. The vector resize initializes the whole reserve and makes otherwise unused pages resident. Allocate the reserve with new uint8_t[] instead.",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-12T07:42:45Z",
+      "added_at": "2026-11-12T18:31:25Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/7b9f63f2b0ab42a7.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xuhdgk/running_radiance_engine_on_windows_through_wsl2/",
+      "title": "Running Radiance engine on Windows through WSL2 (Single 9700)",
+      "summary": "Hey guys, not going to take much credit since claude did 90% of this, but wanted to share the patches I used to get StillDeadcode's Radiance running on my windows pc. I'm sure that multiple people have done this already, but I couldn't find a post, so thought I'd throw this out t",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-12T16:31:45+00:00",
+      "added_at": "2026-11-12T18:31:26Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
         "communities"
       ]
     }

@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-12T13:34:54Z</lastBuildDate>
 <item>
+<title>llama.cpp b12321</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12321</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12321</guid>
+<pubDate>2026-11-12T18:21:31Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/04ce7d8114ff91aa.png" alt=""><p>Article · llama.cpp. sycl: make oneDNN FA cache thread-safe and memoize runtime failures ( #31138 ) Website:</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12320</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12320</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12320</guid>
@@ -31,6 +38,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12319</guid>
 <pubDate>2026-11-12T16:38:47Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1c6e913a4c75ac84.png" alt=""><p>Article · llama.cpp. sycl : use cached device-id in set_main_device ( #32013 ) ggml_sycl_set_main_device() runs at the start of every graph compute. Its early-return check called dpct::get_current_device_id(), which locks the device manager mutex and looks up the thread-to-device map. Use the thread-</p>]]></description>
+</item>
+<item>
+<title>Running Radiance engine on Windows through WSL2 (Single 9700)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xuhdgk/running_radiance_engine_on_windows_through_wsl2/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xuhdgk/running_radiance_engine_on_windows_through_wsl2/</guid>
+<pubDate>2026-11-12T16:31:45+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hey guys, not going to take much credit since claude did 90% of this, but wanted to share the patches I used to get StillDeadcode&#x27;s Radiance running on my windows pc. I&#x27;m sure that multiple people have done this already, but I couldn&#x27;t find a post, so thought I&#x27;d throw this out t]]></description>
 </item>
 <item>
 <title>qwen3.8-flash shows us a glimpse of whats possible for smaller hardware</title>
@@ -243,6 +257,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. If you’ve ever tried agentic coding with Gemma and had tool calling issues, give it another try, in my case, it completely fixed Gemma submitted by /u/jacek2023 [link] [comments]]]></description>
 </item>
 <item>
+<title>b12322: llama : avoid touching unused graph metadata pages (#32043)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12322</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12322</guid>
+<pubDate>2026-11-12T07:42:45Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/7b9f63f2b0ab42a7.png" alt=""><p>Article · llama.cpp. Each graph result reserves metadata for max_nodes, but many graphs use only a fraction of that capacity. The vector resize initializes the whole reserve and makes otherwise unused pages resident. Allocate the reserve with new uint8_t[] instead.</p>]]></description>
+</item>
+<item>
 <title>Closed Source LLM&#x27;s should be forbidden</title>
 <link>https://www.reddit.com/r/LocalLLM/comments/1xu6cz1/closed_source_llms_should_be_forbidden/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLM/comments/1xu6cz1/closed_source_llms_should_be_forbidden/</guid>
@@ -255,13 +276,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12317</guid>
 <pubDate>2026-11-12T07:02:04Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b66712bf9359025c.png" alt=""><p>Article · llama.cpp. opencl: add bin kernel kernel_gemm_noshuffle_q4_0_f32_32b_trans_ila_a7_bin ( #30947 ) opencl: add A7 Q4_0 non-MoE binary kernel opencl: refactor Co-authored-by: Li He lih@qti.qualcomm.com Website:</p>]]></description>
-</item>
-<item>
-<title>llama.cpp b12321</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12321</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12321</guid>
-<pubDate>2026-11-12T06:58:26Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/04ce7d8114ff91aa.png" alt=""><p>Article · llama.cpp. sycl: make oneDNN FA cache thread-safe and memoize runtime failures (…</p>]]></description>
 </item>
 <item>
 <title>Qwen4 is coming, pull requests spoted on github</title>
