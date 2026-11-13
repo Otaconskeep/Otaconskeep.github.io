@@ -86443,11 +86443,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12360",
       "title": "llama.cpp b12360",
-      "summary": "CUDA: split the PAD_REFLECT_1D grid to stay within the HIP grid limit…",
+      "summary": "CUDA: split the PAD_REFLECT_1D grid to stay within the HIP grid limit ( #32179 ) The kernel launches one block per row and 256-wide tile, so the {2, 16777217} test case asks for 16777217 blocks of 256 threads. HIP refuses a grid dimension above 2^32 threads and the ROCm jobs fail",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-13T09:15:25Z",
+      "published": "2026-11-13T10:05:49Z",
       "added_at": "2026-11-13T10:01:22Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/780153f65f113638.png",
@@ -86539,6 +86539,57 @@
       "video": "",
       "categories": [
         "home-automation",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/v1.0.0",
+      "title": "llama.cpp v1.0.0",
+      "summary": "Overview New version has been released. Note More info at 3PM CET Assets Nightly build: b12359 More info Releases and versioning of ggml-org projects Changelog since v0.9.0 b1b770d examples : remove explict version from test-cmake ( #32191 ) 4cda622 llama.cpp : bump version to 1.",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-13T10:20:51Z",
+      "added_at": "2026-11-13T10:31:23Z",
+      "image": "https://opengraph.githubassets.com/ef8fa206056a199c54bc3fedc451d9f51e7bc3364e0d50b2cf647f6b25684c0d/ggml-org/llama.cpp/releases/tag/v1.0.0",
+      "file": "media/bb4deecac7ca3168.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/v1.0.0-b12359-b1b770d",
+      "title": "v1.0.0-b12359-b1b770d: examples : remove explict version from test-cmake (#32191)",
+      "summary": "This commit removes the llama version test-cmake and instead uses the version that is supplied by CMAKE_PREFIX_PATH. The motivation for this is to avoid issues when bumping major versions.",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-13T09:09:55Z",
+      "added_at": "2026-11-13T10:31:23Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/444e1273f6138273.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12359",
+      "title": "llama.cpp b12359",
+      "summary": "examples : remove explict version from test-cmake ( #32191 ) This commit removes the llama version test-cmake and instead uses the version that is supplied by CMAKE_PREFIX_PATH. The motivation for this is to avoid issues when bumping major versions. Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-13T10:24:22Z",
+      "added_at": "2026-11-13T10:31:23Z",
+      "image": "https://opengraph.githubassets.com/664e9f7fe23b97c2e5b7bbf80a0cb701d18237299bd8802785662d03670d2679/ggml-org/llama.cpp/releases/tag/b12359",
+      "file": "media/f795016d9dcfed58.png",
+      "video": "",
+      "categories": [
+        "local-models",
         "releases"
       ]
     }
