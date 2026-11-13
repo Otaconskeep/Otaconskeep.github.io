@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-13T04:18:08Z</lastBuildDate>
 <item>
+<title>llama.cpp b12345</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12345</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12345</guid>
+<pubDate>2026-11-13T06:37:27Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ae24a77e8b7ecf07.png" alt=""><p>Article · llama.cpp. hexagon: add Q5_0 and Q5_1 support ( #32094 ) hexagon: add q5_0 and q5_1 support hex-mm: dedicated q5_0 kernels Website:</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12344</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12344</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12344</guid>
@@ -299,6 +306,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/7b9f63f2b0ab42a7.png" alt=""><p>Article · llama.cpp. llama : avoid touching unused graph metadata pages ( #32043 ) Each graph result reserves metadata for max_nodes, but many graphs use only a fraction of that capacity. The vector resize initializes the whole reserve and makes otherwise unused pages resident. Allocate the reserve w</p>]]></description>
 </item>
 <item>
+<title>b12347: llama : prune (#30565)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12347</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12347</guid>
+<pubDate>2026-11-12T18:59:09Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1a51f6d11fbb39a9.png" alt=""><p>Article · llama.cpp. llama : remove deprecated llama_set_warmup Assisted-by: dsh:llama.cpp/ggml-org/DeepSeek-V4.1-Flash-1017-GGUF (Mac Studio, M5 Ultra, 256GB) llama : remove remaining deprecated API Drop the APIs marked DEPRECATED in llama.h, the deprecated llama_context_params::defrag_thold field a</p>]]></description>
+</item>
+<item>
 <title>POV: Jensen Huang after building nvidia for 33 years</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xul4p2/pov_jensen_huang_after_building_nvidia_for_33/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xul4p2/pov_jensen_huang_after_building_nvidia_for_33/</guid>
@@ -360,13 +374,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12319</guid>
 <pubDate>2026-11-12T16:38:47Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1c6e913a4c75ac84.png" alt=""><p>Article · llama.cpp. sycl : use cached device-id in set_main_device ( #32013 ) ggml_sycl_set_main_device() runs at the start of every graph compute. Its early-return check called dpct::get_current_device_id(), which locks the device manager mutex and looks up the thread-to-device map. Use the thread-</p>]]></description>
-</item>
-<item>
-<title>b12345: hexagon: add Q5_0 and Q5_1 support (#32094)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12345</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12345</guid>
-<pubDate>2026-11-12T16:33:16Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ae24a77e8b7ecf07.png" alt=""><p>Article · llama.cpp. hexagon: add q5_0 and q5_1 support hex-mm: dedicated q5_0 kernels</p>]]></description>
 </item>
 <item>
 <title>Running Radiance engine on Windows through WSL2 (Single 9700)</title>
