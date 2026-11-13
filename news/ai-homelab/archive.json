@@ -85896,6 +85896,23 @@
         "local-models",
         "communities"
       ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12336",
+      "title": "b12336: mtmd: require an F32 position embedding for HunyuanVL (#32131)",
+      "summary": "HunyuanVL resamples its position embedding on the host into a float buffer sized for F32, then reads ggml_nbytes() of the tensor into it. The graph never uses the tensor, so any type loads, and an F64 tensor overflows the buffer at the first image request. Require the position em",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-12T11:15:28Z",
+      "added_at": "2026-11-13T00:01:23Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/8e799f91ef274be0.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
     }
   ]
 }

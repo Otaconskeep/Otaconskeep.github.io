@@ -292,6 +292,13 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. They say an anime model is in development, with plans for alpha channels and multi-character references. An editing model is also on the way. They also plan to keep the next model under Apache 2.0, if all goes as planned. submitted by /u/Physical_Hat4022 [link] [comments]]]></description>
 </item>
 <item>
+<title>b12336: mtmd: require an F32 position embedding for HunyuanVL (#32131)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12336</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12336</guid>
+<pubDate>2026-11-12T11:15:28Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8e799f91ef274be0.png" alt=""><p>Article · llama.cpp. HunyuanVL resamples its position embedding on the host into a float buffer sized for F32, then reads ggml_nbytes() of the tensor into it. The graph never uses the tensor, so any type loads, and an F64 tensor overflows the buffer at the first image request. Require the position em</p>]]></description>
+</item>
+<item>
 <title>llama.cpp Gets Major CUDA Improvements: FP8 Support and Faster GPU Inference</title>
 <link>https://www.reddit.com/r/LocalLLM/comments/1xu9vmj/llamacpp_gets_major_cuda_improvements_fp8_support/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLM/comments/1xu9vmj/llamacpp_gets_major_cuda_improvements_fp8_support/</guid>
