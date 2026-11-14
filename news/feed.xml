@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-14T13:50:29Z</lastBuildDate>
 <item>
+<title>b12385: qwen2vl : apply FFN weight scales (#32241)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12385</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12385</guid>
+<pubDate>2026-11-14T18:02:15Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/57fe5263f2b1e3a2.png" alt=""><p>Article · llama.cpp. The qwen2vl graph passed NULL for the ffn_up/gate/down scales, so the per-tensor NVFP4 scales loaded by the generic pass were never applied and the model produced garbage (PPL ~1e6 on CUDA, NaN on CPU). Pass the scales to build_ffn like qwen2 does. Fixes #32101</p>]]></description>
+</item>
+<item>
 <title>Comicarr: A Self-Hosted Comic and Manga Manager for Your Library</title>
 <link>https://noted.lol/comicarr/</link>
 <guid isPermaLink="true">https://noted.lol/comicarr/</guid>
