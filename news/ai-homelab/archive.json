@@ -88121,15 +88121,32 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12385",
-      "title": "b12385: qwen2vl : apply FFN weight scales (#32241)",
-      "summary": "The qwen2vl graph passed NULL for the ffn_up/gate/down scales, so the per-tensor NVFP4 scales loaded by the generic pass were never applied and the model produced garbage (PPL ~1e6 on CUDA, NaN on CPU). Pass the scales to build_ffn like qwen2 does. Fixes #32101",
+      "title": "llama.cpp b12385",
+      "summary": "qwen2vl : apply FFN weight scales ( #32241 ) The qwen2vl graph passed NULL for the ffn_up/gate/down scales, so the per-tensor NVFP4 scales loaded by the generic pass were never applied and the model produced garbage (PPL ~1e6 on CUDA, NaN on CPU). Pass the scales to build_ffn lik",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-14T18:02:15Z",
+      "published": "2026-11-14T18:52:59Z",
       "added_at": "2026-11-14T18:31:25Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/57fe5263f2b1e3a2.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12386",
+      "title": "llama.cpp b12386",
+      "summary": "hexagon: fix fa no-mask tail ( #32243 )",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-14T18:06:01Z",
+      "added_at": "2026-11-14T19:01:26Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/d34b418885403b50.png",
       "video": "",
       "categories": [
         "local-models",
