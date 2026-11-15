@@ -87836,7 +87836,7 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12378",
       "title": "llama.cpp b12378",
-      "summary": "mtmd : avoid padding-only Whisper audio chunks ( #30403 ) Assisted-by: Claude Opus 5 Website:",
+      "summary": "mtmd : avoid padding-only Whisper audio chunks (",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
@@ -88513,11 +88513,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12389",
       "title": "llama.cpp b12389",
-      "summary": "opencl: fixes for q4_k mv oob access, f16 swiglu_oai, cpy with stride…",
+      "summary": "opencl: fixes for q4_k mv oob access, f16 swiglu_oai, cpy with strided dst, batched group_norm and bf16 sigmoid ( #32251 ) opencl: fix q4_K mv oob read Assisted-by: Codex opencl: fix kernel dispatch and oob writes for f16 swiglu_oai Assisted-by: Codex opencl: fix the row broadcas",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-14T22:32:48Z",
+      "published": "2026-11-15T03:42:33Z",
       "added_at": "2026-11-15T03:31:26Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/cb89ebecefb9023d.png",
@@ -88538,6 +88538,40 @@
       "added_at": "2026-11-15T03:31:38Z",
       "image": "https://opengraph.githubassets.com/c9ed9af30dc583ba24a05b8937b2a425d3d51aa2a6dfc1fd5967d28d691a5047/BerriAI/litellm",
       "file": "media/40a5a2c276e9398e.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12391",
+      "title": "b12391: chat : allow tool calls inside reasoning blocks for Ministral-3 (#32271)",
+      "summary": "chat: allow tool calls inside reasoning blocks for Ministral-3 and Qwen3 Fixes #29248 Fixes #20837 chat: address review feedback for Ministral-3 reasoning end Remove Ministral-3: use choice between [/THINK] and peek([TOOL_CALLS]) instead of optional chat: add [TOOL_CALLS] to Mini",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-14T22:33:35Z",
+      "added_at": "2026-11-15T04:01:26Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/cc4516b37e549b6c.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12390",
+      "title": "llama.cpp b12390",
+      "summary": "common : fix infinite recursion in debug build for peg parser dump ( #32282 ) Change dump()->dump_impl() calls to avoid infinite recursion. Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-15T03:58:14Z",
+      "added_at": "2026-11-15T04:01:26Z",
+      "image": "https://opengraph.githubassets.com/57943ccb1be92c7de5f24367c694001e71e7ecfecaaf941b876656c2f585eae3/ggml-org/llama.cpp/releases/tag/b12390",
+      "file": "media/d09b308505d7995e.png",
       "video": "",
       "categories": [
         "local-models",
