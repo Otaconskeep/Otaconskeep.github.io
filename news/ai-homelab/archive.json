@@ -90341,12 +90341,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12433",
-      "title": "b12433: cuda : fix MUL_MAT_ID abort with odd src0 columns on AMD (#32385)",
-      "summary": "On AMD devices MUL_MAT_ID with an F32, F16 or BF16 src0 and at most 8 tokens always used MMVF. MMVF reads src0 in pairs of values and asserts an even ne[0], so a rank 1 LoRA on MoE expert weights (lora_b has ne[0] == 1) aborted. Use MMVF there only for an even ne[0]; other shapes",
+      "title": "llama.cpp b12433",
+      "summary": "cuda : fix MUL_MAT_ID abort with odd src0 columns on AMD ( #32385 ) On AMD devices MUL_MAT_ID with an F32, F16 or BF16 src0 and at most 8 tokens always used MMVF. MMVF reads src0 in pairs of values and asserts an even ne[0], so a rank 1 LoRA on MoE expert weights (lora_b has ne[0",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-16T09:53:06Z",
+      "published": "2026-11-16T11:19:47Z",
       "added_at": "2026-11-16T11:01:27Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/0a4f448f2a71c1de.png",
@@ -90388,6 +90388,73 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12435",
+      "title": "b12435: vulkan: make the radix top-k tie selection deterministic (#31931)",
+      "summary": "vulkan: make the radix top-k tie selection deterministic The radix select gathers the elements above the threshold and the ties with an atomic counter, so with more ties than remaining slots the kept columns depend on the thread scheduling. Each subgroup now owns a contiguous chu",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-16T10:41:44Z",
+      "added_at": "2026-11-16T11:31:27Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/4d968f6e78ed32c4.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xxmr68/given_the_flood_of_new_inference_engines_any/",
+      "title": "Given the flood of new inference engines any recommendations for 2x 7900xtx ?",
+      "summary": "Hey everyone as the title says I am looking for inference engines that work well with AMD GPUs. There have been so many new ones that I am sure there is something better then llamacpp which currently hosts this. My use case is the following. For a university course I want to host",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-16T11:11:35+00:00",
+      "added_at": "2026-11-16T11:31:27Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xxmj9o/paper_models_gamer_a_generalist/",
+      "title": "[Paper & Models] Gamer: A Generalist Vision-Language-Action Foundation Model for Long-Horizon Real-Time Game Agent",
+      "summary": "We introduce Gamer, a generalist agent framework built for long-horizon tasks in complex interactive environments. Its end-to-end architecture combines perception, memory management, and multi-step reasoning. A shared training and deployment pipeline supports interaction with bot",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-16T10:58:50+00:00",
+      "added_at": "2026-11-16T11:31:27Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://noted.lol/telltaledns/",
+      "title": "TelltaleDNS Helps You See What’s Really Happening on Your Network",
+      "summary": "TelltaleDNS is a self-hosted DNS resolver and ad blocker with per-device filtering, detailed query insights, encrypted DNS, and clustering support.",
+      "source": "noted.lol",
+      "kind": "article",
+      "lane": "Article",
+      "published": "Mon, 16 Nov 2026 06:25:58 -0500",
+      "added_at": "2026-11-16T11:31:33Z",
+      "image": "https://noted.lol/content/images/size/w1200/2026/11/telltaledns-self-hosted-dns-blocking-monitoring.png",
+      "file": "media/f88d591052c64db3.png",
+      "video": "",
+      "categories": [
+        "homelab"
       ]
     }
   ]
