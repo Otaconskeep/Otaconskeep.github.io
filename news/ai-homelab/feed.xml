@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-16T13:57:49Z</lastBuildDate>
 <item>
+<title>llama.cpp b12445</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12445</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12445</guid>
+<pubDate>2026-11-16T20:48:05Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ae7d7f2d28f88874.png" alt=""><p>Article · llama.cpp. vulkan: Support split_k for conv3d. ( #29929 ) This tries to use the 256x128 shape (coopmat2-only) with split_k when it appears profitable. It reuses the mul_mat split_k reduce shader. Website:</p>]]></description>
+</item>
+<item>
 <title>I don&#x27;t get all the Strata hates around here</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xxz46x/i_dont_get_all_the_strata_hates_around_here/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxz46x/i_dont_get_all_the_strata_hates_around_here/</guid>
@@ -166,6 +173,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f32591813a96388e.png" alt=""><p>Article · llama.cpp. webgpu: support per-head flash attention masks ( #32394 ) The flash attention shaders indexed the mask without its head dimension, so masks with ne[2] &gt; 1 gave wrong results. The mask offset and the vec block states now include the head, broadcast as head % mask-&gt;ne[2] like the o</p>]]></description>
 </item>
 <item>
+<title>llama.cpp b12447</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12447</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12447</guid>
+<pubDate>2026-11-16T14:16:13Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1d891614ecffa637.png" alt=""><p>Article · llama.cpp. llama : deprecate old batch API ( #32306 )</p>]]></description>
+</item>
+<item>
 <title>Stop worrying about Qwen 4&#x27;s AA index</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xxqfqr/stop_worrying_about_qwen_4s_aa_index/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxqfqr/stop_worrying_about_qwen_4s_aa_index/</guid>
@@ -199,13 +213,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxpxvi/best_audio_models_nov_2026/</guid>
 <pubDate>2026-11-16T13:55:16+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Its time for another Best Audio Models megathread - its already been 9 months since the last one! Share what your favorite ASR, TTS, STT, Text to Music models are right now and why. Given the the amount of ambiguity and subjectivity in rating/testing these models, please be as de]]></description>
-</item>
-<item>
-<title>b12445: vulkan: Support split_k for conv3d. (#29929)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12445</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12445</guid>
-<pubDate>2026-11-16T13:25:12Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ae7d7f2d28f88874.png" alt=""><p>Article · llama.cpp. This tries to use the 256x128 shape (coopmat2-only) with split_k when it appears profitable. It reuses the mul_mat split_k reduce shader.</p>]]></description>
 </item>
 <item>
 <title>Show HN: OpenTodo – a self-hosted, local-first task manager in one Go binary</title>
