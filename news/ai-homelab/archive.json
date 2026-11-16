@@ -90392,12 +90392,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12435",
-      "title": "b12435: vulkan: make the radix top-k tie selection deterministic (#31931)",
-      "summary": "vulkan: make the radix top-k tie selection deterministic The radix select gathers the elements above the threshold and the ties with an atomic counter, so with more ties than remaining slots the kept columns depend on the thread scheduling. Each subgroup now owns a contiguous chu",
+      "title": "llama.cpp b12435",
+      "summary": "vulkan: make the radix top-k tie selection deterministic ( #31931 ) vulkan: make the radix top-k tie selection deterministic The radix select gathers the elements above the threshold and the ties with an atomic counter, so with more ties than remaining slots the kept columns depe",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-16T10:41:44Z",
+      "published": "2026-11-16T11:42:26Z",
       "added_at": "2026-11-16T11:31:27Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/4d968f6e78ed32c4.png",
@@ -90455,6 +90455,23 @@
       "video": "",
       "categories": [
         "homelab"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12436",
+      "title": "llama.cpp b12436",
+      "summary": "vulkan : fix 32-bit compilation ( #32275 )",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-16T10:50:31Z",
+      "added_at": "2026-11-16T12:01:29Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/fbadea49c730880f.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
