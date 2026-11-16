@@ -90274,11 +90274,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12432",
       "title": "llama.cpp b12432",
-      "summary": "kv-cells: avoid an O(n_cells) scan per sequence removal ( #32380 )",
+      "summary": "kv-cells: avoid an O(n_cells) scan per sequence removal ( #32380 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-16T09:52:09Z",
+      "published": "2026-11-16T10:45:44Z",
       "added_at": "2026-11-16T10:31:28Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/01243d038aa36835.png",
@@ -90331,6 +90331,57 @@
       "lane": "Reddit",
       "published": "2026-11-16T10:30:58+00:00",
       "added_at": "2026-11-16T10:31:28Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12433",
+      "title": "b12433: cuda : fix MUL_MAT_ID abort with odd src0 columns on AMD (#32385)",
+      "summary": "On AMD devices MUL_MAT_ID with an F32, F16 or BF16 src0 and at most 8 tokens always used MMVF. MMVF reads src0 in pairs of values and asserts an even ne[0], so a rank 1 LoRA on MoE expert weights (lora_b has ne[0] == 1) aborted. Use MMVF there only for an even ne[0]; other shapes",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-16T09:53:06Z",
+      "added_at": "2026-11-16T11:01:27Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/0a4f448f2a71c1de.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xxmd9a/how_do_we_feel_about_bots_posting_commenting/",
+      "title": "How do we feel about bots posting & commenting?",
+      "summary": "Hi all, I noticed the \"bot problem\" got a lot worse the past few months. By which I mean our community seems to be taken over more and more by bots talking to each other. For me, I don't really get the point, and I personally get quite annoyed when I realize \"oh, I just responded",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-16T10:48:39+00:00",
+      "added_at": "2026-11-16T11:01:28Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xxmd3w/paper_models_mmflash_faster_speculative_decoding/",
+      "title": "[Paper & Models] MMFlash: Faster Speculative Decoding for Vision-Language Models",
+      "summary": "Speculative decoding accelerates generation by letting a lightweight drafter propose tokens for parallel verification by a target model. Diffusion drafters such as DFlash propose an entire token block in a single forward pass, but mainly focus on text-only tasks, leaving multimod",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-16T10:48:24+00:00",
+      "added_at": "2026-11-16T11:01:28Z",
       "image": "",
       "file": "",
       "video": "",

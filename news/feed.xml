@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-16T04:21:11Z</lastBuildDate>
 <item>
+<title>How do we feel about bots posting &amp; commenting?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xxmd9a/how_do_we_feel_about_bots_posting_commenting/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxmd9a/how_do_we_feel_about_bots_posting_commenting/</guid>
+<pubDate>2026-11-16T10:48:39+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hi all, I noticed the &quot;bot problem&quot; got a lot worse the past few months. By which I mean our community seems to be taken over more and more by bots talking to each other. For me, I don&#x27;t really get the point, and I personally get quite annoyed when I realize &quot;oh, I just responded]]></description>
+</item>
+<item>
+<title>[Paper &amp; Models] MMFlash: Faster Speculative Decoding for Vision-Language Models</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xxmd3w/paper_models_mmflash_faster_speculative_decoding/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxmd3w/paper_models_mmflash_faster_speculative_decoding/</guid>
+<pubDate>2026-11-16T10:48:24+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Speculative decoding accelerates generation by letting a lightweight drafter propose tokens for parallel verification by a target model. Diffusion drafters such as DFlash propose an entire token block in a single forward pass, but mainly focus on text-only tasks, leaving multimod]]></description>
+</item>
+<item>
+<title>llama.cpp b12432</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12432</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12432</guid>
+<pubDate>2026-11-16T10:45:44Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01243d038aa36835.png" alt=""><p>Article · llama.cpp. kv-cells: avoid an O(n_cells) scan per sequence removal ( #32380 ) Website:</p>]]></description>
+</item>
+<item>
 <title>[Paper] The Value of Thinking: Learning When to Reason in Hybrid Decision Models</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xxm2v8/paper_the_value_of_thinking_learning_when_to/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxm2v8/paper_the_value_of_thinking_learning_when_to/</guid>
@@ -26,18 +47,18 @@
 <description><![CDATA[Reddit · r/LocalLLaMA. submitted by /u/Subulicious [link] [comments]]]></description>
 </item>
 <item>
+<title>b12433: cuda : fix MUL_MAT_ID abort with odd src0 columns on AMD (#32385)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12433</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12433</guid>
+<pubDate>2026-11-16T09:53:06Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0a4f448f2a71c1de.png" alt=""><p>Article · llama.cpp. On AMD devices MUL_MAT_ID with an F32, F16 or BF16 src0 and at most 8 tokens always used MMVF. MMVF reads src0 in pairs of values and asserts an even ne[0], so a rank 1 LoRA on MoE expert weights (lora_b has ne[0] == 1) aborted. Use MMVF there only for an even ne[0]; other shapes</p>]]></description>
+</item>
+<item>
 <title>Introducing Hy4 flash</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xxlgpb/introducing_hy4_flash/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxlgpb/introducing_hy4_flash/</guid>
 <pubDate>2026-11-16T09:52:44+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Now this seems to be interesting. From the article: We’re introducing Hy4 flash, our most cost-effective Hy model to date-featuring 224B total parameters (including 64B Engram parameters) with just 12B active parameters per token. Like Hy4, it is natively multimodal with a 1M-tok]]></description>
-</item>
-<item>
-<title>llama.cpp b12432</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12432</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12432</guid>
-<pubDate>2026-11-16T09:52:09Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01243d038aa36835.png" alt=""><p>Article · llama.cpp. kv-cells: avoid an O(n_cells) scan per sequence removal ( #32380 )</p>]]></description>
 </item>
 <item>
 <title>Alibaba Releases Qwen4-Max: 2.4T MoE, 71B Active, 1M Context</title>
