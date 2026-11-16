@@ -5,11 +5,53 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-16T13:57:49Z</lastBuildDate>
 <item>
+<title>Development build (e09680a)</title>
+<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
+<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
+<pubDate>2026-11-16T14:52:08Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. Commit: e09680a Date: 2026-11-16T13:55:28Z Subject: Fix CLI help text and the connectors permission label This is an unsupported development build of the master branch. Use a release for anything that matters.</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12441</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12441</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12441</guid>
 <pubDate>2026-11-16T14:26:00Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f32591813a96388e.png" alt=""><p>Article · llama.cpp. webgpu: support per-head flash attention masks ( #32394 ) The flash attention shaders indexed the mask without its head dimension, so masks with ne[2] &gt; 1 gave wrong results. The mask offset and the vec block states now include the head, broadcast as head % mask-&gt;ne[2] like the o</p>]]></description>
+</item>
+<item>
+<title>Stop worrying about Qwen 4&#x27;s AA index</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xxqfqr/stop_worrying_about_qwen_4s_aa_index/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxqfqr/stop_worrying_about_qwen_4s_aa_index/</guid>
+<pubDate>2026-11-16T14:16:10+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Seriously, we have all been extremely happy and confident with Qwen, even since Qwen 3.6 came out. We might not be frontier level, but even though whatever they are giving us is more than enough for our daily local tasks and it even suffices by a big margin, we&#x27;re all underestima]]></description>
+</item>
+<item>
+<title>Where is QWEN 4 27b ?</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xxqfe5/where_is_qwen_4_27b/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxqfe5/where_is_qwen_4_27b/</guid>
+<pubDate>2026-11-16T14:15:44+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. A wise man once told me &quot;models will break your heart&quot;. I just didn&#x27;t think he meant these types of models lol submitted by /u/HolidayBit143 [link] [comments]]]></description>
+</item>
+<item>
+<title>Training-free page-sparse decode in llama.cpp: Qwen3-30B-A3B is 1.72× faster at 128k on an RTX 5090, with a 1-point RULER loss</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xxqdil/trainingfree_pagesparse_decode_in_llamacpp/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxqdil/trainingfree_pagesparse_decode_in_llamacpp/</guid>
+<pubDate>2026-11-16T14:13:35+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. I&#x27;ve been working on a simple question: at long context, does decode really need to read the whole KV cache for every new token? I wanted something training-free that runs inside llama.cpp on normal GPUs, not a new model or a separate serving stack. So I built page-sparse decode]]></description>
+</item>
+<item>
+<title>[Project] Gemma.c - Gemma 1/2/3 + multimodal inference in one C file (CPU only)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xxq01s/project_gemmac_gemma_123_multimodal_inference_in/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxq01s/project_gemmac_gemma_123_multimodal_inference_in/</guid>
+<pubDate>2026-11-16T13:58:04+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hey all, so I&#x27;ve been working on Gemma.c over the last couple months, it&#x27;s a from-scratch inference engine for Gemma 1/2/3 in a single C file, runs Gemma 1, 2 and 3, including the multimodal ones, with fp32/fp16/bf16 weights or int8 (W8A8). No dependencies beyond libc and (option]]></description>
+</item>
+<item>
+<title>Best Audio Models - Nov 2026</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xxpxvi/best_audio_models_nov_2026/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxpxvi/best_audio_models_nov_2026/</guid>
+<pubDate>2026-11-16T13:55:16+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Its time for another Best Audio Models megathread - its already been 9 months since the last one! Share what your favorite ASR, TTS, STT, Text to Music models are right now and why. Given the the amount of ambiguity and subjectivity in rating/testing these models, please be as de]]></description>
 </item>
 <item>
 <title>llama.cpp b12442</title>
@@ -129,13 +171,6 @@
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xxm2v8/paper_the_value_of_thinking_learning_when_to/</guid>
 <pubDate>2026-11-16T10:30:58+00:00</pubDate>
 <description><![CDATA[Reddit · r/LocalLLaMA. Existing adaptive-reasoning methods shorten the explicit reasoning a model writes, or skip it by switching modes; either way the answer is still written out token by token. Rather than deciding how much to think, we explore a different paradigm, zero-or-T thinking: a single model]]></description>
-</item>
-<item>
-<title>Development build (b83ba84)</title>
-<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
-<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
-<pubDate>2026-11-16T09:59:25Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. Commit: b83ba84 Date: 2026-11-16T09:13:56Z Subject: chore: ⬆️ Update ServeurpersoCom/omnivoice.cpp to a5bd24f6b675335d1c9c0e945793d0de9fabe9a4 ( #13251 ) This is an unsupported development build of the master branch. Use a release for anything that matters.</p>]]></description>
 </item>
 <item>
 <title>The beginning of the becoming of the beginning begins</title>
