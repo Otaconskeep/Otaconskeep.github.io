@@ -90558,6 +90558,23 @@
         "local-models",
         "communities"
       ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12441",
+      "title": "b12441: webgpu: support per-head flash attention masks (#32394)",
+      "summary": "The flash attention shaders indexed the mask without its head dimension, so masks with ne[2] > 1 gave wrong results. The mask offset and the vec block states now include the head, broadcast as head % mask->ne[2] like the other backends. The params buffer grows to 256 bytes to fit",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-16T13:20:18Z",
+      "added_at": "2026-11-16T13:31:28Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/f32591813a96388e.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
     }
   ]
 }
