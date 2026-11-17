@@ -91635,14 +91635,48 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12456",
       "title": "llama.cpp b12456",
-      "summary": "opencl: fix three defects of the bin flash-attention prefill path ( #3 …",
+      "summary": "opencl: fix three defects of the bin flash-attention prefill path ( #32110 ) opencl: release the WMM flash-attention mask fallback image The fallback image is created on every call of the bin flash-attention kernel over a sub-buffer of the K cache and was never released, so each ",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-16T18:57:48Z",
+      "published": "2026-11-17T05:09:27Z",
       "added_at": "2026-11-17T05:01:36Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/c4eda0b4ee22d2e6.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12458",
+      "title": "b12458: mtmd: support YuE2-3B (#32369)",
+      "summary": "mtmd: support YuE2-3B improve speed add CFG fix streaming add cfg control from api check ctx size fix n_predict add flow_steps config nits fix batch api nits adapt mtmd: yue2 samples from its own saved logits The context logits belong to the last decode of any slot, so with sever",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-16T19:22:23Z",
+      "added_at": "2026-11-17T05:31:34Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/e8c93b67deda8958.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12457",
+      "title": "llama.cpp b12457",
+      "summary": "opencl: add A7 Q4_K non-MoE binary kernel ( #30948 ) Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-17T05:25:02Z",
+      "added_at": "2026-11-17T05:31:34Z",
+      "image": "https://opengraph.githubassets.com/02fff5b0709672e079072a53d03976191f29a065ba79656bb97596420b444ee2/ggml-org/llama.cpp/releases/tag/b12457",
+      "file": "media/9603e32af98fc3fe.png",
       "video": "",
       "categories": [
         "local-models",
