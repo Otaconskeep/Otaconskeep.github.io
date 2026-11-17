@@ -88969,12 +88969,12 @@
     },
     {
       "url": "https://github.com/mudler/LocalAI/releases/tag/dev-master",
-      "title": "Development build (97109df)",
-      "summary": "Commit: 97109df Date: 2026-11-17T18:42:36Z Subject: feat(website): say open source in the home hero This is an unsupported development build of the master branch. Use a release for anything that matters.",
+      "title": "Development build (f59b187)",
+      "summary": "Commit: f59b187 Date: 2026-11-17T22:24:24Z Subject: fix(mlx-audio): pin upstream to the last commit that supports Python 3.10 This is an unsupported development build of the master branch. Use a release for anything that matters.",
       "source": "LocalAI",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-17T21:55:32Z",
+      "published": "2026-11-17T22:46:55Z",
       "added_at": "2026-11-15T10:01:29Z",
       "image": "https://opengraph.githubassets.com/331eb3aa8a44fe833231290b9796385d54c43d6c91a6458b049da13f0b463b4b/mudler/LocalAI/releases/tag/dev-master",
       "file": "media/b555393f25bc1600.png",
@@ -92603,11 +92603,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12484",
       "title": "llama.cpp b12484",
-      "summary": "ggml : decode F8_E4M3 to fp32 without ldexpf ( #32477 )",
+      "summary": "ggml : decode F8_E4M3 to fp32 without ldexpf ( #32477 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-17T14:40:53Z",
+      "published": "2026-11-17T23:01:09Z",
       "added_at": "2026-11-17T20:31:39Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/41cc800b24b8f3f9.png",
@@ -92636,18 +92636,84 @@
     },
     {
       "url": "https://github.com/BerriAI/litellm/releases/tag/v1.108.11",
-      "title": "LiteLLM v1.108.11",
-      "summary": "Verify Docker Image Signature cosign verify \\ --certificate-identity",
+      "title": "1.108.11 (LTS)",
+      "summary": "Tip The lts image tag always points to the latest LTS release. Pull ghcr.io/berriai/litellm:lts to stay on the newest LTS patch Verify this release cosign verify \\ --certificate-identity",
       "source": "LiteLLM",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-17T22:29:13Z",
+      "published": "2026-11-17T22:55:01Z",
       "added_at": "2026-11-17T22:31:39Z",
       "image": "https://opengraph.githubassets.com/2f824d3e43e4ac8fc5b202491a5144415fc384fdb6dac2f62048a71ba2607ea7/BerriAI/litellm/releases/tag/v1.108.11",
       "file": "media/68e26c9200e02ea8.png",
       "video": "",
       "categories": [
         "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12485",
+      "title": "b12485: CUDA: use block reductions for whole-row pool_1d (#31855)",
+      "summary": "CUDA: use block reductions for whole-row pool_1d Assisted-by: Claude Code CUDA: template pool1d row kernel by ggml_op_pool",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-17T14:51:15Z",
+      "added_at": "2026-11-17T23:01:37Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/1456da0c0af12c2f.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.45.6",
+      "title": "ComfyUI v0.45.6",
+      "summary": "Article from ComfyUI.",
+      "source": "ComfyUI",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-17T22:47:35Z",
+      "added_at": "2026-11-17T23:01:37Z",
+      "image": "https://repository-images.githubusercontent.com/589831718/8894dcc0-5f53-4f3c-97f0-50d820b7779b",
+      "file": "media/d9ac6dfc8d2389e0.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents/",
+      "title": "External sandboxes for coding agents",
+      "summary": "I've been exploring new ways to sandbox code that is executed by agents, with a focus on making it safer to try out local models without worrying that a mistake or prompt injection attack might cause them to take damaging actions on a machine. I worked on this project with Prime ",
+      "source": "Simon Willison",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-17T22:52:29+00:00",
+      "added_at": "2026-11-17T23:01:50Z",
+      "image": "https://static.simonwillison.net/static/2026/sandbox-proxy.png",
+      "file": "media/169883725ebdae77.png",
+      "video": "",
+      "categories": [
+        "local-models"
+      ]
+    },
+    {
+      "url": "https://simonwillison.net/2026/Nov/17/gpt62-astra-and-sol/",
+      "title": "GPT‑6.2 Astra and GPT‑6.2 Sol",
+      "summary": "OpenAI: We’re introducing GPT‑6.2 Astra, our new frontier model for your hardest projects, and GPT‑6.2 Sol, our efficient, versatile model for everyday work. They're available in the API as gpt-6.2-astra and gpt-6.2-sol . I shipped LLM 0.38 with support for the new models. 6.2 As",
+      "source": "Simon Willison",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-17T22:38:52+00:00",
+      "added_at": "2026-11-17T23:01:50Z",
+      "image": "https://static.simonwillison.net/static/2026/astra-6-2-max.webp",
+      "file": "media/1d1f7b74fde0bbbe.webp",
+      "video": "",
+      "categories": [
         "releases"
       ]
     }
