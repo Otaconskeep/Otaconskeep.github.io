@@ -91753,12 +91753,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12465",
-      "title": "b12465: sycl: use fast division in bin-bcast kernels (#32213)",
-      "summary": "Replace the per-element modulo of i0 with fast_div_modulo in the ravel and unravel bin-bcast kernels, drop the now-unused ne10/ne20 kernel arguments, and reject divisors that do not fit in 32 bits when the magic values are computed, as the CUDA implementation does. Co-authored-by",
+      "title": "llama.cpp b12465",
+      "summary": "sycl: use fast division in bin-bcast kernels ( #32213 ) Replace the per-element modulo of i0 with fast_div_modulo in the ravel and unravel bin-bcast kernels, drop the now-unused ne10/ne20 kernel arguments, and reject divisors that do not fit in 32 bits when the magic values are c",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-17T07:17:47Z",
+      "published": "2026-11-17T07:56:12Z",
       "added_at": "2026-11-17T07:31:35Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/b4b0c4dce25a4fac.png",
@@ -91766,6 +91766,24 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xybrqd/single_3060_mostly_vision_frigate/",
+      "title": "Single 3060 - Mostly Vision (Frigate)",
+      "summary": "Hello, I am consolidating a bit of my server footprint and decided to keep a single 3060 (had 3) and mostly use it for Local workloads (Frigate, Home Assistant, Logs, etc). Curious if someone would want to recommend a good vison model for this card? I currently run qwen3-VL on a ",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-17T05:05:53+00:00",
+      "added_at": "2026-11-17T08:01:36Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "home-automation",
+        "communities"
       ]
     }
   ]

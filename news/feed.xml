@@ -5,11 +5,11 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-17T04:05:26Z</lastBuildDate>
 <item>
-<title>b12465: sycl: use fast division in bin-bcast kernels (#32213)</title>
+<title>llama.cpp b12465</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12465</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12465</guid>
-<pubDate>2026-11-17T07:17:47Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b4b0c4dce25a4fac.png" alt=""><p>Article · llama.cpp. Replace the per-element modulo of i0 with fast_div_modulo in the ravel and unravel bin-bcast kernels, drop the now-unused ne10/ne20 kernel arguments, and reject divisors that do not fit in 32 bits when the magic values are computed, as the CUDA implementation does. Co-authored-by</p>]]></description>
+<pubDate>2026-11-17T07:56:12Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b4b0c4dce25a4fac.png" alt=""><p>Article · llama.cpp. sycl: use fast division in bin-bcast kernels ( #32213 ) Replace the per-element modulo of i0 with fast_div_modulo in the ravel and unravel bin-bcast kernels, drop the now-unused ne10/ne20 kernel arguments, and reject divisors that do not fit in 32 bits when the magic values are c</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12464</title>
@@ -52,6 +52,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12456</guid>
 <pubDate>2026-11-17T05:09:27Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c4eda0b4ee22d2e6.png" alt=""><p>Article · llama.cpp. opencl: fix three defects of the bin flash-attention prefill path ( #32110 ) opencl: release the WMM flash-attention mask fallback image The fallback image is created on every call of the bin flash-attention kernel over a sub-buffer of the K cache and was never released, so each</p>]]></description>
+</item>
+<item>
+<title>Single 3060 - Mostly Vision (Frigate)</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xybrqd/single_3060_mostly_vision_frigate/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xybrqd/single_3060_mostly_vision_frigate/</guid>
+<pubDate>2026-11-17T05:05:53+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Hello, I am consolidating a bit of my server footprint and decided to keep a single 3060 (had 3) and mostly use it for Local workloads (Frigate, Home Assistant, Logs, etc). Curious if someone would want to recommend a good vison model for this card? I currently run qwen3-VL on a]]></description>
 </item>
 <item>
 <title>llama.cpp b12455</title>
