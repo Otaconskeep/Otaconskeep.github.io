@@ -5,6 +5,41 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-17T04:05:26Z</lastBuildDate>
 <item>
+<title>llama.cpp b12469</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12469</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12469</guid>
+<pubDate>2026-11-17T10:31:36Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1abd8cdfe1078e33.png" alt=""><p>Article · llama.cpp. metal : add implicit GEMM kernel for CONV_2D ( #28069 ) Website:</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12468</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12468</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12468</guid>
+<pubDate>2026-11-17T10:17:18Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16dee00cdaaa92c0.png" alt=""><p>Article · llama.cpp. webgpu : Implement timestep embedding ( #31695 ) Only run webgpu CI on my fork Add webgpu only workflow resolve merge conflicts save state save kernel add kernel back in fix merge issues with kernels updates update tests change invocation count and workgroup to be u32 clang forma</p>]]></description>
+</item>
+<item>
+<title>OVH announces Olala mini 7A1B</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xygtj4/ovh_announces_olala_mini_7a1b/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xygtj4/ovh_announces_olala_mini_7a1b/</guid>
+<pubDate>2026-11-17T10:14:35+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Olala mini is based on a 7-billion-parameter architecture (7B), with one billion active parameters spread across 256 experts per layer, and hybrid attention combining Differential-TPA and Mamba-3, in BF16 format. Only a fraction of the model is used for each request, making it fa]]></description>
+</item>
+<item>
+<title>Strix Halo int4 cores: Gemma 4 31B at 2.43x llama.cpp, same quality</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xygpmv/strix_halo_int4_cores_gemma_4_31b_at_243x/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xygpmv/strix_halo_int4_cores_gemma_4_31b_at_243x/</guid>
+<pubDate>2026-11-17T10:08:06+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. The 8060S has an int4 x int4 WMMA instruction at 2x the FP16 rate (we measured 104 TOPS). Nothing in ROCm or llama.cpp uses it. We wrote a GEMM for it and run Gemma 4 with int4 weights and int4 activations. To maintain accuracy we use a combination of rotation and GPTQ, along wit]]></description>
+</item>
+<item>
+<title>Development build (8e39da7)</title>
+<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
+<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
+<pubDate>2026-11-17T10:02:25Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. Commit: 8e39da7 Date: 2026-11-17T08:46:38Z Subject: chore: ⬆️ Update ggml-org/llama.cpp to d998c676ff463b1b8ad94ad7c0b905e281422fad ( #13261 ) This is an unsupported development build of the master branch. Use a release for anything that matters.</p>]]></description>
+</item>
+<item>
 <title>n8n@3.3.0</title>
 <link>https://github.com/n8n-io/n8n/releases/tag/n8n%403.3.0</link>
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/n8n%403.3.0</guid>
@@ -33,6 +68,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5b2d8f9499af0dce.png" alt=""><p>Article · n8n. 2.49.0 (2026-11-17) Bug Fixes Accept custom OpenAI-compatible model IDs in v2 ( #43550 ) ( 5c7815a ) Add context to tool-call errors ( #42474 ) ( 71941da ) AI Agent Node: Keep the model&#x27;s text before tool calls in agent history ( #43559 ) ( f932917 ) AI Agent Node: Keep tool-call</p>]]></description>
 </item>
 <item>
+<title>AMD 9070 GPU under volting gains for models ( moss image) and ( minimax h3 int8 )</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xygbgl/amd_9070_gpu_under_volting_gains_for_models_moss/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xygbgl/amd_9070_gpu_under_volting_gains_for_models_moss/</guid>
+<pubDate>2026-11-17T09:43:55+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Reddit from r/LocalLLaMA.]]></description>
+</item>
+<item>
 <title>beta</title>
 <link>https://github.com/n8n-io/n8n/releases/tag/beta</link>
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/beta</guid>
@@ -54,18 +96,11 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b4faf8df08de0fcc.png" alt=""><p>Article · llama.cpp. opencl: support f16 and non-contig f32 silu ( #32319 ) opencl: support non-contig silu Assisted-by: Claude Opus 5.5 opencl: support f16 silu Assisted-by: Claude Opus 5.5 Website:</p>]]></description>
 </item>
 <item>
-<title>Development build (6d7b1c4)</title>
-<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
-<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
-<pubDate>2026-11-17T09:25:48Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. Commit: 6d7b1c4 Date: 2026-11-17T08:44:56Z Subject: chore: ⬆️ Update ggml-org/whisper.cpp to aba02defd6bb6ff5de63721c21e3456645c153e2 ( #13266 ) This is an unsupported development build of the master branch. Use a release for anything that matters.</p>]]></description>
-</item>
-<item>
-<title>b12468: webgpu : Implement timestep embedding (#31695)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12468</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12468</guid>
-<pubDate>2026-11-17T08:41:37Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16dee00cdaaa92c0.png" alt=""><p>Article · llama.cpp. Only run webgpu CI on my fork Add webgpu only workflow resolve merge conflicts save state save kernel add kernel back in fix merge issues with kernels updates update tests change invocation count and workgroup to be u32 clang format clang format update docs format remove extra fi</p>]]></description>
+<title>b12470: sycl : Fix FA mkl issue: a mask broadcast over heads or batches (#31536)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12470</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12470</guid>
+<pubDate>2026-11-17T08:50:32Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8298cf0591159058.png" alt=""><p>Article · llama.cpp. fix the SYCL fa with mkl error of a mask broadcast over heads or batches; add argument cache-ram to start-svr.sh add argument cache-ram to win-start-svr.bat fix format issue, remove --cache-ram in script: move to another PR</p>]]></description>
 </item>
 <item>
 <title>Curated list of resources: Theory and Code for learning Distributed Training of LLMs for beginners</title>

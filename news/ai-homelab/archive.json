@@ -88969,12 +88969,12 @@
     },
     {
       "url": "https://github.com/mudler/LocalAI/releases/tag/dev-master",
-      "title": "Development build (6d7b1c4)",
-      "summary": "Commit: 6d7b1c4 Date: 2026-11-17T08:44:56Z Subject: chore: ⬆️ Update ggml-org/whisper.cpp to aba02defd6bb6ff5de63721c21e3456645c153e2 ( #13266 ) This is an unsupported development build of the master branch. Use a release for anything that matters.",
+      "title": "Development build (8e39da7)",
+      "summary": "Commit: 8e39da7 Date: 2026-11-17T08:46:38Z Subject: chore: ⬆️ Update ggml-org/llama.cpp to d998c676ff463b1b8ad94ad7c0b905e281422fad ( #13261 ) This is an unsupported development build of the master branch. Use a release for anything that matters.",
       "source": "LocalAI",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-17T09:25:48Z",
+      "published": "2026-11-17T10:02:25Z",
       "added_at": "2026-11-15T10:01:29Z",
       "image": "https://opengraph.githubassets.com/331eb3aa8a44fe833231290b9796385d54c43d6c91a6458b049da13f0b463b4b/mudler/LocalAI/releases/tag/dev-master",
       "file": "media/b555393f25bc1600.png",
@@ -91839,12 +91839,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12468",
-      "title": "b12468: webgpu : Implement timestep embedding (#31695)",
-      "summary": "Only run webgpu CI on my fork Add webgpu only workflow resolve merge conflicts save state save kernel add kernel back in fix merge issues with kernels updates update tests change invocation count and workgroup to be u32 clang format clang format update docs format remove extra fi",
+      "title": "llama.cpp b12468",
+      "summary": "webgpu : Implement timestep embedding ( #31695 ) Only run webgpu CI on my fork Add webgpu only workflow resolve merge conflicts save state save kernel add kernel back in fix merge issues with kernels updates update tests change invocation count and workgroup to be u32 clang forma",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-17T08:41:37Z",
+      "published": "2026-11-17T10:17:18Z",
       "added_at": "2026-11-17T10:01:35Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/16dee00cdaaa92c0.png",
@@ -91886,6 +91886,91 @@
       "categories": [
         "home-automation",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12470",
+      "title": "b12470: sycl : Fix FA mkl issue: a mask broadcast over heads or batches (#31536)",
+      "summary": "fix the SYCL fa with mkl error of a mask broadcast over heads or batches; add argument cache-ram to start-svr.sh add argument cache-ram to win-start-svr.bat fix format issue, remove --cache-ram in script: move to another PR",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-17T08:50:32Z",
+      "added_at": "2026-11-17T10:31:37Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/8298cf0591159058.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12469",
+      "title": "llama.cpp b12469",
+      "summary": "metal : add implicit GEMM kernel for CONV_2D ( #28069 ) Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-17T10:31:36Z",
+      "added_at": "2026-11-17T10:31:37Z",
+      "image": "https://opengraph.githubassets.com/65aeb8b7f014c48c26b3a8643148a322ea8a28430daf3eb905152477014f3659/ggml-org/llama.cpp/releases/tag/b12469",
+      "file": "media/1abd8cdfe1078e33.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xygtj4/ovh_announces_olala_mini_7a1b/",
+      "title": "OVH announces Olala mini 7A1B",
+      "summary": "Olala mini is based on a 7-billion-parameter architecture (7B), with one billion active parameters spread across 256 experts per layer, and hybrid attention combining Differential-TPA and Mamba-3, in BF16 format. Only a fraction of the model is used for each request, making it fa",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-17T10:14:35+00:00",
+      "added_at": "2026-11-17T10:31:37Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xygpmv/strix_halo_int4_cores_gemma_4_31b_at_243x/",
+      "title": "Strix Halo int4 cores: Gemma 4 31B at 2.43x llama.cpp, same quality",
+      "summary": "The 8060S has an int4 x int4 WMMA instruction at 2x the FP16 rate (we measured 104 TOPS). Nothing in ROCm or llama.cpp uses it. We wrote a GEMM for it and run Gemma 4 with int4 weights and int4 activations. To maintain accuracy we use a combination of rotation and GPTQ, along wit",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-17T10:08:06+00:00",
+      "added_at": "2026-11-17T10:31:37Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xygbgl/amd_9070_gpu_under_volting_gains_for_models_moss/",
+      "title": "AMD 9070 GPU under volting gains for models ( moss image) and ( minimax h3 int8 )",
+      "summary": "Reddit from r/LocalLLaMA.",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-17T09:43:55+00:00",
+      "added_at": "2026-11-17T10:31:37Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
       ]
     }
   ]
