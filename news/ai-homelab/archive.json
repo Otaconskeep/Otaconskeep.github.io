@@ -92023,6 +92023,73 @@
         "local-models",
         "communities"
       ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12473",
+      "title": "b12473: cuda : raise shared mem limit only for the launched kernel (#32392)",
+      "summary": "This commit removes a call of the CUDA_SET_SHARED_MEMORY_LIMIT macro as the fallback decision was moved out of launch_mul_mat_q. launch_mul_mat_q now has the fallback template parameter which was added in Commit 6eddde0 (\"CUDA: refactor MMQ kernel configuration ( #24127 )\"). This",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-17T09:53:08Z",
+      "added_at": "2026-11-17T12:01:41Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/94d099d4117467ae.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xyi3aa/nvidiaqwen38flashnextnvfp4qad/",
+      "title": "nvidia/Qwen3.8-Flash-Next-NVFP4-QAD",
+      "summary": "Looks pretty interesting! Also sorry if the \"new model\" flair is inappropiate here, wasn't sure if I should pick that or \"discussion\". submitted by /u/Kahvana [link] [comments]",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-17T11:29:34+00:00",
+      "added_at": "2026-11-17T12:01:41Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1xyi6hj/rotate_kv_read_order_for_better_l2_cache_hit/",
+      "title": "Rotate K/V read order for better L2 cache hit rates by gaugarg-nv · Pull Request #32407 · ggml-org/llama.cpp",
+      "summary": "Significant prompt processing speedup with long contexts gpu_info model_type n_prompt n_gen n_depth Master (t/s) PR (t/s) Speed-up NVIDIA GeForce RTX 5090 qwen35 27B Q4_K - Medium 512 0 131072 1290.10833 1822.36027 1.41 NVIDIA GeForce RTX 5090 qwen35 27B Q4_K - Medium 512 0 65536",
+      "source": "r/LocalLLaMA",
+      "kind": "social",
+      "lane": "Reddit",
+      "published": "2026-11-17T11:34:46+00:00",
+      "added_at": "2026-11-17T12:01:41Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://noted.lol/unsloth/",
+      "title": "Unsloth Lets You Run and Fine-Tune AI Models on Your Own Hardware",
+      "summary": "Unsloth is an open-source tool for running and fine-tuning AI models on your own hardware, with reduced VRAM requirements and a browser-based interface.",
+      "source": "noted.lol",
+      "kind": "article",
+      "lane": "Article",
+      "published": "Tue, 17 Nov 2026 06:45:08 -0500",
+      "added_at": "2026-11-17T12:01:53Z",
+      "image": "https://noted.lol/content/images/size/w1200/2026/11/unsloth-run-fine-tune-ai-models-locally.png",
+      "file": "media/897a9aa36b4f84da.png",
+      "video": "",
+      "categories": [
+        "homelab"
+      ]
     }
   ]
 }

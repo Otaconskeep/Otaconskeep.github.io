@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-17T04:05:26Z</lastBuildDate>
 <item>
+<title>Unsloth Lets You Run and Fine-Tune AI Models on Your Own Hardware</title>
+<link>https://noted.lol/unsloth/</link>
+<guid isPermaLink="true">https://noted.lol/unsloth/</guid>
+<pubDate>Tue, 17 Nov 2026 06:45:08 -0500</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/897a9aa36b4f84da.png" alt=""><p>Article · noted.lol. Unsloth is an open-source tool for running and fine-tuning AI models on your own hardware, with reduced VRAM requirements and a browser-based interface.</p>]]></description>
+</item>
+<item>
+<title>Rotate K/V read order for better L2 cache hit rates by gaugarg-nv · Pull Request #32407 · ggml-org/llama.cpp</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xyi6hj/rotate_kv_read_order_for_better_l2_cache_hit/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xyi6hj/rotate_kv_read_order_for_better_l2_cache_hit/</guid>
+<pubDate>2026-11-17T11:34:46+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Significant prompt processing speedup with long contexts gpu_info model_type n_prompt n_gen n_depth Master (t/s) PR (t/s) Speed-up NVIDIA GeForce RTX 5090 qwen35 27B Q4_K - Medium 512 0 131072 1290.10833 1822.36027 1.41 NVIDIA GeForce RTX 5090 qwen35 27B Q4_K - Medium 512 0 65536]]></description>
+</item>
+<item>
+<title>nvidia/Qwen3.8-Flash-Next-NVFP4-QAD</title>
+<link>https://www.reddit.com/r/LocalLLaMA/comments/1xyi3aa/nvidiaqwen38flashnextnvfp4qad/</link>
+<guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xyi3aa/nvidiaqwen38flashnextnvfp4qad/</guid>
+<pubDate>2026-11-17T11:29:34+00:00</pubDate>
+<description><![CDATA[Reddit · r/LocalLLaMA. Looks pretty interesting! Also sorry if the &quot;new model&quot; flair is inappropiate here, wasn&#x27;t sure if I should pick that or &quot;discussion&quot;. submitted by /u/Kahvana [link] [comments]]]></description>
+</item>
+<item>
 <title>MoE Offloading update Exllamav3 on 9070XT</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1xyhrnn/moe_offloading_update_exllamav3_on_9070xt/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1xyhrnn/moe_offloading_update_exllamav3_on_9070xt/</guid>
@@ -52,6 +73,13 @@
 <guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
 <pubDate>2026-11-17T10:02:25Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. Commit: 8e39da7 Date: 2026-11-17T08:46:38Z Subject: chore: ⬆️ Update ggml-org/llama.cpp to d998c676ff463b1b8ad94ad7c0b905e281422fad ( #13261 ) This is an unsupported development build of the master branch. Use a release for anything that matters.</p>]]></description>
+</item>
+<item>
+<title>b12473: cuda : raise shared mem limit only for the launched kernel (#32392)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12473</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12473</guid>
+<pubDate>2026-11-17T09:53:08Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/94d099d4117467ae.png" alt=""><p>Article · llama.cpp. This commit removes a call of the CUDA_SET_SHARED_MEMORY_LIMIT macro as the fallback decision was moved out of launch_mul_mat_q. launch_mul_mat_q now has the fallback template parameter which was added in Commit 6eddde0 (&quot;CUDA: refactor MMQ kernel configuration ( #24127 )&quot;). This</p>]]></description>
 </item>
 <item>
 <title>n8n@3.3.0</title>
