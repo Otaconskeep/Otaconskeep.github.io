@@ -92787,15 +92787,66 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12491",
-      "title": "b12491: mtmd: Add support for Qwen3-TTS' ICL/reference mode (#32438)",
-      "summary": "Added support for Qwen3-TTS ICL/reference mode Assisted-By: Claude Opus 5.5 fix correctness attach transcription to bitmap nits Co-authored-by: Xuan Son Nguyen son@huggingface.co",
+      "title": "llama.cpp b12491",
+      "summary": "mtmd: Add support for Qwen3-TTS' ICL/reference mode ( #32438 ) Added support for Qwen3-TTS ICL/reference mode Assisted-By: Claude Opus 5.5 fix correctness attach transcription to bitmap nits Co-authored-by: Xuan Son Nguyen son@huggingface.co Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-17T17:59:11Z",
+      "published": "2026-11-18T01:38:36Z",
       "added_at": "2026-11-18T01:31:39Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/c98039be53cc31f3.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12493",
+      "title": "b12493: cuda: use the implicit GEMM conv2d path for F32 kernels (#32482)",
+      "summary": "The fast CONV_2D path (implicit GEMM with MMA, or cuBLAS for pointwise convolutions) required an F16 kernel. F32 kernels fell back to the naive direct convolution, which is much slower than im2col + mul_mat on large channel counts. Convert F32 kernels to F16 in a pool buffer, as ",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-17T19:43:11Z",
+      "added_at": "2026-11-18T02:01:39Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/43156df6a155c5b0.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12492",
+      "title": "llama.cpp b12492",
+      "summary": "opencl: add A7 Q5_K non-MoE binary kernel ( #31002 ) Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-18T02:01:38Z",
+      "added_at": "2026-11-18T02:01:39Z",
+      "image": "https://opengraph.githubassets.com/a4f0606f55a09d54ae2fbbf386f786570bf290f2176d03dc9f985bfd82b5be80/ggml-org/llama.cpp/releases/tag/b12492",
+      "file": "media/c2af7cd3e7b9a963.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/BerriAI/litellm/releases/tag/v1.110.0",
+      "title": "LiteLLM v1.110.0",
+      "summary": "Verify Docker Image Signature cosign verify \\ --certificate-identity",
+      "source": "LiteLLM",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-18T01:36:48Z",
+      "added_at": "2026-11-18T02:01:51Z",
+      "image": "https://opengraph.githubassets.com/f9b5948cf15b1b349b4fce65ce1706f2afa2bdf18a6edfd6b177f819fb4b74fa/BerriAI/litellm/releases/tag/v1.110.0",
+      "file": "media/e73a4229d80436d3.png",
       "video": "",
       "categories": [
         "local-models",
