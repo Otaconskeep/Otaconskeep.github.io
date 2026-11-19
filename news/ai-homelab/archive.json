@@ -93867,6 +93867,23 @@
       "categories": [
         "home-automation"
       ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12543",
+      "title": "b12543: metal : CONV_2D tensor API for M5, split-K for all chips (#32542)",
+      "summary": "metal: add a tensor API conv_2d kernel and split long reductions The conv_2d matmul kernel runs on simdgroup matrices only, and gives each threadgroup the whole reduction of its output tile. On M5 this leaves the tensor cores unused, and convolutions with few output positions and",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-19T09:48:44Z",
+      "added_at": "2026-11-19T16:31:40Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/e1452c59bed1e522.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
     }
   ]
 }
