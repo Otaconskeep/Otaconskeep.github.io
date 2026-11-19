@@ -94075,7 +94075,7 @@
     {
       "url": "https://lemmy.world/post/54617103",
       "title": "What's your opinion on local domains like cloud.lan?",
-      "summary": "submitted by marius to selfhosted 2 points | 4 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems like ",
+      "summary": "submitted by marius to selfhosted 5 points | 6 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems like ",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -94091,15 +94091,32 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12556",
-      "title": "b12556: model : hrm : do not compute slot count as uint32_t (#32601)",
-      "summary": "load_arch_hparams multiplies n_hrm_layers_per_stack, n_hrm_h_cycles and (n_hrm_l_cycles + 1) into a uint32_t, then asserts the product equals block_count. Any factors whose true product is block_count + k*2^32 still pass the assert; 1073741825 * 2 * 2 = 2^32 + 4 compares equal to",
+      "title": "llama.cpp b12556",
+      "summary": "model : hrm : do not compute slot count as uint32_t ( #32601 ) load_arch_hparams multiplies n_hrm_layers_per_stack, n_hrm_h_cycles and (n_hrm_l_cycles + 1) into a uint32_t, then asserts the product equals block_count. Any factors whose true product is block_count + k*2^32 still p",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-19T22:21:03Z",
+      "published": "2026-11-19T23:17:27Z",
       "added_at": "2026-11-19T23:01:39Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/41eccff704a78b7f.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12557",
+      "title": "b12557: CUDA: implement support for duplicate expert IDs (#32505)",
+      "summary": "implement support for duplicate expert IDs",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-19T22:21:24Z",
+      "added_at": "2026-11-19T23:31:40Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/53831803923e354a.png",
       "video": "",
       "categories": [
         "local-models",
