@@ -5,18 +5,32 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-19T13:33:09Z</lastBuildDate>
 <item>
+<title>llama.cpp b12546</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12546</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12546</guid>
+<pubDate>2026-11-19T16:55:35Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/04fce62ebfd91b42.png" alt=""><p>Article · llama.cpp. llama : remove redundant fields from llm_graph_params ( #32596 ) llm_graph_params no longer carries hparams, prec_policy and hdmd, since the model reference already provides them. llm_graph_context sources them from the model and keeps prec_policy as a reference. Assisted-by: dsh</p>]]></description>
+</item>
+<item>
+<title>Development build (a3c0a6d)</title>
+<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
+<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
+<pubDate>2026-11-19T16:51:02Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. Commit: a3c0a6d Date: 2026-11-19T16:33:41Z Subject: fix(ui): make ui.json the one source of the theme and steady the shell This is an unsupported development build of the master branch. Use a release for anything that matters.</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12543</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12543</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12543</guid>
+<pubDate>2026-11-19T16:38:04Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e1452c59bed1e522.png" alt=""><p>Article · llama.cpp. metal : CONV_2D tensor API for M5, split-K for all chips ( #32542 ) metal: add a tensor API conv_2d kernel and split long reductions The conv_2d matmul kernel runs on simdgroup matrices only, and gives each threadgroup the whole reduction of its output tile. On M5 this leaves the</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12542</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12542</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12542</guid>
 <pubDate>2026-11-19T16:00:54Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8fbf8e7b2ed1a7a6.png" alt=""><p>Article · llama.cpp. qwen3vl : set t_layer_inp for EAGLE-3 ( #32589 ) Assisted-by: Grok Bot Website:</p>]]></description>
-</item>
-<item>
-<title>Development build (1e4cabc)</title>
-<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
-<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
-<pubDate>2026-11-19T15:11:06Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. Commit: 1e4cabc Date: 2026-11-19T14:36:36Z Subject: test(addons): list the specs the Windows work added in the suite inventory This is an unsupported development build of the master branch. Use a release for anything that matters.</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12541</title>
@@ -47,18 +61,18 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/01b40289d2a1d45d.png" alt=""><p>Article · llama.cpp. vulkan: Implement stream-k MUL_MAT ( #28528 ) vulkan: Implement stream-k MUL_MAT Stream-k tries to split chunks of 256 K elements evenly across all SMs. Workgroups that finish a tile write to dst, others write to scratch, and there&#x27;s a resolve shader similar to split-k. The shade</p>]]></description>
 </item>
 <item>
+<title>b12547: webgpu: add POOL_2D support (#32250)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12547</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12547</guid>
+<pubDate>2026-11-19T11:35:10Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c52aaf28ed806c99.png" alt=""><p>Article · llama.cpp. Shader, pipeline, and launcher Update docs and add newline to wgsl Formatting fixes</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12534</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12534</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12534</guid>
 <pubDate>2026-11-19T11:15:48Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/898e84e6eee2a6b4.png" alt=""><p>Article · llama.cpp. vulkan: use floating-point zero for storage-only FP16 in DIAG/TRI ( #32379 ) vulkan: Change integer zero to floating-point zero for storage-only FP16 in DIAG/TRI. Assisted-by: OpenAI Codex delete narrow test Website:</p>]]></description>
-</item>
-<item>
-<title>b12543: metal : CONV_2D tensor API for M5, split-K for all chips (#32542)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12543</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12543</guid>
-<pubDate>2026-11-19T09:48:44Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e1452c59bed1e522.png" alt=""><p>Article · llama.cpp. metal: add a tensor API conv_2d kernel and split long reductions The conv_2d matmul kernel runs on simdgroup matrices only, and gives each threadgroup the whole reduction of its output tile. On M5 this leaves the tensor cores unused, and convolutions with few output positions and</p>]]></description>
 </item>
 <item>
 <title>n8n@1.123.99</title>

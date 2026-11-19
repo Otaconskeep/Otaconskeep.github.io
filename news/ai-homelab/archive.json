@@ -88969,12 +88969,12 @@
     },
     {
       "url": "https://github.com/mudler/LocalAI/releases/tag/dev-master",
-      "title": "Development build (1e4cabc)",
-      "summary": "Commit: 1e4cabc Date: 2026-11-19T14:36:36Z Subject: test(addons): list the specs the Windows work added in the suite inventory This is an unsupported development build of the master branch. Use a release for anything that matters.",
+      "title": "Development build (a3c0a6d)",
+      "summary": "Commit: a3c0a6d Date: 2026-11-19T16:33:41Z Subject: fix(ui): make ui.json the one source of the theme and steady the shell This is an unsupported development build of the master branch. Use a release for anything that matters.",
       "source": "LocalAI",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-19T15:11:06Z",
+      "published": "2026-11-19T16:51:02Z",
       "added_at": "2026-11-15T10:01:29Z",
       "image": "https://opengraph.githubassets.com/331eb3aa8a44fe833231290b9796385d54c43d6c91a6458b049da13f0b463b4b/mudler/LocalAI/releases/tag/dev-master",
       "file": "media/b555393f25bc1600.png",
@@ -93870,15 +93870,49 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12543",
-      "title": "b12543: metal : CONV_2D tensor API for M5, split-K for all chips (#32542)",
-      "summary": "metal: add a tensor API conv_2d kernel and split long reductions The conv_2d matmul kernel runs on simdgroup matrices only, and gives each threadgroup the whole reduction of its output tile. On M5 this leaves the tensor cores unused, and convolutions with few output positions and",
+      "title": "llama.cpp b12543",
+      "summary": "metal : CONV_2D tensor API for M5, split-K for all chips ( #32542 ) metal: add a tensor API conv_2d kernel and split long reductions The conv_2d matmul kernel runs on simdgroup matrices only, and gives each threadgroup the whole reduction of its output tile. On M5 this leaves the",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-19T09:48:44Z",
+      "published": "2026-11-19T16:38:04Z",
       "added_at": "2026-11-19T16:31:40Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/e1452c59bed1e522.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12547",
+      "title": "b12547: webgpu: add POOL_2D support (#32250)",
+      "summary": "Shader, pipeline, and launcher Update docs and add newline to wgsl Formatting fixes",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-19T11:35:10Z",
+      "added_at": "2026-11-19T17:01:40Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/c52aaf28ed806c99.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12546",
+      "title": "llama.cpp b12546",
+      "summary": "llama : remove redundant fields from llm_graph_params ( #32596 ) llm_graph_params no longer carries hparams, prec_policy and hdmd, since the model reference already provides them. llm_graph_context sources them from the model and keeps prec_policy as a reference. Assisted-by: dsh",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-19T16:55:35Z",
+      "added_at": "2026-11-19T17:01:40Z",
+      "image": "https://opengraph.githubassets.com/f912c3a7c695d69c40a6cbf84d33ffc1b800e3aac1db22f2efe88b64502b4311/ggml-org/llama.cpp/releases/tag/b12546",
+      "file": "media/04fce62ebfd91b42.png",
       "video": "",
       "categories": [
         "local-models",
