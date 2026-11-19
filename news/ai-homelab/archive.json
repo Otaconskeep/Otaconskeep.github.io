@@ -93820,12 +93820,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12541",
-      "title": "llama.cpp b12541",
-      "summary": "ggml : IQ2 creation speedup through caching ( #31910 ) IQ2 quant creation speedup from caching Rename variables for clarity Explicit casts Initialize all values, add comment to tolerance Website:",
+      "title": "b12541: ggml : IQ2 creation speedup through caching (#31910)",
+      "summary": "IQ2 quant creation speedup from caching Rename variables for clarity Explicit casts Initialize all values, add comment to tolerance",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-19T13:57:29Z",
+      "published": "2026-11-19T08:04:58Z",
       "added_at": "2026-11-19T13:31:39Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/a38d757d8d346136.png",
@@ -93972,15 +93972,66 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12551",
-      "title": "b12551: cuda: Scatter kernel for set_n (#32489)",
-      "summary": "cuda: add scatter for batched tensor writes update test case to mirror get_n test case save restore timing logs refactor code into batch-copy.cu file",
+      "title": "llama.cpp b12551",
+      "summary": "cuda: Scatter kernel for set_n ( #32489 ) cuda: add scatter for batched tensor writes update test case to mirror get_n test case save restore timing logs refactor code into batch-copy.cu file Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-19T14:44:47Z",
+      "published": "2026-11-19T21:40:04Z",
       "added_at": "2026-11-19T21:31:38Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/d51c360f0857cc75.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12553",
+      "title": "b12553: mtmd : fix YuE2 projector loading (#32606)",
+      "summary": "Allow cls.output.weight to be absent from the mmproj. It is an optional Qwen3 reranking head that the YuE2 NAR decoder never uses. Without this fix, mtmd_init_from_file() fails with \"tensor cls.output.weight is missing from the mmproj\", preventing audio generation from starting.",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-19T18:11:11Z",
+      "added_at": "2026-11-19T22:01:40Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/97b1870af3035f45.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12552",
+      "title": "llama.cpp b12552",
+      "summary": "ggml-openvino: fix OpenVINO CI, minor fixes and optimizations ( #32590 ) ggml-openvino: round the GPU KV length up to a power of two Review notes (follow-ups, not blocking): convert_ggml_input_to_ov pads the KQ mask into a std::vector and then copies it into the ov::Tensor. Writi",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-19T21:55:57Z",
+      "added_at": "2026-11-19T22:01:40Z",
+      "image": "https://opengraph.githubassets.com/828093444c5be16c755a34021cb2c7d86e4124bcfc56122904b85beb79111c12/ggml-org/llama.cpp/releases/tag/b12552",
+      "file": "media/e62365a033f9c523.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.46.1",
+      "title": "ComfyUI v0.46.1",
+      "summary": "Article from ComfyUI.",
+      "source": "ComfyUI",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-19T21:33:50Z",
+      "added_at": "2026-11-19T22:01:40Z",
+      "image": "https://repository-images.githubusercontent.com/589831718/8894dcc0-5f53-4f3c-97f0-50d820b7779b",
+      "file": "media/8ba27ce7c1c39e48.png",
       "video": "",
       "categories": [
         "local-models",

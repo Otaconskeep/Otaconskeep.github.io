@@ -5,11 +5,39 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-19T13:33:09Z</lastBuildDate>
 <item>
+<title>llama.cpp b12552</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12552</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12552</guid>
+<pubDate>2026-11-19T21:55:57Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e62365a033f9c523.png" alt=""><p>Article · llama.cpp. ggml-openvino: fix OpenVINO CI, minor fixes and optimizations ( #32590 ) ggml-openvino: round the GPU KV length up to a power of two Review notes (follow-ups, not blocking): convert_ggml_input_to_ov pads the KQ mask into a std::vector and then copies it into the ov::Tensor. Writi</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12551</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12551</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12551</guid>
+<pubDate>2026-11-19T21:40:04Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d51c360f0857cc75.png" alt=""><p>Article · llama.cpp. cuda: Scatter kernel for set_n ( #32489 ) cuda: add scatter for batched tensor writes update test case to mirror get_n test case save restore timing logs refactor code into batch-copy.cu file Website:</p>]]></description>
+</item>
+<item>
+<title>ComfyUI v0.46.1</title>
+<link>https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.46.1</link>
+<guid isPermaLink="true">https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.46.1</guid>
+<pubDate>2026-11-19T21:33:50Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8ba27ce7c1c39e48.png" alt=""><p>Article · ComfyUI. Article from ComfyUI.</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12550</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12550</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12550</guid>
 <pubDate>2026-11-19T21:22:23Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/21926fe25395afc0.png" alt=""><p>Article · llama.cpp. ggml : add backend scheduler tests ( #27258 ) Adds initial scheduler stress tests Adds new sleep op to simplify scheduler testing Adds testcase addressing #23321 Adds experimental vulkan GGML_OP_SLEEP Improves structure and naming of previous tests. Adds new tests, including one</p>]]></description>
+</item>
+<item>
+<title>b12553: mtmd : fix YuE2 projector loading (#32606)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12553</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12553</guid>
+<pubDate>2026-11-19T18:11:11Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/97b1870af3035f45.png" alt=""><p>Article · llama.cpp. Allow cls.output.weight to be absent from the mmproj. It is an optional Qwen3 reranking head that the YuE2 NAR decoder never uses. Without this fix, mtmd_init_from_file() fails with &quot;tensor cls.output.weight is missing from the mmproj&quot;, preventing audio generation from starting.</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12549</title>
@@ -59,20 +87,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12542</guid>
 <pubDate>2026-11-19T16:00:54Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8fbf8e7b2ed1a7a6.png" alt=""><p>Article · llama.cpp. qwen3vl : set t_layer_inp for EAGLE-3 ( #32589 ) Assisted-by: Grok Bot Website:</p>]]></description>
-</item>
-<item>
-<title>b12551: cuda: Scatter kernel for set_n (#32489)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12551</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12551</guid>
-<pubDate>2026-11-19T14:44:47Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d51c360f0857cc75.png" alt=""><p>Article · llama.cpp. cuda: add scatter for batched tensor writes update test case to mirror get_n test case save restore timing logs refactor code into batch-copy.cu file</p>]]></description>
-</item>
-<item>
-<title>llama.cpp b12541</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12541</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12541</guid>
-<pubDate>2026-11-19T13:57:29Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/a38d757d8d346136.png" alt=""><p>Article · llama.cpp. ggml : IQ2 creation speedup through caching ( #31910 ) IQ2 quant creation speedup from caching Rename variables for clarity Explicit casts Initialize all values, add comment to tolerance Website:</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12540</title>
@@ -143,6 +157,13 @@
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/v1</guid>
 <pubDate>2026-11-19T08:18:19Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0629b65414ef9337.png" alt=""><p>Article · n8n. Co-authored-by: n8n-release-helper[bot]</p>]]></description>
+</item>
+<item>
+<title>b12541: ggml : IQ2 creation speedup through caching (#31910)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12541</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12541</guid>
+<pubDate>2026-11-19T08:04:58Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/a38d757d8d346136.png" alt=""><p>Article · llama.cpp. IQ2 quant creation speedup from caching Rename variables for clarity Explicit casts Initialize all values, add comment to tolerance</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12538</title>
