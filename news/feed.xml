@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-19T13:33:09Z</lastBuildDate>
 <item>
+<title>What&#x27;s your opinion on local domains like cloud.lan?</title>
+<link>https://lemmy.world/post/54617103</link>
+<guid isPermaLink="true">https://lemmy.world/post/54617103</guid>
+<pubDate>Thu, 19 Nov 2026 22:31:08 +0000</pubDate>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by marius to selfhosted 1 points | 0 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems like]]></description>
+</item>
+<item>
+<title>llama.cpp b12554</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12554</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12554</guid>
+<pubDate>2026-11-19T22:23:11Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f082d9f511b634fc.png" alt=""><p>Article · llama.cpp. ggml : add BF16 support to ROPE and SET_ROWS (CPU, CUDA) ( #32387 ) ggml : add BF16 support to ROPE and SET_ROWS (CPU, CUDA) cuda : SET_ROWS from BF16 into quantized types and F8_E4M3 cuda : fuse BF16 rope into a BF16 cache tests : trim the BF16 rope cases to one per code path We</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12553</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12553</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12553</guid>
+<pubDate>2026-11-19T22:10:10Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/97b1870af3035f45.png" alt=""><p>Article · llama.cpp. mtmd : fix YuE2 projector loading ( #32606 ) Allow cls.output.weight to be absent from the mmproj. It is an optional Qwen3 reranking head that the YuE2 NAR decoder never uses. Without this fix, mtmd_init_from_file() fails with &quot;tensor cls.output.weight is missing from the mmproj&quot;</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12552</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12552</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12552</guid>
@@ -33,11 +54,11 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/21926fe25395afc0.png" alt=""><p>Article · llama.cpp. ggml : add backend scheduler tests ( #27258 ) Adds initial scheduler stress tests Adds new sleep op to simplify scheduler testing Adds testcase addressing #23321 Adds experimental vulkan GGML_OP_SLEEP Improves structure and naming of previous tests. Adds new tests, including one</p>]]></description>
 </item>
 <item>
-<title>b12553: mtmd : fix YuE2 projector loading (#32606)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12553</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12553</guid>
-<pubDate>2026-11-19T18:11:11Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/97b1870af3035f45.png" alt=""><p>Article · llama.cpp. Allow cls.output.weight to be absent from the mmproj. It is an optional Qwen3 reranking head that the YuE2 NAR decoder never uses. Without this fix, mtmd_init_from_file() fails with &quot;tensor cls.output.weight is missing from the mmproj&quot;, preventing audio generation from starting.</p>]]></description>
+<title>b12555: opencl: support dp4a for KQ mm in decomposed FA (#32577)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12555</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12555</guid>
+<pubDate>2026-11-19T19:30:19Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4a63f2e64b368a7b.png" alt=""><p>Article · llama.cpp. opencl: support int8 KQ for DK = 512 Co-authored-by: Shaofei Qi shaoqi@qti.qualcomm.com Co-authored-by: Hongqiang Wang wangh@qti.qualcomm.com Assisted-by: Codex opencl: allow query chunk up to 96 for int8 KQ Co-authored-by: Shaofei Qi shaoqi@qti.qualcomm.com Co-authored-by: Hongq</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12549</title>
