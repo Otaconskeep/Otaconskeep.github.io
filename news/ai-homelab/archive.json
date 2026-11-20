@@ -94384,12 +94384,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12563",
-      "title": "b12563: CUDA: keep the MUL_MAT_ID precision in the per-expert fallback (#31345)",
-      "summary": "tests: add CUDA-only MUL_MAT/MUL_MAT_ID cases with results above the fp16 range IQ1_M weights have no MMQ kernel, so once the batch is bigger than the MMVQ limit the path is dequantize + cuBLAS. These cases produce results around 1.3e5, past the fp16 max of 65504, so an fp16 resu",
+      "title": "llama.cpp b12563",
+      "summary": "CUDA: keep the MUL_MAT_ID precision in the per-expert fallback ( #31345 ) tests: add CUDA-only MUL_MAT/MUL_MAT_ID cases with results above the fp16 range IQ1_M weights have no MMQ kernel, so once the batch is bigger than the MMVQ limit the path is dequantize + cuBLAS. These cases",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-20T07:42:16Z",
+      "published": "2026-11-20T11:39:37Z",
       "added_at": "2026-11-20T11:31:42Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/7b173031fcfa07ec.png",
@@ -94397,6 +94397,56 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12565",
+      "title": "b12565: webgpu : fix 2D indexing for copy kernel (#32576)",
+      "summary": "Only run webgpu CI on my fork Add webgpu only workflow resolve merge conflicts Add 2d indexing to copy kernel move test",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-20T07:45:44Z",
+      "added_at": "2026-11-20T12:01:42Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/316595d1d243bfe6.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12564",
+      "title": "llama.cpp b12564",
+      "summary": "CUDA: optimize Orin single-column MMVQ ( #31268 ) CUDA: optimize Orin single-column MMVQ Create a separate Orin branch in calc_rows_per_block Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-20T12:01:40Z",
+      "added_at": "2026-11-20T12:01:42Z",
+      "image": "https://opengraph.githubassets.com/7f00b7f5a4fa420b1fa933d81b6e49a23ac3dcf5959c0e6702adbf9f8693c7dc/ggml-org/llama.cpp/releases/tag/b12564",
+      "file": "media/45aa9cc06eaa53d9.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://noted.lol/posteryard/",
+      "title": "Posteryard Brings Clean, Consistent Posters to Plex, Jellyfin, and Emby",
+      "summary": "Posteryard automatically creates clean, consistent artwork for Plex, Jellyfin, and Emby, complete with quality badges, streaming logos, and automatic updates.",
+      "source": "noted.lol",
+      "kind": "article",
+      "lane": "Article",
+      "published": "Fri, 20 Nov 2026 06:49:48 -0500",
+      "added_at": "2026-11-20T12:01:49Z",
+      "image": "https://noted.lol/content/images/size/w1200/2026/11/posteryard-automatic-posters-plex-jellyfin-emby.png",
+      "file": "media/28498aaa18af1e84.png",
+      "video": "",
+      "categories": [
+        "homelab"
       ]
     }
   ]
