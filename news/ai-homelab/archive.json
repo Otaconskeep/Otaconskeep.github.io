@@ -94604,11 +94604,11 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12578",
       "title": "llama.cpp b12578",
-      "summary": "cuda : update GDN supports_op check ( #32660 )",
+      "summary": "cuda : update GDN supports_op check ( #32660 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-20T12:35:20Z",
+      "published": "2026-11-20T15:14:08Z",
       "added_at": "2026-11-20T15:01:41Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/aae0cfe1040c52f3.png",
@@ -94616,6 +94616,56 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12584",
+      "title": "b12584: tts : forward -t to the mtmd context (#32664)",
+      "summary": "llama-tts built the mtmd context from mtmd_context_params_default(), which hardcodes 4 threads, and never copied n_threads over, so -t never reach the mtmd side. Copy params.cpuparams.n_threads into mtmd_params.n_threads, as mtmd-cli and the server do; with no -t this now follows",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-20T14:34:58Z",
+      "added_at": "2026-11-20T15:31:45Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/e0b38b50cec4ec28.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12580",
+      "title": "llama.cpp b12580",
+      "summary": "server: add --ui-mcp-proxy-allow-private-urls ( #32633 ) Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-20T15:31:44Z",
+      "added_at": "2026-11-20T15:31:45Z",
+      "image": "https://opengraph.githubassets.com/63ee758b4b0004682cb8bccdda1279ab3174a69c1bdd95d19f5265a93d8b1a7b/ggml-org/llama.cpp/releases/tag/b12580",
+      "file": "media/23b2e8227ae2427a.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://noted.lol/holyarrs/",
+      "title": "HolyArrs: One Self-Hosted App for Your Entire Media Stack",
+      "summary": "HolyArrs combines Sonarr, Radarr, Lidarr, Prowlarr, and other media management tools into one self-hosted application for your homelab.",
+      "source": "noted.lol",
+      "kind": "article",
+      "lane": "Article",
+      "published": "Fri, 20 Nov 2026 10:02:32 -0500",
+      "added_at": "2026-11-20T15:31:52Z",
+      "image": "https://noted.lol/content/images/size/w1200/2026/11/holyarrs-media-automation.png",
+      "file": "media/5c1fa24ad3931846.png",
+      "video": "",
+      "categories": [
+        "homelab"
       ]
     }
   ]
