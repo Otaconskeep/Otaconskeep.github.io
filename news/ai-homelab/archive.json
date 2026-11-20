@@ -94077,7 +94077,7 @@
     {
       "url": "https://lemmy.world/post/54617103",
       "title": "What's your opinion on local domains like cloud.lan?",
-      "summary": "submitted by marius to selfhosted 26 points | 27 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
+      "summary": "submitted by marius to selfhosted 27 points | 27 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -94368,14 +94368,31 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12562",
       "title": "llama.cpp b12562",
-      "summary": "vulkan: optimize RMS_NORM_MUL_ROPE loop control ( #31149 )",
+      "summary": "vulkan: optimize RMS_NORM_MUL_ROPE loop control ( #31149 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-20T07:38:43Z",
+      "published": "2026-11-20T11:24:17Z",
       "added_at": "2026-11-20T11:01:44Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/b28dbe817d1edb35.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12563",
+      "title": "b12563: CUDA: keep the MUL_MAT_ID precision in the per-expert fallback (#31345)",
+      "summary": "tests: add CUDA-only MUL_MAT/MUL_MAT_ID cases with results above the fp16 range IQ1_M weights have no MMQ kernel, so once the batch is bigger than the MMVQ limit the path is dequantize + cuBLAS. These cases produce results around 1.3e5, past the fp16 max of 65504, so an fp16 resu",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-20T07:42:16Z",
+      "added_at": "2026-11-20T11:31:42Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/7b173031fcfa07ec.png",
       "video": "",
       "categories": [
         "local-models",
