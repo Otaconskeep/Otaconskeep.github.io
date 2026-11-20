@@ -94502,12 +94502,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12569",
-      "title": "llama.cpp b12569",
-      "summary": "llama : reserve graph nodes for the MoE cache ( #32636 ) The MoE cache adds a slot lookup to every MoE layer, and with --moe-cache-cpu-share a second expert path, but graph_max_nodes() did not account for it. Models on the default 8*n_tensors budget with few tensors per layer (co",
+      "title": "b12569: llama : reserve graph nodes for the MoE cache (#32636)",
+      "summary": "The MoE cache adds a slot lookup to every MoE layer, and with --moe-cache-cpu-share a second expert path, but graph_max_nodes() did not account for it. Models on the default 8*n_tensors budget with few tensors per layer (cohere2moe: 443 tensors, 49 layers) overflow the graph cont",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-20T13:53:31Z",
+      "published": "2026-11-20T08:13:00Z",
       "added_at": "2026-11-20T13:31:42Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/04507786c2ca4019.png",
@@ -94730,6 +94730,23 @@
       "added_at": "2026-11-20T18:31:42Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/7d4f3143ca30d784.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12591",
+      "title": "llama.cpp b12591",
+      "summary": "ggml : major version bump reminders + deprecate ggml_ftype ( #32647 )",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-20T17:36:42Z",
+      "added_at": "2026-11-20T19:01:41Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/05214cf0f5cef097.png",
       "video": "",
       "categories": [
         "local-models",

@@ -19,6 +19,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/25528734d8179c8b.png" alt=""><p>Article · LocalAI. What&#x27;s Changed Other Changes feat(rocm): build the hipblas images on ROCm 10.1 by default by @walcz-de in #13169 feat(ui): call the middle network choice Custom and show its domains by @mudler-agent in #13294 feat(launcher): show desktop notifications for the server inbox by @mud</p>]]></description>
 </item>
 <item>
+<title>llama.cpp b12591</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12591</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12591</guid>
+<pubDate>2026-11-20T17:36:42Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/05214cf0f5cef097.png" alt=""><p>Article · llama.cpp. ggml : major version bump reminders + deprecate ggml_ftype ( #32647 )</p>]]></description>
+</item>
+<item>
 <title>b12590: mtmd: drama3 voice cloning (#32586)</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12590</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12590</guid>
@@ -87,13 +94,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12572</guid>
 <pubDate>2026-11-20T14:11:28Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e2acb3862f102aa0.png" alt=""><p>Article · llama.cpp. llama : move the graph node budget into the model classes ( #32648 ) graph_max_nodes() picked the nodes-per-tensor factor from lists of architectures. Each model class now gives it through a new virtual, llama_model::graph_nodes_per_tensor(), which defaults to 8. The architecture</p>]]></description>
-</item>
-<item>
-<title>llama.cpp b12569</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12569</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12569</guid>
-<pubDate>2026-11-20T13:53:31Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/04507786c2ca4019.png" alt=""><p>Article · llama.cpp. llama : reserve graph nodes for the MoE cache ( #32636 ) The MoE cache adds a slot lookup to every MoE layer, and with --moe-cache-cpu-share a second expert path, but graph_max_nodes() did not account for it. Models on the default 8*n_tensors budget with few tensors per layer (co</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12568</title>
@@ -220,6 +220,13 @@
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/beta</guid>
 <pubDate>2026-11-20T08:19:00Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f195a5e647d31823.png" alt=""><p>Article · n8n. 2.49.3 (2026-11-20) Bug Fixes core, HTTP Request Node: Handle empty response bodies in pagination ( #44443 ) ( 3443f12 ) core: End memory guard hold when hold-limit stop frees no memory ( #44462 ) ( 2e2d425 ) core: Store plain input data in the error output of scripting nodes ( #</p>]]></description>
+</item>
+<item>
+<title>b12569: llama : reserve graph nodes for the MoE cache (#32636)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12569</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12569</guid>
+<pubDate>2026-11-20T08:13:00Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/04507786c2ca4019.png" alt=""><p>Article · llama.cpp. The MoE cache adds a slot lookup to every MoE layer, and with --moe-cache-cpu-share a second expert path, but graph_max_nodes() did not account for it. Models on the default 8*n_tensors budget with few tensors per layer (cohere2moe: 443 tensors, 49 layers) overflow the graph cont</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12559</title>
