@@ -94244,15 +94244,32 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12558",
-      "title": "b12558: vulkan: disable subgroup arithmetic on Qualcomm's driver (#30826)",
-      "summary": "On Adreno, subgroupAdd() after divergent code returns wrong sums. The fused ADD+RMS_NORM partial-sum path hits this, so the decode-step norm is garbage and models emit stray tokens after long prompts. Clear subgroup_arithmetic for the Qualcomm proprietary driver, which also turns",
+      "title": "llama.cpp b12558",
+      "summary": "vulkan: disable subgroup arithmetic on Qualcomm's driver ( #30826 ) On Adreno, subgroupAdd() after divergent code returns wrong sums. The fused ADD+RMS_NORM partial-sum path hits this, so the decode-step norm is garbage and models emit stray tokens after long prompts. Clear subgr",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-20T04:58:46Z",
+      "published": "2026-11-20T06:41:50Z",
       "added_at": "2026-11-20T06:31:40Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/eca37de7d30e9fb0.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12559",
+      "title": "llama.cpp b12559",
+      "summary": "opencl: fold GQA head for f16 FA for better efficiency ( #32631 ) Assisted-by: Codex Co-authored-by: Li He lih@qti.qualcomm.com Co-authored-by: Hongqiang Wang wangh@qti.qualcomm.com Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-20T07:00:06Z",
+      "added_at": "2026-11-20T07:01:40Z",
+      "image": "https://opengraph.githubassets.com/23f5b904008e9128765e56acd23b97840213b409746b73197db3a708efe9bb8b/ggml-org/llama.cpp/releases/tag/b12559",
+      "file": "media/9b801969c96c6004.png",
       "video": "",
       "categories": [
         "local-models",
