@@ -94077,7 +94077,7 @@
     {
       "url": "https://lemmy.world/post/54617103",
       "title": "What's your opinion on local domains like cloud.lan?",
-      "summary": "submitted by marius to selfhosted 31 points | 29 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
+      "summary": "submitted by marius to selfhosted 33 points | 30 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -94552,15 +94552,49 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12572",
-      "title": "b12572: llama : move the graph node budget into the model classes (#32648)",
-      "summary": "graph_max_nodes() picked the nodes-per-tensor factor from lists of architectures. Each model class now gives it through a new virtual, llama_model::graph_nodes_per_tensor(), which defaults to 8. The architectures that need 32 or 64 override it in models.h, and DFlash keeps its hp",
+      "title": "llama.cpp b12572",
+      "summary": "llama : move the graph node budget into the model classes ( #32648 ) graph_max_nodes() picked the nodes-per-tensor factor from lists of architectures. Each model class now gives it through a new virtual, llama_model::graph_nodes_per_tensor(), which defaults to 8. The architecture",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-20T09:19:14Z",
+      "published": "2026-11-20T14:11:28Z",
       "added_at": "2026-11-20T14:01:42Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/e2acb3862f102aa0.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12577",
+      "title": "b12577: model : load ffn_gate_up_exps scales (#32657)",
+      "summary": "model: load ffn_gate_up_exps scales The generic scale pass loads per-expert scales for ffn_gate_exps, ffn_up_exps and ffn_down_exps but not for the merged ffn_gate_up_exps. Load ffn_gate_up_exps_s there and expose it as ffn_up_exps_s when the layer has no separate up tensor, sinc",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-20T12:11:28Z",
+      "added_at": "2026-11-20T14:31:41Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/fe49c67078f76189.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12576",
+      "title": "llama.cpp b12576",
+      "summary": "llama : move the indexer key rotation choice into the model classes ( #32653 ) llama : move the indexer key rotation choice into the model classes The KV cache forced a Hadamard rotation for the lightning indexer keys based on a list of architectures. The virtual llama_model::ind",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-20T14:28:23Z",
+      "added_at": "2026-11-20T14:31:41Z",
+      "image": "https://opengraph.githubassets.com/d8d7cfe4d47ee8654d9dc8019b84550efa315763cf14c18ea0e8cac861772924/ggml-org/llama.cpp/releases/tag/b12576",
+      "file": "media/e8e6af333898f413.png",
       "video": "",
       "categories": [
         "local-models",
