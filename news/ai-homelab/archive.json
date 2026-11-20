@@ -94077,7 +94077,7 @@
     {
       "url": "https://lemmy.world/post/54617103",
       "title": "What's your opinion on local domains like cloud.lan?",
-      "summary": "submitted by marius to selfhosted 28 points | 28 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
+      "summary": "submitted by marius to selfhosted 30 points | 28 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -94468,12 +94468,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12568",
-      "title": "b12568: model: add Domyn Edge 4B Model (#32559)",
-      "summary": "feat: add domyn-edge model Generate tokenizer hash for conversion + fix tests Address changes according to code-review skill catch ValueError in convert_hf_to_gguf_update.py renegerate fusion test baseline + fix model naming style",
+      "title": "llama.cpp b12568",
+      "summary": "model: add Domyn Edge 4B Model ( #32559 ) feat: add domyn-edge model Generate tokenizer hash for conversion + fix tests Address changes according to code-review skill catch ValueError in convert_hf_to_gguf_update.py renegerate fusion test baseline + fix model naming style Website",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-20T07:51:41Z",
+      "published": "2026-11-20T13:31:37Z",
       "added_at": "2026-11-20T13:01:41Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/f0fd4c5c1cd38f23.png",
@@ -94490,7 +94490,7 @@
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-20T13:01:39Z",
+      "published": "2026-11-20T13:03:07Z",
       "added_at": "2026-11-20T13:01:41Z",
       "image": "https://opengraph.githubassets.com/cca6aca3abe45247c51da847aac3cf4169140154d8089063f21546f7031a51c7/ggml-org/llama.cpp/releases/tag/b12567",
       "file": "media/b20917be5c71df98.png",
@@ -94498,6 +94498,39 @@
       "categories": [
         "local-models",
         "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12569",
+      "title": "b12569: llama : reserve graph nodes for the MoE cache (#32636)",
+      "summary": "The MoE cache adds a slot lookup to every MoE layer, and with --moe-cache-cpu-share a second expert path, but graph_max_nodes() did not account for it. Models on the default 8*n_tensors budget with few tensors per layer (cohere2moe: 443 tensors, 49 layers) overflow the graph cont",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-20T08:13:00Z",
+      "added_at": "2026-11-20T13:31:42Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/04507786c2ca4019.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://selfh.st/weekly/2026-11-20/",
+      "title": "Self-Host Weekly (20 November 2026)",
+      "summary": "Another Brick in the Paywall",
+      "source": "selfh.st",
+      "kind": "article",
+      "lane": "Article",
+      "published": "Fri, 20 Nov 2026 08:13:47 -0500",
+      "added_at": "2026-11-20T13:31:42Z",
+      "image": "https://selfh.st/content/images/size/w1200/2026/11/2026-11-20-featured-image.png",
+      "file": "media/8ec3db0b1e60b862.png",
+      "video": "",
+      "categories": [
+        "homelab"
       ]
     }
   ]
