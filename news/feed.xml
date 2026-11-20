@@ -3,12 +3,19 @@
 <title>AI &amp; Homelab News</title>
 <link>https://otaconskeep.github.io/news/ai-homelab/</link>
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
-<lastBuildDate>2026-11-20T04:13:38Z</lastBuildDate>
+<lastBuildDate>2026-11-20T13:44:20Z</lastBuildDate>
+<item>
+<title>llama.cpp b12569</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12569</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12569</guid>
+<pubDate>2026-11-20T13:53:31Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/04507786c2ca4019.png" alt=""><p>Article · llama.cpp. llama : reserve graph nodes for the MoE cache ( #32636 ) The MoE cache adds a slot lookup to every MoE layer, and with --moe-cache-cpu-share a second expert path, but graph_max_nodes() did not account for it. Models on the default 8*n_tensors budget with few tensors per layer (co</p>]]></description>
+</item>
 <item>
 <title>llama.cpp b12568</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12568</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12568</guid>
-<pubDate>2026-11-20T13:31:37Z</pubDate>
+<pubDate>2026-11-20T13:33:27Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f0fd4c5c1cd38f23.png" alt=""><p>Article · llama.cpp. model: add Domyn Edge 4B Model ( #32559 ) feat: add domyn-edge model Generate tokenizer hash for conversion + fix tests Address changes according to code-review skill catch ValueError in convert_hf_to_gguf_update.py renegerate fusion test baseline + fix model naming style Website</p>]]></description>
 </item>
 <item>
@@ -61,6 +68,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/7b173031fcfa07ec.png" alt=""><p>Article · llama.cpp. CUDA: keep the MUL_MAT_ID precision in the per-expert fallback ( #31345 ) tests: add CUDA-only MUL_MAT/MUL_MAT_ID cases with results above the fp16 range IQ1_M weights have no MMQ kernel, so once the batch is bigger than the MMVQ limit the path is dequantize + cuBLAS. These cases</p>]]></description>
 </item>
 <item>
+<title>✅ Neuer Baustein in meinem Self-Hosting: Meine Aufgaben liegen jetzt in OpenTodo – auf meinem eigenen Server. Open Source (AGPL), local-first, offl</title>
+<link>https://mastodon.social/@Signalrauschen/117648565342785266</link>
+<guid isPermaLink="true">https://mastodon.social/@Signalrauschen/117648565342785266</guid>
+<pubDate>Fri, 20 Nov 2026 11:37:22 +0000</pubDate>
+<description><![CDATA[Social · Fosstodon #selfhosting. ine nutzbar, Sync aller Geräte über einen schlanken Container. Kein Abo, kein Lock-in, keine Daten bei Dritten. Unterwegs greife ich per Tailscale zu – ohne offene Ports ins Internet. 🔒 Wieder ein Stück mehr Kontrolle über die eigenen Daten.]]></description>
+</item>
+<item>
 <title>llama.cpp b12562</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12562</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12562</guid>
@@ -80,6 +94,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12560</guid>
 <pubDate>2026-11-20T09:31:38Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2cb06c7f0326085d.png" alt=""><p>Article · llama.cpp. webgpu : add COL2IM_1D support ( #31708 ) Website:</p>]]></description>
+</item>
+<item>
+<title>b12572: llama : move the graph node budget into the model classes (#32648)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12572</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12572</guid>
+<pubDate>2026-11-20T09:19:14Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e2acb3862f102aa0.png" alt=""><p>Article · llama.cpp. graph_max_nodes() picked the nodes-per-tensor factor from lists of architectures. Each model class now gives it through a new virtual, llama_model::graph_nodes_per_tensor(), which defaults to 8. The architectures that need 32 or 64 override it in models.h, and DFlash keeps its hp</p>]]></description>
 </item>
 <item>
 <title>n8n@1.123.100</title>
@@ -122,13 +143,6 @@
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/beta</guid>
 <pubDate>2026-11-20T08:19:00Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/f195a5e647d31823.png" alt=""><p>Article · n8n. 2.49.3 (2026-11-20) Bug Fixes core, HTTP Request Node: Handle empty response bodies in pagination ( #44443 ) ( 3443f12 ) core: End memory guard hold when hold-limit stop frees no memory ( #44462 ) ( 2e2d425 ) core: Store plain input data in the error output of scripting nodes ( #</p>]]></description>
-</item>
-<item>
-<title>b12569: llama : reserve graph nodes for the MoE cache (#32636)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12569</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12569</guid>
-<pubDate>2026-11-20T08:13:00Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/04507786c2ca4019.png" alt=""><p>Article · llama.cpp. The MoE cache adds a slot lookup to every MoE layer, and with --moe-cache-cpu-share a second expert path, but graph_max_nodes() did not account for it. Models on the default 8*n_tensors budget with few tensors per layer (cohere2moe: 443 tensors, 49 layers) overflow the graph cont</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12559</title>
@@ -219,7 +233,7 @@
 <link>https://lemmy.world/post/54617103</link>
 <guid isPermaLink="true">https://lemmy.world/post/54617103</guid>
 <pubDate>Thu, 19 Nov 2026 22:31:08 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by marius to selfhosted 30 points | 28 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by marius to selfhosted 31 points | 29 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik]]></description>
 </item>
 <item>
 <title>llama.cpp b12554</title>
