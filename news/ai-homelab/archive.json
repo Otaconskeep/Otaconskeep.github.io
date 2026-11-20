@@ -88971,12 +88971,12 @@
     },
     {
       "url": "https://github.com/mudler/LocalAI/releases/tag/dev-master",
-      "title": "Development build (f59e9cc)",
-      "summary": "Commit: f59e9cc Date: 2026-11-19T22:56:31Z Subject: test(ui): read the storage keys the app writes now This is an unsupported development build of the master branch. Use a release for anything that matters.",
+      "title": "Development build (88f6cd6)",
+      "summary": "Commit: 88f6cd6 Date: 2026-11-20T13:39:20Z Subject: fix(addons): follow the GitHub release redirect of the add-on index ( #13341 ) This is an unsupported development build of the master branch. Use a release for anything that matters.",
       "source": "LocalAI",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-20T04:35:39Z",
+      "published": "2026-11-20T15:47:26Z",
       "added_at": "2026-11-15T10:01:29Z",
       "image": "https://opengraph.githubassets.com/331eb3aa8a44fe833231290b9796385d54c43d6c91a6458b049da13f0b463b4b/mudler/LocalAI/releases/tag/dev-master",
       "file": "media/b555393f25bc1600.png",
@@ -94077,7 +94077,7 @@
     {
       "url": "https://lemmy.world/post/54617103",
       "title": "What's your opinion on local domains like cloud.lan?",
-      "summary": "submitted by marius to selfhosted 33 points | 30 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
+      "summary": "submitted by marius to selfhosted 34 points | 30 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -94620,12 +94620,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12584",
-      "title": "b12584: tts : forward -t to the mtmd context (#32664)",
-      "summary": "llama-tts built the mtmd context from mtmd_context_params_default(), which hardcodes 4 threads, and never copied n_threads over, so -t never reach the mtmd side. Copy params.cpuparams.n_threads into mtmd_params.n_threads, as mtmd-cli and the server do; with no -t this now follows",
+      "title": "llama.cpp b12584",
+      "summary": "tts : forward -t to the mtmd context ( #32664 ) llama-tts built the mtmd context from mtmd_context_params_default(), which hardcodes 4 threads, and never copied n_threads over, so -t never reach the mtmd side. Copy params.cpuparams.n_threads into mtmd_params.n_threads, as mtmd-cl",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-20T14:34:58Z",
+      "published": "2026-11-20T15:55:42Z",
       "added_at": "2026-11-20T15:31:45Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/e0b38b50cec4ec28.png",
@@ -94666,6 +94666,23 @@
       "video": "",
       "categories": [
         "homelab"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12588",
+      "title": "llama.cpp b12588",
+      "summary": "gemma4: Optimized prompt processing for multi-seq queries ( #32342 )",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-20T15:41:02Z",
+      "added_at": "2026-11-20T16:01:41Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/7d532e0dd41c3aee.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
