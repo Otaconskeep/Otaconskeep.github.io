@@ -5,11 +5,18 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-21T04:02:33Z</lastBuildDate>
 <item>
-<title>Development build (34668dc)</title>
+<title>Development build (c67e6f7)</title>
 <link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
 <guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
-<pubDate>2026-11-21T11:01:44Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. Commit: 34668dc Date: 2026-11-21T10:37:30Z Subject: Let workers hold the routes their operator gives them This is an unsupported development build of the master branch. Use a release for anything that matters.</p>]]></description>
+<pubDate>2026-11-21T11:14:56Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. Commit: c67e6f7 Date: 2026-11-21T10:59:47Z Subject: Send requests between processes over the peer link only This is an unsupported development build of the master branch. Use a release for anything that matters.</p>]]></description>
+</item>
+<item>
+<title>b12608: ggml-cpu: fix nc aligment in tinyBLAS_PPC_Q0 (#32659)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12608</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12608</guid>
+<pubDate>2026-11-21T10:58:49Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0a40b9c8bdaa5153.png" alt=""><p>Article · llama.cpp. Fixes #31680 The matmul_tiled() implementation in tinyBLAS_Q0_PPC requires nc to be a multiple of 8 to perform matrix multiplication correctly. The previous alignment logic contained a special case for n == 4, which allowed n_aligned to be 4. Consequently, the tiled path could be</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12606</title>
@@ -36132,13 +36139,6 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>2026-09-26T07:01:03-07:00</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -37684,6 +37684,13 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
+</item>
+<item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
+<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
