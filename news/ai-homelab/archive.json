@@ -95098,7 +95098,7 @@
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-21T19:01:39Z",
+      "published": "2026-11-21T19:02:53Z",
       "added_at": "2026-11-21T18:01:42Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/44b9176363d30caf.png",
@@ -95110,15 +95110,49 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12611",
-      "title": "b12611: model : inkling2_loop share the loop slots after the scale pass (#32704)",
-      "summary": "The loop slots copied the physical layers at the end of load_arch_tensors, before the generic pass attaches the optional .scale tensors, so the later passes through the core ran NVFP4 experts without their per-expert scales. Add an optional post_arch_tensors hook that runs after ",
+      "title": "llama.cpp b12611",
+      "summary": "model : inkling2_loop share the loop slots after the scale pass ( #32704 ) The loop slots copied the physical layers at the end of load_arch_tensors, before the generic pass attaches the optional .scale tensors, so the later passes through the core ran NVFP4 experts without their",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-21T11:10:38Z",
+      "published": "2026-11-21T19:15:59Z",
       "added_at": "2026-11-21T19:01:43Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/a71165c2d2ae0a9a.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12613",
+      "title": "llama.cpp b12613",
+      "summary": "vulkan: unroll FA coopmat1 array due to a driver bug on AMD Windows (…",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-21T11:46:20Z",
+      "added_at": "2026-11-21T19:31:43Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/9a1e9002620f78c7.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12612",
+      "title": "llama.cpp b12612",
+      "summary": "vulkan: improve RDNA4 MMVQ performance for Q3_K, Q5_K and IQ4_XS ( #31804 ) vulkan: keep default MMVQ rows for Q3_K, Q5_K, IQ4_XS on RDNA4 AMD proprietary driver Assisted-by: Claude Opus 5.5 clean up mmvq shader load logic Co-authored-by: Ruben Ortlam rortlam@redhat.com Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-21T19:31:42Z",
+      "added_at": "2026-11-21T19:31:43Z",
+      "image": "https://opengraph.githubassets.com/f581f061f343cbf00a2fc1344ac8be2c0b5bb3e1814eb15be44b91a79cdbd3fb/ggml-org/llama.cpp/releases/tag/b12612",
+      "file": "media/3fa460bc4f9cde60.png",
       "video": "",
       "categories": [
         "local-models",
