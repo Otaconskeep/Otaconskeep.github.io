@@ -95297,15 +95297,49 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12621",
-      "title": "b12621: sycl: bound CONV_TRANSPOSE_1D input iteration (#31109)",
-      "summary": "Used angelX to optimize SYCL/drama 3 coordination, results are as follows Each output reads only inputs with i s0 s0 + K, in the same ascending order as before. Arc Pro B70, oneAPI 2026.1, test-backend-ops perf, base 9b56ccf vs patch, median of 3 same-boot A/B/A rounds, A/A 1.000",
+      "title": "llama.cpp b12621",
+      "summary": "sycl: bound CONV_TRANSPOSE_1D input iteration ( #31109 ) Used angelX to optimize SYCL/drama 3 coordination, results are as follows Each output reads only inputs with i s0 s0 + K, in the same ascending order as before. Arc Pro B70, oneAPI 2026.1, test-backend-ops perf, base 9b56cc",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-21T14:20:29Z",
+      "published": "2026-11-22T00:40:54Z",
       "added_at": "2026-11-22T00:31:43Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/608d90eff2268f0d.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12623",
+      "title": "b12623: mtmd : merge Parakeet rel-pos views to avoid OOB (#32722)",
+      "summary": "Assisted-by: Grok Bot",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-21T18:05:02Z",
+      "added_at": "2026-11-22T01:01:43Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/f97e605e3c5a815e.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12622",
+      "title": "llama.cpp b12622",
+      "summary": "model: apply .scale tensors automatically + fix correctness ( #32669 ) model: apply .scale tensors automatically rm build_moe_ffn \"_s\" overload use llama_prec_policy fix ci build_lora_mm_id: rm w_s Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-22T00:54:30Z",
+      "added_at": "2026-11-22T01:01:43Z",
+      "image": "https://opengraph.githubassets.com/9a856e087032a09fd77805ca7ea9dda91f4feb2f024215dca56aec5de4dfb99b/ggml-org/llama.cpp/releases/tag/b12622",
+      "file": "media/db58e57ac1a29e1f.png",
       "video": "",
       "categories": [
         "local-models",
