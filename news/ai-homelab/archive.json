@@ -95455,7 +95455,7 @@
       "source": "KoboldCpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-22T07:54:20Z",
+      "published": "2026-11-22T15:00:05Z",
       "added_at": "2026-11-22T08:02:11Z",
       "image": "https://opengraph.githubassets.com/bf799c988c425bc4c6950f3b7a3289b186e09a9f63e9f5de28de1a0f994f95b7/LostRuins/koboldcpp/releases/tag/v1.125",
       "file": "media/5a29444620242183.png",
@@ -95501,12 +95501,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12632",
-      "title": "b12632: HIP: fix double halving of NVFP4 scales on CDNA3 (#32790)",
-      "summary": "Fixes #32789",
+      "title": "llama.cpp b12632",
+      "summary": "HIP: fix double halving of NVFP4 scales on CDNA3 ( #32790 ) Fixes #32789 Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-22T11:06:12Z",
+      "published": "2026-11-22T14:41:59Z",
       "added_at": "2026-11-22T11:31:44Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/14cfa1d88e05a6ae.png",
@@ -95564,6 +95564,40 @@
       "video": "",
       "categories": [
         "homelab"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12634",
+      "title": "b12634: chat : trigger lazy grammar on bare JSON tool calls (#32497)",
+      "summary": "Models like Llama 3.x emit tool calls as plain {\"name\": ...} JSON without a start marker, so with tool_choice=auto no grammar was produced at all. Use a pattern trigger on the opening of the call object instead. Assisted-by: Claude Code",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-22T11:19:04Z",
+      "added_at": "2026-11-22T15:01:44Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/a70beded45140cf8.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12633",
+      "title": "llama.cpp b12633",
+      "summary": "ggml : fix nonzero clear on WebGPU and non-UMA devices ( #32727 ) Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-22T14:57:05Z",
+      "added_at": "2026-11-22T15:01:44Z",
+      "image": "https://opengraph.githubassets.com/2c337ec70de782840e7ff0fe2229891c4ba616aa0c11b7fe5e88e7043a01a9c5/ggml-org/llama.cpp/releases/tag/b12633",
+      "file": "media/ceaa620683d00f64.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]
