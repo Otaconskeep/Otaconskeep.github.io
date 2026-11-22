@@ -94077,7 +94077,7 @@
     {
       "url": "https://lemmy.world/post/54617103",
       "title": "What's your opinion on local domains like cloud.lan?",
-      "summary": "submitted by marius to selfhosted 63 points | 63 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
+      "summary": "submitted by marius to selfhosted 64 points | 63 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -95281,14 +95281,31 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12620",
       "title": "llama.cpp b12620",
-      "summary": "ggml : improvements to the memory access pattern in `ggml_compute_for…",
+      "summary": "ggml : improvements to the memory access pattern in ggml_compute_forward_mul_mat_one_chunk ( #30846 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-21T14:16:40Z",
+      "published": "2026-11-22T00:19:37Z",
       "added_at": "2026-11-22T00:01:44Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/55b2e6f1e7198c78.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12621",
+      "title": "b12621: sycl: bound CONV_TRANSPOSE_1D input iteration (#31109)",
+      "summary": "Used angelX to optimize SYCL/drama 3 coordination, results are as follows Each output reads only inputs with i s0 s0 + K, in the same ascending order as before. Arc Pro B70, oneAPI 2026.1, test-backend-ops perf, base 9b56ccf vs patch, median of 3 same-boot A/B/A rounds, A/A 1.000",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-21T14:20:29Z",
+      "added_at": "2026-11-22T00:31:43Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/608d90eff2268f0d.png",
       "video": "",
       "categories": [
         "local-models",
