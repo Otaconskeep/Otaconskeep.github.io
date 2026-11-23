@@ -1,0 +1,11 @@
+# /etc/systemd/system/power-switch.service
+[Unit]
+Description=Cabinet power toggle (safe shutdown)
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/power_switch.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
