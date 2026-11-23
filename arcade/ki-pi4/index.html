@@ -442,6 +442,11 @@ Complete build guide: Convert an Arcade1Up Street Fighter II Supreme cabinet to 
  <li>Install ESP32 and LED strip behind coin doors, connect speakers</li>
 </ol>
 
+<div class="honesty-note" style="margin-top: 1.5rem;">
+ <p><strong>⚠ Diagram Notes</strong></p>
+ <p>Items marked "check your board" in the diagrams are unverified details. Stock encoder/mainboard pinouts, marquee wiring colors, LVDS voltage jumper settings, and ESP32 data line components vary by hardware revision—verify yours with a multimeter before connecting.</p>
+</div>
+
 <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Power Overview</h3>
 
 <p>Every board gets its own power supply to prevent voltage issues:</p>
@@ -792,7 +797,7 @@ input_player2_r_btn = "1"   # Roundhouse
 
 <div class="honesty-note">
  <p><strong>⚠ Performance Source</strong></p>
- <p>The speed improvement comes from newer MAME 2003-Plus code, not from a dynamic recompiler. Building from the current MAME 2003-Plus master branch (tested at commit 2a60eda) enables significant performance improvements in the KI emulation.</p>
+ <p>The speedup came from building current MAME 2003-Plus code as its own core (tested at commit 2a60eda); exactly which change in that code makes the difference hasn't been confirmed.</p>
 </div>
 
 <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Build Instructions</h3>
