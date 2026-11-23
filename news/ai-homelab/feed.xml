@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-22T13:42:14Z</lastBuildDate>
 <item>
+<title>llama.cpp b12643</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12643</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12643</guid>
+<pubDate>2026-11-23T02:01:24Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2dd967ac880be388.png" alt=""><p>Article · llama.cpp. mtmd: fix qwen3a audio tail ( #32697 ) add: test to reporduce error reported in #32689 fix: remove extra tokens from zero-padding of Qwen3-Omni / Qwen3-ASR audio add: qwen3a_tokens_for_frames instead of magic numbers refactor: only ggml_pad when required refactor: move qwen3a_tok</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12642</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12642</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12642</guid>
+<pubDate>2026-11-23T01:51:51Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9efca619f3415358.png" alt=""><p>Article · llama.cpp. llama : copy all experts of a host weight shared by several nodes ( #32807 ) llama : copy all experts of a host weight shared by several nodes The scheduler copies a host weight to the device once per graph, so a partial expert copy made for the first MUL_MAT_ID is stale for the</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12641</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12641</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12641</guid>
+<pubDate>2026-11-23T01:38:40Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/09ce2b742400808e.png" alt=""><p>Article · llama.cpp. vocab: enable ignore_merges for inkling2 ( #32799 ) Website:</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12640</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12640</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12640</guid>
@@ -33,11 +54,11 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5872f2f48dd112b2.png" alt=""><p>Article · llama.cpp. ggml : add SIGMOID backward pass ( #32126 ) ggml : add SIGMOID backward pass Sigmoid is used in Qwen3.5 hybrid models and had no backward pass. Bump RPC protocol patch version for the new op. Signed-off-by: gianni-cor gianfranco.cordella@tether.io replace assert with ggml_assert</p>]]></description>
 </item>
 <item>
-<title>llama.cpp b12641</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12641</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12641</guid>
-<pubDate>2026-11-22T18:52:33Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/09ce2b742400808e.png" alt=""><p>Article · llama.cpp. vocab: enable ignore_merges for inkling2 ( #32799 )</p>]]></description>
+<title>b12644: mtmd: speed up shared audio FFT (#32815)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12644</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12644</guid>
+<pubDate>2026-11-22T21:04:24Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b50d0a3a620784f9.png" alt=""><p>Article · llama.cpp. mtmd: speed up shared audio FFT Replace recursive radix-2 splitting with iterative stages and batch the existing odd-size DFT across subsequences, preserving the previous operation order. Input buffers now hold only N real values for FFT or 2N interleaved floats for inverse FFT.</p>]]></description>
 </item>
 <item>
 <title>b12637: server: support /models/sse on single-model mode (#32398)</title>

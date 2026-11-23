@@ -95705,14 +95705,65 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12641",
       "title": "llama.cpp b12641",
-      "summary": "vocab: enable ignore_merges for inkling2 ( #32799 )",
+      "summary": "vocab: enable ignore_merges for inkling2 ( #32799 ) Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-22T18:52:33Z",
+      "published": "2026-11-23T01:38:40Z",
       "added_at": "2026-11-23T01:31:44Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/09ce2b742400808e.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12644",
+      "title": "b12644: mtmd: speed up shared audio FFT (#32815)",
+      "summary": "mtmd: speed up shared audio FFT Replace recursive radix-2 splitting with iterative stages and batch the existing odd-size DFT across subsequences, preserving the previous operation order. Input buffers now hold only N real values for FFT or 2N interleaved floats for inverse FFT. ",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-22T21:04:24Z",
+      "added_at": "2026-11-23T02:01:45Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/b50d0a3a620784f9.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12643",
+      "title": "llama.cpp b12643",
+      "summary": "mtmd: fix qwen3a audio tail ( #32697 ) add: test to reporduce error reported in #32689 fix: remove extra tokens from zero-padding of Qwen3-Omni / Qwen3-ASR audio add: qwen3a_tokens_for_frames instead of magic numbers refactor: only ggml_pad when required refactor: move qwen3a_tok",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-23T02:01:24Z",
+      "added_at": "2026-11-23T02:01:45Z",
+      "image": "https://opengraph.githubassets.com/ff5745ca8e5226d7ef6709f90fda13335d5f08cf19d6c572bce96369b4615fda/ggml-org/llama.cpp/releases/tag/b12643",
+      "file": "media/2dd967ac880be388.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12642",
+      "title": "llama.cpp b12642",
+      "summary": "llama : copy all experts of a host weight shared by several nodes ( #32807 ) llama : copy all experts of a host weight shared by several nodes The scheduler copies a host weight to the device once per graph, so a partial expert copy made for the first MUL_MAT_ID is stale for the ",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-23T01:51:51Z",
+      "added_at": "2026-11-23T02:01:45Z",
+      "image": "https://opengraph.githubassets.com/f9da60d783d974b2eeef8057d68af8b32cb48fe2a39978b32cf78c2e928de8f0/ggml-org/llama.cpp/releases/tag/b12642",
+      "file": "media/9efca619f3415358.png",
       "video": "",
       "categories": [
         "local-models",
