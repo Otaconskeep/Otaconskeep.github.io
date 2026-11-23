@@ -1,0 +1,1015 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arcade Killer Instinct + Tekken at Full Speed on Raspberry Pi 4 | Otaconskeep</title>
+<meta name="description" content="Complete build guide: Convert an Arcade1Up Street Fighter II Supreme cabinet to run arcade Killer Instinct 1 & 2 and Tekken 3/Tag at full speed on a 2GB Raspberry Pi 4. Includes wiring diagrams, scripts, and benchmarks.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Otaconskeep">
+<meta property="og:title" content="Arcade Killer Instinct + Tekken at Full Speed on Raspberry Pi 4">
+<meta property="og:description" content="Complete build guide: Convert an Arcade1Up Street Fighter II Supreme cabinet to run arcade Killer Instinct 1 & 2 and Tekken 3/Tag at full speed on a 2GB Raspberry Pi 4.">
+<meta property="og:url" content="https://otaconskeep.github.io/arcade/ki-pi4/">
+<meta property="og:image" content="https://otaconskeep.github.io/arcade/ki-pi4/photos/cabinet_full.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Arcade Killer Instinct + Tekken at Full Speed on Raspberry Pi 4">
+<meta name="twitter:description" content="Complete build guide: Convert an Arcade1Up Street Fighter II Supreme cabinet to run arcade Killer Instinct 1 & 2 and Tekken 3/Tag at full speed on a 2GB Raspberry Pi 4.">
+<meta name="twitter:image" content="https://otaconskeep.github.io/arcade/ki-pi4/photos/cabinet_full.jpg">
+<link rel="canonical" href="https://otaconskeep.github.io/arcade/ki-pi4/">
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=20260929e">
+<style>
+.arcade-hero {
+ position: relative;
+ width: 100%;
+ margin: 2rem 0;
+ border: 1px solid var(--line-bright);
+ border-radius: 8px;
+ overflow: hidden;
+}
+.arcade-hero img {
+ width: 100%;
+ height: auto;
+ display: block;
+}
+.bench-table {
+ width: 100%;
+ margin: 1.5rem 0;
+ border-collapse: collapse;
+ font-size: 0.9rem;
+}
+.bench-table th,
+.bench-table td {
+ padding: 12px 16px;
+ text-align: left;
+ border: 1px solid var(--line);
+}
+.bench-table th {
+ background: var(--surface-2);
+ font-family: 'JetBrains Mono', monospace;
+ font-weight: 600;
+ text-transform: uppercase;
+ font-size: 0.75rem;
+ letter-spacing: 0.08em;
+ color: var(--accent-bright);
+}
+.bench-table td {
+ background: var(--surface);
+ font-family: 'JetBrains Mono', monospace;
+}
+.bench-table tr:hover td {
+ background: rgba(57, 230, 200, 0.05);
+}
+.bench-pass {
+ color: var(--signal);
+ font-weight: 600;
+}
+.parts-list {
+ background: var(--surface);
+ border: 1px solid var(--line);
+ border-radius: 6px;
+ padding: 1.5rem;
+ margin: 1.5rem 0;
+}
+.parts-list ul {
+ margin: 0.5rem 0 0 0;
+ padding-left: 1.5rem;
+}
+.parts-list li {
+ margin: 0.5rem 0;
+ color: var(--cream-dim);
+}
+.parts-list strong {
+ color: var(--cream);
+}
+.parts-list .price {
+ color: var(--signal);
+ font-weight: 600;
+}
+.diagram-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+ gap: 1.5rem;
+ margin: 1.5rem 0;
+}
+.diagram-card {
+ background: var(--surface);
+ border: 1px solid var(--line);
+ border-radius: 6px;
+ overflow: hidden;
+}
+.diagram-card img {
+ width: 100%;
+ height: auto;
+ display: block;
+ border-bottom: 1px solid var(--line);
+}
+.diagram-card .caption {
+ padding: 12px 16px;
+ font-size: 0.85rem;
+ color: var(--cream-dim);
+}
+.diagram-card .caption strong {
+ display: block;
+ color: var(--accent-bright);
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.75rem;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ margin-bottom: 4px;
+}
+.code-block {
+ margin: 1.5rem 0;
+}
+.code-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ background: var(--surface-2);
+ padding: 8px 16px;
+ border: 1px solid var(--line);
+ border-bottom: none;
+ border-radius: 6px 6px 0 0;
+}
+.code-title {
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.8rem;
+ font-weight: 600;
+ color: var(--accent-bright);
+}
+.code-meta {
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.7rem;
+ color: var(--cream-faint);
+}
+.code-block pre {
+ margin: 0;
+ padding: 1rem 1.25rem;
+ background: var(--bg-elevated);
+ border: 1px solid var(--line);
+ border-radius: 0 0 6px 6px;
+ overflow-x: auto;
+ font-size: 0.85rem;
+ line-height: 1.5;
+}
+.code-block code {
+ font-family: 'JetBrains Mono', monospace;
+ color: var(--cream);
+}
+.honesty-note {
+ background: rgba(224, 168, 60, 0.08);
+ border-left: 4px solid var(--warn);
+ padding: 1rem 1.25rem;
+ margin: 1.5rem 0;
+ border-radius: 4px;
+}
+.honesty-note p {
+ margin: 0.5rem 0;
+ color: var(--cream-dim);
+ font-size: 0.9rem;
+}
+.honesty-note p:first-child {
+ margin-top: 0;
+}
+.honesty-note strong {
+ color: var(--warn);
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.75rem;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+}
+.download-link {
+ display: inline-block;
+ margin: 0.25rem 0;
+ padding: 6px 12px;
+ background: var(--surface);
+ border: 1px solid var(--line);
+ border-radius: 4px;
+ color: var(--accent-bright);
+ text-decoration: none;
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.8rem;
+ transition: all 0.2s;
+}
+.download-link:hover {
+ background: rgba(57, 230, 200, 0.12);
+ border-color: var(--accent);
+}
+.toc {
+ background: var(--surface);
+ border: 1px solid var(--line);
+ border-radius: 6px;
+ padding: 1.5rem;
+ margin: 1.5rem 0;
+}
+.toc h3 {
+ margin: 0 0 1rem 0;
+ font-size: 1rem;
+ color: var(--accent-bright);
+ font-family: 'JetBrains Mono', monospace;
+ text-transform: uppercase;
+ letter-spacing: 0.08em;
+ font-size: 0.85rem;
+}
+.toc ul {
+ margin: 0;
+ padding-left: 1.5rem;
+ list-style: none;
+}
+.toc li {
+ margin: 0.5rem 0;
+}
+.toc a {
+ color: var(--cream-dim);
+ text-decoration: none;
+ font-size: 0.9rem;
+}
+.toc a:hover {
+ color: var(--accent-bright);
+}
+.section-header {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ margin: 3rem 0 1rem 0;
+ padding-bottom: 0.75rem;
+ border-bottom: 2px solid var(--line-bright);
+}
+.section-number {
+ font-family: 'JetBrains Mono', monospace;
+ font-size: 0.75rem;
+ color: var(--accent);
+ background: rgba(22, 168, 147, 0.15);
+ padding: 4px 10px;
+ border-radius: 4px;
+ font-weight: 700;
+}
+.section-header h2 {
+ margin: 0;
+ font-size: 1.75rem;
+ color: var(--cream);
+}
+@media (max-width: 768px) {
+ .diagram-grid {
+ grid-template-columns: 1fr;
+ }
+}
+</style>
+</head>
+<body>
+
+<div class="filebar">
+ <div class="wrap">
+ <span>OTACONSKEEP // ARCADE BUILD GUIDE</span>
+ <span>KI + TEKKEN @ 60 FPS<span class="blink"></span></span>
+ </div>
+</div>
+
+<nav class="topnav">
+ <div class="wrap">
+ <a class="brand" href="/"><img class="brand-avatar" src="/assets/img/otacon-brand-fullbody.png" alt=""><span class="brand-text">Otaconskeep<span class="brand-byline">Antonio G. Garcia</span></span></a>
+ <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false">MENU</button>
+ <div class="navlinks">
+ <a href="/">Home</a>
+ <a href="/#ecosystem">Platform</a>
+ <div class="navdrop">
+ <a href="/#ecosystem">Products</a>
+ <div class="navdrop-menu">
+ <a href="/otacon/">Otacon Lite</a>
+ <a href="/keeproute/">KeepRoute</a>
+ <a href="/keepdesk/">Keep Desk</a>
+ <a href="/expansion/">Expansion</a>
+ <a href="/ai9/">AI9</a>
+ <a href="/foxdie/">FOXDIE</a>
+ <a href="/search/">Private Search</a>
+ </div>
+ </div>
+ <a href="/classroom/">Learn</a>
+ <a href="/engineering/">Engineering</a>
+ <a href="/about/">About</a>
+ <a href="/news/">News</a>
+ <a href="/donate/">Donate</a>
+ <a href="/install/" class="discord">Get Otacon</a>
+ </div></div>
+</nav>
+
+<main class="wrap" style="padding-top: 2rem; padding-bottom: 4rem;">
+
+<h1 class="display" style="font-size: 2.5rem; margin-bottom: 0.5rem; line-height: 1.2;">Arcade Killer Instinct + Tekken<br>at Full Speed on Raspberry Pi 4</h1>
+
+<p style="font-size: 1.1rem; color: var(--cream-dim); margin-bottom: 2rem;">
+Complete build guide: Convert an Arcade1Up Street Fighter II Supreme cabinet to run arcade Killer Instinct 1 & 2 and Tekken 3/Tag at full speed on a 2GB Raspberry Pi 4. Every part, every wire, every script.
+</p>
+
+<div class="arcade-hero">
+ <img src="photos/cabinet_full.jpg" alt="Completed Raspberry Pi 4 arcade cabinet running Killer Instinct">
+</div>
+
+<div class="toc">
+ <h3>Table of Contents</h3>
+ <ul>
+ <li><a href="#overview">Overview & Benchmarks</a></li>
+ <li><a href="#parts">Parts List</a></li>
+ <li><a href="#wiring">Wiring Guide</a></li>
+ <li><a href="#software">Software Setup</a></li>
+ <li><a href="#killer-instinct">Killer Instinct Build</a></li>
+ <li><a href="#tekken">Tekken Setup</a></li>
+ <li><a href="#downloads">Download All Files</a></li>
+ </ul>
+</div>
+
+<div class="section-header" id="overview">
+ <span class="section-number">01</span>
+ <h2>Overview & Benchmarks</h2>
+</div>
+
+<p>This isn't just a showcase—this is a complete working build. The arcade versions of Killer Instinct, Killer Instinct 2, Tekken 3, and Tekken Tag Tournament all run at full speed on a 2GB Raspberry Pi 4, inside a converted Arcade1Up Street Fighter II Champion Edition Supreme cabinet.</p>
+
+<p>Out of the box, RetroPie couldn't touch these games. MAME 2016 ran Killer Instinct at about 30% speed and KI2 at about 23%. MAME 2010 and the old MAME 2003 wouldn't run KI at all, and Tekken Tag sat around 48 fps. What finally worked was compiling newer MAME 2003-Plus code as a separate emulator for Killer Instinct, and using ReSys12 (a Namco System 12 emulator) for Tekken.</p>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Performance Benchmarks</h3>
+
+<p style="font-size: 0.9rem; color: var(--cream-dim); margin-bottom: 1rem;">All tests performed headless (no video/audio output) with frame limiter disabled. Target is 60 fps. Pi 4 Model B 2GB at stock 1.75 GHz, peak temperature 66°C, no throttling.</p>
+
+<table class="bench-table">
+ <thead>
+ <tr>
+ <th>Game</th>
+ <th>Emulator</th>
+ <th>FPS Range</th>
+ <th>Target</th>
+ <th>Status</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td>Killer Instinct</td>
+ <td>lr-mame2003-plus-ki</td>
+ <td>151–177</td>
+ <td>60</td>
+ <td class="bench-pass">✓ PASS</td>
+ </tr>
+ <tr>
+ <td>Killer Instinct 2</td>
+ <td>lr-mame2003-plus-ki</td>
+ <td>147–185</td>
+ <td>60</td>
+ <td class="bench-pass">✓ PASS</td>
+ </tr>
+ <tr>
+ <td>Tekken 3</td>
+ <td>ReSys12</td>
+ <td>~230</td>
+ <td>60</td>
+ <td class="bench-pass">✓ PASS</td>
+ </tr>
+ <tr>
+ <td>Tekken Tag</td>
+ <td>ReSys12</td>
+ <td>~430</td>
+ <td>60</td>
+ <td class="bench-pass">✓ PASS</td>
+ </tr>
+ </tbody>
+</table>
+
+<div class="diagram-grid" style="margin-top: 2rem;">
+ <div class="diagram-card">
+ <img src="photos/qa_ki1.jpg" alt="Killer Instinct gameplay">
+ <div class="caption">
+ <strong>Killer Instinct</strong>
+ Arcade version running at full speed with no slowdown
+ </div>
+ </div>
+ <div class="diagram-card">
+ <img src="photos/qa_ki2.jpg" alt="Killer Instinct 2 gameplay">
+ <div class="caption">
+ <strong>Killer Instinct 2</strong>
+ Real arcade ROM and hard-drive image, no frame drops
+ </div>
+ </div>
+</div>
+
+<div class="section-header" id="parts">
+ <span class="section-number">02</span>
+ <h2>Parts List</h2>
+</div>
+
+<p>This build reuses as much of the original Arcade1Up hardware as possible to save money. The stock encoder, mainboard, power toggle, volume buttons, and marquee light all stay in place and functional.</p>
+
+<div class="parts-list">
+ <h3 style="margin-top: 0; color: var(--accent-bright);">Required Components</h3>
+ <ul>
+ <li><strong>Raspberry Pi 4 Model B (2GB RAM)</strong> — The brain of the cabinet, running at 1.75 GHz stock</li>
+ <li><strong>EG STARTS 2-Player Arcade Kit</strong> — <span class="price">$44.99</span> on Amazon. Includes two oval-top joysticks, 16 LED buttons, 4 start/coin buttons, and two zero-delay USB encoders</li>
+ <li><strong>LVDS Controller Board</strong> — Converts HDMI from the Pi to drive the original DV190EOM-N12 19" panel. Check voltage requirements for your specific board</li>
+ <li><strong>DV190EOM-N12 Panel</strong> — Original 19" display from the Arcade1Up Supreme cabinet (kept from stock)</li>
+ <li><strong>ESP32 Development Board</strong> — Running WLED firmware to control coin-door LEDs</li>
+ <li><strong>USB-Powered Speakers</strong> — With 3.5mm audio input (or use a small amp board with the stock speakers)</li>
+ <li><strong>MicroSD Card</strong> — 32GB or larger for RetroPie</li>
+ <li><strong>USB-C Power Supply</strong> — Official Pi 4 power supply (5V, 3A minimum)</li>
+ </ul>
+ 
+ <h3 style="margin-top: 1.5rem; color: var(--accent-bright);">Reused from Stock Cabinet</h3>
+ <ul>
+ <li><strong>Original Arcade1Up Power Supply</strong> — Powers the stock mainboard, encoder, and marquee light</li>
+ <li><strong>Stock Mainboard & Encoder</strong> — Run the marquee light and provide mounting for power/volume switches</li>
+ <li><strong>Power Toggle Switch</strong> — Re-wired to Pi GPIO for safe shutdown</li>
+ <li><strong>Volume Buttons</strong> — Re-wired to Pi GPIO for ALSA volume control</li>
+ <li><strong>Marquee Light</strong> — Stays on stock wiring, works exactly as original</li>
+ </ul>
+</div>
+
+<div class="section-header" id="wiring">
+ <span class="section-number">03</span>
+ <h2>Wiring Guide</h2>
+</div>
+
+<p>Follow this order for assembly:</p>
+
+<ol style="color: var(--cream-dim); line-height: 1.8;">
+ <li>Unplug everything and open the back of the cabinet</li>
+ <li>Swap in the new joysticks and LED buttons from the EG STARTS kit</li>
+ <li>Wire each player's controls to their zero-delay encoder, then USB to the Pi</li>
+ <li>Mount the Pi inside the cabinet</li>
+ <li>Connect the LVDS board: HDMI from Pi, 30-pin cable to panel, power</li>
+ <li>Move power toggle and volume wires to Pi GPIO pins</li>
+ <li>Leave stock mainboard and encoder in place for marquee light</li>
+ <li>Install ESP32 and LED strip behind coin doors, connect speakers</li>
+</ol>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Power Overview</h3>
+
+<p>Every board gets its own power supply to prevent voltage issues:</p>
+
+<div class="diagram-grid">
+ <div class="diagram-card">
+ <img src="diagrams/pwr.jpg" alt="Power distribution diagram">
+ <div class="caption">
+ <strong>Power Distribution</strong>
+ Four separate power supplies: Pi 5V USB-C, LVDS board (check voltage), stock Arcade1Up supply for mainboard/encoder/marquee, USB 5V for ESP32/speakers
+ </div>
+ </div>
+ <div class="diagram-card">
+ <img src="diagrams/pi4.jpg" alt="Raspberry Pi 4 pinout">
+ <div class="caption">
+ <strong>Raspberry Pi 4 Pinout</strong>
+ Only 5 pins used (cyan): GPIO3 + GND for power, GPIO26 + GPIO19 + GND for volume
+ </div>
+ </div>
+</div>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Control Encoder Wiring</h3>
+
+<div class="diagram-grid">
+ <div class="diagram-card">
+ <img src="diagrams/enc.jpg" alt="Zero-delay encoder wiring">
+ <div class="caption">
+ <strong>Zero-Delay Encoders</strong>
+ Each player gets one encoder: 5-pin header for joystick (up/down/left/right/ground), individual ports for buttons with 4-wire LED harnesses
+ </div>
+ </div>
+</div>
+
+<p style="margin-top: 1rem; color: var(--cream-dim); font-size: 0.9rem;"><strong>Note:</strong> Port labels differ between encoder batches. Document which button connects to which port for your RetroArch configuration. In this build, Player 1 is on USB port 1-1.4 and Player 2 is on 1-1.3.</p>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Display Connection</h3>
+
+<div class="diagram-grid">
+ <div class="diagram-card">
+ <img src="diagrams/lvds.jpg" alt="LVDS board wiring">
+ <div class="caption">
+ <strong>LVDS Controller</strong>
+ Micro-HDMI port 0 from Pi → HDMI input on LVDS board. 30-pin LVDS cable + backlight cable to DV190EOM-N12 panel. Audio out available from board
+ </div>
+ </div>
+ <div class="diagram-card">
+ <img src="photos/panel_label.jpg" alt="Panel model number">
+ <div class="caption">
+ <strong>Panel Identification</strong>
+ DV190EOM-N12 label on the original Arcade1Up 19" panel
+ </div>
+ </div>
+</div>
+
+<div class="honesty-note">
+ <p><strong>⚠ Important</strong></p>
+ <p>Check the voltage printed on your LVDS board and verify the panel voltage jumper setting before powering up. Some boards require 5V, others 12V. Incorrect voltage will damage the board or panel.</p>
+</div>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Power Switch Wiring</h3>
+
+<div class="diagram-grid">
+ <div class="diagram-card">
+ <img src="diagrams/ppow.jpg" alt="Power switch GPIO connections">
+ <div class="caption">
+ <strong>Power Switch Pins</strong>
+ One wire to Pin 5 (GPIO3), other wire to Pin 6 (GND). Never use Pin 4—it's 5V and will short the Pi
+ </div>
+ </div>
+</div>
+
+<p style="margin-top: 1rem; color: var(--cream-dim); font-size: 0.9rem;">Opening the switch for 1 second triggers a clean shutdown. Closing it boots the Pi back up (GPIO3 wake-on-ground feature).</p>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Volume Button Wiring</h3>
+
+<div class="diagram-grid">
+ <div class="diagram-card">
+ <img src="diagrams/pvol.jpg" alt="Volume button GPIO connections">
+ <div class="caption">
+ <strong>Volume Button Pins</strong>
+ Volume Up: Pin 37 (GPIO26). Volume Down: Pin 35 (GPIO19). Both share Pin 39 (GND). Each tap: ±5%. Hold down 2s: jump to 100%
+ </div>
+ </div>
+</div>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Stock Board Preservation</h3>
+
+<div class="diagram-grid">
+ <div class="diagram-card">
+ <img src="diagrams/stock.jpg" alt="Stock encoder and mainboard">
+ <div class="caption">
+ <strong>Stock Boards</strong>
+ Original mainboard and encoder stay powered and in place. Only power toggle and volume wires move to Pi GPIO
+ </div>
+ </div>
+ <div class="diagram-card">
+ <img src="photos/stock_mobo_lvds.jpg" alt="Stock motherboard with LVDS connector">
+ <div class="caption">
+ <strong>Original Hardware</strong>
+ Stock Arcade1Up mainboard showing LVDS harness location
+ </div>
+ </div>
+</div>
+
+<div class="diagram-grid">
+ <div class="diagram-card">
+ <img src="diagrams/marq.jpg" alt="Marquee light wiring">
+ <div class="caption">
+ <strong>Marquee Light Path</strong>
+ Original supply → mainboard → encoder → marquee light. No modifications needed, works exactly like stock
+ </div>
+ </div>
+</div>
+
+<div class="honesty-note">
+ <p><strong>⚠ Verify Your Wiring</strong></p>
+ <p>Connectors and wire colors vary by cabinet revision. Trace your power toggle, volume buttons, and marquee connections with a multimeter before making changes. Do not cut the stock harness.</p>
+</div>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Coin Door LEDs</h3>
+
+<div class="diagram-grid">
+ <div class="diagram-card">
+ <img src="diagrams/esp.jpg" alt="ESP32 and LED strip wiring">
+ <div class="caption">
+ <strong>ESP32 Connections</strong>
+ Green data wire: GPIO13 (D13). Red: VIN (5V). White: GND. LED strip behind coin door inserts
+ </div>
+ </div>
+</div>
+
+<p style="margin-top: 1rem; color: var(--cream-dim); font-size: 0.9rem;">Flash WLED firmware to ESP32, connect to WiFi, set LED pin to 13, and limit power to 850mA for USB power. No code required—WLED handles everything through its web interface.</p>
+
+<div class="honesty-note">
+ <p><strong>⚠ Level Shifter Recommended</strong></p>
+ <p>Some LED strips require a level shifter or 330Ω resistor on the data line when driven from 3.3V GPIO. If LEDs don't respond, add one between ESP32 GPIO13 and the strip's data input.</p>
+</div>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Audio Path</h3>
+
+<div class="diagram-grid">
+ <div class="diagram-card">
+ <img src="diagrams/aud.jpg" alt="Audio signal path">
+ <div class="caption">
+ <strong>Sound Routing</strong>
+ Pi sends game audio over HDMI to LVDS board. Board's 3.5mm output to USB-powered speakers. Alternative: use amp board with stock speakers
+ </div>
+ </div>
+</div>
+
+<div class="section-header" id="software">
+ <span class="section-number">04</span>
+ <h2>Software Setup</h2>
+</div>
+
+<p>Start with RetroPie 4.6.1 32-bit (this build used the Retro Arcade Bliss image). Enable SSH and log in from your PC to perform these steps:</p>
+
+<ol style="color: var(--cream-dim); line-height: 1.8;">
+ <li>Install power switch and volume control scripts</li>
+ <li>Configure RetroArch controller bindings for both encoders</li>
+ <li>Build the custom MAME 2003-Plus core for Killer Instinct</li>
+ <li>Build ReSys12 emulator for Tekken</li>
+ <li>Configure per-game emulator selection</li>
+ <li>Add button remap for Killer Instinct</li>
+</ol>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Power Switch Script</h3>
+
+<p>Monitors GPIO3 for the cabinet power toggle. Opening the switch for 1 second triggers a clean shutdown. Closing the switch boots the Pi (GPIO3 wake feature).</p>
+
+<div class="code-block">
+ <div class="code-header">
+ <span class="code-title">power_switch.py</span>
+ <span class="code-meta">Install to: /home/pi/</span>
+ </div>
+ <pre><code>#!/usr/bin/env python3
+# power_switch.py  -  cabinet ON/OFF toggle -> safe Pi shutdown
+# Switch wired to GPIO3 (pin 5) and GND (pin 6). NEVER pin 4 (5V).
+from gpiozero import Button
+from signal import pause
+from time import sleep
+import subprocess
+
+switch = Button(3, pull_up=True)     # closed = ON (pin pulled to GND)
+
+def switch_opened():
+    sleep(1)                          # must stay open for 1 second
+    if not switch.is_pressed:         # still open? then power down
+        subprocess.run(["sudo", "shutdown", "-h", "now"])
+
+switch.when_released = switch_opened
+# Bonus: grounding GPIO3 wakes a halted Pi, so flipping
+# the toggle back ON boots the cabinet again.
+pause()</code></pre>
+</div>
+
+<div class="honesty-note">
+ <p><strong>⚠ Reference Listing</strong></p>
+ <p>This script is a reference recreation using the actual pin assignments from the build, not a byte-for-byte copy from the cabinet. The logic and pins are correct.</p>
+</div>
+
+<a href="code/power_switch.py" class="download-link" download>⬇ Download power_switch.py</a>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Volume Control Script</h3>
+
+<p>Monitors GPIO26 (up) and GPIO19 (down) for cabinet volume buttons. Each tap adjusts ALSA PCM volume by 5%. Holding down for 2 seconds jumps to 100%.</p>
+
+<div class="code-block">
+ <div class="code-header">
+ <span class="code-title">gpio_volume.py</span>
+ <span class="code-meta">Install to: /home/pi/</span>
+ </div>
+ <pre><code>#!/usr/bin/env python3
+# gpio_volume.py - cabinet volume buttons -> ALSA "PCM" mixer
+# Vol+ GPIO26 (pin 37)   Vol- GPIO19 (pin 35)   GND pin 39
+from gpiozero import Button
+from signal import pause
+import subprocess
+
+up   = Button(26, pull_up=True, bounce_time=0.05)
+down = Button(19, pull_up=True, bounce_time=0.05, hold_time=2)
+held = False
+
+def mixer(value):
+    subprocess.run(["amixer", "-q", "sset", "PCM", value])
+
+def down_held():                # hold Vol- 2 s -> jump to 100%
+    global held; held = True; mixer("100%")
+
+def down_released():            # quick tap     -> down 5%
+    global held
+    if not held: mixer("5%-")
+    held = False
+
+up.when_pressed    = lambda: mixer("5%+")
+down.when_held     = down_held
+down.when_released = down_released
+pause()</code></pre>
+</div>
+
+<div class="honesty-note">
+ <p><strong>⚠ Reference Listing</strong></p>
+ <p>This script is a reference recreation using the actual GPIO pins and logic, not a byte-for-byte copy from the cabinet.</p>
+</div>
+
+<a href="code/gpio_volume.py" class="download-link" download>⬇ Download gpio_volume.py</a>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Systemd Service Files</h3>
+
+<div class="code-block">
+ <div class="code-header">
+ <span class="code-title">power-switch.service</span>
+ <span class="code-meta">Install to: /etc/systemd/system/</span>
+ </div>
+ <pre><code># /etc/systemd/system/power-switch.service
+[Unit]
+Description=Cabinet power toggle (safe shutdown)
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/power_switch.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+</div>
+
+<a href="code/power-switch.service" class="download-link" download>⬇ Download power-switch.service</a>
+
+<div class="code-block" style="margin-top: 1.5rem;">
+ <div class="code-header">
+ <span class="code-title">gpio-volume.service</span>
+ <span class="code-meta">Install to: /etc/systemd/system/</span>
+ </div>
+ <pre><code># /etc/systemd/system/gpio-volume.service
+[Unit]
+Description=Cabinet volume buttons -> PCM mixer
+After=sound.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/gpio_volume.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+</div>
+
+<a href="code/gpio-volume.service" class="download-link" download>⬇ Download gpio-volume.service</a>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Enable Services</h3>
+
+<div class="code-block">
+ <div class="code-header">
+ <span class="code-title">enable.sh</span>
+ <span class="code-meta">Installation commands</span>
+ </div>
+ <pre><code># 1. copy the scripts to the Pi
+scp power_switch.py gpio_volume.py pi@&lt;your-pi&gt;:/home/pi/
+
+# 2. install the two service files
+sudo cp power-switch.service gpio-volume.service /etc/systemd/system/
+
+# 3. turn them on now and on every boot
+sudo systemctl daemon-reload
+sudo systemctl enable --now power-switch gpio-volume
+
+# 4. check they're running
+systemctl status power-switch gpio-volume --no-pager</code></pre>
+</div>
+
+<a href="code/enable.sh" class="download-link" download>⬇ Download enable.sh</a>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">RetroArch Controller Configuration</h3>
+
+<p>Both zero-delay encoders appear as DragonRise gamepads. Player order is swapped so the left stick is Player 1. Because each encoder was wired differently, Player 2 gets custom button mappings.</p>
+
+<div class="code-block">
+ <div class="code-header">
+ <span class="code-title">retroarch_binds.cfg</span>
+ <span class="code-meta">Add to: /opt/retropie/configs/arcade/retroarch.cfg</span>
+ </div>
+ <pre><code># retroarch.cfg - two zero-delay (DragonRise) encoders
+input_player1_joypad_index = "1"   # P1 encoder = USB port 1-1.4
+input_player2_joypad_index = "0"   # P2 encoder = USB port 1-1.3 (js0)
+
+# P1 uses the shared DragonRise autoconfig file:
+#   y=10 Jab   x=5 Strong   l=7 Fierce
+#   b=11 Short a=4 Forward  r=6 Roundhouse
+
+# P2 is wired differently, so it gets per-port binds:
+input_player2_y_btn = "6"   # Jab
+input_player2_x_btn = "5"   # Strong
+input_player2_l_btn = "2"   # Fierce
+input_player2_b_btn = "4"   # Short
+input_player2_a_btn = "3"   # Forward
+input_player2_r_btn = "1"   # Roundhouse
+# + P2 left/right and up/down axis flips (match your stick)</code></pre>
+</div>
+
+<a href="code/retroarch_binds.cfg" class="download-link" download>⬇ Download retroarch_binds.cfg</a>
+
+<div class="section-header" id="killer-instinct">
+ <span class="section-number">05</span>
+ <h2>Killer Instinct Build</h2>
+</div>
+
+<p>The key to running Killer Instinct at full speed is building a newer version of MAME 2003-Plus from source. The stock RetroPie cores are too old. This creates a separate core specifically for KI, leaving the standard MAME cores untouched.</p>
+
+<div class="honesty-note">
+ <p><strong>⚠ Performance Source</strong></p>
+ <p>The speed improvement comes from newer MAME 2003-Plus code, not from a dynamic recompiler. Building from the current MAME 2003-Plus master branch (tested at commit 2a60eda) enables significant performance improvements in the KI emulation.</p>
+</div>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Build Instructions</h3>
+
+<div class="code-block">
+ <div class="code-header">
+ <span class="code-title">ki_build.sh</span>
+ <span class="code-meta">Build custom MAME 2003-Plus core</span>
+ </div>
+ <pre><code># 1. get the newer MAME 2003-Plus source
+cd ~ && git clone https://github.com/libretro/mame2003-plus-libretro.git
+cd mame2003-plus-libretro            # built from master @ 2a60eda
+
+# 2. compile ON the Pi - one job at a time
+make -j1 platform=rpi4               # -j3 ran OUT OF MEMORY on 2 GB
+
+# 3. install as its OWN core (stock lr-mame2003-plus untouched)
+sudo mkdir -p /opt/retropie/libretrocores/lr-mame2003-plus-ki
+sudo cp mame2003_plus_libretro.so \
+        /opt/retropie/libretrocores/lr-mame2003-plus-ki/
+
+# 4. add it to /opt/retropie/configs/arcade/emulators.cfg (one line):
+lr-mame2003-plus-ki = "/opt/retropie/emulators/retroarch/bin/retroarch
+    -L /opt/retropie/libretrocores/lr-mame2003-plus-ki/mame2003_plus_libretro.so
+    --config /opt/retropie/configs/arcade/retroarch.cfg %ROM%"
+
+# 5. ROMs in ~/RetroPie/roms/arcade/
+#    kinst.zip  + kinst/kinst.chd       kinst2.zip + its CHD folder</code></pre>
+</div>
+
+<a href="code/ki_build.sh" class="download-link" download>⬇ Download ki_build.sh</a>
+
+<p style="margin-top: 1.5rem; color: var(--cream-dim); font-size: 0.9rem;"><strong>Note:</strong> Compilation takes several hours on a Pi 4. Using -j1 (single job) is slower but necessary—parallel builds with -j3 ran out of memory on the 2GB model.</p>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Per-Game Emulator Selection</h3>
+
+<p>Tell RetroPie which games use the custom KI core. You can edit the config file directly or use the runcommand menu at game launch.</p>
+
+<div class="code-block">
+ <div class="code-header">
+ <span class="code-title">emulators.cfg</span>
+ <span class="code-meta">Edit: /opt/retropie/configs/all/emulators.cfg (back up first!)</span>
+ </div>
+ <pre><code># /opt/retropie/configs/all/emulators.cfg   (back it up first!)
+arcade_kinst   = "lr-mame2003-plus-ki"     # Killer Instinct
+arcade_kinst2  = "lr-mame2003-plus-ki"     # was lr-mame2016
+arcade_tekken3 = "resys12"                 # was lr-mame2010
+arcade_tektagt = "resys12"                 # was lr-mame2010</code></pre>
+</div>
+
+<a href="code/emulators.cfg" class="download-link" download>⬇ Download emulators.cfg</a>
+
+<div class="diagram-grid" style="margin-top: 1.5rem;">
+ <div class="diagram-card">
+ <img src="diagrams/st_run.jpg" alt="Runcommand menu">
+ <div class="caption">
+ <strong>Runcommand Method</strong>
+ Launch game, press button when "press a key to configure" appears, select "Select emulator for ROM", choose lr-mame2003-plus-ki. RetroPie remembers per game
+ </div>
+ </div>
+</div>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Button Remap for Street Fighter Layout</h3>
+
+<p>On a Street Fighter panel, KI's Strong and Forward buttons end up swapped. These per-game remap files fix the layout for both players.</p>
+
+<div class="code-block">
+ <div class="code-header">
+ <span class="code-title">kinst.rmp</span>
+ <span class="code-meta">Install to: /opt/retropie/configs/arcade/MAME 2003-Plus/kinst.rmp (and kinst2.rmp)</span>
+ </div>
+ <pre><code># /opt/retropie/configs/arcade/MAME 2003-Plus/kinst.rmp
+# (kinst2.rmp is the same) - RetroArch per-game remap
+# Swap Strong (RetroPad X) and Forward (RetroPad A), both players
+input_player1_btn_x = "8"
+input_player1_btn_a = "9"
+input_player2_btn_x = "8"
+input_player2_btn_a = "9"
+# Undo: move kinst.rmp / kinst2.rmp out of the folder</code></pre>
+</div>
+
+<a href="code/kinst.rmp" class="download-link" download>⬇ Download kinst.rmp</a>
+
+<div class="honesty-note">
+ <p><strong>⚠ Reference Listing</strong></p>
+ <p>This remap file is a reference recreation with the correct button values, not a byte-for-byte copy from the cabinet.</p>
+</div>
+
+<p style="margin-top: 1.5rem; color: var(--cream-dim); font-size: 0.9rem;">Create both kinst.rmp and kinst2.rmp with identical contents. RetroArch loads them automatically for their respective games. Delete to restore standard layout.</p>
+
+<div class="section-header" id="tekken">
+ <span class="section-number">06</span>
+ <h2>Tekken Setup</h2>
+</div>
+
+<p>Tekken 3 and Tekken Tag Tournament are Namco System 12 games. They run on ReSys12, an open-source System 12 emulator originally made for PS Vita, ported to Linux with an SDL2 front-end.</p>
+
+<div class="honesty-note">
+ <p><strong>⚠ Source Availability</strong></p>
+ <p>The ReSys12 Linux port used in this build is not publicly available. The base ReSys12 emulator is open-source (GPL-3), but the specific Linux front-end with SDL2 and custom button mappings used here is a private port. This guide documents the approach for reference.</p>
+</div>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Build Process</h3>
+
+<div class="code-block">
+ <div class="code-header">
+ <span class="code-title">resys12_build.sh</span>
+ <span class="code-meta">Build ReSys12 for Tekken</span>
+ </div>
+ <pre><code># Tekken 3 + Tekken Tag: ReSys12 (Namco System 12), GPL-3
+mkdir -p ~/resys12-build && cd ~/resys12-build
+git clone https://github.com/Reyanon/ReSys12.git   # built @ fc52321
+
+# the Vita front-end is swapped for a small Linux/SDL2 one
+# (main_linux.c + rs12_threads_linux.c + Makefile in ./port)
+cd port && make RS12=../ReSys12        # -> ./resys12
+
+sudo mkdir -p /opt/retropie/emulators/resys12
+sudo cp resys12 /opt/retropie/emulators/resys12/
+
+# arcade/emulators.cfg
+resys12 = "/opt/retropie/emulators/resys12/resys12 %ROM%"
+
+# ROM sets: tekken3.zip (tekken3je1)   tektagt.zip (tektagtuc1)
+# test speed:  resys12 tektagt.zip --bench 3000</code></pre>
+</div>
+
+<a href="code/resys12_build.sh" class="download-link" download>⬇ Download resys12_build.sh</a>
+
+<div class="honesty-note">
+ <p><strong>⚠ Reference Listing</strong></p>
+ <p>This build script is a reference showing the general approach and correct repo/commit. The Linux port files (main_linux.c, Makefile) are not included.</p>
+</div>
+
+<p style="margin-top: 1.5rem; color: var(--cream-dim); font-size: 0.9rem;">Button layout follows Tekken 2 convention: punches on top row, kicks on bottom row, Tag on Fierce button.</p>
+
+<div class="diagram-grid" style="margin-top: 1.5rem;">
+ <div class="diagram-card">
+ <img src="diagrams/st_tek.jpg" alt="Tekken setup steps">
+ <div class="caption">
+ <strong>Tekken Configuration</strong>
+ ROM sets tekken3.zip and tektagt.zip in arcade folder. Set emulator to resys12 via runcommand or emulators.cfg
+ </div>
+ </div>
+</div>
+
+<div class="section-header" id="downloads">
+ <span class="section-number">07</span>
+ <h2>Download All Files</h2>
+</div>
+
+<p>All scripts, configuration files, and diagrams are available for download:</p>
+
+<div class="parts-list">
+ <h3 style="margin-top: 0; color: var(--accent-bright);">Python Scripts</h3>
+ <ul style="list-style: none; padding-left: 0;">
+ <li>• <a href="code/power_switch.py" download>power_switch.py</a> — Power toggle GPIO monitor</li>
+ <li>• <a href="code/gpio_volume.py" download>gpio_volume.py</a> — Volume button GPIO control</li>
+ </ul>
+
+ <h3 style="margin-top: 1.5rem; color: var(--accent-bright);">Systemd Services</h3>
+ <ul style="list-style: none; padding-left: 0;">
+ <li>• <a href="code/power-switch.service" download>power-switch.service</a> — Power script service unit</li>
+ <li>• <a href="code/gpio-volume.service" download>gpio-volume.service</a> — Volume script service unit</li>
+ <li>• <a href="code/enable.sh" download>enable.sh</a> — Service installation commands</li>
+ </ul>
+
+ <h3 style="margin-top: 1.5rem; color: var(--accent-bright);">Emulator Setup</h3>
+ <ul style="list-style: none; padding-left: 0;">
+ <li>• <a href="code/ki_build.sh" download>ki_build.sh</a> — MAME 2003-Plus KI core build script</li>
+ <li>• <a href="code/resys12_build.sh" download>resys12_build.sh</a> — ReSys12 build reference</li>
+ <li>• <a href="code/emulators.cfg" download>emulators.cfg</a> — Per-game emulator assignments</li>
+ </ul>
+
+ <h3 style="margin-top: 1.5rem; color: var(--accent-bright);">Configuration Files</h3>
+ <ul style="list-style: none; padding-left: 0;">
+ <li>• <a href="code/retroarch_binds.cfg" download>retroarch_binds.cfg</a> — Controller button mappings</li>
+ <li>• <a href="code/kinst.rmp" download>kinst.rmp</a> — KI button remap for SF layout</li>
+ </ul>
+</div>
+
+<h3 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--accent-bright);">Wiring Reference Diagrams</h3>
+
+<div class="diagram-grid">
+ <div class="diagram-card">
+ <img src="diagrams/st_hw.jpg" alt="Hardware steps overview">
+ <div class="caption"><strong>Hardware Steps</strong></div>
+ </div>
+ <div class="diagram-card">
+ <img src="diagrams/st_sw.jpg" alt="Software steps overview">
+ <div class="caption"><strong>Software Steps</strong></div>
+ </div>
+ <div class="diagram-card">
+ <img src="diagrams/st_wled.jpg" alt="WLED setup steps">
+ <div class="caption"><strong>WLED Setup</strong></div>
+ </div>
+</div>
+
+<div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--line);">
+ <p style="color: var(--cream-dim); font-size: 0.9rem;">
+ <strong>Build Specifications:</strong> Raspberry Pi 4 Model B Rev 1.1, 2GB RAM, 1.75 GHz stock, RetroPie 4.6.1, 32-bit Raspbian 10. Headless benchmarks with no throttling, peak 66°C. MAME 2003-Plus master @ 2a60eda, ReSys12 @ fc52321. EG STARTS 2-player kit, LVDS controller for DV190EOM-N12 panel, ESP32 with WLED, USB speakers.
+ </p>
+ <p style="color: var(--cream-dim); font-size: 0.85rem; margin-top: 1rem;">
+ Last updated: November 2026 • <a href="/">Back to Otaconskeep</a>
+ </p>
+</div>
+
+</main>
+
+<footer style="background: var(--surface); border-top: 1px solid var(--line); padding: 2rem 0;">
+ <div class="wrap">
+ <p style="text-align: center; color: var(--cream-faint); font-size: 0.85rem; margin: 0;">
+ © 2026 Otaconskeep • <a href="/">Home</a> • <a href="/about/">About</a> • <a href="/news/">News</a>
+ </p>
+ </div>
+</footer>
+
+<script src="/assets/site.js"></script>
+</body>
+</html>

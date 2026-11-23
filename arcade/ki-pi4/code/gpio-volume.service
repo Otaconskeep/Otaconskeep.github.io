@@ -1,0 +1,11 @@
+# /etc/systemd/system/gpio-volume.service
+[Unit]
+Description=Cabinet volume buttons -> PCM mixer
+After=sound.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/gpio_volume.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
