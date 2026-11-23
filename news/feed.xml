@@ -5,10 +5,17 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-22T13:42:14Z</lastBuildDate>
 <item>
+<title>llama.cpp b12644</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12644</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12644</guid>
+<pubDate>2026-11-23T02:19:04Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b50d0a3a620784f9.png" alt=""><p>Article · llama.cpp. mtmd: speed up shared audio FFT ( #32815 ) mtmd: speed up shared audio FFT Replace recursive radix-2 splitting with iterative stages and batch the existing odd-size DFT across subsequences, preserving the previous operation order. Input buffers now hold only N real values for FFT</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12643</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12643</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12643</guid>
-<pubDate>2026-11-23T02:01:24Z</pubDate>
+<pubDate>2026-11-23T02:05:29Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2dd967ac880be388.png" alt=""><p>Article · llama.cpp. mtmd: fix qwen3a audio tail ( #32697 ) add: test to reporduce error reported in #32689 fix: remove extra tokens from zero-padding of Qwen3-Omni / Qwen3-ASR audio add: qwen3a_tokens_for_frames instead of magic numbers refactor: only ggml_pad when required refactor: move qwen3a_tok</p>]]></description>
 </item>
 <item>
@@ -40,6 +47,20 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/c974d249b0a82b3f.png" alt=""><p>Article · llama.cpp. chat : implement token aware parsing ( #29307 ) Website:</p>]]></description>
 </item>
 <item>
+<title>llama.cpp b12646</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12646</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12646</guid>
+<pubDate>2026-11-23T00:48:16Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e322025278c6d29c.png" alt=""><p>Article · llama.cpp. ggml-backend : generic fallback in ggml_backend_tensor_memset ( #32574 )</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12645</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12645</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12645</guid>
+<pubDate>2026-11-23T00:20:22Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/fe484d92b61b106a.png" alt=""><p>Article · llama.cpp. chat: fix LFM2.5-VL template detection ( #32843 )</p>]]></description>
+</item>
+<item>
 <title>Development build (05eb448)</title>
 <link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
 <guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
@@ -52,13 +73,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12635</guid>
 <pubDate>2026-11-22T23:59:06Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5872f2f48dd112b2.png" alt=""><p>Article · llama.cpp. ggml : add SIGMOID backward pass ( #32126 ) ggml : add SIGMOID backward pass Sigmoid is used in Qwen3.5 hybrid models and had no backward pass. Bump RPC protocol patch version for the new op. Signed-off-by: gianni-cor gianfranco.cordella@tether.io replace assert with ggml_assert</p>]]></description>
-</item>
-<item>
-<title>b12644: mtmd: speed up shared audio FFT (#32815)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12644</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12644</guid>
-<pubDate>2026-11-22T21:04:24Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b50d0a3a620784f9.png" alt=""><p>Article · llama.cpp. mtmd: speed up shared audio FFT Replace recursive radix-2 splitting with iterative stages and batch the existing odd-size DFT across subsequences, preserving the previous operation order. Input buffers now hold only N real values for FFT or 2N interleaved floats for inverse FFT.</p>]]></description>
 </item>
 <item>
 <title>b12637: server: support /models/sse on single-model mode (#32398)</title>
