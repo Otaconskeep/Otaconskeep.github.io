@@ -96098,7 +96098,7 @@
       "source": "Ollama",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-24T04:18:13Z",
+      "published": "2026-11-24T07:29:32Z",
       "added_at": "2026-11-24T02:01:45Z",
       "image": "https://opengraph.githubassets.com/66ab5d675e923a35da768acd458be8248676e414d8f921a08e3e84c86cac5ad1/ollama/ollama",
       "file": "media/410111e56cecf65e.png",
@@ -96349,12 +96349,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12671",
-      "title": "b12671: metal : batch concat rows and copy them in vector chunks (#32824)",
-      "summary": "metal : batch concat rows and copy them in vector chunks The concat kernel copied one element per thread, so wide rows with many rows ran at a fraction of the memory bandwidth. Batch several rows per threadgroup and copy the contiguous dim-0 elements in 4-element chunks when the ",
+      "title": "llama.cpp b12671",
+      "summary": "metal : batch concat rows and copy them in vector chunks ( #32824 ) metal : batch concat rows and copy them in vector chunks The concat kernel copied one element per thread, so wide rows with many rows ran at a fraction of the memory bandwidth. Batch several rows per threadgroup ",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-23T19:01:41Z",
+      "published": "2026-11-24T07:06:34Z",
       "added_at": "2026-11-24T06:31:45Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/06a5e0898babe8ff.png",
@@ -96392,6 +96392,40 @@
       "added_at": "2026-11-24T07:01:53Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/94777b35d1e04ab7.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ollama/ollama/releases/tag/v0.40.18",
+      "title": "v0.40.18: inkling2: faster Metal decode, prefill and draft rounds (#19843)",
+      "summary": "inkling2: faster Metal decode, prefill and draft rounds Add Inkling-only Metal kernels, each with a stock-graph fallback, gated by GPU generation and size class: short BF16 products, deduplicated NVFP4/MXFP8 expert gathers with fused SwiGLU, fused loop controllers and residual mi",
+      "source": "Ollama",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-24T01:35:09Z",
+      "added_at": "2026-11-24T07:31:52Z",
+      "image": "https://opengraph.githubassets.com/45c32e6b32a78156c1e7b1a8c62156f2ffe1fd393ec3a365634d17700bf6f2e2/ollama/ollama",
+      "file": "media/dbf3279a2f3448f9.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12674",
+      "title": "llama.cpp b12674",
+      "summary": "opencl: fetch the Adreno binary kernel library at configure time for …",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-23T20:39:04Z",
+      "added_at": "2026-11-24T07:31:53Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/acd761c740c5ce01.png",
       "video": "",
       "categories": [
         "local-models",
