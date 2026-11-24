@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-24T13:35:12Z</lastBuildDate>
 <item>
+<title>llama.cpp b12683</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12683</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12683</guid>
+<pubDate>2026-11-24T22:31:46Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e1d493e92b62b49c.png" alt=""><p>Article · llama.cpp. rpc : reuse one context for request tensors on the server ( #32896 ) Website:</p>]]></description>
+</item>
+<item>
+<title>LiteLLM v1.112.0-rc.1</title>
+<link>https://github.com/BerriAI/litellm/releases/tag/v1.112.0-rc.1</link>
+<guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.112.0-rc.1</guid>
+<pubDate>2026-11-24T22:30:00Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0cdbd65a6dd76488.png" alt=""><p>Article · LiteLLM. Verify Docker Image Signature cosign verify \ --certificate-identity</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12682</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12682</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12682</guid>
+<pubDate>2026-11-24T22:15:46Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e5187acd34264c8a.png" alt=""><p>Article · llama.cpp. ggml : use a range-reduced log1p for softplus ( #32655 ) metal : use a range-reduced log1p for softplus Use the atanh series for x in [-0.5, 1] and precise::log(1 + x) otherwise. This avoids the cancellation in log(1 + exp(x)) for negative inputs and does not rely on fast-math fo</p>]]></description>
+</item>
+<item>
 <title>Development build (a25a995)</title>
 <link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
 <guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
@@ -96,6 +117,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0af7158376dbf2f7.png" alt=""><p>Article · llama.cpp. server : preserve a prompt-cache entry until restores succeed ( #32828 ) Assisted-by: Codex Website:</p>]]></description>
 </item>
 <item>
+<title>b12686: server : fix skipped prompt cache lookups (#28992)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12686</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12686</guid>
+<pubDate>2026-11-24T09:54:31Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/8a4bcf4cac4890d1.png" alt=""><p>Article · llama.cpp. server : fix skipped prompt cache lookups Assisted-by: Claude Opus 5 server : let the slot scheduler ask the prompt cache Move the prompt cache lookup into server_slot_sched::select() so the plan alone decides whether the cache is updated, and the caller only applies it. find_bet</p>]]></description>
+</item>
+<item>
 <title>stable</title>
 <link>https://github.com/n8n-io/n8n/releases/tag/stable</link>
 <guid isPermaLink="true">https://github.com/n8n-io/n8n/releases/tag/stable</guid>
@@ -136,13 +164,6 @@
 <guid isPermaLink="true">https://github.com/ollama/ollama/releases/tag/v0.40.18</guid>
 <pubDate>2026-11-24T08:27:44Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/dbf3279a2f3448f9.png" alt=""><p>Article · Ollama. What&#x27;s Changed mlx: fuse Inkling residual mixing on Metal by @dhiltgen in #19808 mlxrunner: share tensor helpers and model setup across architectures by @jaingaurav in #19805 llama.cpp: version bump b12651 + remove jetpack5 support by @pdevine in #19865 inkling2: faster Metal dec</p>]]></description>
-</item>
-<item>
-<title>b12682: ggml : use a range-reduced log1p for softplus (#32655)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12682</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12682</guid>
-<pubDate>2026-11-24T07:30:43Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e5187acd34264c8a.png" alt=""><p>Article · llama.cpp. metal : use a range-reduced log1p for softplus Use the atanh series for x in [-0.5, 1] and precise::log(1 + x) otherwise. This avoids the cancellation in log(1 + exp(x)) for negative inputs and does not rely on fast-math folding of (1 + e) - 1. Assisted-by: dsh:llama.cpp/ggml-org</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12671</title>
@@ -1073,7 +1094,7 @@
 <link>https://lemmy.world/post/54617103</link>
 <guid isPermaLink="true">https://lemmy.world/post/54617103</guid>
 <pubDate>Thu, 19 Nov 2026 22:31:08 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by marius to selfhosted 68 points | 68 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by marius to selfhosted 68 points | 69 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik]]></description>
 </item>
 <item>
 <title>llama.cpp b12554</title>
