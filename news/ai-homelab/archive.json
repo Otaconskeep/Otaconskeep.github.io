@@ -94075,7 +94075,7 @@
     {
       "url": "https://lemmy.world/post/54617103",
       "title": "What's your opinion on local domains like cloud.lan?",
-      "summary": "submitted by marius to selfhosted 68 points | 67 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
+      "summary": "submitted by marius to selfhosted 68 points | 68 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -96230,12 +96230,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12670",
-      "title": "b12670: ggml: compact bias on the existing FLASH_ATTN_EXT (#32740)",
-      "summary": "compact bias on the existing FLASH_ATTN_EXT for CUDA, ROCm and Vulkan fixup! compact bias on the existing FLASH_ATTN_EXT for CUDA, ROCm and Vulkan remove the Vulkan support from this PR move the CUDA/HIP and Inkling 2 graph changes out of this PR CPU reference implementation of t",
+      "title": "llama.cpp b12670",
+      "summary": "ggml: compact bias on the existing FLASH_ATTN_EXT ( #32740 ) compact bias on the existing FLASH_ATTN_EXT for CUDA, ROCm and Vulkan fixup! compact bias on the existing FLASH_ATTN_EXT for CUDA, ROCm and Vulkan remove the Vulkan support from this PR move the CUDA/HIP and Inkling 2 g",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-23T17:17:11Z",
+      "published": "2026-11-24T06:16:35Z",
       "added_at": "2026-11-24T03:01:48Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/b4e0f75f44caa347.png",
@@ -96341,6 +96341,40 @@
       "added_at": "2026-11-24T04:31:54Z",
       "image": "https://opengraph.githubassets.com/78a32dde9ad25a2acea5d7389b8f5edab7560211ddc5739407874acbd67fd8b7/BerriAI/litellm/releases/tag/v1.109.4",
       "file": "media/78cba7f4d63a0b6b.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12671",
+      "title": "b12671: metal : batch concat rows and copy them in vector chunks (#32824)",
+      "summary": "metal : batch concat rows and copy them in vector chunks The concat kernel copied one element per thread, so wide rows with many rows ran at a fraction of the memory bandwidth. Batch several rows per threadgroup and copy the contiguous dim-0 elements in 4-element chunks when the ",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-23T19:01:41Z",
+      "added_at": "2026-11-24T06:31:45Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/06a5e0898babe8ff.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.1rc0",
+      "title": "v0.34.1rc0: [Perf][Qwen4Exp] Add SM100 TP=2 and TP=8 skinny GEMM plans (#69529)",
+      "summary": "Signed-off-by: Johnsonms lizhaofu@gmail.com Co-authored-by: vllm-agent claw@inferact.ai",
+      "source": "vLLM",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-24T06:01:41Z",
+      "added_at": "2026-11-24T06:32:03Z",
+      "image": "https://opengraph.githubassets.com/19fd983a00d0bcaa723db3bb41a004569f4e9effa989fe246ea3a719dd6e0e26/vllm-project/vllm",
+      "file": "media/ae836c648768a523.png",
       "video": "",
       "categories": [
         "local-models",
