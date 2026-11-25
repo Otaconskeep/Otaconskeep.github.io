@@ -5,6 +5,20 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-25T02:50:06Z</lastBuildDate>
 <item>
+<title>llama.cpp b12707</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12707</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12707</guid>
+<pubDate>2026-11-25T03:26:34Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/16b93766d182b11a.png" alt=""><p>Article · llama.cpp. context : prevent excessive CPU polling without OpenMP ( #32378 ) common : prevent polling while GPU computes (on Metal or without OpenMP) use AudioWorkIntervalCreate to keep the thread on P-cores Revert &quot;use AudioWorkIntervalCreate to keep the thread on P-cores&quot; This reverts com</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12706</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12706</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12706</guid>
+<pubDate>2026-11-25T03:10:45Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3468643a107d2bbc.png" alt=""><p>Article · llama.cpp. metal : reserve the top-k scratch only for short rows ( #32942 ) The bitonic top-k path is only faster for short rows. On M5 and M2 Ultra it wins up to 128 columns; above that the radix path is faster. Use the radix path for ncols &gt; 128. The radix path selects in place and needs</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12704</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12704</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12704</guid>
@@ -58,7 +72,7 @@
 <link>https://lemmy.world/post/54816630</link>
 <guid isPermaLink="true">https://lemmy.world/post/54816630</guid>
 <pubDate>Wed, 25 Nov 2026 01:54:27 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by skiguy0123 to selfhosted 19 points | 3 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefull]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by skiguy0123 to selfhosted 27 points | 4 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefull]]></description>
 </item>
 <item>
 <title>LiteLLM v1.111.0</title>
@@ -159,11 +173,11 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ea4a5b70b1c0b328.jpg" alt=""><p>Article · ServeTheHome. Today we are taking a look at ASUS&#x27;s high-end Radeon AI inference card for workstations, the Turbo Radeon AI Pro R9700. With 32GB of RAM and a $2000 price tag, the card is a highly affordable way to fill out a workstation for local AI inference The post ASUS Turbo Radeon AI PRO R</p>]]></description>
 </item>
 <item>
-<title>b12706: metal : reserve the top-k scratch only for short rows (#32942)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12706</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12706</guid>
-<pubDate>2026-11-24T14:34:08Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3468643a107d2bbc.png" alt=""><p>Article · llama.cpp. The bitonic top-k path is only faster for short rows. On M5 and M2 Ultra it wins up to 128 columns; above that the radix path is faster. Use the radix path for ncols &gt; 128. The radix path selects in place and needs no scratch, but the buffer type always reserved 2 4 bytes per sou</p>]]></description>
+<title>llama.cpp b12708</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12708</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12708</guid>
+<pubDate>2026-11-24T15:23:30Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/af5962719efb9e31.png" alt=""><p>Article · llama.cpp. server : include MCP image and audio data in tool results ( #32064 )</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12676</title>

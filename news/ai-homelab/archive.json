@@ -96861,7 +96861,7 @@
     {
       "url": "https://lemmy.world/post/54816630",
       "title": "Android 17 permissions prevent accessing local sites",
-      "summary": "submitted by skiguy0123 to selfhosted 19 points | 3 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefull",
+      "summary": "submitted by skiguy0123 to selfhosted 27 points | 4 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefull",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -96945,12 +96945,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12706",
-      "title": "b12706: metal : reserve the top-k scratch only for short rows (#32942)",
-      "summary": "The bitonic top-k path is only faster for short rows. On M5 and M2 Ultra it wins up to 128 columns; above that the radix path is faster. Use the radix path for ncols > 128. The radix path selects in place and needs no scratch, but the buffer type always reserved 2 4 bytes per sou",
+      "title": "llama.cpp b12706",
+      "summary": "metal : reserve the top-k scratch only for short rows ( #32942 ) The bitonic top-k path is only faster for short rows. On M5 and M2 Ultra it wins up to 128 columns; above that the radix path is faster. Use the radix path for ncols > 128. The radix path selects in place and needs ",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-24T14:34:08Z",
+      "published": "2026-11-25T03:10:45Z",
       "added_at": "2026-11-25T03:01:58Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/3468643a107d2bbc.png",
@@ -96971,6 +96971,40 @@
       "added_at": "2026-11-25T03:01:58Z",
       "image": "https://opengraph.githubassets.com/9846039107f7cf50be5bcc4b6152656d73ae9c0da62a4fd2424f2f10b57e41c6/ggml-org/llama.cpp/releases/tag/b12704",
       "file": "media/95dc328516e74c2a.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12708",
+      "title": "llama.cpp b12708",
+      "summary": "server : include MCP image and audio data in tool results ( #32064 )",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-24T15:23:30Z",
+      "added_at": "2026-11-25T03:32:05Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/af5962719efb9e31.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12707",
+      "title": "llama.cpp b12707",
+      "summary": "context : prevent excessive CPU polling without OpenMP ( #32378 ) common : prevent polling while GPU computes (on Metal or without OpenMP) use AudioWorkIntervalCreate to keep the thread on P-cores Revert \"use AudioWorkIntervalCreate to keep the thread on P-cores\" This reverts com",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-25T03:26:34Z",
+      "added_at": "2026-11-25T03:32:05Z",
+      "image": "https://opengraph.githubassets.com/184f0f0ea2e7aa0f96d27db00bb934b568ec99efb99a11bc3ca5ad378bf4f43a/ggml-org/llama.cpp/releases/tag/b12707",
+      "file": "media/16b93766d182b11a.png",
       "video": "",
       "categories": [
         "local-models",
