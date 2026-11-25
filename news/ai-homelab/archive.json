@@ -96860,7 +96860,7 @@
     {
       "url": "https://lemmy.world/post/54816630",
       "title": "Android 17 permissions prevent accessing local sites",
-      "summary": "submitted by skiguy0123 to selfhosted 249 points | 54 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefu",
+      "summary": "submitted by skiguy0123 to selfhosted 251 points | 54 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefu",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -97402,14 +97402,31 @@
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12734",
       "title": "llama.cpp b12734",
-      "summary": "metal : commit the graph in chunks with one command buffer thread ( #3 …",
+      "summary": "metal : commit the graph in chunks with one command buffer thread ( #32947 ) Assisted-by: Claude Opus 5.5 Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-25T09:42:34Z",
+      "published": "2026-11-25T22:18:16Z",
       "added_at": "2026-11-25T22:01:55Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/c95d57f8182f4a96.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12738",
+      "title": "b12738: server : handle CTRL_BREAK_EVENT on Windows for clean shutdown (#32080)",
+      "summary": "Windows can't send SIGINT to a child process, so scripts that launch llama-server could only kill it, which skips the clean shutdown. The console control handler only handled CTRL_C_EVENT, so a CTRL_BREAK_EVENT sent to the server's own process group ended it with STATUS_CONTROL_C",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-25T11:29:01Z",
+      "added_at": "2026-11-25T22:31:55Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/db24565b234f36f7.png",
       "video": "",
       "categories": [
         "local-models",
