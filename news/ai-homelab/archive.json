@@ -94076,7 +94076,7 @@
     {
       "url": "https://lemmy.world/post/54617103",
       "title": "What's your opinion on local domains like cloud.lan?",
-      "summary": "submitted by marius to selfhosted 68 points | 69 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
+      "summary": "submitted by marius to selfhosted 69 points | 69 comments Imo it’s quite nice to not have a public domain like cloud.example.com which is much longer and all the gold ones are taken anyway. Putting these local ones in my dns server is no issue, but getting https to work seems lik",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -96861,7 +96861,7 @@
     {
       "url": "https://lemmy.world/post/54816630",
       "title": "Android 17 permissions prevent accessing local sites",
-      "summary": "submitted by skiguy0123 to selfhosted 12 points | 1 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefull",
+      "summary": "submitted by skiguy0123 to selfhosted 19 points | 3 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefull",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -96894,12 +96894,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12703",
-      "title": "b12703: cuda : fuse RMS_NORM + MUL + MROPE/IMROPE and tune block size (#32500)",
-      "summary": "cuda : support MROPE/IMROPE and tune block size in rms_norm_mul_rope cuda : use 64 threads for multi-token ncols Assisted-by: Antigravity",
+      "title": "llama.cpp b12703",
+      "summary": "cuda : fuse RMS_NORM + MUL + MROPE/IMROPE and tune block size ( #32500 ) cuda : support MROPE/IMROPE and tune block size in rms_norm_mul_rope cuda : use 64 threads for multi-token ncols Assisted-by: Antigravity Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-24T14:20:58Z",
+      "published": "2026-11-25T02:46:45Z",
       "added_at": "2026-11-25T02:31:55Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/36e36ed46fb5ab67.png",
@@ -96920,6 +96920,57 @@
       "added_at": "2026-11-25T02:31:55Z",
       "image": "https://opengraph.githubassets.com/fc4d0f1f6311311d0351d7791f50df0bda5a8f6a6e2da330f2e96847085cd900/ggml-org/llama.cpp/releases/tag/b12701",
       "file": "media/d564abb2e4db107b.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://downonthestreet.eu/post/903478",
+      "title": "Update on my multi-GPU setup",
+      "summary": "Social from Fosstodon #localllama.",
+      "source": "Fosstodon #localllama",
+      "kind": "social",
+      "lane": "Social",
+      "published": "Tue, 24 Nov 2026 19:09:58 +0000",
+      "added_at": "2026-11-25T03:01:57Z",
+      "image": "",
+      "file": "",
+      "video": "",
+      "categories": [
+        "local-models",
+        "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12706",
+      "title": "b12706: metal : reserve the top-k scratch only for short rows (#32942)",
+      "summary": "The bitonic top-k path is only faster for short rows. On M5 and M2 Ultra it wins up to 128 columns; above that the radix path is faster. Use the radix path for ncols > 128. The radix path selects in place and needs no scratch, but the buffer type always reserved 2 4 bytes per sou",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-24T14:34:08Z",
+      "added_at": "2026-11-25T03:01:58Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/3468643a107d2bbc.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12704",
+      "title": "llama.cpp b12704",
+      "summary": "vulkan: add chunked GDN replay support ( #32721 ) vulkan: add replay support to chunked GDN shaders use atomicStore instead of atomicExchange for readability Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-25T02:56:59Z",
+      "added_at": "2026-11-25T03:01:58Z",
+      "image": "https://opengraph.githubassets.com/9846039107f7cf50be5bcc4b6152656d73ae9c0da62a4fd2424f2f10b57e41c6/ggml-org/llama.cpp/releases/tag/b12704",
+      "file": "media/95dc328516e74c2a.png",
       "video": "",
       "categories": [
         "local-models",
