@@ -12,11 +12,11 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1507549a9315609a.png" alt=""><p>Article · llama.cpp. CUDA: loop over ne2/ne3 in non-contiguous concat ( #33006 ) The non-contiguous concat kernel mapped dst ne[2] and ne[3] directly to gridDim.y and gridDim.z, which are limited to 65535. Larger tensors made the launch fail with &quot;invalid configuration argument&quot;. Cap the grid and loo</p>]]></description>
 </item>
 <item>
-<title>dev-master: feat(ui): hide the Files button in zero-retention chats</title>
+<title>dev-master: test(addons): list the new package specs in the Ginkgo inventory</title>
 <link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
 <guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
-<pubDate>2026-11-26T12:04:02Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. A zero-retention chat takes no attachment and keeps no file, but the chat header still showed the Files button, and it opened an empty preview pane. In a zero-retention chat the page now reads no file list, and shows no Files button and no preview pane. The pane does not open by</p>]]></description>
+<pubDate>2026-11-26T13:27:41Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. 5689c13 added two specs to the packages suite but did not add them to scripts/addons/suites.json, so the inventory check of the Add-on Tests workflow fails. Add them with make addons-inventory-write. Assisted-by: Claude Sonnet 5.5 Signed-off-by: Ettore Di Giacinto mudler@localai.</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12776</title>
