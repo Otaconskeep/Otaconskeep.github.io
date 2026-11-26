@@ -306,11 +306,11 @@
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/stable",
       "title": "stable",
-      "summary": "2.49.6 (2026-11-25) Bug Fixes core: Align base64, urlEncode and format results of isolate expression engines with legacy ( #44969 ) ( 7fb24bd ) Features core: Evaluate urlEncode, base64Decode and format natively ( #44995 ) ( e79571f )",
+      "summary": "2.49.7 (2026-11-26) Bug Fixes Apply execution data size limit in MCP get_workflow_execution ( #45142 ) ( 1e42a0a ) core: Align extractUrlPath results of isolate expression engines with legacy ( #45150 ) ( c1e144e ) core: Reduce memory use of concat on workflow data arrays in isol",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-25T08:28:14Z",
+      "published": "2026-11-26T07:24:50Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "",
       "file": "media/19.png",
@@ -672,11 +672,11 @@
     {
       "url": "https://github.com/n8n-io/n8n/releases/tag/beta",
       "title": "beta",
-      "summary": "2.50.1 (2026-11-25) Bug Fixes core, editor: Load the Assistant session timeline through the system agent routes ( #45074 ) ( e80660e ) core: Align base64, urlEncode and format results of isolate expression engines with legacy ( #44968 ) ( 32c599d ) editor: Keep an allowed trigger",
+      "summary": "2.50.2 (2026-11-26) Bug Fixes Apply execution data size limit in MCP get_workflow_execution ( #45141 ) ( 965e5b2 ) core: Align extractUrlPath results of isolate expression engines with legacy ( #45149 ) ( 5e1ed62 ) core: Reduce memory use of concat on workflow data arrays in isol",
       "source": "n8n",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-25T08:27:58Z",
+      "published": "2026-11-26T07:25:36Z",
       "added_at": "2026-09-26T14:30:18Z",
       "image": "https://opengraph.githubassets.com/e9d9f05b13f547b1c080b1d16028ce9f87c686e48e865def71f7b17721568d04/n8n-io/n8n/releases/tag/beta",
       "file": "media/f195a5e647d31823.png",
@@ -88969,12 +88969,12 @@
     },
     {
       "url": "https://github.com/mudler/LocalAI/releases/tag/dev-master",
-      "title": "Development build (0a40b3b)",
-      "summary": "Commit: 0a40b3b Date: 2026-11-26T00:13:34Z Subject: chore: ⬆️ Update Niko1221/Strata to v0.2.22 (b28ca95e3e6847f2d5e317994f253b66716deeaa) ( #13498 ) This is an unsupported development build of the master branch. Use a release for anything that matters.",
+      "title": "Development build (15c5847)",
+      "summary": "Commit: 15c5847 Date: 2026-11-26T06:39:45Z Subject: fix(transcription): close temporary audio uploads ( #13445 ) This is an unsupported development build of the master branch. Use a release for anything that matters.",
       "source": "LocalAI",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-26T03:44:29Z",
+      "published": "2026-11-26T07:30:17Z",
       "added_at": "2026-11-15T10:01:29Z",
       "image": "https://opengraph.githubassets.com/331eb3aa8a44fe833231290b9796385d54c43d6c91a6458b049da13f0b463b4b/mudler/LocalAI/releases/tag/dev-master",
       "file": "media/b555393f25bc1600.png",
@@ -96860,7 +96860,7 @@
     {
       "url": "https://lemmy.world/post/54816630",
       "title": "Android 17 permissions prevent accessing local sites",
-      "summary": "submitted by skiguy0123 to selfhosted 265 points | 56 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefu",
+      "summary": "submitted by skiguy0123 to selfhosted 267 points | 56 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefu",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -97588,18 +97588,103 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12758",
-      "title": "b12758: model : add RAON-1-mini-preview support (#32176)",
-      "summary": "vocab : add RAON pre-tokenizer and NFC normalization model : add RAON hybrid attention and mHC graph convert : add MXFP8 weight dequantization convert : add RAON HF to GGUF conversion and schema chat : add the RAON chat template tests : add RAON vocab regression files for test-to",
+      "title": "llama.cpp b12758",
+      "summary": "model : add RAON-1-mini-preview support ( #32176 ) vocab : add RAON pre-tokenizer and NFC normalization model : add RAON hybrid attention and mHC graph convert : add MXFP8 weight dequantization convert : add RAON HF to GGUF conversion and schema chat : add the RAON chat template ",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-25T18:38:12Z",
+      "published": "2026-11-26T07:12:47Z",
       "added_at": "2026-11-26T07:02:02Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/0484f9b23d7f0c8c.png",
       "video": "",
       "categories": [
         "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12764",
+      "title": "b12764: metal : spread the short mat-vec lanes over src1 rows (#33034)",
+      "summary": "metal : spread the short mat-vec lanes over src1 rows The short mat-vec kernel (K and handled one src1 row per threadgroup, so with few src0 rows most lanes were idle. It now covers min(ne01, 32) src0 rows of 32/that src1 rows. This is the weighted sum over the depth states of In",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-25T21:39:14Z",
+      "added_at": "2026-11-26T07:31:57Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/82943b87d0a87293.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12760",
+      "title": "llama.cpp b12760",
+      "summary": "opencl: Adreno E17 compiler quirks off by default ( #33013 ) Website:",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-26T07:30:47Z",
+      "added_at": "2026-11-26T07:31:57Z",
+      "image": "https://opengraph.githubassets.com/9fbefda86f5767f14d5d000074f9439724fe5295d425c5d3dc50190ef70dcb43/ggml-org/llama.cpp/releases/tag/b12760",
+      "file": "media/a7005f10ade0f756.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.50.2",
+      "title": "n8n@2.50.2",
+      "summary": "2.50.2 (2026-11-26) Bug Fixes Apply execution data size limit in MCP get_workflow_execution ( #45141 ) ( 965e5b2 ) core: Align extractUrlPath results of isolate expression engines with legacy ( #45149 ) ( 5e1ed62 ) core: Reduce memory use of concat on workflow data arrays in isol",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-26T07:27:25Z",
+      "added_at": "2026-11-26T07:32:00Z",
+      "image": "https://opengraph.githubassets.com/a0bc7f0184b60e45a54acd4d4f6fc5a1969c89da7f843054216983e209172a9c/n8n-io/n8n/releases/tag/n8n%402.50.2",
+      "file": "media/820a099ff8f6dbe2.png",
+      "video": "",
+      "categories": [
+        "home-automation",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%402.49.7",
+      "title": "n8n@2.49.7",
+      "summary": "2.49.7 (2026-11-26) Bug Fixes Apply execution data size limit in MCP get_workflow_execution ( #45142 ) ( 1e42a0a ) core: Align extractUrlPath results of isolate expression engines with legacy ( #45150 ) ( c1e144e ) core: Reduce memory use of concat on workflow data arrays in isol",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-26T07:26:05Z",
+      "added_at": "2026-11-26T07:32:00Z",
+      "image": "https://opengraph.githubassets.com/33e8319ed1bfd88f68cd642e8652d9a61a5166e61fdaface633b008207401853/n8n-io/n8n/releases/tag/n8n%402.49.7",
+      "file": "media/598a2c7fd4f7f5ca.png",
+      "video": "",
+      "categories": [
+        "home-automation",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/n8n-io/n8n/releases/tag/n8n%401.123.102",
+      "title": "n8n@1.123.102",
+      "summary": "1.123.102 (2026-11-26)",
+      "source": "n8n",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-26T07:31:28Z",
+      "added_at": "2026-11-26T07:32:00Z",
+      "image": "https://opengraph.githubassets.com/7653a04588326c331c5f90e69843fee0f59426855ddb0c52056afe4e63f7c444/n8n-io/n8n/releases/tag/n8n%401.123.102",
+      "file": "media/74a7b4305d31c48a.png",
+      "video": "",
+      "categories": [
+        "home-automation",
         "releases"
       ]
     }
