@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-26T13:32:34Z</lastBuildDate>
 <item>
+<title>llama.cpp b12782</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12782</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12782</guid>
+<pubDate>2026-11-26T20:50:27Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3a73f34cf158b195.png" alt=""><p>Article · llama.cpp. CUDA: move the fusion code out of ggml-cuda.cu ( #33087 ) Move the fusion matchers, ggml_cuda_can_fuse, ggml_cuda_try_fuse and the fusion alloc deps of graph_optimize into fusion.cu, unchanged. fusion.cuh exports ggml_cuda_try_fuse and ggml_cuda_fusion_add_alloc_deps. The GGML_CU</p>]]></description>
+</item>
+<item>
 <title>LiteLLM v1.108.19</title>
 <link>https://github.com/BerriAI/litellm/releases/tag/v1.108.19</link>
 <guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.108.19</guid>
@@ -47,6 +54,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/29241a5bf2d9b2c1.png" alt=""><p>Article · llama.cpp. llama : refuse SPLIT_MODE_TENSOR for Hadamard-folded models ( #33080 ) Prism Bonsai models (prism.hadamard) aborted in the meta backend with GGML_ASSERT(split_state.ne[j] % div == 0) when loaded with -sm tensor: the ssm_out input permutation from tiled to grouped GDN head order r</p>]]></description>
 </item>
 <item>
+<title>LiteLLM v1.113.0-dev.1</title>
+<link>https://github.com/BerriAI/litellm/releases/tag/v1.113.0-dev.1</link>
+<guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.113.0-dev.1</guid>
+<pubDate>2026-11-26T17:04:37Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/028bb1b5ea3057a4.png" alt=""><p>Article · LiteLLM. refactor(types): type the headers and bodies of the Responses, Skills…</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12778</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12778</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12778</guid>
@@ -59,6 +73,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12777</guid>
 <pubDate>2026-11-26T14:22:06Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/1507549a9315609a.png" alt=""><p>Article · llama.cpp. CUDA: loop over ne2/ne3 in non-contiguous concat ( #33006 ) The non-contiguous concat kernel mapped dst ne[2] and ne[3] directly to gridDim.y and gridDim.z, which are limited to 65535. Larger tensors made the launch fail with &quot;invalid configuration argument&quot;. Cap the grid and loo</p>]]></description>
+</item>
+<item>
+<title>b12784: tests : take the test-fusion moe flag from the fixture name (#33104)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12784</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12784</guid>
+<pubDate>2026-11-26T12:44:02Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5a280fed376e775e.png" alt=""><p>Article · llama.cpp. tests : take the test-fusion moe flag from the fixture name The moe flag came from the arch name, so the dense and MoE fixtures of an arch shared a baseline key, and MoE-only archs were keyed as dense. Read it from the -dense/-moe suffix written by test-llama-archs and regenerate</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12776</title>
@@ -80,13 +101,6 @@
 <guid isPermaLink="true">https://noted.lol/serveros/</guid>
 <pubDate>Thu, 26 Nov 2026 06:36:11 -0500</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/81d3f5e70a7c88ec.png" alt=""><p>Article · noted.lol. ServerOS is an open-source control panel for managing existing Linux servers. Deploy applications, monitor resources, automate workflows, and manage backups through a centralized web interface.</p>]]></description>
-</item>
-<item>
-<title>b12782: CUDA: move the fusion code out of ggml-cuda.cu (#33087)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12782</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12782</guid>
-<pubDate>2026-11-26T10:58:44Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3a73f34cf158b195.png" alt=""><p>Article · llama.cpp. Move the fusion matchers, ggml_cuda_can_fuse, ggml_cuda_try_fuse and the fusion alloc deps of graph_optimize into fusion.cu, unchanged. fusion.cuh exports ggml_cuda_try_fuse and ggml_cuda_fusion_add_alloc_deps. The GGML_CUDA_DISABLE_FUSION check is done by the two callers, and gg</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12774</title>
@@ -317,7 +331,7 @@
 <link>https://lemmy.world/post/54827564</link>
 <guid isPermaLink="true">https://lemmy.world/post/54827564</guid>
 <pubDate>Wed, 25 Nov 2026 10:05:23 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by Teppichbrand to selfhosted 23 points | 7 comments]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by Teppichbrand to selfhosted 24 points | 7 comments]]></description>
 </item>
 <item>
 <title>Open WebUI v0.13.5</title>

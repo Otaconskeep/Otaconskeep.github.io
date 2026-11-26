@@ -97217,7 +97217,7 @@
     {
       "url": "https://lemmy.world/post/54827564",
       "title": "Download the Internet with Project NOMAD - Offline Knowledge & AI Server",
-      "summary": "submitted by Teppichbrand to selfhosted 23 points | 7 comments",
+      "summary": "submitted by Teppichbrand to selfhosted 24 points | 7 comments",
       "source": "Lemmy selfhosted",
       "kind": "social",
       "lane": "Lemmy",
@@ -97876,12 +97876,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12782",
-      "title": "b12782: CUDA: move the fusion code out of ggml-cuda.cu (#33087)",
-      "summary": "Move the fusion matchers, ggml_cuda_can_fuse, ggml_cuda_try_fuse and the fusion alloc deps of graph_optimize into fusion.cu, unchanged. fusion.cuh exports ggml_cuda_try_fuse and ggml_cuda_fusion_add_alloc_deps. The GGML_CUDA_DISABLE_FUSION check is done by the two callers, and gg",
+      "title": "llama.cpp b12782",
+      "summary": "CUDA: move the fusion code out of ggml-cuda.cu ( #33087 ) Move the fusion matchers, ggml_cuda_can_fuse, ggml_cuda_try_fuse and the fusion alloc deps of graph_optimize into fusion.cu, unchanged. fusion.cuh exports ggml_cuda_try_fuse and ggml_cuda_fusion_add_alloc_deps. The GGML_CU",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-26T10:58:44Z",
+      "published": "2026-11-26T20:50:27Z",
       "added_at": "2026-11-26T18:01:58Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/3a73f34cf158b195.png",
@@ -97902,6 +97902,40 @@
       "added_at": "2026-11-26T19:32:03Z",
       "image": "https://opengraph.githubassets.com/a816cda57d1ed3e6ae4144e320b115db191ed72c34564d35f763dfd6cdcbd7ac/BerriAI/litellm/releases/tag/v1.108.19",
       "file": "media/e687dba3fd4cb786.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12784",
+      "title": "b12784: tests : take the test-fusion moe flag from the fixture name (#33104)",
+      "summary": "tests : take the test-fusion moe flag from the fixture name The moe flag came from the arch name, so the dense and MoE fixtures of an arch shared a baseline key, and MoE-only archs were keyed as dense. Read it from the -dense/-moe suffix written by test-llama-archs and regenerate",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-26T12:44:02Z",
+      "added_at": "2026-11-26T21:02:05Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/5a280fed376e775e.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/BerriAI/litellm/releases/tag/v1.113.0-dev.1",
+      "title": "LiteLLM v1.113.0-dev.1",
+      "summary": "refactor(types): type the headers and bodies of the Responses, Skills…",
+      "source": "LiteLLM",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-26T17:04:37Z",
+      "added_at": "2026-11-26T21:02:10Z",
+      "image": "https://opengraph.githubassets.com/da59346e789a8edb3af49efef2224af30d700747f56d7940c3987d5f152ef1b5/BerriAI/litellm/releases/tag/v1.113.0-dev.1",
+      "file": "media/028bb1b5ea3057a4.png",
       "video": "",
       "categories": [
         "local-models",
