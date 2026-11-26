@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-26T13:32:34Z</lastBuildDate>
 <item>
+<title>llama.cpp b12800</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12800</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12800</guid>
+<pubDate>2026-11-26T23:12:50Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9678616b2c6da3dc.png" alt=""><p>Article · llama.cpp. opencl: add MoE int8 bin kernel host side changes for Adreno A850 ( #33069 ) Website:</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12798</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12798</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12798</guid>
@@ -61,6 +68,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/5a280fed376e775e.png" alt=""><p>Article · llama.cpp. tests : take the test-fusion moe flag from the fixture name ( #33104 ) tests : take the test-fusion moe flag from the fixture name The moe flag came from the arch name, so the dense and MoE fixtures of an arch shared a baseline key, and MoE-only archs were keyed as dense. Read it</p>]]></description>
 </item>
 <item>
+<title>dev-master: test(addons): give the WSL launcher spec the default budgets</title>
+<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
+<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
+<pubDate>2026-11-26T21:12:22Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. The spec that runs the real WSL launcher through the wsl.exe stand-in kept the short budgets of the other runtime specs: 300 ms to start and 2 x 100 ms to stop. Its start also runs the WSL checks and copies the package, and its stop waits for the add-on to close through the stand</p>]]></description>
+</item>
+<item>
 <title>LiteLLM v1.113.0-dev.1</title>
 <link>https://github.com/BerriAI/litellm/releases/tag/v1.113.0-dev.1</link>
 <guid isPermaLink="true">https://github.com/BerriAI/litellm/releases/tag/v1.113.0-dev.1</guid>
@@ -75,11 +89,11 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3a73f34cf158b195.png" alt=""><p>Article · llama.cpp. CUDA: move the fusion code out of ggml-cuda.cu ( #33087 ) Move the fusion matchers, ggml_cuda_can_fuse, ggml_cuda_try_fuse and the fusion alloc deps of graph_optimize into fusion.cu, unchanged. fusion.cuh exports ggml_cuda_try_fuse and ggml_cuda_fusion_add_alloc_deps. The GGML_CU</p>]]></description>
 </item>
 <item>
-<title>llama.cpp b12800</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12800</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12800</guid>
-<pubDate>2026-11-26T19:51:32Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/9678616b2c6da3dc.png" alt=""><p>Article · llama.cpp. opencl: add MoE int8 bin kernel host side changes for Adreno A850 ( #3 …</p>]]></description>
+<title>b12801: ggml/CUDA+HIP: Flash Attention with indexed bias (#33063)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12801</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12801</guid>
+<pubDate>2026-11-26T20:13:03Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/caab5e98ff43d426.png" alt=""><p>Article · llama.cpp. cuda : port indexed bias FA onto the refactored loaders Replays the #32740 bias support on the shared typed tile loader, adds bias in F32 to match the CPU reference and routes rows via KV_indirection. cuda : return zeros for a fully masked FA query row An all -inf mask row has a</p>]]></description>
 </item>
 <item>
 <title>Ollama v0.40.19</title>
@@ -94,13 +108,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12780</guid>
 <pubDate>2026-11-26T17:39:56Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ca4d7ed1bc504fd9.png" alt=""><p>Article · llama.cpp. ggml : support a BF16 src1 in MUL_MAT and MUL_MAT_ID (CPU, CUDA) ( #32533 ) ggml : support a BF16 src1 in MUL_MAT and MUL_MAT_ID (CPU, CUDA) ggml : fix MMVF expert offset overflow and tighten BF16 src1 gates ggml : strided BF16 src1 tests, explicit MUSA Q2_K rule, MMVF offset fix</p>]]></description>
-</item>
-<item>
-<title>dev-master: fix(openresponses): honour tool_choice for a namespaced function</title>
-<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
-<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
-<pubDate>2026-11-26T17:21:53Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. A tool_choice such as {&quot;type&quot;: &quot;function&quot;, &quot;namespace&quot;: &quot;mcp__docs&quot;, &quot;name&quot;: &quot;search&quot;} forced a function called &quot;search&quot;, which the model was never offered. Force the flattened name &quot;ns_mcp__docs___search&quot; instead, and pass the same rewritten tool_choice to the backend. The respo</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12779</title>
@@ -541,7 +548,7 @@
 <link>https://lemmy.world/post/54816630</link>
 <guid isPermaLink="true">https://lemmy.world/post/54816630</guid>
 <pubDate>Wed, 25 Nov 2026 01:54:27 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by skiguy0123 to selfhosted 275 points | 57 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefu]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by skiguy0123 to selfhosted 277 points | 57 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefu]]></description>
 </item>
 <item>
 <title>LiteLLM v1.111.0</title>
