@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-27T13:42:39Z</lastBuildDate>
 <item>
+<title>llama.cpp b12818</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12818</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12818</guid>
+<pubDate>2026-11-27T20:47:42Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/fc0006f706f60dad.png" alt=""><p>Article · llama.cpp. ggml: support quant scales for fp8 and nvfp4 ( #28898 ) ggml: add tensor scaling (per-tensor, per-channel, per-expert, per-expert-per-channel) support add meta backend scale split add optional activation scales to mul_mat and mul_mat_id tensors handle bitnet scales too, disable i</p>]]></description>
+</item>
+<item>
 <title>dev-master: test(addons): list the package sweep specs in the Ginkgo inventory</title>
 <link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
 <guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
@@ -19,18 +26,18 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ac1e92b2adbd876d.png" alt=""><p>Article · llama.cpp. graph : read recurrent states in place instead of copying ( #28841 ) ( #30139 ) graph : read recurrent states in place instead of copying ( #28841 ) This is a graph only change that speeds up token output in the majority of cases and backends by removing state copy steps. Where p</p>]]></description>
 </item>
 <item>
+<title>b12819: CUDA: cache the device type at init (#33142)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12819</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12819</guid>
+<pubDate>2026-11-27T14:18:23Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4ccfa2054270aa65.png" alt=""><p>Article · llama.cpp. CUDA: cache the device type at init ggml_backend_cuda_device_get_type called cudaGetDeviceProperties on every call, which takes ~0.7-1 ms with the CUDA 12 runtime. With tensor overrides on multiple GPUs the scheduler queries the device type for every split input, so this ran doze</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12815</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12815</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12815</guid>
 <pubDate>2026-11-27T14:12:56Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4f7e2a21d4986ada.png" alt=""><p>Article · llama.cpp. cuda : fix NVFP4 MMQ y_scale over-read in the stream-k fixup ( #33136 ) Website:</p>]]></description>
-</item>
-<item>
-<title>b12818: ggml: support quant scales for fp8 and nvfp4 (#28898)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12818</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12818</guid>
-<pubDate>2026-11-27T13:51:55Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/fc0006f706f60dad.png" alt=""><p>Article · llama.cpp. ggml: add tensor scaling (per-tensor, per-channel, per-expert, per-expert-per-channel) support add meta backend scale split add optional activation scales to mul_mat and mul_mat_id tensors handle bitnet scales too, disable in backends Don&#x27;t treat single expert as per-channel-per-</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12814</title>
@@ -723,7 +730,7 @@
 <link>https://lemmy.world/post/54816630</link>
 <guid isPermaLink="true">https://lemmy.world/post/54816630</guid>
 <pubDate>Wed, 25 Nov 2026 01:54:27 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by skiguy0123 to selfhosted 284 points | 58 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefu]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by skiguy0123 to selfhosted 285 points | 58 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefu]]></description>
 </item>
 <item>
 <title>LiteLLM v1.111.0</title>
