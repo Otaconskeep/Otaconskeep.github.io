@@ -5,6 +5,27 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-27T04:13:08Z</lastBuildDate>
 <item>
+<title>llama.cpp b12814</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12814</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12814</guid>
+<pubDate>2026-11-27T13:31:40Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/d57d01af0880249a.png" alt=""><p>Article · llama.cpp. moe-cache : support experts selected on another backend ( #33133 ) When the experts are selected on another backend than the cache, e.g. the loop passes of inkling2_loop with a layer split, the lookup reads a copy of the ids made by the scheduler, which has no source to read the</p>]]></description>
+</item>
+<item>
+<title>llama.cpp b12812</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12812</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12812</guid>
+<pubDate>2026-11-27T13:09:53Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6fb69fdc2dba31cd.png" alt=""><p>Article · llama.cpp. metal : check all fused nodes for concurrency ( #33175 ) metal : check all fused nodes for concurrency The concurrency check for a fused group only examined the last node, so intermediate outputs (e.g. the TOPK_MOE ids/weights) and the group&#x27;s sources (e.g. the router logits) wer</p>]]></description>
+</item>
+<item>
+<title>Self-Host Weekly (27 November 2026)</title>
+<link>https://selfh.st/weekly/2026-11-27/</link>
+<guid isPermaLink="true">https://selfh.st/weekly/2026-11-27/</guid>
+<pubDate>Fri, 27 Nov 2026 08:03:16 -0500</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/0f68db6dd12da3d7.png" alt=""><p>Article · selfh.st. Let&#x27;s talk turkey (and ducks)</p>]]></description>
+</item>
+<item>
 <title>LLM Wiki v2 Turns Your Documents Into a Self-Hosted AI Knowledge Base</title>
 <link>https://noted.lol/llm-wiki-v2/</link>
 <guid isPermaLink="true">https://noted.lol/llm-wiki-v2/</guid>
@@ -26,11 +47,18 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/07a38d748648e0a9.png" alt=""><p>Article · The Rundown AI. PLUS: Give jobs to Nod, the personal agent from n8n</p>]]></description>
 </item>
 <item>
-<title>b12812: metal : check all fused nodes for concurrency (#33175)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12812</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12812</guid>
-<pubDate>2026-11-27T09:10:50Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6fb69fdc2dba31cd.png" alt=""><p>Article · llama.cpp. metal : check all fused nodes for concurrency The concurrency check for a fused group only examined the last node, so intermediate outputs (e.g. the TOPK_MOE ids/weights) and the group&#x27;s sources (e.g. the router logits) were ignored. This allowed the fused top-k kernel to run con</p>]]></description>
+<title>llama.cpp b12815</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12815</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12815</guid>
+<pubDate>2026-11-27T09:48:10Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/4f7e2a21d4986ada.png" alt=""><p>Article · llama.cpp. cuda : fix NVFP4 MMQ y_scale over-read in the stream-k fixup ( #33136 )</p>]]></description>
+</item>
+<item>
+<title>dev-master: feat(ui): add a Drafting section to llama.cpp runtime tuning (#13533)</title>
+<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
+<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
+<pubDate>2026-11-27T09:01:34Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. feat(enginesettings): describe llama.cpp drafting as modes The editor showed speculative decoding as about thirty raw flags in a closed group, so setting up a drafter meant knowing llama.cpp. Add a &quot;drafting&quot; capability to the engine schema: a few modes (off, n-gram, draft model,</p>]]></description>
 </item>
 <item>
 <title>n8n@2.49.8</title>
@@ -122,13 +150,6 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12801</guid>
 <pubDate>2026-11-27T01:55:01Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/caab5e98ff43d426.png" alt=""><p>Article · llama.cpp. ggml/CUDA+HIP: Flash Attention with indexed bias ( #33063 ) cuda : port indexed bias FA onto the refactored loaders Replays the #32740 bias support on the shared typed tile loader, adds bias in F32 to match the CPU reference and routes rows via KV_indirection. cuda : return zeros</p>]]></description>
-</item>
-<item>
-<title>dev-master: fix(launcher): save the routes of a known server only from the server</title>
-<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
-<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
-<pubDate>2026-11-27T00:25:51Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. &quot;Update routes&quot; on an invite of a saved server replaced the saved addresses, relays and hints with those of the link. Anyone can write a link with the peer ID of a saved server, and the link is not checked before the routes are saved. The routes of such a link are now only dialle</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12800</title>
@@ -674,7 +695,7 @@
 <link>https://lemmy.world/post/54816630</link>
 <guid isPermaLink="true">https://lemmy.world/post/54816630</guid>
 <pubDate>Wed, 25 Nov 2026 01:54:27 +0000</pubDate>
-<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by skiguy0123 to selfhosted 281 points | 57 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefu]]></description>
+<description><![CDATA[Lemmy · Lemmy selfhosted. submitted by skiguy0123 to selfhosted 282 points | 57 comments Apparently apps now need the “Nearby devices” permission to be able to access sites hosted on your local network. I just spent forever trying to figure out why firefox wouldn’t load my local nextcloud instance. Hopefu]]></description>
 </item>
 <item>
 <title>LiteLLM v1.111.0</title>
@@ -37525,6 +37546,13 @@
 <description><![CDATA[Social · Fosstodon #localllama. Social from Fosstodon #localllama.]]></description>
 </item>
 <item>
+<title>My Homelab Got Hacked – A Postmortem</title>
+<link>https://phunky.cafe/my-homelab-got-hacked/</link>
+<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
+<pubDate>2026-09-26T07:01:03-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
+</item>
+<item>
 <title>Qwen3.8-27B IQ3_XXS vs Qwen3.6-35B-A3B Q4_K_M</title>
 <link>https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</link>
 <guid isPermaLink="true">https://www.reddit.com/r/LocalLLaMA/comments/1wqqv3b/qwen3827b_iq3_xxs_vs_qwen3635ba3b_q4_k_m/</guid>
@@ -38120,6 +38148,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/11.png" alt=""><p>Article · ComfyUI. ComfyUI v0.37.2</p>]]></description>
 </item>
 <item>
+<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
+<link>https://chatoss.ai</link>
+<guid isPermaLink="true">https://chatoss.ai</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
+</item>
+<item>
 <title>Compare 12 self-hosted Deep Research systems: GPT Researcher, Onyx, Open WebUI, Khoj, Vane and more. Architectures, local LLM, RAG, licenses.</title>
 <link>https://techhub.social/@ros/117325481287155039</link>
 <guid isPermaLink="true">https://techhub.social/@ros/117325481287155039</guid>
@@ -38160,6 +38195,13 @@
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b11157</guid>
 <pubDate>2026-09-24T07:26:37-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/19.png" alt=""><p>Article · llama.cpp. cuda : add conv3d with implicit GEMM ( #29137</p>]]></description>
+</item>
+<item>
+<title>Setting up OpenCode with Ollama and sbx on Mac</title>
+<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
+<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
+<pubDate>2026-09-24T07:26:37-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>The &quot;Alignment Tax&quot; is ruining agentic workflows. Anyone else noticing &quot;Complexity Theater&quot; in recent models?</title>
@@ -38272,6 +38314,13 @@
 <guid isPermaLink="true">https://github.com/open-webui/open-webui/releases/tag/v0.11.3</guid>
 <pubDate>2026-09-23T11:17:55-07:00</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/2a7a5d91c231c387.png" alt=""><p>Article · Open WebUI. Added ♿ Accessibility mode reaches the menus. Accessibility mode now marks the menu entry you are pointing at and the model already chosen with a stronger background, across the dropdown menus, their submenus, and the model picker together with its filter and compare controls, so</p>]]></description>
+</item>
+<item>
+<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
+<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
+<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
+<pubDate>2026-09-23T11:17:55-07:00</pubDate>
+<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>ComfyUI v0.36.0</title>
@@ -38603,13 +38652,6 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/6b9f6afd22cde4a8.png" alt=""><p>Article · Immich. This patch release addresses various bugs, including: An issue with connection pool exhaustion during sync Problems with the new search modal Not seeing partner shared assets on people page Person merge not working for two named people ... and more. See the full list below. What&#x27;</p>]]></description>
 </item>
 <item>
-<title>Notes on gotchas while migrating 35kb preprompts from Opus to self-hosted Ollama</title>
-<link>https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</link>
-<guid isPermaLink="true">https://patrickmccanna.net/notes-on-migrating-large-prompts-away-from-anthropic-openai-to-self-hosted-llms/</guid>
-<pubDate>Mon, 14 Sep 2026 13:59:09 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
-</item>
-<item>
 <title>vLLM v0.29.1rc0</title>
 <link>https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</link>
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/v0.29.1rc0</guid>
@@ -38636,13 +38678,6 @@
 <guid isPermaLink="true">https://github.com/vllm-project/vllm/releases/tag/proto-v0.1.0</guid>
 <pubDate>2026-09-11T08:30:05Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/47805f91d098078f.png" alt=""><p>Article · vLLM. vllm-proto 0.1.0</p>]]></description>
-</item>
-<item>
-<title>Setting up OpenCode with Ollama and sbx on Mac</title>
-<link>https://tensorsandtokens.com/posts/opencode-ollama/</link>
-<guid isPermaLink="true">https://tensorsandtokens.com/posts/opencode-ollama/</guid>
-<pubDate>Fri, 11 Sep 2026 00:45:26 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. Article URL:]]></description>
 </item>
 <item>
 <title>vLLM v0.29.0</title>
@@ -38967,13 +39002,6 @@
 <description><![CDATA[Reddit · r/comfyui. I&#x27;ve come to the realization that my life is busy enough that we could use at least one more moderator on this subreddit. Please consider this a formal request for nominations. Rather than just picking someone myself, I’d like input from the community. If there’s someone here who]]></description>
 </item>
 <item>
-<title>Show HN: ChatOSS – A Codex alternative for Open Source AI built on Ollama</title>
-<link>https://chatoss.ai</link>
-<guid isPermaLink="true">https://chatoss.ai</guid>
-<pubDate>Tue, 18 Aug 2026 20:42:19 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News. ChatOSS is built on Ollama. If you use Ollama, ChatOSS local works out of the box. ChatOSS is a GUI desktop app that has multiple agentic coding apps and a kanban board integrated into coding sessions. There&#x27;s also a simple way to create your own AI powered apps that can run insi]]></description>
-</item>
-<item>
 <title>Self hosted email continues to steeply decline</title>
 <link>https://labs.ripe.net/author/artem-berezin/two-providers-a-stubborn-plateau-and-a-very-long-tail-email-in-the-tranco-top-1m/</link>
 <guid isPermaLink="true">https://labs.ripe.net/author/artem-berezin/two-providers-a-stubborn-plateau-and-a-very-long-tail-email-in-the-tranco-top-1m/</guid>
@@ -39070,13 +39098,6 @@
 <guid isPermaLink="true">https://github.com/jellyfin/jellyfin/releases/tag/v12.0-rc5</guid>
 <pubDate>2026-08-11T00:34:55Z</pubDate>
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/e7105872cd232d49.png" alt=""><p>Article · Jellyfin. 🚀 Jellyfin Server 12.0 RC5 We are pleased to announce the fifth release candidate preview release of Jellyfin 12.0! This is a preview release, intended for those interested in testing 12.0 before its final public release. We welcome testers to help find as many bugs as we can bef</p>]]></description>
-</item>
-<item>
-<title>My Homelab Got Hacked – A Postmortem</title>
-<link>https://phunky.cafe/my-homelab-got-hacked/</link>
-<guid isPermaLink="true">https://phunky.cafe/my-homelab-got-hacked/</guid>
-<pubDate>Mon, 10 Aug 2026 23:04:18 +0000</pubDate>
-<description><![CDATA[Hacker News · Hacker News · homelab. Article URL:]]></description>
 </item>
 <item>
 <title>LocalAI v4.8.2</title>
