@@ -98063,12 +98063,12 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12801",
-      "title": "b12801: ggml/CUDA+HIP: Flash Attention with indexed bias (#33063)",
-      "summary": "cuda : port indexed bias FA onto the refactored loaders Replays the #32740 bias support on the shared typed tile loader, adds bias in F32 to match the CPU reference and routes rows via KV_indirection. cuda : return zeros for a fully masked FA query row An all -inf mask row has a ",
+      "title": "llama.cpp b12801",
+      "summary": "ggml/CUDA+HIP: Flash Attention with indexed bias ( #33063 ) cuda : port indexed bias FA onto the refactored loaders Replays the #32740 bias support on the shared typed tile loader, adds bias in F32 to match the CPU reference and routes rows via KV_indirection. cuda : return zeros",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-26T20:13:03Z",
+      "published": "2026-11-27T01:55:01Z",
       "added_at": "2026-11-26T23:32:01Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/caab5e98ff43d426.png",
@@ -98093,6 +98093,23 @@
       "categories": [
         "local-models",
         "communities"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12803",
+      "title": "b12803: bailingmoe3 : fuse ssm_conv + silu and remove redundant copies (#33081)",
+      "summary": "bailingmoe3 : apply silu before reshape to enable fused conv kernel bailingmoe3 : avoid redundant copies before attention output projection",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-26T20:36:16Z",
+      "added_at": "2026-11-27T02:02:00Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/14f2694824e43f5d.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
       ]
     }
   ]

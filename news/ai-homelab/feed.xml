@@ -5,6 +5,13 @@
 <description>AI and homelab news for people running it at home. Self-hosting, local models, videos, Reddit, and social.</description>
 <lastBuildDate>2026-11-26T13:32:34Z</lastBuildDate>
 <item>
+<title>llama.cpp b12801</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12801</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12801</guid>
+<pubDate>2026-11-27T01:55:01Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/caab5e98ff43d426.png" alt=""><p>Article · llama.cpp. ggml/CUDA+HIP: Flash Attention with indexed bias ( #33063 ) cuda : port indexed bias FA onto the refactored loaders Replays the #32740 bias support on the shared typed tile loader, adds bias in F32 to match the CPU reference and routes rows via KV_indirection. cuda : return zeros</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12800</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12800</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12800</guid>
@@ -89,11 +96,11 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/3a73f34cf158b195.png" alt=""><p>Article · llama.cpp. CUDA: move the fusion code out of ggml-cuda.cu ( #33087 ) Move the fusion matchers, ggml_cuda_can_fuse, ggml_cuda_try_fuse and the fusion alloc deps of graph_optimize into fusion.cu, unchanged. fusion.cuh exports ggml_cuda_try_fuse and ggml_cuda_fusion_add_alloc_deps. The GGML_CU</p>]]></description>
 </item>
 <item>
-<title>b12801: ggml/CUDA+HIP: Flash Attention with indexed bias (#33063)</title>
-<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12801</link>
-<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12801</guid>
-<pubDate>2026-11-26T20:13:03Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/caab5e98ff43d426.png" alt=""><p>Article · llama.cpp. cuda : port indexed bias FA onto the refactored loaders Replays the #32740 bias support on the shared typed tile loader, adds bias in F32 to match the CPU reference and routes rows via KV_indirection. cuda : return zeros for a fully masked FA query row An all -inf mask row has a</p>]]></description>
+<title>b12803: bailingmoe3 : fuse ssm_conv + silu and remove redundant copies (#33081)</title>
+<link>https://github.com/ggml-org/llama.cpp/releases/tag/b12803</link>
+<guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12803</guid>
+<pubDate>2026-11-26T20:36:16Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/14f2694824e43f5d.png" alt=""><p>Article · llama.cpp. bailingmoe3 : apply silu before reshape to enable fused conv kernel bailingmoe3 : avoid redundant copies before attention output projection</p>]]></description>
 </item>
 <item>
 <title>Ollama v0.40.19</title>
