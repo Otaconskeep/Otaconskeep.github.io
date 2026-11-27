@@ -98097,15 +98097,32 @@
     },
     {
       "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12803",
-      "title": "b12803: bailingmoe3 : fuse ssm_conv + silu and remove redundant copies (#33081)",
-      "summary": "bailingmoe3 : apply silu before reshape to enable fused conv kernel bailingmoe3 : avoid redundant copies before attention output projection",
+      "title": "llama.cpp b12803",
+      "summary": "bailingmoe3 : fuse ssm_conv + silu and remove redundant copies ( #33081 ) bailingmoe3 : apply silu before reshape to enable fused conv kernel bailingmoe3 : avoid redundant copies before attention output projection Website:",
       "source": "llama.cpp",
       "kind": "article",
       "lane": "Article",
-      "published": "2026-11-26T20:36:16Z",
+      "published": "2026-11-27T02:09:47Z",
       "added_at": "2026-11-27T02:02:00Z",
       "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
       "file": "media/14f2694824e43f5d.png",
+      "video": "",
+      "categories": [
+        "local-models",
+        "releases"
+      ]
+    },
+    {
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b12804",
+      "title": "b12804: hip : fix bf16 MFMA operand vector type for CDNA (#33086)",
+      "summary": "Follow-up to #30885 : the CDNA MFMA bf16 builtins also take short vectors, so LLVM 23 rejects __bf16 for gfx908, gfx90a, gfx942 and gfx950.",
+      "source": "llama.cpp",
+      "kind": "article",
+      "lane": "Article",
+      "published": "2026-11-26T20:36:34Z",
+      "added_at": "2026-11-27T02:31:59Z",
+      "image": "https://repository-images.githubusercontent.com/612354784/8b9eb0ec-6517-44a9-8a3a-fccddc678e57",
+      "file": "media/ceab47e6a5689cb6.png",
       "video": "",
       "categories": [
         "local-models",
