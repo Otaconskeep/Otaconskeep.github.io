@@ -12,6 +12,13 @@
 <description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/ac1e92b2adbd876d.png" alt=""><p>Article · llama.cpp. graph : read recurrent states in place instead of copying ( #28841 ) ( #30139 ) graph : read recurrent states in place instead of copying ( #28841 ) This is a graph only change that speeds up token output in the majority of cases and backends by removing state copy steps. Where p</p>]]></description>
 </item>
 <item>
+<title>dev-master: fix(plugins): pin the localai entry to its commit after the rebase</title>
+<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
+<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
+<pubDate>2026-11-27T14:27:35Z</pubDate>
+<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. The rebase on master gave the commit that adds plugins/localai a new SHA again. Pin the entry to it, so localai@localai installs once these commits land. Assisted-by: Claude:claude-opus-5-5 Signed-off-by: Ettore Di Giacinto mudler@localai.io</p>]]></description>
+</item>
+<item>
 <title>llama.cpp b12815</title>
 <link>https://github.com/ggml-org/llama.cpp/releases/tag/b12815</link>
 <guid isPermaLink="true">https://github.com/ggml-org/llama.cpp/releases/tag/b12815</guid>
@@ -38,13 +45,6 @@
 <guid isPermaLink="true">https://mastodon.social/@smeldr/117688647884669500</guid>
 <pubDate>Fri, 27 Nov 2026 13:30:53 +0000</pubDate>
 <description><![CDATA[Social · Fosstodon #selfhosting. nd the old one stays on record. The decisions that rest on it are flagged to whoever may ratify them. The flag goes one step by rule. A count and a trace go further and say where they stopped.]]></description>
-</item>
-<item>
-<title>dev-master: fix(i18n): translate the new Turkish keys of pairing and user settings</title>
-<link>https://github.com/mudler/LocalAI/releases/tag/dev-master</link>
-<guid isPermaLink="true">https://github.com/mudler/LocalAI/releases/tag/dev-master</guid>
-<pubDate>2026-11-27T13:25:18Z</pubDate>
-<description><![CDATA[<img src="https://otaconskeep.github.io/news/ai-homelab/media/b555393f25bc1600.png" alt=""><p>Article · LocalAI. Keys added to English after the last Turkish fill fail make test-i18n, because the tr locale has no baseline: 9 in admin (feature defaults), 1 in auth (My devices), 1 in modelEditor (grammar engine), 60 in p2p (pairing your own phone) and 18 in p2psettings (user pairing). Transla</p>]]></description>
 </item>
 <item>
 <title>llama.cpp b12812</title>
